@@ -91,6 +91,18 @@
   <ItemGroup>
     <None Include="Resources\header.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\读卡器.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dkq_2525.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuback.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -42,7 +42,7 @@
             // 
             // styleManager
             // 
-            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Windows7Blue;
+            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007Silver;
             this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(142)))), ((int)(((byte)(0))))));
             // 
             // labelX1
