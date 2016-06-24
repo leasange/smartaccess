@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.styleManager = new DevComponents.DotNetBar.StyleManager(this.components);
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.tbUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -39,11 +37,6 @@
             this.btnICMS = new DevComponents.DotNetBar.ButtonX();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
-            // 
-            // styleManager
-            // 
-            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007Silver;
-            this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(142)))), ((int)(((byte)(0))))));
             // 
             // labelX1
             // 
@@ -178,7 +171,6 @@
 
         #endregion
 
-        private DevComponents.DotNetBar.StyleManager styleManager;
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.LabelX labelX2;
         private DevComponents.DotNetBar.Controls.TextBoxX tbUserName;

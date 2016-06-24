@@ -99,5 +99,103 @@ namespace SmartAccess
                 e.Cancel = !CheckDoExitSystem();
             }
         }
+
+        private bool CheckControl(Type ctrlType)
+        {
+            foreach (SuperTabItem item in this.superTabControl.Tabs)
+            {
+                if(item.AttachedControl.Controls[0].GetType()==ctrlType)
+                {
+                    this.superTabControl.SelectedTab = item;
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void AddControl(Control ctrl,string title)
+        {
+            // 
+            // superTabItem
+            // 
+            SuperTabItem superTabItem = new SuperTabItem();
+            SuperTabControlPanel superTabControlPanel = new SuperTabControlPanel();
+
+            superTabItem.AttachedControl = superTabControlPanel;
+            superTabItem.CloseButtonVisible = true;
+            superTabItem.GlobalItem = false;
+            superTabItem.Image = Properties.Resources.editor;
+            superTabItem.Text = title;
+            // 
+            // superTabControlPanel
+            // 
+            ctrl.Dock = DockStyle.Fill;
+            superTabControlPanel.Controls.Add(ctrl);
+            superTabControlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            //superTabControlPanel.Location = new System.Drawing.Point(0, 28);
+            //superTabControlPanel.Size = new System.Drawing.Size(764, 608);
+            superTabControlPanel.TabItem = superTabItem;
+            this.superTabControl.Controls.Add(superTabControlPanel);
+
+            this.superTabControl.Tabs.Add(superTabItem);
+            this.superTabControl.SelectedTab = superTabItem;
+        }
+
+        private void linkVerCodeInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(VerInfoMgr.VerCodeInfo)))
+            {
+                AddControl(new VerInfoMgr.VerCodeInfo(), "证件编码");
+            }
+           
+        }
+
+        private void linkDeptMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(VerInfoMgr.DeptMgr)))
+            {
+                AddControl(new VerInfoMgr.DeptMgr(), "部门管理");
+            }
+        }
+
+        private void linkStaffInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(VerInfoMgr.StaffInfoMgr)))
+            {
+                AddControl(new VerInfoMgr.StaffInfoMgr(), "人员信息");
+            }
+            
+        }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(InfoBatchMgr.StaffInfosInput)))
+            {
+                AddControl(new InfoBatchMgr.StaffInfosInput(), "人员批量导入");
+            }
+        }
+
+        private void linkCardsPrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(InfoBatchMgr.CardsPrint)))
+            {
+                AddControl(new InfoBatchMgr.CardsPrint(), "卡片批量打印");
+            }
+        }
+
+        private void linkVerModel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(ModelMgr.VerModelMgr)))
+            {
+                AddControl(new ModelMgr.VerModelMgr(), "证件模板管理");
+            }
+        }
+
+        private void linkLabel9_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(InfoSearchMgr.AccessInOutRecordInfos)))
+            {
+                AddControl(new InfoSearchMgr.AccessInOutRecordInfos(), "门禁出入查询");
+            }
+        }
     }
 }

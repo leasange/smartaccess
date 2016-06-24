@@ -32,7 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=10.7.0.3, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,13 +59,88 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoBatchMgr\CardsPrint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoBatchMgr\CardsPrint.Designer.cs">
+      <DependentUpon>CardsPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoBatchMgr\StaffInfosInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoBatchMgr\StaffInfosInput.Designer.cs">
+      <DependentUpon>StaffInfosInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoSearchMgr\AccessInOutRecordInfos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\AccessInOutRecordInfos.Designer.cs">
+      <DependentUpon>AccessInOutRecordInfos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelMgr\FrmVerModelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelMgr\FrmVerModelEditor.Designer.cs">
+      <DependentUpon>FrmVerModelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelMgr\VerModelMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModelMgr\VerModelMgr.Designer.cs">
+      <DependentUpon>VerModelMgr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerInfoMgr\DeptMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\DeptMgr.Designer.cs">
+      <DependentUpon>DeptMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\DeptTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\DeptTree.Designer.cs">
+      <DependentUpon>DeptTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmStaffInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmStaffInfo.Designer.cs">
+      <DependentUpon>FrmStaffInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\StaffInfoMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\StaffInfoMgr.Designer.cs">
+      <DependentUpon>StaffInfoMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\VerCodeInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\VerCodeInfo.Designer.cs">
+      <DependentUpon>VerCodeInfo.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoBatchMgr\CardsPrint.resx">
+      <DependentUpon>CardsPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoBatchMgr\StaffInfosInput.resx">
+      <DependentUpon>StaffInfosInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\AccessInOutRecordInfos.resx">
+      <DependentUpon>AccessInOutRecordInfos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelMgr\FrmVerModelEditor.resx">
+      <DependentUpon>FrmVerModelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelMgr\VerModelMgr.resx">
+      <DependentUpon>VerModelMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,6 +152,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="VerInfoMgr\DeptMgr.resx">
+      <DependentUpon>DeptMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\DeptTree.resx">
+      <DependentUpon>DeptTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmStaffInfo.resx">
+      <DependentUpon>FrmStaffInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\StaffInfoMgr.resx">
+      <DependentUpon>StaffInfoMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\VerCodeInfo.resx">
+      <DependentUpon>VerCodeInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,6 +194,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\menuback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
+      <Project>{3D529AA3-FF22-4E41-9924-0B0777D640B6}</Project>
+      <Name>Li.Controls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcomeback.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
