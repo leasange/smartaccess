@@ -18,6 +18,7 @@ namespace SmartAccess
         public FrmLogin()
         {
             InitializeComponent();
+            styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
         }
 
         #region 按钮事件
@@ -57,6 +58,12 @@ namespace SmartAccess
             {
                 Application.Exit();
             }
+        }
+
+        private void btnICMS_Click(object sender, EventArgs e)
+        {
+            FrmDataBaseConfig config = new FrmDataBaseConfig();
+            config.ShowDialog(this);
         }
     }
 }

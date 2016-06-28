@@ -54,16 +54,16 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.linkLabel15 = new System.Windows.Forms.LinkLabel();
             this.linkLabel12 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel13 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel14 = new System.Windows.Forms.LinkLabel();
+            this.linkCtrlAreaMgr = new System.Windows.Forms.LinkLabel();
+            this.linkControlerMgr = new System.Windows.Forms.LinkLabel();
             this.expandablePanel5 = new DevComponents.DotNetBar.ExpandablePanel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.linkLabel11 = new System.Windows.Forms.LinkLabel();
             this.expandablePanel4 = new DevComponents.DotNetBar.ExpandablePanel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
+            this.linkOprLogSearch = new System.Windows.Forms.LinkLabel();
             this.linkLabel9 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel10 = new System.Windows.Forms.LinkLabel();
+            this.linkRouteSearch = new System.Windows.Forms.LinkLabel();
             this.expandablePanel3 = new DevComponents.DotNetBar.ExpandablePanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkVerModel = new System.Windows.Forms.LinkLabel();
@@ -173,12 +173,10 @@
             this.expandablePanel9.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel9.Controls.Add(this.panel10);
             this.expandablePanel9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel9.Expanded = false;
-            this.expandablePanel9.ExpandedBounds = new System.Drawing.Rectangle(0, 272, 246, 354);
             this.expandablePanel9.ExpandOnTitleClick = true;
-            this.expandablePanel9.Location = new System.Drawing.Point(0, 411);
+            this.expandablePanel9.Location = new System.Drawing.Point(0, 623);
             this.expandablePanel9.Name = "expandablePanel9";
-            this.expandablePanel9.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel9.Size = new System.Drawing.Size(246, 354);
             this.expandablePanel9.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel9.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel9.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -216,7 +214,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 34);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(246, 0);
+            this.panel10.Size = new System.Drawing.Size(246, 320);
             this.panel10.TabIndex = 2;
             // 
             // linkLabel24
@@ -366,7 +364,7 @@
             this.expandablePanel8.Expanded = false;
             this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 482, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
-            this.expandablePanel8.Location = new System.Drawing.Point(0, 377);
+            this.expandablePanel8.Location = new System.Drawing.Point(0, 589);
             this.expandablePanel8.Name = "expandablePanel8";
             this.expandablePanel8.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel8.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -445,12 +443,10 @@
             this.expandablePanel7.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel7.Controls.Add(this.panel8);
             this.expandablePanel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel7.Expanded = false;
-            this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 343, 246, 139);
             this.expandablePanel7.ExpandOnTitleClick = true;
-            this.expandablePanel7.Location = new System.Drawing.Point(0, 343);
+            this.expandablePanel7.Location = new System.Drawing.Point(0, 450);
             this.expandablePanel7.Name = "expandablePanel7";
-            this.expandablePanel7.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel7.Size = new System.Drawing.Size(246, 139);
             this.expandablePanel7.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel7.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel7.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -482,7 +478,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 34);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(246, 0);
+            this.panel8.Size = new System.Drawing.Size(246, 105);
             this.panel8.TabIndex = 2;
             // 
             // linkLabel18
@@ -527,12 +523,10 @@
             this.expandablePanel6.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel6.Controls.Add(this.panel7);
             this.expandablePanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel6.Expanded = false;
-            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 378, 246, 211);
             this.expandablePanel6.ExpandOnTitleClick = true;
-            this.expandablePanel6.Location = new System.Drawing.Point(0, 309);
+            this.expandablePanel6.Location = new System.Drawing.Point(0, 239);
             this.expandablePanel6.Name = "expandablePanel6";
-            this.expandablePanel6.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel6.Size = new System.Drawing.Size(246, 211);
             this.expandablePanel6.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel6.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel6.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -561,12 +555,12 @@
             this.panel7.BackColor = System.Drawing.Color.Transparent;
             this.panel7.Controls.Add(this.linkLabel15);
             this.panel7.Controls.Add(this.linkLabel12);
-            this.panel7.Controls.Add(this.linkLabel13);
-            this.panel7.Controls.Add(this.linkLabel14);
+            this.panel7.Controls.Add(this.linkCtrlAreaMgr);
+            this.panel7.Controls.Add(this.linkControlerMgr);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 34);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(246, 0);
+            this.panel7.Size = new System.Drawing.Size(246, 177);
             this.panel7.TabIndex = 2;
             // 
             // linkLabel15
@@ -603,39 +597,41 @@
             this.linkLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel12.UseCompatibleTextRendering = true;
             // 
-            // linkLabel13
+            // linkCtrlAreaMgr
             // 
-            this.linkLabel13.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel13.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel13.Image = global::SmartAccess.Properties.Resources.editor;
-            this.linkLabel13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel13.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkLabel13.LinkColor = System.Drawing.Color.Navy;
-            this.linkLabel13.Location = new System.Drawing.Point(51, 25);
-            this.linkLabel13.Name = "linkLabel13";
-            this.linkLabel13.Size = new System.Drawing.Size(148, 25);
-            this.linkLabel13.TabIndex = 3;
-            this.linkLabel13.TabStop = true;
-            this.linkLabel13.Text = "      控制区域管理";
-            this.linkLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel13.UseCompatibleTextRendering = true;
+            this.linkCtrlAreaMgr.BackColor = System.Drawing.Color.Transparent;
+            this.linkCtrlAreaMgr.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkCtrlAreaMgr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.linkCtrlAreaMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkCtrlAreaMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
+            this.linkCtrlAreaMgr.LinkColor = System.Drawing.Color.Navy;
+            this.linkCtrlAreaMgr.Location = new System.Drawing.Point(51, 25);
+            this.linkCtrlAreaMgr.Name = "linkCtrlAreaMgr";
+            this.linkCtrlAreaMgr.Size = new System.Drawing.Size(148, 25);
+            this.linkCtrlAreaMgr.TabIndex = 3;
+            this.linkCtrlAreaMgr.TabStop = true;
+            this.linkCtrlAreaMgr.Text = "      控制区域管理";
+            this.linkCtrlAreaMgr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkCtrlAreaMgr.UseCompatibleTextRendering = true;
+            this.linkCtrlAreaMgr.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCtrlAreaMgr_LinkClicked);
             // 
-            // linkLabel14
+            // linkControlerMgr
             // 
-            this.linkLabel14.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel14.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel14.Image = global::SmartAccess.Properties.Resources.editor;
-            this.linkLabel14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel14.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkLabel14.LinkColor = System.Drawing.Color.Navy;
-            this.linkLabel14.Location = new System.Drawing.Point(51, 59);
-            this.linkLabel14.Name = "linkLabel14";
-            this.linkLabel14.Size = new System.Drawing.Size(148, 25);
-            this.linkLabel14.TabIndex = 4;
-            this.linkLabel14.TabStop = true;
-            this.linkLabel14.Text = "      搜索控制管理";
-            this.linkLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel14.UseCompatibleTextRendering = true;
+            this.linkControlerMgr.BackColor = System.Drawing.Color.Transparent;
+            this.linkControlerMgr.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkControlerMgr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.linkControlerMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkControlerMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
+            this.linkControlerMgr.LinkColor = System.Drawing.Color.Navy;
+            this.linkControlerMgr.Location = new System.Drawing.Point(51, 59);
+            this.linkControlerMgr.Name = "linkControlerMgr";
+            this.linkControlerMgr.Size = new System.Drawing.Size(148, 25);
+            this.linkControlerMgr.TabIndex = 4;
+            this.linkControlerMgr.TabStop = true;
+            this.linkControlerMgr.Text = "      搜索控制管理";
+            this.linkControlerMgr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkControlerMgr.UseCompatibleTextRendering = true;
+            this.linkControlerMgr.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkControlerMgr_LinkClicked);
             // 
             // expandablePanel5
             // 
@@ -645,12 +641,10 @@
             this.expandablePanel5.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel5.Controls.Add(this.panel6);
             this.expandablePanel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel5.Expanded = false;
-            this.expandablePanel5.ExpandedBounds = new System.Drawing.Rectangle(0, 275, 246, 103);
             this.expandablePanel5.ExpandOnTitleClick = true;
-            this.expandablePanel5.Location = new System.Drawing.Point(0, 275);
+            this.expandablePanel5.Location = new System.Drawing.Point(0, 136);
             this.expandablePanel5.Name = "expandablePanel5";
-            this.expandablePanel5.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel5.Size = new System.Drawing.Size(246, 103);
             this.expandablePanel5.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel5.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel5.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -681,7 +675,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 34);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(246, 0);
+            this.panel6.Size = new System.Drawing.Size(246, 69);
             this.panel6.TabIndex = 2;
             // 
             // linkLabel11
@@ -700,6 +694,7 @@
             this.linkLabel11.Text = "      门禁出入统计";
             this.linkLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel11.UseCompatibleTextRendering = true;
+            this.linkLabel11.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel11_LinkClicked);
             // 
             // expandablePanel4
             // 
@@ -709,10 +704,12 @@
             this.expandablePanel4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel4.Controls.Add(this.panel5);
             this.expandablePanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.expandablePanel4.Expanded = false;
+            this.expandablePanel4.ExpandedBounds = new System.Drawing.Rectangle(0, 102, 246, 173);
             this.expandablePanel4.ExpandOnTitleClick = true;
             this.expandablePanel4.Location = new System.Drawing.Point(0, 102);
             this.expandablePanel4.Name = "expandablePanel4";
-            this.expandablePanel4.Size = new System.Drawing.Size(246, 173);
+            this.expandablePanel4.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel4.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel4.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel4.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -739,31 +736,32 @@
             // 
             this.panel5.AutoScroll = true;
             this.panel5.BackColor = System.Drawing.Color.Transparent;
-            this.panel5.Controls.Add(this.linkLabel6);
+            this.panel5.Controls.Add(this.linkOprLogSearch);
             this.panel5.Controls.Add(this.linkLabel9);
-            this.panel5.Controls.Add(this.linkLabel10);
+            this.panel5.Controls.Add(this.linkRouteSearch);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 34);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(246, 139);
+            this.panel5.Size = new System.Drawing.Size(246, 0);
             this.panel5.TabIndex = 2;
             // 
-            // linkLabel6
+            // linkOprLogSearch
             // 
-            this.linkLabel6.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel6.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel6.Image = global::SmartAccess.Properties.Resources.editor;
-            this.linkLabel6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel6.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkLabel6.LinkColor = System.Drawing.Color.Navy;
-            this.linkLabel6.Location = new System.Drawing.Point(51, 94);
-            this.linkLabel6.Name = "linkLabel6";
-            this.linkLabel6.Size = new System.Drawing.Size(148, 25);
-            this.linkLabel6.TabIndex = 2;
-            this.linkLabel6.TabStop = true;
-            this.linkLabel6.Text = "      操作日志查询";
-            this.linkLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel6.UseCompatibleTextRendering = true;
+            this.linkOprLogSearch.BackColor = System.Drawing.Color.Transparent;
+            this.linkOprLogSearch.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkOprLogSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.linkOprLogSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkOprLogSearch.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
+            this.linkOprLogSearch.LinkColor = System.Drawing.Color.Navy;
+            this.linkOprLogSearch.Location = new System.Drawing.Point(51, 94);
+            this.linkOprLogSearch.Name = "linkOprLogSearch";
+            this.linkOprLogSearch.Size = new System.Drawing.Size(148, 25);
+            this.linkOprLogSearch.TabIndex = 2;
+            this.linkOprLogSearch.TabStop = true;
+            this.linkOprLogSearch.Text = "      操作日志查询";
+            this.linkOprLogSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkOprLogSearch.UseCompatibleTextRendering = true;
+            this.linkOprLogSearch.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOprLogSearch_LinkClicked);
             // 
             // linkLabel9
             // 
@@ -783,22 +781,23 @@
             this.linkLabel9.UseCompatibleTextRendering = true;
             this.linkLabel9.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel9_LinkClicked);
             // 
-            // linkLabel10
+            // linkRouteSearch
             // 
-            this.linkLabel10.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel10.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel10.Image = global::SmartAccess.Properties.Resources.editor;
-            this.linkLabel10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel10.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkLabel10.LinkColor = System.Drawing.Color.Navy;
-            this.linkLabel10.Location = new System.Drawing.Point(51, 60);
-            this.linkLabel10.Name = "linkLabel10";
-            this.linkLabel10.Size = new System.Drawing.Size(148, 25);
-            this.linkLabel10.TabIndex = 4;
-            this.linkLabel10.TabStop = true;
-            this.linkLabel10.Text = "      人员轨迹查询";
-            this.linkLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel10.UseCompatibleTextRendering = true;
+            this.linkRouteSearch.BackColor = System.Drawing.Color.Transparent;
+            this.linkRouteSearch.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkRouteSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.linkRouteSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkRouteSearch.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
+            this.linkRouteSearch.LinkColor = System.Drawing.Color.Navy;
+            this.linkRouteSearch.Location = new System.Drawing.Point(51, 60);
+            this.linkRouteSearch.Name = "linkRouteSearch";
+            this.linkRouteSearch.Size = new System.Drawing.Size(148, 25);
+            this.linkRouteSearch.TabIndex = 4;
+            this.linkRouteSearch.TabStop = true;
+            this.linkRouteSearch.Text = "      人员轨迹查询";
+            this.linkRouteSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkRouteSearch.UseCompatibleTextRendering = true;
+            this.linkRouteSearch.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRouteSearch_LinkClicked);
             // 
             // expandablePanel3
             // 
@@ -1261,13 +1260,13 @@
         private System.Windows.Forms.LinkLabel linkCardsPrint;
         private System.Windows.Forms.LinkLabel linkLabel5;
         private System.Windows.Forms.LinkLabel linkVerModel;
-        private System.Windows.Forms.LinkLabel linkLabel6;
+        private System.Windows.Forms.LinkLabel linkOprLogSearch;
         private System.Windows.Forms.LinkLabel linkLabel9;
-        private System.Windows.Forms.LinkLabel linkLabel10;
+        private System.Windows.Forms.LinkLabel linkRouteSearch;
         private System.Windows.Forms.LinkLabel linkLabel11;
         private System.Windows.Forms.LinkLabel linkLabel12;
-        private System.Windows.Forms.LinkLabel linkLabel13;
-        private System.Windows.Forms.LinkLabel linkLabel14;
+        private System.Windows.Forms.LinkLabel linkCtrlAreaMgr;
+        private System.Windows.Forms.LinkLabel linkControlerMgr;
         private System.Windows.Forms.LinkLabel linkLabel15;
         private System.Windows.Forms.LinkLabel linkLabel18;
         private System.Windows.Forms.LinkLabel linkLabel19;

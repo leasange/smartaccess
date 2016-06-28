@@ -197,5 +197,45 @@ namespace SmartAccess
                 AddControl(new InfoSearchMgr.AccessInOutRecordInfos(), "门禁出入查询");
             }
         }
+
+        private void linkRouteSearch_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(InfoSearchMgr.StaffRouteInfo)))
+            {
+                AddControl(new InfoSearchMgr.StaffRouteInfo(), "人员轨迹查询");
+            }
+        }
+
+        private void linkOprLogSearch_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(InfoSearchMgr.OprLogsInfo)))
+            {
+                AddControl(new InfoSearchMgr.OprLogsInfo(), "操作日志查询");
+            }
+        }
+
+        private void linkLabel11_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(StatisticsMgr.AccessInOutRecordsStatistics)))
+            {
+                AddControl(new StatisticsMgr.AccessInOutRecordsStatistics(), "门禁出入统计");
+            }
+        }
+
+        private void linkCtrlAreaMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(ControlDevMgr.ControlAreaMgr)))
+            {
+                AddControl(new ControlDevMgr.ControlAreaMgr(), "控制区域管理");
+            }
+        }
+
+        private void linkControlerMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(ControlDevMgr.ControlerMgr)))
+            {
+                AddControl(new ControlDevMgr.ControlerMgr(), "搜索控制管理");
+            }
+        }
     }
 }

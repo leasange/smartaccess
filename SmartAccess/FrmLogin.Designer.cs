@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.tbUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -36,6 +37,7 @@
             this.btnLogout = new DevComponents.DotNetBar.ButtonX();
             this.btnICMS = new DevComponents.DotNetBar.ButtonX();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.styleManager = new DevComponents.DotNetBar.StyleManager(this.components);
             this.SuspendLayout();
             // 
             // labelX1
@@ -128,6 +130,7 @@
             this.btnICMS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnICMS.TabIndex = 4;
             this.btnICMS.Text = "ICMS";
+            this.btnICMS.Click += new System.EventHandler(this.btnICMS_Click);
             // 
             // linkLabel1
             // 
@@ -140,6 +143,11 @@
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "显示软件注册信息";
+            // 
+            // styleManager
+            // 
+            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007Blue;
+            this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(142)))), ((int)(((byte)(0))))));
             // 
             // FrmLogin
             // 
@@ -179,5 +187,6 @@
         private DevComponents.DotNetBar.ButtonX btnLogout;
         private DevComponents.DotNetBar.ButtonX btnICMS;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private DevComponents.DotNetBar.StyleManager styleManager;
     }
 }
