@@ -237,5 +237,90 @@ namespace SmartAccess
                 AddControl(new ControlDevMgr.ControlerMgr(), "搜索控制管理");
             }
         }
+
+        private void linkOneMangMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(ControlDevMgr.OneManyDoorMgr)))
+            {
+                AddControl(new ControlDevMgr.OneManyDoorMgr(), "一对多管理");
+            }
+        }
+
+        private void linkCtrlState_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(ControlDevMgr.ControlState)))
+            {
+                AddControl(new ControlDevMgr.ControlState(), "控制访问约束");
+            }
+        }
+
+        private void linkRealMap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(RealDetectMgr.RealMapDetect)))
+            {
+                AddControl(new RealDetectMgr.RealMapDetect(), "实时地图显示");
+            }
+        }
+
+        private void linkRealState_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(RealDetectMgr.RealDoorState)))
+            {
+                AddControl(new RealDetectMgr.RealDoorState(), "实时状态显示");
+            }
+        }
+
+        private void linkCtrlStyle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!CheckControl(typeof(RuleSetMrg.DoorRuleCtrlSet)))
+            {
+                AddControl(new RuleSetMrg.DoorRuleCtrlSet(), "控制方式设定");
+            }
+        }
+
+        private void linkRuleSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkMapEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkAccessPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkInOutTimeSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkDbBak_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkModifyUserPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkUserUse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkProPrivi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkChangeCard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

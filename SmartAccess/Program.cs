@@ -15,7 +15,16 @@ namespace SmartAccess
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += Application_ThreadException;
             Application.Run(new FrmLogin());
+        }
+
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            if (e.Exception!=null)
+            {
+                throw e.Exception;
+            }
         }
     }
 }

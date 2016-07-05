@@ -74,6 +74,12 @@
     <Compile Include="ControlDevMgr\ControlerMgr.Designer.cs">
       <DependentUpon>ControlerMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlDevMgr\ControlState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\ControlState.Designer.cs">
+      <DependentUpon>ControlState.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\FrmControlAreaEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,12 @@
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Database\DatabaseConfigClass.cs" />
+    <Compile Include="ControlDevMgr\OneManyDoorMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\OneManyDoorMgr.Designer.cs">
+      <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmDataBaseConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +155,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealDetectMgr\RealDoorState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RealDetectMgr\RealDoorState.Designer.cs">
+      <DependentUpon>RealDoorState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealDetectMgr\RealMapDetect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RealDetectMgr\RealMapDetect.Designer.cs">
+      <DependentUpon>RealMapDetect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleSetMrg\DoorRuleCtrlSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleSetMrg\DoorRuleCtrlSet.Designer.cs">
+      <DependentUpon>DoorRuleCtrlSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleSetMrg\NormalRuleSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleSetMrg\NormalRuleSet.Designer.cs">
+      <DependentUpon>NormalRuleSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="StatisticsMgr\AccessInOutRecordsStatistics.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,8 +221,14 @@
     <EmbeddedResource Include="ControlDevMgr\ControlerMgr.resx">
       <DependentUpon>ControlerMgr.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\ControlState.resx">
+      <DependentUpon>ControlState.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmControlAreaEditor.resx">
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\OneManyDoorMgr.resx">
+      <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDataBaseConfig.resx">
       <DependentUpon>FrmDataBaseConfig.cs</DependentUpon>
@@ -228,6 +270,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RealDetectMgr\RealDoorState.resx">
+      <DependentUpon>RealDoorState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealDetectMgr\RealMapDetect.resx">
+      <DependentUpon>RealMapDetect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleSetMrg\DoorRuleCtrlSet.resx">
+      <DependentUpon>DoorRuleCtrlSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleSetMrg\NormalRuleSet.resx">
+      <DependentUpon>NormalRuleSet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatisticsMgr\AccessInOutRecordsStatistics.resx">
       <DependentUpon>AccessInOutRecordsStatistics.cs</DependentUpon>
     </EmbeddedResource>

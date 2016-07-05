@@ -30,16 +30,17 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem3 = new DevComponents.DotNetBar.ButtonItem();
-            this.dataGridViewEx1 = new Li.Controls.DataGridViewEx();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem6 = new DevComponents.DotNetBar.ButtonItem();
             this.comboBoxItem1 = new DevComponents.DotNetBar.ComboBoxItem();
+            this.dataGridViewEx1 = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -79,6 +80,7 @@
             // biAddRootArea
             // 
             this.biAddRootArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddRootArea.ForeColor = System.Drawing.Color.White;
             this.biAddRootArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biAddRootArea.Name = "biAddRootArea";
             this.biAddRootArea.Text = "搜索控制器";
@@ -86,6 +88,7 @@
             // buttonItem2
             // 
             this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem2.ForeColor = System.Drawing.Color.White;
             this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem2.Name = "buttonItem2";
             this.buttonItem2.Text = "添加控制器";
@@ -93,9 +96,48 @@
             // buttonItem3
             // 
             this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem3.ForeColor = System.Drawing.Color.White;
             this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem3.Name = "buttonItem3";
             this.buttonItem3.Text = "修改控制器";
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem1.ForeColor = System.Drawing.Color.White;
+            this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.Text = "删除控制器";
+            // 
+            // buttonItem4
+            // 
+            this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem4.ForeColor = System.Drawing.Color.White;
+            this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem4.Name = "buttonItem4";
+            this.buttonItem4.Text = "打印";
+            // 
+            // buttonItem5
+            // 
+            this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem5.ForeColor = System.Drawing.Color.White;
+            this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem5.Name = "buttonItem5";
+            this.buttonItem5.Text = "导出";
+            // 
+            // buttonItem6
+            // 
+            this.buttonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem6.ForeColor = System.Drawing.Color.White;
+            this.buttonItem6.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem6.Name = "buttonItem6";
+            this.buttonItem6.Text = "查找";
+            // 
+            // comboBoxItem1
+            // 
+            this.comboBoxItem1.DropDownHeight = 106;
+            this.comboBoxItem1.ItemHeight = 17;
+            this.comboBoxItem1.Name = "comboBoxItem1";
             // 
             // dataGridViewEx1
             // 
@@ -107,7 +149,7 @@
             dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewEx1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewEx1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -123,53 +165,28 @@
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(19)))), ((int)(((byte)(19)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dataGridViewEx1.EnableHeadersVisualStyles = false;
+            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.dataGridViewEx1.Location = new System.Drawing.Point(0, 28);
             this.dataGridViewEx1.Name = "dataGridViewEx1";
             this.dataGridViewEx1.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEx1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewEx1.RowTemplate.Height = 23;
             this.dataGridViewEx1.Size = new System.Drawing.Size(789, 412);
             this.dataGridViewEx1.TabIndex = 2;
-            // 
-            // buttonItem1
-            // 
-            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "删除控制器";
-            // 
-            // buttonItem4
-            // 
-            this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem4.Name = "buttonItem4";
-            this.buttonItem4.Text = "打印";
-            // 
-            // buttonItem5
-            // 
-            this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem5.Name = "buttonItem5";
-            this.buttonItem5.Text = "导出";
-            // 
-            // buttonItem6
-            // 
-            this.buttonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem6.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem6.Name = "buttonItem6";
-            this.buttonItem6.Text = "查找";
-            // 
-            // comboBoxItem1
-            // 
-            this.comboBoxItem1.DropDownHeight = 106;
-            this.comboBoxItem1.ItemHeight = 17;
-            this.comboBoxItem1.Name = "comboBoxItem1";
             // 
             // Column1
             // 

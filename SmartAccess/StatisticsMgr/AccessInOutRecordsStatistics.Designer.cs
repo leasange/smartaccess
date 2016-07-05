@@ -36,22 +36,16 @@
             this.dateTimeInput1 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.comboBoxEx2 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.comboBoxEx1 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.dataGridViewEx1 = new Li.Controls.DataGridViewEx();
-            this.textBoxX3 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.textBoxX1 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.pageDataGridView1 = new Li.Controls.PageDataGridView();
-            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pageDataGridView1 = new Li.Controls.PageDataGridView();
+            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEx1)).BeginInit();
@@ -64,12 +58,12 @@
             // 
             this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(632, 39);
+            this.buttonX1.Location = new System.Drawing.Point(800, 10);
             this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(75, 23);
+            this.buttonX1.Size = new System.Drawing.Size(81, 23);
             this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX1.TabIndex = 5;
-            this.buttonX1.Text = "统计";
+            this.buttonX1.Text = "生成报表";
             // 
             // dateTimeInput2
             // 
@@ -81,7 +75,7 @@
             this.dateTimeInput2.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
             this.dateTimeInput2.ButtonDropDown.Visible = true;
             this.dateTimeInput2.IsPopupCalendarOpen = false;
-            this.dateTimeInput2.Location = new System.Drawing.Point(349, 39);
+            this.dateTimeInput2.Location = new System.Drawing.Point(560, 10);
             // 
             // 
             // 
@@ -126,7 +120,7 @@
             // 
             // 
             this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX6.Location = new System.Drawing.Point(291, 39);
+            this.labelX6.Location = new System.Drawing.Point(502, 10);
             this.labelX6.Name = "labelX6";
             this.labelX6.Size = new System.Drawing.Size(73, 23);
             this.labelX6.TabIndex = 3;
@@ -142,7 +136,7 @@
             this.dateTimeInput1.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
             this.dateTimeInput1.ButtonDropDown.Visible = true;
             this.dateTimeInput1.IsPopupCalendarOpen = false;
-            this.dateTimeInput1.Location = new System.Drawing.Point(70, 39);
+            this.dateTimeInput1.Location = new System.Drawing.Point(292, 10);
             // 
             // 
             // 
@@ -187,7 +181,7 @@
             // 
             // 
             this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Location = new System.Drawing.Point(12, 39);
+            this.labelX5.Location = new System.Drawing.Point(234, 10);
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(73, 23);
             this.labelX5.TabIndex = 3;
@@ -199,23 +193,11 @@
             this.comboBoxEx2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxEx2.FormattingEnabled = true;
             this.comboBoxEx2.ItemHeight = 17;
-            this.comboBoxEx2.Location = new System.Drawing.Point(669, 12);
+            this.comboBoxEx2.Location = new System.Drawing.Point(70, 10);
             this.comboBoxEx2.Name = "comboBoxEx2";
             this.comboBoxEx2.Size = new System.Drawing.Size(121, 23);
             this.comboBoxEx2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxEx2.TabIndex = 2;
-            // 
-            // comboBoxEx1
-            // 
-            this.comboBoxEx1.DisplayMember = "Text";
-            this.comboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxEx1.FormattingEnabled = true;
-            this.comboBoxEx1.ItemHeight = 17;
-            this.comboBoxEx1.Location = new System.Drawing.Point(466, 12);
-            this.comboBoxEx1.Name = "comboBoxEx1";
-            this.comboBoxEx1.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxEx1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.comboBoxEx1.TabIndex = 2;
             // 
             // labelX4
             // 
@@ -223,23 +205,11 @@
             // 
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(632, 12);
+            this.labelX4.Location = new System.Drawing.Point(33, 10);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(48, 23);
             this.labelX4.TabIndex = 0;
             this.labelX4.Text = "门禁";
-            // 
-            // labelX3
-            // 
-            // 
-            // 
-            // 
-            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(427, 12);
-            this.labelX3.Name = "labelX3";
-            this.labelX3.Size = new System.Drawing.Size(48, 23);
-            this.labelX3.TabIndex = 0;
-            this.labelX3.Text = "部门";
             // 
             // dataGridViewEx1
             // 
@@ -276,119 +246,8 @@
             this.dataGridViewEx1.Name = "dataGridViewEx1";
             this.dataGridViewEx1.ReadOnly = true;
             this.dataGridViewEx1.RowTemplate.Height = 23;
-            this.dataGridViewEx1.Size = new System.Drawing.Size(1024, 413);
+            this.dataGridViewEx1.Size = new System.Drawing.Size(1024, 430);
             this.dataGridViewEx1.TabIndex = 0;
-            // 
-            // textBoxX3
-            // 
-            // 
-            // 
-            // 
-            this.textBoxX3.Border.Class = "TextBoxBorder";
-            this.textBoxX3.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX3.Location = new System.Drawing.Point(261, 12);
-            this.textBoxX3.Name = "textBoxX3";
-            this.textBoxX3.Size = new System.Drawing.Size(133, 23);
-            this.textBoxX3.TabIndex = 1;
-            // 
-            // labelX2
-            // 
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(226, 12);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(48, 23);
-            this.labelX2.TabIndex = 0;
-            this.labelX2.Text = "姓名";
-            // 
-            // textBoxX1
-            // 
-            // 
-            // 
-            // 
-            this.textBoxX1.Border.Class = "TextBoxBorder";
-            this.textBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX1.Location = new System.Drawing.Point(70, 13);
-            this.textBoxX1.Name = "textBoxX1";
-            this.textBoxX1.Size = new System.Drawing.Size(141, 23);
-            this.textBoxX1.TabIndex = 1;
-            // 
-            // labelX1
-            // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(12, 12);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(48, 23);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "证件号";
-            // 
-            // pageDataGridView1
-            // 
-            this.pageDataGridView1.BackColor = System.Drawing.Color.GhostWhite;
-            // 
-            // pageDataGridView1.DataGridPanel
-            // 
-            this.pageDataGridView1.DataGridPanel.Controls.Add(this.dataGridViewEx1);
-            this.pageDataGridView1.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView1.DataGridPanel.Location = new System.Drawing.Point(0, 0);
-            this.pageDataGridView1.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView1.DataGridPanel.Size = new System.Drawing.Size(1024, 413);
-            this.pageDataGridView1.DataGridPanel.TabIndex = 1;
-            this.pageDataGridView1.DataGridView = this.dataGridViewEx1;
-            this.pageDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView1.Location = new System.Drawing.Point(0, 68);
-            this.pageDataGridView1.Name = "pageDataGridView1";
-            // 
-            // pageDataGridView1.PageControl
-            // 
-            this.pageDataGridView1.PageControl.CurrentPage = 1;
-            this.pageDataGridView1.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pageDataGridView1.PageControl.ExportButtonVisible = true;
-            this.pageDataGridView1.PageControl.Location = new System.Drawing.Point(0, 413);
-            this.pageDataGridView1.PageControl.Name = "PageControl";
-            this.pageDataGridView1.PageControl.RecordsPerPage = 30;
-            this.pageDataGridView1.PageControl.Size = new System.Drawing.Size(1024, 32);
-            this.pageDataGridView1.PageControl.TabIndex = 0;
-            this.pageDataGridView1.PageControl.TotalRecords = 0;
-            this.pageDataGridView1.Size = new System.Drawing.Size(1024, 445);
-            this.pageDataGridView1.SqlWhere = null;
-            this.pageDataGridView1.TabIndex = 3;
-            // 
-            // panelEx1
-            // 
-            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx1.Controls.Add(this.buttonX1);
-            this.panelEx1.Controls.Add(this.dateTimeInput2);
-            this.panelEx1.Controls.Add(this.labelX6);
-            this.panelEx1.Controls.Add(this.dateTimeInput1);
-            this.panelEx1.Controls.Add(this.labelX5);
-            this.panelEx1.Controls.Add(this.comboBoxEx2);
-            this.panelEx1.Controls.Add(this.comboBoxEx1);
-            this.panelEx1.Controls.Add(this.labelX4);
-            this.panelEx1.Controls.Add(this.labelX3);
-            this.panelEx1.Controls.Add(this.textBoxX3);
-            this.panelEx1.Controls.Add(this.labelX2);
-            this.panelEx1.Controls.Add(this.textBoxX1);
-            this.panelEx1.Controls.Add(this.labelX1);
-            this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelEx1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panelEx1.Location = new System.Drawing.Point(0, 0);
-            this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(1024, 68);
-            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.panelEx1.Style.GradientAngle = 90;
-            this.panelEx1.TabIndex = 2;
             // 
             // Column4
             // 
@@ -426,6 +285,63 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
+            // pageDataGridView1
+            // 
+            this.pageDataGridView1.BackColor = System.Drawing.Color.GhostWhite;
+            // 
+            // pageDataGridView1.DataGridPanel
+            // 
+            this.pageDataGridView1.DataGridPanel.Controls.Add(this.dataGridViewEx1);
+            this.pageDataGridView1.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView1.DataGridPanel.Location = new System.Drawing.Point(0, 0);
+            this.pageDataGridView1.DataGridPanel.Name = "DataGridPanel";
+            this.pageDataGridView1.DataGridPanel.Size = new System.Drawing.Size(1024, 430);
+            this.pageDataGridView1.DataGridPanel.TabIndex = 1;
+            this.pageDataGridView1.DataGridView = this.dataGridViewEx1;
+            this.pageDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView1.Location = new System.Drawing.Point(0, 51);
+            this.pageDataGridView1.Name = "pageDataGridView1";
+            // 
+            // pageDataGridView1.PageControl
+            // 
+            this.pageDataGridView1.PageControl.CurrentPage = 1;
+            this.pageDataGridView1.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pageDataGridView1.PageControl.ExportButtonVisible = true;
+            this.pageDataGridView1.PageControl.Location = new System.Drawing.Point(0, 430);
+            this.pageDataGridView1.PageControl.Name = "PageControl";
+            this.pageDataGridView1.PageControl.RecordsPerPage = 30;
+            this.pageDataGridView1.PageControl.Size = new System.Drawing.Size(1024, 32);
+            this.pageDataGridView1.PageControl.TabIndex = 0;
+            this.pageDataGridView1.PageControl.TotalRecords = 0;
+            this.pageDataGridView1.Size = new System.Drawing.Size(1024, 462);
+            this.pageDataGridView1.SqlWhere = null;
+            this.pageDataGridView1.TabIndex = 3;
+            // 
+            // panelEx1
+            // 
+            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
+            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.buttonX1);
+            this.panelEx1.Controls.Add(this.dateTimeInput2);
+            this.panelEx1.Controls.Add(this.labelX6);
+            this.panelEx1.Controls.Add(this.dateTimeInput1);
+            this.panelEx1.Controls.Add(this.labelX5);
+            this.panelEx1.Controls.Add(this.comboBoxEx2);
+            this.panelEx1.Controls.Add(this.labelX4);
+            this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEx1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panelEx1.Location = new System.Drawing.Point(0, 0);
+            this.panelEx1.Name = "panelEx1";
+            this.panelEx1.Size = new System.Drawing.Size(1024, 51);
+            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.panelEx1.Style.GradientAngle = 90;
+            this.panelEx1.TabIndex = 2;
+            // 
             // AccessInOutRecordsStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -452,14 +368,8 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dateTimeInput1;
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxEx2;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxEx1;
         private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.LabelX labelX3;
         private Li.Controls.DataGridViewEx dataGridViewEx1;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX3;
-        private DevComponents.DotNetBar.LabelX labelX2;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX1;
-        private DevComponents.DotNetBar.LabelX labelX1;
         private Li.Controls.PageDataGridView pageDataGridView1;
         private DevComponents.DotNetBar.PanelEx panelEx1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;

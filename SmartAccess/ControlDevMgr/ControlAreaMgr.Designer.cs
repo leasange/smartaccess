@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem3 = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
             this.advTreeEx1 = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
-            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
-            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.node2 = new DevComponents.AdvTree.Node();
+            this.node5 = new DevComponents.AdvTree.Node();
             this.node3 = new DevComponents.AdvTree.Node();
             this.node4 = new DevComponents.AdvTree.Node();
-            this.node5 = new DevComponents.AdvTree.Node();
-            this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem3 = new DevComponents.DotNetBar.ButtonItem();
+            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeEx1)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +66,31 @@
             this.bar1.TabIndex = 0;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biAddRootArea
+            // 
+            this.biAddRootArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddRootArea.ForeColor = System.Drawing.Color.White;
+            this.biAddRootArea.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAddRootArea.Name = "biAddRootArea";
+            this.biAddRootArea.Text = "添加顶级区域";
+            this.biAddRootArea.Click += new System.EventHandler(this.biAddRootArea_Click);
+            // 
+            // buttonItem2
+            // 
+            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem2.ForeColor = System.Drawing.Color.White;
+            this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem2.Name = "buttonItem2";
+            this.buttonItem2.Text = "添加下级区域";
+            // 
+            // buttonItem3
+            // 
+            this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem3.ForeColor = System.Drawing.Color.White;
+            this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem3.Name = "buttonItem3";
+            this.buttonItem3.Text = "删除选定区域";
             // 
             // labelItem1
             // 
@@ -113,16 +138,6 @@
             this.node3});
             this.node1.Text = "区域1111";
             // 
-            // nodeConnector1
-            // 
-            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // elementStyle1
-            // 
-            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.elementStyle1.Name = "elementStyle1";
-            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
-            // 
             // node2
             // 
             this.node2.Expanded = true;
@@ -130,6 +145,12 @@
             this.node2.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
             this.node5});
             this.node2.Text = "区域23啊";
+            // 
+            // node5
+            // 
+            this.node5.Expanded = true;
+            this.node5.Name = "node5";
+            this.node5.Text = "区域等待";
             // 
             // node3
             // 
@@ -143,33 +164,15 @@
             this.node4.Name = "node4";
             this.node4.Text = "区域222";
             // 
-            // node5
+            // nodeConnector1
             // 
-            this.node5.Expanded = true;
-            this.node5.Name = "node5";
-            this.node5.Text = "区域等待";
+            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
             // 
-            // biAddRootArea
+            // elementStyle1
             // 
-            this.biAddRootArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddRootArea.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biAddRootArea.Name = "biAddRootArea";
-            this.biAddRootArea.Text = "添加顶级区域";
-            this.biAddRootArea.Click += new System.EventHandler(this.biAddRootArea_Click);
-            // 
-            // buttonItem2
-            // 
-            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem2.Name = "buttonItem2";
-            this.buttonItem2.Text = "添加下级区域";
-            // 
-            // buttonItem3
-            // 
-            this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem3.Name = "buttonItem3";
-            this.buttonItem3.Text = "删除选定区域";
+            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.elementStyle1.Name = "elementStyle1";
+            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
             // ControlAreaMgr
             // 

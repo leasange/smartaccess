@@ -1,0 +1,86 @@
+﻿using Li.Access.Core;
+using Li.Access.Core.WGAccesses;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace TestAccessCtrler
+{
+    public partial class FrmMain : Form
+    {
+        public FrmMain()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IAccessCore access = new WGAccess();
+            List<Controller> ctrls = access.SearchController();
+            dataGridView1.Rows.Clear();
+            foreach (var item in ctrls)
+            {
+                string door = "";
+                switch (item.doorType)
+                {
+                    case ControllerDoorType.OneDoorTwoDirections:
+                        door = "单门双向";
+                        break;
+                    case ControllerDoorType.TwoDoorsTwoDirections:
+                        door = "双门双向";
+                        break;
+                    case ControllerDoorType.FourDoorsOneDirection:
+                        door = "四门单向";
+                        break;
+                    default:
+                        break;
+                }
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(dataGridView1,
+                    item.sn,
+                    door,
+                    item.ip,
+                    item.mask,
+                    item.gateway,
+                    item.mac,
+                    item.driverVersion,
+                    item.driverReleaseTime,
+                    "确定修改",
+                    "获取状态"
+                    );
+                row.Tag = item;
+                dataGridView1.Rows.Add(row);
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                Controller ctrl = (Controller)row.Tag;
+                if (this.dataGridView1.ColumnCount == e.ColumnIndex + 2)//修改IP
+                {
+                    if (MessageBox.Show("确定修改设备地址？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        ctrl.ip = row.Cells[2].Value.ToString();
+                        ctrl.mask = row.Cells[3].Value.ToString();
+                        ctrl.gateway = row.Cells[4].Value.ToString();
+                        IAccessCore access = new WGAccess();
+                        access.SetControllerIP(ctrl);
+                    }
+                }
+                else if (this.dataGridView1.ColumnCount == e.ColumnIndex + 1)//获取控制器状态
+                {
+                    IAccessCore access = new WGAccess();
+                    ControllerState state = access.GetControllerState(ctrl);
+                }
+            }
+        }
+    }
+}
