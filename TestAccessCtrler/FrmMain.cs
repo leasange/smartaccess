@@ -79,8 +79,60 @@ namespace TestAccessCtrler
                 {
                     IAccessCore access = new WGAccess();
                     ControllerState state = access.GetControllerState(ctrl);
+                    MessageBox.Show(state.lastRecordIndex+" "+state.reasonNo.ToString());
                 }
             }
+        }
+        private Controller GetSelectedController()
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                return dataGridView1.SelectedRows[0].Tag as Controller;
+            }
+            else if (dataGridView1.SelectedCells.Count>0&&dataGridView1.SelectedCells[0].RowIndex>=0)
+            {
+                return dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Tag as Controller;
+            }
+            else
+            {
+                MessageBox.Show("请选择行！");
+            }
+            return null;
+        }
+        private void btnGetTime_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl==null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+            DateTime dt = access.GetControllerTime(ctrl);
+            dateTimePicker1.Value = dt;
+        }
+
+        private void btnSetTime_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+            bool ret = access.SetControllerTime(ctrl,dateTimePicker1.Value);
+            MessageBox.Show("设置" + (ret ? "成功！" : "失败"));
+        }
+
+        private void btnReadRecord_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+            ControllerState state = access.GetControllerRecord(ctrl, 0);
+            MessageBox.Show("记录：index=" + state.lastRecordIndex + " reasonNo=" + state.reasonNo+" time="+state.recordTime);
         }
     }
 }

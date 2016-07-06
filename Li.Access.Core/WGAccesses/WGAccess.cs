@@ -94,7 +94,6 @@ namespace Li.Access.Core.WGAccesses
             DoSend(packet);
             Close();
         }
-
         public ControllerState GetControllerState(Controller controller)
         {
             WGPacket packet = new WGPacket(0x20);
@@ -104,6 +103,49 @@ namespace Li.Access.Core.WGAccesses
             if (packets.Count==1)
             {
               return  packets[0].ToControllerState();
+            }
+            return null;
+        }
+        public DateTime GetControllerTime(Controller controller)
+        {
+            WGPacket packet = new WGPacket(0x32);
+            packet.SetDevSn(controller.sn);
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].ToDateTime();
+            }
+            return DateTime.Now;
+        }
+
+
+        public bool SetControllerTime(Controller controller, DateTime dateTime)
+        {
+            WGPacket packet = new WGPacket(0x30);
+            packet.SetDevSn(controller.sn);
+            packet.SetDateTime(dateTime);
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                DateTime dt= packets[0].ToDateTime();
+                return dt == dateTime;
+            }
+            return false;
+        }
+
+
+        public ControllerState GetControllerRecord(Controller controller, long recordIndex)
+        {
+            WGPacket packet = new WGPacket(0xB0);
+            packet.SetDevSn(controller.sn);
+            packet.SetRecordIndex(recordIndex);
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].ToControllerState(true);
             }
             return null;
         }
@@ -192,7 +234,7 @@ namespace Li.Access.Core.WGAccesses
             iDevSn = uint.Parse(sn);
         }
 
-        public ControllerState ToControllerState()
+        public ControllerState ToControllerState(bool isRecord=false)
         {
             ControllerState state = new ControllerState();
 
@@ -212,33 +254,71 @@ namespace Li.Access.Core.WGAccesses
                 DataHelper.GetFromBCD(data[18])
                 );//刷卡时间:年月日时分秒 (采用BCD码)见设置时间部分的说明
             state.reasonNo = (RecordReasonNo)data[19];
-            state.isOpenDoorOfLock1 = data[20] == 1;//   1号门门磁(0表示关上:false, 1表示打开:true)
-            state.isOpenDoorOfLock2 = data[21] == 1;//2号门门磁(0表示关上, 1表示打开)
-            state.isOpenDoorOfLock3 = data[22] == 1;//3号门门磁(0表示关上, 1表示打开)
-            state.isOpenDoorOfLock4 = data[23] == 1;//4号门门磁(0表示关上, 1表示打开)
-            state.isOpenDoorOfButton1 = data[24] == 1;//1号门按钮(0表示松开, 1表示按下)
-            state.isOpenDoorOfButton2 = data[25] == 1;//2号门按钮(0表示松开, 1表示按下)
-            state.isOpenDoorOfButton3 = data[26] == 1;//3号门按钮(0表示松开, 1表示按下)
-            state.isOpenDoorOfButton4 = data[27] == 1;//4号门按钮(0表示松开, 1表示按下)
-            state.troubleNum = data[28];//故障号， 0 无故障，不等于0, 有故障(先重设时间, 如果还有问题, 则要返厂家维护)
-            state.controllerCurTime = new DateTime(
-                ((int)(DateTime.Now.Year/100))*100+DataHelper.GetFromBCD(extern_data[7]),
-                DataHelper.GetFromBCD(extern_data[8]),
-                DataHelper.GetFromBCD(extern_data[9]),
-                DataHelper.GetFromBCD(data[29]),
-                DataHelper.GetFromBCD(data[30]),
-                DataHelper.GetFromBCD(data[31])
-                );//控制器当前时间
-            state.seqNum = sequenceId;//流水号
-            state.relayState = new bool[8];//0-8,表示1-8号门继电器状态，true 门开锁， false 门上锁
-            for (int i = 0; i < 8; i++)
+            if (!isRecord)
             {
-                state.relayState[i] = ((extern_data[5] >> i) & (byte)0x01) == 1;
-            }
+                state.isOpenDoorOfLock1 = data[20] == 1;//   1号门门磁(0表示关上:false, 1表示打开:true)
+                state.isOpenDoorOfLock2 = data[21] == 1;//2号门门磁(0表示关上, 1表示打开)
+                state.isOpenDoorOfLock3 = data[22] == 1;//3号门门磁(0表示关上, 1表示打开)
+                state.isOpenDoorOfLock4 = data[23] == 1;//4号门门磁(0表示关上, 1表示打开)
+                state.isOpenDoorOfButton1 = data[24] == 1;//1号门按钮(0表示松开, 1表示按下)
+                state.isOpenDoorOfButton2 = data[25] == 1;//2号门按钮(0表示松开, 1表示按下)
+                state.isOpenDoorOfButton3 = data[26] == 1;//3号门按钮(0表示松开, 1表示按下)
+                state.isOpenDoorOfButton4 = data[27] == 1;//4号门按钮(0表示松开, 1表示按下)
+                state.troubleNum = data[28];//故障号， 0 无故障，不等于0, 有故障(先重设时间, 如果还有问题, 则要返厂家维护)
+                state.controllerCurTime = new DateTime(
+                    ((int)(DateTime.Now.Year / 100)) * 100 + DataHelper.GetFromBCD(extern_data[7]),
+                    DataHelper.GetFromBCD(extern_data[8]),
+                    DataHelper.GetFromBCD(extern_data[9]),
+                    DataHelper.GetFromBCD(data[29]),
+                    DataHelper.GetFromBCD(data[30]),
+                    DataHelper.GetFromBCD(data[31])
+                    );//控制器当前时间
+                state.seqNum = sequenceId;//流水号
+                state.relayState = new bool[8];//0-8,表示1-8号门继电器状态，true 门开锁， false 门上锁
+                for (int i = 0; i < 8; i++)
+                {
+                    state.relayState[i] = ((extern_data[5] >> i) & (byte)0x01) == 1;
+                }
 
-            state.isFireAlarm = ((extern_data[6] >> 1) & (byte)0x01) == 1;//是否火警
-            state.isForceLock = (extern_data[6] & (byte)0x01) == 1;//是否强制锁门
+                state.isFireAlarm = ((extern_data[6] >> 1) & (byte)0x01) == 1;//是否火警
+                state.isForceLock = (extern_data[6] & (byte)0x01) == 1;//是否强制锁门
+            }
             return state;
+        }
+        /// <summary>
+        /// 转为获取控制器时间
+        /// </summary>
+        /// <returns>控制器时间</returns>
+        public DateTime ToDateTime()
+        {
+            return new DateTime(
+                DataHelper.GetFromBCD(data[0]) * 100 + DataHelper.GetFromBCD(data[1]),
+                DataHelper.GetFromBCD(data[2]),
+                DataHelper.GetFromBCD(data[3]),
+                DataHelper.GetFromBCD(data[4]),
+                DataHelper.GetFromBCD(data[5]),
+                DataHelper.GetFromBCD(data[6])
+                );
+        }
+
+        public void SetDateTime(DateTime dateTime)
+        {
+            data[0] = DataHelper.ToByteBCD(dateTime.Year/100);
+            data[1] = DataHelper.ToByteBCD(dateTime.Year - (dateTime.Year / 100)*100);
+            data[2] = DataHelper.ToByteBCD(dateTime.Month);
+            data[3] = DataHelper.ToByteBCD(dateTime.Day);
+            data[4] = DataHelper.ToByteBCD(dateTime.Hour);
+            data[5] = DataHelper.ToByteBCD(dateTime.Minute);
+            data[6] = DataHelper.ToByteBCD(dateTime.Second);
+        }
+        //设置索引号
+        public void SetRecordIndex(long recordIndex)
+        {
+            uint u = (uint)recordIndex;
+            data[0] = (byte)(u & 0x000000ff);
+            data[1] = (byte)((u>>8) & 0x000000ff);
+            data[2] = (byte)((u >> 16) & 0x000000ff);
+            data[3] = (byte)((u >> 24) & 0x000000ff);
         }
     }
 }

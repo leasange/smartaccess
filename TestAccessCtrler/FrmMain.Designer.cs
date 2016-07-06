@@ -40,6 +40,10 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnGetTime = new System.Windows.Forms.Button();
+            this.btnSetTime = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.btnReadRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,11 +145,54 @@
             this.Column10.Name = "Column10";
             this.Column10.Width = 95;
             // 
+            // btnGetTime
+            // 
+            this.btnGetTime.Location = new System.Drawing.Point(237, 12);
+            this.btnGetTime.Name = "btnGetTime";
+            this.btnGetTime.Size = new System.Drawing.Size(88, 31);
+            this.btnGetTime.TabIndex = 2;
+            this.btnGetTime.Text = "获取时间";
+            this.btnGetTime.UseVisualStyleBackColor = true;
+            this.btnGetTime.Click += new System.EventHandler(this.btnGetTime_Click);
+            // 
+            // btnSetTime
+            // 
+            this.btnSetTime.Location = new System.Drawing.Point(493, 12);
+            this.btnSetTime.Name = "btnSetTime";
+            this.btnSetTime.Size = new System.Drawing.Size(88, 31);
+            this.btnSetTime.TabIndex = 2;
+            this.btnSetTime.Text = "设置时间";
+            this.btnSetTime.UseVisualStyleBackColor = true;
+            this.btnSetTime.Click += new System.EventHandler(this.btnSetTime_Click);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(331, 15);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(156, 21);
+            this.dateTimePicker1.TabIndex = 3;
+            // 
+            // btnReadRecord
+            // 
+            this.btnReadRecord.Location = new System.Drawing.Point(587, 12);
+            this.btnReadRecord.Name = "btnReadRecord";
+            this.btnReadRecord.Size = new System.Drawing.Size(88, 31);
+            this.btnReadRecord.TabIndex = 2;
+            this.btnReadRecord.Text = "读取记录";
+            this.btnReadRecord.UseVisualStyleBackColor = true;
+            this.btnReadRecord.Click += new System.EventHandler(this.btnReadRecord_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 404);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.btnReadRecord);
+            this.Controls.Add(this.btnSetTime);
+            this.Controls.Add(this.btnGetTime);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Name = "FrmMain";
@@ -169,6 +216,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewButtonColumn Column8;
         private System.Windows.Forms.DataGridViewButtonColumn Column10;
+        private System.Windows.Forms.Button btnGetTime;
+        private System.Windows.Forms.Button btnSetTime;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button btnReadRecord;
 
     }
 }

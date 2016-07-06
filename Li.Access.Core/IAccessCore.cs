@@ -28,6 +28,26 @@ namespace Li.Access.Core
         /// <param name="controller">待获取的控制器参数</param>
         /// <returns>返回控制器状态</returns>
         ControllerState GetControllerState(Controller controller);
+        /// <summary>
+        /// 获取控制器时间
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>控制器时间</returns>
+        DateTime GetControllerTime(Controller controller);
+        /// <summary>
+        /// 设置控制器时间
+        /// </summary>
+        /// <param name="controller">待设置的控制器</param>
+        /// <param name="dateTime">设置的时间</param>
+        /// <returns>成功与否</returns>
+        bool SetControllerTime(Controller controller, DateTime dateTime);
+        /// <summary>
+        /// 获取控制器指定索引的记录
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="recordIndex">记录的索引</param>
+        /// <returns>返回记录</returns>
+        ControllerState GetControllerRecord(Controller controller, long recordIndex);
 
     }
     public enum ControllerDoorType
@@ -116,6 +136,7 @@ namespace Li.Access.Core
     /// </summary>
     public class ControllerState
     {
+        //以下是State和Record共有
         public string sn;//控制器序列号
         public uint lastRecordIndex = 0;//最后一条记录的索引号(=0表示没有记录)
         public RecordType recordType = RecordType.NoRecord;
@@ -125,6 +146,7 @@ namespace Li.Access.Core
         public string cardOrNoNumber;//卡号(类型是刷卡记录时)或编号(其他类型记录)
         public DateTime recordTime;//刷卡时间:年月日时分秒 (采用BCD码)见设置时间部分的说明
         public RecordReasonNo reasonNo;//记录原因代码(查询 刷卡记录说明中的Reason)
+        //以下只是State
         public bool isOpenDoorOfLock1;//   1号门门磁(0表示关上:false, 1表示打开:true)
         public bool isOpenDoorOfLock2;//2号门门磁(0表示关上, 1表示打开)
         public bool isOpenDoorOfLock3;//3号门门磁(0表示关上, 1表示打开)

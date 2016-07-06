@@ -58,5 +58,13 @@ namespace Li.Access.Core
         {
             return (byte)(((bcd >> 4) * 10) + (bcd & 0x0F));
         }
+
+        public static byte ToByteBCD(int byteVal)
+        {
+            int h = (int)(byteVal / 10);
+            int l = byteVal - h * 10;
+            byte bt = (byte)((h << 4) + l);
+            return bt;
+        }
     }
 }
