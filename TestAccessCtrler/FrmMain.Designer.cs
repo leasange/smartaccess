@@ -44,6 +44,8 @@
             this.btnSetTime = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.btnReadRecord = new System.Windows.Forms.Button();
+            this.btnGetReadedIndex = new System.Windows.Forms.Button();
+            this.btnReadNextRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,18 +180,40 @@
             // 
             this.btnReadRecord.Location = new System.Drawing.Point(587, 12);
             this.btnReadRecord.Name = "btnReadRecord";
-            this.btnReadRecord.Size = new System.Drawing.Size(88, 31);
+            this.btnReadRecord.Size = new System.Drawing.Size(100, 31);
             this.btnReadRecord.TabIndex = 2;
-            this.btnReadRecord.Text = "读取记录";
+            this.btnReadRecord.Text = "读取第一条记录";
             this.btnReadRecord.UseVisualStyleBackColor = true;
             this.btnReadRecord.Click += new System.EventHandler(this.btnReadRecord_Click);
+            // 
+            // btnGetReadedIndex
+            // 
+            this.btnGetReadedIndex.Location = new System.Drawing.Point(693, 12);
+            this.btnGetReadedIndex.Name = "btnGetReadedIndex";
+            this.btnGetReadedIndex.Size = new System.Drawing.Size(88, 31);
+            this.btnGetReadedIndex.TabIndex = 4;
+            this.btnGetReadedIndex.Text = "获取已读索引";
+            this.btnGetReadedIndex.UseVisualStyleBackColor = true;
+            this.btnGetReadedIndex.Click += new System.EventHandler(this.btnGetReadedIndex_Click);
+            // 
+            // btnReadNextRecord
+            // 
+            this.btnReadNextRecord.Location = new System.Drawing.Point(787, 12);
+            this.btnReadNextRecord.Name = "btnReadNextRecord";
+            this.btnReadNextRecord.Size = new System.Drawing.Size(99, 31);
+            this.btnReadNextRecord.TabIndex = 2;
+            this.btnReadNextRecord.Text = "读取下一条记录";
+            this.btnReadNextRecord.UseVisualStyleBackColor = true;
+            this.btnReadNextRecord.Click += new System.EventHandler(this.btnReadNextRecord_Click);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 404);
+            this.Controls.Add(this.btnGetReadedIndex);
             this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.btnReadNextRecord);
             this.Controls.Add(this.btnReadRecord);
             this.Controls.Add(this.btnSetTime);
             this.Controls.Add(this.btnGetTime);
@@ -220,6 +244,8 @@
         private System.Windows.Forms.Button btnSetTime;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button btnReadRecord;
+        private System.Windows.Forms.Button btnGetReadedIndex;
+        private System.Windows.Forms.Button btnReadNextRecord;
 
     }
 }

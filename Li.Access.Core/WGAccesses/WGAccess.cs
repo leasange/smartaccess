@@ -10,6 +10,17 @@ namespace Li.Access.Core.WGAccesses
 {
     public class WGAccess :AccessCore, IAccessCore
     {
+        private void DoBindPort()
+        {
+            this.Bind(61003);
+        }
+        private void BindPort()
+        {
+            if (!isBeginReadRecord)
+            {
+                DoBindPort();
+            }
+        }
         public Dictionary<IPEndPoint, byte[]> WGRecieveFrom(int maxCount = -1)
         {
            return this.RecieveFrom(64, maxCount);
@@ -32,13 +43,15 @@ namespace Li.Access.Core.WGAccesses
             }
             finally
             {
-                this.Close();
+                if (!isBeginReadRecord)
+                {
+                    this.Close();
+                }
             }
-
         }
         private bool DoSend(WGPacket packet,string controllerIp=null)
         {
-            this.Bind(61003);
+            BindPort();
             if (string.IsNullOrWhiteSpace(controllerIp))
             {
                 controllerIp = "255.255.255.255";
@@ -149,6 +162,78 @@ namespace Li.Access.Core.WGAccesses
             }
             return null;
         }
+
+
+        public bool SetControllerReadedIndex(Controller controller, long recordIndex)
+        {
+            WGPacket packet = new WGPacket(0xB2);
+            packet.SetDevSn(controller.sn);
+            packet.SetRecordIndex(recordIndex);
+            packet.SetReadedIndexTag();
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+        public long GetControllerReadedIndex(Controller controller)
+        {
+            WGPacket packet = new WGPacket(0xB4);
+            packet.SetDevSn(controller.sn);
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].GetRecordIndex();
+            }
+            return 0;
+        }
+
+        private bool isBeginReadRecord = false;
+        private long currentReadedRecord = 0;
+        private Controller currentController = null;
+        public bool BeginReadRecord(Controller controller)
+        {
+            if (isBeginReadRecord)
+            {
+                return true;
+            }
+            isBeginReadRecord = true;
+            currentController = controller;
+            DoBindPort();
+            currentReadedRecord = GetControllerReadedIndex(controller);
+            return true;
+        }
+
+        public ControllerState ReadNextRecord()
+        {
+            ControllerState state = GetControllerRecord(currentController, currentReadedRecord + 1);
+            if (state != null)
+            {
+                if (state.recordType != RecordType.NoRecord)
+                {
+                    if (state.recordType == RecordType.CoveredRecord)
+                    {
+                        state = GetControllerRecord(currentController, 0);
+                    }
+                    if (state.recordType != RecordType.NoRecord)
+                    {
+                        SetControllerReadedIndex(currentController, state.lastRecordIndex);
+                        currentReadedRecord = state.lastRecordIndex;
+                    }
+                }
+            }
+            return state;
+        }
+
+        public void EndReadRecord()
+        {
+            isBeginReadRecord = false;
+            this.Close();
+        }
     }
     /// <summary>
     /// WG请求包
@@ -237,10 +322,13 @@ namespace Li.Access.Core.WGAccesses
         public ControllerState ToControllerState(bool isRecord=false)
         {
             ControllerState state = new ControllerState();
-
             state.sn = iDevSn.ToString();//控制器序列号
             state.lastRecordIndex = data[3] * 256u * 256u * 256u + data[2] * 256u * 256u + data[1] * 256u + data[0];//最后一条记录的索引号(=0表示没有记录)
             state.recordType = (RecordType)(data[4]);
+            if (state.recordType == RecordType.NoRecord || state.recordType == RecordType.CoveredRecord)
+            {
+                return state;
+            }
             state.isAllowValid = data[5] == 1;//有效性(0 表示不通过:false, 1表示通过:true)
             state.doorNum = data[6];//门号(1,2,3,4)
             state.isEnterDoor = data[7] == 1;//进门/出门(1表示进门:true, 2表示出门:false)
@@ -319,6 +407,17 @@ namespace Li.Access.Core.WGAccesses
             data[1] = (byte)((u>>8) & 0x000000ff);
             data[2] = (byte)((u >> 16) & 0x000000ff);
             data[3] = (byte)((u >> 24) & 0x000000ff);
+        }
+        public long GetRecordIndex()
+        {
+            return data[3] * 256u * 256u * 256u + data[2] * 256u * 256u + data[1] * 256u + data[0];
+        }
+        public void SetReadedIndexTag()
+        {
+            data[4] = 0x55;
+            data[5] = 0xAA;
+            data[6] = 0xAA;
+            data[7] = 0x55;
         }
     }
 }

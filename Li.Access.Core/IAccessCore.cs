@@ -49,6 +49,36 @@ namespace Li.Access.Core
         /// <returns>返回记录</returns>
         ControllerState GetControllerRecord(Controller controller, long recordIndex);
 
+        /// <summary>
+        /// 开始读取记录
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>是否成功</returns>
+        bool BeginReadRecord(Controller controller);
+        /// <summary>
+        /// 读取下一条未读记录
+        /// </summary>
+        /// <returns>记录结果,recordType=RecordType.NoRecord 或者null 表示结束</returns>
+        ControllerState ReadNextRecord();
+        /// <summary>
+        /// 结束读取记录
+        /// </summary>
+        void EndReadRecord();
+
+        /// <summary>
+        /// 设置已读过记录的索引号
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="recordIndex">索引号</param>
+        /// <returns>成功与否</returns>
+        bool SetControllerReadedIndex(Controller controller,long recordIndex);
+        /// <summary>
+        /// 获取已读过记录的索引号
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>索引号,没有为0</returns>
+        long GetControllerReadedIndex(Controller controller);
+
     }
     public enum ControllerDoorType
     {
@@ -64,7 +94,8 @@ namespace Li.Access.Core
         NoRecord=0,//  0=无记录
         CardRecord,//1=刷卡记录
         ProRecord,// 2=门磁,按钮, 设备启动, 远程开门记录
-        AlarmRecord//3=报警记录
+        AlarmRecord,//3=报警记录
+        CoveredRecord = 0xFF,//记录被覆盖
     }
     /// <summary>
     /// 刷卡记录原因代码

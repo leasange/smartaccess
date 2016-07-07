@@ -134,5 +134,39 @@ namespace TestAccessCtrler
             ControllerState state = access.GetControllerRecord(ctrl, 0);
             MessageBox.Show("记录：index=" + state.lastRecordIndex + " reasonNo=" + state.reasonNo+" time="+state.recordTime);
         }
+
+        private void btnGetReadedIndex_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+            long index = access.GetControllerReadedIndex(ctrl);
+            MessageBox.Show("已读记录：index=" + index);
+        }
+        private IAccessCore totalAccess = new WGAccess();
+        private void btnReadNextRecord_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            if (totalAccess.BeginReadRecord(ctrl))
+            {
+                ControllerState record = totalAccess.ReadNextRecord();
+                if (record==null||record.recordType== RecordType.NoRecord)
+                {
+                    totalAccess.EndReadRecord();
+                    MessageBox.Show("读取完毕！");
+                }
+                else
+                {
+                    MessageBox.Show("记录：index=" + record.lastRecordIndex + " reasonNo=" + record.reasonNo + " time=" + record.recordTime);
+                }
+            }
+        }
     }
 }
