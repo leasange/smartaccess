@@ -10,9 +10,22 @@ namespace Li.Access.Core.WGAccesses
 {
     public class WGAccess :AccessCore, IAccessCore
     {
+        private static object lockPortObj = new object();//绑定端口锁定
         private void DoBindPort()
         {
-            this.Bind(61003);
+            lock (lockPortObj)
+            {
+                int port = DataHelper.GetNextAvailableNetPort(20000);
+                if (port >= 0)
+                {
+                    this.Bind(port);
+                }
+                //this.Bind(61003);
+                else
+                {
+                    throw new Exception("无可用端口");
+                }
+            }
         }
         private void BindPort()
         {
@@ -142,8 +155,13 @@ namespace Li.Access.Core.WGAccesses
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
-                DateTime dt= packets[0].ToDateTime();
-                return dt == dateTime;
+                DateTime dt = packets[0].ToDateTime();
+                return dt.Year == dateTime.Year &&
+                         dt.Month == dateTime.Month &&
+                         dt.Day == dateTime.Day &&
+                         dt.Hour == dateTime.Hour &&
+                         dt.Minute == dateTime.Minute &&
+                         dt.Second == dateTime.Second;
             }
             return false;
         }
@@ -153,7 +171,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0xB0);
             packet.SetDevSn(controller.sn);
-            packet.SetRecordIndex(recordIndex);
+            packet.SetRecordIndexOrCardNum(recordIndex);
             DoSend(packet, controller.ip);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
@@ -168,7 +186,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0xB2);
             packet.SetDevSn(controller.sn);
-            packet.SetRecordIndex(recordIndex);
+            packet.SetRecordIndexOrCardNum(recordIndex);
             packet.SetReadedIndexTag();
             DoSend(packet, controller.ip);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
@@ -233,6 +251,40 @@ namespace Li.Access.Core.WGAccesses
         {
             isBeginReadRecord = false;
             this.Close();
+        }
+
+
+        public bool OpenRemoteControllerDoor(Controller controller, int doorNum)
+        {
+            WGPacket packet = new WGPacket(0x40);
+            packet.SetDevSn(controller.sn);
+            packet.SetDoorNum(doorNum);
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+
+        public bool AddOrModifyAuthority(Controller controller, long cardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities, int password = 0)
+        {
+            WGPacket packet = new WGPacket(0x50);
+            packet.SetDevSn(controller.sn);
+            packet.SetRecordIndexOrCardNum(cardNum);
+            packet.SetAuthoriTimeTime(startTime,endTime);
+            packet.SetAuthoriDoors(doorNumAuthorities);
+            packet.SetAuthoriPassword(password);
+
+            DoSend(packet, controller.ip);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
         }
     }
     /// <summary>
@@ -318,7 +370,10 @@ namespace Li.Access.Core.WGAccesses
         {
             iDevSn = uint.Parse(sn);
         }
-
+        public void SetDoorNum(int doorNum)
+        {
+            data[0] = (byte)doorNum;
+        }
         public ControllerState ToControllerState(bool isRecord=false)
         {
             ControllerState state = new ControllerState();
@@ -400,7 +455,7 @@ namespace Li.Access.Core.WGAccesses
             data[6] = DataHelper.ToByteBCD(dateTime.Second);
         }
         //设置索引号
-        public void SetRecordIndex(long recordIndex)
+        public void SetRecordIndexOrCardNum(long recordIndex)
         {
             uint u = (uint)recordIndex;
             data[0] = (byte)(u & 0x000000ff);
@@ -418,6 +473,46 @@ namespace Li.Access.Core.WGAccesses
             data[5] = 0xAA;
             data[6] = 0xAA;
             data[7] = 0x55;
+        }
+
+        public void SetAuthoriTimeTime(DateTime startTime,DateTime endTime)
+        {
+            data[4] = DataHelper.ToByteBCD((int)(startTime.Year / 100));
+            data[5] = DataHelper.ToByteBCD(startTime.Year - ((int)(startTime.Year / 100)) * 100);
+            data[6] = DataHelper.ToByteBCD(startTime.Month);
+            data[7] = DataHelper.ToByteBCD(startTime.Day);
+
+            data[8] = DataHelper.ToByteBCD((int)(endTime.Year / 100));
+            data[9] = DataHelper.ToByteBCD(endTime.Year - ((int)(endTime.Year / 100)) * 100);
+            data[10] = DataHelper.ToByteBCD(endTime.Month);
+            data[11] = DataHelper.ToByteBCD(endTime.Day);
+        }
+
+        public void SetAuthoriDoors(Dictionary<int, bool> doorNumAuthorities)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                bool ret = false;
+                if (doorNumAuthorities.TryGetValue(i + 1, out ret))
+                {
+                    data[12 + i] = (byte)(ret ? 0x01 : 0x00);
+                }
+                else
+                {
+                    data[12 + i] = 0;
+                }
+            }
+        }
+
+        public void SetAuthoriPassword(int password)
+        {
+            if (password==0||password>999999||password<0)
+            {
+                return;
+            }
+            data[16] = (byte)(password & 0x0000ff);
+            data[17] = (byte)((password>>8) & 0x0000ff);
+            data[18] = (byte)((password >> 16) & 0x0000ff);
         }
     }
 }

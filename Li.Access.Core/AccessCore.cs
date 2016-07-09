@@ -28,7 +28,7 @@ namespace Li.Access.Core
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, protocol);
             }
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 61003);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, localPort);
             socket.Bind(endPoint);
             return true;
         }

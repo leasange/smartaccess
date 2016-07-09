@@ -71,14 +71,31 @@ namespace Li.Access.Core
         /// <param name="controller">控制器</param>
         /// <param name="recordIndex">索引号</param>
         /// <returns>成功与否</returns>
-        bool SetControllerReadedIndex(Controller controller,long recordIndex);
+        bool SetControllerReadedIndex(Controller controller, long recordIndex);
         /// <summary>
         /// 获取已读过记录的索引号
         /// </summary>
         /// <param name="controller">控制器</param>
         /// <returns>索引号,没有为0</returns>
         long GetControllerReadedIndex(Controller controller);
-
+        /// <summary>
+        /// 远程开门
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="doorNum">门编号：1-4</param>
+        /// <returns>成功与否</returns>
+        bool OpenRemoteControllerDoor(Controller controller, int doorNum);
+        /// <summary>
+        /// 权限添加或修改
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="cardNum">卡号</param>
+        /// <param name="startTime">起始时间：(年月日) 20100101 >2000年</param>
+        /// <param name="endTime">截止日期(年月日) 20291231</param>
+        /// <param name="doorNumAuthorities">每个门控制权限：<第一个门号，第二个该时间段的权限>，true 表示允许通过，false表示禁止通过</param>
+        /// <param name="password">用户设置的密码【启用了密码键盘才有效】，密码最大长度为6位数字(也就是最大为999999)(如果有要求时设置. 否则设为0)缺省值: 345678</param>
+        /// <returns>成功与否</returns>
+        bool AddOrModifyAuthority(Controller controller, long cardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities,int password=0);
     }
     public enum ControllerDoorType
     {

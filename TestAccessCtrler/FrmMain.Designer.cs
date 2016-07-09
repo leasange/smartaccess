@@ -46,7 +46,11 @@
             this.btnReadRecord = new System.Windows.Forms.Button();
             this.btnGetReadedIndex = new System.Windows.Forms.Button();
             this.btnReadNextRecord = new System.Windows.Forms.Button();
+            this.btnOpenRemoteDoor = new System.Windows.Forms.Button();
+            this.iintValue = new System.Windows.Forms.NumericUpDown();
+            this.btnAddAuth = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iintValue)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -75,10 +79,10 @@
             this.Column6,
             this.Column8,
             this.Column10});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 58);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 86);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(929, 334);
+            this.dataGridView1.Size = new System.Drawing.Size(929, 306);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -206,15 +210,55 @@
             this.btnReadNextRecord.UseVisualStyleBackColor = true;
             this.btnReadNextRecord.Click += new System.EventHandler(this.btnReadNextRecord_Click);
             // 
+            // btnOpenRemoteDoor
+            // 
+            this.btnOpenRemoteDoor.Location = new System.Drawing.Point(156, 49);
+            this.btnOpenRemoteDoor.Name = "btnOpenRemoteDoor";
+            this.btnOpenRemoteDoor.Size = new System.Drawing.Size(88, 31);
+            this.btnOpenRemoteDoor.TabIndex = 2;
+            this.btnOpenRemoteDoor.Text = "远程开门";
+            this.btnOpenRemoteDoor.UseVisualStyleBackColor = true;
+            this.btnOpenRemoteDoor.Click += new System.EventHandler(this.btnOpenRemoteDoor_Click);
+            // 
+            // iintValue
+            // 
+            this.iintValue.Location = new System.Drawing.Point(30, 56);
+            this.iintValue.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.iintValue.Name = "iintValue";
+            this.iintValue.Size = new System.Drawing.Size(120, 21);
+            this.iintValue.TabIndex = 5;
+            this.iintValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnAddAuth
+            // 
+            this.btnAddAuth.Location = new System.Drawing.Point(250, 49);
+            this.btnAddAuth.Name = "btnAddAuth";
+            this.btnAddAuth.Size = new System.Drawing.Size(88, 31);
+            this.btnAddAuth.TabIndex = 2;
+            this.btnAddAuth.Text = "添加权限";
+            this.btnAddAuth.UseVisualStyleBackColor = true;
+            this.btnAddAuth.Click += new System.EventHandler(this.btnAddAuth_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 404);
+            this.Controls.Add(this.iintValue);
             this.Controls.Add(this.btnGetReadedIndex);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnReadNextRecord);
             this.Controls.Add(this.btnReadRecord);
+            this.Controls.Add(this.btnAddAuth);
+            this.Controls.Add(this.btnOpenRemoteDoor);
             this.Controls.Add(this.btnSetTime);
             this.Controls.Add(this.btnGetTime);
             this.Controls.Add(this.dataGridView1);
@@ -222,6 +266,7 @@
             this.Name = "FrmMain";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iintValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -246,6 +291,9 @@
         private System.Windows.Forms.Button btnReadRecord;
         private System.Windows.Forms.Button btnGetReadedIndex;
         private System.Windows.Forms.Button btnReadNextRecord;
+        private System.Windows.Forms.Button btnOpenRemoteDoor;
+        private System.Windows.Forms.NumericUpDown iintValue;
+        private System.Windows.Forms.Button btnAddAuth;
 
     }
 }

@@ -168,5 +168,35 @@ namespace TestAccessCtrler
                 }
             }
         }
+
+        private void btnOpenRemoteDoor_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+            bool ret = access.OpenRemoteControllerDoor(ctrl, (int)iintValue.Value);
+            MessageBox.Show("远程开门" + (ret ? "成功" : "失败"));
+        }
+
+        private void btnAddAuth_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            IAccessCore access = new WGAccess();
+           Dictionary<int,bool>  dic= new Dictionary<int,bool>();
+            dic.Add(1,true);
+            dic.Add(2,true);
+
+            bool ret = access.AddOrModifyAuthority(ctrl, (long)iintValue.Value,
+                DateTime.Now, DateTime.Now.AddDays(10), dic
+                );
+            MessageBox.Show("设置权限" + (ret ? "成功" : "失败"));
+        }
     }
 }
