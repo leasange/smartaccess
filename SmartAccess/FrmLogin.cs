@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartAccess.Common.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,6 +32,7 @@ namespace SmartAccess
         //执行登陆
         private void DoLogin()
         {
+            Maticsoft.DBUtility.DbHelperSQL.connectionString = SysConfig.GetSqlServerConnectString();
             DoEnter();
         }
         //执行进入系统

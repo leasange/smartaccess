@@ -205,7 +205,7 @@
             this.lbMsg.ForeColor = System.Drawing.Color.Red;
             this.lbMsg.Location = new System.Drawing.Point(112, 203);
             this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(75, 23);
+            this.lbMsg.Size = new System.Drawing.Size(0, 0);
             this.lbMsg.TabIndex = 4;
             // 
             // btnSave
@@ -243,7 +243,7 @@
             this.tbDatabase.Name = "tbDatabase";
             this.tbDatabase.Size = new System.Drawing.Size(227, 23);
             this.tbDatabase.TabIndex = 1;
-            this.tbDatabase.Text = "AccessData";
+            this.tbDatabase.Text = "SmartAccess";
             // 
             // FrmDataBaseConfig
             // 

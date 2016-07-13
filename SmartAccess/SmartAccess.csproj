@@ -61,7 +61,9 @@
   <ItemGroup>
     <Compile Include="Common\Config\SysConfig.cs" />
     <Compile Include="Common\Database\DatabaseHelper.cs" />
+    <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
+    <Compile Include="Common\WinInfo\WinInfoHelper.cs" />
     <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,6 +181,24 @@
     <Compile Include="RuleSetMrg\NormalRuleSet.Designer.cs">
       <DependentUpon>NormalRuleSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_ZONE.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_USER_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_ZONE.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_USER_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_ZONE.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_USER_INFO.cs" />
     <Compile Include="StatisticsMgr\AccessInOutRecordsStatistics.cs">
       <SubType>UserControl</SubType>
     </Compile>

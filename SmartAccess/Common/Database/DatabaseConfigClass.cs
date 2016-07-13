@@ -24,7 +24,7 @@ namespace SmartAccess.Common.Database
             0x89,0xab,0x00,0x12,0xef,0x43,0x1f,0x10,0x20,0xac,0x19,0xa0,0x40,0x28,0x5f,0xda,0x33,0x68,0x3e,0xed
         };
         private static string encKey = "0*&~!@!#wewsa%~~```";
-        public static DatabaseConfigClass GetConfig(string key)
+        public static DatabaseConfigClass GetConfig(string key = "SqlServerConnectString")
         {
             string str = SunCreate.Common.ConfigHelper.GetConfigString(key);
             if (string.IsNullOrWhiteSpace(str))

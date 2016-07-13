@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,11 @@ namespace SmartAccess.Common.Database
             SqlConnection con = new SqlConnection(connectString);
             con.Open();
             return con;
+        }
+        public static decimal GetMaxID(string field,string table)
+        {
+           DataSet ds=  Maticsoft.DBUtility.DbHelperSQL.Query("select max(" + field + ") from " + table);
+           return (decimal)ds.Tables[0].Rows[0][0];
         }
     }
 }
