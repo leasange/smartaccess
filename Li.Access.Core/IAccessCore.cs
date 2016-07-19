@@ -186,7 +186,7 @@ namespace Li.Access.Core
     {
         //以下是State和Record共有
         public string sn;//控制器序列号
-        public uint lastRecordIndex = 0;//最后一条记录的索引号(=0表示没有记录)
+        public uint lastRecordIndex = 0;//(最后一条)记录的索引号(=0表示没有记录)
         public RecordType recordType = RecordType.NoRecord;
         public bool isAllowValid;//有效性(0 表示不通过:false, 1表示通过:true)
         public byte doorNum;//门号(1,2,3,4)

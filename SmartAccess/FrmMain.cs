@@ -232,9 +232,9 @@ namespace SmartAccess
 
         private void linkControlerMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!CheckControl(typeof(ControlDevMgr.ControlerMgr)))
+            if (!CheckControl(typeof(ControlDevMgr.ControllerMgr)))
             {
-                AddControl(new ControlDevMgr.ControlerMgr(), "搜索控制管理");
+                AddControl(new ControlDevMgr.ControllerMgr(), "搜索控制管理");
             }
         }
 

@@ -10,9 +10,9 @@ using SmartAccess.Common.Datas;
 
 namespace SmartAccess.ControlDevMgr
 {
-    public partial class ControlerMgr : UserControl
+    public partial class ControllerMgr : UserControl
     {
-        public ControlerMgr()
+        public ControllerMgr()
         {
             InitializeComponent();
         }

@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -70,11 +70,11 @@
     <Compile Include="ControlDevMgr\ControlAreaMgr.Designer.cs">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlDevMgr\ControlerMgr.cs">
+    <Compile Include="ControlDevMgr\ControllerMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlDevMgr\ControlerMgr.Designer.cs">
-      <DependentUpon>ControlerMgr.cs</DependentUpon>
+    <Compile Include="ControlDevMgr\ControllerMgr.Designer.cs">
+      <DependentUpon>ControllerMgr.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlDevMgr\ControlState.cs">
       <SubType>UserControl</SubType>
@@ -181,24 +181,6 @@
     <Compile Include="RuleSetMrg\NormalRuleSet.Designer.cs">
       <DependentUpon>NormalRuleSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_INFO.cs" />
-    <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_ZONE.cs" />
-    <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
-    <Compile Include="SqlServerDb\BLL\SMT_ORG_INFO.cs" />
-    <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO.cs" />
-    <Compile Include="SqlServerDb\BLL\SMT_USER_INFO.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_INFO.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_ZONE.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_ORG_INFO.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO.cs" />
-    <Compile Include="SqlServerDb\DAL\SMT_USER_INFO.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_INFO.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_ZONE.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_ORG_INFO.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />
-    <Compile Include="SqlServerDb\Model\SMT_USER_INFO.cs" />
     <Compile Include="StatisticsMgr\AccessInOutRecordsStatistics.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -238,8 +220,8 @@
     <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlDevMgr\ControlerMgr.resx">
-      <DependentUpon>ControlerMgr.cs</DependentUpon>
+    <EmbeddedResource Include="ControlDevMgr\ControllerMgr.resx">
+      <DependentUpon>ControllerMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlState.resx">
       <DependentUpon>ControlState.cs</DependentUpon>
@@ -353,6 +335,10 @@
     <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
       <Project>{3D529AA3-FF22-4E41-9924-0B0777D640B6}</Project>
       <Name>Li.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Li.Database\Li.Database.csproj">
+      <Project>{86ba130f-ac75-4c26-9989-74c48cae03cf}</Project>
+      <Name>Li.Database</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

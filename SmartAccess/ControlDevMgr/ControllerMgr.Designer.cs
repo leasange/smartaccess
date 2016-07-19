@@ -1,6 +1,6 @@
 ﻿namespace SmartAccess.ControlDevMgr
 {
-    partial class ControlerMgr
+    partial class ControllerMgr
     {
         /// <summary> 
         /// 必需的设计器变量。
