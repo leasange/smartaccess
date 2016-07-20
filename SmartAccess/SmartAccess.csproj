@@ -63,6 +63,18 @@
     <Compile Include="Common\Database\DatabaseHelper.cs" />
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
+    <Compile Include="Common\WinInfo\CtrlWaiting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\WinInfo\CtrlWaiting.Designer.cs">
+      <DependentUpon>CtrlWaiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\WinInfo\FrmInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\WinInfo\FrmInfo.Designer.cs">
+      <DependentUpon>FrmInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\WinInfo\WinInfoHelper.cs" />
     <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
       <SubType>UserControl</SubType>
@@ -89,6 +101,12 @@
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Database\DatabaseConfigClass.cs" />
+    <Compile Include="ControlDevMgr\FrmSearchController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\FrmSearchController.Designer.cs">
+      <DependentUpon>FrmSearchController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\OneManyDoorMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -217,6 +235,12 @@
     <Compile Include="VerInfoMgr\VerCodeInfo.Designer.cs">
       <DependentUpon>VerCodeInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Common\WinInfo\CtrlWaiting.resx">
+      <DependentUpon>CtrlWaiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\WinInfo\FrmInfo.resx">
+      <DependentUpon>FrmInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmControlAreaEditor.resx">
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\FrmSearchController.resx">
+      <DependentUpon>FrmSearchController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\OneManyDoorMgr.resx">
       <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
@@ -332,6 +359,10 @@
     <None Include="Resources\menuback.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Li.Access.Core\Li.Access.Core.csproj">
+      <Project>{f0b4a7a3-ef20-45ef-8794-beac15c9eb22}</Project>
+      <Name>Li.Access.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
       <Project>{3D529AA3-FF22-4E41-9924-0B0777D640B6}</Project>
       <Name>Li.Controls</Name>
@@ -343,6 +374,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\welcomeback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading_text.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

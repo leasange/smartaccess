@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SmartAccess.Common.Datas;
+using Li.Access.Core;
+using Li.Access.Core.WGAccesses;
+using SmartAccess.Common.WinInfo;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -147,6 +150,12 @@ namespace SmartAccess.ControlDevMgr
                     advTreeArea.SelectedNode.Remove();
                 }
             }
+        }
+
+        private void biAddRootArea_Click(object sender, EventArgs e)
+        {
+            FrmSearchController search = new FrmSearchController();
+            search.ShowDialog(this);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace SmartAccess.Common.Datas
             }
             catch (Exception ex)
             {
-                WinInfoHelper.ShowInfoWindow("获取区域列表异常:" + ex.Message);
+                WinInfoHelper.ShowInfoWindow(null,"获取区域列表异常:" + ex.Message);
                 log.Error("获取区域列表异常：", ex);
             }
         }
