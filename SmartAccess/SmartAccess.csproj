@@ -62,6 +62,7 @@
     <Compile Include="Common\Config\SysConfig.cs" />
     <Compile Include="Common\Database\DatabaseHelper.cs" />
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
+    <Compile Include="Common\Datas\ControllerHelper.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">
       <SubType>UserControl</SubType>
@@ -101,6 +102,12 @@
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Database\DatabaseConfigClass.cs" />
+    <Compile Include="ControlDevMgr\FrmModifyCtrlrIp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\FrmModifyCtrlrIp.Designer.cs">
+      <DependentUpon>FrmModifyCtrlrIp.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\FrmSearchController.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmControlAreaEditor.resx">
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\FrmModifyCtrlrIp.resx">
+      <DependentUpon>FrmModifyCtrlrIp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmSearchController.resx">
       <DependentUpon>FrmSearchController.cs</DependentUpon>

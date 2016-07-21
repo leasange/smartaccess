@@ -20,7 +20,7 @@ namespace SmartAccess
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += Application_ThreadException;
+           // Application.ThreadException += Application_ThreadException;
             Application.Run(new FrmLogin());
         }
 

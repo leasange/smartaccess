@@ -170,14 +170,18 @@ namespace Li.Access.Core
     /// </summary>
     public class Controller
     {
+        public const string WGACCESS="WGACCESS";
+
         public string sn;//控制器序列号
         public ControllerDoorType doorType;//控制器门类型
         public string ip;//IP地址
+        public int port;//控制器端口
         public string mask;//子网掩码
         public string gateway;//网关
         public string mac;//MAC地址
         public string driverVersion;//驱动版本
         public DateTime driverReleaseTime;//驱动发行日期(年、月、日)
+        public string model = WGACCESS;
     }
     /// <summary>
     ///控制器状态

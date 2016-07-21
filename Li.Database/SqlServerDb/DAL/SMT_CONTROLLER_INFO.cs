@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:28   N/A    初版
+* V0.01  2016/7/21 22:57:19   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -54,9 +54,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_CONTROLLER_INFO(");
-			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID)");
+			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL)");
 			strSql.Append(" values (");
-			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID)");
+			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID,@CTRLR_MODEL)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
@@ -72,7 +72,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@CTRLR_DESC", SqlDbType.NVarChar,400),
 					new SqlParameter("@AREA_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@ORDER_VALUE", SqlDbType.Int,4),
-					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9)};
+					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20)};
 			parameters[0].Value = model.SN_NO;
 			parameters[1].Value = model.NAME;
 			parameters[2].Value = model.IP;
@@ -87,6 +88,7 @@ namespace Maticsoft.DAL
 			parameters[11].Value = model.AREA_ID;
 			parameters[12].Value = model.ORDER_VALUE;
 			parameters[13].Value = model.ORG_ID;
+			parameters[14].Value = model.CTRLR_MODEL;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -118,7 +120,8 @@ namespace Maticsoft.DAL
 			strSql.Append("CTRLR_DESC=@CTRLR_DESC,");
 			strSql.Append("AREA_ID=@AREA_ID,");
 			strSql.Append("ORDER_VALUE=@ORDER_VALUE,");
-			strSql.Append("ORG_ID=@ORG_ID");
+			strSql.Append("ORG_ID=@ORG_ID,");
+			strSql.Append("CTRLR_MODEL=@CTRLR_MODEL");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
@@ -135,6 +138,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@AREA_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@ORDER_VALUE", SqlDbType.Int,4),
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.SN_NO;
 			parameters[1].Value = model.NAME;
@@ -150,7 +154,8 @@ namespace Maticsoft.DAL
 			parameters[11].Value = model.AREA_ID;
 			parameters[12].Value = model.ORDER_VALUE;
 			parameters[13].Value = model.ORG_ID;
-			parameters[14].Value = model.ID;
+			parameters[14].Value = model.CTRLR_MODEL;
+			parameters[15].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -214,7 +219,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID from SMT_CONTROLLER_INFO ");
+			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL from SMT_CONTROLLER_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -302,6 +307,10 @@ namespace Maticsoft.DAL
 				{
 					model.ORG_ID=decimal.Parse(row["ORG_ID"].ToString());
 				}
+				if(row["CTRLR_MODEL"]!=null)
+				{
+					model.CTRLR_MODEL=row["CTRLR_MODEL"].ToString();
+				}
 			}
 			return model;
 		}
@@ -312,7 +321,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID ");
+			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -332,7 +341,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID ");
+			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{

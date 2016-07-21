@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:28   N/A    初版
+* V0.01  2016/7/21 22:57:19   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -41,6 +41,7 @@ namespace Maticsoft.Model
 		private decimal? _area_id;
 		private int? _order_value;
 		private decimal? _org_id;
+		private string _ctrlr_model;
 		/// <summary>
 		/// 控制器ID
 		/// </summary>
@@ -161,6 +162,14 @@ namespace Maticsoft.Model
 		{
 			set{ _org_id=value;}
 			get{return _org_id;}
+		}
+		/// <summary>
+		/// 控制器型号类型："WGACCESS"  WG门禁控制器；
+		/// </summary>
+		public string CTRLR_MODEL
+		{
+			set{ _ctrlr_model=value;}
+			get{return _ctrlr_model;}
 		}
 		#endregion Model
 

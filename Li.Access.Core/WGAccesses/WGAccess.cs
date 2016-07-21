@@ -62,14 +62,18 @@ namespace Li.Access.Core.WGAccesses
                 }
             }
         }
-        private bool DoSend(WGPacket packet,string controllerIp=null)
+        private bool DoSend(WGPacket packet, string controllerIp = null,int controllerPort=60000)
         {
             BindPort();
             if (string.IsNullOrWhiteSpace(controllerIp))
             {
                 controllerIp = "255.255.255.255";
             }
-            bool ret = this.SendTo(DataHelper.GetBytes(typeof(WGPacket), packet), controllerIp, 60000);
+            if (controllerPort<=0)
+            {
+                controllerPort = 60000;
+            }
+            bool ret = this.SendTo(DataHelper.GetBytes(typeof(WGPacket), packet), controllerIp, controllerPort);
             return ret;
         }
 
@@ -96,6 +100,7 @@ namespace Li.Access.Core.WGAccesses
                         {
                             WGPacket p = ToWGPacket(item.Value);
                             Controller ctrl = p.ToController();
+                            ctrl.port = item.Key.Port;
                             if (ctrl != null)
                             {
                                 list.Add(ctrl);
@@ -117,14 +122,14 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0x96);
             packet.SetControllerIP(controller);
-            DoSend(packet);
+            DoSend(packet, controllerPort: controller.port);
             Close();
         }
         public ControllerState GetControllerState(Controller controller)
         {
             WGPacket packet = new WGPacket(0x20);
             packet.SetDevSn(controller.sn);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count==1)
             {
@@ -136,7 +141,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0x32);
             packet.SetDevSn(controller.sn);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -151,7 +156,7 @@ namespace Li.Access.Core.WGAccesses
             WGPacket packet = new WGPacket(0x30);
             packet.SetDevSn(controller.sn);
             packet.SetDateTime(dateTime);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -172,7 +177,7 @@ namespace Li.Access.Core.WGAccesses
             WGPacket packet = new WGPacket(0xB0);
             packet.SetDevSn(controller.sn);
             packet.SetRecordIndexOrCardNum(recordIndex);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -188,7 +193,7 @@ namespace Li.Access.Core.WGAccesses
             packet.SetDevSn(controller.sn);
             packet.SetRecordIndexOrCardNum(recordIndex);
             packet.SetReadedIndexTag();
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -201,7 +206,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0xB4);
             packet.SetDevSn(controller.sn);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -259,7 +264,7 @@ namespace Li.Access.Core.WGAccesses
             WGPacket packet = new WGPacket(0x40);
             packet.SetDevSn(controller.sn);
             packet.SetDoorNum(doorNum);
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
@@ -278,7 +283,7 @@ namespace Li.Access.Core.WGAccesses
             packet.SetAuthoriDoors(doorNumAuthorities);
             packet.SetAuthoriPassword(password);
 
-            DoSend(packet, controller.ip);
+            DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
             {
