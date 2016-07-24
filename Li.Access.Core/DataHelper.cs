@@ -57,6 +57,22 @@ namespace Li.Access.Core
             }
             return str;
         }
+
+        public static byte[] ToBytesFromHexString(string hexString)
+        {
+            if (hexString.Length==1)
+            {
+                hexString = "0" + hexString;
+            }
+            byte[] bts = new byte[hexString.Length / 2];
+            for (int i = 0; i < hexString.Length-1; i+=2)
+            {
+                string str = hexString.Substring(i, 2);
+                bts[i/2] = Convert.ToByte(str, 16);
+            }
+            return bts;
+        }
+
         public static byte GetFromBCD(byte bcd)
         {
             return (byte)(((bcd >> 4) * 10) + (bcd & 0x0F));

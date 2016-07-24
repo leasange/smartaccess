@@ -55,7 +55,7 @@
             this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbMsg.Location = new System.Drawing.Point(34, 12);
             this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(315, 146);
+            this.lbMsg.Size = new System.Drawing.Size(286, 126);
             this.lbMsg.TabIndex = 0;
             this.lbMsg.Text = "消息...";
             this.lbMsg.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 185);
+            this.ClientSize = new System.Drawing.Size(353, 165);
             this.Controls.Add(this.lbMsg);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

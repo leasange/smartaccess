@@ -78,14 +78,9 @@ namespace SmartAccess.Common.Datas
                 root.Nodes.Add(node);
             }
         }
-        /// <summary>
-        /// 获取区域树形结构
-        /// </summary>
-        /// <param name="refresh">是否强制刷新</param>
-        /// <returns>返回树形列表</returns>
-        public static List<DevComponents.AdvTree.Node> GetAreasTree(bool refresh = false)
+
+        public static List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas)
         {
-            List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas = GetAreas(refresh);
             List<DevComponents.AdvTree.Node> tree = new List<DevComponents.AdvTree.Node>();
             if (areas == null || areas.Count == 0)
             {
@@ -98,23 +93,23 @@ namespace SmartAccess.Common.Datas
                 for (int i = 0; i < areas.Count; i++)
                 {
                     decimal? dec = areas[i].PAR_ID;
-                    if (dec==null)
-	                {
+                    if (dec == null)
+                    {
                         tree.Add(CreateNode(areas[i]));
                         remvs.Add(areas[i]);
                     }
-                    if(areas.Exists(m =>
+                    if (areas.Exists(m =>
+                    {
+                        if (m == areas[i])
                         {
-                            if (m==areas[i])
-                            {
-                                return false;
-                            }
-                            if (m.ID==(decimal)dec)
-                            {
-                                return true;
-                            }
                             return false;
-                        }))
+                        }
+                        if (m.ID == (decimal)dec)
+                        {
+                            return true;
+                        }
+                        return false;
+                    }))
                     {
                         continue;
                     }
@@ -129,6 +124,7 @@ namespace SmartAccess.Common.Datas
             }
             return tree;
         }
+
 
         public static decimal AddArea(Maticsoft.Model.SMT_CONTROLLER_ZONE Area)
         {

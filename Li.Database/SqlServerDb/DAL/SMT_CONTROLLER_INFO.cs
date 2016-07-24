@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/21 22:57:19   N/A    初版
+* V0.01  2016/7/23 15:31:37   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -33,15 +33,16 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(decimal ID)
+		public bool Exists(string SN_NO,decimal ID)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from SMT_CONTROLLER_INFO");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where SN_NO=@SN_NO and ID=@ID ");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal)
-			};
-			parameters[0].Value = ID;
+					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
+					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+			parameters[0].Value = SN_NO;
+			parameters[1].Value = ID;
 
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
@@ -54,9 +55,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_CONTROLLER_INFO(");
-			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL)");
+			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE)");
 			strSql.Append(" values (");
-			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID,@CTRLR_MODEL)");
+			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID,@CTRLR_MODEL,@IS_ENABLE)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
@@ -73,7 +74,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@AREA_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@ORDER_VALUE", SqlDbType.Int,4),
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20)};
+					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20),
+					new SqlParameter("@IS_ENABLE", SqlDbType.Bit,1)};
 			parameters[0].Value = model.SN_NO;
 			parameters[1].Value = model.NAME;
 			parameters[2].Value = model.IP;
@@ -89,6 +91,7 @@ namespace Maticsoft.DAL
 			parameters[12].Value = model.ORDER_VALUE;
 			parameters[13].Value = model.ORG_ID;
 			parameters[14].Value = model.CTRLR_MODEL;
+			parameters[15].Value = model.IS_ENABLE;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -107,7 +110,6 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update SMT_CONTROLLER_INFO set ");
-			strSql.Append("SN_NO=@SN_NO,");
 			strSql.Append("NAME=@NAME,");
 			strSql.Append("IP=@IP,");
 			strSql.Append("PORT=@PORT,");
@@ -121,10 +123,10 @@ namespace Maticsoft.DAL
 			strSql.Append("AREA_ID=@AREA_ID,");
 			strSql.Append("ORDER_VALUE=@ORDER_VALUE,");
 			strSql.Append("ORG_ID=@ORG_ID,");
-			strSql.Append("CTRLR_MODEL=@CTRLR_MODEL");
+			strSql.Append("CTRLR_MODEL=@CTRLR_MODEL,");
+			strSql.Append("IS_ENABLE=@IS_ENABLE");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@NAME", SqlDbType.NVarChar,200),
 					new SqlParameter("@IP", SqlDbType.VarChar,40),
 					new SqlParameter("@PORT", SqlDbType.Int,4),
@@ -139,23 +141,26 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ORDER_VALUE", SqlDbType.Int,4),
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20),
-					new SqlParameter("@ID", SqlDbType.Decimal,9)};
-			parameters[0].Value = model.SN_NO;
-			parameters[1].Value = model.NAME;
-			parameters[2].Value = model.IP;
-			parameters[3].Value = model.PORT;
-			parameters[4].Value = model.MASK;
-			parameters[5].Value = model.GATEWAY;
-			parameters[6].Value = model.MAC;
-			parameters[7].Value = model.CTRLR_TYPE;
-			parameters[8].Value = model.DRIVER_VERSION;
-			parameters[9].Value = model.DRIVER_DATE;
-			parameters[10].Value = model.CTRLR_DESC;
-			parameters[11].Value = model.AREA_ID;
-			parameters[12].Value = model.ORDER_VALUE;
-			parameters[13].Value = model.ORG_ID;
-			parameters[14].Value = model.CTRLR_MODEL;
+					new SqlParameter("@IS_ENABLE", SqlDbType.Bit,1),
+					new SqlParameter("@ID", SqlDbType.Decimal,9),
+					new SqlParameter("@SN_NO", SqlDbType.VarChar,100)};
+			parameters[0].Value = model.NAME;
+			parameters[1].Value = model.IP;
+			parameters[2].Value = model.PORT;
+			parameters[3].Value = model.MASK;
+			parameters[4].Value = model.GATEWAY;
+			parameters[5].Value = model.MAC;
+			parameters[6].Value = model.CTRLR_TYPE;
+			parameters[7].Value = model.DRIVER_VERSION;
+			parameters[8].Value = model.DRIVER_DATE;
+			parameters[9].Value = model.CTRLR_DESC;
+			parameters[10].Value = model.AREA_ID;
+			parameters[11].Value = model.ORDER_VALUE;
+			parameters[12].Value = model.ORG_ID;
+			parameters[13].Value = model.CTRLR_MODEL;
+			parameters[14].Value = model.IS_ENABLE;
 			parameters[15].Value = model.ID;
+			parameters[16].Value = model.SN_NO;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -181,6 +186,31 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ID", SqlDbType.Decimal)
 			};
 			parameters[0].Value = ID;
+
+			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool Delete(string SN_NO,decimal ID)
+		{
+			
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("delete from SMT_CONTROLLER_INFO ");
+			strSql.Append(" where SN_NO=@SN_NO and ID=@ID ");
+			SqlParameter[] parameters = {
+					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
+					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+			parameters[0].Value = SN_NO;
+			parameters[1].Value = ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -219,7 +249,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL from SMT_CONTROLLER_INFO ");
+			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE from SMT_CONTROLLER_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -311,6 +341,17 @@ namespace Maticsoft.DAL
 				{
 					model.CTRLR_MODEL=row["CTRLR_MODEL"].ToString();
 				}
+				if(row["IS_ENABLE"]!=null && row["IS_ENABLE"].ToString()!="")
+				{
+					if((row["IS_ENABLE"].ToString()=="1")||(row["IS_ENABLE"].ToString().ToLower()=="true"))
+					{
+						model.IS_ENABLE=true;
+					}
+					else
+					{
+						model.IS_ENABLE=false;
+					}
+				}
 			}
 			return model;
 		}
@@ -321,7 +362,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL ");
+			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -341,7 +382,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL ");
+			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{

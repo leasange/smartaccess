@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_CONTROLLER_INFO.cs
+* SMT_CARD_RECORDS.cs
 *
 * 功 能： N/A
-* 类 名： SMT_CONTROLLER_INFO
+* 类 名： SMT_CARD_RECORDS
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/23 15:31:37   N/A    初版
+* V0.01  2016/7/23 16:40:08   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,26 +22,26 @@ using Maticsoft.Model;
 namespace Maticsoft.BLL
 {
 	/// <summary>
-	/// 控制器表
+	/// 刷卡记录表
 	/// </summary>
-	public partial class SMT_CONTROLLER_INFO
+	public partial class SMT_CARD_RECORDS
 	{
-		private readonly Maticsoft.DAL.SMT_CONTROLLER_INFO dal=new Maticsoft.DAL.SMT_CONTROLLER_INFO();
-		public SMT_CONTROLLER_INFO()
+		private readonly Maticsoft.DAL.SMT_CARD_RECORDS dal=new Maticsoft.DAL.SMT_CARD_RECORDS();
+		public SMT_CARD_RECORDS()
 		{}
 		#region  BasicMethod
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(string SN_NO,decimal ID)
+		public bool Exists(decimal ID)
 		{
-			return dal.Exists(SN_NO,ID);
+			return dal.Exists(ID);
 		}
 
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public decimal Add(Maticsoft.Model.SMT_CONTROLLER_INFO model)
+		public decimal Add(Maticsoft.Model.SMT_CARD_RECORDS model)
 		{
 			return dal.Add(model);
 		}
@@ -49,7 +49,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(Maticsoft.Model.SMT_CONTROLLER_INFO model)
+		public bool Update(Maticsoft.Model.SMT_CARD_RECORDS model)
 		{
 			return dal.Update(model);
 		}
@@ -65,14 +65,6 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(string SN_NO,decimal ID)
-		{
-			
-			return dal.Delete(SN_NO,ID);
-		}
-		/// <summary>
-		/// 删除一条数据
-		/// </summary>
 		public bool DeleteList(string IDlist )
 		{
             return dal.DeleteList(IDlist);
@@ -81,7 +73,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_CONTROLLER_INFO GetModel(decimal ID)
+		public Maticsoft.Model.SMT_CARD_RECORDS GetModel(decimal ID)
 		{
 			
 			return dal.GetModel(ID);
@@ -90,10 +82,10 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public Maticsoft.Model.SMT_CONTROLLER_INFO GetModelByCache(decimal ID)
+		public Maticsoft.Model.SMT_CARD_RECORDS GetModelByCache(decimal ID)
 		{
 			
-			string CacheKey = "SMT_CONTROLLER_INFOModel-" + ID;
+			string CacheKey = "SMT_CARD_RECORDSModel-" + ID;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
@@ -108,7 +100,7 @@ namespace Maticsoft.BLL
 				}
 				catch{}
 			}
-			return (Maticsoft.Model.SMT_CONTROLLER_INFO)objModel;
+			return (Maticsoft.Model.SMT_CARD_RECORDS)objModel;
 		}
 
 		/// <summary>
@@ -128,7 +120,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetModelList(string strWhere)
+		public List<Maticsoft.Model.SMT_CARD_RECORDS> GetModelList(string strWhere)
 		{
 			DataSet ds = dal.GetList(strWhere);
 			return DataTableToList(ds.Tables[0]);
@@ -136,13 +128,13 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.SMT_CONTROLLER_INFO> DataTableToList(DataTable dt)
+		public List<Maticsoft.Model.SMT_CARD_RECORDS> DataTableToList(DataTable dt)
 		{
-			List<Maticsoft.Model.SMT_CONTROLLER_INFO> modelList = new List<Maticsoft.Model.SMT_CONTROLLER_INFO>();
+			List<Maticsoft.Model.SMT_CARD_RECORDS> modelList = new List<Maticsoft.Model.SMT_CARD_RECORDS>();
 			int rowsCount = dt.Rows.Count;
 			if (rowsCount > 0)
 			{
-				Maticsoft.Model.SMT_CONTROLLER_INFO model;
+				Maticsoft.Model.SMT_CARD_RECORDS model;
 				for (int n = 0; n < rowsCount; n++)
 				{
 					model = dal.DataRowToModel(dt.Rows[n]);

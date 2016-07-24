@@ -19,13 +19,65 @@ namespace SmartAccess.ControlDevMgr
         {
             InitializeComponent();
         }
-        private void InitArea()
+        private void Init()
         {
-            List<DevComponents.AdvTree.Node> tree = AreaDataHelper.GetAreasTree(true);
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls = ControllerHelper.GetList("1=1",true);//获取所有控制器
+                List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas = AreaDataHelper.GetAreas(true);//获取所有区域
+                this.Invoke(new Action(()=>
+                    {
+                        ShowAreas(areas);
+                        ShowCtrls(ctrls);
+                    }));
+            });
+            waiting.Show(this,500);
+        }
+        private void DoLoadCtrlrs(List<decimal> areaIds)
+        {
+            List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls = ControllerHelper.GetList(areaIds);
+
+        }
+        private void ShowAreas(List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas)
+        {
+            var tree=  AreaDataHelper.ToTree(areas);
             advTreeArea.Nodes[0].Nodes.Clear();
             advTreeArea.Nodes[0].Nodes.AddRange(tree.ToArray());
             advTreeArea.ExpandAll();
         }
+ 
+        private void ShowCtrls(List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls)
+        {
+            if (ctrls == null)
+            {
+                return;
+            }
+            dgvCtrlr.Rows.Clear();
+            foreach (var item in ctrls)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                string doors = "";
+                if (item.DOOR_INFOS!=null&&item.DOOR_INFOS.Count>0)
+                {
+                    foreach (var door in item.DOOR_INFOS)
+                    {
+                        doors += door.DOOR_NAME + ";";
+                    }
+                }
+                row.CreateCells(dgvCtrlr,
+                    item.NAME,
+                    item.SN_NO,
+                    item.IS_ENABLE,
+                    item.IP,
+                    item.PORT,
+                    item.AREA_NAME,
+                    item.CTRLR_DESC,
+                    doors//所控制的门
+                    );
+                dgvCtrlr.Rows.Add(row);
+            }
+        }
+
         private Maticsoft.Model.SMT_CONTROLLER_ZONE GetSelectArea()
         {
             if(advTreeArea.SelectedNode!=null)
@@ -54,7 +106,7 @@ namespace SmartAccess.ControlDevMgr
         }
         private void ControlerMgr_Load(object sender, EventArgs e)
         {
-            InitArea();
+            Init();
         }
 
         private void advTreeArea_NodeMouseDown(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)

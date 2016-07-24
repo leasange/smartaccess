@@ -176,7 +176,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0xB0);
             packet.SetDevSn(controller.sn);
-            packet.SetRecordIndexOrCardNum(recordIndex);
+            packet.SetRecordIndex(recordIndex);
             DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)
@@ -191,7 +191,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0xB2);
             packet.SetDevSn(controller.sn);
-            packet.SetRecordIndexOrCardNum(recordIndex);
+            packet.SetRecordIndex(recordIndex);
             packet.SetReadedIndexTag();
             DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
@@ -274,11 +274,11 @@ namespace Li.Access.Core.WGAccesses
         }
 
 
-        public bool AddOrModifyAuthority(Controller controller, long cardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities, int password = 0)
+        public bool AddOrModifyAuthority(Controller controller, string hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities, int password = 0)
         {
             WGPacket packet = new WGPacket(0x50);
             packet.SetDevSn(controller.sn);
-            packet.SetRecordIndexOrCardNum(cardNum);
+            packet.SetCardNum(hexCardNum);
             packet.SetAuthoriTimeTime(startTime,endTime);
             packet.SetAuthoriDoors(doorNumAuthorities);
             packet.SetAuthoriPassword(password);
@@ -392,7 +392,9 @@ namespace Li.Access.Core.WGAccesses
             state.isAllowValid = data[5] == 1;//有效性(0 表示不通过:false, 1表示通过:true)
             state.doorNum = data[6];//门号(1,2,3,4)
             state.isEnterDoor = data[7] == 1;//进门/出门(1表示进门:true, 2表示出门:false)
-            state.cardOrNoNumber = (data[11] * 256u * 256u * 256u + data[10] * 256u * 256u + data[9] * 256u + data[8]).ToString();//卡号(类型是刷卡记录时)或编号(其他类型记录)
+            byte[] bts = new byte[] { data[11], data[10], data[9], data[8] };
+            state.cardOrNoNumber = DataHelper.GetHexString(bts, 0, 4);
+            //state.cardOrNoNumber = (data[11] * 256u * 256u * 256u + data[10] * 256u * 256u + data[9] * 256u + data[8]).ToString();//卡号(类型是刷卡记录时)或编号(其他类型记录)
             state.recordTime = new DateTime(
                 DataHelper.GetFromBCD(data[12]) * 100 + DataHelper.GetFromBCD(data[13]),
                 DataHelper.GetFromBCD(data[14]),
@@ -460,7 +462,7 @@ namespace Li.Access.Core.WGAccesses
             data[6] = DataHelper.ToByteBCD(dateTime.Second);
         }
         //设置索引号
-        public void SetRecordIndexOrCardNum(long recordIndex)
+        public void SetRecordIndex(long recordIndex)
         {
             uint u = (uint)recordIndex;
             data[0] = (byte)(u & 0x000000ff);
@@ -468,6 +470,23 @@ namespace Li.Access.Core.WGAccesses
             data[2] = (byte)((u >> 16) & 0x000000ff);
             data[3] = (byte)((u >> 24) & 0x000000ff);
         }
+
+        public void SetCardNum(string hexCardNum)
+        {
+            byte[] cardNums = DataHelper.ToBytesFromHexString(hexCardNum);
+            for (int i = 0; i < 4; i++)
+            {
+                if (cardNums.Length - i - 1 >= 0)
+                {
+                    data[i] = cardNums[cardNums.Length - i - 1];
+                }
+                else
+                {
+                    data[i] = 0;
+                }
+            }
+        }
+
         public long GetRecordIndex()
         {
             return data[3] * 256u * 256u * 256u + data[2] * 256u * 256u + data[1] * 256u + data[0];

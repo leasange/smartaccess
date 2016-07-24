@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_CONTROLLER_INFO.cs
+* SMT_STAFF_CARD.cs
 *
 * 功 能： N/A
-* 类 名： SMT_CONTROLLER_INFO
+* 类 名： SMT_STAFF_CARD
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/23 15:31:37   N/A    初版
+* V0.01  2016/7/24 22:45:06   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,26 +22,26 @@ using Maticsoft.Model;
 namespace Maticsoft.BLL
 {
 	/// <summary>
-	/// 控制器表
+	/// 员工卡关联表
 	/// </summary>
-	public partial class SMT_CONTROLLER_INFO
+	public partial class SMT_STAFF_CARD
 	{
-		private readonly Maticsoft.DAL.SMT_CONTROLLER_INFO dal=new Maticsoft.DAL.SMT_CONTROLLER_INFO();
-		public SMT_CONTROLLER_INFO()
+		private readonly Maticsoft.DAL.SMT_STAFF_CARD dal=new Maticsoft.DAL.SMT_STAFF_CARD();
+		public SMT_STAFF_CARD()
 		{}
 		#region  BasicMethod
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(string SN_NO,decimal ID)
+		public bool Exists(decimal STAFF_ID,decimal CARD_ID)
 		{
-			return dal.Exists(SN_NO,ID);
+			return dal.Exists(STAFF_ID,CARD_ID);
 		}
 
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public decimal Add(Maticsoft.Model.SMT_CONTROLLER_INFO model)
+		public bool Add(Maticsoft.Model.SMT_STAFF_CARD model)
 		{
 			return dal.Add(model);
 		}
@@ -49,7 +49,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(Maticsoft.Model.SMT_CONTROLLER_INFO model)
+		public bool Update(Maticsoft.Model.SMT_STAFF_CARD model)
 		{
 			return dal.Update(model);
 		}
@@ -57,49 +57,34 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(decimal ID)
+		public bool Delete(decimal STAFF_ID,decimal CARD_ID)
 		{
 			
-			return dal.Delete(ID);
-		}
-		/// <summary>
-		/// 删除一条数据
-		/// </summary>
-		public bool Delete(string SN_NO,decimal ID)
-		{
-			
-			return dal.Delete(SN_NO,ID);
-		}
-		/// <summary>
-		/// 删除一条数据
-		/// </summary>
-		public bool DeleteList(string IDlist )
-		{
-            return dal.DeleteList(IDlist);
+			return dal.Delete(STAFF_ID,CARD_ID);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_CONTROLLER_INFO GetModel(decimal ID)
+		public Maticsoft.Model.SMT_STAFF_CARD GetModel(decimal STAFF_ID,decimal CARD_ID)
 		{
 			
-			return dal.GetModel(ID);
+			return dal.GetModel(STAFF_ID,CARD_ID);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public Maticsoft.Model.SMT_CONTROLLER_INFO GetModelByCache(decimal ID)
+		public Maticsoft.Model.SMT_STAFF_CARD GetModelByCache(decimal STAFF_ID,decimal CARD_ID)
 		{
 			
-			string CacheKey = "SMT_CONTROLLER_INFOModel-" + ID;
+			string CacheKey = "SMT_STAFF_CARDModel-" + STAFF_ID+CARD_ID;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
 				try
 				{
-					objModel = dal.GetModel(ID);
+					objModel = dal.GetModel(STAFF_ID,CARD_ID);
 					if (objModel != null)
 					{
 						int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");
@@ -108,7 +93,7 @@ namespace Maticsoft.BLL
 				}
 				catch{}
 			}
-			return (Maticsoft.Model.SMT_CONTROLLER_INFO)objModel;
+			return (Maticsoft.Model.SMT_STAFF_CARD)objModel;
 		}
 
 		/// <summary>
@@ -128,7 +113,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetModelList(string strWhere)
+		public List<Maticsoft.Model.SMT_STAFF_CARD> GetModelList(string strWhere)
 		{
 			DataSet ds = dal.GetList(strWhere);
 			return DataTableToList(ds.Tables[0]);
@@ -136,13 +121,13 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.SMT_CONTROLLER_INFO> DataTableToList(DataTable dt)
+		public List<Maticsoft.Model.SMT_STAFF_CARD> DataTableToList(DataTable dt)
 		{
-			List<Maticsoft.Model.SMT_CONTROLLER_INFO> modelList = new List<Maticsoft.Model.SMT_CONTROLLER_INFO>();
+			List<Maticsoft.Model.SMT_STAFF_CARD> modelList = new List<Maticsoft.Model.SMT_STAFF_CARD>();
 			int rowsCount = dt.Rows.Count;
 			if (rowsCount > 0)
 			{
-				Maticsoft.Model.SMT_CONTROLLER_INFO model;
+				Maticsoft.Model.SMT_STAFF_CARD model;
 				for (int n = 0; n < rowsCount; n++)
 				{
 					model = dal.DataRowToModel(dt.Rows[n]);

@@ -30,6 +30,7 @@ namespace SmartAcsService
             {
                 host = new ServiceHost(typeof(AcsService));
                 host.Open();
+                AcsService.StartAllServices();
             }
             catch (Exception ex)
             {
@@ -43,6 +44,7 @@ namespace SmartAcsService
             try
             {
                 host.Close();
+                AcsService.StopAllServices();
             }
             catch (Exception ex)
             {

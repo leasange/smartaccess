@@ -29,6 +29,7 @@ namespace SmartAccess.Common.Datas
             info.ORG_ID = -1;
             info.PORT = ctrlr.port;
             info.SN_NO = ctrlr.sn;
+            info.IS_ENABLE = true;
             return info;
         }
         public static decimal AddController(Controller ctrlr)
@@ -37,5 +38,29 @@ namespace SmartAccess.Common.Datas
             Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
             return bll.Add(info);
         }
+        public static List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetList(string strWhere,bool withAreaAndDoors=false)
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+            if (withAreaAndDoors)
+            {
+                return bll.GetModelListWithAreaDoor(strWhere);
+            }
+            return bll.GetModelList(strWhere);
+        }
+        public static List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetList(List<decimal> areaIds, bool withAreaAndDoors = false)
+        {
+            string strWhere = "1=1";
+            if (areaIds!=null&&areaIds.Count>0)
+            {
+                strWhere += " and AREA_ID in (";
+                for (int i = 0; i < areaIds.Count; i++)
+                {
+                    strWhere += areaIds[i] + ",";
+                }
+                strWhere = strWhere.TrimEnd(',')+")";
+            }
+            return GetList(strWhere, withAreaAndDoors);
+        }
+
     }
 }

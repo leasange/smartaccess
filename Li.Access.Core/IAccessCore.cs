@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Li.Access.Core
 {
-    public interface IAccessCore
+    public interface IAccessCore:IDisposable
     {
         /// <summary>
         /// 搜索网内控制器
@@ -95,7 +95,7 @@ namespace Li.Access.Core
         /// <param name="doorNumAuthorities">每个门控制权限：<第一个门号，第二个该时间段的权限>，true 表示允许通过，false表示禁止通过</param>
         /// <param name="password">用户设置的密码【启用了密码键盘才有效】，密码最大长度为6位数字(也就是最大为999999)(如果有要求时设置. 否则设为0)缺省值: 345678</param>
         /// <returns>成功与否</returns>
-        bool AddOrModifyAuthority(Controller controller, long cardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities,int password=0);
+        bool AddOrModifyAuthority(Controller controller, string  hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities,int password=0);
     }
     public enum ControllerDoorType
     {
@@ -165,13 +165,149 @@ namespace Li.Access.Core
         RemoteOpenDoor,//	操作员远程开门
         RemoteOpenDoorByUSBReader,//	发卡器确定发出的远程开门
     }
+    public class AccessHelper
+    {
+        public static string GetRecordReasonString(RecordReasonNo reason)
+        {
+            string str = "未知";
+            switch (reason)
+            {
+                case RecordReasonNo.Swipe:
+                    str = "刷卡开门";
+                    break;
+                case RecordReasonNo.Reserved2:
+                    break;
+                case RecordReasonNo.Reserved3:
+                    break;
+                case RecordReasonNo.Reserved4:
+                    break;
+                case RecordReasonNo.DeniedAccessPCControl:
+                    str = "刷卡禁止通过:电脑控制";
+                    break;
+                case RecordReasonNo.DeniedAccessNoPRIVILEGE:
+                    str = "刷卡禁止通过:没有权限";
+                    break;
+                case RecordReasonNo.DeniedAccessWrongPASSWORD:
+                    str = "刷卡禁止通过:密码不对";
+                    break;
+                case RecordReasonNo.DeniedAccessAntiBack:
+                    str = "刷卡禁止通过:反潜回";
+                    break;
+                case RecordReasonNo.DeniedAccessMoreCards:
+                    str = "刷卡禁止通过:多卡";
+                    break;
+                case RecordReasonNo.DeniedAccessFirstCardOpen:
+                    str = "刷卡禁止通过:首卡";
+                    break;
+                case RecordReasonNo.DeniedAccessDoorSetNC:
+                    str = "刷卡禁止通过:门为常闭";
+                    break;
+                case RecordReasonNo.DeniedAccessInterLock:
+                    str = "刷卡禁止通过:互锁";
+                    break;
+                case RecordReasonNo.DeniedAccessLimitedTimes:
+                    str = "刷卡禁止通过:受刷卡次数限制";
+                    break;
+                case RecordReasonNo.Reserved14:
+                    break;
+                case RecordReasonNo.DeniedAccessInvalidTimezone:
+                    str = "刷卡禁止通过:卡过期或不在有效时段";
+                    break;
+                case RecordReasonNo.Reserved16:
+                    break;
+                case RecordReasonNo.Reserved17:
+                    break;
+                case RecordReasonNo.DeniedAccess:
+                    str = "刷卡禁止通过:原因不明";
+                    break;
+                case RecordReasonNo.Reserved19:
+                    break;
+                case RecordReasonNo.PushButton:
+                    str = "按钮开门";
+                    break;
+                case RecordReasonNo.Reserved21:
+                    break;
+                case RecordReasonNo.Reserved22:
+                    break;
+                case RecordReasonNo.DoorOpen:
+                    str = "门打开:门磁信号";
+                    break;
+                case RecordReasonNo.DoorClosed:
+                    str = "门关闭:门磁信号";
+                    break;
+                case RecordReasonNo.SuperPasswordOpenDoor:
+                    str = "超级密码开门";
+                    break;
+                case RecordReasonNo.Reserved26:
+                    break;
+                case RecordReasonNo.Reserved27:
+                    break;
+                case RecordReasonNo.ControllerPowerOn:
+                    str = "控制器上电";
+                    break;
+                case RecordReasonNo.ControllerReset:
+                    str = "控制器复位";
+                    break;
+                case RecordReasonNo.Reserved30:
+                    break;
+                case RecordReasonNo.PushButtonInvalidForcedLock:
+                    str = "按钮不开门:强制关门";
+                    break;
+                case RecordReasonNo.PushButtonInvalidNotOnLine:
+                    str="按钮不开门:门不在线";
+                    break;
+                case RecordReasonNo.PushButtonInvalidInterLock:
+                    str = "按钮不开门:互锁";
+                    break;
+                case RecordReasonNo.Threat:
+                    str = "胁迫报警";
+                    break;
+                case RecordReasonNo.Reserved35:
+                    break;
+                case RecordReasonNo.Reserved36:
+                    break;
+                case RecordReasonNo.OpenTooLong:
+                    str = "门长时间未关报警[合法开门后]";
+                    break;
+                case RecordReasonNo.ForcedOpen:
+                    str = "强行闯入报警";
+                    break;
+                case RecordReasonNo.Fire:
+                    str = "火警";
+                    break;
+                case RecordReasonNo.ForcedClose:
+                    str = "强制关门";
+                    break;
+                case RecordReasonNo.GuardAgainstTheft:
+                    str = "防盗报警";
+                    break;
+                case RecordReasonNo.H7X24HourZone:
+                    str = "烟雾煤气温度报警";
+                    break;
+                case RecordReasonNo.EmergencyCall:
+                    str="紧急呼救报警";
+                    break;
+                case RecordReasonNo.RemoteOpenDoor:
+                    str="操作员远程开门";
+                    break;
+                case RecordReasonNo.RemoteOpenDoorByUSBReader:
+                    str = "发卡器确定发出的远程开门";
+                    break;
+                default:
+                    break;
+            }
+            return str;
+        }
+    }
+
+
     /// <summary>
     /// 控制器类
     /// </summary>
     public class Controller
     {
         public const string WGACCESS="WGACCESS";
-
+        public decimal id = 0;
         public string sn;//控制器序列号
         public ControllerDoorType doorType;//控制器门类型
         public string ip;//IP地址

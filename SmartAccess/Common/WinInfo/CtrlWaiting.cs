@@ -11,10 +11,12 @@ namespace SmartAccess.Common.WinInfo
 {
     public partial class CtrlWaiting : UserControl
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(CtrlWaiting));
         private Action _action = null;
-        public CtrlWaiting()
+        public CtrlWaiting(Action action = null)
         {
             InitializeComponent();
+            _action = action;
         }
         public CtrlWaiting(string text,Action action=null)
         {
@@ -41,13 +43,42 @@ namespace SmartAccess.Common.WinInfo
         {
 
         }
-        public void Show(Control control)
+        public void Show(Control control,int delayMiniseconds=0)
         {
-            if (_action==null)
+            try
             {
-                this.Dispose();
+                if (_action == null)
+                {
+                    this.Dispose();
+                }
+                if (control != null)
+                {
+                    if (delayMiniseconds > 0)
+                    {
+                        Timer t = new Timer();
+                        t.Interval = delayMiniseconds;
+                        t.Tick += delegate(object sender, EventArgs e)
+                        {
+                            t.Stop();
+                            DoAction(control);
+                        };
+                        t.Start();
+                    }
+                    else
+                    {
+                        DoAction(control);
+                    }
+                }
             }
-            if (control!=null)
+            catch (Exception ex)
+            {
+                log.Error("显示异常：", ex);
+            }
+        }
+
+        private void DoAction(Control control)
+        {
+            try
             {
                 this.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
                 this.SetBounds(0, 0, control.ClientSize.Width, control.ClientSize.Height);
@@ -57,23 +88,34 @@ namespace SmartAccess.Common.WinInfo
                 control.Controls.Add(this);
                 this.BringToFront();
                 _action.BeginInvoke(new AsyncCallback((o) =>
+                {
+                    try
                     {
-                        try
-                        {
-                            _action.EndInvoke(o);
-                        }
-                        catch (Exception ex)
-                        {
-                            WinInfoHelper.ShowInfoWindow(null, "执行异常：" + ex.Message);
-                        }
-
+                        _action.EndInvoke(o);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error("执行异常2：", ex);
+                        WinInfoHelper.ShowInfoWindow(null, "执行异常：" + ex.Message);
+                    }
+                    try
+                    {
                         control.Invoke(new Action(() =>
-                            {
-                                bitmap.Dispose();
-                                control.Controls.Remove(this);
-                                this.Dispose();
-                            }));
-                    }), null);
+                        {
+                            control.Controls.Remove(this);
+                            bitmap.Dispose();
+                            this.Dispose();
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error("销毁异常：", ex);
+                    }
+                }), null);
+            }
+            catch (Exception ex)
+            {
+                log.Error("执行异常1：", ex);
             }
         }
 
