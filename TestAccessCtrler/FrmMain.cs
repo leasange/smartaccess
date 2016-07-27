@@ -198,5 +198,16 @@ namespace TestAccessCtrler
 //                 );
 //             MessageBox.Show("设置权限" + (ret ? "成功" : "失败"));
         }
+
+        private void btnResetRecord_Click(object sender, EventArgs e)
+        {
+            IAccessCore access = new WGAccess();
+             Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            access.SetControllerReadedIndex(ctrl, 0);
+        }
     }
 }

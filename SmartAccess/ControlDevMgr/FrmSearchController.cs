@@ -67,7 +67,7 @@ namespace SmartAccess.ControlDevMgr
                     item.mac,
                     "127.0.0.1",
                     "修改IP",
-                    "添加"
+                    "添加/更新"
                     );
                 row.Tag = item;
                 dgvCtrlr.Rows.Add(row);
@@ -95,12 +95,12 @@ namespace SmartAccess.ControlDevMgr
                 {
                     ControllerHelper.AddController(ctrlr);
                     log.Info("添加控制器成功：" + ctrlr.sn + "," + ctrlr.ip);
-                    WinInfoHelper.ShowInfoWindow(this, "添加控制器成功！");
+                    WinInfoHelper.ShowInfoWindow(this, "添加/更新控制器成功！");
                 }
                 catch (Exception ex)
                 {
                     log.Error("添加控制器异常：", ex);
-                    WinInfoHelper.ShowInfoWindow(this, "添加控制器失败:"+ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "添加/更新控制器失败:" + ex.Message);
                 }
             });
             ctrlWaiting.Show(this);

@@ -34,6 +34,8 @@ namespace SmartAccess.ControlDevMgr
             _ctrller.ip = ipAdd.Value;
             _ctrller.mask = ipMask.Value;
             _ctrller.gateway = ipGateway.Value;
+
+
             IAccessCore access = new WGAccess();
             access.SetControllerIP(_ctrller);
             this.DialogResult = DialogResult.OK;

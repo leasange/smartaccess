@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Common\Config\SysConfig.cs" />
     <Compile Include="Common\Database\DatabaseHelper.cs" />
+    <Compile Include="Common\Datas\DeptDataHelper.cs" />
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\Datas\ControllerHelper.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
@@ -224,6 +225,12 @@
     <Compile Include="VerInfoMgr\DeptTree.Designer.cs">
       <DependentUpon>DeptTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmAddOrModifyDept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmAddOrModifyDept.Designer.cs">
+      <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmStaffInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\DeptTree.resx">
       <DependentUpon>DeptTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyDept.resx">
+      <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmStaffInfo.resx">
       <DependentUpon>FrmStaffInfo.cs</DependentUpon>

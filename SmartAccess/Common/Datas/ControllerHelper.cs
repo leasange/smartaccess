@@ -34,10 +34,59 @@ namespace SmartAccess.Common.Datas
         }
         public static decimal AddController(Controller ctrlr)
         {
-            Maticsoft.Model.SMT_CONTROLLER_INFO info = ToInfo(ctrlr);
+            Maticsoft.Model.SMT_CONTROLLER_INFO info = UpdateDBControllerIp(ctrlr);//如果存在则更新
+            if (info!=null)
+            {
+                return info.ID;
+            }
+            info = ToInfo(ctrlr);
             Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-            return bll.Add(info);
+            decimal ctrlId= bll.Add(info);
+            int count = 1;
+            switch (ctrlr.doorType)
+            {
+                case ControllerDoorType.OneDoorTwoDirections:
+                    count = 1;
+                    break;
+                case ControllerDoorType.TwoDoorsTwoDirections:
+                    count = 2;
+                    break;
+                case ControllerDoorType.FourDoorsOneDirection:
+                    count = 4;
+                    break;
+                default:
+                    break;
+            }
+            Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+            for (int i = 0; i < count; i++)
+            {
+                Maticsoft.Model.SMT_DOOR_INFO doorInfo = new Maticsoft.Model.SMT_DOOR_INFO();
+                doorInfo.CTRL_DELAY_TIME = 3;
+                doorInfo.CTRL_DOOR_INDEX = i + 1;
+                doorInfo.CTRL_ID = ctrlId;
+                doorInfo.CTRL_STYLE = 0;
+                doorInfo.DOOR_NAME = "门_" + ctrlId + "_" + (i + 1);
+                doorInfo.DOOR_DESC = doorInfo.DOOR_NAME;
+                doorInfo.ID = doorBll.Add(doorInfo);
+            }
+            return ctrlId;
         }
+
+        public static Maticsoft.Model.SMT_CONTROLLER_INFO UpdateDBControllerIp(Controller ctrlr)
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+            List<Maticsoft.Model.SMT_CONTROLLER_INFO> models = bll.GetModelList("SN_NO='" + ctrlr.sn + "'");
+            if (models.Count>0)
+            {
+                models[0].IP = ctrlr.ip;
+                models[0].MASK = ctrlr.mask;
+                models[0].GATEWAY = ctrlr.gateway;
+                bll.Update(models[0]);
+                return models[0];
+            }
+            return null;
+        }
+
         public static List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetList(string strWhere,bool withAreaAndDoors=false)
         {
             Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();

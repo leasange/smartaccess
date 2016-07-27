@@ -49,6 +49,7 @@
             this.btnOpenRemoteDoor = new System.Windows.Forms.Button();
             this.iintValue = new System.Windows.Forms.NumericUpDown();
             this.btnAddAuth = new System.Windows.Forms.Button();
+            this.btnResetRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iintValue)).BeginInit();
             this.SuspendLayout();
@@ -247,6 +248,16 @@
             this.btnAddAuth.UseVisualStyleBackColor = true;
             this.btnAddAuth.Click += new System.EventHandler(this.btnAddAuth_Click);
             // 
+            // btnResetRecord
+            // 
+            this.btnResetRecord.Location = new System.Drawing.Point(344, 49);
+            this.btnResetRecord.Name = "btnResetRecord";
+            this.btnResetRecord.Size = new System.Drawing.Size(88, 31);
+            this.btnResetRecord.TabIndex = 2;
+            this.btnResetRecord.Text = "重置读取记录";
+            this.btnResetRecord.UseVisualStyleBackColor = true;
+            this.btnResetRecord.Click += new System.EventHandler(this.btnResetRecord_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -257,6 +268,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnReadNextRecord);
             this.Controls.Add(this.btnReadRecord);
+            this.Controls.Add(this.btnResetRecord);
             this.Controls.Add(this.btnAddAuth);
             this.Controls.Add(this.btnOpenRemoteDoor);
             this.Controls.Add(this.btnSetTime);
@@ -294,6 +306,7 @@
         private System.Windows.Forms.Button btnOpenRemoteDoor;
         private System.Windows.Forms.NumericUpDown iintValue;
         private System.Windows.Forms.Button btnAddAuth;
+        private System.Windows.Forms.Button btnResetRecord;
 
     }
 }
