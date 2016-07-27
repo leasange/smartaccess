@@ -173,6 +173,7 @@
             this.Controls.Add(this.deptAdvTree);
             this.Name = "DeptTree";
             this.Size = new System.Drawing.Size(235, 443);
+            this.Load += new System.EventHandler(this.DeptTree_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).EndInit();
             this.ResumeLayout(false);
 

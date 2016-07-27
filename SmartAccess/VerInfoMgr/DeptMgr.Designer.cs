@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeptMgr));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem3 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
+            this.biAddDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biAddSubDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biModifyDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biMoveDept = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem6 = new DevComponents.DotNetBar.ButtonItem();
             this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -55,6 +56,7 @@
             this.textBoxX6 = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
+            this.biRefreshDept = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.ctxMenu.SuspendLayout();
             this.panelEx2.SuspendLayout();
@@ -67,10 +69,12 @@
             this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem1,
-            this.buttonItem2,
-            this.buttonItem3,
-            this.buttonItem4,
+            this.biRefreshDept,
+            this.biAddDept,
+            this.biAddSubDept,
+            this.biModifyDept,
+            this.biDeleteDept,
+            this.biMoveDept,
             this.buttonItem5,
             this.buttonItem6});
             this.bar1.Location = new System.Drawing.Point(0, 0);
@@ -82,37 +86,53 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
-            // buttonItem1
+            // biAddDept
             // 
-            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.ForeColor = System.Drawing.Color.White;
-            this.buttonItem1.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem1.Image")));
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "添加下级部门";
+            this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddDept.ForeColor = System.Drawing.Color.White;
+            this.biAddDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddDept.Image")));
+            this.biAddDept.Name = "biAddDept";
+            this.biAddDept.Text = "添加部门";
+            this.biAddDept.Tooltip = "添加跟级或同级部门";
+            this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
             // 
-            // buttonItem2
+            // biAddSubDept
             // 
-            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.ForeColor = System.Drawing.Color.White;
-            this.buttonItem2.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem2.Image")));
-            this.buttonItem2.Name = "buttonItem2";
-            this.buttonItem2.Text = "修改部门";
+            this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddSubDept.ForeColor = System.Drawing.Color.White;
+            this.biAddSubDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddSubDept.Image")));
+            this.biAddSubDept.Name = "biAddSubDept";
+            this.biAddSubDept.Text = "添加下级部门";
+            this.biAddSubDept.Tooltip = "添加下级部门";
+            this.biAddSubDept.Click += new System.EventHandler(this.biAddSubDept_Click);
             // 
-            // buttonItem3
+            // biModifyDept
             // 
-            this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem3.ForeColor = System.Drawing.Color.White;
-            this.buttonItem3.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem3.Image")));
-            this.buttonItem3.Name = "buttonItem3";
-            this.buttonItem3.Text = "删除部门";
+            this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModifyDept.ForeColor = System.Drawing.Color.White;
+            this.biModifyDept.Image = ((System.Drawing.Image)(resources.GetObject("biModifyDept.Image")));
+            this.biModifyDept.Name = "biModifyDept";
+            this.biModifyDept.Text = "修改部门";
+            this.biModifyDept.Tooltip = "修改选择部门";
+            this.biModifyDept.Click += new System.EventHandler(this.biModifyDept_Click);
             // 
-            // buttonItem4
+            // biDeleteDept
             // 
-            this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.ForeColor = System.Drawing.Color.White;
-            this.buttonItem4.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem4.Image")));
-            this.buttonItem4.Name = "buttonItem4";
-            this.buttonItem4.Text = "移动部门";
+            this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteDept.ForeColor = System.Drawing.Color.White;
+            this.biDeleteDept.Image = ((System.Drawing.Image)(resources.GetObject("biDeleteDept.Image")));
+            this.biDeleteDept.Name = "biDeleteDept";
+            this.biDeleteDept.Text = "删除部门";
+            this.biDeleteDept.Tooltip = "删除选择部门";
+            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click);
+            // 
+            // biMoveDept
+            // 
+            this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biMoveDept.ForeColor = System.Drawing.Color.White;
+            this.biMoveDept.Image = ((System.Drawing.Image)(resources.GetObject("biMoveDept.Image")));
+            this.biMoveDept.Name = "biMoveDept";
+            this.biMoveDept.Text = "移动部门";
             // 
             // buttonItem5
             // 
@@ -196,14 +216,14 @@
             this.Column3,
             this.Column1,
             this.Column2});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.dataGridViewEx1.Location = new System.Drawing.Point(20, 117);
             this.dataGridViewEx1.Name = "dataGridViewEx1";
@@ -337,6 +357,15 @@
             this.deptTree.Size = new System.Drawing.Size(249, 447);
             this.deptTree.TabIndex = 6;
             // 
+            // biRefreshDept
+            // 
+            this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefreshDept.ForeColor = System.Drawing.Color.White;
+            this.biRefreshDept.Image = ((System.Drawing.Image)(resources.GetObject("biRefreshDept.Image")));
+            this.biRefreshDept.Name = "biRefreshDept";
+            this.biRefreshDept.Text = "刷新";
+            this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
+            // 
             // DeptMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -359,10 +388,10 @@
         #endregion
 
         private DevComponents.DotNetBar.Bar bar1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem2;
-        private DevComponents.DotNetBar.ButtonItem buttonItem3;
-        private DevComponents.DotNetBar.ButtonItem buttonItem4;
+        private DevComponents.DotNetBar.ButtonItem biAddDept;
+        private DevComponents.DotNetBar.ButtonItem biModifyDept;
+        private DevComponents.DotNetBar.ButtonItem biDeleteDept;
+        private DevComponents.DotNetBar.ButtonItem biMoveDept;
         private DevComponents.DotNetBar.ButtonItem buttonItem5;
         private System.Windows.Forms.ContextMenuStrip ctxMenu;
         private System.Windows.Forms.ToolStripMenuItem 添加下级部门ToolStripMenuItem;
@@ -382,6 +411,8 @@
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxX6;
         private DevComponents.DotNetBar.LabelX labelX6;
+        private DevComponents.DotNetBar.ButtonItem biAddSubDept;
+        private DevComponents.DotNetBar.ButtonItem biRefreshDept;
 
     }
 }
