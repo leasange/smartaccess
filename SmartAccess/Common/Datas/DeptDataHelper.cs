@@ -30,6 +30,22 @@ namespace SmartAccess.Common.Datas
                 log.Error("获取区域列表异常：", ex);
             }
         }
+        public static void UpdateDept(Maticsoft.Model.SMT_ORG_INFO model)
+        {
+            Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
+            bll.Update(model);
+            if (_depts!=null)
+            {
+                Maticsoft.Model.SMT_ORG_INFO ff = _depts.Find(m => m.ID == model.ID);
+                if (ff != null)
+                {
+                    ff.PAR_ID = model.PAR_ID;
+                    ff.ORG_CODE = model.ORG_CODE;
+                    ff.ORDER_VALUE = model.ORDER_VALUE;
+                    ff.ORG_NAME = model.ORG_NAME;
+                }
+            }
+        }
         /// <summary>
         /// 获取区域列表
         /// </summary>

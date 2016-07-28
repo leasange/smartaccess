@@ -231,6 +231,12 @@
     <Compile Include="VerInfoMgr\FrmAddOrModifyDept.Designer.cs">
       <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmMoveDept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmMoveDept.Designer.cs">
+      <DependentUpon>FrmMoveDept.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmStaffInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyDept.resx">
       <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmMoveDept.resx">
+      <DependentUpon>FrmMoveDept.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmStaffInfo.resx">
       <DependentUpon>FrmStaffInfo.cs</DependentUpon>

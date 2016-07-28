@@ -33,6 +33,13 @@ namespace SmartAccess.VerInfoMgr
             {
                 ctxMenu.Show(Cursor.Position);
             }
+            Maticsoft.Model.SMT_ORG_INFO info = e.Node.Tag as Maticsoft.Model.SMT_ORG_INFO;
+            if (info!=null)
+            {
+                tbSelectDeptPath.Text = e.Node.FullPath;
+                tbDeptNo.Text = info.ORG_CODE;
+                tbDeptName.Text = info.ORG_NAME;
+            }
         }
         private Maticsoft.Model.SMT_ORG_INFO GetSelectOrg()
         {
@@ -170,7 +177,39 @@ namespace SmartAccess.VerInfoMgr
 
         private void biRefreshDept_Click(object sender, EventArgs e)
         {
+            this.deptTree.EnsureVisible(-1);
             this.deptTree.RefreshTree();
+        }
+
+        private void tsmiAddSubDept_Click(object sender, EventArgs e)
+        {
+            biAddSubDept_Click(sender, e);
+        }
+
+        private void tsmiModifyDept_Click(object sender, EventArgs e)
+        {
+            biModifyDept_Click(sender, e);
+        }
+
+        private void tsmiMoveDept_Click(object sender, EventArgs e)
+        {
+            biMoveDept_Click(sender, e);
+        }
+
+        private void biMoveDept_Click(object sender, EventArgs e)
+        {
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = GetSelectOrg();
+            if (orgInfo==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择移动的部门！");
+                return;
+            }
+            FrmMoveDept frmMove = new FrmMoveDept(orgInfo);
+            if (frmMove.ShowDialog(this)== DialogResult.OK)
+            {
+                this.deptTree.RefreshTree();
+                this.deptTree.EnsureVisible(orgInfo.ID);
+            }
         }
     }
 }

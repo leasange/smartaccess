@@ -14,6 +14,7 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class DeptTree : UserControl
     {
+        private decimal _visibleId = -1;
         public AdvTreeEx Tree
         {
             get {
@@ -23,6 +24,7 @@ namespace SmartAccess.VerInfoMgr
         public DeptTree()
         {
             InitializeComponent();
+            deptAdvTree.PathSeparator = "/";
         }
 
         private void DeptTree_Load(object sender, EventArgs e)
@@ -50,6 +52,20 @@ namespace SmartAccess.VerInfoMgr
                         {
                             item.Expand();
                         }
+                        if (_visibleId >= 0)
+                        {
+                            var node = FindNode(_visibleId);
+
+                            if (node != null)
+                            {
+                                deptAdvTree.SelectedNode = node;
+                                if (node.Parent != null)
+                                {
+                                    node.Parent.Expand();
+                                    node.EnsureVisible();
+                                }
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -65,6 +81,36 @@ namespace SmartAccess.VerInfoMgr
         public void RefreshTree()
         {
             LoadTree(0);
+        }
+
+        public DevComponents.AdvTree.Node FindNode(decimal id)
+        {
+            return DoFindNode(deptAdvTree.Nodes, id);
+        }
+        private DevComponents.AdvTree.Node DoFindNode(DevComponents.AdvTree.NodeCollection nodes, decimal id)
+        {
+            foreach (DevComponents.AdvTree.Node item in nodes)
+            {
+                var dept = (Maticsoft.Model.SMT_ORG_INFO)item.Tag;
+                if (dept.ID == id)
+                {
+                    return item;
+                }
+                else
+                {
+                    var nn = DoFindNode(item.Nodes, id);
+                    if (nn!=null)
+                    {
+                        return nn;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public void EnsureVisible(decimal id)
+        {
+            _visibleId = id;
         }
     }
 }
