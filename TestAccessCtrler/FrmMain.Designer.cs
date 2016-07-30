@@ -50,6 +50,7 @@
             this.iintValue = new System.Windows.Forms.NumericUpDown();
             this.btnAddAuth = new System.Windows.Forms.Button();
             this.btnResetRecord = new System.Windows.Forms.Button();
+            this.btnCardIssue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iintValue)).BeginInit();
             this.SuspendLayout();
@@ -258,6 +259,16 @@
             this.btnResetRecord.UseVisualStyleBackColor = true;
             this.btnResetRecord.Click += new System.EventHandler(this.btnResetRecord_Click);
             // 
+            // btnCardIssue
+            // 
+            this.btnCardIssue.Location = new System.Drawing.Point(493, 49);
+            this.btnCardIssue.Name = "btnCardIssue";
+            this.btnCardIssue.Size = new System.Drawing.Size(88, 31);
+            this.btnCardIssue.TabIndex = 2;
+            this.btnCardIssue.Text = "发卡器测试";
+            this.btnCardIssue.UseVisualStyleBackColor = true;
+            this.btnCardIssue.Click += new System.EventHandler(this.btnCardIssue_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -268,6 +279,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnReadNextRecord);
             this.Controls.Add(this.btnReadRecord);
+            this.Controls.Add(this.btnCardIssue);
             this.Controls.Add(this.btnResetRecord);
             this.Controls.Add(this.btnAddAuth);
             this.Controls.Add(this.btnOpenRemoteDoor);
@@ -307,6 +319,7 @@
         private System.Windows.Forms.NumericUpDown iintValue;
         private System.Windows.Forms.Button btnAddAuth;
         private System.Windows.Forms.Button btnResetRecord;
+        private System.Windows.Forms.Button btnCardIssue;
 
     }
 }

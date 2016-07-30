@@ -209,5 +209,11 @@ namespace TestAccessCtrler
             }
             access.SetControllerReadedIndex(ctrl, 0);
         }
+
+        private void btnCardIssue_Click(object sender, EventArgs e)
+        {
+            FrmCardIssue frmIssue = new FrmCardIssue();
+            frmIssue.Show(this);
+        }
     }
 }

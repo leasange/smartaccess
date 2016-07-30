@@ -19,18 +19,7 @@ namespace SmartAccess
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            //             Timer t = new Timer();
-            //             t.Interval = 1000;
-            //             t.Tick +=
-            //                 delegate(object o, EventArgs ee)
-            //                 {
-            //                     t.Stop();
-            //                     this.BringToFront();
-            //                     t.Dispose();
-            //                 };
-            //             t.Start();
             ExpandablePanel fexpanel = splitContainer.Panel1.Controls[splitContainer.Panel1.Controls.Count-1] as ExpandablePanel;
-           // fexpanel.Height = splitContainer.Panel1.Height - fexpanel.TitleHeight * (splitContainer.Panel1.Controls.Count - 1);
             foreach (Control item in splitContainer.Panel1.Controls)
             {
                 ExpandablePanel expanel = item as ExpandablePanel;

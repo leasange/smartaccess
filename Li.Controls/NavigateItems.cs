@@ -15,6 +15,5 @@ namespace Li.Controls
         {
             InitializeComponent();
         }
-
     }
 }

@@ -175,10 +175,12 @@
             this.expandablePanel9.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel9.Controls.Add(this.panel10);
             this.expandablePanel9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.expandablePanel9.Expanded = false;
+            this.expandablePanel9.ExpandedBounds = new System.Drawing.Rectangle(0, 272, 246, 354);
             this.expandablePanel9.ExpandOnTitleClick = true;
-            this.expandablePanel9.Location = new System.Drawing.Point(0, 373);
+            this.expandablePanel9.Location = new System.Drawing.Point(0, 403);
             this.expandablePanel9.Name = "expandablePanel9";
-            this.expandablePanel9.Size = new System.Drawing.Size(246, 354);
+            this.expandablePanel9.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel9.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel9.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel9.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -197,7 +199,7 @@
             this.expandablePanel9.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel9.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel9.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel9.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel9.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel9.TitleStyle.GradientAngle = 90;
             this.expandablePanel9.TitleText = "系统配置管理";
             // 
@@ -216,7 +218,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 34);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(246, 320);
+            this.panel10.Size = new System.Drawing.Size(246, 0);
             this.panel10.TabIndex = 2;
             // 
             // linkProPrivi
@@ -372,10 +374,12 @@
             this.expandablePanel8.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel8.Controls.Add(this.panel9);
             this.expandablePanel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.expandablePanel8.Expanded = false;
+            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 238, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
-            this.expandablePanel8.Location = new System.Drawing.Point(0, 238);
+            this.expandablePanel8.Location = new System.Drawing.Point(0, 369);
             this.expandablePanel8.Name = "expandablePanel8";
-            this.expandablePanel8.Size = new System.Drawing.Size(246, 135);
+            this.expandablePanel8.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel8.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel8.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel8.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -394,7 +398,7 @@
             this.expandablePanel8.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel8.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel8.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel8.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel8.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel8.TitleStyle.GradientAngle = 90;
             this.expandablePanel8.TitleText = "规则设定管理";
             // 
@@ -407,7 +411,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(0, 34);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(246, 101);
+            this.panel9.Size = new System.Drawing.Size(246, 0);
             this.panel9.TabIndex = 2;
             // 
             // linkCtrlStyle
@@ -457,7 +461,7 @@
             this.expandablePanel7.Expanded = false;
             this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 204, 246, 139);
             this.expandablePanel7.ExpandOnTitleClick = true;
-            this.expandablePanel7.Location = new System.Drawing.Point(0, 204);
+            this.expandablePanel7.Location = new System.Drawing.Point(0, 335);
             this.expandablePanel7.Name = "expandablePanel7";
             this.expandablePanel7.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel7.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -478,7 +482,7 @@
             this.expandablePanel7.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel7.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel7.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel7.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel7.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel7.TitleStyle.GradientAngle = 90;
             this.expandablePanel7.TitleText = "实时监控管理";
             // 
@@ -541,7 +545,7 @@
             this.expandablePanel6.Expanded = false;
             this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 211);
             this.expandablePanel6.ExpandOnTitleClick = true;
-            this.expandablePanel6.Location = new System.Drawing.Point(0, 170);
+            this.expandablePanel6.Location = new System.Drawing.Point(0, 301);
             this.expandablePanel6.Name = "expandablePanel6";
             this.expandablePanel6.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel6.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -562,7 +566,7 @@
             this.expandablePanel6.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel6.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel6.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel6.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel6.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel6.TitleStyle.GradientAngle = 90;
             this.expandablePanel6.TitleText = "控制设备管理";
             // 
@@ -663,7 +667,7 @@
             this.expandablePanel5.Expanded = false;
             this.expandablePanel5.ExpandedBounds = new System.Drawing.Rectangle(0, 136, 246, 103);
             this.expandablePanel5.ExpandOnTitleClick = true;
-            this.expandablePanel5.Location = new System.Drawing.Point(0, 136);
+            this.expandablePanel5.Location = new System.Drawing.Point(0, 267);
             this.expandablePanel5.Name = "expandablePanel5";
             this.expandablePanel5.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel5.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -684,7 +688,7 @@
             this.expandablePanel5.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel5.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel5.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel5.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel5.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel5.TitleStyle.GradientAngle = 90;
             this.expandablePanel5.TitleText = "报表统计管理";
             // 
@@ -728,7 +732,7 @@
             this.expandablePanel4.Expanded = false;
             this.expandablePanel4.ExpandedBounds = new System.Drawing.Rectangle(0, 102, 246, 173);
             this.expandablePanel4.ExpandOnTitleClick = true;
-            this.expandablePanel4.Location = new System.Drawing.Point(0, 102);
+            this.expandablePanel4.Location = new System.Drawing.Point(0, 233);
             this.expandablePanel4.Name = "expandablePanel4";
             this.expandablePanel4.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel4.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -749,7 +753,7 @@
             this.expandablePanel4.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel4.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel4.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel4.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel4.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel4.TitleStyle.GradientAngle = 90;
             this.expandablePanel4.TitleText = "信息系统查询";
             // 
@@ -831,7 +835,7 @@
             this.expandablePanel3.Expanded = false;
             this.expandablePanel3.ExpandedBounds = new System.Drawing.Rectangle(0, 68, 246, 106);
             this.expandablePanel3.ExpandOnTitleClick = true;
-            this.expandablePanel3.Location = new System.Drawing.Point(0, 68);
+            this.expandablePanel3.Location = new System.Drawing.Point(0, 199);
             this.expandablePanel3.Name = "expandablePanel3";
             this.expandablePanel3.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel3.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -852,7 +856,7 @@
             this.expandablePanel3.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel3.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel3.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel3.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel3.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel3.TitleStyle.GradientAngle = 90;
             this.expandablePanel3.TitleText = "模板设定管理";
             // 
@@ -896,7 +900,7 @@
             this.expandablePanel2.Expanded = false;
             this.expandablePanel2.ExpandedBounds = new System.Drawing.Rectangle(0, 34, 246, 125);
             this.expandablePanel2.ExpandOnTitleClick = true;
-            this.expandablePanel2.Location = new System.Drawing.Point(0, 34);
+            this.expandablePanel2.Location = new System.Drawing.Point(0, 165);
             this.expandablePanel2.Name = "expandablePanel2";
             this.expandablePanel2.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel2.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -917,7 +921,7 @@
             this.expandablePanel2.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel2.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel2.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel2.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel2.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel2.TitleStyle.GradientAngle = 90;
             this.expandablePanel2.TitleText = "信息批量处理";
             // 
@@ -977,12 +981,10 @@
             this.expandablePanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel1.Controls.Add(this.panel2);
             this.expandablePanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel1.Expanded = false;
-            this.expandablePanel1.ExpandedBounds = new System.Drawing.Rectangle(0, 0, 246, 165);
             this.expandablePanel1.ExpandOnTitleClick = true;
             this.expandablePanel1.Location = new System.Drawing.Point(0, 0);
             this.expandablePanel1.Name = "expandablePanel1";
-            this.expandablePanel1.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel1.Size = new System.Drawing.Size(246, 165);
             this.expandablePanel1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -1001,7 +1003,7 @@
             this.expandablePanel1.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel1.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandablePanel1.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.expandablePanel1.TitleStyle.ForeColor.Color = System.Drawing.Color.White;
+            this.expandablePanel1.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel1.TitleStyle.GradientAngle = 90;
             this.expandablePanel1.TitleText = "证件信息管理";
             // 
@@ -1015,7 +1017,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 34);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(246, 0);
+            this.panel2.Size = new System.Drawing.Size(246, 131);
             this.panel2.TabIndex = 2;
             // 
             // linkStaffInfo
@@ -1025,7 +1027,7 @@
             this.linkStaffInfo.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkStaffInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkStaffInfo.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkStaffInfo.LinkColor = System.Drawing.Color.White;
+            this.linkStaffInfo.LinkColor = System.Drawing.Color.DarkBlue;
             this.linkStaffInfo.Location = new System.Drawing.Point(51, 89);
             this.linkStaffInfo.Name = "linkStaffInfo";
             this.linkStaffInfo.Size = new System.Drawing.Size(148, 25);
@@ -1043,7 +1045,7 @@
             this.linkVerCodeInfo.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkVerCodeInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkVerCodeInfo.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkVerCodeInfo.LinkColor = System.Drawing.Color.White;
+            this.linkVerCodeInfo.LinkColor = System.Drawing.Color.DarkBlue;
             this.linkVerCodeInfo.Location = new System.Drawing.Point(51, 21);
             this.linkVerCodeInfo.Name = "linkVerCodeInfo";
             this.linkVerCodeInfo.Size = new System.Drawing.Size(148, 25);
@@ -1061,7 +1063,7 @@
             this.linkDeptMgr.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkDeptMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkDeptMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkDeptMgr.LinkColor = System.Drawing.Color.White;
+            this.linkDeptMgr.LinkColor = System.Drawing.Color.DarkBlue;
             this.linkDeptMgr.Location = new System.Drawing.Point(51, 55);
             this.linkDeptMgr.Name = "linkDeptMgr";
             this.linkDeptMgr.Size = new System.Drawing.Size(148, 25);
@@ -1167,7 +1169,7 @@
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("华文行楷", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.ForeColor = System.Drawing.Color.AliceBlue;
+            this.labelX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.labelX1.Location = new System.Drawing.Point(12, 12);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(507, 43);
@@ -1176,7 +1178,7 @@
             // 
             // menuMain
             // 
-            this.menuMain.BackColor = System.Drawing.Color.Black;
+            this.menuMain.BackColor = System.Drawing.Color.Gray;
             this.menuMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.menuMain.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1191,7 +1193,6 @@
             // 
             this.系统ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiExit});
-            this.系统ToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.系统ToolStripMenuItem.Name = "系统ToolStripMenuItem";
             this.系统ToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.系统ToolStripMenuItem.Text = "系统";

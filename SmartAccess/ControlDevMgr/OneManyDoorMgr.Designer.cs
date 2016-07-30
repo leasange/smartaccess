@@ -40,13 +40,13 @@
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem6 = new DevComponents.DotNetBar.ButtonItem();
             this.bar2 = new DevComponents.DotNetBar.Bar();
-            this.buttonItem7 = new DevComponents.DotNetBar.ButtonItem();
-            this.comboBoxItem1 = new DevComponents.DotNetBar.ComboBoxItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.comboBoxItem1 = new DevComponents.DotNetBar.ComboBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
             this.textBoxItem1 = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
             this.textBoxItem2 = new DevComponents.DotNetBar.TextBoxItem();
+            this.buttonItem7 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem8 = new DevComponents.DotNetBar.ButtonItem();
             this.dataGridViewEx1 = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,7 +84,6 @@
             // biAddRootArea
             // 
             this.biAddRootArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddRootArea.ForeColor = System.Drawing.Color.White;
             this.biAddRootArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biAddRootArea.Name = "biAddRootArea";
             this.biAddRootArea.Text = "门管理";
@@ -92,7 +91,6 @@
             // buttonItem2
             // 
             this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.ForeColor = System.Drawing.Color.White;
             this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem2.Name = "buttonItem2";
             this.buttonItem2.Text = "设置用户可开门";
@@ -100,7 +98,6 @@
             // buttonItem3
             // 
             this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem3.ForeColor = System.Drawing.Color.White;
             this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem3.Name = "buttonItem3";
             this.buttonItem3.Text = "打印";
@@ -108,7 +105,6 @@
             // buttonItem1
             // 
             this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.ForeColor = System.Drawing.Color.White;
             this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "导出";
@@ -116,7 +112,6 @@
             // buttonItem4
             // 
             this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.ForeColor = System.Drawing.Color.White;
             this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem4.Name = "buttonItem4";
             this.buttonItem4.Text = "总控制台上传";
@@ -124,7 +119,6 @@
             // buttonItem5
             // 
             this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.ForeColor = System.Drawing.Color.White;
             this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem5.Name = "buttonItem5";
             this.buttonItem5.Text = "查找";
@@ -132,7 +126,6 @@
             // buttonItem6
             // 
             this.buttonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem6.ForeColor = System.Drawing.Color.White;
             this.buttonItem6.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem6.Name = "buttonItem6";
             this.buttonItem6.Text = "关闭";
@@ -161,24 +154,16 @@
             this.bar2.TabStop = false;
             this.bar2.Text = "bar2";
             // 
-            // buttonItem7
+            // labelItem1
             // 
-            this.buttonItem7.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem7.ForeColor = System.Drawing.Color.White;
-            this.buttonItem7.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem7.Name = "buttonItem7";
-            this.buttonItem7.Text = "查询";
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "姓名";
             // 
             // comboBoxItem1
             // 
             this.comboBoxItem1.DropDownHeight = 106;
             this.comboBoxItem1.ItemHeight = 17;
             this.comboBoxItem1.Name = "comboBoxItem1";
-            // 
-            // labelItem1
-            // 
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "姓名";
             // 
             // labelItem2
             // 
@@ -199,6 +184,14 @@
             // 
             this.textBoxItem2.Name = "textBoxItem2";
             this.textBoxItem2.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // buttonItem7
+            // 
+            this.buttonItem7.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem7.ForeColor = System.Drawing.Color.White;
+            this.buttonItem7.Image = global::SmartAccess.Properties.Resources.editor;
+            this.buttonItem7.Name = "buttonItem7";
+            this.buttonItem7.Text = "查询";
             // 
             // buttonItem8
             // 
@@ -237,7 +230,7 @@
             this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEx1.EnableHeadersVisualStyles = false;
-            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dataGridViewEx1.Location = new System.Drawing.Point(0, 56);
             this.dataGridViewEx1.Name = "dataGridViewEx1";
             this.dataGridViewEx1.ReadOnly = true;

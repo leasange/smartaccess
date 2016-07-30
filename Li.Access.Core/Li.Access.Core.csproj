@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessCore.cs" />
+    <Compile Include="BJTWHCardIssue\MF800ACardIssueDevice.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="IAccessCore.cs" />
+    <Compile Include="ICardIssueDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WGAccesses\WGAccess.cs" />
   </ItemGroup>

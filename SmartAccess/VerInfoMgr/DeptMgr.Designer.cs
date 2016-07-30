@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeptMgr));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biRefreshDept = new DevComponents.DotNetBar.ButtonItem();
             this.biAddDept = new DevComponents.DotNetBar.ButtonItem();
@@ -91,7 +91,6 @@
             // biRefreshDept
             // 
             this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefreshDept.ForeColor = System.Drawing.Color.White;
             this.biRefreshDept.Image = ((System.Drawing.Image)(resources.GetObject("biRefreshDept.Image")));
             this.biRefreshDept.Name = "biRefreshDept";
             this.biRefreshDept.Text = "刷新";
@@ -100,7 +99,6 @@
             // biAddDept
             // 
             this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddDept.ForeColor = System.Drawing.Color.White;
             this.biAddDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddDept.Image")));
             this.biAddDept.Name = "biAddDept";
             this.biAddDept.Text = "添加部门";
@@ -110,7 +108,6 @@
             // biAddSubDept
             // 
             this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubDept.ForeColor = System.Drawing.Color.White;
             this.biAddSubDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddSubDept.Image")));
             this.biAddSubDept.Name = "biAddSubDept";
             this.biAddSubDept.Text = "添加下级部门";
@@ -120,7 +117,6 @@
             // biModifyDept
             // 
             this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyDept.ForeColor = System.Drawing.Color.White;
             this.biModifyDept.Image = ((System.Drawing.Image)(resources.GetObject("biModifyDept.Image")));
             this.biModifyDept.Name = "biModifyDept";
             this.biModifyDept.Text = "修改部门";
@@ -130,7 +126,6 @@
             // biDeleteDept
             // 
             this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteDept.ForeColor = System.Drawing.Color.White;
             this.biDeleteDept.Image = ((System.Drawing.Image)(resources.GetObject("biDeleteDept.Image")));
             this.biDeleteDept.Name = "biDeleteDept";
             this.biDeleteDept.Text = "删除部门";
@@ -140,7 +135,6 @@
             // biMoveDept
             // 
             this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biMoveDept.ForeColor = System.Drawing.Color.White;
             this.biMoveDept.Image = ((System.Drawing.Image)(resources.GetObject("biMoveDept.Image")));
             this.biMoveDept.Name = "biMoveDept";
             this.biMoveDept.Text = "移动部门";
@@ -149,7 +143,6 @@
             // buttonItem5
             // 
             this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.ForeColor = System.Drawing.Color.White;
             this.buttonItem5.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem5.Image")));
             this.buttonItem5.Name = "buttonItem5";
             this.buttonItem5.Text = "导入所有部门";
@@ -157,7 +150,6 @@
             // buttonItem6
             // 
             this.buttonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem6.ForeColor = System.Drawing.Color.White;
             this.buttonItem6.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem6.Image")));
             this.buttonItem6.Name = "buttonItem6";
             this.buttonItem6.Text = "导出所有部门";
@@ -226,40 +218,40 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewEx1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEx1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEx1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewEx1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEx1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
             this.Column1,
             this.Column2});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewEx1.EnableHeadersVisualStyles = false;
-            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dataGridViewEx1.Location = new System.Drawing.Point(20, 117);
             this.dataGridViewEx1.Name = "dataGridViewEx1";
             this.dataGridViewEx1.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEx1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEx1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewEx1.RowTemplate.Height = 23;
             this.dataGridViewEx1.Size = new System.Drawing.Size(671, 327);
             this.dataGridViewEx1.TabIndex = 2;

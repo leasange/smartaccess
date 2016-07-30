@@ -99,7 +99,6 @@
             // biAddRootArea
             // 
             this.biAddRootArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddRootArea.ForeColor = System.Drawing.Color.White;
             this.biAddRootArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biAddRootArea.Name = "biAddRootArea";
             this.biAddRootArea.Text = "搜索控制器";
@@ -108,7 +107,6 @@
             // buttonItem2
             // 
             this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.ForeColor = System.Drawing.Color.White;
             this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem2.Name = "buttonItem2";
             this.buttonItem2.Text = "添加控制器";
@@ -116,7 +114,6 @@
             // buttonItem3
             // 
             this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem3.ForeColor = System.Drawing.Color.White;
             this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem3.Name = "buttonItem3";
             this.buttonItem3.Text = "修改控制器";
@@ -124,7 +121,6 @@
             // buttonItem1
             // 
             this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.ForeColor = System.Drawing.Color.White;
             this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "删除控制器";
@@ -132,7 +128,6 @@
             // buttonItem4
             // 
             this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.ForeColor = System.Drawing.Color.White;
             this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem4.Name = "buttonItem4";
             this.buttonItem4.Text = "打印";
@@ -140,7 +135,6 @@
             // buttonItem5
             // 
             this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.ForeColor = System.Drawing.Color.White;
             this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem5.Name = "buttonItem5";
             this.buttonItem5.Text = "导出";
@@ -148,7 +142,6 @@
             // buttonItem6
             // 
             this.buttonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem6.ForeColor = System.Drawing.Color.White;
             this.buttonItem6.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem6.Name = "buttonItem6";
             this.buttonItem6.Text = "查找";
@@ -269,7 +262,6 @@
             // biAddArea
             // 
             this.biAddArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddArea.ForeColor = System.Drawing.Color.White;
             this.biAddArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biAddArea.Name = "biAddArea";
             this.biAddArea.Text = "添加区域";
@@ -279,7 +271,6 @@
             // biAddSubArea
             // 
             this.biAddSubArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubArea.ForeColor = System.Drawing.Color.White;
             this.biAddSubArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biAddSubArea.Name = "biAddSubArea";
             this.biAddSubArea.Text = "添加下级";
@@ -289,7 +280,6 @@
             // biDeleteArea
             // 
             this.biDeleteArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteArea.ForeColor = System.Drawing.Color.White;
             this.biDeleteArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biDeleteArea.Name = "biDeleteArea";
             this.biDeleteArea.Text = "删除";
@@ -299,7 +289,6 @@
             // biModifyArea
             // 
             this.biModifyArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyArea.ForeColor = System.Drawing.Color.White;
             this.biModifyArea.Image = global::SmartAccess.Properties.Resources.editor;
             this.biModifyArea.Name = "biModifyArea";
             this.biModifyArea.Text = "修改";
@@ -338,7 +327,7 @@
             this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCtrlr.EnableHeadersVisualStyles = false;
-            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvCtrlr.Location = new System.Drawing.Point(0, 28);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;

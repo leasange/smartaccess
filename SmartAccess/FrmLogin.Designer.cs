@@ -151,9 +151,9 @@
             // 
             // styleManager
             // 
-            this.styleManager.ManagerColorTint = System.Drawing.Color.Black;
+            this.styleManager.ManagerColorTint = System.Drawing.Color.Gray;
             this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2010Black;
-            this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.Black, System.Drawing.Color.Black);
+            this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64))))), System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64))))));
             // 
             // pictureBox1
             // 
