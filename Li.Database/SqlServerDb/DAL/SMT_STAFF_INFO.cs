@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:29   N/A    初版
+* V0.01  2016/8/1 23:35:04   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -50,30 +50,29 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public decimal Add(Maticsoft.Model.SMT_STAFF_INFO model)
-		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("insert into SMT_STAFF_INFO(");
-			strSql.Append("ORG_ID,STAFF_NO_TEMPLET,STAFF_NO_TYPENAME,STAFF_NO,WORK_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,SKIIL_LEVEL,CER_NAME,CER_NO,TEL,MOBILEPHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ADDRESS,PHOTO,CER_PHONE1,CER_PHONE2,PRINT_TEMPLET_ID)");
-			strSql.Append(" values (");
-			strSql.Append("@ORG_ID,@STAFF_NO_TEMPLET,@STAFF_NO_TYPENAME,@STAFF_NO,@WORK_NO,@REAL_NAME,@SEX,@JOB,@BIRTHDAY,@POLITICS,@SKIIL_LEVEL,@CER_NAME,@CER_NO,@TEL,@MOBILEPHONE,@NATIVE,@NATION,@RELIGION,@EDUCATIONAL,@EMAIL,@VALID_STARTTIME,@VALID_ENDTIME,@ADDRESS,@PHOTO,@CER_PHONE1,@CER_PHONE2,@PRINT_TEMPLET_ID)");
-			strSql.Append(";select @@IDENTITY");
-			SqlParameter[] parameters = {
+        public decimal Add(Maticsoft.Model.SMT_STAFF_INFO model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into SMT_STAFF_INFO(");
+            strSql.Append("ORG_ID,STAFF_NO_TEMPLET,STAFF_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,MARRIED,SKIIL_LEVEL,CER_NAME,CER_NO,TELE_PHONE,CELL_PHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ENTRY_TIME,ABORT_TIME,ADDRESS,PHOTO,CER_PHOTO_FRONT,CER_PHOTO_BACK,PRINT_TEMPLET_ID,IS_FORBIDDEN,IS_DELETE,REG_TIME,DEL_TIME,FORBIDDEN_TIME,ENABLE_TIME,MODIFY_TIME)");
+            strSql.Append(" values (");
+            strSql.Append("@ORG_ID,@STAFF_NO_TEMPLET,@STAFF_NO,@REAL_NAME,@SEX,@JOB,@BIRTHDAY,@POLITICS,@MARRIED,@SKIIL_LEVEL,@CER_NAME,@CER_NO,@TELE_PHONE,@CELL_PHONE,@NATIVE,@NATION,@RELIGION,@EDUCATIONAL,@EMAIL,@VALID_STARTTIME,@VALID_ENDTIME,@ENTRY_TIME,@ABORT_TIME,@ADDRESS,@PHOTO,@CER_PHOTO_FRONT,@CER_PHOTO_BACK,@PRINT_TEMPLET_ID,@IS_FORBIDDEN,@IS_DELETE,@REG_TIME,@DEL_TIME,@FORBIDDEN_TIME,@ENABLE_TIME,@MODIFY_TIME)");
+            strSql.Append(";select @@IDENTITY");
+            SqlParameter[] parameters = {
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@STAFF_NO_TEMPLET", SqlDbType.Decimal,9),
-					new SqlParameter("@STAFF_NO_TYPENAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@STAFF_NO", SqlDbType.NVarChar,400),
-					new SqlParameter("@WORK_NO", SqlDbType.NVarChar,400),
 					new SqlParameter("@REAL_NAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@SEX", SqlDbType.TinyInt,1),
 					new SqlParameter("@JOB", SqlDbType.NVarChar,200),
 					new SqlParameter("@BIRTHDAY", SqlDbType.Date,3),
 					new SqlParameter("@POLITICS", SqlDbType.NVarChar,100),
+					new SqlParameter("@MARRIED", SqlDbType.TinyInt,1),
 					new SqlParameter("@SKIIL_LEVEL", SqlDbType.NVarChar,100),
 					new SqlParameter("@CER_NAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@CER_NO", SqlDbType.NVarChar,400),
-					new SqlParameter("@TEL", SqlDbType.NVarChar,100),
-					new SqlParameter("@MOBILEPHONE", SqlDbType.NVarChar,100),
+					new SqlParameter("@TELE_PHONE", SqlDbType.NVarChar,100),
+					new SqlParameter("@CELL_PHONE", SqlDbType.NVarChar,100),
 					new SqlParameter("@NATIVE", SqlDbType.NVarChar,400),
 					new SqlParameter("@NATION", SqlDbType.NVarChar,100),
 					new SqlParameter("@RELIGION", SqlDbType.NVarChar,100),
@@ -81,49 +80,65 @@ namespace Maticsoft.DAL
 					new SqlParameter("@EMAIL", SqlDbType.NVarChar,100),
 					new SqlParameter("@VALID_STARTTIME", SqlDbType.DateTime),
 					new SqlParameter("@VALID_ENDTIME", SqlDbType.DateTime),
+					new SqlParameter("@ENTRY_TIME", SqlDbType.Date,3),
+					new SqlParameter("@ABORT_TIME", SqlDbType.Date,3),
 					new SqlParameter("@ADDRESS", SqlDbType.NVarChar,400),
 					new SqlParameter("@PHOTO", SqlDbType.Image),
-					new SqlParameter("@CER_PHONE1", SqlDbType.Image),
-					new SqlParameter("@CER_PHONE2", SqlDbType.Image),
-					new SqlParameter("@PRINT_TEMPLET_ID", SqlDbType.Decimal,9)};
-			parameters[0].Value = model.ORG_ID;
-			parameters[1].Value = model.STAFF_NO_TEMPLET;
-			parameters[2].Value = model.STAFF_NO_TYPENAME;
-			parameters[3].Value = model.STAFF_NO;
-			parameters[4].Value = model.WORK_NO;
-			parameters[5].Value = model.REAL_NAME;
-			parameters[6].Value = model.SEX;
-			parameters[7].Value = model.JOB;
-			parameters[8].Value = model.BIRTHDAY;
-			parameters[9].Value = model.POLITICS;
-			parameters[10].Value = model.SKIIL_LEVEL;
-			parameters[11].Value = model.CER_NAME;
-			parameters[12].Value = model.CER_NO;
-			parameters[13].Value = model.TEL;
-			parameters[14].Value = model.MOBILEPHONE;
-			parameters[15].Value = model.NATIVE;
-			parameters[16].Value = model.NATION;
-			parameters[17].Value = model.RELIGION;
-			parameters[18].Value = model.EDUCATIONAL;
-			parameters[19].Value = model.EMAIL;
-			parameters[20].Value = model.VALID_STARTTIME;
-			parameters[21].Value = model.VALID_ENDTIME;
-			parameters[22].Value = model.ADDRESS;
-			parameters[23].Value = model.PHOTO;
-			parameters[24].Value = model.CER_PHONE1;
-			parameters[25].Value = model.CER_PHONE2;
-			parameters[26].Value = model.PRINT_TEMPLET_ID;
-
-			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
-			if (obj == null)
-			{
-				return 0;
-			}
-			else
-			{
-				return Convert.ToDecimal(obj);
-			}
-		}
+					new SqlParameter("@CER_PHOTO_FRONT", SqlDbType.Image),
+					new SqlParameter("@CER_PHOTO_BACK", SqlDbType.Image),
+					new SqlParameter("@PRINT_TEMPLET_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@IS_FORBIDDEN", SqlDbType.Bit,1),
+					new SqlParameter("@IS_DELETE", SqlDbType.Bit,1),
+					new SqlParameter("@REG_TIME", SqlDbType.DateTime),
+					new SqlParameter("@DEL_TIME", SqlDbType.DateTime),
+					new SqlParameter("@FORBIDDEN_TIME", SqlDbType.DateTime),
+					new SqlParameter("@ENABLE_TIME", SqlDbType.DateTime),
+                    new SqlParameter("@MODIFY_TIME", SqlDbType.DateTime)};
+            parameters[0].Value = model.ORG_ID;
+            parameters[1].Value = model.STAFF_NO_TEMPLET;
+            parameters[2].Value = model.STAFF_NO;
+            parameters[3].Value = model.REAL_NAME;
+            parameters[4].Value = model.SEX;
+            parameters[5].Value = model.JOB;
+            parameters[6].Value = model.BIRTHDAY;
+            parameters[7].Value = model.POLITICS;
+            parameters[8].Value = model.MARRIED;
+            parameters[9].Value = model.SKIIL_LEVEL;
+            parameters[10].Value = model.CER_NAME;
+            parameters[11].Value = model.CER_NO;
+            parameters[12].Value = model.TELE_PHONE;
+            parameters[13].Value = model.CELL_PHONE;
+            parameters[14].Value = model.NATIVE;
+            parameters[15].Value = model.NATION;
+            parameters[16].Value = model.RELIGION;
+            parameters[17].Value = model.EDUCATIONAL;
+            parameters[18].Value = model.EMAIL;
+            parameters[19].Value = model.VALID_STARTTIME;
+            parameters[20].Value = model.VALID_ENDTIME;
+            parameters[21].Value = model.ENTRY_TIME;
+            parameters[22].Value = model.ABORT_TIME;
+            parameters[23].Value = model.ADDRESS;
+            parameters[24].Value = model.PHOTO == null ? DBNull.Value : (object)model.PHOTO;
+            parameters[25].Value = model.CER_PHOTO_FRONT == null ? DBNull.Value : (object)model.CER_PHOTO_FRONT;
+            parameters[26].Value = model.CER_PHOTO_BACK == null ? DBNull.Value : (object)model.CER_PHOTO_BACK;
+            parameters[27].Value = model.PRINT_TEMPLET_ID;
+            parameters[28].Value = model.IS_FORBIDDEN;
+            parameters[29].Value = model.IS_DELETE;
+            parameters[30].Value = model.REG_TIME;
+            parameters[31].Value = model.DEL_TIME == null ? DBNull.Value : (object)model.DEL_TIME;
+            parameters[32].Value = model.FORBIDDEN_TIME == null ? DBNull.Value : (object)model.FORBIDDEN_TIME;
+            parameters[33].Value = model.ENABLE_TIME == null ? DBNull.Value : (object)model.ENABLE_TIME;
+            parameters[34].Value = model.MODIFY_TIME;
+            object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToDecimal(obj);
+            }
+        }
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
@@ -133,19 +148,18 @@ namespace Maticsoft.DAL
 			strSql.Append("update SMT_STAFF_INFO set ");
 			strSql.Append("ORG_ID=@ORG_ID,");
 			strSql.Append("STAFF_NO_TEMPLET=@STAFF_NO_TEMPLET,");
-			strSql.Append("STAFF_NO_TYPENAME=@STAFF_NO_TYPENAME,");
 			strSql.Append("STAFF_NO=@STAFF_NO,");
-			strSql.Append("WORK_NO=@WORK_NO,");
 			strSql.Append("REAL_NAME=@REAL_NAME,");
 			strSql.Append("SEX=@SEX,");
 			strSql.Append("JOB=@JOB,");
 			strSql.Append("BIRTHDAY=@BIRTHDAY,");
 			strSql.Append("POLITICS=@POLITICS,");
+			strSql.Append("MARRIED=@MARRIED,");
 			strSql.Append("SKIIL_LEVEL=@SKIIL_LEVEL,");
 			strSql.Append("CER_NAME=@CER_NAME,");
 			strSql.Append("CER_NO=@CER_NO,");
-			strSql.Append("TEL=@TEL,");
-			strSql.Append("MOBILEPHONE=@MOBILEPHONE,");
+			strSql.Append("TELE_PHONE=@TELE_PHONE,");
+			strSql.Append("CELL_PHONE=@CELL_PHONE,");
 			strSql.Append("NATIVE=@NATIVE,");
 			strSql.Append("NATION=@NATION,");
 			strSql.Append("RELIGION=@RELIGION,");
@@ -153,28 +167,36 @@ namespace Maticsoft.DAL
 			strSql.Append("EMAIL=@EMAIL,");
 			strSql.Append("VALID_STARTTIME=@VALID_STARTTIME,");
 			strSql.Append("VALID_ENDTIME=@VALID_ENDTIME,");
+			strSql.Append("ENTRY_TIME=@ENTRY_TIME,");
+			strSql.Append("ABORT_TIME=@ABORT_TIME,");
 			strSql.Append("ADDRESS=@ADDRESS,");
 			strSql.Append("PHOTO=@PHOTO,");
-			strSql.Append("CER_PHONE1=@CER_PHONE1,");
-			strSql.Append("CER_PHONE2=@CER_PHONE2,");
-			strSql.Append("PRINT_TEMPLET_ID=@PRINT_TEMPLET_ID");
+			strSql.Append("CER_PHOTO_FRONT=@CER_PHOTO_FRONT,");
+			strSql.Append("CER_PHOTO_BACK=@CER_PHOTO_BACK,");
+			strSql.Append("PRINT_TEMPLET_ID=@PRINT_TEMPLET_ID,");
+			strSql.Append("IS_FORBIDDEN=@IS_FORBIDDEN,");
+			strSql.Append("IS_DELETE=@IS_DELETE,");
+			strSql.Append("REG_TIME=@REG_TIME,");
+			strSql.Append("DEL_TIME=@DEL_TIME,");
+			strSql.Append("FORBIDDEN_TIME=@FORBIDDEN_TIME,");
+			strSql.Append("ENABLE_TIME=@ENABLE_TIME,");
+            strSql.Append("MODIFY_TIME=@MODIFY_TIME");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@STAFF_NO_TEMPLET", SqlDbType.Decimal,9),
-					new SqlParameter("@STAFF_NO_TYPENAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@STAFF_NO", SqlDbType.NVarChar,400),
-					new SqlParameter("@WORK_NO", SqlDbType.NVarChar,400),
 					new SqlParameter("@REAL_NAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@SEX", SqlDbType.TinyInt,1),
 					new SqlParameter("@JOB", SqlDbType.NVarChar,200),
 					new SqlParameter("@BIRTHDAY", SqlDbType.Date,3),
 					new SqlParameter("@POLITICS", SqlDbType.NVarChar,100),
+					new SqlParameter("@MARRIED", SqlDbType.TinyInt,1),
 					new SqlParameter("@SKIIL_LEVEL", SqlDbType.NVarChar,100),
 					new SqlParameter("@CER_NAME", SqlDbType.NVarChar,100),
 					new SqlParameter("@CER_NO", SqlDbType.NVarChar,400),
-					new SqlParameter("@TEL", SqlDbType.NVarChar,100),
-					new SqlParameter("@MOBILEPHONE", SqlDbType.NVarChar,100),
+					new SqlParameter("@TELE_PHONE", SqlDbType.NVarChar,100),
+					new SqlParameter("@CELL_PHONE", SqlDbType.NVarChar,100),
 					new SqlParameter("@NATIVE", SqlDbType.NVarChar,400),
 					new SqlParameter("@NATION", SqlDbType.NVarChar,100),
 					new SqlParameter("@RELIGION", SqlDbType.NVarChar,100),
@@ -182,40 +204,57 @@ namespace Maticsoft.DAL
 					new SqlParameter("@EMAIL", SqlDbType.NVarChar,100),
 					new SqlParameter("@VALID_STARTTIME", SqlDbType.DateTime),
 					new SqlParameter("@VALID_ENDTIME", SqlDbType.DateTime),
+					new SqlParameter("@ENTRY_TIME", SqlDbType.Date,3),
+					new SqlParameter("@ABORT_TIME", SqlDbType.Date,3),
 					new SqlParameter("@ADDRESS", SqlDbType.NVarChar,400),
 					new SqlParameter("@PHOTO", SqlDbType.Image),
-					new SqlParameter("@CER_PHONE1", SqlDbType.Image),
-					new SqlParameter("@CER_PHONE2", SqlDbType.Image),
+					new SqlParameter("@CER_PHOTO_FRONT", SqlDbType.Image),
+					new SqlParameter("@CER_PHOTO_BACK", SqlDbType.Image),
 					new SqlParameter("@PRINT_TEMPLET_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@IS_FORBIDDEN", SqlDbType.Bit,1),
+					new SqlParameter("@IS_DELETE", SqlDbType.Bit,1),
+					new SqlParameter("@REG_TIME", SqlDbType.DateTime),
+					new SqlParameter("@DEL_TIME", SqlDbType.DateTime),
+					new SqlParameter("@FORBIDDEN_TIME", SqlDbType.DateTime),
+					new SqlParameter("@ENABLE_TIME", SqlDbType.DateTime),
+                    new SqlParameter("@MODIFY_TIME", SqlDbType.DateTime),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.ORG_ID;
 			parameters[1].Value = model.STAFF_NO_TEMPLET;
-			parameters[2].Value = model.STAFF_NO_TYPENAME;
-			parameters[3].Value = model.STAFF_NO;
-			parameters[4].Value = model.WORK_NO;
-			parameters[5].Value = model.REAL_NAME;
-			parameters[6].Value = model.SEX;
-			parameters[7].Value = model.JOB;
-			parameters[8].Value = model.BIRTHDAY;
-			parameters[9].Value = model.POLITICS;
-			parameters[10].Value = model.SKIIL_LEVEL;
-			parameters[11].Value = model.CER_NAME;
-			parameters[12].Value = model.CER_NO;
-			parameters[13].Value = model.TEL;
-			parameters[14].Value = model.MOBILEPHONE;
-			parameters[15].Value = model.NATIVE;
-			parameters[16].Value = model.NATION;
-			parameters[17].Value = model.RELIGION;
-			parameters[18].Value = model.EDUCATIONAL;
-			parameters[19].Value = model.EMAIL;
-			parameters[20].Value = model.VALID_STARTTIME;
-			parameters[21].Value = model.VALID_ENDTIME;
-			parameters[22].Value = model.ADDRESS;
-			parameters[23].Value = model.PHOTO;
-			parameters[24].Value = model.CER_PHONE1;
-			parameters[25].Value = model.CER_PHONE2;
-			parameters[26].Value = model.PRINT_TEMPLET_ID;
-			parameters[27].Value = model.ID;
+			parameters[2].Value = model.STAFF_NO;
+			parameters[3].Value = model.REAL_NAME;
+			parameters[4].Value = model.SEX;
+			parameters[5].Value = model.JOB;
+			parameters[6].Value = model.BIRTHDAY;
+			parameters[7].Value = model.POLITICS;
+			parameters[8].Value = model.MARRIED;
+			parameters[9].Value = model.SKIIL_LEVEL;
+			parameters[10].Value = model.CER_NAME;
+			parameters[11].Value = model.CER_NO;
+			parameters[12].Value = model.TELE_PHONE;
+			parameters[13].Value = model.CELL_PHONE;
+			parameters[14].Value = model.NATIVE;
+			parameters[15].Value = model.NATION;
+			parameters[16].Value = model.RELIGION;
+			parameters[17].Value = model.EDUCATIONAL;
+			parameters[18].Value = model.EMAIL;
+			parameters[19].Value = model.VALID_STARTTIME;
+			parameters[20].Value = model.VALID_ENDTIME;
+			parameters[21].Value = model.ENTRY_TIME;
+			parameters[22].Value = model.ABORT_TIME;
+			parameters[23].Value = model.ADDRESS;
+            parameters[24].Value = model.PHOTO == null ? DBNull.Value : (object)model.PHOTO;
+            parameters[25].Value = model.CER_PHOTO_FRONT == null ? DBNull.Value : (object)model.CER_PHOTO_FRONT;
+            parameters[26].Value = model.CER_PHOTO_BACK == null ? DBNull.Value : (object)model.CER_PHOTO_BACK;
+			parameters[27].Value = model.PRINT_TEMPLET_ID;
+			parameters[28].Value = model.IS_FORBIDDEN;
+			parameters[29].Value = model.IS_DELETE;
+			parameters[30].Value = model.REG_TIME;
+			parameters[31].Value = model.DEL_TIME;
+			parameters[32].Value = model.FORBIDDEN_TIME;
+			parameters[33].Value = model.ENABLE_TIME;
+            parameters[34].Value = model.MODIFY_TIME;
+			parameters[35].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -279,7 +318,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO_TYPENAME,STAFF_NO,WORK_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,SKIIL_LEVEL,CER_NAME,CER_NO,TEL,MOBILEPHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ADDRESS,PHOTO,CER_PHONE1,CER_PHONE2,PRINT_TEMPLET_ID from SMT_STAFF_INFO ");
+            strSql.Append("select  top 1 ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,MARRIED,SKIIL_LEVEL,CER_NAME,CER_NO,TELE_PHONE,CELL_PHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ENTRY_TIME,ABORT_TIME,ADDRESS,PHOTO,CER_PHOTO_FRONT,CER_PHOTO_BACK,PRINT_TEMPLET_ID,IS_FORBIDDEN,IS_DELETE,REG_TIME,DEL_TIME,FORBIDDEN_TIME,ENABLE_TIME,MODIFY_TIME from SMT_STAFF_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -319,17 +358,9 @@ namespace Maticsoft.DAL
 				{
 					model.STAFF_NO_TEMPLET=decimal.Parse(row["STAFF_NO_TEMPLET"].ToString());
 				}
-				if(row["STAFF_NO_TYPENAME"]!=null)
-				{
-					model.STAFF_NO_TYPENAME=row["STAFF_NO_TYPENAME"].ToString();
-				}
 				if(row["STAFF_NO"]!=null)
 				{
 					model.STAFF_NO=row["STAFF_NO"].ToString();
-				}
-				if(row["WORK_NO"]!=null)
-				{
-					model.WORK_NO=row["WORK_NO"].ToString();
 				}
 				if(row["REAL_NAME"]!=null)
 				{
@@ -351,6 +382,10 @@ namespace Maticsoft.DAL
 				{
 					model.POLITICS=row["POLITICS"].ToString();
 				}
+				if(row["MARRIED"]!=null && row["MARRIED"].ToString()!="")
+				{
+					model.MARRIED=int.Parse(row["MARRIED"].ToString());
+				}
 				if(row["SKIIL_LEVEL"]!=null)
 				{
 					model.SKIIL_LEVEL=row["SKIIL_LEVEL"].ToString();
@@ -363,13 +398,13 @@ namespace Maticsoft.DAL
 				{
 					model.CER_NO=row["CER_NO"].ToString();
 				}
-				if(row["TEL"]!=null)
+				if(row["TELE_PHONE"]!=null)
 				{
-					model.TEL=row["TEL"].ToString();
+					model.TELE_PHONE=row["TELE_PHONE"].ToString();
 				}
-				if(row["MOBILEPHONE"]!=null)
+				if(row["CELL_PHONE"]!=null)
 				{
-					model.MOBILEPHONE=row["MOBILEPHONE"].ToString();
+					model.CELL_PHONE=row["CELL_PHONE"].ToString();
 				}
 				if(row["NATIVE"]!=null)
 				{
@@ -399,6 +434,14 @@ namespace Maticsoft.DAL
 				{
 					model.VALID_ENDTIME=DateTime.Parse(row["VALID_ENDTIME"].ToString());
 				}
+				if(row["ENTRY_TIME"]!=null && row["ENTRY_TIME"].ToString()!="")
+				{
+					model.ENTRY_TIME=DateTime.Parse(row["ENTRY_TIME"].ToString());
+				}
+				if(row["ABORT_TIME"]!=null && row["ABORT_TIME"].ToString()!="")
+				{
+					model.ABORT_TIME=DateTime.Parse(row["ABORT_TIME"].ToString());
+				}
 				if(row["ADDRESS"]!=null)
 				{
 					model.ADDRESS=row["ADDRESS"].ToString();
@@ -407,17 +450,59 @@ namespace Maticsoft.DAL
 				{
 					model.PHOTO=(byte[])row["PHOTO"];
 				}
-				if(row["CER_PHONE1"]!=null && row["CER_PHONE1"].ToString()!="")
+				if(row["CER_PHOTO_FRONT"]!=null && row["CER_PHOTO_FRONT"].ToString()!="")
 				{
-					model.CER_PHONE1=(byte[])row["CER_PHONE1"];
+					model.CER_PHOTO_FRONT=(byte[])row["CER_PHOTO_FRONT"];
 				}
-				if(row["CER_PHONE2"]!=null && row["CER_PHONE2"].ToString()!="")
+				if(row["CER_PHOTO_BACK"]!=null && row["CER_PHOTO_BACK"].ToString()!="")
 				{
-					model.CER_PHONE2=(byte[])row["CER_PHONE2"];
+					model.CER_PHOTO_BACK=(byte[])row["CER_PHOTO_BACK"];
 				}
 				if(row["PRINT_TEMPLET_ID"]!=null && row["PRINT_TEMPLET_ID"].ToString()!="")
 				{
 					model.PRINT_TEMPLET_ID=decimal.Parse(row["PRINT_TEMPLET_ID"].ToString());
+				}
+				if(row["IS_FORBIDDEN"]!=null && row["IS_FORBIDDEN"].ToString()!="")
+				{
+					if((row["IS_FORBIDDEN"].ToString()=="1")||(row["IS_FORBIDDEN"].ToString().ToLower()=="true"))
+					{
+						model.IS_FORBIDDEN=true;
+					}
+					else
+					{
+						model.IS_FORBIDDEN=false;
+					}
+				}
+				if(row["IS_DELETE"]!=null && row["IS_DELETE"].ToString()!="")
+				{
+					if((row["IS_DELETE"].ToString()=="1")||(row["IS_DELETE"].ToString().ToLower()=="true"))
+					{
+						model.IS_DELETE=true;
+					}
+					else
+					{
+						model.IS_DELETE=false;
+					}
+				}
+				if(row["REG_TIME"]!=null && row["REG_TIME"].ToString()!="")
+				{
+					model.REG_TIME=DateTime.Parse(row["REG_TIME"].ToString());
+				}
+				if(row["DEL_TIME"]!=null && row["DEL_TIME"].ToString()!="")
+				{
+					model.DEL_TIME=DateTime.Parse(row["DEL_TIME"].ToString());
+				}
+				if(row["FORBIDDEN_TIME"]!=null && row["FORBIDDEN_TIME"].ToString()!="")
+				{
+					model.FORBIDDEN_TIME=DateTime.Parse(row["FORBIDDEN_TIME"].ToString());
+				}
+				if(row["ENABLE_TIME"]!=null && row["ENABLE_TIME"].ToString()!="")
+				{
+					model.ENABLE_TIME=DateTime.Parse(row["ENABLE_TIME"].ToString());
+				}
+                if (row["MODIFY_TIME"] != null && row["MODIFY_TIME"].ToString() != "")
+				{
+                    model.MODIFY_TIME = DateTime.Parse(row["MODIFY_TIME"].ToString());
 				}
 			}
 			return model;
@@ -429,7 +514,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO_TYPENAME,STAFF_NO,WORK_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,SKIIL_LEVEL,CER_NAME,CER_NO,TEL,MOBILEPHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ADDRESS,PHOTO,CER_PHONE1,CER_PHONE2,PRINT_TEMPLET_ID ");
+            strSql.Append("select ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,MARRIED,SKIIL_LEVEL,CER_NAME,CER_NO,TELE_PHONE,CELL_PHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ENTRY_TIME,ABORT_TIME,ADDRESS,PHOTO,CER_PHOTO_FRONT,CER_PHOTO_BACK,PRINT_TEMPLET_ID,IS_FORBIDDEN,IS_DELETE,REG_TIME,DEL_TIME,FORBIDDEN_TIME,ENABLE_TIME,MODIFY_TIME ");
 			strSql.Append(" FROM SMT_STAFF_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -449,7 +534,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO_TYPENAME,STAFF_NO,WORK_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,SKIIL_LEVEL,CER_NAME,CER_NO,TEL,MOBILEPHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ADDRESS,PHOTO,CER_PHONE1,CER_PHONE2,PRINT_TEMPLET_ID ");
+            strSql.Append(" ID,ORG_ID,STAFF_NO_TEMPLET,STAFF_NO,REAL_NAME,SEX,JOB,BIRTHDAY,POLITICS,MARRIED,SKIIL_LEVEL,CER_NAME,CER_NO,TELE_PHONE,CELL_PHONE,NATIVE,NATION,RELIGION,EDUCATIONAL,EMAIL,VALID_STARTTIME,VALID_ENDTIME,ENTRY_TIME,ABORT_TIME,ADDRESS,PHOTO,CER_PHOTO_FRONT,CER_PHOTO_BACK,PRINT_TEMPLET_ID,IS_FORBIDDEN,IS_DELETE,REG_TIME,DEL_TIME,FORBIDDEN_TIME,ENABLE_TIME,MODIFY_TIME ");
 			strSql.Append(" FROM SMT_STAFF_INFO ");
 			if(strWhere.Trim()!="")
 			{

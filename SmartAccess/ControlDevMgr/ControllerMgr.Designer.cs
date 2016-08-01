@@ -33,9 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem3 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnAddCtrlr = new DevComponents.DotNetBar.ButtonItem();
+            this.biModifyCtrlr = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteCtrlr = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem6 = new DevComponents.DotNetBar.ButtonItem();
@@ -79,9 +79,9 @@
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biAddRootArea,
-            this.buttonItem2,
-            this.buttonItem3,
-            this.buttonItem1,
+            this.btnAddCtrlr,
+            this.biModifyCtrlr,
+            this.biDeleteCtrlr,
             this.buttonItem4,
             this.buttonItem5,
             this.buttonItem6,
@@ -104,26 +104,27 @@
             this.biAddRootArea.Text = "搜索控制器";
             this.biAddRootArea.Click += new System.EventHandler(this.biAddRootArea_Click);
             // 
-            // buttonItem2
+            // btnAddCtrlr
             // 
-            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem2.Name = "buttonItem2";
-            this.buttonItem2.Text = "添加控制器";
+            this.btnAddCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnAddCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.btnAddCtrlr.Name = "btnAddCtrlr";
+            this.btnAddCtrlr.Text = "添加控制器";
+            this.btnAddCtrlr.Click += new System.EventHandler(this.btnAddCtrlr_Click);
             // 
-            // buttonItem3
+            // biModifyCtrlr
             // 
-            this.buttonItem3.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem3.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem3.Name = "buttonItem3";
-            this.buttonItem3.Text = "修改控制器";
+            this.biModifyCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModifyCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biModifyCtrlr.Name = "biModifyCtrlr";
+            this.biModifyCtrlr.Text = "修改控制器";
             // 
-            // buttonItem1
+            // biDeleteCtrlr
             // 
-            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "删除控制器";
+            this.biDeleteCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDeleteCtrlr.Name = "biDeleteCtrlr";
+            this.biDeleteCtrlr.Text = "删除控制器";
             // 
             // buttonItem4
             // 
@@ -327,7 +328,7 @@
             this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCtrlr.EnableHeadersVisualStyles = false;
-            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvCtrlr.Location = new System.Drawing.Point(0, 28);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;
@@ -425,9 +426,9 @@
 
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biAddRootArea;
-        private DevComponents.DotNetBar.ButtonItem buttonItem2;
-        private DevComponents.DotNetBar.ButtonItem buttonItem3;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonItem btnAddCtrlr;
+        private DevComponents.DotNetBar.ButtonItem biModifyCtrlr;
+        private DevComponents.DotNetBar.ButtonItem biDeleteCtrlr;
         private DevComponents.DotNetBar.ButtonItem buttonItem4;
         private DevComponents.DotNetBar.ButtonItem buttonItem5;
         private DevComponents.DotNetBar.ButtonItem buttonItem6;

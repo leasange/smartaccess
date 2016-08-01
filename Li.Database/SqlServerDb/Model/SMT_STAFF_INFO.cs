@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:29   N/A    初版
+* V0.01  2016/8/1 23:35:04   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -29,31 +29,40 @@ namespace Maticsoft.Model
 		private decimal _id;
 		private decimal? _org_id;
 		private decimal? _staff_no_templet;
-		private string _staff_no_typename;
 		private string _staff_no;
-		private string _work_no;
 		private string _real_name;
 		private int? _sex;
 		private string _job;
 		private DateTime? _birthday;
 		private string _politics;
+		private int? _married;
 		private string _skiil_level;
 		private string _cer_name;
 		private string _cer_no;
-		private string _tel;
-		private string _mobilephone;
+		private string _tele_phone;
+		private string _cell_phone;
 		private string _native;
 		private string _nation;
 		private string _religion;
 		private string _educational;
 		private string _email;
-		private DateTime? _valid_starttime;
-		private DateTime? _valid_endtime;
+		private DateTime _valid_starttime;
+		private DateTime _valid_endtime;
+		private DateTime? _entry_time;
+		private DateTime? _abort_time;
 		private string _address;
 		private byte[] _photo;
-		private byte[] _cer_phone1;
-		private byte[] _cer_phone2;
+		private byte[] _cer_photo_front;
+		private byte[] _cer_photo_back;
 		private decimal? _print_templet_id;
+		private bool _is_forbidden;
+		private bool _is_delete;
+		private DateTime _reg_time;
+		private DateTime? _del_time;
+		private DateTime? _forbidden_time;
+		private DateTime? _enable_time;
+        private DateTime? _modify_time;
+
 		/// <summary>
 		/// 职员ID
 		/// </summary>
@@ -79,28 +88,12 @@ namespace Maticsoft.Model
 			get{return _staff_no_templet;}
 		}
 		/// <summary>
-		/// 职员证件类型名称
-		/// </summary>
-		public string STAFF_NO_TYPENAME
-		{
-			set{ _staff_no_typename=value;}
-			get{return _staff_no_typename;}
-		}
-		/// <summary>
 		/// 职员/证件编号
 		/// </summary>
 		public string STAFF_NO
 		{
 			set{ _staff_no=value;}
 			get{return _staff_no;}
-		}
-		/// <summary>
-		/// 工作证号
-		/// </summary>
-		public string WORK_NO
-		{
-			set{ _work_no=value;}
-			get{return _work_no;}
 		}
 		/// <summary>
 		/// 职员姓名
@@ -143,6 +136,14 @@ namespace Maticsoft.Model
 			get{return _politics;}
 		}
 		/// <summary>
+		/// MARRIED
+		/// </summary>
+		public int? MARRIED
+		{
+			set{ _married=value;}
+			get{return _married;}
+		}
+		/// <summary>
 		/// 技术等级
 		/// </summary>
 		public string SKIIL_LEVEL
@@ -169,18 +170,18 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 办公电话
 		/// </summary>
-		public string TEL
+		public string TELE_PHONE
 		{
-			set{ _tel=value;}
-			get{return _tel;}
+			set{ _tele_phone=value;}
+			get{return _tele_phone;}
 		}
 		/// <summary>
 		/// 手机
 		/// </summary>
-		public string MOBILEPHONE
+		public string CELL_PHONE
 		{
-			set{ _mobilephone=value;}
-			get{return _mobilephone;}
+			set{ _cell_phone=value;}
+			get{return _cell_phone;}
 		}
 		/// <summary>
 		/// 籍贯
@@ -225,7 +226,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 有效开始时间
 		/// </summary>
-		public DateTime? VALID_STARTTIME
+		public DateTime VALID_STARTTIME
 		{
 			set{ _valid_starttime=value;}
 			get{return _valid_starttime;}
@@ -233,10 +234,26 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 有效结束时间
 		/// </summary>
-		public DateTime? VALID_ENDTIME
+		public DateTime VALID_ENDTIME
 		{
 			set{ _valid_endtime=value;}
 			get{return _valid_endtime;}
+		}
+		/// <summary>
+		/// 入职时间
+		/// </summary>
+		public DateTime? ENTRY_TIME
+		{
+			set{ _entry_time=value;}
+			get{return _entry_time;}
+		}
+		/// <summary>
+		/// 离职时间
+		/// </summary>
+		public DateTime? ABORT_TIME
+		{
+			set{ _abort_time=value;}
+			get{return _abort_time;}
 		}
 		/// <summary>
 		/// 通信地址
@@ -257,18 +274,18 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 有效证件正面照片
 		/// </summary>
-		public byte[] CER_PHONE1
+		public byte[] CER_PHOTO_FRONT
 		{
-			set{ _cer_phone1=value;}
-			get{return _cer_phone1;}
+			set{ _cer_photo_front=value;}
+			get{return _cer_photo_front;}
 		}
 		/// <summary>
 		/// 有效证件背面照片
 		/// </summary>
-		public byte[] CER_PHONE2
+		public byte[] CER_PHOTO_BACK
 		{
-			set{ _cer_phone2=value;}
-			get{return _cer_phone2;}
+			set{ _cer_photo_back=value;}
+			get{return _cer_photo_back;}
 		}
 		/// <summary>
 		/// 使用的打印证件模板ID
@@ -278,6 +295,62 @@ namespace Maticsoft.Model
 			set{ _print_templet_id=value;}
 			get{return _print_templet_id;}
 		}
+		/// <summary>
+		/// 是否被禁用/挂失
+		/// </summary>
+		public bool IS_FORBIDDEN
+		{
+			set{ _is_forbidden=value;}
+			get{return _is_forbidden;}
+		}
+		/// <summary>
+		/// 是否被删除/注销
+		/// </summary>
+		public bool IS_DELETE
+		{
+			set{ _is_delete=value;}
+			get{return _is_delete;}
+		}
+		/// <summary>
+		/// 注册时间
+		/// </summary>
+		public DateTime REG_TIME
+		{
+			set{ _reg_time=value;}
+			get{return _reg_time;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? DEL_TIME
+		{
+			set{ _del_time=value;}
+			get{return _del_time;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? FORBIDDEN_TIME
+		{
+			set{ _forbidden_time=value;}
+			get{return _forbidden_time;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? ENABLE_TIME
+		{
+			set{ _enable_time=value;}
+			get{return _enable_time;}
+		}
+        /// <summary>
+        /// 最后一次修改时间
+        /// </summary>
+        public DateTime? MODIFY_TIME
+        {
+            get { return _modify_time; }
+            set { _modify_time = value; }
+        }
 		#endregion Model
 
 	}
