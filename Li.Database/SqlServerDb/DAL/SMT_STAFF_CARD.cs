@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/24 22:45:06   N/A    初版
+* V0.01  2016/8/3 0:15:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -55,14 +55,18 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_STAFF_CARD(");
-			strSql.Append("STAFF_ID,CARD_ID)");
+			strSql.Append("STAFF_ID,CARD_ID,ACCESS_STARTTIME,ACCESS_ENDTIME)");
 			strSql.Append(" values (");
-			strSql.Append("@STAFF_ID,@CARD_ID)");
+			strSql.Append("@STAFF_ID,@CARD_ID,@ACCESS_STARTTIME,@ACCESS_ENDTIME)");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@CARD_ID", SqlDbType.Decimal,9)};
+					new SqlParameter("@CARD_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ACCESS_STARTTIME", SqlDbType.DateTime),
+					new SqlParameter("@ACCESS_ENDTIME", SqlDbType.DateTime)};
 			parameters[0].Value = model.STAFF_ID;
 			parameters[1].Value = model.CARD_ID;
+			parameters[2].Value = model.ACCESS_STARTTIME;
+			parameters[3].Value = model.ACCESS_ENDTIME;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -81,15 +85,18 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update SMT_STAFF_CARD set ");
-#warning 系统发现缺少更新的字段，请手工确认如此更新是否正确！ 
-			strSql.Append("STAFF_ID=@STAFF_ID,");
-			strSql.Append("CARD_ID=@CARD_ID");
+			strSql.Append("ACCESS_STARTTIME=@ACCESS_STARTTIME,");
+			strSql.Append("ACCESS_ENDTIME=@ACCESS_ENDTIME");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and CARD_ID=@CARD_ID ");
 			SqlParameter[] parameters = {
+					new SqlParameter("@ACCESS_STARTTIME", SqlDbType.DateTime),
+					new SqlParameter("@ACCESS_ENDTIME", SqlDbType.DateTime),
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@CARD_ID", SqlDbType.Decimal,9)};
-			parameters[0].Value = model.STAFF_ID;
-			parameters[1].Value = model.CARD_ID;
+			parameters[0].Value = model.ACCESS_STARTTIME;
+			parameters[1].Value = model.ACCESS_ENDTIME;
+			parameters[2].Value = model.STAFF_ID;
+			parameters[3].Value = model.CARD_ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -136,7 +143,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 STAFF_ID,CARD_ID from SMT_STAFF_CARD ");
+			strSql.Append("select  top 1 STAFF_ID,CARD_ID,ACCESS_STARTTIME,ACCESS_ENDTIME from SMT_STAFF_CARD ");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and CARD_ID=@CARD_ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
@@ -173,6 +180,14 @@ namespace Maticsoft.DAL
 				{
 					model.CARD_ID=decimal.Parse(row["CARD_ID"].ToString());
 				}
+				if(row["ACCESS_STARTTIME"]!=null && row["ACCESS_STARTTIME"].ToString()!="")
+				{
+					model.ACCESS_STARTTIME=DateTime.Parse(row["ACCESS_STARTTIME"].ToString());
+				}
+				if(row["ACCESS_ENDTIME"]!=null && row["ACCESS_ENDTIME"].ToString()!="")
+				{
+					model.ACCESS_ENDTIME=DateTime.Parse(row["ACCESS_ENDTIME"].ToString());
+				}
 			}
 			return model;
 		}
@@ -183,7 +198,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select STAFF_ID,CARD_ID ");
+			strSql.Append("select STAFF_ID,CARD_ID,ACCESS_STARTTIME,ACCESS_ENDTIME ");
 			strSql.Append(" FROM SMT_STAFF_CARD ");
 			if(strWhere.Trim()!="")
 			{
@@ -203,7 +218,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" STAFF_ID,CARD_ID ");
+			strSql.Append(" STAFF_ID,CARD_ID,ACCESS_STARTTIME,ACCESS_ENDTIME ");
 			strSql.Append(" FROM SMT_STAFF_CARD ");
 			if(strWhere.Trim()!="")
 			{
@@ -289,7 +304,6 @@ namespace Maticsoft.DAL
 		#region  ExtensionMethod
 
 		#endregion  ExtensionMethod
-
-    }
+	}
 }
 

@@ -1,4 +1,7 @@
-﻿using SmartAccess.Common.Datas;
+﻿using Li.Access.Core;
+using Li.Access.Core.BJTWHCardIssue;
+using SmartAccess.Common.Config;
+using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,8 @@ namespace SmartAccess.VerInfoMgr
     public partial class FrmStaffInfo : DevComponents.DotNetBar.Office2007Form
     {
         private Maticsoft.Model.SMT_STAFF_INFO _staffInfo = null;
+        private List<Maticsoft.Model.SMT_CARD_INFO> _cardInfos = new List<Maticsoft.Model.SMT_CARD_INFO>();
+        public bool HasChanged = false;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmStaffInfo));
         public FrmStaffInfo()
         {
@@ -25,12 +30,19 @@ namespace SmartAccess.VerInfoMgr
         {
             InitializeComponent();
             _staffInfo = staffInfo;
+            if (_staffInfo.CARDS!=null)
+            {
+                _cardInfos.AddRange(_staffInfo.CARDS);
+            }
         }
         private void biSave_Click(object sender, EventArgs e)
         {
             try
             {
-
+                if(!CheckInput())
+                {
+                    return;
+                }
                 if (_staffInfo == null || _staffInfo.ID==-1)
                 {
                     _staffInfo = new Maticsoft.Model.SMT_STAFF_INFO();
@@ -38,6 +50,15 @@ namespace SmartAccess.VerInfoMgr
                     _staffInfo.ID = -1;
                 }
                 _staffInfo.REAL_NAME = tbStaffName.Text;
+                if (cbTreeDept.SelectedNode!=null)
+                {
+                    Maticsoft.Model.SMT_ORG_INFO info = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                    if (info!=null)
+                    {
+                        _staffInfo.ORG_ID = info.ID;
+                    }
+                }
+                
                 try
                 {
                     cboVerTypeStyle.SelectedValue = _staffInfo.STAFF_NO_TEMPLET;//证件编号模板
@@ -108,18 +129,57 @@ namespace SmartAccess.VerInfoMgr
                 _staffInfo.CER_PHOTO_BACK = GetPicImage(picVerBack);
                 _staffInfo.MODIFY_TIME = DateTime.Now;
 
-                Maticsoft.BLL.SMT_STAFF_INFO saffInfo = new Maticsoft.BLL.SMT_STAFF_INFO();
+                Maticsoft.BLL.SMT_STAFF_INFO saffInfoBll = new Maticsoft.BLL.SMT_STAFF_INFO();
                 CtrlWaiting waiting = new CtrlWaiting(() =>
                 {
                     try
                     {
+                        List<Maticsoft.Model.SMT_STAFF_INFO> staffList= saffInfoBll.GetModelList("REAL_NAME='" + _staffInfo.REAL_NAME + "' and IS_DELETE=0");
+                        if (staffList.Count>0)
+                        {
+                            if (_staffInfo.ID==-1)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "保存失败，人员姓名已存在！");
+                                return;
+                            }
+                            else
+                            {
+                                if(staffList[0].ID != _staffInfo.ID)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "保存失败，人员姓名已存在！");
+                                    return;
+                                }
+                            }
+                        }
                         if (_staffInfo.ID == -1)
                         {
-                            _staffInfo.ID = saffInfo.Add(_staffInfo);
+                            _staffInfo.ID = saffInfoBll.Add(_staffInfo);
                         }
                         else
                         {
-                            saffInfo.Update(_staffInfo);
+                            saffInfoBll.Update(_staffInfo);
+                        }
+                        HasChanged = true;
+                        if (_cardInfos!=null&&_cardInfos.Count>0)
+                        {
+                            foreach (var item in _cardInfos)//生成卡片信息
+                            {
+                                Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                                Maticsoft.BLL.SMT_CARD_INFO bll = new Maticsoft.BLL.SMT_CARD_INFO();//卡
+                                List<Maticsoft.Model.SMT_CARD_INFO> list = bll.GetModelList("CARD_NO='" + item.CARD_NO + "'");
+                                if (list.Count>0)
+                                {
+                                    item.ID = list[0].ID;
+                                }
+                                else
+                                {
+                                    item.ID = bll.Add(item);
+                                }
+                                if (!sbll.Exists(_staffInfo.ID, item.ID))
+                                {
+                                    sbll.Add(new Maticsoft.Model.SMT_STAFF_CARD() { STAFF_ID = _staffInfo.ID, CARD_ID = item.ID, ACCESS_STARTTIME = DateTime.Parse("2016-01-01 00:00:00"), ACCESS_ENDTIME = DateTime.Parse("2099-01-01 00:00:00") });
+                                }
+                            }
                         }
                         WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
                         log.Error("保存人员信息成功！staff id="+_staffInfo.ID);
@@ -138,6 +198,17 @@ namespace SmartAccess.VerInfoMgr
                 log.Error("保存人员信息异常：", ex);
                 WinInfoHelper.ShowInfoWindow(this, "保存信息失败！" + ex.Message);
             }
+        }
+        //检测输入有效性
+        private bool CheckInput()
+        {
+            if (string.IsNullOrWhiteSpace(tbStaffName.Text))
+            {
+                WinInfoHelper.ShowInfoWindow(this, "人员名称不能为空！");
+                tbStaffName.Focus();
+                return false;
+            }
+            return true;
         }
 
         private byte[] GetPicImage(PictureBox picBox)
@@ -163,10 +234,10 @@ namespace SmartAccess.VerInfoMgr
 
         private void Init()
         {
-            dtValidTimeStart.Value = DateTime.Now.AddYears(-10);
-            dtValidTimeEnd.Value = DateTime.Now.AddYears(100);
-            dtTimeIn.Value = DateTime.Now.AddYears(-100);
-            dtTimeOut.Value = DateTime.Now.AddYears(100);
+            dtValidTimeStart.Value = DateTime.Parse("1900-01-01 00:00:00");
+            dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
+            dtTimeIn.Value = DateTime.Parse("1900-01-01 00:00:00");
+            dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
 
             LoadDeptsTree();
 
@@ -267,6 +338,82 @@ namespace SmartAccess.VerInfoMgr
                          
                     }
                 }));
+        }
+
+        private void biSetCard_Click(object sender, EventArgs e)
+        {
+            ICardIssueDevice issDevice = new MF800ACardIssueDevice();
+            DevMF800AConfig config= SysConfig.GetDevMF800AConfig();
+            try
+            {
+                issDevice.OpenCom(config.comPort, config.comBuad);
+                string num = issDevice.ReadCardX();
+                issDevice.Close();
+                if (num==null)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "未读取到卡号！");
+                }
+                else
+                {
+                    
+                    CtrlWaiting ctrWaiting = new CtrlWaiting(() =>
+                    {
+                         Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                         var cards= sbll.GetModelListByCardNo(num);
+                         if (cards.Count>0)
+                         {
+                             bool delete = false;
+                             this.Invoke(new Action(() =>
+                                 {
+                                     if (MessageBox.Show("该卡已绑定人员，是否强制解绑？","提示",MessageBoxButtons.YesNo)== DialogResult.Yes)
+                                     {
+                                         delete = true;
+                                     }
+                                 }));
+                             if (delete)
+                             {
+                                 HasChanged = true;
+                                 foreach (var item in cards)
+                                 {
+                                     sbll.Delete(item.STAFF_ID, item.CARD_ID);
+                                 }
+                                 if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                                 {
+                                     Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                     cardInfo.CARD_NO = num;
+                                     cardInfo.CARD_TYPE = 0;
+                                     cardInfo.CARD_DESC = num;
+                                     _cardInfos.Add(cardInfo);
+                                 }
+                                 WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
+                             }
+                         }
+                         else
+                         {
+                             if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                             {
+                                 Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                 cardInfo.CARD_NO = num;
+                                 cardInfo.CARD_TYPE = 0;
+                                 cardInfo.CARD_DESC = num;
+                                 _cardInfos.Add(cardInfo);
+                             }
+                             WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
+                         }
+                    });
+                    ctrWaiting.Show(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("发卡器操作异常：", ex);
+                WinInfoHelper.ShowInfoWindow(this, "读卡失败：" + ex.Message);
+            }
+        }
+
+        private void biSetPrivate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

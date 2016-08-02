@@ -53,9 +53,9 @@
             this.labelX16 = new DevComponents.DotNetBar.LabelX();
             this.labelX17 = new DevComponents.DotNetBar.LabelX();
             this.cbSex = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.comboItem3 = new DevComponents.Editors.ComboItem();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
-            this.comboItem3 = new DevComponents.Editors.ComboItem();
             this.tbCellPhone = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX18 = new DevComponents.DotNetBar.LabelX();
             this.tbPrivateVerNo = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -86,8 +86,8 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.cbMarry = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem6 = new DevComponents.Editors.ComboItem();
-            this.comboItem4 = new DevComponents.Editors.ComboItem();
             this.comboItem5 = new DevComponents.Editors.ComboItem();
+            this.comboItem4 = new DevComponents.Editors.ComboItem();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX28 = new DevComponents.DotNetBar.LabelX();
             this.dtTimeIn = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -148,7 +148,7 @@
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(75, 23);
             this.labelX5.TabIndex = 0;
-            this.labelX5.Text = "*证件编号";
+            this.labelX5.Text = "证件编号";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // tbVerNo
@@ -161,7 +161,7 @@
             this.tbVerNo.Location = new System.Drawing.Point(93, 113);
             this.tbVerNo.Name = "tbVerNo";
             this.tbVerNo.Size = new System.Drawing.Size(152, 21);
-            this.tbVerNo.TabIndex = 1;
+            this.tbVerNo.TabIndex = 3;
             // 
             // labelX6
             // 
@@ -187,7 +187,7 @@
             this.tbStaffName.Location = new System.Drawing.Point(93, 31);
             this.tbStaffName.Name = "tbStaffName";
             this.tbStaffName.Size = new System.Drawing.Size(152, 21);
-            this.tbStaffName.TabIndex = 1;
+            this.tbStaffName.TabIndex = 0;
             // 
             // labelX7
             // 
@@ -200,7 +200,7 @@
             this.labelX7.Name = "labelX7";
             this.labelX7.Size = new System.Drawing.Size(75, 23);
             this.labelX7.TabIndex = 0;
-            this.labelX7.Text = "*性别";
+            this.labelX7.Text = "性别";
             this.labelX7.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // labelX8
@@ -227,7 +227,7 @@
             this.tbJob.Location = new System.Drawing.Point(93, 169);
             this.tbJob.Name = "tbJob";
             this.tbJob.Size = new System.Drawing.Size(152, 21);
-            this.tbJob.TabIndex = 1;
+            this.tbJob.TabIndex = 5;
             // 
             // labelX9
             // 
@@ -267,7 +267,7 @@
             this.tbPublic.Location = new System.Drawing.Point(93, 223);
             this.tbPublic.Name = "tbPublic";
             this.tbPublic.Size = new System.Drawing.Size(152, 21);
-            this.tbPublic.TabIndex = 1;
+            this.tbPublic.TabIndex = 7;
             // 
             // labelX11
             // 
@@ -293,7 +293,7 @@
             this.tbSkillLevel.Location = new System.Drawing.Point(93, 275);
             this.tbSkillLevel.Name = "tbSkillLevel";
             this.tbSkillLevel.Size = new System.Drawing.Size(152, 21);
-            this.tbSkillLevel.TabIndex = 1;
+            this.tbSkillLevel.TabIndex = 9;
             // 
             // labelX12
             // 
@@ -319,7 +319,7 @@
             this.tbPrivateVerName.Location = new System.Drawing.Point(93, 302);
             this.tbPrivateVerName.Name = "tbPrivateVerName";
             this.tbPrivateVerName.Size = new System.Drawing.Size(152, 21);
-            this.tbPrivateVerName.TabIndex = 1;
+            this.tbPrivateVerName.TabIndex = 10;
             // 
             // labelX13
             // 
@@ -345,7 +345,7 @@
             this.tbTelphone.Location = new System.Drawing.Point(93, 380);
             this.tbTelphone.Name = "tbTelphone";
             this.tbTelphone.Size = new System.Drawing.Size(152, 21);
-            this.tbTelphone.TabIndex = 1;
+            this.tbTelphone.TabIndex = 13;
             // 
             // labelX14
             // 
@@ -371,7 +371,7 @@
             this.tbAddress.Location = new System.Drawing.Point(93, 486);
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(383, 21);
-            this.tbAddress.TabIndex = 1;
+            this.tbAddress.TabIndex = 24;
             // 
             // labelX15
             // 
@@ -397,7 +397,7 @@
             this.tbEmail.Location = new System.Drawing.Point(93, 407);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(152, 21);
-            this.tbEmail.TabIndex = 1;
+            this.tbEmail.TabIndex = 14;
             // 
             // labelX16
             // 
@@ -441,7 +441,11 @@
             this.cbSex.Name = "cbSex";
             this.cbSex.Size = new System.Drawing.Size(152, 21);
             this.cbSex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbSex.TabIndex = 2;
+            this.cbSex.TabIndex = 4;
+            // 
+            // comboItem3
+            // 
+            this.comboItem3.Text = "未知";
             // 
             // comboItem1
             // 
@@ -450,10 +454,6 @@
             // comboItem2
             // 
             this.comboItem2.Text = "女";
-            // 
-            // comboItem3
-            // 
-            this.comboItem3.Text = "未知";
             // 
             // tbCellPhone
             // 
@@ -465,7 +465,7 @@
             this.tbCellPhone.Location = new System.Drawing.Point(93, 356);
             this.tbCellPhone.Name = "tbCellPhone";
             this.tbCellPhone.Size = new System.Drawing.Size(152, 21);
-            this.tbCellPhone.TabIndex = 10;
+            this.tbCellPhone.TabIndex = 12;
             // 
             // labelX18
             // 
@@ -518,7 +518,7 @@
             this.tbXueLi.Location = new System.Drawing.Point(321, 353);
             this.tbXueLi.Name = "tbXueLi";
             this.tbXueLi.Size = new System.Drawing.Size(155, 21);
-            this.tbXueLi.TabIndex = 12;
+            this.tbXueLi.TabIndex = 20;
             // 
             // labelX20
             // 
@@ -544,7 +544,7 @@
             this.tbZonJiao.Location = new System.Drawing.Point(321, 329);
             this.tbZonJiao.Name = "tbZonJiao";
             this.tbZonJiao.Size = new System.Drawing.Size(155, 21);
-            this.tbZonJiao.TabIndex = 13;
+            this.tbZonJiao.TabIndex = 19;
             // 
             // labelX21
             // 
@@ -570,7 +570,7 @@
             this.tbMinZu.Location = new System.Drawing.Point(321, 302);
             this.tbMinZu.Name = "tbMinZu";
             this.tbMinZu.Size = new System.Drawing.Size(155, 21);
-            this.tbMinZu.TabIndex = 14;
+            this.tbMinZu.TabIndex = 18;
             // 
             // labelX22
             // 
@@ -596,7 +596,7 @@
             this.tbJiGuan.Location = new System.Drawing.Point(321, 275);
             this.tbJiGuan.Name = "tbJiGuan";
             this.tbJiGuan.Size = new System.Drawing.Size(155, 21);
-            this.tbJiGuan.TabIndex = 15;
+            this.tbJiGuan.TabIndex = 17;
             // 
             // labelX23
             // 
@@ -672,7 +672,7 @@
             this.dtValidTimeStart.Name = "dtValidTimeStart";
             this.dtValidTimeStart.Size = new System.Drawing.Size(152, 21);
             this.dtValidTimeStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtValidTimeStart.TabIndex = 17;
+            this.dtValidTimeStart.TabIndex = 15;
             this.dtValidTimeStart.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
             // dtValidTimeEnd
@@ -724,7 +724,7 @@
             this.dtValidTimeEnd.Name = "dtValidTimeEnd";
             this.dtValidTimeEnd.Size = new System.Drawing.Size(152, 21);
             this.dtValidTimeEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtValidTimeEnd.TabIndex = 17;
+            this.dtValidTimeEnd.TabIndex = 16;
             this.dtValidTimeEnd.Value = new System.DateTime(2016, 6, 24, 21, 24, 50, 0);
             // 
             // picVerFront
@@ -791,11 +791,13 @@
             // 
             this.biSetCard.Name = "biSetCard";
             this.biSetCard.Text = "发卡";
+            this.biSetCard.Click += new System.EventHandler(this.biSetCard_Click);
             // 
             // biSetPrivate
             // 
             this.biSetPrivate.Name = "biSetPrivate";
             this.biSetPrivate.Text = "授权";
+            this.biSetPrivate.Click += new System.EventHandler(this.biSetPrivate_Click);
             // 
             // biSave
             // 
@@ -823,7 +825,7 @@
             this.cbTreeDept.Name = "cbTreeDept";
             this.cbTreeDept.Size = new System.Drawing.Size(152, 23);
             this.cbTreeDept.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbTreeDept.TabIndex = 21;
+            this.cbTreeDept.TabIndex = 1;
             // 
             // cboVerTypeStyle
             // 
@@ -835,7 +837,7 @@
             this.cboVerTypeStyle.Name = "cboVerTypeStyle";
             this.cboVerTypeStyle.Size = new System.Drawing.Size(152, 21);
             this.cboVerTypeStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboVerTypeStyle.TabIndex = 22;
+            this.cboVerTypeStyle.TabIndex = 2;
             // 
             // labelX1
             // 
@@ -865,19 +867,19 @@
             this.cbMarry.Name = "cbMarry";
             this.cbMarry.Size = new System.Drawing.Size(152, 21);
             this.cbMarry.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbMarry.TabIndex = 22;
+            this.cbMarry.TabIndex = 8;
             // 
             // comboItem6
             // 
             this.comboItem6.Text = "未知";
             // 
-            // comboItem4
-            // 
-            this.comboItem4.Text = "未婚";
-            // 
             // comboItem5
             // 
             this.comboItem5.Text = "已婚";
+            // 
+            // comboItem4
+            // 
+            this.comboItem4.Text = "未婚";
             // 
             // labelX2
             // 
@@ -956,7 +958,7 @@
             this.dtTimeIn.Name = "dtTimeIn";
             this.dtTimeIn.Size = new System.Drawing.Size(155, 21);
             this.dtTimeIn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtTimeIn.TabIndex = 17;
+            this.dtTimeIn.TabIndex = 21;
             this.dtTimeIn.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
             // dtTimeOut
@@ -1008,7 +1010,7 @@
             this.dtTimeOut.Name = "dtTimeOut";
             this.dtTimeOut.Size = new System.Drawing.Size(155, 21);
             this.dtTimeOut.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtTimeOut.TabIndex = 17;
+            this.dtTimeOut.TabIndex = 22;
             this.dtTimeOut.Value = new System.DateTime(2016, 6, 24, 21, 24, 50, 0);
             // 
             // labelX27
@@ -1039,7 +1041,7 @@
             this.cboVeMoBan.Name = "cboVeMoBan";
             this.cboVeMoBan.Size = new System.Drawing.Size(155, 21);
             this.cboVeMoBan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboVeMoBan.TabIndex = 22;
+            this.cboVeMoBan.TabIndex = 23;
             // 
             // comboItem7
             // 
@@ -1102,7 +1104,7 @@
             this.dtBirthday.Name = "dtBirthday";
             this.dtBirthday.Size = new System.Drawing.Size(152, 21);
             this.dtBirthday.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtBirthday.TabIndex = 23;
+            this.dtBirthday.TabIndex = 6;
             this.dtBirthday.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
             // FrmStaffInfo

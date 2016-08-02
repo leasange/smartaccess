@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_CAR_INFO.cs
+* SMT_CARD_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_CAR_INFO
+* 类 名： SMT_CARD_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/24 23:49:17   N/A    初版
+* V0.01  2016/8/2 22:00:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,11 +22,11 @@ using Maticsoft.DBUtility;//Please add references
 namespace Maticsoft.DAL
 {
 	/// <summary>
-	/// 数据访问类:SMT_CAR_INFO
+	/// 数据访问类:SMT_CARD_INFO
 	/// </summary>
 	public partial class SMT_CARD_INFO
 	{
-        public SMT_CARD_INFO()
+		public SMT_CARD_INFO()
 		{}
 		#region  BasicMethod
 
@@ -36,10 +36,11 @@ namespace Maticsoft.DAL
 		public bool Exists(decimal ID)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) from SMT_CAR_INFO");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append("select count(1) from SMT_CARD_INFO");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
@@ -49,44 +50,43 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.SMT_CAR_INFO model)
+		public decimal Add(Maticsoft.Model.SMT_CARD_INFO model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("insert into SMT_CAR_INFO(");
-			strSql.Append("ID,CARD_NO,CARD_DESC,CARD_TYPE)");
+			strSql.Append("insert into SMT_CARD_INFO(");
+			strSql.Append("CARD_NO,CARD_DESC,CARD_TYPE)");
 			strSql.Append(" values (");
-			strSql.Append("@ID,@CARD_NO,@CARD_DESC,@CARD_TYPE)");
+			strSql.Append("@CARD_NO,@CARD_DESC,@CARD_TYPE)");
+			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9),
 					new SqlParameter("@CARD_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@CARD_DESC", SqlDbType.NVarChar,400),
 					new SqlParameter("@CARD_TYPE", SqlDbType.TinyInt,1)};
-			parameters[0].Value = model.ID;
-			parameters[1].Value = model.CARD_NO;
-			parameters[2].Value = model.CARD_DESC;
-			parameters[3].Value = model.CARD_TYPE;
+			parameters[0].Value = model.CARD_NO;
+			parameters[1].Value = model.CARD_DESC;
+			parameters[2].Value = model.CARD_TYPE;
 
-			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-			if (rows > 0)
+			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
+			if (obj == null)
 			{
-				return true;
+				return 0;
 			}
 			else
 			{
-				return false;
+				return Convert.ToDecimal(obj);
 			}
 		}
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(Maticsoft.Model.SMT_CAR_INFO model)
+		public bool Update(Maticsoft.Model.SMT_CARD_INFO model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("update SMT_CAR_INFO set ");
+			strSql.Append("update SMT_CARD_INFO set ");
 			strSql.Append("CARD_NO=@CARD_NO,");
 			strSql.Append("CARD_DESC=@CARD_DESC,");
 			strSql.Append("CARD_TYPE=@CARD_TYPE");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@CARD_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@CARD_DESC", SqlDbType.NVarChar,400),
@@ -115,10 +115,11 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from SMT_CAR_INFO ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append("delete from SMT_CARD_INFO ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
@@ -137,7 +138,7 @@ namespace Maticsoft.DAL
 		public bool DeleteList(string IDlist )
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from SMT_CAR_INFO ");
+			strSql.Append("delete from SMT_CARD_INFO ");
 			strSql.Append(" where ID in ("+IDlist + ")  ");
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString());
 			if (rows > 0)
@@ -154,17 +155,18 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_CAR_INFO GetModel(decimal ID)
+		public Maticsoft.Model.SMT_CARD_INFO GetModel(decimal ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,CARD_NO,CARD_DESC,CARD_TYPE from SMT_CAR_INFO ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append("select  top 1 ID,CARD_NO,CARD_DESC,CARD_TYPE from SMT_CARD_INFO ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
-			Maticsoft.Model.SMT_CAR_INFO model=new Maticsoft.Model.SMT_CAR_INFO();
+			Maticsoft.Model.SMT_CARD_INFO model=new Maticsoft.Model.SMT_CARD_INFO();
 			DataSet ds=DbHelperSQL.Query(strSql.ToString(),parameters);
 			if(ds.Tables[0].Rows.Count>0)
 			{
@@ -180,9 +182,9 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_CAR_INFO DataRowToModel(DataRow row)
+		public Maticsoft.Model.SMT_CARD_INFO DataRowToModel(DataRow row)
 		{
-			Maticsoft.Model.SMT_CAR_INFO model=new Maticsoft.Model.SMT_CAR_INFO();
+			Maticsoft.Model.SMT_CARD_INFO model=new Maticsoft.Model.SMT_CARD_INFO();
 			if (row != null)
 			{
 				if(row["ID"]!=null && row["ID"].ToString()!="")
@@ -212,7 +214,7 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select ID,CARD_NO,CARD_DESC,CARD_TYPE ");
-			strSql.Append(" FROM SMT_CAR_INFO ");
+			strSql.Append(" FROM SMT_CARD_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -232,7 +234,7 @@ namespace Maticsoft.DAL
 				strSql.Append(" top "+Top.ToString());
 			}
 			strSql.Append(" ID,CARD_NO,CARD_DESC,CARD_TYPE ");
-			strSql.Append(" FROM SMT_CAR_INFO ");
+			strSql.Append(" FROM SMT_CARD_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -247,7 +249,7 @@ namespace Maticsoft.DAL
 		public int GetRecordCount(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) FROM SMT_CAR_INFO ");
+			strSql.Append("select count(1) FROM SMT_CARD_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -278,7 +280,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append("order by T.ID desc");
 			}
-			strSql.Append(")AS Row, T.*  from SMT_CAR_INFO T ");
+			strSql.Append(")AS Row, T.*  from SMT_CARD_INFO T ");
 			if (!string.IsNullOrEmpty(strWhere.Trim()))
 			{
 				strSql.Append(" WHERE " + strWhere);
@@ -303,7 +305,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "SMT_CAR_INFO";
+			parameters[0].Value = "SMT_CARD_INFO";
 			parameters[1].Value = "ID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

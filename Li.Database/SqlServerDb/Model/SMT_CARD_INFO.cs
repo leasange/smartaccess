@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_CAR_INFO.cs
+* SMT_CARD_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_CAR_INFO
+* 类 名： SMT_CARD_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/24 23:49:17   N/A    初版
+* V0.01  2016/8/2 22:00:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -21,15 +21,15 @@ namespace Maticsoft.Model
 	/// 卡表
 	/// </summary>
 	[Serializable]
-	public partial class SMT_CAR_INFO
+	public partial class SMT_CARD_INFO
 	{
-        public SMT_CAR_INFO()
+		public SMT_CARD_INFO()
 		{}
 		#region Model
 		private decimal _id;
 		private string _card_no;
 		private string _card_desc;
-		private int? _card_type;
+        private int? _card_type;
 		/// <summary>
 		/// 卡ID
 		/// </summary>

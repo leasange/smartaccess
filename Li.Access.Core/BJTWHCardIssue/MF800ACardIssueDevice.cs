@@ -152,7 +152,15 @@ namespace Li.Access.Core.BJTWHCardIssue
             return rets;
         }
 
-
+        public string ReadCardX()
+        {
+            byte[] bts = ReadCard();
+            if (bts==null)
+            {
+                return null;
+            }
+            return DataHelper.GetHexString(bts, 0, bts.Length);
+        }
         public void Close()
         {
             if (_isOpen)
@@ -172,5 +180,6 @@ namespace Li.Access.Core.BJTWHCardIssue
         {
             return _isOpen;
         }
+
     }
 }

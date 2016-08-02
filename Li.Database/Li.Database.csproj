@@ -80,6 +80,7 @@
     <Compile Include="SqlServerDb\Model\SMT_ORG_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_CARD_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_CARD.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_USER_INFO.cs" />
   </ItemGroup>

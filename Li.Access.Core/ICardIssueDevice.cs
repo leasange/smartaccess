@@ -30,6 +30,11 @@ namespace Li.Access.Core
         /// </summary>
         /// <returns>卡号数组</returns>
         byte[] ReadCard();
+        /// <summary>
+        /// 读取卡号
+        /// </summary>
+        /// <returns>卡号数组</returns>
+        string ReadCardX();
     }
     /// <summary>
     /// 串口波特率

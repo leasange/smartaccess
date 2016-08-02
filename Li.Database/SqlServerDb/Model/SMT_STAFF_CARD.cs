@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/24 22:45:06   N/A    初版
+* V0.01  2016/8/3 0:15:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -28,6 +28,8 @@ namespace Maticsoft.Model
 		#region Model
 		private decimal _staff_id;
 		private decimal _card_id;
+		private DateTime _access_starttime;
+		private DateTime _access_endtime;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -43,6 +45,22 @@ namespace Maticsoft.Model
 		{
 			set{ _card_id=value;}
 			get{return _card_id;}
+		}
+		/// <summary>
+		/// 门禁有效开始时间
+		/// </summary>
+		public DateTime ACCESS_STARTTIME
+		{
+			set{ _access_starttime=value;}
+			get{return _access_starttime;}
+		}
+		/// <summary>
+		/// 门禁有效结束时间
+		/// </summary>
+		public DateTime ACCESS_ENDTIME
+		{
+			set{ _access_endtime=value;}
+			get{return _access_endtime;}
 		}
 		#endregion Model
 

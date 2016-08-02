@@ -25,6 +25,10 @@ namespace SmartAccess.VerInfoMgr
         {
             FrmStaffInfo staffInfo = new FrmStaffInfo();
             staffInfo.ShowDialog(this);
+            if (staffInfo.HasChanged)
+            {
+                
+            }
         }
     }
 }

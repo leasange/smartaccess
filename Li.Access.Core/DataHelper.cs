@@ -134,5 +134,29 @@ namespace Li.Access.Core
                 return -1;
             }
         }
+        /// <summary>
+        /// 转为微耕门禁读出的卡号
+        /// </summary>
+        /// <param name="cardNo">原始卡号</param>
+        /// <returns>微耕门禁卡号</returns>
+        public static string ToWGAccessCardNo(string cardNo)
+        {
+            byte[] bts=ToBytesFromHexString(cardNo);
+            string temp = cardNo;
+            if (bts.Length>=3)
+	        {
+                string t1 = bts[2].ToString();
+                string t2 = string.Format("{0:00000}", bts[1] * 256 + bts[0]);
+                temp = t1 + t2;
+                int num = int.Parse(temp);
+                byte[] btss = new byte[4];
+                btss[0] = (byte)((num >> 24) & 0xFF);
+                btss[1] = (byte)((num >> 16) & 0xFF);
+                btss[2] = (byte)((num >> 8) & 0xFF);
+                btss[3] = (byte)(num & 0xFF);
+                temp = GetHexString(btss, 0, 4);
+	        }
+            return temp;
+        }
     }
 }

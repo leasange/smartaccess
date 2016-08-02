@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -231,11 +231,29 @@
     <Compile Include="VerInfoMgr\DeptTree.Designer.cs">
       <DependentUpon>DeptTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\DoorTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\DoorTree.Designer.cs">
+      <DependentUpon>DoorTree.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmAddOrModifyDept.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VerInfoMgr\FrmAddOrModifyDept.Designer.cs">
       <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmAddOrModifyStaffPrivate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmAddOrModifyStaffPrivate.Designer.cs">
+      <DependentUpon>FrmAddOrModifyStaffPrivate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmGetPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmGetPicture.Designer.cs">
+      <DependentUpon>FrmGetPicture.cs</DependentUpon>
     </Compile>
     <Compile Include="VerInfoMgr\FrmMoveDept.cs">
       <SubType>Form</SubType>
@@ -352,8 +370,17 @@
     <EmbeddedResource Include="VerInfoMgr\DeptTree.resx">
       <DependentUpon>DeptTree.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\DoorTree.resx">
+      <DependentUpon>DoorTree.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyDept.resx">
       <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyStaffPrivate.resx">
+      <DependentUpon>FrmAddOrModifyStaffPrivate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmGetPicture.resx">
+      <DependentUpon>FrmGetPicture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmMoveDept.resx">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
@@ -397,6 +424,14 @@
     <None Include="Resources\menuback.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Camera_Net\Camera_NET.csproj">
+      <Project>{e6052609-a070-41d5-85b9-acaba91170c5}</Project>
+      <Name>Camera_NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DirectShowLib\DirectShowLib-2010.csproj">
+      <Project>{ce009bfa-5ef6-4153-b2a1-2fa79698a9ae}</Project>
+      <Name>DirectShowLib-2010</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Li.Access.Core\Li.Access.Core.csproj">
       <Project>{f0b4a7a3-ef20-45ef-8794-beac15c9eb22}</Project>
       <Name>Li.Access.Core</Name>

@@ -278,6 +278,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0x50);
             packet.SetDevSn(controller.sn);
+            hexCardNum = DataHelper.ToWGAccessCardNo(hexCardNum);
             packet.SetCardNum(hexCardNum);
             packet.SetAuthoriTimeTime(startTime,endTime);
             packet.SetAuthoriDoors(doorNumAuthorities);
@@ -291,6 +292,8 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+        
     }
     /// <summary>
     /// WG请求包
