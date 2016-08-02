@@ -40,6 +40,7 @@
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.panelVideo = new System.Windows.Forms.Panel();
             this.cameraControl = new Camera_NET.CameraControl();
+            this.biSave = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -57,6 +58,7 @@
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biOpenLocalPic,
+            this.biSave,
             this.biOpenCamera,
             this.biCaptureVideo});
             this.bar1.Location = new System.Drawing.Point(0, 0);
@@ -160,6 +162,11 @@
             this.cameraControl.Size = new System.Drawing.Size(336, 268);
             this.cameraControl.TabIndex = 0;
             // 
+            // biSave
+            // 
+            this.biSave.Name = "biSave";
+            this.biSave.Text = "保存图片至本地";
+            // 
             // FrmGetPicture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -209,5 +216,6 @@
         private DevComponents.DotNetBar.ButtonItem biCaptureVideo;
         private System.Windows.Forms.Panel panelVideo;
         private Camera_NET.CameraControl cameraControl;
+        private DevComponents.DotNetBar.ButtonItem biSave;
     }
 }
