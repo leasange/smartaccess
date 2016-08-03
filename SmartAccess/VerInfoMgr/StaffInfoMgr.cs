@@ -43,7 +43,7 @@ namespace SmartAccess.VerInfoMgr
             staffInfo.ShowDialog(this);
             if (staffInfo.HasChanged)
             {
-                
+                DoSearch(false, _byDeptTree);
             }
         }
 
@@ -145,9 +145,11 @@ namespace SmartAccess.VerInfoMgr
                     item.IS_FORBIDDEN?"已挂失":"",
                     item.VALID_STARTTIME.ToString("yyyy-MM-dd") + " 至 " + item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
                     item.TELE_PHONE,
+                    "详情",
                     "授权",
                     "修改"
                     );
+                row.Tag = item;
                 dgvStaffs.Rows.Add(row);
             }
         }
@@ -159,6 +161,36 @@ namespace SmartAccess.VerInfoMgr
         private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
         {
             DoSearch(false, _byDeptTree, _orgId);
+        }
+
+        private void dgvStaffs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0&&e.ColumnIndex>=0)
+            {
+                if(dgvStaffs.Columns[e.ColumnIndex].Name=="Col_XG")
+                {
+                    Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
+                    if (staffInfo!=null)
+                    {
+                        FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo);
+                        frmStaffInfo.ShowDialog(this);
+                        if (frmStaffInfo.HasChanged)
+                        {
+                            DoSearch(false, _byDeptTree);
+                        }
+                    }
+                }
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name=="Col_CK")
+                {
+                    Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
+                    if (staffInfo != null)
+                    {
+                        FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo,true);
+                        frmStaffInfo.ShowDialog(this);
+                    }
+                }
+                
+            }
         }
     }
 }

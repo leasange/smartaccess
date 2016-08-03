@@ -41,7 +41,6 @@
             this.buttonItem7 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem8 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem9 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem11 = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.bar3 = new DevComponents.DotNetBar.Bar();
@@ -81,8 +80,9 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_CK = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_XG = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -112,7 +112,6 @@
             this.buttonItem7,
             this.buttonItem8,
             this.buttonItem9,
-            this.buttonItem10,
             this.buttonItem11});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -186,13 +185,6 @@
             this.buttonItem9.Image = global::SmartAccess.Properties.Resources.editor;
             this.buttonItem9.Name = "buttonItem9";
             this.buttonItem9.Text = "导出照片";
-            // 
-            // buttonItem10
-            // 
-            this.buttonItem10.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem10.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem10.Name = "buttonItem10";
-            this.buttonItem10.Text = "有效期";
             // 
             // buttonItem11
             // 
@@ -519,8 +511,9 @@
             this.Column6,
             this.Column8,
             this.Column10,
-            this.Column9,
-            this.Column11});
+            this.Col_CK,
+            this.Col_SQ,
+            this.Col_XG});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -546,6 +539,7 @@
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(899, 395);
             this.dgvStaffs.TabIndex = 0;
+            this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
             // 
             // Column1
             // 
@@ -604,23 +598,30 @@
             this.Column10.ReadOnly = true;
             this.Column10.Width = 57;
             // 
-            // Column9
+            // Col_CK
             // 
-            this.Column9.HeaderText = "授权";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column9.Width = 57;
+            this.Col_CK.HeaderText = "查看详情";
+            this.Col_CK.Name = "Col_CK";
+            this.Col_CK.ReadOnly = true;
+            this.Col_CK.Width = 62;
             // 
-            // Column11
+            // Col_SQ
             // 
-            this.Column11.HeaderText = "修改";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column11.Width = 57;
+            this.Col_SQ.HeaderText = "授权";
+            this.Col_SQ.Name = "Col_SQ";
+            this.Col_SQ.ReadOnly = true;
+            this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_SQ.Width = 57;
+            // 
+            // Col_XG
+            // 
+            this.Col_XG.HeaderText = "修改";
+            this.Col_XG.Name = "Col_XG";
+            this.Col_XG.ReadOnly = true;
+            this.Col_XG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_XG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_XG.Width = 57;
             // 
             // StaffInfoMgr
             // 
@@ -659,7 +660,6 @@
         private DevComponents.DotNetBar.ButtonItem buttonItem7;
         private DevComponents.DotNetBar.ButtonItem buttonItem8;
         private DevComponents.DotNetBar.ButtonItem buttonItem9;
-        private DevComponents.DotNetBar.ButtonItem buttonItem10;
         private DevComponents.DotNetBar.ButtonItem buttonItem11;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private DeptTree deptTree;
@@ -699,7 +699,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewLinkColumn Column9;
-        private System.Windows.Forms.DataGridViewLinkColumn Column11;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_CK;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_XG;
     }
 }

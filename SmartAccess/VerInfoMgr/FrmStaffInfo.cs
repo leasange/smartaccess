@@ -26,11 +26,12 @@ namespace SmartAccess.VerInfoMgr
         private List<Maticsoft.Model.SMT_CARD_INFO> _cardInfos = new List<Maticsoft.Model.SMT_CARD_INFO>();
         public bool HasChanged = false;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmStaffInfo));
+        private bool _view = false;
         public FrmStaffInfo()
         {
             InitializeComponent();
         }
-        public FrmStaffInfo(Maticsoft.Model.SMT_STAFF_INFO staffInfo)
+        public FrmStaffInfo(Maticsoft.Model.SMT_STAFF_INFO staffInfo,bool view=false)
         {
             InitializeComponent();
             _staffInfo = staffInfo;
@@ -38,6 +39,8 @@ namespace SmartAccess.VerInfoMgr
             {
                 _cardInfos.AddRange(_staffInfo.CARDS);
             }
+
+            _view = view;
         }
 
         private void biNew_Click(object sender, EventArgs e)
@@ -249,7 +252,7 @@ namespace SmartAccess.VerInfoMgr
             Init();
         }
 
-        private void Init(bool loadDept=true)
+        private void Init(bool loadDept = true)
         {
             dtValidTimeStart.Value = DateTime.Parse("1900-01-01 00:00:00");
             dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
@@ -266,7 +269,7 @@ namespace SmartAccess.VerInfoMgr
             {
                 this.Text = "添加人员";
                 tbStaffName.Text = "";
-                tbVerNo.Text ="";
+                tbVerNo.Text = "";
                 tbJob.Text = "";
                 dtBirthday.ValueObject = null;
                 tbPublic.Text = null;
@@ -282,7 +285,7 @@ namespace SmartAccess.VerInfoMgr
                 tbMinZu.Text = "";
                 tbZonJiao.Text = "";
                 tbXueLi.Text = "";
-                if (picPhoto.Image!=null)
+                if (picPhoto.Image != null)
                 {
                     picPhoto.Image.Dispose();
                     picPhoto.Image = null;
@@ -300,7 +303,23 @@ namespace SmartAccess.VerInfoMgr
             }
             else
             {
-                this.Text = "修改人员信息："+_staffInfo.REAL_NAME;
+                if (_view)
+                {
+                    this.Text = "查看人员信息：" + _staffInfo.REAL_NAME;
+                    foreach (Control item in this.Controls)
+                    {
+                        if (item is DevComponents.DotNetBar.Controls.TextBoxX)
+                        {
+                            ((DevComponents.DotNetBar.Controls.TextBoxX)item).ReadOnly = true;
+                        }
+                    }
+                    bar1.Enabled = false;
+                    picPhoto.DoubleClick -= picPhoto_DoubleClick;
+                }
+                else
+                {
+                    this.Text = "修改人员信息：" + _staffInfo.REAL_NAME;
+                }
                 tbStaffName.Text = _staffInfo.REAL_NAME;
                 try
                 {
@@ -333,7 +352,7 @@ namespace SmartAccess.VerInfoMgr
                 dtTimeOut.ValueObject = _staffInfo.ABORT_TIME;
                 try
                 {
-                    if (_staffInfo.PRINT_TEMPLET_ID!=null)
+                    if (_staffInfo.PRINT_TEMPLET_ID != null)
                     {
                         cboVeMoBan.SelectedValue = _staffInfo.PRINT_TEMPLET_ID;
                     }
@@ -379,6 +398,16 @@ namespace SmartAccess.VerInfoMgr
                                 {
                                     item.Expand();
                                 }
+                                if (_staffInfo!=null&&_staffInfo.ORG_ID!=null)
+                                {
+                                   var node=  FindNode((decimal)_staffInfo.ORG_ID);
+                                   
+                                   if (node!=null)
+                                   {
+                                       cbTreeDept.SelectedNode = node;
+                                       node.EnsureVisible();
+                                   }
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -391,6 +420,31 @@ namespace SmartAccess.VerInfoMgr
                          
                     }
                 }));
+        }
+
+        public DevComponents.AdvTree.Node FindNode(decimal id)
+        {
+            return DoFindNode(cbTreeDept.Nodes, id);
+        }
+        private DevComponents.AdvTree.Node DoFindNode(DevComponents.AdvTree.NodeCollection nodes, decimal id)
+        {
+            foreach (DevComponents.AdvTree.Node item in nodes)
+            {
+                var dept = (Maticsoft.Model.SMT_ORG_INFO)item.Tag;
+                if (dept.ID == id)
+                {
+                    return item;
+                }
+                else
+                {
+                    var nn = DoFindNode(item.Nodes, id);
+                    if (nn != null)
+                    {
+                        return nn;
+                    }
+                }
+            }
+            return null;
         }
 
         private void biSetCard_Click(object sender, EventArgs e)
