@@ -64,13 +64,14 @@ namespace Li.Controls
             {
                 this.mDataGridView.Rows.Clear();
                 pageCtrl.TotalRecords = 0;
+                this.mDataGridView.OffsetIndex = 0;
             }
         }
         private void pageCtrl_PageChanged(object sender, PageEventArgs args)
         {
             if (mDataGridView!=null)
             {
-                this.mDataGridView.OffsetIndex = args.StartIndex;
+                this.mDataGridView.OffsetIndex = args.StartIndex-1;
                 this.mDataGridView.Rows.Clear();
             }
         }

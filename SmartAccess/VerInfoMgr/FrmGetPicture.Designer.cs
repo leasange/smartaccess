@@ -28,26 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biOpenLocalPic = new DevComponents.DotNetBar.ButtonItem();
+            this.biSave = new DevComponents.DotNetBar.ButtonItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.picImage = new System.Windows.Forms.PictureBox();
+            this.picBox1 = new System.Windows.Forms.PictureBox();
+            this.picBox2 = new System.Windows.Forms.PictureBox();
+            this.picBox5 = new System.Windows.Forms.PictureBox();
+            this.picBox4 = new System.Windows.Forms.PictureBox();
+            this.picBox3 = new System.Windows.Forms.PictureBox();
             this.panelVideo = new System.Windows.Forms.Panel();
+            this.timerCapture = new System.Windows.Forms.Timer(this.components);
+            this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.cameraControl = new Camera_NET.CameraControl();
-            this.biSave = new DevComponents.DotNetBar.ButtonItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox3)).BeginInit();
             this.panelVideo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,13 +65,15 @@
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biOpenLocalPic,
             this.biSave,
+            this.labelItem1,
+            this.cboCameraList,
             this.biOpenCamera,
             this.biCaptureVideo});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bar1.Name = "bar1";
             this.bar1.RoundCorners = false;
-            this.bar1.Size = new System.Drawing.Size(809, 26);
+            this.bar1.Size = new System.Drawing.Size(843, 28);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 0;
@@ -76,6 +84,13 @@
             // 
             this.biOpenLocalPic.Name = "biOpenLocalPic";
             this.biOpenLocalPic.Text = "浏览本地照片";
+            this.biOpenLocalPic.Click += new System.EventHandler(this.biOpenLocalPic_Click);
+            // 
+            // biSave
+            // 
+            this.biSave.Name = "biSave";
+            this.biSave.Text = "保存图片至本地";
+            this.biSave.Click += new System.EventHandler(this.biSave_Click);
             // 
             // biOpenCamera
             // 
@@ -89,96 +104,136 @@
             this.biCaptureVideo.Text = "拍照";
             this.biCaptureVideo.Click += new System.EventHandler(this.biCaptureVideo_Click);
             // 
-            // pictureBox1
+            // picImage
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 33);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(284, 408);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.picImage.BackColor = System.Drawing.Color.Gray;
+            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImage.Location = new System.Drawing.Point(0, 33);
+            this.picImage.Name = "picImage";
+            this.picImage.Size = new System.Drawing.Size(327, 408);
+            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImage.TabIndex = 1;
+            this.picImage.TabStop = false;
             // 
-            // pictureBox2
+            // picBox1
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(643, 33);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(166, 132);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.picBox1.BackColor = System.Drawing.Color.Gray;
+            this.picBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox1.Location = new System.Drawing.Point(677, 33);
+            this.picBox1.Name = "picBox1";
+            this.picBox1.Size = new System.Drawing.Size(166, 132);
+            this.picBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox1.TabIndex = 3;
+            this.picBox1.TabStop = false;
+            this.picBox1.DoubleClick += new System.EventHandler(this.picBox_DoubleClick);
             // 
-            // pictureBox3
+            // picBox2
             // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(643, 171);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(166, 132);
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
+            this.picBox2.BackColor = System.Drawing.Color.Gray;
+            this.picBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox2.Location = new System.Drawing.Point(677, 171);
+            this.picBox2.Name = "picBox2";
+            this.picBox2.Size = new System.Drawing.Size(166, 132);
+            this.picBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox2.TabIndex = 3;
+            this.picBox2.TabStop = false;
+            this.picBox2.DoubleClick += new System.EventHandler(this.picBox_DoubleClick);
             // 
-            // pictureBox4
+            // picBox5
             // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(290, 309);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(166, 132);
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
+            this.picBox5.BackColor = System.Drawing.Color.Gray;
+            this.picBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox5.Location = new System.Drawing.Point(332, 309);
+            this.picBox5.Name = "picBox5";
+            this.picBox5.Size = new System.Drawing.Size(166, 132);
+            this.picBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox5.TabIndex = 3;
+            this.picBox5.TabStop = false;
+            this.picBox5.DoubleClick += new System.EventHandler(this.picBox_DoubleClick);
             // 
-            // pictureBox5
+            // picBox4
             // 
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox5.Location = new System.Drawing.Point(462, 309);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(166, 132);
-            this.pictureBox5.TabIndex = 3;
-            this.pictureBox5.TabStop = false;
+            this.picBox4.BackColor = System.Drawing.Color.Gray;
+            this.picBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox4.Location = new System.Drawing.Point(504, 309);
+            this.picBox4.Name = "picBox4";
+            this.picBox4.Size = new System.Drawing.Size(166, 132);
+            this.picBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox4.TabIndex = 3;
+            this.picBox4.TabStop = false;
+            this.picBox4.DoubleClick += new System.EventHandler(this.picBox_DoubleClick);
             // 
-            // pictureBox6
+            // picBox3
             // 
-            this.pictureBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox6.Location = new System.Drawing.Point(643, 309);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(166, 132);
-            this.pictureBox6.TabIndex = 3;
-            this.pictureBox6.TabStop = false;
+            this.picBox3.BackColor = System.Drawing.Color.Gray;
+            this.picBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox3.Location = new System.Drawing.Point(677, 309);
+            this.picBox3.Name = "picBox3";
+            this.picBox3.Size = new System.Drawing.Size(166, 132);
+            this.picBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox3.TabIndex = 3;
+            this.picBox3.TabStop = false;
+            this.picBox3.DoubleClick += new System.EventHandler(this.picBox_DoubleClick);
             // 
             // panelVideo
             // 
             this.panelVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelVideo.Controls.Add(this.cameraControl);
-            this.panelVideo.Location = new System.Drawing.Point(290, 33);
+            this.panelVideo.Location = new System.Drawing.Point(332, 33);
             this.panelVideo.Name = "panelVideo";
-            this.panelVideo.Size = new System.Drawing.Size(338, 270);
+            this.panelVideo.Size = new System.Drawing.Size(339, 270);
             this.panelVideo.TabIndex = 2;
+            // 
+            // timerCapture
+            // 
+            this.timerCapture.Interval = 200;
+            this.timerCapture.Tick += new System.EventHandler(this.timerCapture_Tick);
+            // 
+            // cboCameraList
+            // 
+            this.cboCameraList.ComboWidth = 200;
+            this.cboCameraList.DropDownHeight = 120;
+            this.cboCameraList.ItemHeight = 17;
+            this.cboCameraList.Name = "cboCameraList";
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "摄像头:";
             // 
             // cameraControl
             // 
+            this.cameraControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cameraControl.DirectShowLogFilepath = "";
             this.cameraControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cameraControl.Location = new System.Drawing.Point(0, 0);
             this.cameraControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cameraControl.Name = "cameraControl";
-            this.cameraControl.Size = new System.Drawing.Size(336, 268);
+            this.cameraControl.Size = new System.Drawing.Size(337, 268);
             this.cameraControl.TabIndex = 0;
+            this.cameraControl.DoubleClick += new System.EventHandler(this.cameraControl_DoubleClick);
             // 
-            // biSave
+            // saveFileDialog
             // 
-            this.biSave.Name = "biSave";
-            this.biSave.Text = "保存图片至本地";
+            this.saveFileDialog.DefaultExt = "png";
+            this.saveFileDialog.Filter = "图片文件(*.png)|*.png";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "图片文件|*.png;*.jpg;*.bmp;*.jpeg";
             // 
             // FrmGetPicture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 448);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox6);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(843, 446);
+            this.Controls.Add(this.picBox5);
+            this.Controls.Add(this.picBox4);
+            this.Controls.Add(this.picBox3);
+            this.Controls.Add(this.picBox2);
+            this.Controls.Add(this.picBox1);
             this.Controls.Add(this.panelVideo);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picImage);
             this.Controls.Add(this.bar1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -190,13 +245,15 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "获取照片";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGetPicture_FormClosing);
+            this.Load += new System.EventHandler(this.FrmGetPicture_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox3)).EndInit();
             this.panelVideo.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -207,15 +264,20 @@
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biOpenCamera;
         private DevComponents.DotNetBar.ButtonItem biOpenLocalPic;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox picImage;
+        private System.Windows.Forms.PictureBox picBox1;
+        private System.Windows.Forms.PictureBox picBox2;
+        private System.Windows.Forms.PictureBox picBox5;
+        private System.Windows.Forms.PictureBox picBox4;
+        private System.Windows.Forms.PictureBox picBox3;
         private DevComponents.DotNetBar.ButtonItem biCaptureVideo;
         private System.Windows.Forms.Panel panelVideo;
         private Camera_NET.CameraControl cameraControl;
         private DevComponents.DotNetBar.ButtonItem biSave;
+        private System.Windows.Forms.Timer timerCapture;
+        private DevComponents.DotNetBar.ComboBoxItem cboCameraList;
+        private DevComponents.DotNetBar.LabelItem labelItem1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

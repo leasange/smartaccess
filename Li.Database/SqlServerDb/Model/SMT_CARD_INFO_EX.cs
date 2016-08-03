@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_STAFF_INFO.cs
+* SMT_CARD_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_STAFF_INFO
+* 类 名： SMT_CARD_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/1 23:35:04   N/A    初版
+* V0.01  2016/8/2 22:00:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -15,26 +15,19 @@
 *└──────────────────────────────────┘
 */
 using System;
-using System.Collections.Generic;
 namespace Maticsoft.Model
 {
 	/// <summary>
-	/// 员工职员表
+	/// 卡表
 	/// </summary>
-    public partial class SMT_STAFF_INFO
-    {
-        private List<Maticsoft.Model.SMT_CARD_INFO> _cards = null;
-        private string _org_name = null;//部门名称
-        public string ORG_NAME
+	public partial class SMT_CARD_INFO
+	{
+        private decimal _staff_id;
+        public decimal STAFF_ID//职员ID
         {
-            get { return _org_name; }
-            set { _org_name = value; }
+            get { return _staff_id; }
+            set { _staff_id = value; }
         }
-        public List<Maticsoft.Model.SMT_CARD_INFO> CARDS
-        {
-            get { return _cards; }
-            set { _cards = value; }
-        }
-    }
+	}
 }
 

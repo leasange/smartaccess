@@ -98,6 +98,7 @@
             this.comboItem8 = new DevComponents.Editors.ComboItem();
             this.comboItem9 = new DevComponents.Editors.ComboItem();
             this.dtBirthday = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.biNew = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -619,9 +620,10 @@
             this.picPhoto.Location = new System.Drawing.Point(271, 28);
             this.picPhoto.Name = "picPhoto";
             this.picPhoto.Size = new System.Drawing.Size(205, 235);
-            this.picPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPhoto.TabIndex = 16;
             this.picPhoto.TabStop = false;
+            this.picPhoto.DoubleClick += new System.EventHandler(this.picPhoto_DoubleClick);
             // 
             // dtValidTimeStart
             // 
@@ -734,7 +736,7 @@
             this.picVerFront.Location = new System.Drawing.Point(482, 28);
             this.picVerFront.Name = "picVerFront";
             this.picVerFront.Size = new System.Drawing.Size(318, 235);
-            this.picVerFront.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picVerFront.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picVerFront.TabIndex = 16;
             this.picVerFront.TabStop = false;
             // 
@@ -745,7 +747,7 @@
             this.picVerBack.Location = new System.Drawing.Point(482, 270);
             this.picVerBack.Name = "picVerBack";
             this.picVerBack.Size = new System.Drawing.Size(318, 235);
-            this.picVerBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picVerBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picVerBack.TabIndex = 16;
             this.picVerBack.TabStop = false;
             // 
@@ -755,6 +757,7 @@
             this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biNew,
             this.biSelectPic,
             this.biPreView,
             this.biPrint,
@@ -776,6 +779,7 @@
             // 
             this.biSelectPic.Name = "biSelectPic";
             this.biSelectPic.Text = "照片";
+            this.biSelectPic.Click += new System.EventHandler(this.biSelectPic_Click);
             // 
             // biPreView
             // 
@@ -1107,6 +1111,12 @@
             this.dtBirthday.TabIndex = 6;
             this.dtBirthday.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
+            // biNew
+            // 
+            this.biNew.Name = "biNew";
+            this.biNew.Text = "新建";
+            this.biNew.Click += new System.EventHandler(this.biNew_Click);
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1174,6 +1184,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "人员添加/修改/查看";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmStaffInfo_FormClosing);
             this.Load += new System.EventHandler(this.FrmStaffInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).EndInit();
@@ -1260,5 +1271,6 @@
         private DevComponents.DotNetBar.ButtonItem biSave;
         private DevComponents.DotNetBar.ButtonItem biClose;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtBirthday;
+        private DevComponents.DotNetBar.ButtonItem biNew;
     }
 }

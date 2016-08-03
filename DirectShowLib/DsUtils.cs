@@ -1166,6 +1166,7 @@ namespace DirectShowLib
                     rot.Revoke(m_cookie);
                     m_cookie = 0;
                 }
+                catch { }
                 finally
                 {
                     Marshal.ReleaseComObject(rot);
@@ -1386,6 +1387,10 @@ namespace DirectShowLib
                 m_Mon = null;
             }
             m_Name = null;
+        }
+        public override string ToString()
+        {
+            return m_Name;
         }
     }
 

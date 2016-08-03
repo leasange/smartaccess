@@ -21,8 +21,8 @@ namespace SmartAccess
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            // Application.ThreadException += Application_ThreadException;
-           // Application.Run(new FrmLogin());
-            Application.Run(new SmartAccess.VerInfoMgr.FrmGetPicture());
+            Application.Run(new FrmLogin());
+           // Application.Run(new SmartAccess.VerInfoMgr.FrmGetPicture());
             
         }
 

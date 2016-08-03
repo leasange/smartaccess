@@ -19,6 +19,10 @@ namespace Li.Controls
             set
             {
                 mTotalRecords = value;
+                if (mTotalRecords<=0)
+                {
+                    mCurrentPage = 1;
+                }
                 UpdateState();
             }
         }
@@ -44,6 +48,7 @@ namespace Li.Controls
                 {
                     mCurrentPage = value;
                     tbPage.Text = mCurrentPage.ToString();
+                    UpdateState();
                 }
             }
         }

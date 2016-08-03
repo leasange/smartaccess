@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_STAFF_INFO.cs
+* SMT_CARD_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_STAFF_INFO
+* 类 名： SMT_CARD_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/1 23:35:04   N/A    初版
+* V0.01  2016/8/2 22:00:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -15,26 +15,23 @@
 *└──────────────────────────────────┘
 */
 using System;
-using System.Collections.Generic;
-namespace Maticsoft.Model
+using System.Data;
+using System.Text;
+using System.Data.SqlClient;
+using Maticsoft.DBUtility;//Please add references
+namespace Maticsoft.DAL
 {
 	/// <summary>
-	/// 员工职员表
+	/// 数据访问类:SMT_CARD_INFO
 	/// </summary>
-    public partial class SMT_STAFF_INFO
-    {
-        private List<Maticsoft.Model.SMT_CARD_INFO> _cards = null;
-        private string _org_name = null;//部门名称
-        public string ORG_NAME
+	public partial class SMT_CARD_INFO
+	{
+        public DataSet GetListByStaffIds(string staffIds)//获取指定权限的卡
         {
-            get { return _org_name; }
-            set { _org_name = value; }
+            StringBuilder strSql = new StringBuilder();
+            strSql.AppendFormat("select t.*,t2.STAFF_ID from SMT_CARD_INFO t,SMT_STAFF_CARD t2 where t.ID=t2.CARD_ID and t2.STAFF_ID in ({0})",staffIds);
+            return DbHelperSQL.Query(strSql.ToString());
         }
-        public List<Maticsoft.Model.SMT_CARD_INFO> CARDS
-        {
-            get { return _cards; }
-            set { _cards = value; }
-        }
-    }
+	}
 }
 

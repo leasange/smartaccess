@@ -19,6 +19,10 @@ namespace SmartAccess.VerInfoMgr
     public partial class FrmStaffInfo : DevComponents.DotNetBar.Office2007Form
     {
         private Maticsoft.Model.SMT_STAFF_INFO _staffInfo = null;
+        public Maticsoft.Model.SMT_STAFF_INFO StaffInfo
+        {
+            get { return _staffInfo; }
+        }
         private List<Maticsoft.Model.SMT_CARD_INFO> _cardInfos = new List<Maticsoft.Model.SMT_CARD_INFO>();
         public bool HasChanged = false;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmStaffInfo));
@@ -35,6 +39,15 @@ namespace SmartAccess.VerInfoMgr
                 _cardInfos.AddRange(_staffInfo.CARDS);
             }
         }
+
+        private void biNew_Click(object sender, EventArgs e)
+        {
+            _staffInfo = null;
+            _cardInfos.Clear();
+            this.Text = "添加人员";
+            Init(false);
+        }
+
         private void biSave_Click(object sender, EventArgs e)
         {
             try
@@ -159,6 +172,10 @@ namespace SmartAccess.VerInfoMgr
                         {
                             saffInfoBll.Update(_staffInfo);
                         }
+                        this.Invoke(new Action(() =>
+                            {
+                                this.Text = "修改人员：" + _staffInfo.REAL_NAME;
+                            }));
                         HasChanged = true;
                         if (_cardInfos!=null&&_cardInfos.Count>0)
                         {
@@ -232,22 +249,58 @@ namespace SmartAccess.VerInfoMgr
             Init();
         }
 
-        private void Init()
+        private void Init(bool loadDept=true)
         {
             dtValidTimeStart.Value = DateTime.Parse("1900-01-01 00:00:00");
             dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
             dtTimeIn.Value = DateTime.Parse("1900-01-01 00:00:00");
             dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
 
-            LoadDeptsTree();
+            if (loadDept)
+            {
+                LoadDeptsTree();
+            }
+
 
             if (_staffInfo == null)
             {
-                this.Text = "注册人员";
+                this.Text = "添加人员";
+                tbStaffName.Text = "";
+                tbVerNo.Text ="";
+                tbJob.Text = "";
+                dtBirthday.ValueObject = null;
+                tbPublic.Text = null;
+                cbMarry.SelectedIndex = 0;
+                tbSkillLevel.Text = "";
+                tbPrivateVerName.Text = "";
+                tbPrivateVerNo.Text = "";
+                tbCellPhone.Text = "";
+                tbTelphone.Text = "";
+                tbEmail.Text = "";
+                tbAddress.Text = "";
+                tbJiGuan.Text = "";
+                tbMinZu.Text = "";
+                tbZonJiao.Text = "";
+                tbXueLi.Text = "";
+                if (picPhoto.Image!=null)
+                {
+                    picPhoto.Image.Dispose();
+                    picPhoto.Image = null;
+                }
+                if (picVerFront.Image != null)
+                {
+                    picVerFront.Image.Dispose();
+                    picVerFront.Image = null;
+                }
+                if (picVerBack.Image != null)
+                {
+                    picVerBack.Image.Dispose();
+                    picVerBack.Image = null;
+                }
             }
             else
             {
-                this.Text = "修改人员信息";
+                this.Text = "修改人员信息："+_staffInfo.REAL_NAME;
                 tbStaffName.Text = _staffInfo.REAL_NAME;
                 try
                 {
@@ -415,5 +468,41 @@ namespace SmartAccess.VerInfoMgr
         {
 
         }
+
+        private void biSelectPic_Click(object sender, EventArgs e)
+        {
+            FrmGetPicture frmGetPic = new FrmGetPicture();
+            frmGetPic.SelectImage = picPhoto.Image;
+            frmGetPic.ShowDialog(this);
+            if (frmGetPic.HasChanged)
+            {
+                picPhoto.Image = frmGetPic.SelectImage;
+            }
+        }
+
+        private void FrmStaffInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ( picPhoto.Image!=null)
+            {
+                picPhoto.Image.Dispose();
+                picPhoto.Image = null;
+            }
+            if (picVerFront.Image != null)
+            {
+                picVerFront.Image.Dispose();
+                picVerFront.Image = null;
+            }
+            if (picVerBack.Image != null)
+            {
+                picVerBack.Image.Dispose();
+                picVerFront.Image = null;
+            }
+        }
+
+        private void picPhoto_DoubleClick(object sender, EventArgs e)
+        {
+            biSelectPic_Click(sender, e);
+        }
+
     }
 }

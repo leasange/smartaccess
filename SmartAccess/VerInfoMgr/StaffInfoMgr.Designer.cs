@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
@@ -44,20 +44,6 @@
             this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem11 = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
-            this.pageDataGridView1 = new Li.Controls.PageDataGridView();
-            this.dataGridViewEx1 = new Li.Controls.DataGridViewEx();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bar3 = new DevComponents.DotNetBar.Bar();
             this.labelItem8 = new DevComponents.DotNetBar.LabelItem();
             this.checkBoxItem1 = new DevComponents.DotNetBar.CheckBoxItem();
@@ -82,20 +68,33 @@
             this.textBoxItem4 = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
+            this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
+            this.pageDataGridView = new Li.Controls.PageDataGridView();
+            this.dgvStaffs = new Li.Controls.DataGridViewEx();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.pageDataGridView1.DataGridPanel.SuspendLayout();
-            this.pageDataGridView1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEx1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             this.bar2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
+            this.pageDataGridView.DataGridPanel.SuspendLayout();
+            this.pageDataGridView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             this.SuspendLayout();
             // 
             // bar1
@@ -215,180 +214,12 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView1);
+            this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.bar3);
             this.splitContainer1.Panel2.Controls.Add(this.bar2);
             this.splitContainer1.Size = new System.Drawing.Size(1131, 481);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 481);
-            this.deptTree.TabIndex = 0;
-            // 
-            // pageDataGridView1
-            // 
-            this.pageDataGridView1.BackColor = System.Drawing.Color.GhostWhite;
-            // 
-            // pageDataGridView1.DataGridPanel
-            // 
-            this.pageDataGridView1.DataGridPanel.Controls.Add(this.dataGridViewEx1);
-            this.pageDataGridView1.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView1.DataGridPanel.Location = new System.Drawing.Point(0, 0);
-            this.pageDataGridView1.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView1.DataGridPanel.Size = new System.Drawing.Size(899, 395);
-            this.pageDataGridView1.DataGridPanel.TabIndex = 1;
-            this.pageDataGridView1.DataGridView = this.dataGridViewEx1;
-            this.pageDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView1.Location = new System.Drawing.Point(0, 54);
-            this.pageDataGridView1.Name = "pageDataGridView1";
-            // 
-            // pageDataGridView1.PageControl
-            // 
-            this.pageDataGridView1.PageControl.CurrentPage = 1;
-            this.pageDataGridView1.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pageDataGridView1.PageControl.ExportButtonVisible = true;
-            this.pageDataGridView1.PageControl.Location = new System.Drawing.Point(0, 395);
-            this.pageDataGridView1.PageControl.Name = "PageControl";
-            this.pageDataGridView1.PageControl.RecordsPerPage = 30;
-            this.pageDataGridView1.PageControl.Size = new System.Drawing.Size(899, 32);
-            this.pageDataGridView1.PageControl.TabIndex = 0;
-            this.pageDataGridView1.PageControl.TotalRecords = 0;
-            this.pageDataGridView1.Size = new System.Drawing.Size(899, 427);
-            this.pageDataGridView1.SqlWhere = null;
-            this.pageDataGridView1.TabIndex = 3;
-            // 
-            // dataGridViewEx1
-            // 
-            this.dataGridViewEx1.AllowUserToAddRows = false;
-            this.dataGridViewEx1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEx1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewEx1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewEx1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8,
-            this.Column9,
-            this.Column10,
-            this.Column11});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEx1.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewEx1.EnableHeadersVisualStyles = false;
-            this.dataGridViewEx1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.dataGridViewEx1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewEx1.Name = "dataGridViewEx1";
-            this.dataGridViewEx1.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEx1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewEx1.RowTemplate.Height = 23;
-            this.dataGridViewEx1.Size = new System.Drawing.Size(899, 395);
-            this.dataGridViewEx1.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "编码";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 78;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 78;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "部门";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 77;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "卡号";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 78;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "发卡次数";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "挂失";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 78;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "被访人";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 78;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 78;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "授权门禁";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 120;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "电话";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 78;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "修改";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 78;
             // 
             // bar3
             // 
@@ -469,7 +300,7 @@
             this.textBoxItem4,
             this.labelItem7,
             this.controlContainerItem1,
-            this.buttonItem12});
+            this.biDoSearch});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.Name = "bar2";
             this.bar2.Size = new System.Drawing.Size(899, 28);
@@ -610,18 +441,186 @@
             this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem1.Name = "controlContainerItem1";
             // 
-            // buttonItem12
+            // biDoSearch
             // 
-            this.buttonItem12.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem12.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem12.Name = "buttonItem12";
-            this.buttonItem12.Text = "查询";
+            this.biDoSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDoSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDoSearch.Name = "biDoSearch";
+            this.biDoSearch.Text = "查询";
+            this.biDoSearch.Click += new System.EventHandler(this.biDoSearch_Click);
             // 
             // controlContainerItem2
             // 
             this.controlContainerItem2.AllowItemResize = false;
             this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem2.Name = "controlContainerItem2";
+            // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 481);
+            this.deptTree.TabIndex = 0;
+            // 
+            // pageDataGridView
+            // 
+            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
+            // 
+            // pageDataGridView.DataGridPanel
+            // 
+            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
+            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
+            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(899, 395);
+            this.pageDataGridView.DataGridPanel.TabIndex = 1;
+            this.pageDataGridView.DataGridView = this.dgvStaffs;
+            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.Location = new System.Drawing.Point(0, 54);
+            this.pageDataGridView.Name = "pageDataGridView";
+            // 
+            // pageDataGridView.PageControl
+            // 
+            this.pageDataGridView.PageControl.CurrentPage = 1;
+            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pageDataGridView.PageControl.ExportButtonVisible = true;
+            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 395);
+            this.pageDataGridView.PageControl.Name = "PageControl";
+            this.pageDataGridView.PageControl.RecordsPerPage = 30;
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(899, 32);
+            this.pageDataGridView.PageControl.TabIndex = 0;
+            this.pageDataGridView.PageControl.TotalRecords = 0;
+            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
+            this.pageDataGridView.Size = new System.Drawing.Size(899, 427);
+            this.pageDataGridView.SqlWhere = null;
+            this.pageDataGridView.TabIndex = 3;
+            // 
+            // dgvStaffs
+            // 
+            this.dgvStaffs.AllowUserToAddRows = false;
+            this.dgvStaffs.AllowUserToDeleteRows = false;
+            this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column8,
+            this.Column10,
+            this.Column9,
+            this.Column11});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStaffs.EnableHeadersVisualStyles = false;
+            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
+            this.dgvStaffs.Name = "dgvStaffs";
+            this.dgvStaffs.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvStaffs.RowTemplate.Height = 23;
+            this.dgvStaffs.Size = new System.Drawing.Size(899, 395);
+            this.dgvStaffs.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "编码";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 57;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 57;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "部门";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 57;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "卡号";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 57;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "发卡次数";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 81;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "挂失";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column6.Width = 57;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 69;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "电话";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 57;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "授权";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column9.Width = 57;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "修改";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column11.Width = 57;
             // 
             // StaffInfoMgr
             // 
@@ -631,18 +630,19 @@
             this.Controls.Add(this.bar1);
             this.Name = "StaffInfoMgr";
             this.Size = new System.Drawing.Size(1131, 509);
+            this.Load += new System.EventHandler(this.StaffInfoMgr_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.pageDataGridView1.DataGridPanel.ResumeLayout(false);
-            this.pageDataGridView1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEx1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             this.bar2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).EndInit();
+            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
+            this.pageDataGridView.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -679,7 +679,7 @@
         private DevComponents.DotNetBar.TextBoxItem textBoxItem4;
         private DevComponents.DotNetBar.LabelItem labelItem7;
         private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem12;
+        private DevComponents.DotNetBar.ButtonItem biDoSearch;
         private DevComponents.DotNetBar.Bar bar3;
         private DevComponents.DotNetBar.LabelItem labelItem8;
         private DevComponents.DotNetBar.ControlContainerItem controlContainerItem2;
@@ -689,18 +689,17 @@
         private DevComponents.DotNetBar.CheckBoxItem checkBoxItem4;
         private DevComponents.DotNetBar.CheckBoxItem checkBoxItem5;
         private DevComponents.DotNetBar.CheckBoxItem checkBoxItem6;
-        private Li.Controls.PageDataGridView pageDataGridView1;
-        private Li.Controls.DataGridViewEx dataGridViewEx1;
+        private Li.Controls.PageDataGridView pageDataGridView;
+        private Li.Controls.DataGridViewEx dgvStaffs;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewLinkColumn Column9;
+        private System.Windows.Forms.DataGridViewLinkColumn Column11;
     }
 }

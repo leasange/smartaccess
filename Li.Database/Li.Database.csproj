@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_INFO_EX.cs" />
@@ -56,8 +57,10 @@
     <Compile Include="SqlServerDb\BLL\SMT_ORG_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_CARD_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_CARD.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_USER_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_INFO_EX.cs" />
@@ -68,8 +71,10 @@
     <Compile Include="SqlServerDb\DAL\SMT_ORG_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_CARD_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_CARD.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_USER_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_INFO_EX.cs" />
