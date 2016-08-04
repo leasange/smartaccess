@@ -96,6 +96,30 @@
     <Compile Include="ControlDevMgr\ControlState.Designer.cs">
       <DependentUpon>ControlState.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlDevMgr\DoorNameAttri.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorNameAttri.Designer.cs">
+      <DependentUpon>DoorNameAttri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorNameAttriGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorNameAttriGroup.Designer.cs">
+      <DependentUpon>DoorNameAttriGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorReaderAttri.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorReaderAttri.Designer.cs">
+      <DependentUpon>DoorReaderAttri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorReaderAttriGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\DoorReaderAttriGroup.Designer.cs">
+      <DependentUpon>DoorReaderAttriGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\FrmAddOrModifyCtrlr.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +317,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlState.resx">
       <DependentUpon>ControlState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\DoorNameAttri.resx">
+      <DependentUpon>DoorNameAttri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\DoorNameAttriGroup.resx">
+      <DependentUpon>DoorNameAttriGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\DoorReaderAttri.resx">
+      <DependentUpon>DoorReaderAttri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\DoorReaderAttriGroup.resx">
+      <DependentUpon>DoorReaderAttriGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmAddOrModifyCtrlr.resx">
       <DependentUpon>FrmAddOrModifyCtrlr.cs</DependentUpon>

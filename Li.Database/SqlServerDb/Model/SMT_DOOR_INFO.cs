@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/23 15:31:37   N/A    初版
+* V0.01  2016/8/5 0:01:57   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,8 +31,13 @@ namespace Maticsoft.Model
 		private decimal? _ctrl_id;
 		private int? _ctrl_door_index;
 		private string _door_desc;
-		private int? _ctrl_style;
-		private int? _ctrl_delay_time;
+		private int _ctrl_style;
+		private int _ctrl_delay_time;
+		private bool _is_enable;
+		private bool _is_enter1;
+		private bool _is_enter2;
+		private bool _is_attendance1;
+		private bool _is_attendance2;
 		/// <summary>
 		/// 门ID
 		/// </summary>
@@ -58,7 +63,7 @@ namespace Maticsoft.Model
 			get{return _ctrl_id;}
 		}
 		/// <summary>
-		/// 关联控制器门序号
+		/// 关联控制器门序号1，双向1，单向1
 		/// </summary>
 		public int? CTRL_DOOR_INDEX
 		{
@@ -76,7 +81,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 控制方式,0 在线，1 常开，2 常闭
 		/// </summary>
-		public int? CTRL_STYLE
+		public int CTRL_STYLE
 		{
 			set{ _ctrl_style=value;}
 			get{return _ctrl_style;}
@@ -84,10 +89,50 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 开门延时(秒)，不低于1s 默认3s
 		/// </summary>
-		public int? CTRL_DELAY_TIME
+		public int CTRL_DELAY_TIME
 		{
 			set{ _ctrl_delay_time=value;}
 			get{return _ctrl_delay_time;}
+		}
+		/// <summary>
+		/// 是否启用
+		/// </summary>
+		public bool IS_ENABLE
+		{
+			set{ _is_enable=value;}
+			get{return _is_enable;}
+		}
+		/// <summary>
+		/// 是否进门1，双向1，单向1
+		/// </summary>
+		public bool IS_ENTER1
+		{
+			set{ _is_enter1=value;}
+			get{return _is_enter1;}
+		}
+		/// <summary>
+		/// 是否进门2，双向2
+		/// </summary>
+		public bool IS_ENTER2
+		{
+			set{ _is_enter2=value;}
+			get{return _is_enter2;}
+		}
+		/// <summary>
+		/// 是否考勤1，双向1，单向1
+		/// </summary>
+		public bool IS_ATTENDANCE1
+		{
+			set{ _is_attendance1=value;}
+			get{return _is_attendance1;}
+		}
+		/// <summary>
+		/// 是否考勤2，双向2
+		/// </summary>
+		public bool IS_ATTENDANCE2
+		{
+			set{ _is_attendance2=value;}
+			get{return _is_attendance2;}
 		}
 		#endregion Model
 

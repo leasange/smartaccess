@@ -15,6 +15,7 @@ namespace SmartAccess.ControlDevMgr
 {
     public partial class ControllerMgr : UserControl
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(ControllerMgr));
         public ControllerMgr()
         {
             InitializeComponent();
@@ -55,29 +56,59 @@ namespace SmartAccess.ControlDevMgr
             dgvCtrlr.Rows.Clear();
             foreach (var item in ctrls)
             {
-                DataGridViewRow row = new DataGridViewRow();
-                string doors = "";
-                if (item.DOOR_INFOS!=null&&item.DOOR_INFOS.Count>0)
-                {
-                    foreach (var door in item.DOOR_INFOS)
-                    {
-                        doors += door.DOOR_NAME + ";";
-                    }
-                }
-                row.CreateCells(dgvCtrlr,
-                    item.NAME,
-                    item.SN_NO,
-                    item.IS_ENABLE,
-                    item.IP,
-                    item.PORT,
-                    item.AREA_NAME,
-                    item.CTRLR_DESC,
-                    doors//所控制的门
-                    );
-                dgvCtrlr.Rows.Add(row);
+                AddRow(item);
             }
         }
-
+        private void AddRow(Maticsoft.Model.SMT_CONTROLLER_INFO ctrl)
+        {
+            DataGridViewRow row = new DataGridViewRow();
+            string doors = "";
+            if (ctrl.DOOR_INFOS != null && ctrl.DOOR_INFOS.Count > 0)
+            {
+                foreach (var door in ctrl.DOOR_INFOS)
+                {
+                    doors += door.DOOR_NAME + ";";
+                }
+            }
+            row.CreateCells(dgvCtrlr,
+                ctrl.NAME,
+                ctrl.SN_NO,
+                ctrl.IS_ENABLE?"启用":"禁用",
+                ctrl.IP,
+                ctrl.PORT,
+                ctrl.AREA_NAME,
+                ctrl.CTRLR_DESC,
+                doors,//所控制的门
+                "修改",
+                "删除"
+                );
+            row.Tag = ctrl;
+            dgvCtrlr.Rows.Add(row);
+        }
+        private void UpdateRow(DataGridViewRow row, Maticsoft.Model.SMT_CONTROLLER_INFO ctrl)
+        {
+            if (ctrl==null)
+            {
+                return;
+            }
+            string doors = "";
+            if (ctrl.DOOR_INFOS != null && ctrl.DOOR_INFOS.Count > 0)
+            {
+                foreach (var door in ctrl.DOOR_INFOS)
+                {
+                    doors += door.DOOR_NAME + ";";
+                }
+            }
+            row.Cells[0].Value = ctrl.NAME;
+            row.Cells[1].Value = ctrl.SN_NO;
+            row.Cells[2].Value = ctrl.IS_ENABLE ? "启用" : "禁用";
+            row.Cells[3].Value = ctrl.IP;
+            row.Cells[4].Value = ctrl.PORT;
+            row.Cells[5].Value = ctrl.AREA_NAME;
+            row.Cells[6].Value = ctrl.CTRLR_DESC;
+            row.Cells[7].Value = doors;//所控制的门
+            row.Tag = ctrl;
+        }
         private Maticsoft.Model.SMT_CONTROLLER_ZONE GetSelectArea()
         {
             if(advTreeArea.SelectedNode!=null)
@@ -111,7 +142,10 @@ namespace SmartAccess.ControlDevMgr
 
         private void advTreeArea_NodeMouseDown(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
         {
-
+            if (e.Button== System.Windows.Forms.MouseButtons.Left)
+            {
+               
+            }
         }
 
         private void advTreeArea_AfterNodeSelect(object sender, DevComponents.AdvTree.AdvTreeNodeEventArgs e)
@@ -212,7 +246,63 @@ namespace SmartAccess.ControlDevMgr
 
         private void btnAddCtrlr_Click(object sender, EventArgs e)
         {
-            
+            FrmAddOrModifyCtrlr frmModify = new FrmAddOrModifyCtrlr();
+            if (frmModify.ShowDialog(this) == DialogResult.OK)
+            {
+                AddRow(frmModify.Controller);
+            }
+        }
+
+        private void dgvCtrlr_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0&&e.ColumnIndex>=0)
+            {
+                if (dgvCtrlr.Columns[e.ColumnIndex].Name=="Col_XG")//修改
+                {
+                    DoModify(dgvCtrlr.Rows[e.RowIndex]);
+                }
+                else if (dgvCtrlr.Columns[e.ColumnIndex].Name=="Col_SC")//删除
+                {
+                    DoDelete(dgvCtrlr.Rows[e.RowIndex]);
+                }
+            }
+        }
+        private void DoModify(DataGridViewRow row)
+        {
+            Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+            FrmAddOrModifyCtrlr frmModify = new FrmAddOrModifyCtrlr(ctrlr);
+            if(frmModify.ShowDialog(this)==DialogResult.OK)
+            {
+                UpdateRow(row, frmModify.Controller);
+            }
+        }
+        private void DoDelete(DataGridViewRow row)
+        {
+            if (MessageBox.Show("确定删除该控制器？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                CtrlWaiting ctrlWaiting = new CtrlWaiting("正在删除中...", () =>
+                {
+                    try
+                    {
+                        Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+                        Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                        ctrlBll.Delete(ctrlr.ID);
+                        //置门关联控制器为空
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("update SMT_DOOR_INFO set CTRL_ID=-1,CTRL_DOOR_INDEX=0 where CTRL_ID=" + ctrlr.ID);
+                        this.Invoke(new Action(() =>
+                            {
+                                dgvCtrlr.Rows.Remove(row);
+                            }));
+                    }
+                    catch (System.Exception ex)
+                    {
+                        log.Error("删除控制器异常：", ex);
+                        WinInfoHelper.ShowInfoWindow(this, "删除失败：" + ex.Message);
+                    }
+
+                });
+                ctrlWaiting.Show(this);
+            }
         }
     }
 }
