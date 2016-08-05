@@ -54,7 +54,6 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.linkCtrlState = new System.Windows.Forms.LinkLabel();
             this.linkOneMangMgr = new System.Windows.Forms.LinkLabel();
-            this.linkCtrlAreaMgr = new System.Windows.Forms.LinkLabel();
             this.linkControlerMgr = new System.Windows.Forms.LinkLabel();
             this.expandablePanel5 = new DevComponents.DotNetBar.ExpandablePanel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -543,7 +542,7 @@
             this.expandablePanel6.Controls.Add(this.panel7);
             this.expandablePanel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel6.Expanded = false;
-            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 211);
+            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 184);
             this.expandablePanel6.ExpandOnTitleClick = true;
             this.expandablePanel6.Location = new System.Drawing.Point(0, 301);
             this.expandablePanel6.Name = "expandablePanel6";
@@ -576,7 +575,6 @@
             this.panel7.BackColor = System.Drawing.Color.Transparent;
             this.panel7.Controls.Add(this.linkCtrlState);
             this.panel7.Controls.Add(this.linkOneMangMgr);
-            this.panel7.Controls.Add(this.linkCtrlAreaMgr);
             this.panel7.Controls.Add(this.linkControlerMgr);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 34);
@@ -592,7 +590,7 @@
             this.linkCtrlState.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkCtrlState.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
             this.linkCtrlState.LinkColor = System.Drawing.Color.White;
-            this.linkCtrlState.Location = new System.Drawing.Point(51, 130);
+            this.linkCtrlState.Location = new System.Drawing.Point(51, 97);
             this.linkCtrlState.Name = "linkCtrlState";
             this.linkCtrlState.Size = new System.Drawing.Size(148, 25);
             this.linkCtrlState.TabIndex = 2;
@@ -610,7 +608,7 @@
             this.linkOneMangMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkOneMangMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
             this.linkOneMangMgr.LinkColor = System.Drawing.Color.White;
-            this.linkOneMangMgr.Location = new System.Drawing.Point(51, 93);
+            this.linkOneMangMgr.Location = new System.Drawing.Point(51, 60);
             this.linkOneMangMgr.Name = "linkOneMangMgr";
             this.linkOneMangMgr.Size = new System.Drawing.Size(148, 25);
             this.linkOneMangMgr.TabIndex = 2;
@@ -620,24 +618,6 @@
             this.linkOneMangMgr.UseCompatibleTextRendering = true;
             this.linkOneMangMgr.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOneMangMgr_LinkClicked);
             // 
-            // linkCtrlAreaMgr
-            // 
-            this.linkCtrlAreaMgr.BackColor = System.Drawing.Color.Transparent;
-            this.linkCtrlAreaMgr.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkCtrlAreaMgr.Image = global::SmartAccess.Properties.Resources.editor;
-            this.linkCtrlAreaMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkCtrlAreaMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkCtrlAreaMgr.LinkColor = System.Drawing.Color.White;
-            this.linkCtrlAreaMgr.Location = new System.Drawing.Point(51, 25);
-            this.linkCtrlAreaMgr.Name = "linkCtrlAreaMgr";
-            this.linkCtrlAreaMgr.Size = new System.Drawing.Size(148, 25);
-            this.linkCtrlAreaMgr.TabIndex = 3;
-            this.linkCtrlAreaMgr.TabStop = true;
-            this.linkCtrlAreaMgr.Text = "      控制区域管理";
-            this.linkCtrlAreaMgr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkCtrlAreaMgr.UseCompatibleTextRendering = true;
-            this.linkCtrlAreaMgr.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCtrlAreaMgr_LinkClicked);
-            // 
             // linkControlerMgr
             // 
             this.linkControlerMgr.BackColor = System.Drawing.Color.Transparent;
@@ -646,7 +626,7 @@
             this.linkControlerMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkControlerMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
             this.linkControlerMgr.LinkColor = System.Drawing.Color.White;
-            this.linkControlerMgr.Location = new System.Drawing.Point(51, 59);
+            this.linkControlerMgr.Location = new System.Drawing.Point(51, 26);
             this.linkControlerMgr.Name = "linkControlerMgr";
             this.linkControlerMgr.Size = new System.Drawing.Size(148, 25);
             this.linkControlerMgr.TabIndex = 4;
@@ -1300,7 +1280,6 @@
         private System.Windows.Forms.LinkLabel linkRouteSearch;
         private System.Windows.Forms.LinkLabel linkLabel11;
         private System.Windows.Forms.LinkLabel linkOneMangMgr;
-        private System.Windows.Forms.LinkLabel linkCtrlAreaMgr;
         private System.Windows.Forms.LinkLabel linkControlerMgr;
         private System.Windows.Forms.LinkLabel linkCtrlState;
         private System.Windows.Forms.LinkLabel linkRealMap;

@@ -30,9 +30,9 @@
         {
             this.advDoorTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
+            this.node2 = new DevComponents.AdvTree.Node();
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
-            this.node2 = new DevComponents.AdvTree.Node();
             ((System.ComponentModel.ISupportInitialize)(this.advDoorTree)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +70,12 @@
             this.node2});
             this.node1.Text = "区域1";
             // 
+            // node2
+            // 
+            this.node2.Expanded = true;
+            this.node2.Name = "node2";
+            this.node2.Text = "门1";
+            // 
             // nodeConnector1
             // 
             this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
@@ -80,12 +86,6 @@
             this.elementStyle1.Name = "elementStyle1";
             this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
-            // node2
-            // 
-            this.node2.Expanded = true;
-            this.node2.Name = "node2";
-            this.node2.Text = "门1";
-            // 
             // DoorTree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -93,6 +93,7 @@
             this.Controls.Add(this.advDoorTree);
             this.Name = "DoorTree";
             this.Size = new System.Drawing.Size(237, 330);
+            this.Load += new System.EventHandler(this.DoorTree_Load);
             ((System.ComponentModel.ISupportInitialize)(this.advDoorTree)).EndInit();
             this.ResumeLayout(false);
 

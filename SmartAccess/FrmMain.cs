@@ -211,14 +211,6 @@ namespace SmartAccess
             }
         }
 
-        private void linkCtrlAreaMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (!CheckControl(typeof(ControlDevMgr.ControlAreaMgr)))
-            {
-                AddControl(new ControlDevMgr.ControlAreaMgr(), "控制区域管理");
-            }
-        }
-
         private void linkControlerMgr_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (!CheckControl(typeof(ControlDevMgr.ControllerMgr)))
