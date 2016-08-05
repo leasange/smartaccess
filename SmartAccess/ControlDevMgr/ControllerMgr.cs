@@ -20,19 +20,27 @@ namespace SmartAccess.ControlDevMgr
         {
             InitializeComponent();
         }
-        private void Init()
+        private void Init(int time=300)
         {
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
-                List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls = ControllerHelper.GetList("1=1",true);//获取所有控制器
-                List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas = AreaDataHelper.GetAreas(true);//获取所有区域
-                this.Invoke(new Action(()=>
-                    {
-                        ShowAreas(areas);
-                        ShowCtrls(ctrls);
-                    }));
+                try
+                {
+                    List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls = ControllerHelper.GetList("1=1", true);//获取所有控制器
+                    List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas = AreaDataHelper.GetAreas(true);//获取所有区域
+                    this.Invoke(new Action(() =>
+                        {
+                            ShowAreas(areas);
+                            ShowCtrls(ctrls);
+                        }));
+                }
+                catch (System.Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "加载异常：" + ex.Message);
+                    log.Error("加载异常：", ex);
+                }
             });
-            waiting.Show(this,500);
+            waiting.Show(this, time);
         }
         private void DoLoadCtrlrs(List<decimal> areaIds)
         {
@@ -46,8 +54,8 @@ namespace SmartAccess.ControlDevMgr
             advTreeArea.Nodes[0].Nodes.AddRange(tree.ToArray());
             advTreeArea.ExpandAll();
         }
- 
-        private void ShowCtrls(List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls)
+
+        private void ShowCtrls(List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls, string filter=null)
         {
             if (ctrls == null)
             {
@@ -56,11 +64,19 @@ namespace SmartAccess.ControlDevMgr
             dgvCtrlr.Rows.Clear();
             foreach (var item in ctrls)
             {
-                AddRow(item);
+                AddRow(item, filter);
             }
         }
-        private void AddRow(Maticsoft.Model.SMT_CONTROLLER_INFO ctrl)
+        private void AddRow(Maticsoft.Model.SMT_CONTROLLER_INFO ctrl, string filter=null)
         {
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                string str = ctrl.NAME + " " + ctrl.SN_NO + " " + ctrl.IP + " " + ctrl.AREA_NAME;
+                if (!str.Contains(filter.Trim()))
+                {
+                    return;
+                }
+            }
             DataGridViewRow row = new DataGridViewRow();
             string doors = "";
             if (ctrl.DOOR_INFOS != null && ctrl.DOOR_INFOS.Count > 0)
@@ -140,14 +156,61 @@ namespace SmartAccess.ControlDevMgr
             Init();
         }
 
+        private void DoLoadByArea(List<Maticsoft.Model.SMT_CONTROLLER_ZONE>  areas,string filter=null)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    string strWhere = "1=1";
+                    if (areas != null &&areas.Count>0)
+                    {
+                        strWhere = "AREA_ID in (";
+                        foreach (var item in areas)
+                        {
+                            strWhere += item.ID + ",";
+                        }
+                        strWhere = strWhere.TrimEnd(',');
+                        strWhere += ")";
+                    }
+                    List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrls = ControllerHelper.GetList(strWhere, true);//获取所有控制器
+                    this.Invoke(new Action(() =>
+                    {
+                        ShowCtrls(ctrls, filter);
+                    }));
+                }
+                catch (System.Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "加载控制器异常：" + ex.Message);
+                    log.Error("加载控制器异常：", ex);
+                }
+            });
+            waiting.Show(this);
+        }
         private void advTreeArea_NodeMouseDown(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
         {
             if (e.Button== System.Windows.Forms.MouseButtons.Left)
             {
-               
+                if (e.Node.Tag ==null)
+                {
+                    DoLoadByArea(null);
+                }
+                else DoLoadByArea(GetSubAreas(e.Node));
             }
         }
-
+        private List<Maticsoft.Model.SMT_CONTROLLER_ZONE> GetSubAreas(DevComponents.AdvTree.Node node)
+        {
+            List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas = new List<Maticsoft.Model.SMT_CONTROLLER_ZONE>();
+            if (node.Tag is Maticsoft.Model.SMT_CONTROLLER_ZONE)
+            {
+                areas.Add((Maticsoft.Model.SMT_CONTROLLER_ZONE)node.Tag);
+            }
+            foreach (DevComponents.AdvTree.Node item in node.Nodes)
+            {
+                areas.AddRange(GetSubAreas(item));
+            }
+            return areas;
+        }
         private void advTreeArea_AfterNodeSelect(object sender, DevComponents.AdvTree.AdvTreeNodeEventArgs e)
         {
             if (e.Node==null)
@@ -302,6 +365,36 @@ namespace SmartAccess.ControlDevMgr
 
                 });
                 ctrlWaiting.Show(this);
+            }
+        }
+
+        private void biDeleteCtrlr_Click(object sender, EventArgs e)
+        {
+            if(dgvCtrlr.SelectedCells.Count>0)
+            {
+                if(dgvCtrlr.SelectedCells[0].RowIndex>=0)
+                {
+                    DataGridViewRow row = dgvCtrlr.Rows[dgvCtrlr.SelectedCells[0].RowIndex];
+                    DoDelete(row);
+                }
+            }
+        }
+
+        private void biRefresh_Click(object sender, EventArgs e)
+        {
+            Init(0);
+        }
+
+        private void biSearch_Click(object sender, EventArgs e)
+        {
+            DoLoadByArea(null, tbCtrlrFilter.Text.Trim());
+        }
+
+        private void tbCtrlrFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode== Keys.Enter)
+            {
+                 DoLoadByArea(null, tbCtrlrFilter.Text.Trim());
             }
         }
     }

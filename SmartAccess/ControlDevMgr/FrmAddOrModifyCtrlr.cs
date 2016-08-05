@@ -1,4 +1,5 @@
 ﻿using Li.Access.Core;
+using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,62 @@ namespace SmartAccess.ControlDevMgr
             {
                 SetAccessExAttribute(ControllerDoorType.TwoDoorsTwoDirections);
             }
+            DoLoadArea();
+        }
+
+        private void DoLoadArea()
+        {
+            CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
+            {
+                var areas = AreaDataHelper.GetAreas();
+                if (areas.Count>0)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        var nodes = AreaDataHelper.ToTree(areas);
+                        nodes.Insert(0, new DevComponents.AdvTree.Node("--无--"));
+                        cboTreeArea.Nodes.AddRange(nodes.ToArray());
+                        foreach (var item in nodes)
+                        {
+                            item.Expand();
+                        }
+                        if (_ctrlr!=null&&_ctrlr.AREA_ID!=null&&_ctrlr.AREA_ID>=0)
+                        {
+                            DevComponents.AdvTree.Node node = FindNode((decimal)_ctrlr.AREA_ID);
+                            if (node!=null)
+                            {
+                                cboTreeArea.SelectedNode = node;
+                            }
+                        }
+                    }));
+                }
+            });
+            ctrlWaiting.Show(this,300);
+        }
+
+        public DevComponents.AdvTree.Node FindNode(decimal id)
+        {
+            return DoFindNode(cboTreeArea.Nodes, id);
+        }
+        private DevComponents.AdvTree.Node DoFindNode(DevComponents.AdvTree.NodeCollection nodes, decimal id)
+        {
+            foreach (DevComponents.AdvTree.Node item in nodes)
+            {
+                var area = item.Tag as Maticsoft.Model.SMT_CONTROLLER_ZONE;
+                if (area!=null&&area.ID == id)
+                {
+                    return item;
+                }
+                else
+                {
+                    var nn = DoFindNode(item.Nodes, id);
+                    if (nn != null)
+                    {
+                        return nn;
+                    }
+                }
+            }
+            return null;
         }
 
         private void tbCtrlrSn_TextChanged(object sender, EventArgs e)
@@ -242,6 +299,13 @@ namespace SmartAccess.ControlDevMgr
             ctrlInfo.PORT = iiPort.Value;
             ctrlInfo.CTRLR_DESC = tbDesc.Text.Trim();
             ctrlInfo.CTRLR_TYPE = (int)_lastType;
+            ctrlInfo.AREA_ID = -1;
+            if (cboTreeArea.SelectedNode != null && cboTreeArea.SelectedNode.Tag is Maticsoft.Model.SMT_CONTROLLER_ZONE)
+            {
+                var area = cboTreeArea.SelectedNode.Tag as Maticsoft.Model.SMT_CONTROLLER_ZONE;
+                ctrlInfo.AREA_ID = area.ID;
+                ctrlInfo.AREA_NAME = area.ZONE_NAME;
+            }
 
             List<DoorNameAttriData> doorNameDatas = doorNameAttriGroup.GetDatas();
             List<DoorReaderAttriData> doorReaderDatas = doorReaderAttriGroup.GetDatas();
@@ -282,14 +346,29 @@ namespace SmartAccess.ControlDevMgr
                 try
                 {
                     Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                    var exists= ctrlBll.GetModelList("SN_NO='"+ctrlInfo.SN_NO+"'");
+                   
                     if (ctrlInfo.ID != -1)
                     {
+                        if (exists.Count>0)
+                        {
+                            if(exists[0].ID!=ctrlInfo.ID)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
+                                return;
+                            }
+                        }
                         ctrlBll.Update(ctrlInfo);
                         ctrlInfo.DOOR_INFOS = _ctrlr.DOOR_INFOS;
                         _ctrlr = ctrlInfo;
                     }
                     else
                     {
+                        if (exists.Count > 0)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
+                            return;
+                        }
                         ctrlInfo.ID = ctrlBll.Add(ctrlInfo);
                         _ctrlr = ctrlInfo;
                     }
@@ -304,6 +383,7 @@ namespace SmartAccess.ControlDevMgr
                         }
                         else
                         {
+                            item.CTRL_ID = ctrlInfo.ID;
                             item.ID = doorBll.Add(item);
                         }
                     }
