@@ -288,6 +288,18 @@ namespace SmartAccess.VerInfoMgr
 
             }
         }
+
+        private void biOk_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void biClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
  
     }
 }

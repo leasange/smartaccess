@@ -155,7 +155,7 @@ namespace SmartAccess.VerInfoMgr
         }
         private void StaffInfoMgr_Load(object sender, EventArgs e)
         {
-            DoSearch(true,true,300);
+            DoSearch(true,true,-1,300);
         }
 
         private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
@@ -189,7 +189,15 @@ namespace SmartAccess.VerInfoMgr
                         frmStaffInfo.ShowDialog(this);
                     }
                 }
-                
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SQ")
+                {
+                    Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
+                    if (staffInfo != null)
+                    {
+                        FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(staffInfo);
+                        frmStaffInfo.ShowDialog(this);
+                    }
+                }
             }
         }
     }

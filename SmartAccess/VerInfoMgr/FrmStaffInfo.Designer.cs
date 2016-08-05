@@ -74,6 +74,7 @@
             this.picVerFront = new System.Windows.Forms.PictureBox();
             this.picVerBack = new System.Windows.Forms.PictureBox();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biNew = new DevComponents.DotNetBar.ButtonItem();
             this.biSelectPic = new DevComponents.DotNetBar.ButtonItem();
             this.biPreView = new DevComponents.DotNetBar.ButtonItem();
             this.biPrint = new DevComponents.DotNetBar.ButtonItem();
@@ -98,7 +99,6 @@
             this.comboItem8 = new DevComponents.Editors.ComboItem();
             this.comboItem9 = new DevComponents.Editors.ComboItem();
             this.dtBirthday = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.biNew = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -411,7 +411,7 @@
             this.labelX16.Name = "labelX16";
             this.labelX16.Size = new System.Drawing.Size(86, 23);
             this.labelX16.TabIndex = 0;
-            this.labelX16.Text = "有效开始时间";
+            this.labelX16.Text = " 门禁开始时间";
             this.labelX16.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // labelX17
@@ -425,7 +425,7 @@
             this.labelX17.Name = "labelX17";
             this.labelX17.Size = new System.Drawing.Size(86, 23);
             this.labelX17.TabIndex = 0;
-            this.labelX17.Text = "有效结束时间";
+            this.labelX17.Text = "门禁结束时间";
             this.labelX17.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // cbSex
@@ -775,6 +775,12 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
+            // biNew
+            // 
+            this.biNew.Name = "biNew";
+            this.biNew.Text = "新建";
+            this.biNew.Click += new System.EventHandler(this.biNew_Click);
+            // 
             // biSelectPic
             // 
             this.biSelectPic.Name = "biSelectPic";
@@ -1110,12 +1116,6 @@
             this.dtBirthday.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtBirthday.TabIndex = 6;
             this.dtBirthday.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
-            // 
-            // biNew
-            // 
-            this.biNew.Name = "biNew";
-            this.biNew.Text = "新建";
-            this.biNew.Click += new System.EventHandler(this.biNew_Click);
             // 
             // FrmStaffInfo
             // 

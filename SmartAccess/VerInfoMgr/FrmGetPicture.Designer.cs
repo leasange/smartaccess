@@ -32,6 +32,8 @@
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biOpenLocalPic = new DevComponents.DotNetBar.ButtonItem();
             this.biSave = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
             this.picImage = new System.Windows.Forms.PictureBox();
@@ -41,12 +43,12 @@
             this.picBox4 = new System.Windows.Forms.PictureBox();
             this.picBox3 = new System.Windows.Forms.PictureBox();
             this.panelVideo = new System.Windows.Forms.Panel();
-            this.timerCapture = new System.Windows.Forms.Timer(this.components);
-            this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.cameraControl = new Camera_NET.CameraControl();
+            this.timerCapture = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.biOk = new DevComponents.DotNetBar.ButtonItem();
+            this.biClose = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox1)).BeginInit();
@@ -68,7 +70,9 @@
             this.labelItem1,
             this.cboCameraList,
             this.biOpenCamera,
-            this.biCaptureVideo});
+            this.biCaptureVideo,
+            this.biOk,
+            this.biClose});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bar1.Name = "bar1";
@@ -91,6 +95,18 @@
             this.biSave.Name = "biSave";
             this.biSave.Text = "保存图片至本地";
             this.biSave.Click += new System.EventHandler(this.biSave_Click);
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "摄像头:";
+            // 
+            // cboCameraList
+            // 
+            this.cboCameraList.ComboWidth = 200;
+            this.cboCameraList.DropDownHeight = 120;
+            this.cboCameraList.ItemHeight = 17;
+            this.cboCameraList.Name = "cboCameraList";
             // 
             // biOpenCamera
             // 
@@ -184,23 +200,6 @@
             this.panelVideo.Size = new System.Drawing.Size(339, 270);
             this.panelVideo.TabIndex = 2;
             // 
-            // timerCapture
-            // 
-            this.timerCapture.Interval = 200;
-            this.timerCapture.Tick += new System.EventHandler(this.timerCapture_Tick);
-            // 
-            // cboCameraList
-            // 
-            this.cboCameraList.ComboWidth = 200;
-            this.cboCameraList.DropDownHeight = 120;
-            this.cboCameraList.ItemHeight = 17;
-            this.cboCameraList.Name = "cboCameraList";
-            // 
-            // labelItem1
-            // 
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "摄像头:";
-            // 
             // cameraControl
             // 
             this.cameraControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -213,6 +212,11 @@
             this.cameraControl.TabIndex = 0;
             this.cameraControl.DoubleClick += new System.EventHandler(this.cameraControl_DoubleClick);
             // 
+            // timerCapture
+            // 
+            this.timerCapture.Interval = 200;
+            this.timerCapture.Tick += new System.EventHandler(this.timerCapture_Tick);
+            // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "png";
@@ -221,6 +225,18 @@
             // openFileDialog
             // 
             this.openFileDialog.Filter = "图片文件|*.png;*.jpg;*.bmp;*.jpeg";
+            // 
+            // biOk
+            // 
+            this.biOk.Name = "biOk";
+            this.biOk.Text = "确定并关闭";
+            this.biOk.Click += new System.EventHandler(this.biOk_Click);
+            // 
+            // biClose
+            // 
+            this.biClose.Name = "biClose";
+            this.biClose.Text = "关闭";
+            this.biClose.Click += new System.EventHandler(this.biClose_Click);
             // 
             // FrmGetPicture
             // 
@@ -279,5 +295,7 @@
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private DevComponents.DotNetBar.ButtonItem biOk;
+        private DevComponents.DotNetBar.ButtonItem biClose;
     }
 }

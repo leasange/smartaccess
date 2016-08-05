@@ -32,7 +32,36 @@ namespace Maticsoft.BLL
         public List<Maticsoft.Model.SMT_DOOR_INFO> GetModelListWithArea(string strWhere)
         {
             DataSet ds = dal.GetListWithArea(strWhere);
-            return DataTableToList(ds.Tables[0]);
+            return DataTableToListWithArea(ds.Tables[0]);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Maticsoft.Model.SMT_DOOR_INFO> DataTableToListWithArea(DataTable dt)
+        {
+            List<Maticsoft.Model.SMT_DOOR_INFO> modelList = new List<Maticsoft.Model.SMT_DOOR_INFO>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Maticsoft.Model.SMT_DOOR_INFO model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = dal.DataRowToModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        if (dt.Rows[n]["AREA_ID"] != null && dt.Rows[n]["AREA_ID"].ToString() != "")
+                        {
+                            model.AREA_ID = decimal.Parse(dt.Rows[n]["AREA_ID"].ToString());
+                        }
+                        if (dt.Rows[n]["ZONE_NAME"] != null)
+                        {
+                            model.AREA_NAME = dt.Rows[n]["ZONE_NAME"].ToString();
+                        }
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
         }
 	}
 }

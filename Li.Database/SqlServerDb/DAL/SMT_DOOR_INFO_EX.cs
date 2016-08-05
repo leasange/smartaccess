@@ -30,13 +30,16 @@ namespace Maticsoft.DAL
         public DataSet GetListWithArea(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-
-
-            strSql.Append("select DI.*,CI.AREA_ID ");
-            strSql.Append(" FROM SMT_DOOR_INFO DI,SMT_CONTROLLER_INFO CI where DI.CTRL_ID=CI.ID");
             if (strWhere.Trim() != "")
             {
-                strSql.Append(" where " + strWhere);
+                strSql.Append("select * from (");
+            }
+
+            strSql.Append("select DI.*,CI.AREA_ID,CZ.ZONE_NAME  FROM SMT_DOOR_INFO DI,SMT_CONTROLLER_INFO CI left join SMT_CONTROLLER_ZONE CZ on CZ.ID=CI.AREA_ID where DI.CTRL_ID=CI.ID");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(") where " + strWhere);
             }
             return DbHelperSQL.Query(strSql.ToString());
         }

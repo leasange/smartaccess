@@ -22,8 +22,8 @@ namespace Maticsoft.Model
 	/// </summary>
 	public partial class SMT_DOOR_INFO
 	{
-        private decimal _area_id;
-        private string _area_name;
+        private decimal _area_id = -1;
+        private string _area_name = "";
 
         public decimal AREA_ID//区域ID
         {

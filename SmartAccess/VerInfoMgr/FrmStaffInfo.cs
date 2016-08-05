@@ -527,11 +527,19 @@ namespace SmartAccess.VerInfoMgr
         {
             FrmGetPicture frmGetPic = new FrmGetPicture();
             frmGetPic.SelectImage = picPhoto.Image;
-            frmGetPic.ShowDialog(this);
-            if (frmGetPic.HasChanged)
+            if(frmGetPic.ShowDialog(this)==DialogResult.OK)
             {
-                picPhoto.Image = frmGetPic.SelectImage;
+                if (frmGetPic.HasChanged)
+                {
+                    if (picPhoto.Image!=null)
+                    {
+                        picPhoto.Image.Dispose();
+                        picPhoto.Image = null;
+                    }
+                    picPhoto.Image = (Image)frmGetPic.SelectImage.Clone();
+                }
             }
+            frmGetPic.SelectImage = null;
         }
 
         private void FrmStaffInfo_FormClosing(object sender, FormClosingEventArgs e)
