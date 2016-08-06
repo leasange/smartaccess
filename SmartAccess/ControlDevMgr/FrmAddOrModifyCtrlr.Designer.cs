@@ -53,8 +53,9 @@
             this.labelX18 = new DevComponents.DotNetBar.LabelX();
             this.labelX11 = new DevComponents.DotNetBar.LabelX();
             this.tabItemDoor = new DevComponents.DotNetBar.TabItem(this.components);
-            this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.btnOkAndUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.btnOk = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -413,18 +414,18 @@
             this.tabItemDoor.Name = "tabItemDoor";
             this.tabItemDoor.Text = "控制器门属性";
             // 
-            // btnOk
+            // btnOkAndUpload
             // 
-            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnOk.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOk.Location = new System.Drawing.Point(212, 392);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(99, 33);
-            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnOk.TabIndex = 0;
-            this.btnOk.Text = "确定";
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnOkAndUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnOkAndUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnOkAndUpload.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOkAndUpload.Location = new System.Drawing.Point(233, 392);
+            this.btnOkAndUpload.Name = "btnOkAndUpload";
+            this.btnOkAndUpload.Size = new System.Drawing.Size(99, 33);
+            this.btnOkAndUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnOkAndUpload.TabIndex = 0;
+            this.btnOkAndUpload.Text = "确定并上传";
+            this.btnOkAndUpload.Click += new System.EventHandler(this.btnOkAndUpload_Click);
             // 
             // btnCancel
             // 
@@ -432,7 +433,7 @@
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(317, 392);
+            this.btnCancel.Location = new System.Drawing.Point(338, 392);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(99, 33);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -440,15 +441,29 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnOk
+            // 
+            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnOk.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOk.Location = new System.Drawing.Point(128, 392);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(99, 33);
+            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnOk.TabIndex = 0;
+            this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
             // FrmAddOrModifyCtrlr
             // 
-            this.AcceptButton = this.btnOk;
+            this.AcceptButton = this.btnOkAndUpload;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(612, 437);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.btnOkAndUpload);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -489,7 +504,7 @@
         private DevComponents.DotNetBar.TabItem tabItemBase;
         private DevComponents.DotNetBar.TabControlPanel tabControlPanel2;
         private DevComponents.DotNetBar.TabItem tabItemDoor;
-        private DevComponents.DotNetBar.ButtonX btnOk;
+        private DevComponents.DotNetBar.ButtonX btnOkAndUpload;
         private DevComponents.DotNetBar.ButtonX btnCancel;
         private DevComponents.DotNetBar.LabelX labelX11;
         private DevComponents.DotNetBar.LabelX labelX13;
@@ -499,5 +514,6 @@
         private DoorNameAttriGroup doorNameAttriGroup;
         private DoorReaderAttriGroup doorReaderAttriGroup;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbCtrlrEnable;
+        private DevComponents.DotNetBar.ButtonX btnOk;
     }
 }

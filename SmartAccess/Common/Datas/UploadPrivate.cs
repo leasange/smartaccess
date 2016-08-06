@@ -128,7 +128,7 @@ namespace SmartAccess.Common.Datas
                 {
                     if (d.CTRL_DOOR_INDEX!=null&&d.CTRL_DOOR_INDEX>=0)
                     {
-                        doorNumAuthorities.Add((int)d.CTRL_DOOR_INDEX, true);
+                        doorNumAuthorities.Add((int)d.CTRL_DOOR_INDEX, d.IS_ENABLE);
                     }
                 }
                 if (doorNumAuthorities.Count>0)
@@ -228,7 +228,115 @@ namespace SmartAccess.Common.Datas
             errMsg = errMsg.Trim('\r', '\n');
             return true;
         }
-        
+        public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr,out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors=null)
+        {
+            errMsg="";
+            if (!ctrlr.IS_ENABLE)
+            {
+                Controller c = ControllerHelper.ToController(ctrlr);
+                using (IAccessCore access=new WGAccess())
+                {
+                  bool ret=  access.ClearAuthority(c);
+                  if (!ret)
+                  {
+                      errMsg = "清除控制器的权限异常！";
+                      return false;
+                  }
+                }
+                return true;
+            }
+            Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+            if (ctrlDoors==null)
+            {
+                ctrlDoors = doorBll.GetModelList("CTRL_ID=" + ctrlr.ID);
+            }
+            if (ctrlDoors.Count == 0)
+            {
+                errMsg = "控制器门为空！";
+                return true;
+            }
+            string str = "";
+            foreach (var item in ctrlDoors)
+            {
+                str += item.ID + ",";
+            }
+            str = str.TrimEnd(',');
+            Maticsoft.BLL.SMT_STAFF_DOOR staffDoorBLL = new Maticsoft.BLL.SMT_STAFF_DOOR();
+            var staffDoors = staffDoorBLL.GetModelList("DOOR_ID in (" + str + ")");
+            if (staffDoors.Count==0)
+            {
+                errMsg = "无授权门禁！";
+                return true;
+            }
+            str = "";
+            foreach (var item in staffDoors)
+            {
+                str += item.STAFF_ID + ",";
+            }
+            str = str.TrimEnd(',');
+            Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
+            var staffs = sbll.GetModelList("ID in (" + str + ")");
+
+            if (staffs.Count==0)
+            {
+                errMsg = "无授权人员！";
+                return true;
+            }
+            /*
+            Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
+            var scards = scBll.GetModelList("STAFF_ID in (" + str + ")");
+            if (scards.Count==0)
+            {
+                return true;
+            }
+             */
+            str = "";
+            foreach (var item in staffs)
+            {
+                str += item.ID + ",";
+            }
+            str = str.TrimEnd(',');
+
+            Maticsoft.BLL.SMT_CARD_INFO cBll = new Maticsoft.BLL.SMT_CARD_INFO();
+            var cards = cBll.GetModelListByStaffIds(str);
+
+            if (cards.Count==0)
+            {
+                errMsg = "无授权卡片！";
+                return true;
+            }
+
+            Controller cc = ControllerHelper.ToController(ctrlr);
+            using (IAccessCore access=new WGAccess())
+            {
+                foreach (var item in cards)
+                {
+                    var staff= staffs.Find(m=>m.ID==item.STAFF_ID);
+                    if (staff==null)
+	                {
+                        continue;
+	                }
+                    var doors= staffDoors.FindAll(m=>m.STAFF_ID==staff.ID);
+                    Dictionary<int,bool> aus=new Dictionary<int,bool>();
+                    foreach (var d in doors)
+	                {
+                        var di= ctrlDoors.Find(m=>m.ID==d.DOOR_ID);
+                        if (di==null)
+	                    {
+		                     continue;
+	                    }
+                        aus.Add((int)di.CTRL_DOOR_INDEX, di.IS_ENABLE);
+	                }
+                    bool ret = access.AddOrModifyAuthority(cc, item.CARD_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
+                    if (!ret)
+                    {
+                        errMsg = "添加权限中断异常！卡号：" + item.CARD_NO;
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         public static List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetUploadCtrlr()
         {

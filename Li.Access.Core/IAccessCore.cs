@@ -85,6 +85,7 @@ namespace Li.Access.Core
         /// <param name="doorNum">门编号：1-4</param>
         /// <returns>成功与否</returns>
         bool OpenRemoteControllerDoor(Controller controller, int doorNum);
+
         /// <summary>
         /// 权限添加或修改
         /// </summary>
@@ -103,6 +104,28 @@ namespace Li.Access.Core
         /// <param name="hexCardNum">卡号</param>
         /// <returns>成功与否</returns>
         bool DeleteAuthority(Controller controller, string hexCardNum);
+        /// <summary>
+        /// 设置门的控制方式
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="doorNum">门号</param>
+        /// <param name="ctrlStyle">控制方式</param>
+        /// <param name="delaySecond">延时时间</param>
+        /// <returns>成功与否</returns>
+        bool SetDoorControlStyle(Controller controller, int doorNum, DoorControlStyle ctrlStyle, int delaySecond = 3);
+
+        /// <summary>
+        /// 权限清空
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>成功与否</returns>
+        bool ClearAuthority(Controller controller);
+    }
+    public enum DoorControlStyle
+    {
+        Online,//在线
+        AlwaysOpen,//常开
+        AlwaysClose//常关
     }
     public enum ControllerDoorType
     {

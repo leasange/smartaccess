@@ -1,4 +1,5 @@
 ﻿using Li.Access.Core;
+using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
@@ -264,7 +265,7 @@ namespace SmartAccess.ControlDevMgr
             }
             return true;
         }
-        private void btnOk_Click(object sender, EventArgs e)
+        private void DoSave(bool upload)
         {
             if (!CheckInput())
             {
@@ -317,10 +318,10 @@ namespace SmartAccess.ControlDevMgr
                 door.CTRL_DELAY_TIME = item.doorSecond;
                 door.CTRL_DOOR_INDEX = item.doorNo;
                 door.CTRL_STYLE = item.doorCtrlType;
-                if (_ctrlr!=null)
+                if (_ctrlr != null)
                 {
                     var old = _ctrlr.DOOR_INFOS.Find(m => m.CTRL_DOOR_INDEX == item.doorNo);
-                    if (old!=null)
+                    if (old != null)
                     {
                         door.ID = old.ID;
                         door.DOOR_DESC = old.DOOR_DESC;
@@ -332,8 +333,8 @@ namespace SmartAccess.ControlDevMgr
                     door.DOOR_DESC = "";
                 }
                 door.DOOR_NAME = item.doorName;
-                DoorReaderAttriData  reader1= doorReaderDatas.Find(m=>m.doorNo==item.doorNo&&m.isEnter1);
-                DoorReaderAttriData  reader2= doorReaderDatas.Find(m=>m.doorNo==item.doorNo&&!m.isEnter1);
+                DoorReaderAttriData reader1 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && m.isEnter1);
+                DoorReaderAttriData reader2 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && !m.isEnter1);
                 door.IS_ATTENDANCE1 = reader1 == null ? false : reader1.isAttend;
                 door.IS_ATTENDANCE2 = reader2 == null ? false : reader2.isAttend;
                 door.IS_ENABLE = item.doorEnable;
@@ -346,13 +347,13 @@ namespace SmartAccess.ControlDevMgr
                 try
                 {
                     Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-                    var exists= ctrlBll.GetModelList("SN_NO='"+ctrlInfo.SN_NO+"'");
-                   
+                    var exists = ctrlBll.GetModelList("SN_NO='" + ctrlInfo.SN_NO + "'");
+
                     if (ctrlInfo.ID != -1)
                     {
-                        if (exists.Count>0)
+                        if (exists.Count > 0)
                         {
-                            if(exists[0].ID!=ctrlInfo.ID)
+                            if (exists[0].ID != ctrlInfo.ID)
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
                                 return;
@@ -373,6 +374,7 @@ namespace SmartAccess.ControlDevMgr
                         _ctrlr = ctrlInfo;
                     }
                     Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+                    
                     foreach (var item in doors)
                     {
                         var edoors = doorBll.GetModelList("CTRL_ID=" + ctrlInfo.ID + " and " + " CTRL_DOOR_INDEX=" + item.CTRL_DOOR_INDEX);
@@ -388,6 +390,39 @@ namespace SmartAccess.ControlDevMgr
                         }
                     }
                     _ctrlr.DOOR_INFOS = doors;
+
+                    if (upload)
+                    {
+                        string errMsg = null;
+                        if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors))
+                        {
+                            if (errMsg!="")
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
+                            return;
+                        }
+                        Controller c = ControllerHelper.ToController(_ctrlr);
+                        //设置门控制方式
+                        foreach (var item in doors)
+                        {
+                            using (IAccessCore access = new WGAccess())
+                            {
+                                bool ret = access.SetDoorControlStyle(c, (int)item.CTRL_DOOR_INDEX, (DoorControlStyle)item.CTRL_STYLE, item.CTRL_DELAY_TIME);
+                                if (!ret)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "上传门控制方式失败！");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     this.Invoke(new Action(() =>
                     {
                         this.DialogResult = DialogResult.OK;
@@ -403,10 +438,20 @@ namespace SmartAccess.ControlDevMgr
             ctrlWaiting.Show(this);
         }
 
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            DoSave(false);
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void btnOkAndUpload_Click(object sender, EventArgs e)
+        {
+            DoSave(true);
         }
     }
 }

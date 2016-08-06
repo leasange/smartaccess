@@ -306,6 +306,38 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+
+        public bool SetDoorControlStyle(Controller controller, int doorNum, DoorControlStyle ctrlStyle, int delaySecond = 3)
+        {
+            WGPacket packet = new WGPacket(0x80);
+            packet.SetDevSn(controller.sn);
+            packet.SetDoorNum(doorNum);
+            packet.SetCtrlStyle(ctrlStyle, delaySecond);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] > 0;
+            }
+            return false;
+            
+        }
+
+
+        public bool ClearAuthority(Controller controller)
+        {
+            WGPacket packet = new WGPacket(0x54);
+            packet.SetDevSn(controller.sn);
+            packet.SetClearTag();
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包
@@ -393,6 +425,29 @@ namespace Li.Access.Core.WGAccesses
         public void SetDoorNum(int doorNum)
         {
             data[0] = (byte)doorNum;
+        }
+        public void SetCtrlStyle(DoorControlStyle ctrlStyle,int delaySecond=3)
+        {
+            data[1] = 3;
+            switch (ctrlStyle)
+            {
+                case DoorControlStyle.Online:
+                    data[1] = 3;
+                    break;
+                case DoorControlStyle.AlwaysOpen:
+                    data[1] = 1;
+                    break;
+                case DoorControlStyle.AlwaysClose:
+                    data[1] = 2;
+                    break;
+                default:
+                    break;
+            }
+            if (delaySecond < 1)
+            {
+                delaySecond = 3;
+            }
+            data[2] = (byte)delaySecond;
         }
         public ControllerState ToControllerState(bool isRecord=false)
         {
@@ -513,7 +568,13 @@ namespace Li.Access.Core.WGAccesses
             data[6] = 0xAA;
             data[7] = 0x55;
         }
-
+        public void SetClearTag()
+        {
+            data[0] = 0x55;
+            data[1] = 0xAA;
+            data[2] = 0xAA;
+            data[3] = 0x55;
+        }
         public void SetAuthoriTimeTime(DateTime startTime,DateTime endTime)
         {
             var mindate=DateTime.Parse("2000-01-01 00:00:00");
