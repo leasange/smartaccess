@@ -23,6 +23,12 @@ namespace Maticsoft.Model
 	public partial class SMT_STAFF_CARD
 	{
         private string _card_no = "";//卡号
+        private int _card_type = 0;//卡类型
+        public int CARD_TYPE
+        {
+            get { return _card_type; }
+            set { _card_type = value; }
+        }
         public string CARD_NO
         {
             get { return _card_no; }

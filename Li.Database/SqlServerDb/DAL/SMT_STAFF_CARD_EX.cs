@@ -34,6 +34,19 @@ namespace Maticsoft.DAL
             strSql.Append("select t1.*,t2.CARD_NO from SMT_STAFF_CARD t1,SMT_CARD_INFO t2 where t1.CARD_ID=t2.ID and t2.CARD_NO='" + cardNo+"'");
             return DbHelperSQL.Query(strSql.ToString());
         }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetListWithCardNo(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select SC.*,CI.CARD_NO,CI.CARD_TYPE from SMT_STAFF_CARD SC,SMT_CARD_INFO CI where SC.CARD_ID=CI.ID");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" and (" + strWhere+")");
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
 		#endregion  ExtensionMethod
 	}
 }

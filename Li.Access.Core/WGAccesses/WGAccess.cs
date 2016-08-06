@@ -292,8 +292,20 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
-
-        
+        public bool DeleteAuthority(Controller controller, string hexCardNum)
+        {
+            WGPacket packet = new WGPacket(0x52);
+            packet.SetDevSn(controller.sn);
+            hexCardNum = DataHelper.ToWGAccessCardNo(hexCardNum);
+            packet.SetCardNum(hexCardNum);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包

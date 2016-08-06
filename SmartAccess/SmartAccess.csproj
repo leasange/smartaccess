@@ -65,6 +65,7 @@
     <Compile Include="Common\Datas\DeptDataHelper.cs" />
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\Datas\ControllerHelper.cs" />
+    <Compile Include="Common\Datas\UploadPrivate.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">
       <SubType>UserControl</SubType>

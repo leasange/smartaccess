@@ -137,6 +137,7 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnOkUpload
             // 
@@ -148,6 +149,7 @@
             this.btnOkUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOkUpload.TabIndex = 4;
             this.btnOkUpload.Text = "确定并上传";
+            this.btnOkUpload.Click += new System.EventHandler(this.btnOkUpload_Click);
             // 
             // btnCancel
             // 
@@ -239,6 +241,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加或修改人员门禁权限";
+            this.Load += new System.EventHandler(this.FrmAddOrModifyStaffPrivate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectDoor)).EndInit();
             this.ResumeLayout(false);
 

@@ -35,6 +35,38 @@ namespace Maticsoft.BLL
             DataSet ds = dal.GetListByCardNo(cardNo);
             return DataTableToList(ds.Tables[0]);
         }
+        public List<Maticsoft.Model.SMT_STAFF_CARD> GetModelListWithCardNo(string strWhere)
+        {
+            DataSet ds = dal.GetListWithCardNo(strWhere);
+            return DataTableToListWithCardNo(ds.Tables[0]);
+        }
+        public List<Maticsoft.Model.SMT_STAFF_CARD> DataTableToListWithCardNo(DataTable dt)
+        {
+            List<Maticsoft.Model.SMT_STAFF_CARD> modelList = new List<Maticsoft.Model.SMT_STAFF_CARD>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Maticsoft.Model.SMT_STAFF_CARD model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = dal.DataRowToModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        if (dt.Rows[n]["CARD_TYPE"] != null && dt.Rows[n]["CARD_TYPE"].ToString() != "")
+                        {
+                            model.CARD_TYPE = int.Parse(dt.Rows[n]["CARD_TYPE"].ToString());
+                        }
+                        if (dt.Rows[n]["CARD_NO"] != null)
+                        {
+                            model.CARD_NO = dt.Rows[n]["CARD_NO"].ToString();
+                        }
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
+
 		#endregion  ExtensionMethod
 	}
 }

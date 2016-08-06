@@ -32,6 +32,24 @@ namespace SmartAccess.Common.Datas
             info.IS_ENABLE = true;
             return info;
         }
+        public static Controller ToController(Maticsoft.Model.SMT_CONTROLLER_INFO info)
+        {
+            Controller ctrlr = new Controller();
+            ControllerDoorType type= ControllerDoorType.TwoDoorsTwoDirections;
+            Enum.TryParse<ControllerDoorType>(Convert.ToString(info.CTRLR_TYPE), out type);
+            ctrlr.doorType = type;
+            ctrlr.driverReleaseTime = info.DRIVER_DATE == null ? DateTime.MinValue : (DateTime)info.DRIVER_DATE;
+            ctrlr.driverVersion = info.DRIVER_VERSION;
+            ctrlr.gateway = info.GATEWAY;
+            ctrlr.id = info.ID;
+            ctrlr.ip = info.IP;
+            ctrlr.mac = info.MAC;
+            ctrlr.mask = info.MASK;
+            ctrlr.model = info.CTRLR_MODEL;
+            ctrlr.port = info.PORT == null ? 60000 : (int)info.PORT;
+            ctrlr.sn = info.SN_NO;
+            return ctrlr;
+        }
         public static decimal AddController(Controller ctrlr)
         {
             Maticsoft.Model.SMT_CONTROLLER_INFO info = UpdateDBControllerIp(ctrlr);//如果存在则更新

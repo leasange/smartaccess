@@ -18,16 +18,26 @@ namespace SmartAccess.Common.WinInfo
             Control ctrl = owner as Control;
             if (ctrl == null)
             {
-                ctrl = Application.OpenForms[0];
+                Form main = Application.OpenForms[0];
+                foreach (var item in Application.OpenForms)
+                {
+                    FrmMain form = item as FrmMain;
+                    if (form!=null)
+                    {
+                        main=form;
+                        break;
+                    }
+                }
+                ctrl = main;
             }
             ctrl.Invoke(new Action(() =>
             {
                 FrmInfo frmInfo = new FrmInfo(text, timeCloseSecond);
-                if (owner == null)
+                if (ctrl == null)
                 {
                     frmInfo.Show();
                 }
-                else frmInfo.Show(owner);
+                else frmInfo.Show(ctrl);
             }));
         }
         protected override CreateParams CreateParams
@@ -47,7 +57,7 @@ namespace SmartAccess.Common.WinInfo
                 _time = timeCloseSecond;
                 timerClose.Interval = timeCloseSecond * 1000;
             }
-            this.lbMsg.Text = text;
+            this.tbMsg.Text = text;
         }
         private void FrmInfo_Load(object sender, EventArgs e)
         {
@@ -133,6 +143,16 @@ namespace SmartAccess.Common.WinInfo
             }
             this.Visible = true;
             this.Opacity = 100;
+        }
+
+        private void FrmInfo_MouseEnter(object sender, EventArgs e)
+        {
+            timerClose.Stop();
+        }
+
+        private void FrmInfo_MouseLeave(object sender, EventArgs e)
+        {
+            timerClose.Start();
         }
     }
 }

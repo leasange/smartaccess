@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timerClose = new System.Windows.Forms.Timer(this.components);
             this.timerShow = new System.Windows.Forms.Timer(this.components);
-            this.lbMsg = new DevComponents.DotNetBar.LabelX();
+            this.tbMsg = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.SuspendLayout();
             // 
             // timerClose
@@ -43,29 +43,33 @@
             this.timerShow.Interval = 50;
             this.timerShow.Tick += new System.EventHandler(this.timerShow_Tick);
             // 
-            // lbMsg
+            // tbMsg
             // 
-            this.lbMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMsg.BackColor = System.Drawing.Color.WhiteSmoke;
             // 
             // 
             // 
-            this.lbMsg.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbMsg.Location = new System.Drawing.Point(34, 12);
-            this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(286, 126);
-            this.lbMsg.TabIndex = 0;
-            this.lbMsg.Text = "消息...";
-            this.lbMsg.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.tbMsg.Border.Class = "RibbonGalleryContainer";
+            this.tbMsg.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbMsg.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbMsg.Location = new System.Drawing.Point(12, 12);
+            this.tbMsg.Multiline = true;
+            this.tbMsg.Name = "tbMsg";
+            this.tbMsg.ReadOnly = true;
+            this.tbMsg.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbMsg.Size = new System.Drawing.Size(329, 141);
+            this.tbMsg.TabIndex = 1;
+            this.tbMsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FrmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(353, 165);
-            this.Controls.Add(this.lbMsg);
+            this.Controls.Add(this.tbMsg);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -76,6 +80,8 @@
             this.ShowInTaskbar = false;
             this.Text = "提示";
             this.Load += new System.EventHandler(this.FrmInfo_Load);
+            this.MouseEnter += new System.EventHandler(this.FrmInfo_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.FrmInfo_MouseLeave);
             this.ResumeLayout(false);
 
         }
@@ -84,6 +90,6 @@
 
         private System.Windows.Forms.Timer timerClose;
         private System.Windows.Forms.Timer timerShow;
-        private DevComponents.DotNetBar.LabelX lbMsg;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbMsg;
     }
 }
