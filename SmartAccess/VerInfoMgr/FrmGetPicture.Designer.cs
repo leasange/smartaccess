@@ -36,6 +36,8 @@
             this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
+            this.biOk = new DevComponents.DotNetBar.ButtonItem();
+            this.biClose = new DevComponents.DotNetBar.ButtonItem();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.picBox1 = new System.Windows.Forms.PictureBox();
             this.picBox2 = new System.Windows.Forms.PictureBox();
@@ -47,8 +49,6 @@
             this.timerCapture = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.biOk = new DevComponents.DotNetBar.ButtonItem();
-            this.biClose = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox1)).BeginInit();
@@ -119,6 +119,18 @@
             this.biCaptureVideo.Name = "biCaptureVideo";
             this.biCaptureVideo.Text = "拍照";
             this.biCaptureVideo.Click += new System.EventHandler(this.biCaptureVideo_Click);
+            // 
+            // biOk
+            // 
+            this.biOk.Name = "biOk";
+            this.biOk.Text = "确定并关闭";
+            this.biOk.Click += new System.EventHandler(this.biOk_Click);
+            // 
+            // biClose
+            // 
+            this.biClose.Name = "biClose";
+            this.biClose.Text = "关闭";
+            this.biClose.Click += new System.EventHandler(this.biClose_Click);
             // 
             // picImage
             // 
@@ -224,19 +236,8 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "图片文件|*.png;*.jpg;*.bmp;*.jpeg";
-            // 
-            // biOk
-            // 
-            this.biOk.Name = "biOk";
-            this.biOk.Text = "确定并关闭";
-            this.biOk.Click += new System.EventHandler(this.biOk_Click);
-            // 
-            // biClose
-            // 
-            this.biClose.Name = "biClose";
-            this.biClose.Text = "关闭";
-            this.biClose.Click += new System.EventHandler(this.biClose_Click);
+            this.openFileDialog.DefaultExt = "jpg";
+            this.openFileDialog.Filter = "图片文件|*.png;*.jpg;*.bmp;*.jpeg;*.gif";
             // 
             // FrmGetPicture
             // 

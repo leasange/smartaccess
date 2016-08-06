@@ -63,7 +63,6 @@ namespace Maticsoft.Model
 			get{return _access_endtime;}
 		}
 		#endregion Model
-
-	}
+    }
 }
 

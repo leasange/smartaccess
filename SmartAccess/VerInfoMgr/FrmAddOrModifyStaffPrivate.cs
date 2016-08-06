@@ -20,17 +20,39 @@ namespace SmartAccess.VerInfoMgr
         public FrmAddOrModifyStaffPrivate()
         {
             InitializeComponent();
+            doorTree.LoadEnded += doorTree_LoadEnded;
+        }
+
+        void doorTree_LoadEnded(object sender, EventArgs e)
+        {
+            CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
+            {
+                Maticsoft.BLL.SMT_STAFF_DOOR sdBLL = new Maticsoft.BLL.SMT_STAFF_DOOR();
+                var sdList = sdBLL.GetModelList("STAFF_ID=" + staffInfo.ID);
+                var nodes = this.doorTree.Tree.GetNodeList(typeof(Maticsoft.Model.SMT_DOOR_INFO));
+                var selectNodes = nodes.FindAll(m =>
+                    {
+                        Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
+                        return sdList.Exists(n => n.DOOR_ID == di.ID);
+                    });
+                this.Invoke(new Action(() =>
+                    {
+                        DoSelectDoors(selectNodes);
+                    }));
+            });
+            ctrlWaiting.Show(this);
         }
 
         public FrmAddOrModifyStaffPrivate(Maticsoft.Model.SMT_STAFF_INFO staffInfo)
         {
             InitializeComponent();
+            doorTree.LoadEnded += doorTree_LoadEnded;
             this.staffInfo = staffInfo;
             this.Text = "当前授权对象：" + staffInfo.REAL_NAME;
         }
         private void FrmAddOrModifyStaffPrivate_Load(object sender, EventArgs e)
         {
-
+           
         }
         private void btnSelect_Click(object sender, EventArgs e)
         {

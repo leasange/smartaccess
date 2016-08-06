@@ -145,9 +145,9 @@ namespace SmartAccess.VerInfoMgr
                     item.IS_FORBIDDEN?"已挂失":"",
                     item.VALID_STARTTIME.ToString("yyyy-MM-dd") + " 至 " + item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
                     item.TELE_PHONE,
-                    "详情",
-                    "授权",
-                    "修改"
+                    "查看",
+                    "修改",
+                    "授权"
                     );
                 row.Tag = item;
                 dgvStaffs.Rows.Add(row);

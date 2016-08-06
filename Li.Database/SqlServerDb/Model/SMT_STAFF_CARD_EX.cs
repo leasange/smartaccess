@@ -34,6 +34,8 @@ namespace Maticsoft.Model
             get { return _card_no; }
             set { _card_no = value; }
         }
+
+        public string CARD_WG_NO { get; set; }
 	}
 }
 

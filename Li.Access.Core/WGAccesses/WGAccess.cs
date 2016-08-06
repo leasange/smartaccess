@@ -516,6 +516,17 @@ namespace Li.Access.Core.WGAccesses
 
         public void SetAuthoriTimeTime(DateTime startTime,DateTime endTime)
         {
+            var mindate=DateTime.Parse("2000-01-01 00:00:00");
+            var maxdate=DateTime.Parse("2029-12-31 00:00:00");
+            if (startTime < mindate)
+            {
+                startTime = mindate;
+            }
+            if (endTime>maxdate)
+            {
+                endTime = maxdate;
+            }
+            
             data[4] = DataHelper.ToByteBCD((int)(startTime.Year / 100));
             data[5] = DataHelper.ToByteBCD(startTime.Year - ((int)(startTime.Year / 100)) * 100);
             data[6] = DataHelper.ToByteBCD(startTime.Month);

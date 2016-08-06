@@ -33,7 +33,12 @@ namespace Maticsoft.BLL
         public List<Maticsoft.Model.SMT_STAFF_CARD> GetModelListByCardNo(string cardNo)
         {
             DataSet ds = dal.GetListByCardNo(cardNo);
-            return DataTableToList(ds.Tables[0]);
+            return DataTableToListWithCardNo(ds.Tables[0]);
+        }
+        public List<Maticsoft.Model.SMT_STAFF_CARD> GetModelListByWGCardNo(string wgCardNo)
+        {
+            DataSet ds = dal.GetListByWGCardNo(wgCardNo);
+            return DataTableToListWithCardNo(ds.Tables[0]);
         }
         public List<Maticsoft.Model.SMT_STAFF_CARD> GetModelListWithCardNo(string strWhere)
         {
@@ -60,6 +65,11 @@ namespace Maticsoft.BLL
                         {
                             model.CARD_NO = dt.Rows[n]["CARD_NO"].ToString();
                         }
+                        if (dt.Rows[n]["CARD_WG_NO"] != null)
+                        {
+                            model.CARD_WG_NO = dt.Rows[n]["CARD_NO"].ToString();
+                        }
+                        
                         modelList.Add(model);
                     }
                 }

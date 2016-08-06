@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/2 22:00:31   N/A    初版
+* V0.01  2016/8/6 16:48:14   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -29,7 +29,8 @@ namespace Maticsoft.Model
 		private decimal _id;
 		private string _card_no;
 		private string _card_desc;
-        private int? _card_type;
+		private int? _card_type;
+		private string _card_wg_no;
 		/// <summary>
 		/// 卡ID
 		/// </summary>
@@ -61,6 +62,14 @@ namespace Maticsoft.Model
 		{
 			set{ _card_type=value;}
 			get{return _card_type;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string CARD_WG_NO
+		{
+			set{ _card_wg_no=value;}
+			get{return _card_wg_no;}
 		}
 		#endregion Model
 

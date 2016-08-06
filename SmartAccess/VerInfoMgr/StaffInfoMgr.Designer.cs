@@ -46,17 +46,6 @@
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_CK = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_XG = new System.Windows.Forms.DataGridViewLinkColumn();
             this.bar3 = new DevComponents.DotNetBar.Bar();
             this.labelItem8 = new DevComponents.DotNetBar.LabelItem();
             this.checkBoxItem1 = new DevComponents.DotNetBar.CheckBoxItem();
@@ -83,6 +72,17 @@
             this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
             this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_CK = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_XG = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -278,8 +278,8 @@
             this.Column8,
             this.Column10,
             this.Col_CK,
-            this.Col_SQ,
-            this.Col_XG});
+            this.Col_XG,
+            this.Col_SQ});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -306,88 +306,6 @@
             this.dgvStaffs.Size = new System.Drawing.Size(899, 395);
             this.dgvStaffs.TabIndex = 0;
             this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "编码";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 57;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 57;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "部门";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 57;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "卡号";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 57;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "发卡次数";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 81;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "挂失";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column6.Width = 57;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 69;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "电话";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 57;
-            // 
-            // Col_CK
-            // 
-            this.Col_CK.HeaderText = "查看详情";
-            this.Col_CK.Name = "Col_CK";
-            this.Col_CK.ReadOnly = true;
-            this.Col_CK.Width = 62;
-            // 
-            // Col_SQ
-            // 
-            this.Col_SQ.HeaderText = "授权";
-            this.Col_SQ.Name = "Col_SQ";
-            this.Col_SQ.ReadOnly = true;
-            this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_SQ.Width = 57;
-            // 
-            // Col_XG
-            // 
-            this.Col_XG.HeaderText = "修改";
-            this.Col_XG.Name = "Col_XG";
-            this.Col_XG.ReadOnly = true;
-            this.Col_XG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_XG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_XG.Width = 57;
             // 
             // bar3
             // 
@@ -623,6 +541,88 @@
             this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem2.Name = "controlContainerItem2";
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "编码";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 57;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 57;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "部门";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 57;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "卡号";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 57;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "发卡次数";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 81;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "挂失";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column6.Width = 57;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 69;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "电话";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 57;
+            // 
+            // Col_CK
+            // 
+            this.Col_CK.HeaderText = "查看详情";
+            this.Col_CK.Name = "Col_CK";
+            this.Col_CK.ReadOnly = true;
+            this.Col_CK.Width = 62;
+            // 
+            // Col_XG
+            // 
+            this.Col_XG.HeaderText = "修改";
+            this.Col_XG.Name = "Col_XG";
+            this.Col_XG.ReadOnly = true;
+            this.Col_XG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_XG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_XG.Width = 57;
+            // 
+            // Col_SQ
+            // 
+            this.Col_SQ.HeaderText = "授权";
+            this.Col_SQ.Name = "Col_SQ";
+            this.Col_SQ.ReadOnly = true;
+            this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_SQ.Width = 57;
+            // 
             // StaffInfoMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -700,7 +700,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewLinkColumn Col_CK;
-        private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
         private System.Windows.Forms.DataGridViewLinkColumn Col_XG;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
     }
 }

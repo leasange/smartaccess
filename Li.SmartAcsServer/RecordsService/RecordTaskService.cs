@@ -214,7 +214,7 @@ namespace Li.SmartAcsServer.RecordsService
 
                 Maticsoft.BLL.SMT_STAFF_CARD cardBll = new Maticsoft.BLL.SMT_STAFF_CARD();
 
-                List<Maticsoft.Model.SMT_STAFF_CARD> staffCards = cardBll.GetModelListByCardNo(record.cardOrNoNumber);
+                List<Maticsoft.Model.SMT_STAFF_CARD> staffCards = cardBll.GetModelListByWGCardNo(record.cardOrNoNumber);
                 if (staffCards.Count > 0)
                 {
                     modelRecord.STAFF_ID = staffCards[0].STAFF_ID;

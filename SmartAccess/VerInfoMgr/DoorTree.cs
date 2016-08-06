@@ -22,6 +22,27 @@ namespace SmartAccess.VerInfoMgr
                 return this.advDoorTree;
             }
         }
+        private event EventHandler _loadEnded= null;
+        private bool _isloaded = false;
+        public event EventHandler LoadEnded
+        {
+            add
+            {
+                lock (this)
+                {
+                    _loadEnded += value;
+                    if (_isloaded)
+                    {
+                        _loadEnded(this, new EventArgs());
+                    }
+                }
+            }
+            remove
+            {
+                _loadEnded -= value;
+            }
+        }
+
         public DoorTree()
         {
             InitializeComponent();
@@ -33,17 +54,43 @@ namespace SmartAccess.VerInfoMgr
             {
                 CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
                 {
-                    Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
-                    var doors = doorBll.GetModelListWithArea("");
-                    var areas = AreaDataHelper.GetAreas();
-                    this.Invoke(new Action(() =>
-                        {
-                            var nodes = AreaDataHelper.ToTree(areas);
-                            CreateDoorTree(nodes, doors);
-                            advDoorTree.Nodes.Clear();
-                            advDoorTree.Nodes.AddRange(nodes.ToArray());
-                            advDoorTree.ExpandAll();
-                        }));
+                    try
+                    {
+                        Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+                        var doors = doorBll.GetModelListWithArea("");
+                        var areas = AreaDataHelper.GetAreas();
+                        this.Invoke(new Action(() =>
+                            {
+                                var nodes = AreaDataHelper.ToTree(areas);
+                                CreateDoorTree(nodes, doors);
+                                advDoorTree.Nodes.Clear();
+                                advDoorTree.Nodes.AddRange(nodes.ToArray());
+                                advDoorTree.ExpandAll();
+                                lock (this)
+                                {
+                                    _isloaded = true;
+                                    if (_loadEnded != null)
+                                    {
+                                        _loadEnded(this, e);
+                                    }
+                                }
+                            }));
+                    }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "门禁列表加载异常：" + ex.Message);
+                        this.Invoke(new Action(() =>
+                          {
+                              lock (this)
+                              {
+                                  _isloaded = true;
+                                  if (_loadEnded != null)
+                                  {
+                                      _loadEnded(this, e);
+                                  }
+                              }
+                          }));
+                    }
                 });
                 ctrlWaiting.Show(this, 300);
             }

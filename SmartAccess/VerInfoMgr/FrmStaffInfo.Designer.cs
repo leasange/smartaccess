@@ -79,8 +79,8 @@
             this.biPreView = new DevComponents.DotNetBar.ButtonItem();
             this.biPrint = new DevComponents.DotNetBar.ButtonItem();
             this.biSetCard = new DevComponents.DotNetBar.ButtonItem();
-            this.biSetPrivate = new DevComponents.DotNetBar.ButtonItem();
             this.biSave = new DevComponents.DotNetBar.ButtonItem();
+            this.biSetPrivate = new DevComponents.DotNetBar.ButtonItem();
             this.biClose = new DevComponents.DotNetBar.ButtonItem();
             this.cbTreeDept = new DevComponents.DotNetBar.Controls.ComboTree();
             this.cboVerTypeStyle = new DevComponents.DotNetBar.Controls.ComboBoxEx();
@@ -99,6 +99,9 @@
             this.comboItem8 = new DevComponents.Editors.ComboItem();
             this.comboItem9 = new DevComponents.Editors.ComboItem();
             this.dtBirthday = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.lbPhotoTip = new DevComponents.DotNetBar.LabelX();
+            this.labelX24 = new DevComponents.DotNetBar.LabelX();
+            this.labelX25 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -762,8 +765,8 @@
             this.biPreView,
             this.biPrint,
             this.biSetCard,
-            this.biSetPrivate,
             this.biSave,
+            this.biSetPrivate,
             this.biClose});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -803,17 +806,17 @@
             this.biSetCard.Text = "发卡";
             this.biSetCard.Click += new System.EventHandler(this.biSetCard_Click);
             // 
-            // biSetPrivate
-            // 
-            this.biSetPrivate.Name = "biSetPrivate";
-            this.biSetPrivate.Text = "授权";
-            this.biSetPrivate.Click += new System.EventHandler(this.biSetPrivate_Click);
-            // 
             // biSave
             // 
             this.biSave.Name = "biSave";
             this.biSave.Text = "保存";
             this.biSave.Click += new System.EventHandler(this.biSave_Click);
+            // 
+            // biSetPrivate
+            // 
+            this.biSetPrivate.Name = "biSetPrivate";
+            this.biSetPrivate.Text = "保存并授权";
+            this.biSetPrivate.Click += new System.EventHandler(this.biSetPrivate_Click);
             // 
             // biClose
             // 
@@ -1117,11 +1120,56 @@
             this.dtBirthday.TabIndex = 6;
             this.dtBirthday.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
+            // lbPhotoTip
+            // 
+            this.lbPhotoTip.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.lbPhotoTip.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbPhotoTip.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbPhotoTip.Location = new System.Drawing.Point(348, 119);
+            this.lbPhotoTip.Name = "lbPhotoTip";
+            this.lbPhotoTip.Size = new System.Drawing.Size(59, 17);
+            this.lbPhotoTip.TabIndex = 25;
+            this.lbPhotoTip.Text = "照片";
+            // 
+            // labelX24
+            // 
+            this.labelX24.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX24.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX24.Location = new System.Drawing.Point(616, 119);
+            this.labelX24.Name = "labelX24";
+            this.labelX24.Size = new System.Drawing.Size(59, 17);
+            this.labelX24.TabIndex = 25;
+            this.labelX24.Text = "证件正面";
+            // 
+            // labelX25
+            // 
+            this.labelX25.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX25.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX25.Location = new System.Drawing.Point(616, 379);
+            this.labelX25.Name = "labelX25";
+            this.labelX25.Size = new System.Drawing.Size(59, 17);
+            this.labelX25.TabIndex = 25;
+            this.labelX25.Text = "证件背面";
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 527);
+            this.Controls.Add(this.labelX25);
+            this.Controls.Add(this.labelX24);
+            this.Controls.Add(this.lbPhotoTip);
             this.Controls.Add(this.dtBirthday);
             this.Controls.Add(this.cboVeMoBan);
             this.Controls.Add(this.cbMarry);
@@ -1272,5 +1320,8 @@
         private DevComponents.DotNetBar.ButtonItem biClose;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtBirthday;
         private DevComponents.DotNetBar.ButtonItem biNew;
+        private DevComponents.DotNetBar.LabelX lbPhotoTip;
+        private DevComponents.DotNetBar.LabelX labelX24;
+        private DevComponents.DotNetBar.LabelX labelX25;
     }
 }

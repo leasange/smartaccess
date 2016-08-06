@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/2 22:00:31   N/A    初版
+* V0.01  2016/8/6 16:48:14   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -54,17 +54,19 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_CARD_INFO(");
-			strSql.Append("CARD_NO,CARD_DESC,CARD_TYPE)");
+			strSql.Append("CARD_NO,CARD_DESC,CARD_TYPE,CARD_WG_NO)");
 			strSql.Append(" values (");
-			strSql.Append("@CARD_NO,@CARD_DESC,@CARD_TYPE)");
+			strSql.Append("@CARD_NO,@CARD_DESC,@CARD_TYPE,@CARD_WG_NO)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@CARD_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@CARD_DESC", SqlDbType.NVarChar,400),
-					new SqlParameter("@CARD_TYPE", SqlDbType.TinyInt,1)};
+					new SqlParameter("@CARD_TYPE", SqlDbType.TinyInt,1),
+					new SqlParameter("@CARD_WG_NO", SqlDbType.VarChar,100)};
 			parameters[0].Value = model.CARD_NO;
 			parameters[1].Value = model.CARD_DESC;
 			parameters[2].Value = model.CARD_TYPE;
+			parameters[3].Value = model.CARD_WG_NO;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -85,17 +87,20 @@ namespace Maticsoft.DAL
 			strSql.Append("update SMT_CARD_INFO set ");
 			strSql.Append("CARD_NO=@CARD_NO,");
 			strSql.Append("CARD_DESC=@CARD_DESC,");
-			strSql.Append("CARD_TYPE=@CARD_TYPE");
+			strSql.Append("CARD_TYPE=@CARD_TYPE,");
+			strSql.Append("CARD_WG_NO=@CARD_WG_NO");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@CARD_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@CARD_DESC", SqlDbType.NVarChar,400),
 					new SqlParameter("@CARD_TYPE", SqlDbType.TinyInt,1),
+					new SqlParameter("@CARD_WG_NO", SqlDbType.VarChar,100),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.CARD_NO;
 			parameters[1].Value = model.CARD_DESC;
 			parameters[2].Value = model.CARD_TYPE;
-			parameters[3].Value = model.ID;
+			parameters[3].Value = model.CARD_WG_NO;
+			parameters[4].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -159,7 +164,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,CARD_NO,CARD_DESC,CARD_TYPE from SMT_CARD_INFO ");
+			strSql.Append("select  top 1 ID,CARD_NO,CARD_DESC,CARD_TYPE,CARD_WG_NO from SMT_CARD_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -203,6 +208,10 @@ namespace Maticsoft.DAL
 				{
 					model.CARD_TYPE=int.Parse(row["CARD_TYPE"].ToString());
 				}
+				if(row["CARD_WG_NO"]!=null)
+				{
+					model.CARD_WG_NO=row["CARD_WG_NO"].ToString();
+				}
 			}
 			return model;
 		}
@@ -213,7 +222,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,CARD_NO,CARD_DESC,CARD_TYPE ");
+			strSql.Append("select ID,CARD_NO,CARD_DESC,CARD_TYPE,CARD_WG_NO ");
 			strSql.Append(" FROM SMT_CARD_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -233,7 +242,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,CARD_NO,CARD_DESC,CARD_TYPE ");
+			strSql.Append(" ID,CARD_NO,CARD_DESC,CARD_TYPE,CARD_WG_NO ");
 			strSql.Append(" FROM SMT_CARD_INFO ");
 			if(strWhere.Trim()!="")
 			{

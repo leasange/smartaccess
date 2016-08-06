@@ -51,30 +51,30 @@ namespace SmartAccess.VerInfoMgr
             Init(false);
         }
 
-        private void biSave_Click(object sender, EventArgs e)
+        private void DoSave(bool addprivate = false)
         {
             try
             {
-                if(!CheckInput())
+                if (!CheckInput())
                 {
                     return;
                 }
-                if (_staffInfo == null || _staffInfo.ID==-1)
+                if (_staffInfo == null || _staffInfo.ID == -1)
                 {
                     _staffInfo = new Maticsoft.Model.SMT_STAFF_INFO();
                     _staffInfo.REG_TIME = DateTime.Now;
                     _staffInfo.ID = -1;
                 }
                 _staffInfo.REAL_NAME = tbStaffName.Text;
-                if (cbTreeDept.SelectedNode!=null)
+                if (cbTreeDept.SelectedNode != null)
                 {
                     Maticsoft.Model.SMT_ORG_INFO info = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
-                    if (info!=null)
+                    if (info != null)
                     {
                         _staffInfo.ORG_ID = info.ID;
                     }
                 }
-                
+
                 try
                 {
                     cboVerTypeStyle.SelectedValue = _staffInfo.STAFF_NO_TEMPLET;//证件编号模板
@@ -150,17 +150,17 @@ namespace SmartAccess.VerInfoMgr
                 {
                     try
                     {
-                        List<Maticsoft.Model.SMT_STAFF_INFO> staffList= saffInfoBll.GetModelList("REAL_NAME='" + _staffInfo.REAL_NAME + "' and IS_DELETE=0");
-                        if (staffList.Count>0)
+                        List<Maticsoft.Model.SMT_STAFF_INFO> staffList = saffInfoBll.GetModelList("REAL_NAME='" + _staffInfo.REAL_NAME + "' and IS_DELETE=0");
+                        if (staffList.Count > 0)
                         {
-                            if (_staffInfo.ID==-1)
+                            if (_staffInfo.ID == -1)
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "保存失败，人员姓名已存在！");
                                 return;
                             }
                             else
                             {
-                                if(staffList[0].ID != _staffInfo.ID)
+                                if (staffList[0].ID != _staffInfo.ID)
                                 {
                                     WinInfoHelper.ShowInfoWindow(this, "保存失败，人员姓名已存在！");
                                     return;
@@ -176,23 +176,24 @@ namespace SmartAccess.VerInfoMgr
                             saffInfoBll.Update(_staffInfo);
                         }
                         this.Invoke(new Action(() =>
-                            {
-                                this.Text = "修改人员：" + _staffInfo.REAL_NAME;
-                            }));
+                        {
+                            this.Text = "修改人员：" + _staffInfo.REAL_NAME;
+                        }));
                         HasChanged = true;
-                        if (_cardInfos!=null&&_cardInfos.Count>0)
+                        if (_cardInfos != null && _cardInfos.Count > 0)
                         {
                             foreach (var item in _cardInfos)//生成卡片信息
                             {
                                 Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
                                 Maticsoft.BLL.SMT_CARD_INFO bll = new Maticsoft.BLL.SMT_CARD_INFO();//卡
                                 List<Maticsoft.Model.SMT_CARD_INFO> list = bll.GetModelList("CARD_NO='" + item.CARD_NO + "'");
-                                if (list.Count>0)
+                                if (list.Count > 0)
                                 {
                                     item.ID = list[0].ID;
                                 }
                                 else
                                 {
+
                                     item.ID = bll.Add(item);
                                 }
                                 if (!sbll.Exists(_staffInfo.ID, item.ID))
@@ -202,7 +203,18 @@ namespace SmartAccess.VerInfoMgr
                             }
                         }
                         WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
-                        log.Error("保存人员信息成功！staff id="+_staffInfo.ID);
+                        log.Error("保存人员信息成功！staff id=" + _staffInfo.ID);
+                        if (addprivate)
+                        {
+                            if (_staffInfo != null)
+                            {
+                                this.Invoke(new Action(() =>
+                                    {
+                                        FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(_staffInfo);
+                                        frmStaffInfo.ShowDialog(this);
+                                    }));
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -218,6 +230,11 @@ namespace SmartAccess.VerInfoMgr
                 log.Error("保存人员信息异常：", ex);
                 WinInfoHelper.ShowInfoWindow(this, "保存信息失败！" + ex.Message);
             }
+        }
+
+        private void biSave_Click(object sender, EventArgs e)
+        {
+            DoSave(false);
         }
         //检测输入有效性
         private bool CheckInput()
@@ -254,9 +271,9 @@ namespace SmartAccess.VerInfoMgr
 
         private void Init(bool loadDept = true)
         {
-            dtValidTimeStart.Value = DateTime.Parse("1900-01-01 00:00:00");
+            dtValidTimeStart.Value = DateTime.Parse("2000-01-01 00:00:00");
             dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
-            dtTimeIn.Value = DateTime.Parse("1900-01-01 00:00:00");
+            dtTimeIn.Value = DateTime.Parse("2000-01-01 00:00:00");
             dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
 
             if (loadDept)
@@ -289,6 +306,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     picPhoto.Image.Dispose();
                     picPhoto.Image = null;
+                    lbPhotoTip.Visible = true;
                 }
                 if (picVerFront.Image != null)
                 {
@@ -362,6 +380,7 @@ namespace SmartAccess.VerInfoMgr
                     log.Error("无此证件模板：" + _staffInfo.PRINT_TEMPLET_ID + ",ex=" + ex.Message);
                 }
                 SetPicImage(picPhoto, _staffInfo.PHOTO);
+                lbPhotoTip.Visible = picPhoto.Image == null;
                 SetPicImage(picVerFront, _staffInfo.CER_PHOTO_FRONT);
                 SetPicImage(picVerBack, _staffInfo.CER_PHOTO_BACK);
             }
@@ -490,6 +509,7 @@ namespace SmartAccess.VerInfoMgr
                                      cardInfo.CARD_NO = num;
                                      cardInfo.CARD_TYPE = 0;
                                      cardInfo.CARD_DESC = num;
+                                     cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
                                      _cardInfos.Add(cardInfo);
                                  }
                                  WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
@@ -503,6 +523,7 @@ namespace SmartAccess.VerInfoMgr
                                  cardInfo.CARD_NO = num;
                                  cardInfo.CARD_TYPE = 0;
                                  cardInfo.CARD_DESC = num;
+                                 cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
                                  _cardInfos.Add(cardInfo);
                              }
                              WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
@@ -520,7 +541,7 @@ namespace SmartAccess.VerInfoMgr
 
         private void biSetPrivate_Click(object sender, EventArgs e)
         {
-
+            DoSave(true);
         }
 
         private void biSelectPic_Click(object sender, EventArgs e)
@@ -539,6 +560,7 @@ namespace SmartAccess.VerInfoMgr
                     picPhoto.Image = (Image)frmGetPic.SelectImage.Clone();
                 }
             }
+            lbPhotoTip.Visible = picPhoto.Image == null;
             frmGetPic.SelectImage = null;
         }
 
