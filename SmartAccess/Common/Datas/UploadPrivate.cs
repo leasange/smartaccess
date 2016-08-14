@@ -243,20 +243,21 @@ namespace SmartAccess.Common.Datas
         public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr,out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors=null)
         {
             errMsg="";
-            if (!ctrlr.IS_ENABLE)
+            Controller cc = ControllerHelper.ToController(ctrlr);
+            using (IAccessCore access = new WGAccess())
             {
-                Controller c = ControllerHelper.ToController(ctrlr);
-                using (IAccessCore access=new WGAccess())
+                bool ret = access.ClearAuthority(cc);
+                if (!ret)
                 {
-                  bool ret=  access.ClearAuthority(c);
-                  if (!ret)
-                  {
-                      errMsg = "清除控制器的权限异常！";
-                      return false;
-                  }
+                    errMsg = "清除控制器的权限异常！";
+                    return false;
                 }
-                return true;
+                if (!ctrlr.IS_ENABLE)
+                {
+                    return ret;
+                }
             }
+
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
             if (ctrlDoors==null)
             {
@@ -318,7 +319,7 @@ namespace SmartAccess.Common.Datas
                 return true;
             }
 
-            Controller cc = ControllerHelper.ToController(ctrlr);
+           // Controller cc = ControllerHelper.ToController(ctrlr);
             using (IAccessCore access=new WGAccess())
             {
                 foreach (var item in cards)

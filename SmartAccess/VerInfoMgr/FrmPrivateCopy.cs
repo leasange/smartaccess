@@ -21,7 +21,7 @@ namespace SmartAccess.VerInfoMgr
             InitializeComponent();
             _staffInfo = staffInfo;
             _staffDoors = doors;
-            this.Text = "当前复制权限人员：" + _staffInfo.REAL_NAME;
+            this.Text = "当前被复制权限人员：" + _staffInfo.REAL_NAME;
         }
 
         private void FrmPrivateCopy_Load(object sender, EventArgs e)
@@ -102,13 +102,19 @@ namespace SmartAccess.VerInfoMgr
             dgvStaffs.Rows.Clear();
             foreach (var item in staffInfos)
             {
-                foreach (DataGridViewRow select in dgvStaffs.Rows)//判断是否已选择
+                bool find = false;
+                foreach (DataGridViewRow select in dgvSelected.Rows)//判断是否已选择
                 {
                     Maticsoft.Model.SMT_STAFF_INFO s = (Maticsoft.Model.SMT_STAFF_INFO)select.Tag;
                     if (s.ID == item.ID)
                     {
-                        continue;
+                        find = true;
+                        break;
                     }
+                }
+                if (find)
+                {
+                    continue;
                 }
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvStaffs,
@@ -172,7 +178,7 @@ namespace SmartAccess.VerInfoMgr
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
             while (dgvSelected.Rows.Count > 0)
             {
-                dgvrs.Add(dgvStaffs.Rows[0]);
+                dgvrs.Add(dgvSelected.Rows[0]);
                 dgvSelected.Rows.RemoveAt(0);
             }
             dgvStaffs.Rows.AddRange(dgvrs.ToArray());
