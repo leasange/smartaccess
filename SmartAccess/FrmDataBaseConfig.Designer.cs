@@ -194,6 +194,7 @@
             this.btnCreateDatabase.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCreateDatabase.TabIndex = 5;
             this.btnCreateDatabase.Text = "创建数据库";
+            this.btnCreateDatabase.Click += new System.EventHandler(this.btnCreateDatabase_Click);
             // 
             // lbMsg
             // 
@@ -212,7 +213,7 @@
             // 
             this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSave.Location = new System.Drawing.Point(112, 236);
+            this.btnSave.Location = new System.Drawing.Point(112, 229);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(91, 32);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -224,7 +225,7 @@
             // 
             this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnCancel.Location = new System.Drawing.Point(221, 236);
+            this.btnCancel.Location = new System.Drawing.Point(221, 229);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(92, 32);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -241,6 +242,7 @@
             this.tbDatabase.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbDatabase.Location = new System.Drawing.Point(112, 144);
             this.tbDatabase.Name = "tbDatabase";
+            this.tbDatabase.ReadOnly = true;
             this.tbDatabase.Size = new System.Drawing.Size(227, 23);
             this.tbDatabase.TabIndex = 1;
             this.tbDatabase.Text = "SmartAccess";

@@ -13,7 +13,7 @@ namespace SmartAccess.Common.Config
     public class SysConfig
     {
         private static DatabaseConfigClass datavbaseConfig = null;
-        private static DevMF800AConfig devDevMF800AConfig = null;
+        private static CardIssueConfig cardIssueConfig = null;
         /// <summary>
         /// 获取Sql Server数据库连接
         /// </summary>
@@ -47,32 +47,34 @@ namespace SmartAccess.Common.Config
             return configcls.SaveConfig("SqlServerConnectString");
         }
 
-        public static DevMF800AConfig GetDevMF800AConfig()
+        public static CardIssueConfig GetCardIssueConfig()
         {
-            if (devDevMF800AConfig == null)
+            if (cardIssueConfig == null)
             {
-                devDevMF800AConfig = new DevMF800AConfig();
-                string str = SunCreate.Common.ConfigHelper.GetConfigString("DEVICE_MF800A_CONFIG");
-                devDevMF800AConfig.FromString(str);
+                cardIssueConfig = new CardIssueConfig();
+                string str = SunCreate.Common.ConfigHelper.GetConfigString("CARD_ISSUE_CONFIG");
+                cardIssueConfig.FromString(str);
             }
-            return devDevMF800AConfig;
+            return cardIssueConfig;
         }
-        public static void SetDevMF800AConfig(DevMF800AConfig config)
+        public static void SetCardIssueConfig(CardIssueConfig config)
         {
-            devDevMF800AConfig = config;
-            SunCreate.Common.ConfigHelper.SetConfigValue("DEVICE_MF800A_CONFIG",config.ToString());
+            cardIssueConfig = config;
+            SunCreate.Common.ConfigHelper.SetConfigValue("CARD_ISSUE_CONFIG", config.ToString());
         }
     }
-    public class DevMF800AConfig
+
+    public class CardIssueConfig
     {
         public int comPort=3;
         public ComBuad comBuad= ComBuad.CBR_14400;
-        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(DevMF800AConfig));
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(CardIssueConfig));
+        public CardIssueModel cardIssueModel = CardIssueModel.MF800A;
         public void FromString(string strConfig)
         {
             if (string.IsNullOrWhiteSpace(strConfig))
             {
-                log.Warn("MF800A 配置为空！");
+                log.Warn("发卡器 配置为空！");
             }
             else
             {
@@ -88,12 +90,16 @@ namespace SmartAccess.Common.Config
                     {
                         Enum.TryParse<ComBuad>(kv[1].Trim(), out comBuad);
                     }
+                    else if (kv[0].Trim() == "MODEL" && kv.Length == 2)
+                    {
+                        Enum.TryParse<CardIssueModel>(kv[1].Trim(), out cardIssueModel);
+                    }
                 }
             }
         }
         public override string ToString()
         {
-            return string.Format("COM={0},BUAD={1}", comPort, (int)comBuad);
+            return string.Format("COM={0},BUAD={1},MODEL={2}", comPort, (int)comBuad, cardIssueModel);
         }
     }
 }

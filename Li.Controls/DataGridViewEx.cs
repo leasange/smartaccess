@@ -47,4 +47,53 @@ namespace Li.Controls
         }
         
     }
+
+    public class DataGridViewLinkLabelCell:DataGridViewLinkCell
+    {
+        protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates cellState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
+        {
+            base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
+        }
+        // Force the cell to repaint itself when the mouse pointer enters it.
+        protected override void OnMouseEnter(int rowIndex)
+        {
+            this.DataGridView.InvalidateCell(this);
+        }
+
+        // Force the cell to repaint itself when the mouse pointer leaves it.
+        protected override void OnMouseLeave(int rowIndex)
+        {
+            this.DataGridView.InvalidateCell(this);
+        }
+    }
+    public class DataGridViewLinkLabelColumn : DataGridViewLinkColumn
+    {
+        private string _splitLinkSymbol = ",";
+        public string SplitLinkSymbol
+        {
+            get
+            {
+                return _splitLinkSymbol;
+            }
+            set
+            {
+                if (value==null|| value=="")
+                {
+                    return;
+                }
+                _splitLinkSymbol = value;
+                if (base.DataGridView != null)
+                {
+                    DataGridViewRowCollection rows = base.DataGridView.Rows;
+                    int count = rows.Count;
+                    base.DataGridView.InvalidateColumn(base.Index);
+                }
+            }
+        }
+        public DataGridViewLinkLabelColumn()
+        {
+            this.CellTemplate = new DataGridViewLinkLabelCell();
+        }
+    }
+
 }

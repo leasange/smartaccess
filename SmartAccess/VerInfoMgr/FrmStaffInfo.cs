@@ -39,7 +39,7 @@ namespace SmartAccess.VerInfoMgr
             {
                 _cardInfos.AddRange(_staffInfo.CARDS);
             }
-
+            DoShowCardNum();
             _view = view;
         }
 
@@ -53,12 +53,17 @@ namespace SmartAccess.VerInfoMgr
 
         private void DoSave(bool addprivate = false)
         {
+            if (!CheckInput())
+            {
+                return;
+            }
+            InternalSave(addprivate);
+        }
+
+        private void InternalSave(bool addprivate,bool setcard=false)
+        {
             try
             {
-                if (!CheckInput())
-                {
-                    return;
-                }
                 if (_staffInfo == null || _staffInfo.ID == -1)
                 {
                     _staffInfo = new Maticsoft.Model.SMT_STAFF_INFO();
@@ -180,6 +185,11 @@ namespace SmartAccess.VerInfoMgr
                             this.Text = "修改人员：" + _staffInfo.REAL_NAME;
                         }));
                         HasChanged = true;
+                        bool bsetcardret = false;
+                        if (setcard)
+                        {
+                            bsetcardret = DoSetCard();
+                        }
                         if (_cardInfos != null && _cardInfos.Count > 0)
                         {
                             foreach (var item in _cardInfos)//生成卡片信息
@@ -202,17 +212,39 @@ namespace SmartAccess.VerInfoMgr
                                 }
                             }
                         }
-                        WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
-                        log.Error("保存人员信息成功！staff id=" + _staffInfo.ID);
+
+                        if (setcard)
+                        {
+                            if (bsetcardret)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "保存并发卡成功！");
+                                log.Error("保存并发卡成功！staff id=" + _staffInfo.ID);
+                                this.Invoke(new Action(() =>
+                                {
+                                    DoShowCardNum();
+                                }));
+                            }
+                            else
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "发卡失败！");
+                                log.Error("发卡失败！staff id=" + _staffInfo.ID);
+                            }
+                        }
+                        else
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
+                            log.Error("保存人员信息成功！staff id=" + _staffInfo.ID);
+                        }
+
                         if (addprivate)
                         {
                             if (_staffInfo != null)
                             {
                                 this.Invoke(new Action(() =>
-                                    {
-                                        FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(_staffInfo);
-                                        frmStaffInfo.ShowDialog(this);
-                                    }));
+                                {
+                                    FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(_staffInfo);
+                                    frmStaffInfo.ShowDialog(this);
+                                }));
                             }
                         }
                     }
@@ -229,6 +261,24 @@ namespace SmartAccess.VerInfoMgr
             {
                 log.Error("保存人员信息异常：", ex);
                 WinInfoHelper.ShowInfoWindow(this, "保存信息失败！" + ex.Message);
+            }
+        }
+
+        private void DoShowCardNum()
+        {
+            if (_cardInfos==null||_cardInfos.Count==0)
+            {
+                tbCardNums.Text = "未发卡";
+            }
+            else
+            {
+                string str = "";
+                foreach (var item in _cardInfos)
+                {
+                    str += item.CARD_NO + "；";
+                }
+                str = str.TrimEnd('；');
+                tbCardNums.Text = str;
             }
         }
 
@@ -332,6 +382,9 @@ namespace SmartAccess.VerInfoMgr
                         }
                     }
                     bar1.Enabled = false;
+                    btnSetCard.Visible = false;
+                    btnSave.Visible = false;
+                    btnSaveAndUpload.Visible = false;
                     picPhoto.DoubleClick -= picPhoto_DoubleClick;
                 }
                 else
@@ -466,76 +519,85 @@ namespace SmartAccess.VerInfoMgr
             return null;
         }
 
-        private void biSetCard_Click(object sender, EventArgs e)
+        private bool DoSetCard()
         {
-            ICardIssueDevice issDevice = new MF800ACardIssueDevice();
-            DevMF800AConfig config= SysConfig.GetDevMF800AConfig();
-            try
+            using (ICardIssueDevice issDevice = new MF800ACardIssueDevice())
             {
-                issDevice.OpenCom(config.comPort, config.comBuad);
-                string num = issDevice.ReadCardX();
-                issDevice.Close();
-                if (num==null)
+                CardIssueConfig config = SysConfig.GetCardIssueConfig();
+                try
                 {
-                    WinInfoHelper.ShowInfoWindow(this, "未读取到卡号！");
-                }
-                else
-                {
-                    
-                    CtrlWaiting ctrWaiting = new CtrlWaiting(() =>
+                    issDevice.OpenCom(config.comPort, config.comBuad);
+                    string num = issDevice.ReadCardX();
+                    issDevice.Close();
+                    if (num == null)
                     {
-                         Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
-                         var cards= sbll.GetModelListByCardNo(num);
-                         if (cards.Count>0)
-                         {
-                             bool delete = false;
-                             this.Invoke(new Action(() =>
-                                 {
-                                     if (MessageBox.Show("该卡已绑定人员，是否强制解绑？","提示",MessageBoxButtons.YesNo)== DialogResult.Yes)
-                                     {
-                                         delete = true;
-                                     }
-                                 }));
-                             if (delete)
-                             {
-                                 HasChanged = true;
-                                 foreach (var item in cards)
-                                 {
-                                     sbll.Delete(item.STAFF_ID, item.CARD_ID);
-                                 }
-                                 if (!_cardInfos.Exists(m => m.CARD_NO == num))
-                                 {
-                                     Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
-                                     cardInfo.CARD_NO = num;
-                                     cardInfo.CARD_TYPE = 0;
-                                     cardInfo.CARD_DESC = num;
-                                     cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
-                                     _cardInfos.Add(cardInfo);
-                                 }
-                                 WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
-                             }
-                         }
-                         else
-                         {
-                             if (!_cardInfos.Exists(m => m.CARD_NO == num))
-                             {
-                                 Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
-                                 cardInfo.CARD_NO = num;
-                                 cardInfo.CARD_TYPE = 0;
-                                 cardInfo.CARD_DESC = num;
-                                 cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
-                                 _cardInfos.Add(cardInfo);
-                             }
-                             WinInfoHelper.ShowInfoWindow(this, "发卡成功！注意保存。");
-                         }
-                    });
-                    ctrWaiting.Show(this);
+                        WinInfoHelper.ShowInfoWindow(this, "未读取到卡号！");
+                        return false;
+                    }
+                    else
+                    {
+                        Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                        var cards = sbll.GetModelListByCardNo(num);
+                        if (cards.Count > 0)
+                        {
+                            bool delete = false;
+                            this.Invoke(new Action(() =>
+                            {
+                                if (MessageBox.Show("该卡已绑定人员，是否强制解绑？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    delete = true;
+                                }
+                            }));
+                            if (delete)
+                            {
+                                string errMsg = "";
+                                bool ret = UploadPrivate.DeletePrivateByCardNum(num, out errMsg, cards);
+                                if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
+                                    return false;
+                                }
+                                HasChanged = true;
+                                foreach (var item in cards)
+                                {
+                                    sbll.Delete(item.STAFF_ID, item.CARD_ID);
+                                }
+                                if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                                {
+                                    Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                    cardInfo.CARD_NO = num;
+                                    cardInfo.CARD_TYPE = 0;
+                                    cardInfo.CARD_DESC = num;
+                                    cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
+                                    _cardInfos.Add(cardInfo);
+                                }
+                                //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                            {
+                                Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                cardInfo.CARD_NO = num;
+                                cardInfo.CARD_TYPE = 0;
+                                cardInfo.CARD_DESC = num;
+                                cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
+                                _cardInfos.Add(cardInfo);
+                            }
+                            //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
+                            return true;
+                        }
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                log.Error("发卡器操作异常：", ex);
-                WinInfoHelper.ShowInfoWindow(this, "读卡失败：" + ex.Message);
+                catch (Exception ex)
+                {
+                    log.Error("发卡器操作异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "读卡失败：" + ex.Message);
+                    return false;
+                }
+                return false;
             }
         }
 
@@ -586,6 +648,30 @@ namespace SmartAccess.VerInfoMgr
         private void picPhoto_DoubleClick(object sender, EventArgs e)
         {
             biSelectPic_Click(sender, e);
+        }
+
+        private void btnSetCard_Click(object sender, EventArgs e)
+        {
+            if (!CheckInput())
+            {
+                return;
+            }
+            InternalSave(false, true);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            DoSave(false);
+        }
+
+        private void btnSaveAndUpload_Click(object sender, EventArgs e)
+        {
+            DoSave(true);
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

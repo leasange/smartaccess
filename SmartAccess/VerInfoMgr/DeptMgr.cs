@@ -211,5 +211,20 @@ namespace SmartAccess.VerInfoMgr
                 this.deptTree.EnsureVisible(orgInfo.ID);
             }
         }
+
+        private void biDownloadDeptModel_Click(object sender, EventArgs e)
+        {
+            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+        }
+
+        private void biInput_Click(object sender, EventArgs e)
+        {
+            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+        }
+
+        private void biOutput_Click(object sender, EventArgs e)
+        {
+            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+        }
     }
 }

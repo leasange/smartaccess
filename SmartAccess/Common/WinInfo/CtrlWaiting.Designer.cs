@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.plLoading = new System.Windows.Forms.Panel();
             this.lbText = new DevComponents.DotNetBar.LabelX();
+            this.timerShowBack = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.plLoading.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +53,7 @@
             this.plLoading.Controls.Add(this.picBox);
             this.plLoading.Location = new System.Drawing.Point(18, 21);
             this.plLoading.Name = "plLoading";
-            this.plLoading.Size = new System.Drawing.Size(223, 36);
+            this.plLoading.Size = new System.Drawing.Size(142, 36);
             this.plLoading.TabIndex = 1;
             // 
             // lbText
@@ -63,12 +65,16 @@
             // 
             // 
             this.lbText.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbText.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbText.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbText.Location = new System.Drawing.Point(39, 6);
             this.lbText.Name = "lbText";
-            this.lbText.Size = new System.Drawing.Size(181, 23);
+            this.lbText.Size = new System.Drawing.Size(100, 23);
             this.lbText.TabIndex = 1;
             this.lbText.Text = "加载中...";
+            // 
+            // timerShowBack
+            // 
+            this.timerShowBack.Tick += new System.EventHandler(this.timerShowBack_Tick);
             // 
             // CtrlWaiting
             // 
@@ -93,6 +99,7 @@
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.Panel plLoading;
         private DevComponents.DotNetBar.LabelX lbText;
+        private System.Windows.Forms.Timer timerShowBack;
 
     }
 }

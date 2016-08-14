@@ -29,8 +29,12 @@ namespace SmartAccess.Common.Datas
             }
             if (staffCards.Count == 0)
             {
-                errMsg = "上传失败，该用户没有授权的卡片！";
-                WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，该用户没有授权的卡片！");
+                if (staffInfo.IS_DELETE||staffInfo.IS_FORBIDDEN||staffInfo.DELETE_CARD)
+                {
+                    return true;
+                }
+                errMsg = "上传失败，该人员没有授权的卡片！";
+               // WinInfo.WinInfoHelper.ShowInfoWindow(null,"“"+staffInfo.REAL_NAME+ "”权限上传失败，该人员没有授权的卡片！");
                 return false;
             }
             if (allDoors == null)
@@ -39,8 +43,12 @@ namespace SmartAccess.Common.Datas
             }
             if (allDoors.Count == 0)
             {
+                if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
+                {
+                    return true;
+                }
                 errMsg = "上传失败，当前没有任何门！";
-                WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，当前没有任何门！");
+               // WinInfo.WinInfoHelper.ShowInfoWindow(null, "“" + staffInfo.REAL_NAME + "”权限上传失败，当前没有任何可用门禁！");
                 return false;
             }
             if (ctrlrs == null)
@@ -49,11 +57,15 @@ namespace SmartAccess.Common.Datas
             }
             if (ctrlrs.Count==0)
             {
+                if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
+                {
+                    return true;
+                }
                 errMsg = "上传失败，当前没有任何可用控制器！";
-                WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，当前没有任何可用控制器！");
+                //WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，当前没有任何可用控制器！");
                 return false;
             }
-            if (staffInfo.IS_DELETE||staffInfo.IS_FORBIDDEN)//被删除、禁用或者挂失
+            if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)//被删除、禁用或者挂失、销卡
             {
                 List<ManualResetEvent> eventlist = new List<ManualResetEvent>();
                 string msg = "";
@@ -349,6 +361,106 @@ namespace SmartAccess.Common.Datas
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
             var allDoors = doorBll.GetModelList("CTRL_ID>=0");
             return allDoors;
+        }
+        /// <summary>
+        /// 通过卡号删除权限
+        /// </summary>
+        /// <param name="cardNum">卡号</param>
+        public static bool DeletePrivateByCardNum(string cardNum,out string errMsg,List<Maticsoft.Model.SMT_STAFF_CARD> cards=null)
+        {
+            errMsg = "";
+            if (cards==null)
+            {
+                Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                cards = sbll.GetModelListByCardNo(cardNum);
+            }
+            if (cards.Count==0)
+            {
+                return true;
+            }
+            Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+            var staffInfo = staffBll.GetModel(cards[0].STAFF_ID);
+            return Upload(staffInfo, out errMsg, null, cards);
+        }
+
+        public static bool Upload(List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos, out string errMsg)
+        {
+            errMsg = "";
+            try
+            {
+                var ctrls = GetUploadCtrlr();
+                if (ctrls.Count==0)
+                {
+                    errMsg = "没有可用控制器！";
+                    return false;
+                }
+                var doors = GetUploadAllDoors();
+                if (doors.Count==0)
+                {
+                    errMsg = "没有可用门禁！";
+                    return false;
+                }
+                bool ret = true;
+                foreach (var item in staffInfos)
+                {
+                    string terrMsg = "";
+                    bool temp = Upload(item, out terrMsg, allDoors: doors, ctrlrs: ctrls);
+                    ret = ret && temp;
+                    if (string.IsNullOrWhiteSpace(errMsg))
+                    {
+                        errMsg = terrMsg;
+                    }
+                }
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                errMsg = ex.Message;
+                return false;
+            }
+        }
+
+        public static bool UploadAllPrivate(out string errMsg)
+        {
+            string outMsg = "";
+            errMsg = "";
+            var ctrls = GetUploadCtrlr();
+            if (ctrls.Count == 0)
+            {
+                errMsg = "没有可用控制器！";
+                return false;
+            }
+            List<ManualResetEvent> events = new List<ManualResetEvent>();
+            foreach (var item in ctrls)
+            {
+                ManualResetEvent reset = new ManualResetEvent(false);
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
+                        {
+                            string tmsg = "";
+                            UploadByCtrlr(item, out tmsg);
+                            if (tmsg != "")
+                            {
+                                outMsg += "\r\n" + tmsg;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            outMsg += "\r\n" + ex.Message;
+                        }
+                        finally
+                        {
+                            reset.Set();
+                        }
+                    }));
+            }
+            foreach (var item in events)
+            {
+                item.WaitOne(60000);
+            }
+            errMsg = outMsg;
+            return true;
         }
     }
 }

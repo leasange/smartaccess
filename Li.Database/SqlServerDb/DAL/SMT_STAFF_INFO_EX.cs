@@ -74,7 +74,7 @@ namespace Maticsoft.DAL
             strSql.Append("            from SMT_ORG_INFO ssi2 ");
             strSql.Append("            inner join temp on ssi2.PAR_ID = temp.ID ");
             strSql.Append(") ");
-            strSql.Append("select count(1) from SMT_STAFF_INFO ssc where ssc.ORG_ID in (select * from temp ) ");
+            strSql.Append("select count(1) from SMT_STAFF_INFO ssc where ssc.ORG_ID in (select * from temp ) and ssc.IS_DELETE=0 ");
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString());
             if (obj == null)
@@ -91,7 +91,7 @@ namespace Maticsoft.DAL
         {
             if (orgId < 0)
             {
-                return GetListByPageWithDept("1=1", "org_id", startIndex, endIndex);
+                return GetListByPageWithDept("1=1 and IS_DELETE=0", "org_id", startIndex, endIndex);
             }
             StringBuilder strSql = new StringBuilder();
             strSql.Append("with temp ");
@@ -106,7 +106,7 @@ namespace Maticsoft.DAL
             strSql.Append("            inner join temp on ssi2.PAR_ID = temp.ID ");
             strSql.Append(") ");
             strSql.AppendFormat(" select top {0} res.*,org.ORG_NAME from ", endIndex - startIndex + 1);
-            strSql.Append(" (select row_number() over(order by org_id) as rownumber,* from SMT_STAFF_INFO ssc where ssc.ORG_ID in (select * from temp )) res ");
+            strSql.Append(" (select row_number() over(order by org_id) as rownumber,* from SMT_STAFF_INFO ssc where ssc.ORG_ID in (select * from temp )  and ssc.IS_DELETE=0) res ");
             strSql.AppendFormat(" left join SMT_ORG_INFO org on res.org_id=org.ID where res.rownumber>={0} ", startIndex);
 
             return DbHelperSQL.Query(strSql.ToString());
@@ -114,24 +114,49 @@ namespace Maticsoft.DAL
         public DataSet GetListByPageWithDept(string strWhere, string orderby, int startIndex, int endIndex)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT TT.*,OI.ORG_NAME FROM ( ");
-            strSql.Append(" SELECT ROW_NUMBER() OVER (");
-            if (!string.IsNullOrEmpty(orderby.Trim()))
+
+            strSql.Append("select * from (");
+            strSql.Append("select SI.*,OI.ORG_NAME,ROW_NUMBER() over (order by ");
+
+            if (string.IsNullOrWhiteSpace(orderby))
             {
-                strSql.Append("order by T." + orderby);
+                strSql.Append("ID");
             }
             else
             {
-                strSql.Append("order by T.ID desc");
+                strSql.Append(orderby);
             }
-            strSql.Append(")AS Row, T.*  from SMT_STAFF_INFO T ");
+            strSql.Append("    ) as ROW from SMT_STAFF_INFO SI left join SMT_ORG_INFO OI on SI.ORG_ID=OI.ID ");
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {
                 strSql.Append(" WHERE " + strWhere);
             }
-            strSql.Append(" ) TT left join SMT_ORG_INFO OI on TT.ORG_ID=OI.ID ");
-            strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+
+            strSql.AppendFormat(") TT WHERE TT.Row between {0} and {1}", startIndex, endIndex);
             return DbHelperSQL.Query(strSql.ToString());
+        }
+        public int GetRecordCountWithDept(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select COUNT(1) from SMT_STAFF_INFO SI left join SMT_ORG_INFO OI on SI.ORG_ID=OI.ID ");
+            if (!string.IsNullOrEmpty(strWhere.Trim()))
+            {
+                strSql.Append(" WHERE " + strWhere);
+            }
+            object obj = DbHelperSQL.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+        public DataSet GetListByCardNum(string cardNo)
+        {
+            string strSql = "select SI.*,OI.ORG_NAME from SMT_STAFF_INFO SI left join SMT_ORG_INFO OI on SI.ORG_ID=OI.ID   where SI.IS_DELETE=0 and SI.ID in (select SC.STAFF_ID from SMT_CARD_INFO CI,SMT_STAFF_CARD SC where CI.CARD_NO='" + cardNo + "' and SC.CARD_ID=CI.ID)";
+            return DbHelperSQL.Query(strSql);
         }
 	}
 }

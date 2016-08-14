@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.deptAdvTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -42,7 +43,10 @@
             this.node11 = new DevComponents.AdvTree.Node();
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
+            this.cmsDept = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiRefresh = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).BeginInit();
+            this.cmsDept.SuspendLayout();
             this.SuspendLayout();
             // 
             // deptAdvTree
@@ -56,6 +60,7 @@
             this.deptAdvTree.BackgroundStyle.Class = "TreeBorderKey";
             this.deptAdvTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.deptAdvTree.CheckBoxVisible = false;
+            this.deptAdvTree.ContextMenuStrip = this.cmsDept;
             this.deptAdvTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deptAdvTree.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.deptAdvTree.Location = new System.Drawing.Point(0, 0);
@@ -166,6 +171,20 @@
             this.elementStyle1.Name = "elementStyle1";
             this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
+            // cmsDept
+            // 
+            this.cmsDept.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiRefresh});
+            this.cmsDept.Name = "cmsDept";
+            this.cmsDept.Size = new System.Drawing.Size(153, 48);
+            // 
+            // tsmiRefresh
+            // 
+            this.tsmiRefresh.Name = "tsmiRefresh";
+            this.tsmiRefresh.Size = new System.Drawing.Size(152, 22);
+            this.tsmiRefresh.Text = "刷新";
+            this.tsmiRefresh.Click += new System.EventHandler(this.tsmiRefresh_Click);
+            // 
             // DeptTree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -175,6 +194,7 @@
             this.Size = new System.Drawing.Size(235, 443);
             this.Load += new System.EventHandler(this.DeptTree_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).EndInit();
+            this.cmsDept.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -195,5 +215,7 @@
         private DevComponents.AdvTree.Node node11;
         private DevComponents.AdvTree.NodeConnector nodeConnector1;
         private DevComponents.DotNetBar.ElementStyle elementStyle1;
+        private System.Windows.Forms.ContextMenuStrip cmsDept;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRefresh;
     }
 }

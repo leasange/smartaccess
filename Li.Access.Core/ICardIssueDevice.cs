@@ -48,4 +48,11 @@ namespace Li.Access.Core
         CBR_57600 = 57600,
         CBR_115200 = 115200,
     }
+    /// <summary>
+    /// 发卡器型号
+    /// </summary>
+    public enum CardIssueModel
+    {
+        MF800A,//
+    }
 }

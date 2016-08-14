@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
@@ -65,6 +68,7 @@
     <Compile Include="Common\Datas\DeptDataHelper.cs" />
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\Datas\ControllerHelper.cs" />
+    <Compile Include="Common\Datas\DoorDataHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">
@@ -80,6 +84,12 @@
       <DependentUpon>FrmInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\WinInfo\WinInfoHelper.cs" />
+    <Compile Include="ConfigMgr\FrmCardIssueSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmCardIssueSetting.Designer.cs">
+      <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -275,6 +285,12 @@
     <Compile Include="VerInfoMgr\FrmAddOrModifyStaffPrivate.Designer.cs">
       <DependentUpon>FrmAddOrModifyStaffPrivate.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmCardMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmCardMgr.Designer.cs">
+      <DependentUpon>FrmCardMgr.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmGetPicture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,6 +302,12 @@
     </Compile>
     <Compile Include="VerInfoMgr\FrmMoveDept.Designer.cs">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmPrivateCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmPrivateCopy.Designer.cs">
+      <DependentUpon>FrmPrivateCopy.cs</DependentUpon>
     </Compile>
     <Compile Include="VerInfoMgr\FrmStaffInfo.cs">
       <SubType>Form</SubType>
@@ -310,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\WinInfo\FrmInfo.resx">
       <DependentUpon>FrmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmCardIssueSetting.resx">
+      <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>
@@ -417,11 +442,17 @@
     <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyStaffPrivate.resx">
       <DependentUpon>FrmAddOrModifyStaffPrivate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmCardMgr.resx">
+      <DependentUpon>FrmCardMgr.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmGetPicture.resx">
       <DependentUpon>FrmGetPicture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmMoveDept.resx">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmPrivateCopy.resx">
+      <DependentUpon>FrmPrivateCopy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmStaffInfo.resx">
       <DependentUpon>FrmStaffInfo.cs</DependentUpon>
@@ -491,6 +522,117 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Database\smartaccess.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\注册.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\本地图片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\部门管理.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\查询.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\打印.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\导出.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\导入.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\发卡器配置.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\欢迎.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\换卡.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\控制器管理.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\门禁出入查询.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\模板下载.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\拍照,导出照片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\人员信息.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\删除.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\设置.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\授权.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\数据备份管理.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\数据库配置.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\刷新.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\搜索控制器.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\添加控制器.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\添加区域.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\添加下级部门.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\添加下级区域.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\销户.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\销卡.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\修改部门.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\一键上传.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\移动部门.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\增加.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\增加部门.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\证件管理.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo1.ico" />
+    <None Include="Resources\企业logo.png" />
+    <None Include="Resources\软件logo2.png" />
+    <None Include="Resources\软件logo1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -57,8 +57,15 @@ namespace SmartAccess.VerInfoMgr
                 bool ret = false;
                 try
                 {
+                    var exitscode = bll.GetModelList("ORG_CODE='" + info.ORG_CODE + "'");
+
                     if (_orgInfo == null)
                     {
+                        if (exitscode.Count>0)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "部门编码已存在！");
+                            return;
+                        }
                         info.ORDER_VALUE = 100;
                         info.PAR_ID = _parId;
                         DeptDataHelper.AddDept(info);
@@ -67,6 +74,15 @@ namespace SmartAccess.VerInfoMgr
                     }
                     else
                     {
+                        if (exitscode.Count>0)
+                        {
+                            if (!exitscode.Exists(m => m.ID == _orgInfo.ID))
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "部门编码已存在！");
+                                return;
+                            }
+                        }
+
                         info.ID = _orgInfo.ID;
                         info.PAR_ID = _orgInfo.PAR_ID;
                         info.ORDER_VALUE = _orgInfo.ORDER_VALUE;

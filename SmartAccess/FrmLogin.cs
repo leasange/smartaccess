@@ -1,4 +1,5 @@
 ﻿using SmartAccess.Common.Config;
+using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,38 @@ namespace SmartAccess
         private void DoLogin()
         {
             Maticsoft.DBUtility.DbHelperSQL.connectionString = SysConfig.GetSqlServerConnectString();
-            DoEnter();
+            if (tbUserName.Text.Trim() == "")
+            {
+                MessageBox.Show("用户名不能为空！");
+                tbUserName.Focus();
+                return;
+            }
+            if (tbPwd.Text == "")
+            {
+                MessageBox.Show("密码不能为空！");
+                tbPwd.Focus();
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                Maticsoft.BLL.SMT_USER_INFO userbll = new Maticsoft.BLL.SMT_USER_INFO();
+                var users = userbll.GetModelList("USER_NAME='" + tbUserName.Text.Trim() + "' and IS_ENABLE=1 and IS_DELETE=0 and PASS_WORD= substring(sys.fn_sqlvarbasetostr(HashBytes('MD5','" + tbPwd.Text + "')),3,32)");
+                this.Invoke(new Action(() =>
+                        {
+                            if (users.Count > 0)
+                            {
+
+                                DoEnter();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("不存在此用户！");
+                            }
+                        }));
+            });
+            waiting.Show(this);
+
         }
         //执行进入系统
         private void DoEnter()

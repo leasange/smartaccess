@@ -36,8 +36,6 @@
             this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
-            this.biOk = new DevComponents.DotNetBar.ButtonItem();
-            this.biClose = new DevComponents.DotNetBar.ButtonItem();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.picBox1 = new System.Windows.Forms.PictureBox();
             this.picBox2 = new System.Windows.Forms.PictureBox();
@@ -49,6 +47,8 @@
             this.timerCapture = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox1)).BeginInit();
@@ -70,9 +70,7 @@
             this.labelItem1,
             this.cboCameraList,
             this.biOpenCamera,
-            this.biCaptureVideo,
-            this.biOk,
-            this.biClose});
+            this.biCaptureVideo});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bar1.Name = "bar1";
@@ -98,6 +96,7 @@
             // 
             // labelItem1
             // 
+            this.labelItem1.ForeColor = System.Drawing.Color.Black;
             this.labelItem1.Name = "labelItem1";
             this.labelItem1.Text = "摄像头:";
             // 
@@ -119,18 +118,6 @@
             this.biCaptureVideo.Name = "biCaptureVideo";
             this.biCaptureVideo.Text = "拍照";
             this.biCaptureVideo.Click += new System.EventHandler(this.biCaptureVideo_Click);
-            // 
-            // biOk
-            // 
-            this.biOk.Name = "biOk";
-            this.biOk.Text = "确定并关闭";
-            this.biOk.Click += new System.EventHandler(this.biOk_Click);
-            // 
-            // biClose
-            // 
-            this.biClose.Name = "biClose";
-            this.biClose.Text = "关闭";
-            this.biClose.Click += new System.EventHandler(this.biClose_Click);
             // 
             // picImage
             // 
@@ -239,11 +226,39 @@
             this.openFileDialog.DefaultExt = "jpg";
             this.openFileDialog.Filter = "图片文件|*.png;*.jpg;*.bmp;*.jpeg;*.gif";
             // 
+            // btnOk
+            // 
+            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnOk.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOk.Location = new System.Drawing.Point(320, 460);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(106, 32);
+            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnOk.TabIndex = 4;
+            this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCancel.Location = new System.Drawing.Point(439, 460);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(106, 32);
+            this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "取消";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // FrmGetPicture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 446);
+            this.ClientSize = new System.Drawing.Size(843, 513);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOk);
             this.Controls.Add(this.picBox5);
             this.Controls.Add(this.picBox4);
             this.Controls.Add(this.picBox3);
@@ -296,7 +311,7 @@
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private DevComponents.DotNetBar.ButtonItem biOk;
-        private DevComponents.DotNetBar.ButtonItem biClose;
+        private DevComponents.DotNetBar.ButtonX btnOk;
+        private DevComponents.DotNetBar.ButtonX btnCancel;
     }
 }

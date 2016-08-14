@@ -35,6 +35,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>obj\Debug\Li.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="org.in2bits.MyXls">
+      <HintPath>..\dlls\org.in2bits.MyXls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -65,6 +68,7 @@
     <Compile Include="ExpandablePanelX.Designer.cs">
       <DependentUpon>ExpandablePanelX.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportHelper.cs" />
     <Compile Include="NavigateItems.cs">
       <SubType>UserControl</SubType>
     </Compile>

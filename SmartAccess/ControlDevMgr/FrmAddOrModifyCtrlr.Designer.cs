@@ -224,8 +224,8 @@
             // 
             this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(217)))), ((int)(((byte)(247)))));
             this.tabControl1.CanReorderTabs = true;
-            this.tabControl1.Controls.Add(this.tabControlPanel1);
             this.tabControl1.Controls.Add(this.tabControlPanel2);
+            this.tabControl1.Controls.Add(this.tabControlPanel1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -340,6 +340,7 @@
             this.doorReaderAttriGroup.Name = "doorReaderAttriGroup";
             this.doorReaderAttriGroup.Size = new System.Drawing.Size(257, 146);
             this.doorReaderAttriGroup.TabIndex = 8;
+            this.doorReaderAttriGroup.Visible = false;
             // 
             // doorNameAttriGroup
             // 
@@ -393,6 +394,7 @@
             this.labelX18.TabIndex = 2;
             this.labelX18.Text = "读卡器性质";
             this.labelX18.TextAlignment = System.Drawing.StringAlignment.Far;
+            this.labelX18.Visible = false;
             // 
             // labelX11
             // 

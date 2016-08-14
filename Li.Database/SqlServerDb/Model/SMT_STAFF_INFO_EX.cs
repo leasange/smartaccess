@@ -25,6 +25,13 @@ namespace Maticsoft.Model
     {
         private List<Maticsoft.Model.SMT_CARD_INFO> _cards = null;
         private string _org_name = null;//部门名称
+        private bool _delete_card = false;
+        //删除卡权限
+        public bool DELETE_CARD
+        {
+            get { return _delete_card; }
+            set { _delete_card = value; }
+        }
         public string ORG_NAME
         {
             get { return _org_name; }

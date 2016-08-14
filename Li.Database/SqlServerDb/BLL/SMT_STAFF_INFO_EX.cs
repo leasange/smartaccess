@@ -33,6 +33,10 @@ namespace Maticsoft.BLL
         {
             return dal.GetRecordCountByDept(orgId);
         }
+        public int GetRecordCountWithDept(string strWhere)
+        {
+            return dal.GetRecordCountWithDept(strWhere);
+        }
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
@@ -43,6 +47,10 @@ namespace Maticsoft.BLL
         public DataSet GetListByPageWithDept(string strWhere, string orderby, int startIndex, int endIndex)
         {
             return dal.GetListByPageWithDept(strWhere, orderby, startIndex, endIndex);
+        }
+        public DataSet GetListByCardNum(string cardNo)
+        {
+            return dal.GetListByCardNum(cardNo);
         }
         /// <summary>
         /// 获得数据列表

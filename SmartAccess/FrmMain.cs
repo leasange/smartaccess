@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using SmartAccess.ConfigMgr;
 
 namespace SmartAccess
 {
@@ -60,7 +61,15 @@ namespace SmartAccess
                 return;
             }
             ExpandablePanel expanel = (ExpandablePanel)sender;
-            expanel.Height = splitContainer.Panel1.Height - expanel.TitleHeight * (splitContainer.Panel1.Controls.Count - 1);
+            int visiblecount = 0;
+            foreach (Control item in splitContainer.Panel1.Controls )
+            {
+                if (item.Visible)
+                {
+                    visiblecount++;
+                }
+            }
+            expanel.Height = splitContainer.Panel1.Height - expanel.TitleHeight * (visiblecount - 1);
             expanel.Controls[0].Visible = true;
         }
 
@@ -101,7 +110,7 @@ namespace SmartAccess
             }
             return false;
         }
-        private void AddControl(Control ctrl,string title)
+        private void AddControl(Control ctrl,string title,Image image=null)
         {
             // 
             // superTabItem
@@ -112,7 +121,11 @@ namespace SmartAccess
             superTabItem.AttachedControl = superTabControlPanel;
             superTabItem.CloseButtonVisible = true;
             superTabItem.GlobalItem = false;
-            superTabItem.Image = Properties.Resources.editor;
+            if (image==null)
+            {
+                image = Properties.Resources.editor;
+            }
+            superTabItem.Image = image;
             superTabItem.Text = title;
             // 
             // superTabControlPanel
@@ -142,7 +155,7 @@ namespace SmartAccess
         {
             if (!CheckControl(typeof(VerInfoMgr.DeptMgr)))
             {
-                AddControl(new VerInfoMgr.DeptMgr(), "部门管理");
+                AddControl(new VerInfoMgr.DeptMgr(), "部门管理",Properties.Resources.部门管理);
             }
         }
 
@@ -150,7 +163,7 @@ namespace SmartAccess
         {
             if (!CheckControl(typeof(VerInfoMgr.StaffInfoMgr)))
             {
-                AddControl(new VerInfoMgr.StaffInfoMgr(), "人员信息");
+                AddControl(new VerInfoMgr.StaffInfoMgr(), "人员信息",Properties.Resources.人员信息);
             }
             
         }
@@ -183,7 +196,7 @@ namespace SmartAccess
         {
             if (!CheckControl(typeof(InfoSearchMgr.AccessInOutRecordInfos)))
             {
-                AddControl(new InfoSearchMgr.AccessInOutRecordInfos(), "门禁出入查询");
+                AddControl(new InfoSearchMgr.AccessInOutRecordInfos(), "门禁出入查询",Properties.Resources.门禁出入查询);
             }
         }
 
@@ -215,7 +228,7 @@ namespace SmartAccess
         {
             if (!CheckControl(typeof(ControlDevMgr.ControllerMgr)))
             {
-                AddControl(new ControlDevMgr.ControllerMgr(), "搜索控制管理");
+                AddControl(new ControlDevMgr.ControllerMgr(), "控制器管理",Properties.Resources.控制器管理);
             }
         }
 
@@ -302,6 +315,12 @@ namespace SmartAccess
         private void linkChangeCard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
+        }
+
+        private void linkCardInssue_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmCardIssueSetting frmCardSetting = new FrmCardIssueSetting();
+            frmCardSetting.ShowDialog(this);
         }
     }
 }

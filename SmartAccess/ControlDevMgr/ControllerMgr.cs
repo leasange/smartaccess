@@ -397,5 +397,10 @@ namespace SmartAccess.ControlDevMgr
                  DoLoadByArea(null, tbCtrlrFilter.Text.Trim());
             }
         }
+
+        private void biExport_Click(object sender, EventArgs e)
+        {
+            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+        }
     }
 }

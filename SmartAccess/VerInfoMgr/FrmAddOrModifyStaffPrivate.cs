@@ -193,6 +193,10 @@ namespace SmartAccess.VerInfoMgr
                          {
                              return;
                          }
+                         else
+                         {
+                             WinInfoHelper.ShowInfoWindow(null, "上传权限成功！");
+                         }
                      }
                      this.Invoke(new Action(() =>
                          {

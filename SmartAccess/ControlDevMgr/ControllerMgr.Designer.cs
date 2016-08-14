@@ -32,21 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
             this.btnAddCtrlr = new DevComponents.DotNetBar.ButtonItem();
-            this.biModifyCtrlr = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteCtrlr = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
+            this.biExport = new DevComponents.DotNetBar.ButtonItem();
             this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.tbCtrlrFilter = new DevComponents.DotNetBar.TextBoxItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.bar2 = new DevComponents.DotNetBar.Bar();
-            this.biAddArea = new DevComponents.DotNetBar.ButtonItem();
-            this.biAddSubArea = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteArea = new DevComponents.DotNetBar.ButtonItem();
-            this.biModifyArea = new DevComponents.DotNetBar.ButtonItem();
-            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.advTreeArea = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -54,6 +46,11 @@
             this.node3 = new DevComponents.AdvTree.Node();
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
+            this.bar2 = new DevComponents.DotNetBar.Bar();
+            this.biAddArea = new DevComponents.DotNetBar.ButtonItem();
+            this.biAddSubArea = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteArea = new DevComponents.DotNetBar.ButtonItem();
+            this.biModifyArea = new DevComponents.DotNetBar.ButtonItem();
             this.dgvCtrlr = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,8 +67,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeArea)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,10 +81,7 @@
             this.biRefresh,
             this.biAddRootArea,
             this.btnAddCtrlr,
-            this.biModifyCtrlr,
-            this.biDeleteCtrlr,
-            this.buttonItem4,
-            this.buttonItem5,
+            this.biExport,
             this.biSearch,
             this.tbCtrlrFilter});
             this.bar1.Location = new System.Drawing.Point(0, 0);
@@ -99,6 +93,14 @@
             this.bar1.TabIndex = 1;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biRefresh
+            // 
+            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefresh.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biRefresh.Name = "biRefresh";
+            this.biRefresh.Text = "刷新";
+            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
             // 
             // biAddRootArea
             // 
@@ -116,34 +118,13 @@
             this.btnAddCtrlr.Text = "添加控制器";
             this.btnAddCtrlr.Click += new System.EventHandler(this.btnAddCtrlr_Click);
             // 
-            // biModifyCtrlr
+            // biExport
             // 
-            this.biModifyCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biModifyCtrlr.Name = "biModifyCtrlr";
-            this.biModifyCtrlr.Text = "修改控制器";
-            // 
-            // biDeleteCtrlr
-            // 
-            this.biDeleteCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biDeleteCtrlr.Name = "biDeleteCtrlr";
-            this.biDeleteCtrlr.Text = "删除控制器";
-            this.biDeleteCtrlr.Click += new System.EventHandler(this.biDeleteCtrlr_Click);
-            // 
-            // buttonItem4
-            // 
-            this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem4.Name = "buttonItem4";
-            this.buttonItem4.Text = "打印";
-            // 
-            // buttonItem5
-            // 
-            this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem5.Name = "buttonItem5";
-            this.buttonItem5.Text = "导出";
+            this.biExport.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biExport.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biExport.Name = "biExport";
+            this.biExport.Text = "导出";
+            this.biExport.Click += new System.EventHandler(this.biExport_Click);
             // 
             // biSearch
             // 
@@ -179,69 +160,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1130, 457);
             this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 3;
-            // 
-            // bar2
-            // 
-            this.bar2.AntiAlias = true;
-            this.bar2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.bar2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biAddArea,
-            this.biAddSubArea,
-            this.biDeleteArea,
-            this.biModifyArea});
-            this.bar2.Location = new System.Drawing.Point(0, 0);
-            this.bar2.Name = "bar2";
-            this.bar2.RoundCorners = false;
-            this.bar2.Size = new System.Drawing.Size(300, 28);
-            this.bar2.Stretch = true;
-            this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar2.TabIndex = 2;
-            this.bar2.TabStop = false;
-            this.bar2.Text = "bar1";
-            // 
-            // biAddArea
-            // 
-            this.biAddArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddArea.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biAddArea.Name = "biAddArea";
-            this.biAddArea.Text = "添加区域";
-            this.biAddArea.Tooltip = "添加相同级别区域";
-            this.biAddArea.Click += new System.EventHandler(this.biAddArea_Click);
-            // 
-            // biAddSubArea
-            // 
-            this.biAddSubArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubArea.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biAddSubArea.Name = "biAddSubArea";
-            this.biAddSubArea.Text = "添加下级";
-            this.biAddSubArea.Tooltip = "添加下级区域";
-            this.biAddSubArea.Click += new System.EventHandler(this.biAddSubArea_Click);
-            // 
-            // biDeleteArea
-            // 
-            this.biDeleteArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteArea.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biDeleteArea.Name = "biDeleteArea";
-            this.biDeleteArea.Text = "删除";
-            this.biDeleteArea.Tooltip = "删除选择区域";
-            this.biDeleteArea.Click += new System.EventHandler(this.biDeleteArea_Click);
-            // 
-            // biModifyArea
-            // 
-            this.biModifyArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyArea.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biModifyArea.Name = "biModifyArea";
-            this.biModifyArea.Text = "修改";
-            this.biModifyArea.Tooltip = "修改选择区域";
-            // 
-            // biRefresh
-            // 
-            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefresh.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biRefresh.Name = "biRefresh";
-            this.biRefresh.Text = "刷新";
-            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
             // 
             // advTreeArea
             // 
@@ -310,6 +228,61 @@
             this.elementStyle1.Name = "elementStyle1";
             this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
+            // bar2
+            // 
+            this.bar2.AntiAlias = true;
+            this.bar2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.bar2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biAddArea,
+            this.biAddSubArea,
+            this.biDeleteArea,
+            this.biModifyArea});
+            this.bar2.Location = new System.Drawing.Point(0, 0);
+            this.bar2.Name = "bar2";
+            this.bar2.RoundCorners = false;
+            this.bar2.Size = new System.Drawing.Size(300, 28);
+            this.bar2.Stretch = true;
+            this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar2.TabIndex = 2;
+            this.bar2.TabStop = false;
+            this.bar2.Text = "bar1";
+            // 
+            // biAddArea
+            // 
+            this.biAddArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddArea.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAddArea.Name = "biAddArea";
+            this.biAddArea.Text = "添加区域";
+            this.biAddArea.Tooltip = "添加相同级别区域";
+            this.biAddArea.Click += new System.EventHandler(this.biAddArea_Click);
+            // 
+            // biAddSubArea
+            // 
+            this.biAddSubArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddSubArea.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAddSubArea.Name = "biAddSubArea";
+            this.biAddSubArea.Text = "添加下级";
+            this.biAddSubArea.Tooltip = "添加下级区域";
+            this.biAddSubArea.Click += new System.EventHandler(this.biAddSubArea_Click);
+            // 
+            // biDeleteArea
+            // 
+            this.biDeleteArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteArea.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDeleteArea.Name = "biDeleteArea";
+            this.biDeleteArea.Text = "删除";
+            this.biDeleteArea.Tooltip = "删除选择区域";
+            this.biDeleteArea.Click += new System.EventHandler(this.biDeleteArea_Click);
+            // 
+            // biModifyArea
+            // 
+            this.biModifyArea.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModifyArea.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biModifyArea.Name = "biModifyArea";
+            this.biModifyArea.Text = "修改";
+            this.biModifyArea.Tooltip = "修改选择区域";
+            // 
             // dgvCtrlr
             // 
             this.dgvCtrlr.AllowUserToAddRows = false;
@@ -343,7 +316,7 @@
             this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCtrlr.EnableHeadersVisualStyles = false;
-            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvCtrlr.Location = new System.Drawing.Point(0, 28);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;
@@ -453,8 +426,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeArea)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).EndInit();
             this.ResumeLayout(false);
 
@@ -465,10 +438,7 @@
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biAddRootArea;
         private DevComponents.DotNetBar.ButtonItem btnAddCtrlr;
-        private DevComponents.DotNetBar.ButtonItem biModifyCtrlr;
-        private DevComponents.DotNetBar.ButtonItem biDeleteCtrlr;
-        private DevComponents.DotNetBar.ButtonItem buttonItem4;
-        private DevComponents.DotNetBar.ButtonItem buttonItem5;
+        private DevComponents.DotNetBar.ButtonItem biExport;
         private DevComponents.DotNetBar.ButtonItem biSearch;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Li.Controls.AdvTreeEx advTreeArea;

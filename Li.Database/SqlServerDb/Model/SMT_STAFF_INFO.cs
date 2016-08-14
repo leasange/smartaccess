@@ -27,15 +27,15 @@ namespace Maticsoft.Model
 		{}
 		#region Model
 		private decimal _id;
-		private decimal? _org_id;
-		private decimal? _staff_no_templet;
+		private decimal? _org_id=-1;
+		private decimal? _staff_no_templet=-1;
 		private string _staff_no;
 		private string _real_name;
-		private int? _sex;
+		private int? _sex=-1;
 		private string _job;
-		private DateTime? _birthday;
+        private DateTime? _birthday = DateTime.Now;
 		private string _politics;
-		private int? _married;
+		private int? _married=-1;
 		private string _skiil_level;
 		private string _cer_name;
 		private string _cer_no;
@@ -48,20 +48,20 @@ namespace Maticsoft.Model
 		private string _email;
 		private DateTime _valid_starttime;
 		private DateTime _valid_endtime;
-		private DateTime? _entry_time;
-		private DateTime? _abort_time;
+		private DateTime? _entry_time=DateTime.Now;
+        private DateTime? _abort_time = DateTime.Now;
 		private string _address;
 		private byte[] _photo;
 		private byte[] _cer_photo_front;
 		private byte[] _cer_photo_back;
-		private decimal? _print_templet_id;
+		private decimal? _print_templet_id=-1;
 		private bool _is_forbidden;
 		private bool _is_delete;
 		private DateTime _reg_time;
-		private DateTime? _del_time;
-		private DateTime? _forbidden_time;
-		private DateTime? _enable_time;
-        private DateTime? _modify_time;
+        private DateTime? _del_time = DateTime.Now;
+        private DateTime? _forbidden_time = DateTime.Now;
+        private DateTime? _enable_time = DateTime.Now;
+        private DateTime? _modify_time = DateTime.Now;
 
 		/// <summary>
 		/// 职员ID

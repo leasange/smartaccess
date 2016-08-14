@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -125,6 +126,75 @@ namespace SmartAccess
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnCreateDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CheckInput())
+                {
+                    using (SqlConnection conn = DatabaseHelper.ConnectDatabase(GetInputConfig().ToString()))
+                    {
+                        MessageBox.Show("数据库已经存在！");
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    DoCreateDataBase();
+                    MessageBox.Show("创建数据库成功！");
+                }
+                catch (Exception exx)
+                {
+                    MessageBox.Show("创建数据库异常：" + exx.Message);
+                    return;
+                }
+            }
+        }
+        private void DoCreateDataBase()
+        {
+            DatabaseConfigClass config = GetInputConfig();
+            config.database = "master";
+            string sqlstring = config.ToString();
+             Stream s= this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database.smartaccess.sql");
+             StreamReader sr=new StreamReader(s,Encoding.UTF8);
+             string createDBSql = sr.ReadToEnd();
+             s.Dispose();
+             using (SqlConnection conn = DatabaseHelper.ConnectDatabase(sqlstring))
+             {
+                 string[] sqlList = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                 using (SqlCommand command = conn.CreateCommand())
+                 {
+                     command.CommandType = System.Data.CommandType.Text;
+                     command.CommandText = "select filename from sysdatabases where name='master'";//查询数据库路径
+                     SqlDataReader reader = command.ExecuteReader();
+                     if (!reader.Read())
+                     {
+                         throw  new Exception("数据库创建失败，为获取数据库到路径");
+                     }
+                     string dbpath = reader["filename"].ToString();
+                     dbpath = Path.GetDirectoryName(dbpath);
+                     reader.Dispose();
+                     int result;
+                     foreach (string sqlItem in sqlList)
+                     {
+                         string sql = sqlItem.Trim('\r', '\n', ' ');
+                         if (sql.Length > 2)
+                         {
+                             if (sql.Contains("CREATE DATABASE"))
+                             {
+                                 sql = sql.Replace("${DBPATH}", dbpath);
+                             }
+                             command.CommandText = sql;
+                             result = command.ExecuteNonQuery();
+                         }
+                     }
+                 }
+             }
         }
     }
 }

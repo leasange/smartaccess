@@ -43,6 +43,7 @@ namespace SmartAccess.Common.WinInfo
         {
 
         }
+        private Control father = null;
         public void Show(Control control,int delayMiniseconds=0)
         {
             try
@@ -53,21 +54,17 @@ namespace SmartAccess.Common.WinInfo
                 }
                 if (control != null)
                 {
+                    father = control;
                     if (delayMiniseconds > 0)
                     {
-                        Timer t = new Timer();
-                        t.Interval = delayMiniseconds;
-                        t.Tick += delegate(object sender, EventArgs e)
-                        {
-                            t.Stop();
-                            DoAction(control);
-                        };
-                        t.Start();
+                        timerShowBack.Interval = delayMiniseconds;
+                        timerShowBack.Start();
                     }
                     else
                     {
-                        DoAction(control);
+                        ShowBackground(control);
                     }
+                    DoAction(control);
                 }
             }
             catch (Exception ex)
@@ -75,18 +72,32 @@ namespace SmartAccess.Common.WinInfo
                 log.Error("显示异常：", ex);
             }
         }
+        private void ShowBackground(Control control)
+        {
+            if (!this.IsDisposed)
+            {
+                Bitmap bitmap = WinInfoHelper.GetWindowCapture(control);
+                this.BackgroundImage = bitmap;
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+                this.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
+                this.SetBounds(0, 0, control.ClientSize.Width, control.ClientSize.Height);
+                control.Controls.Add(this);
+                this.BringToFront();
+            }
+        }
 
+        private void timerShowBack_Tick(object sender, EventArgs e)
+        {
+            timerShowBack.Stop();
+            if (father != null&&!father.IsDisposed)
+            {
+                ShowBackground(father);
+            }
+        }
         private void DoAction(Control control)
         {
             try
             {
-                this.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
-                this.SetBounds(0, 0, control.ClientSize.Width, control.ClientSize.Height);
-                Bitmap bitmap = WinInfoHelper.GetWindowCapture(control);
-                this.BackgroundImage = bitmap;
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-                control.Controls.Add(this);
-                this.BringToFront();
                 _action.BeginInvoke(new AsyncCallback((o) =>
                 {
                     try
@@ -100,12 +111,20 @@ namespace SmartAccess.Common.WinInfo
                     }
                     try
                     {
-                        control.Invoke(new Action(() =>
+                        if (father!=null)
                         {
-                            control.Controls.Remove(this);
-                            bitmap.Dispose();
-                            this.Dispose();
-                        }));
+                            father.Invoke(new Action(() =>
+                            {
+                                father = null;
+                                timerShowBack.Stop();
+                                control.Controls.Remove(this);
+                                this.Dispose();
+                                if (this.BackgroundImage != null)
+                                {
+                                    this.BackgroundImage.Dispose();
+                                }
+                            }));
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -150,5 +169,6 @@ namespace SmartAccess.Common.WinInfo
             }
             base.WndProc(ref m);
         }
+
     }
 }

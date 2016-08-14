@@ -112,5 +112,11 @@ namespace SmartAccess.VerInfoMgr
         {
             _visibleId = id;
         }
+
+        private void tsmiRefresh_Click(object sender, EventArgs e)
+        {
+            deptAdvTree.Nodes.Clear();
+            LoadTree();
+        }
     }
 }

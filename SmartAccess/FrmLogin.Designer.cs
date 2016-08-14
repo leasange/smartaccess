@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.tbUserName = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -84,6 +85,7 @@
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(182, 23);
             this.tbUserName.TabIndex = 0;
+            this.tbUserName.Text = "admin";
             // 
             // tbPwd
             // 
@@ -95,8 +97,10 @@
             this.tbPwd.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbPwd.Location = new System.Drawing.Point(357, 134);
             this.tbPwd.Name = "tbPwd";
+            this.tbPwd.PasswordChar = '*';
             this.tbPwd.Size = new System.Drawing.Size(182, 23);
             this.tbPwd.TabIndex = 1;
+            this.tbPwd.Text = "admin";
             // 
             // btnLogin
             // 
@@ -157,10 +161,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::SmartAccess.Properties.Resources.读卡器;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 89);
+            this.pictureBox1.Image = global::SmartAccess.Properties.Resources.软件logo2;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 63);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(198, 145);
+            this.pictureBox1.Size = new System.Drawing.Size(198, 171);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
@@ -184,6 +188,7 @@
             this.Controls.Add(this.labelX1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmLogin";
