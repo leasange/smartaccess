@@ -48,21 +48,32 @@ namespace SmartAccess
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
-                Maticsoft.BLL.SMT_USER_INFO userbll = new Maticsoft.BLL.SMT_USER_INFO();
-                var users = userbll.GetModelList("USER_NAME='" + tbUserName.Text.Trim() + "' and IS_ENABLE=1 and IS_DELETE=0 and PASS_WORD= substring(sys.fn_sqlvarbasetostr(HashBytes('MD5','" + tbPwd.Text + "')),3,32)");
-                this.Invoke(new Action(() =>
+                try
+                {
+                    Maticsoft.BLL.SMT_USER_INFO userbll = new Maticsoft.BLL.SMT_USER_INFO();
+                    var users = userbll.GetModelList("USER_NAME='" + tbUserName.Text.Trim() + "' and IS_ENABLE=1 and IS_DELETE=0 and PASS_WORD= substring(sys.fn_sqlvarbasetostr(HashBytes('MD5','" + tbPwd.Text + "')),3,32)");
+                    this.Invoke(new Action(() =>
+                    {
+                        if (users.Count > 0)
                         {
-                            if (users.Count > 0)
-                            {
 
-                                DoEnter();
+                            DoEnter();
 
-                            }
-                            else
-                            {
-                                MessageBox.Show("不存在此用户！");
-                            }
-                        }));
+                        }
+                        else
+                        {
+                            MessageBox.Show("不存在此用户！");
+                        }
+                    }));
+                }
+                catch (System.Exception ex)
+                {
+                	this.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("登陆失败：" + ex.Message);
+                    }));
+                }
+
             });
             waiting.Show(this);
 
