@@ -134,10 +134,10 @@
             this.btnICMS.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnICMS.Location = new System.Drawing.Point(470, 204);
             this.btnICMS.Name = "btnICMS";
-            this.btnICMS.Size = new System.Drawing.Size(70, 30);
+            this.btnICMS.Size = new System.Drawing.Size(83, 30);
             this.btnICMS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnICMS.TabIndex = 4;
-            this.btnICMS.Text = "ICMS";
+            this.btnICMS.Text = "数据库配置";
             this.btnICMS.Click += new System.EventHandler(this.btnICMS_Click);
             // 
             // linkLabel1
