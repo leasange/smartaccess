@@ -55,6 +55,7 @@ namespace SmartAccess.Common.Datas
             Maticsoft.Model.SMT_CONTROLLER_INFO info = UpdateDBControllerIp(ctrlr);//如果存在则更新
             if (info!=null)
             {
+                info.DOOR_INFOS = DoorDataHelper.GetDoors();
                 return info;
             }
             info = ToInfo(ctrlr);
@@ -76,6 +77,7 @@ namespace SmartAccess.Common.Datas
                     break;
             }
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+            info.DOOR_INFOS = new List<Maticsoft.Model.SMT_DOOR_INFO>();
             for (int i = 0; i < count; i++)
             {
                 Maticsoft.Model.SMT_DOOR_INFO doorInfo = new Maticsoft.Model.SMT_DOOR_INFO();
@@ -86,6 +88,7 @@ namespace SmartAccess.Common.Datas
                 doorInfo.DOOR_NAME = "门_" + ctrlId + "_" + (i + 1);
                 doorInfo.DOOR_DESC = doorInfo.DOOR_NAME;
                 doorInfo.ID = doorBll.Add(doorInfo);
+                info.DOOR_INFOS.Add(doorInfo);
             }
             return info;
         }

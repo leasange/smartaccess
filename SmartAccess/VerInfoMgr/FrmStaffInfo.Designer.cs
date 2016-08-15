@@ -1171,7 +1171,7 @@
             this.btnSetCard.Name = "btnSetCard";
             this.btnSetCard.Size = new System.Drawing.Size(104, 28);
             this.btnSetCard.TabIndex = 26;
-            this.btnSetCard.Text = "保存并发卡";
+            this.btnSetCard.Text = "应用并发卡";
             this.btnSetCard.UseVisualStyleBackColor = true;
             this.btnSetCard.Click += new System.EventHandler(this.btnSetCard_Click);
             // 
@@ -1185,7 +1185,7 @@
             this.btnSave.Size = new System.Drawing.Size(99, 36);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSave.TabIndex = 27;
-            this.btnSave.Text = "保存";
+            this.btnSave.Text = "应用";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveAndUpload
@@ -1198,7 +1198,7 @@
             this.btnSaveAndUpload.Size = new System.Drawing.Size(99, 36);
             this.btnSaveAndUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSaveAndUpload.TabIndex = 27;
-            this.btnSaveAndUpload.Text = "保存并授权";
+            this.btnSaveAndUpload.Text = "应用并授权";
             this.btnSaveAndUpload.Click += new System.EventHandler(this.btnSaveAndUpload_Click);
             // 
             // btnClose

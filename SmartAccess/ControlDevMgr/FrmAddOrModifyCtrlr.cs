@@ -267,175 +267,183 @@ namespace SmartAccess.ControlDevMgr
         }
         private void DoSave(bool upload)
         {
-            if (!CheckInput())
+            try
             {
-                return;
-            }
-            Maticsoft.Model.SMT_CONTROLLER_INFO ctrlInfo = new Maticsoft.Model.SMT_CONTROLLER_INFO();
-            if (_ctrlr != null)
-            {
-                ctrlInfo.MAC = _ctrlr.MAC;
-                ctrlInfo.ID = _ctrlr.ID;
-                ctrlInfo.MASK = _ctrlr.MASK;
-                ctrlInfo.ORG_ID = _ctrlr.ORG_ID;
-                ctrlInfo.ORDER_VALUE = _ctrlr.ORDER_VALUE;
-                ctrlInfo.CTRLR_MODEL = _ctrlr.CTRLR_MODEL;
-                ctrlInfo.DRIVER_DATE = _ctrlr.DRIVER_DATE;
-                ctrlInfo.DRIVER_VERSION = _ctrlr.DRIVER_VERSION;
-                ctrlInfo.GATEWAY = _ctrlr.GATEWAY;
-            }
-            else
-            {
-                ctrlInfo.ID = -1;
-            }
-            ctrlInfo.SN_NO = tbCtrlrSn.Text.Trim();
-            ctrlInfo.IS_ENABLE = cbCtrlrEnable.Checked;
-            string name = tbCtrlName.Text.Trim();
-            if (name == "")
-            {
-                name = ctrlInfo.SN_NO;
-            }
-            ctrlInfo.NAME = name;
-            ctrlInfo.IP = ipCtrlr.Value;
-            ctrlInfo.PORT = iiPort.Value;
-            ctrlInfo.CTRLR_DESC = tbDesc.Text.Trim();
-            ctrlInfo.CTRLR_TYPE = (int)_lastType;
-            ctrlInfo.AREA_ID = -1;
-            if (cboTreeArea.SelectedNode != null && cboTreeArea.SelectedNode.Tag is Maticsoft.Model.SMT_CONTROLLER_ZONE)
-            {
-                var area = cboTreeArea.SelectedNode.Tag as Maticsoft.Model.SMT_CONTROLLER_ZONE;
-                ctrlInfo.AREA_ID = area.ID;
-                ctrlInfo.AREA_NAME = area.ZONE_NAME;
-            }
-
-            List<DoorNameAttriData> doorNameDatas = doorNameAttriGroup.GetDatas();
-            List<DoorReaderAttriData> doorReaderDatas = doorReaderAttriGroup.GetDatas();
-            List<Maticsoft.Model.SMT_DOOR_INFO> doors = new List<Maticsoft.Model.SMT_DOOR_INFO>();
-            foreach (var item in doorNameDatas)
-            {
-                Maticsoft.Model.SMT_DOOR_INFO door = new Maticsoft.Model.SMT_DOOR_INFO();
-                door.CTRL_ID = ctrlInfo.ID;
-                door.CTRL_DELAY_TIME = item.doorSecond;
-                door.CTRL_DOOR_INDEX = item.doorNo;
-                door.CTRL_STYLE = item.doorCtrlType;
+                if (!CheckInput())
+                {
+                    return;
+                }
+                Maticsoft.Model.SMT_CONTROLLER_INFO ctrlInfo = new Maticsoft.Model.SMT_CONTROLLER_INFO();
                 if (_ctrlr != null)
                 {
-                    var old = _ctrlr.DOOR_INFOS.Find(m => m.CTRL_DOOR_INDEX == item.doorNo);
-                    if (old != null)
-                    {
-                        door.ID = old.ID;
-                        door.DOOR_DESC = old.DOOR_DESC;
-                    }
+                    ctrlInfo.MAC = _ctrlr.MAC;
+                    ctrlInfo.ID = _ctrlr.ID;
+                    ctrlInfo.MASK = _ctrlr.MASK;
+                    ctrlInfo.ORG_ID = _ctrlr.ORG_ID;
+                    ctrlInfo.ORDER_VALUE = _ctrlr.ORDER_VALUE;
+                    ctrlInfo.CTRLR_MODEL = _ctrlr.CTRLR_MODEL;
+                    ctrlInfo.DRIVER_DATE = _ctrlr.DRIVER_DATE;
+                    ctrlInfo.DRIVER_VERSION = _ctrlr.DRIVER_VERSION;
+                    ctrlInfo.GATEWAY = _ctrlr.GATEWAY;
                 }
                 else
                 {
-                    door.ID = -1;
-                    door.DOOR_DESC = "";
+                    ctrlInfo.ID = -1;
                 }
-                door.DOOR_NAME = item.doorName;
-                DoorReaderAttriData reader1 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && m.isEnter1);
-                DoorReaderAttriData reader2 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && !m.isEnter1);
-                door.IS_ATTENDANCE1 = reader1 == null ? false : reader1.isAttend;
-                door.IS_ATTENDANCE2 = reader2 == null ? false : reader2.isAttend;
-                door.IS_ENABLE = item.doorEnable;
-                door.IS_ENTER1 = reader1 == null ? false : reader1.isEnter;
-                door.IS_ENTER2 = reader2 == null ? false : reader2.isEnter;
-                doors.Add(door);
-            }
-            CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
-            {
-                try
+                ctrlInfo.SN_NO = tbCtrlrSn.Text.Trim();
+                ctrlInfo.IS_ENABLE = cbCtrlrEnable.Checked;
+                string name = tbCtrlName.Text.Trim();
+                if (name == "")
                 {
-                    Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-                    var exists = ctrlBll.GetModelList("SN_NO='" + ctrlInfo.SN_NO + "'");
+                    name = ctrlInfo.SN_NO;
+                }
+                ctrlInfo.NAME = name;
+                ctrlInfo.IP = ipCtrlr.Value;
+                ctrlInfo.PORT = iiPort.Value;
+                ctrlInfo.CTRLR_DESC = tbDesc.Text.Trim();
+                ctrlInfo.CTRLR_TYPE = (int)_lastType;
+                ctrlInfo.AREA_ID = -1;
+                if (cboTreeArea.SelectedNode != null && cboTreeArea.SelectedNode.Tag is Maticsoft.Model.SMT_CONTROLLER_ZONE)
+                {
+                    var area = cboTreeArea.SelectedNode.Tag as Maticsoft.Model.SMT_CONTROLLER_ZONE;
+                    ctrlInfo.AREA_ID = area.ID;
+                    ctrlInfo.AREA_NAME = area.ZONE_NAME;
+                }
 
-                    if (ctrlInfo.ID != -1)
+                List<DoorNameAttriData> doorNameDatas = doorNameAttriGroup.GetDatas();
+                List<DoorReaderAttriData> doorReaderDatas = doorReaderAttriGroup.GetDatas();
+                List<Maticsoft.Model.SMT_DOOR_INFO> doors = new List<Maticsoft.Model.SMT_DOOR_INFO>();
+                foreach (var item in doorNameDatas)
+                {
+                    Maticsoft.Model.SMT_DOOR_INFO door = new Maticsoft.Model.SMT_DOOR_INFO();
+                    door.CTRL_ID = ctrlInfo.ID;
+                    door.CTRL_DELAY_TIME = item.doorSecond;
+                    door.CTRL_DOOR_INDEX = item.doorNo;
+                    door.CTRL_STYLE = item.doorCtrlType;
+                    if (_ctrlr != null)
                     {
-                        if (exists.Count > 0)
+                        var old = _ctrlr.DOOR_INFOS.Find(m => m.CTRL_DOOR_INDEX == item.doorNo);
+                        if (old != null)
                         {
-                            if (exists[0].ID != ctrlInfo.ID)
+                            door.ID = old.ID;
+                            door.DOOR_DESC = old.DOOR_DESC;
+                        }
+                    }
+                    else
+                    {
+                        door.ID = -1;
+                        door.DOOR_DESC = "";
+                    }
+                    door.DOOR_NAME = item.doorName;
+                    DoorReaderAttriData reader1 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && m.isEnter1);
+                    DoorReaderAttriData reader2 = doorReaderDatas.Find(m => m.doorNo == item.doorNo && !m.isEnter1);
+                    door.IS_ATTENDANCE1 = reader1 == null ? false : reader1.isAttend;
+                    door.IS_ATTENDANCE2 = reader2 == null ? false : reader2.isAttend;
+                    door.IS_ENABLE = item.doorEnable;
+                    door.IS_ENTER1 = reader1 == null ? false : reader1.isEnter;
+                    door.IS_ENTER2 = reader2 == null ? false : reader2.isEnter;
+                    doors.Add(door);
+                }
+                CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
+                {
+                    try
+                    {
+                        Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                        var exists = ctrlBll.GetModelList("SN_NO='" + ctrlInfo.SN_NO + "'");
+
+                        if (ctrlInfo.ID != -1)
+                        {
+                            if (exists.Count > 0)
+                            {
+                                if (exists[0].ID != ctrlInfo.ID)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
+                                    return;
+                                }
+                            }
+                            ctrlBll.Update(ctrlInfo);
+                            ctrlInfo.DOOR_INFOS = _ctrlr.DOOR_INFOS;
+                            _ctrlr = ctrlInfo;
+                        }
+                        else
+                        {
+                            if (exists.Count > 0)
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
                                 return;
                             }
+                            ctrlInfo.ID = ctrlBll.Add(ctrlInfo);
+                            _ctrlr = ctrlInfo;
                         }
-                        ctrlBll.Update(ctrlInfo);
-                        ctrlInfo.DOOR_INFOS = _ctrlr.DOOR_INFOS;
-                        _ctrlr = ctrlInfo;
-                    }
-                    else
-                    {
-                        if (exists.Count > 0)
-                        {
-                            WinInfoHelper.ShowInfoWindow(this, "已存在控制器序列号：" + ctrlInfo.SN_NO);
-                            return;
-                        }
-                        ctrlInfo.ID = ctrlBll.Add(ctrlInfo);
-                        _ctrlr = ctrlInfo;
-                    }
-                    Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
-                    
-                    foreach (var item in doors)
-                    {
-                        var edoors = doorBll.GetModelList("CTRL_ID=" + ctrlInfo.ID + " and " + " CTRL_DOOR_INDEX=" + item.CTRL_DOOR_INDEX);
-                        if (edoors.Count > 0)
-                        {
-                            item.ID = edoors[0].ID;
-                            doorBll.Update(item);
-                        }
-                        else
-                        {
-                            item.CTRL_ID = ctrlInfo.ID;
-                            item.ID = doorBll.Add(item);
-                        }
-                    }
-                    _ctrlr.DOOR_INFOS = doors;
+                        Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
 
-                    if (upload)
-                    {
-                        string errMsg = null;
-                        if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors))
+                        foreach (var item in doors)
                         {
-                            if (errMsg!="")
+                            var edoors = doorBll.GetModelList("CTRL_ID=" + ctrlInfo.ID + " and " + " CTRL_DOOR_INDEX=" + item.CTRL_DOOR_INDEX);
+                            if (edoors.Count > 0)
+                            {
+                                item.ID = edoors[0].ID;
+                                doorBll.Update(item);
+                            }
+                            else
+                            {
+                                item.CTRL_ID = ctrlInfo.ID;
+                                item.ID = doorBll.Add(item);
+                            }
+                        }
+                        _ctrlr.DOOR_INFOS = doors;
+
+                        if (upload)
+                        {
+                            string errMsg = null;
+                            if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors))
+                            {
+                                if (errMsg != "")
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
+                                    return;
+                                }
+                            }
+                            else
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
                                 return;
                             }
-                        }
-                        else
-                        {
-                            WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
-                            return;
-                        }
-                        Controller c = ControllerHelper.ToController(_ctrlr);
-                        //设置门控制方式
-                        foreach (var item in doors)
-                        {
-                            using (IAccessCore access = new WGAccess())
+                            Controller c = ControllerHelper.ToController(_ctrlr);
+                            //设置门控制方式
+                            foreach (var item in doors)
                             {
-                                bool ret = access.SetDoorControlStyle(c, (int)item.CTRL_DOOR_INDEX, (DoorControlStyle)item.CTRL_STYLE, item.CTRL_DELAY_TIME);
-                                if (!ret)
+                                using (IAccessCore access = new WGAccess())
                                 {
-                                    WinInfoHelper.ShowInfoWindow(this, "上传门控制方式失败！");
-                                    return;
+                                    bool ret = access.SetDoorControlStyle(c, (int)item.CTRL_DOOR_INDEX, (DoorControlStyle)item.CTRL_STYLE, item.CTRL_DELAY_TIME);
+                                    if (!ret)
+                                    {
+                                        WinInfoHelper.ShowInfoWindow(this, "上传门控制方式失败！");
+                                        return;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    this.Invoke(new Action(() =>
+                        this.Invoke(new Action(() =>
+                        {
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }));
+                    }
+                    catch (Exception ex)
                     {
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }));
-                }
-                catch (Exception ex)
-                {
-                    log.Error("保存异常：" + ex.Message, ex);
-                    WinInfoHelper.ShowInfoWindow(this, "保存异常：" + ex.Message);
-                }
-            });
-            ctrlWaiting.Show(this);
+                        log.Error("保存异常：" + ex.Message, ex);
+                        WinInfoHelper.ShowInfoWindow(this, "保存异常：" + ex.Message);
+                    }
+                });
+                ctrlWaiting.Show(this);
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "保存异常：" + ex.Message);
+                log.Error("保存异常：" + ex.Message, ex);
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)

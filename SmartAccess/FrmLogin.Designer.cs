@@ -171,6 +171,7 @@
             this.btnClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "x";
+            this.btnClose.Tooltip = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // FrmLogin
@@ -199,6 +200,8 @@
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "欢迎登陆门禁系统";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmLogin_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmLogin_MouseMove);
             this.ResumeLayout(false);
             this.PerformLayout();
 

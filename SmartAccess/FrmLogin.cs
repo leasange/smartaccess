@@ -120,5 +120,28 @@ namespace SmartAccess
         {
             this.Close();
         }
+
+        private Point downPosition = Point.Empty;
+        //private bool moving = false;
+        private void FrmLogin_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left )
+            {
+                Point p = this.Location;
+               // moving = true;
+                Point m = Cursor.Position;
+                this.Location = new Point(p.X + m.X - downPosition.X, p.Y + m.Y - downPosition.Y);
+                //moving = false;
+                downPosition = m;
+            }
+        }
+
+        private void FrmLogin_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button== System.Windows.Forms.MouseButtons.Left)
+            {
+                downPosition = Cursor.Position;
+            }
+        }
     }
 }

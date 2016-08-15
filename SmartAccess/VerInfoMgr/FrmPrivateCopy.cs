@@ -208,43 +208,56 @@ namespace SmartAccess.VerInfoMgr
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 Maticsoft.BLL.SMT_STAFF_DOOR sdbll = new Maticsoft.BLL.SMT_STAFF_DOOR();
-                foreach (var item in staffInfos)
+                try
                 {
-                    var olddoors= sdbll.GetModelList("STAFF_ID=" + item.ID);
-                    var notexist = olddoors.FindAll(m =>
+                    foreach (var item in staffInfos)
+                    {
+                        var olddoors = sdbll.GetModelList("STAFF_ID=" + item.ID);
+                        var notexist = olddoors.FindAll(m =>
                         {
                             return !_staffDoors.Exists(n => n.DOOR_ID == m.DOOR_ID);
                         });
-                    foreach (var old in notexist)
-                    {
-                        sdbll.Delete(old.STAFF_ID, old.DOOR_ID);
-                        olddoors.Remove(old);
-                    }
-                    notexist = _staffDoors.FindAll(m =>
-                    {
-                        return !olddoors.Exists(n => n.DOOR_ID == m.DOOR_ID);
-                    });
-                    foreach (var newdoor in notexist)
-                    {
-                        sdbll.Add(new Maticsoft.Model.SMT_STAFF_DOOR()
+                        foreach (var old in notexist)
+                        {
+                            sdbll.Delete(old.STAFF_ID, old.DOOR_ID);
+                            olddoors.Remove(old);
+                        }
+                        notexist = _staffDoors.FindAll(m =>
+                        {
+                            return !olddoors.Exists(n => n.DOOR_ID == m.DOOR_ID);
+                        });
+                        foreach (var newdoor in notexist)
+                        {
+                            sdbll.Add(new Maticsoft.Model.SMT_STAFF_DOOR()
                             {
                                 ADD_TIME = DateTime.Now,
                                 IS_UPLOAD = false,
                                 STAFF_ID = item.ID,
                                 UPLOAD_TIME = DateTime.Now,
-                                DOOR_ID=newdoor.DOOR_ID
+                                DOOR_ID = newdoor.DOOR_ID
                             });
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "保存成功异常：" + ex.Message);
+                    log.Error("保存异常：", ex);
+                    return;
                 }
                 if (isupload)
                 {
-                    string errMsg="";
-                   bool ret=  UploadPrivate.Upload(staffInfos, out  errMsg);
-                   if (!ret||!string.IsNullOrWhiteSpace(errMsg))
-                   {
-                       WinInfoHelper.ShowInfoWindow(this, "保存成功但权限上传异常：" + errMsg);
-                   }
+                    string errMsg = "";
+                    bool ret = UploadPrivate.Upload(staffInfos, out  errMsg);
+                    if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "保存成功，部分权限上传异常：" + errMsg);
+                    }
                 }
+                this.Invoke(new Action(() =>
+                    {
+                        this.Close();
+                    }));
             });
             waiting.Show(this);
         }

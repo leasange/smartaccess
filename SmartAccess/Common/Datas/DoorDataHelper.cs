@@ -19,6 +19,11 @@ namespace SmartAccess.Common.Datas
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
             return doorBll.GetModelListWithArea("");
         }
+        public static List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors(string ctrlId)
+        {
+            Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+            return doorBll.GetModelList("CTRL_ID=" + ctrlId);
+        }
         private static void CreateDoorTree(List<Node> nodes, List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             foreach (var item in nodes)

@@ -512,6 +512,7 @@ namespace SmartAccess.VerInfoMgr
                                                                 }
                                                                 str = str.TrimEnd(';');
                                                                 old.Cells[3].Value = str;
+                                                                old.Cells[4].Value = staff.CARDS.Count;
                                                                 break;
                                                             }
                                                         }
@@ -544,6 +545,7 @@ namespace SmartAccess.VerInfoMgr
                                             {
                                                 staffInfo.DELETE_CARD = false;
                                                 row.Cells[3].Value = cardInfo.CARD_NO;
+                                                row.Cells[4].Value = 1;
                                             }));
                                         }
                                     }
@@ -592,6 +594,7 @@ namespace SmartAccess.VerInfoMgr
                                         {
                                             staffInfo.DELETE_CARD = false;
                                             row.Cells[3].Value = cardInfo.CARD_NO;
+                                            row.Cells[4].Value = 1;
                                         }));
                                     }
                                 }
@@ -614,6 +617,7 @@ namespace SmartAccess.VerInfoMgr
                                 staffInfo.CARDS.Clear();
                                 staffInfo.DELETE_CARD = false;
                                 row.Cells[3].Value = "未发卡";
+                                row.Cells[4].Value = 0;
                             }));
                         }
                         else
