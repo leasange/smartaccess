@@ -74,6 +74,7 @@ namespace SmartAccess.Common.Datas
         {
             DevComponents.AdvTree.Node node = new DevComponents.AdvTree.Node(dept.ORG_NAME + " [" + dept.ORG_CODE + "]");
             node.Tag = dept;
+            node.Image = Properties.Resources.添加下级部门;
             node.Tooltip = dept.ORG_NAME + " [" + dept.ORG_CODE+"]";
             return node;
         }

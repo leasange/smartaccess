@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeptMgr));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -40,6 +39,7 @@
             this.biModifyDept = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteDept = new DevComponents.DotNetBar.ButtonItem();
             this.biMoveDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biDownloadDeptModel = new DevComponents.DotNetBar.ButtonItem();
             this.biInput = new DevComponents.DotNetBar.ButtonItem();
             this.biOutput = new DevComponents.DotNetBar.ButtonItem();
             this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -47,6 +47,10 @@
             this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
             this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
+            this.dgvUsers = new Li.Controls.DataGridViewEx();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
@@ -54,11 +58,6 @@
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
-            this.biDownloadDeptModel = new DevComponents.DotNetBar.ButtonItem();
-            this.dgvUsers = new Li.Controls.DataGridViewEx();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.ctxMenu.SuspendLayout();
@@ -83,7 +82,7 @@
             this.biOutput});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(943, 28);
+            this.bar1.Size = new System.Drawing.Size(943, 29);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 2;
@@ -93,7 +92,7 @@
             // biRefreshDept
             // 
             this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefreshDept.Image = ((System.Drawing.Image)(resources.GetObject("biRefreshDept.Image")));
+            this.biRefreshDept.Image = global::SmartAccess.Properties.Resources.刷新;
             this.biRefreshDept.Name = "biRefreshDept";
             this.biRefreshDept.Text = "刷新";
             this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
@@ -101,16 +100,16 @@
             // biAddDept
             // 
             this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddDept.Image")));
+            this.biAddDept.Image = global::SmartAccess.Properties.Resources.增加部门;
             this.biAddDept.Name = "biAddDept";
-            this.biAddDept.Text = "添加跟级或同级部门";
-            this.biAddDept.Tooltip = "添加跟级或同级部门";
+            this.biAddDept.Text = "添加根级或同级部门";
+            this.biAddDept.Tooltip = "添加根级或同级部门";
             this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
             // 
             // biAddSubDept
             // 
             this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubDept.Image = ((System.Drawing.Image)(resources.GetObject("biAddSubDept.Image")));
+            this.biAddSubDept.Image = global::SmartAccess.Properties.Resources.添加下级部门;
             this.biAddSubDept.Name = "biAddSubDept";
             this.biAddSubDept.Text = "添加下级部门";
             this.biAddSubDept.Tooltip = "添加下级部门";
@@ -119,7 +118,7 @@
             // biModifyDept
             // 
             this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyDept.Image = ((System.Drawing.Image)(resources.GetObject("biModifyDept.Image")));
+            this.biModifyDept.Image = global::SmartAccess.Properties.Resources.修改部门;
             this.biModifyDept.Name = "biModifyDept";
             this.biModifyDept.Text = "修改部门";
             this.biModifyDept.Tooltip = "修改选择部门";
@@ -128,7 +127,7 @@
             // biDeleteDept
             // 
             this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteDept.Image = ((System.Drawing.Image)(resources.GetObject("biDeleteDept.Image")));
+            this.biDeleteDept.Image = global::SmartAccess.Properties.Resources.删除;
             this.biDeleteDept.Name = "biDeleteDept";
             this.biDeleteDept.Text = "删除部门";
             this.biDeleteDept.Tooltip = "删除选择部门";
@@ -137,15 +136,23 @@
             // biMoveDept
             // 
             this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biMoveDept.Image = ((System.Drawing.Image)(resources.GetObject("biMoveDept.Image")));
+            this.biMoveDept.Image = global::SmartAccess.Properties.Resources.移动部门;
             this.biMoveDept.Name = "biMoveDept";
             this.biMoveDept.Text = "移动部门";
             this.biMoveDept.Click += new System.EventHandler(this.biMoveDept_Click);
             // 
+            // biDownloadDeptModel
+            // 
+            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDownloadDeptModel.Image = global::SmartAccess.Properties.Resources.模板下载;
+            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
+            this.biDownloadDeptModel.Text = "模板下载";
+            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
+            // 
             // biInput
             // 
             this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biInput.Image = ((System.Drawing.Image)(resources.GetObject("biInput.Image")));
+            this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
             this.biInput.Name = "biInput";
             this.biInput.Text = "导入所有部门";
             this.biInput.Click += new System.EventHandler(this.biInput_Click);
@@ -153,7 +160,7 @@
             // biOutput
             // 
             this.biOutput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOutput.Image = ((System.Drawing.Image)(resources.GetObject("biOutput.Image")));
+            this.biOutput.Image = global::SmartAccess.Properties.Resources.导出;
             this.biOutput.Name = "biOutput";
             this.biOutput.Text = "导出所有部门";
             this.biOutput.Click += new System.EventHandler(this.biOutput_Click);
@@ -201,10 +208,10 @@
             this.panelEx2.Controls.Add(this.tbSelectDeptPath);
             this.panelEx2.Controls.Add(this.labelX6);
             this.panelEx2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEx2.Location = new System.Drawing.Point(249, 28);
+            this.panelEx2.Location = new System.Drawing.Point(249, 29);
             this.panelEx2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelEx2.Name = "panelEx2";
-            this.panelEx2.Size = new System.Drawing.Size(694, 447);
+            this.panelEx2.Size = new System.Drawing.Size(694, 446);
             this.panelEx2.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx2.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -213,6 +220,71 @@
             this.panelEx2.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelEx2.Style.GradientAngle = 90;
             this.panelEx2.TabIndex = 7;
+            // 
+            // dgvUsers
+            // 
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column3,
+            this.Column1,
+            this.Column2});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvUsers.EnableHeadersVisualStyles = false;
+            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvUsers.Location = new System.Drawing.Point(20, 117);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvUsers.RowTemplate.Height = 23;
+            this.dgvUsers.Size = new System.Drawing.Size(671, 326);
+            this.dgvUsers.TabIndex = 2;
+            this.dgvUsers.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "人员编号";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "姓名";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "所属部门";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // tbDeptName
             // 
@@ -313,86 +385,13 @@
             this.labelX6.TabIndex = 0;
             this.labelX6.Text = "选定部门";
             // 
-            // biDownloadDeptModel
-            // 
-            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDownloadDeptModel.Image = ((System.Drawing.Image)(resources.GetObject("biDownloadDeptModel.Image")));
-            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
-            this.biDownloadDeptModel.Text = "模板下载";
-            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
-            // 
-            // dgvUsers
-            // 
-            this.dgvUsers.AllowUserToAddRows = false;
-            this.dgvUsers.AllowUserToDeleteRows = false;
-            this.dgvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column3,
-            this.Column1,
-            this.Column2});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvUsers.EnableHeadersVisualStyles = false;
-            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.dgvUsers.Location = new System.Drawing.Point(20, 117);
-            this.dgvUsers.Name = "dgvUsers";
-            this.dgvUsers.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvUsers.RowTemplate.Height = 23;
-            this.dgvUsers.Size = new System.Drawing.Size(671, 327);
-            this.dgvUsers.TabIndex = 2;
-            this.dgvUsers.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "人员编号";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "姓名";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "所属部门";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
             // deptTree
             // 
             this.deptTree.Dock = System.Windows.Forms.DockStyle.Left;
-            this.deptTree.Location = new System.Drawing.Point(0, 28);
+            this.deptTree.Location = new System.Drawing.Point(0, 29);
             this.deptTree.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(249, 447);
+            this.deptTree.Size = new System.Drawing.Size(249, 446);
             this.deptTree.TabIndex = 6;
             // 
             // DeptMgr

@@ -50,12 +50,12 @@ namespace SmartAccess.Common.Datas
             ctrlr.sn = info.SN_NO;
             return ctrlr;
         }
-        public static decimal AddController(Controller ctrlr)
+        public static Maticsoft.Model.SMT_CONTROLLER_INFO AddController(Controller ctrlr)
         {
             Maticsoft.Model.SMT_CONTROLLER_INFO info = UpdateDBControllerIp(ctrlr);//如果存在则更新
             if (info!=null)
             {
-                return info.ID;
+                return info;
             }
             info = ToInfo(ctrlr);
             Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
@@ -87,7 +87,7 @@ namespace SmartAccess.Common.Datas
                 doorInfo.DOOR_DESC = doorInfo.DOOR_NAME;
                 doorInfo.ID = doorBll.Add(doorInfo);
             }
-            return ctrlId;
+            return info;
         }
 
         public static Maticsoft.Model.SMT_CONTROLLER_INFO UpdateDBControllerIp(Controller ctrlr)

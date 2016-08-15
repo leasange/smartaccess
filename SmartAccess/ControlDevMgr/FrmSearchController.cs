@@ -17,6 +17,7 @@ namespace SmartAccess.ControlDevMgr
     public partial class FrmSearchController : DevComponents.DotNetBar.Office2007Form
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmSearchController));
+        public bool Changed = false;
         public FrmSearchController()
         {
             InitializeComponent();
@@ -93,9 +94,23 @@ namespace SmartAccess.ControlDevMgr
             {
                 try
                 {
-                    ControllerHelper.AddController(ctrlr);
-                    log.Info("添加控制器成功：" + ctrlr.sn + "," + ctrlr.ip);
-                    WinInfoHelper.ShowInfoWindow(this, "添加/更新控制器成功！");
+                    Maticsoft.Model.SMT_CONTROLLER_INFO info = ControllerHelper.AddController(ctrlr);
+                    if (info!=null)
+                    {
+                        log.Info("添加控制器成功：" + ctrlr.sn + "," + ctrlr.ip);
+                        WinInfoHelper.ShowInfoWindow(this, "添加/更新控制器成功，请编辑控制器参数.");
+                        Changed = true;
+                        this.Invoke(new Action(() =>
+                            {
+                                FrmAddOrModifyCtrlr modify = new FrmAddOrModifyCtrlr(info);
+                                modify.ShowDialog(this);
+                            }));
+                    }
+                    else
+                    {
+                        log.Warn("添加控制器失败：" + ctrlr.sn + "," + ctrlr.ip);
+                        WinInfoHelper.ShowInfoWindow(this, "添加/更新控制器失败！");  
+                    }
                 }
                 catch (Exception ex)
                 {

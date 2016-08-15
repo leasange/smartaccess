@@ -103,6 +103,16 @@ namespace SmartAccess.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap loginbk {
+            get {
+                object obj = ResourceManager.GetObject("loginbk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap menuback {
             get {
                 object obj = ResourceManager.GetObject("menuback", resourceCulture);
@@ -436,6 +446,16 @@ namespace SmartAccess.Properties {
         internal static System.Drawing.Bitmap 证件管理 {
             get {
                 object obj = ResourceManager.GetObject("证件管理", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 读卡 {
+            get {
+                object obj = ResourceManager.GetObject("读卡", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

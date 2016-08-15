@@ -305,6 +305,10 @@ namespace SmartAccess.ControlDevMgr
         {
             FrmSearchController search = new FrmSearchController();
             search.ShowDialog(this);
+            if (search.Changed)
+            {
+                Init(0);
+            }
         }
 
         private void btnAddCtrlr_Click(object sender, EventArgs e)

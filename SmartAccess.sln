@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera_NET", "Camera_Net\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectShowLib-2010", "DirectShowLib\DirectShowLib-2010.csproj", "{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartServiceConfig", "SmartServiceConfig\SmartServiceConfig.csproj", "{19DEA712-F219-4550-91F1-A1AB97F49F03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DEA712-F219-4550-91F1-A1AB97F49F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DEA712-F219-4550-91F1-A1AB97F49F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DEA712-F219-4550-91F1-A1AB97F49F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DEA712-F219-4550-91F1-A1AB97F49F03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE} = {A71586AE-CD93-4D85-913B-FB1FE09FC2A0}
 		{C906ADFF-96AF-4219-B106-1CC1241328E0} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
 		{7BF27748-B5CE-4D86-957C-4DAF1B628431} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
+		{19DEA712-F219-4550-91F1-A1AB97F49F03} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
 	EndGlobalSection
 EndGlobal

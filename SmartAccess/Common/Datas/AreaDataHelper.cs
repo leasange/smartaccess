@@ -58,6 +58,7 @@ namespace SmartAccess.Common.Datas
         {
             DevComponents.AdvTree.Node node = new DevComponents.AdvTree.Node(area.ZONE_NAME);
             node.Tag = area;
+            node.Image = Properties.Resources.添加下级区域;
             node.Tooltip = area.ZONE_DESC;
             return node;
         }

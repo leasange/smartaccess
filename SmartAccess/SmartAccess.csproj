@@ -638,6 +638,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo1.ico" />
+    <None Include="Resources\loginbk.png" />
+    <None Include="Resources\读卡.png" />
     <None Include="Resources\企业logo.png" />
     <None Include="Resources\软件logo2.png" />
     <None Include="Resources\软件logo1.png" />
