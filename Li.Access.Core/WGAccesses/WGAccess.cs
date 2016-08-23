@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,14 +12,18 @@ namespace Li.Access.Core.WGAccesses
     public class WGAccess :AccessCore, IAccessCore
     {
         private static object lockPortObj = new object();//绑定端口锁定
-        private void DoBindPort()
+        private void DoBindPort(bool multi=false)
         {
             lock (lockPortObj)
             {
                 int port = DataHelper.GetNextAvailableNetPort(20000);
                 if (port >= 0)
                 {
-                    this.Bind(port);
+                    if (multi)
+                    {
+                        this.MultiBinds(port);
+                    }
+                    else this.Bind(port);
                 }
                 //this.Bind(61003);
                 else
@@ -27,11 +32,11 @@ namespace Li.Access.Core.WGAccesses
                 }
             }
         }
-        private void BindPort()
+        private void BindPort(bool ismulti=false)
         {
             if (!isBeginReadRecord)
             {
-                DoBindPort();
+                DoBindPort(ismulti);
             }
         }
         public Dictionary<IPEndPoint, byte[]> WGRecieveFrom(int maxCount = -1)
@@ -64,10 +69,15 @@ namespace Li.Access.Core.WGAccesses
         }
         private bool DoSend(WGPacket packet, string controllerIp = null,int controllerPort=60000)
         {
-            BindPort();
+            
             if (string.IsNullOrWhiteSpace(controllerIp))
             {
+                BindPort(true);
                 controllerIp = "255.255.255.255";
+            }
+            else
+            {
+                BindPort();
             }
             if (controllerPort<=0)
             {

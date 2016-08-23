@@ -107,8 +107,8 @@ namespace SmartAccess.VerInfoMgr
                 _staffInfo.CELL_PHONE = tbCellPhone.Text;
                 _staffInfo.TELE_PHONE = tbTelphone.Text;
                 _staffInfo.EMAIL = tbEmail.Text;
-                _staffInfo.VALID_STARTTIME = dtValidTimeStart.Value;
-                _staffInfo.VALID_ENDTIME = dtValidTimeEnd.Value;
+                _staffInfo.VALID_STARTTIME = dtValidTimeStart.Value.Date;
+                _staffInfo.VALID_ENDTIME = new DateTime(dtValidTimeEnd.Value.Year, dtValidTimeEnd.Value.Month, dtValidTimeEnd.Value.Day, 23, 59, 59);
                 _staffInfo.ADDRESS = tbAddress.Text;
                 _staffInfo.NATIVE = tbJiGuan.Text;
                 _staffInfo.NATION = tbMinZu.Text;
@@ -120,7 +120,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 else
                 {
-                    _staffInfo.ENTRY_TIME = dtTimeIn.Value;
+                    _staffInfo.ENTRY_TIME = dtTimeIn.Value.Date;
                 }
                 if (dtTimeOut.ValueObject == null)
                 {
@@ -128,7 +128,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 else
                 {
-                    _staffInfo.ABORT_TIME = dtTimeOut.Value;
+                    _staffInfo.ABORT_TIME = new DateTime(dtTimeOut.Value.Year, dtTimeOut.Value.Month, dtTimeOut.Value.Day, 23, 59, 59);
                 }
 
                 try

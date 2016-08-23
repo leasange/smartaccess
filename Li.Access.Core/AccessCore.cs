@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using System.Threading;
 
 namespace Li.Access.Core
 {
     public class AccessCore:IDisposable
     {
-        public Socket socket;
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(AccessCore));
+        public Socket socket=null;
+        public List<Socket> _multisockets = new List<Socket>();
         public Exception exception;
         public AccessCore()
         { }
@@ -18,7 +21,7 @@ namespace Li.Access.Core
         /// </summary>
         /// <param name="localPort"></param>
         /// <param name="protocol"></param>
-        public bool Bind(int localPort,ProtocolType protocol = ProtocolType.Udp)
+        public bool Bind(int localPort, ProtocolType protocol = ProtocolType.Udp)
         {
             if (protocol == ProtocolType.Udp)
             {
@@ -32,23 +35,100 @@ namespace Li.Access.Core
             socket.Bind(endPoint);
             return true;
         }
+        public bool MultiBinds(int localPort, ProtocolType protocol = ProtocolType.Udp)
+        {
+            _multisockets.Clear();
+            var addrs = Dns.GetHostAddresses(Dns.GetHostName());
+            var addrsg = addrs.ToList().GroupBy(m => m.ToString());
+            Socket s;
+            foreach (var item in addrsg)
+            {
+                var addr = item.ToList()[0];
+                if (addr.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    if (protocol == ProtocolType.Udp)
+                    {
+                        s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, protocol);
+                    }
+                    else
+                    {
+                        s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, protocol);
+                    }
+                    IPEndPoint endPoint = new IPEndPoint(addr, localPort);
+                    s.Bind(endPoint);
+                    _multisockets.Add(s);
+                }
+            }
+            return _multisockets.Count > 0;
+        }
+
         public bool SendTo(byte[] datas,string ip,int port)
         {
-            if (socket != null)
+            IPEndPoint endPoint = null;
+            if (ip == "255.255.255.255")//广播
             {
-               // SocketFlags flag = SocketFlags.None;
-                if (ip=="255.255.255.255")
+                endPoint = new IPEndPoint(IPAddress.Broadcast, port);
+                foreach (var item in _multisockets)
                 {
-                    socket.EnableBroadcast = true;
+                    item.EnableBroadcast = true;
+                    item.ReceiveTimeout = 3000;
+                    item.SendTo(datas, endPoint);
                 }
-                socket.ReceiveTimeout = 3000;
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-                int count = socket.SendTo(datas, endPoint);
-                return count == datas.Length;
             }
-            return false;
+            else
+            {
+                endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+                socket.ReceiveTimeout = 3000;
+                socket.SendTo(datas, endPoint);
+            }
+            return true;
         }
         public Dictionary<IPEndPoint,byte[]> RecieveFrom(int bufferLength,int maxCount=-1)
+        {
+            if (_multisockets.Count>0)
+            {
+                Dictionary<IPEndPoint, byte[]> dic = new Dictionary<IPEndPoint, byte[]>();
+                List<ManualResetEvent> evets = new List<ManualResetEvent>();
+                foreach (var item in _multisockets)
+                {
+                    ManualResetEvent evet = new ManualResetEvent(false);
+                    evets.Add(evet);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
+                        {
+                            var dics = DoRecieveFrom(item, bufferLength, maxCount);
+                            lock (dic)
+                            {
+                                foreach (var d in dics)
+                                {
+                                    dic.Add(d.Key, d.Value);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("结束接收！"+ex.Message);
+                        }
+                        finally
+                        {
+                            evet.Set();
+                        }
+                    }));
+                }
+                foreach (var item in evets)
+                {
+                    item.WaitOne(15000);
+                }
+                return dic;
+            }
+            else
+            {
+                return DoRecieveFrom(socket, bufferLength, maxCount);
+            }
+        }
+
+        private Dictionary<IPEndPoint, byte[]> DoRecieveFrom(Socket s,int bufferLength,int maxCount=-1)
         {
             Dictionary<IPEndPoint, byte[]> dic = new Dictionary<IPEndPoint, byte[]>();
             try
@@ -57,10 +137,11 @@ namespace Li.Access.Core
                 {
                     EndPoint endPoint = new IPEndPoint(IPAddress.None, 0);
                     byte[] buffer = new byte[bufferLength];
-                    int count = socket.ReceiveFrom(buffer, ref endPoint);
+                    int count = s.ReceiveFrom(buffer, ref endPoint);
+
                     IPEndPoint ipEndPoint = (IPEndPoint)endPoint;
                     dic.Add(ipEndPoint, buffer);
-                    if (maxCount>0&&dic.Count>=maxCount)
+                    if (maxCount > 0 && dic.Count >= maxCount)
                     {
                         break;
                     }
@@ -68,19 +149,12 @@ namespace Li.Access.Core
             }
             catch (Exception ex)
             {
+                log.Error("读取异常或者结束：", ex);
             }
+
             return dic;
         }
-        public byte[] RecieveFrom(ref string ip,ref int port)
-        {
-            EndPoint endPoint=new IPEndPoint(IPAddress.None,0);
-            byte[] buffer=new byte[1000];
-            int count= socket.ReceiveFrom(buffer, ref endPoint);
-            IPEndPoint ipEndPoint = (IPEndPoint)endPoint;
-            ip = ipEndPoint.Address.ToString();
-            port = ipEndPoint.Port;
-            return buffer;
-        }
+
         public virtual void Close()
         {
             Dispose();
@@ -92,6 +166,14 @@ namespace Li.Access.Core
             {
                 socket.Dispose();
                 socket = null;
+            }
+            if (_multisockets.Count>0)
+            {
+                foreach (var item in _multisockets)
+                {
+                    item.Dispose();
+                }
+                _multisockets.Clear();
             }
         }
     }

@@ -98,6 +98,18 @@
     <Compile Include="TextBoxEx.designer.cs">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VerTextBox.Designer.cs">
+      <DependentUpon>VerTextBox.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AdvTreeEx.resx">
@@ -117,6 +129,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PageDataGridView.resx">
       <DependentUpon>PageDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTextBox.resx">
+      <DependentUpon>VerTextBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

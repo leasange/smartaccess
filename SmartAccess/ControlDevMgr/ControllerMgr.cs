@@ -95,6 +95,7 @@ namespace SmartAccess.ControlDevMgr
                 ctrl.AREA_NAME,
                 ctrl.CTRLR_DESC,
                 doors,//所控制的门
+                ctrl.DRIVER_VERSION,
                 "修改",
                 "删除"
                 );

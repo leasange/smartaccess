@@ -11,6 +11,7 @@ using SmartAccess.Common.WinInfo;
 using Li.Access.Core;
 using System.Threading;
 using SmartAccess.Common.Datas;
+using System.Net;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -56,6 +57,25 @@ namespace SmartAccess.ControlDevMgr
         private void AddControllerToGrid(List<Controller>  ctrlrs)
         {
             dgvCtrlr.Rows.Clear();
+            string ip = "127.0.0.1";
+            try
+            {
+                IPAddress[] ips = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+
+                foreach (var item in ips)
+                {
+                    if (item.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        ip = item.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("获取本地地址错误：", ex);
+            }
+
+            
             foreach (Controller item in ctrlrs)
             {
                 DataGridViewRow row = new DataGridViewRow();
@@ -66,7 +86,8 @@ namespace SmartAccess.ControlDevMgr
                     item.gateway,
                     item.port,
                     item.mac,
-                    "127.0.0.1",
+                    ip,
+                    item.driverVersion,
                     "修改IP",
                     "添加/更新"
                     );
@@ -135,6 +156,22 @@ namespace SmartAccess.ControlDevMgr
                 }
             }
         }
+        private Controller GetSelectedController()
+        {
+            if (dgvCtrlr.SelectedRows.Count > 0)
+            {
+                return dgvCtrlr.SelectedRows[0].Tag as Controller;
+            }
+            else if (dgvCtrlr.SelectedCells.Count > 0 && dgvCtrlr.SelectedCells[0].RowIndex >= 0)
+            {
+                return dgvCtrlr.Rows[dgvCtrlr.SelectedCells[0].RowIndex].Tag as Controller;
+            }
+            else
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择控制器！");
+            }
+            return null;
+        }
 
         private void dgvCtrlr_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -155,6 +192,39 @@ namespace SmartAccess.ControlDevMgr
                 timer.Dispose();
             };
             timer.Start();
+        }
+
+        private void btnGetTime_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            using( IAccessCore access = new WGAccess())
+            {
+                DateTime dt = access.GetControllerTime(ctrl);
+                dtpTime.Value = dt;
+            }
+        }
+
+        private void btnSetTime_Click(object sender, EventArgs e)
+        {
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            if (dtpTime.ValueObject==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择时间！");
+                return;
+            }
+            using(IAccessCore access = new WGAccess())
+            {
+                bool ret = access.SetControllerTime(ctrl, dtpTime.Value);
+                WinInfoHelper.ShowInfoWindow(this, "设置时间" + (ret ? "成功！" : "失败"));
+            }
         }
     }
 }

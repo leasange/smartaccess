@@ -1068,7 +1068,6 @@
             // linkVerCodeInfo
             // 
             this.linkVerCodeInfo.BackColor = System.Drawing.Color.Transparent;
-            this.linkVerCodeInfo.Enabled = false;
             this.linkVerCodeInfo.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkVerCodeInfo.ForeColor = System.Drawing.Color.Blue;
             this.linkVerCodeInfo.Image = global::SmartAccess.Properties.Resources.证件管理;
