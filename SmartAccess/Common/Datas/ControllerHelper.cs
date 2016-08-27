@@ -61,17 +61,22 @@ namespace SmartAccess.Common.Datas
             info = ToInfo(ctrlr);
             Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
             decimal ctrlId= bll.Add(info);
+            info.ID = ctrlId;
             int count = 1;
+            int dir = 1;
             switch (ctrlr.doorType)
             {
                 case ControllerDoorType.OneDoorTwoDirections:
                     count = 1;
+                    dir = 2;
                     break;
                 case ControllerDoorType.TwoDoorsTwoDirections:
                     count = 2;
+                    dir = 2;
                     break;
                 case ControllerDoorType.FourDoorsOneDirection:
                     count = 4;
+                    dir = 1;
                     break;
                 default:
                     break;
@@ -87,6 +92,14 @@ namespace SmartAccess.Common.Datas
                 doorInfo.CTRL_STYLE = 0;
                 doorInfo.DOOR_NAME = "门_" + ctrlId + "_" + (i + 1);
                 doorInfo.DOOR_DESC = doorInfo.DOOR_NAME;
+                doorInfo.AREA_ID = -1;
+                doorInfo.AREA_NAME = "";
+                doorInfo.ID = -1;
+                doorInfo.IS_ATTENDANCE1 = false;
+                doorInfo.IS_ATTENDANCE2 = false;
+                doorInfo.IS_ENABLE = true;
+                doorInfo.IS_ENTER1 = true;
+                doorInfo.IS_ENTER2 = dir == 1;
                 doorInfo.ID = doorBll.Add(doorInfo);
                 info.DOOR_INFOS.Add(doorInfo);
             }

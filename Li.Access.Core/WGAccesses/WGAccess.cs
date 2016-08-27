@@ -39,7 +39,7 @@ namespace Li.Access.Core.WGAccesses
                 DoBindPort(ismulti);
             }
         }
-        public Dictionary<IPEndPoint, byte[]> WGRecieveFrom(int maxCount = -1)
+        public List<byte[]> WGRecieveFrom(int maxCount = -1)
         {
            return this.RecieveFrom(64, maxCount);
         }
@@ -47,13 +47,13 @@ namespace Li.Access.Core.WGAccesses
         {
             try
             {
-                Dictionary<IPEndPoint, byte[]> dics = WGRecieveFrom(maxCount);
+                List<byte[]> dics = WGRecieveFrom(maxCount);
                 List<WGPacket> list = new List<WGPacket>();
                 if (dics.Count > 0)
                 {
                     foreach (var item in dics)
                     {
-                        WGPacket p = ToWGPacket(item.Value);
+                        WGPacket p = ToWGPacket(item);
                         list.Add(p);
                     }
                 }
@@ -103,14 +103,14 @@ namespace Li.Access.Core.WGAccesses
                 WGPacket packet = new WGPacket(0x94);
                 if (DoSend(packet))
                 {
-                    Dictionary<IPEndPoint, byte[]> dics = this.RecieveFrom(64);
+                    List<byte[]> dics = this.RecieveFrom(64);
                     if (dics.Count > 0)
                     {
                         foreach (var item in dics)
                         {
-                            WGPacket p = ToWGPacket(item.Value);
+                            WGPacket p = ToWGPacket(item);
                             Controller ctrl = p.ToController();
-                            ctrl.port = item.Key.Port;
+                            ctrl.port = 60000;
                             if (ctrl != null)
                             {
                                 list.Add(ctrl);

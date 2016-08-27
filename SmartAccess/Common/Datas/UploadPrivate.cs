@@ -278,7 +278,7 @@ namespace SmartAccess.Common.Datas
             var staffDoors = staffDoorBLL.GetModelList("DOOR_ID in (" + str + ")");
             if (staffDoors.Count==0)
             {
-                errMsg = "无授权门禁！";
+               // errMsg = "无授权门禁！";
                 return true;
             }
             str = "";

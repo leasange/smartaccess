@@ -83,11 +83,11 @@ namespace Li.Access.Core
             }
             return true;
         }
-        public Dictionary<IPEndPoint,byte[]> RecieveFrom(int bufferLength,int maxCount=-1)
+        public List<byte[]> RecieveFrom(int bufferLength,int maxCount=-1)
         {
             if (_multisockets.Count>0)
             {
-                Dictionary<IPEndPoint, byte[]> dic = new Dictionary<IPEndPoint, byte[]>();
+                List<byte[]> dic = new List<byte[]>();
                 List<ManualResetEvent> evets = new List<ManualResetEvent>();
                 foreach (var item in _multisockets)
                 {
@@ -98,12 +98,10 @@ namespace Li.Access.Core
                         try
                         {
                             var dics = DoRecieveFrom(item, bufferLength, maxCount);
+                            
                             lock (dic)
                             {
-                                foreach (var d in dics)
-                                {
-                                    dic.Add(d.Key, d.Value);
-                                }
+                                dic.AddRange(dics);
                             }
                         }
                         catch (Exception ex)
@@ -128,9 +126,9 @@ namespace Li.Access.Core
             }
         }
 
-        private Dictionary<IPEndPoint, byte[]> DoRecieveFrom(Socket s,int bufferLength,int maxCount=-1)
+        private List<byte[]> DoRecieveFrom(Socket s,int bufferLength,int maxCount=-1)
         {
-            Dictionary<IPEndPoint, byte[]> dic = new Dictionary<IPEndPoint, byte[]>();
+            List<byte[]> dic = new List<byte[]>();
             try
             {
                 while (true)
@@ -139,8 +137,8 @@ namespace Li.Access.Core
                     byte[] buffer = new byte[bufferLength];
                     int count = s.ReceiveFrom(buffer, ref endPoint);
 
-                    IPEndPoint ipEndPoint = (IPEndPoint)endPoint;
-                    dic.Add(ipEndPoint, buffer);
+                    //IPEndPoint ipEndPoint = (IPEndPoint)endPoint;
+                    dic.Add(buffer);
                     if (maxCount > 0 && dic.Count >= maxCount)
                     {
                         break;

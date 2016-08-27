@@ -51,6 +51,7 @@ namespace SmartAccess.ControlDevMgr
                 tbCtrlrSn.Text = _ctrlr.SN_NO;
                 cbCtrlrEnable.Checked = _ctrlr.IS_ENABLE;
                 ipCtrlr.Value = _ctrlr.IP;
+                ipCtrlr.Enabled = false;
                 iiPort.Value = _ctrlr.PORT == null ? 60000 : (int)_ctrlr.PORT;
                 tbDesc.Text = _ctrlr.CTRLR_DESC;
                 if ((tbCtrlrSn.Text.Trim().Length == 0) || (_ctrlr.CTRLR_MODEL != "WGACCESS"))
