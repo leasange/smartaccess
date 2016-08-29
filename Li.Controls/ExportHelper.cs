@@ -224,5 +224,60 @@ namespace Li.Controls.Excel
             }
         }
     }
+    public class ImportHelper
+    {
+        public static void Import(string fileName,ushort startRow=2,ushort startCol=1,int colCount=4, System.Threading.WaitCallback callback=null)
+        {
+            try
+            {
+                XlsDocument xls = new XlsDocument(fileName);//新建Excel
+                if (xls.Workbook.Worksheets.Count > 0)
+                {
+                    Worksheet ws = xls.Workbook.Worksheets[0];
+                    for (ushort i = startRow; i < ws.Rows.Count; i++)
+                    {
+                        string[] strs = new string[colCount];
+                        bool isnull = true;
+                        int end = colCount + startCol;
+                        if (end > ws.Rows[i].CellCount)
+                        {
+                            end = ws.Rows[i].CellCount;
+                        }
+                        for (ushort j = startCol; j <= end; j++)
+                        {
+                            string str = Convert.ToString(ws.Rows[i].CellAtCol(j).Value);
+                            strs[j - startCol] = str;
+                            if (!string.IsNullOrWhiteSpace(str))
+                            {
+                                isnull = false;
+                            }
+                        }
+                        if (isnull)
+                        {
+                            break;
+                        }
+                        if (callback != null)
+                        {
+                            callback(strs);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
+        }
+        public static void ImportEx(ushort startRow = 2, ushort startCol = 1, int colCount = 4, System.Threading.WaitCallback callback = null)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
+            if (ofd.ShowDialog()==DialogResult.OK)
+            {
+                Import(ofd.FileName, startRow, startCol, colCount, callback);
+            }
+        }
+    }
 
 }

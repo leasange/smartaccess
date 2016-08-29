@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
+using Li.Controls.Excel;
 
 namespace SmartAccess.VerInfoMgr
 {
@@ -214,12 +215,30 @@ namespace SmartAccess.VerInfoMgr
 
         private void biDownloadDeptModel_Click(object sender, EventArgs e)
         {
-            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            //WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            try
+            {
+                DataTable dt = new DataTable("部门模板");
+                dt.Columns.AddRange(new DataColumn[] { 
+                new DataColumn("部门编码"),
+                new DataColumn("上级部门编码"),
+                new DataColumn("部门名称"),
+                new DataColumn("排序")
+            });
+                DataRow dr = dt.NewRow();
+                ExportHelper.ExportEx(dt, "部门模板.xls", "部门列表");
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "部门模板下载异常：" + ex.Message);
+                log.Error("部门模板下载异常", ex);
+            }
         }
 
         private void biInput_Click(object sender, EventArgs e)
         {
-            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            //WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            ImportHelper.ImportEx();
         }
 
         private void biOutput_Click(object sender, EventArgs e)
