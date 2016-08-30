@@ -35,10 +35,6 @@
       <HintPath>..\dlls\dotnetbar\DevComponents.DotNetBar2.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Li.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>obj\Debug\Li.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="org.in2bits.MyXls">
       <HintPath>..\dlls\org.in2bits.MyXls.dll</HintPath>
     </Reference>

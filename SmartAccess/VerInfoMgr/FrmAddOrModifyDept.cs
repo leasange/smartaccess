@@ -33,6 +33,7 @@ namespace SmartAccess.VerInfoMgr
             this.Text = "修改部门:"+orgInfo.ORG_NAME;
             tbDeptNo.Text = orgInfo.ORG_CODE;
             tbDeptName.Text = orgInfo.ORG_NAME;
+            iOrder.Value = orgInfo.ORDER_VALUE == null ? 0 : (int)orgInfo.ORDER_VALUE;
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -51,6 +52,7 @@ namespace SmartAccess.VerInfoMgr
             Maticsoft.Model.SMT_ORG_INFO info = new Maticsoft.Model.SMT_ORG_INFO();
             info.ORG_CODE = tbDeptNo.Text.Trim();
             info.ORG_NAME = tbDeptName.Text.Trim();
+            info.ORDER_VALUE = iOrder.Value;
             Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
             CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
             {
@@ -66,7 +68,7 @@ namespace SmartAccess.VerInfoMgr
                             WinInfoHelper.ShowInfoWindow(this, "部门编码已存在！");
                             return;
                         }
-                        info.ORDER_VALUE = 100;
+                       // info.ORDER_VALUE = 100;
                         info.PAR_ID = _parId;
                         DeptDataHelper.AddDept(info);
                         _orgInfo = info;
@@ -85,7 +87,7 @@ namespace SmartAccess.VerInfoMgr
 
                         info.ID = _orgInfo.ID;
                         info.PAR_ID = _orgInfo.PAR_ID;
-                        info.ORDER_VALUE = _orgInfo.ORDER_VALUE;
+                        //info.ORDER_VALUE = _orgInfo.ORDER_VALUE;
                         if (bll.Update(info))
                         {
                             _orgInfo.ORG_CODE = info.ORG_CODE;

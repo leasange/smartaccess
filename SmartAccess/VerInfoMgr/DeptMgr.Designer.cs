@@ -154,7 +154,7 @@
             this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
             this.biInput.Name = "biInput";
-            this.biInput.Text = "导入所有部门";
+            this.biInput.Text = "导入部门";
             this.biInput.Click += new System.EventHandler(this.biInput_Click);
             // 
             // biOutput
@@ -251,7 +251,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvUsers.EnableHeadersVisualStyles = false;
-            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvUsers.Location = new System.Drawing.Point(20, 117);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;

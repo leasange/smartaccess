@@ -63,13 +63,16 @@ namespace SmartAccess.VerInfoMgr
                 {
                     DeptDataHelper.UpdateDept(_info);
                     this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    this.Invoke(new Action(() =>
+                    {
+                        this.Close();
+                    }));
                 }
                 catch (Exception ex)
                 {
                     log.Error("移动部门异常：", ex);
                     _info.PAR_ID = parId;
-                    WinInfoHelper.ShowInfoWindow(this, "移动部门异常："+ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "移动部门异常：" + ex.Message);
                 }
             });
             waiting.Show(this);

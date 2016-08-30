@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace Li.Controls.Excel
 {
+    public delegate void ImportDataHandle(string[] datas);
     public class ExportHelper
     {
         /// <summary>
@@ -226,7 +227,7 @@ namespace Li.Controls.Excel
     }
     public class ImportHelper
     {
-        public static void Import(string fileName,ushort startRow=2,ushort startCol=1,int colCount=4, System.Threading.WaitCallback callback=null)
+        public static void Import(string fileName, ushort startRow = 2, ushort startCol = 1, int colCount = 4, ImportDataHandle callback = null)
         {
             try
             {
@@ -269,13 +270,43 @@ namespace Li.Controls.Excel
                 throw;
             }
         }
-        public static void ImportEx(ushort startRow = 2, ushort startCol = 1, int colCount = 4, System.Threading.WaitCallback callback = null)
+        public static void ImportEx(out bool iscancel, ushort startRow = 2, ushort startCol = 1, int colCount = 4, ImportDataHandle callback = null)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
-            if (ofd.ShowDialog()==DialogResult.OK)
+            try
             {
-                Import(ofd.FileName, startRow, startCol, colCount, callback);
+                string fileName = null;
+                Exception ex1 = null;
+                iscancel = false;
+                Application.OpenForms[0].Invoke(new Action(() =>
+                    {
+                        try
+                        {
+                            OpenFileDialog ofd = new OpenFileDialog();
+                            ofd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
+                            if (ofd.ShowDialog() == DialogResult.OK)
+                            {
+                                fileName = ofd.FileName;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ex1 = ex;
+                        }
+                    }));
+                if (ex1!=null)
+                {
+                    throw ex1;
+                }
+                if (fileName==null)
+                {
+                    iscancel = true;
+                    return;
+                }
+                Import(fileName, startRow, startCol, colCount, callback);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

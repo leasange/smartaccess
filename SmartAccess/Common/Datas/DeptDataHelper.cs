@@ -152,6 +152,17 @@ namespace SmartAccess.Common.Datas
             return dept.ID;
         }
 
+        public static Maticsoft.Model.SMT_ORG_INFO GetDeptByCode(string deptCode)
+        {
+            Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
+            var c = bll.GetModelList("ORG_CODE='" + deptCode + "'");
+            if (c.Count > 0)
+            {
+                return c[0];
+            }
+            return null;
+        }
+
         public static void DeleteDepts(List<Maticsoft.Model.SMT_ORG_INFO> depts)
         {
             Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();

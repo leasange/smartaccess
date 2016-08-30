@@ -238,12 +238,143 @@ namespace SmartAccess.VerInfoMgr
         private void biInput_Click(object sender, EventArgs e)
         {
             //WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
-            ImportHelper.ImportEx();
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    bool iscancel;
+                    List<Maticsoft.Model.SMT_ORG_INFO> orgs = new List<Maticsoft.Model.SMT_ORG_INFO>();
+                    ImportHelper.ImportEx(out iscancel, 2, 1, 4, new ImportDataHandle((o) =>
+                    {
+                        Maticsoft.Model.SMT_ORG_INFO org = new Maticsoft.Model.SMT_ORG_INFO();
+                        org.ORG_CODE = o[0];
+                        int ord = 100;
+                        int.TryParse(o[3], out ord);
+                        org.ORDER_VALUE = ord;
+                        org.ORG_NAME = o[2];
+                        org.PAR_ORG_CODE = o[1];
+                        org.PAR_ID = -1;
+                        orgs.Add(org);
+                    }));
+                    if (!iscancel)
+                    {
+                        if (orgs.Count==0)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "导入部门个数为0！");
+                            return;
+                        }
+                        foreach (var item in orgs)
+                        {
+                            if (string.IsNullOrWhiteSpace(item.ORG_CODE) || string.IsNullOrWhiteSpace(item.ORG_NAME))
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "导入失败，存在部门编码或者名称为空！编码：" + item.ORG_CODE + ",名称：" + item.ORG_NAME + ",行号：" + orgs.IndexOf(item));
+                                return;
+                            }
+                        }
+                        foreach (var item in orgs)
+                        {
+                            var dept = DeptDataHelper.GetDeptByCode(item.ORG_CODE);
+                            if (dept==null)
+                            {
+                                item.ID = DeptDataHelper.AddDept(item);//添加
+                            }
+                            else
+                            {
+                                item.ID = dept.ID;
+                                item.PAR_ID = dept.PAR_ID;
+                                DeptDataHelper.UpdateDept(item);//更新
+                            }
+                        }
+                        foreach (var item in orgs)
+                        {
+                            if (string.IsNullOrWhiteSpace(item.PAR_ORG_CODE))
+                            {
+                                continue;
+                            }
+                            var f= orgs.Find(m => m.ORG_CODE == item.PAR_ORG_CODE);
+                            if (f==null)
+	                        {
+                                f = DeptDataHelper.GetDeptByCode(item.PAR_ORG_CODE);
+                            }
+                            if (f == null)
+                            {
+                                if (item.PAR_ID == -1)
+                                {
+                                    continue;
+                                }
+                                item.PAR_ID = -1;
+                            }
+                            else
+                            {
+                                if(item.PAR_ID == f.ID)
+                                {
+                                    continue;
+                                }
+                                item.PAR_ID = f.ID;
+                            }
+                            DeptDataHelper.UpdateDept(item);
+                        }
+                        WinInfoHelper.ShowInfoWindow(this, "导入结束！");
+                        this.Invoke(new Action(() =>
+                        {
+                            biRefreshDept_Click(sender, e);
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error("导入异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "导入异常:" + ex.Message);
+                }
+
+            });
+            waiting.Show(this);
         }
 
         private void biOutput_Click(object sender, EventArgs e)
         {
-            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                var datas = DeptDataHelper.GetDepts(true);
+                if (datas.Count==0)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "没有部门可以导出！");
+                    return;
+                }
+                DataTable dt = new DataTable("部门模板");
+                dt.Columns.AddRange(new DataColumn[] { 
+                new DataColumn("部门编码"),
+                new DataColumn("上级部门编码"),
+                new DataColumn("部门名称"),
+                new DataColumn("排序")});
+                var g= datas.GroupBy(m => m.PAR_ID);
+                foreach (var item in g)
+                {
+                    var list = item.ToList();
+                    var f = datas.Find(m => m.ID == list[0].PAR_ID);
+                    if (f!=null)
+                    {
+                        foreach (var l in list)
+                        {
+                            l.PAR_ORG_CODE = f.ORG_CODE;
+                        }
+                    }
+                }
+                foreach (var item in datas)
+                {
+                    var row = dt.NewRow();
+                    row[0] = item.ORG_CODE;
+                    row[1] = item.PAR_ORG_CODE;
+                    row[2] = item.ORG_NAME;
+                    row[3] = item.ORDER_VALUE;
+                    dt.Rows.Add(row);
+                }
+                this.Invoke(new Action(() =>
+                {
+                    ExportHelper.ExportEx(dt, "所有部门", "所有部门");
+                }));
+            });
+            waiting.Show(this);
         }
     }
 }

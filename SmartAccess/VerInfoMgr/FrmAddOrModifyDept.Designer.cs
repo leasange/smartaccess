@@ -34,6 +34,9 @@
             this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.iOrder = new DevComponents.Editors.IntegerInput();
+            ((System.ComponentModel.ISupportInitialize)(this.iOrder)).BeginInit();
             this.SuspendLayout();
             // 
             // labelX1
@@ -94,7 +97,7 @@
             // 
             this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnOk.Location = new System.Drawing.Point(90, 105);
+            this.btnOk.Location = new System.Drawing.Point(87, 142);
             this.btnOk.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(87, 33);
@@ -108,7 +111,7 @@
             this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(189, 105);
+            this.btnCancel.Location = new System.Drawing.Point(186, 142);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 33);
@@ -117,17 +120,47 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // labelX3
+            // 
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Location = new System.Drawing.Point(25, 96);
+            this.labelX3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(59, 33);
+            this.labelX3.TabIndex = 0;
+            this.labelX3.Text = "排序值";
+            // 
+            // iOrder
+            // 
+            // 
+            // 
+            // 
+            this.iOrder.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iOrder.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iOrder.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iOrder.Location = new System.Drawing.Point(90, 101);
+            this.iOrder.Name = "iOrder";
+            this.iOrder.ShowUpDown = true;
+            this.iOrder.Size = new System.Drawing.Size(218, 23);
+            this.iOrder.TabIndex = 4;
+            this.iOrder.Value = 100;
+            // 
             // FrmAddOrModifyDept
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(334, 150);
+            this.ClientSize = new System.Drawing.Size(334, 188);
+            this.Controls.Add(this.iOrder);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.tbDeptName);
             this.Controls.Add(this.tbDeptNo);
+            this.Controls.Add(this.labelX3);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.labelX1);
             this.DoubleBuffered = true;
@@ -140,6 +173,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加或者修改部门";
+            ((System.ComponentModel.ISupportInitialize)(this.iOrder)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -152,5 +186,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbDeptName;
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
+        private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.Editors.IntegerInput iOrder;
     }
 }
