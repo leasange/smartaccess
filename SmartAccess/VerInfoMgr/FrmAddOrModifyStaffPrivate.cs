@@ -17,11 +17,11 @@ namespace SmartAccess.VerInfoMgr
         private Maticsoft.Model.SMT_STAFF_INFO staffInfo;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmAddOrModifyStaffPrivate));
 
-        public FrmAddOrModifyStaffPrivate()
-        {
-            InitializeComponent();
-            doorTree.LoadEnded += doorTree_LoadEnded;
-        }
+//         public FrmAddOrModifyStaffPrivate()
+//         {
+//             InitializeComponent();
+//             doorTree.LoadEnded += doorTree_LoadEnded;
+//         }
 
         void doorTree_LoadEnded(object sender, EventArgs e)
         {
@@ -48,6 +48,8 @@ namespace SmartAccess.VerInfoMgr
             InitializeComponent();
             doorTree.LoadEnded += doorTree_LoadEnded;
             this.staffInfo = staffInfo;
+            this.dtpStart.Value = this.staffInfo.VALID_STARTTIME;
+            this.dtpEnd.Value = this.staffInfo.VALID_ENDTIME;
             this.Text = "当前授权对象：" + staffInfo.REAL_NAME;
         }
         private void FrmAddOrModifyStaffPrivate_Load(object sender, EventArgs e)
@@ -149,6 +151,12 @@ namespace SmartAccess.VerInfoMgr
         }
         private void DoSaveDoors(List<Maticsoft.Model.SMT_DOOR_INFO> doors, bool upload = false)
         {
+            if (dtpStart.Value.Date>dtpEnd.Value.Date)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "起始时间不能小于结束时间！");
+                return;
+            }
+
             CtrlWaiting ctrlWaiting = new CtrlWaiting("正在保存...", () =>
              {
                  try
@@ -179,6 +187,14 @@ namespace SmartAccess.VerInfoMgr
                          newSd.STAFF_ID = staffInfo.ID;
                          sdBLL.Add(newSd);
                      }
+                     if (staffInfo.VALID_STARTTIME != dtpStart.Value || staffInfo.VALID_ENDTIME != dtpEnd.Value)
+                     {
+                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                         staffInfo.VALID_STARTTIME = dtpStart.Value.Date;
+                         staffInfo.VALID_ENDTIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
+                         staffBll.Update(staffInfo);
+                     }
+
                      if (upload)
                      {
                          string errMsg;

@@ -13,9 +13,11 @@ namespace SmartAccess
 {
     public partial class FrmMain : DevComponents.DotNetBar.Office2007Form
     {
+        public static FrmMain Instance;
         public FrmMain()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         private void FrmMain_Load(object sender, EventArgs e)

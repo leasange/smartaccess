@@ -36,6 +36,7 @@
             this.RowTemplate.Height = 23;
             this.Size = new System.Drawing.Size(405, 274);
             this.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridViewEx_RowPostPaint);
+            this.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewEx_RowsAdded);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

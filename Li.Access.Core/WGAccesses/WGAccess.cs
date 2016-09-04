@@ -597,7 +597,7 @@ namespace Li.Access.Core.WGAccesses
             {
                 endTime = maxdate;
             }
-            
+
             data[4] = DataHelper.ToByteBCD((int)(startTime.Year / 100));
             data[5] = DataHelper.ToByteBCD(startTime.Year - ((int)(startTime.Year / 100)) * 100);
             data[6] = DataHelper.ToByteBCD(startTime.Month);

@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
+            this.biReadCard = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteCard = new DevComponents.DotNetBar.ButtonItem();
+            this.biChangeCard = new DevComponents.DotNetBar.ButtonItem();
+            this.biForbbiden = new DevComponents.DotNetBar.ButtonItem();
+            this.biUnForbbiden = new DevComponents.DotNetBar.ButtonItem();
+            this.biPrivateCopy = new DevComponents.DotNetBar.ButtonItem();
+            this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
+            this.biExportPhoto = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
@@ -67,20 +77,10 @@
             this.tbJob = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
-            this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
-            this.biReadCard = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteCard = new DevComponents.DotNetBar.ButtonItem();
-            this.biChangeCard = new DevComponents.DotNetBar.ButtonItem();
-            this.biForbbiden = new DevComponents.DotNetBar.ButtonItem();
-            this.biUnForbbiden = new DevComponents.DotNetBar.ButtonItem();
-            this.biPrivateCopy = new DevComponents.DotNetBar.ButtonItem();
-            this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
-            this.biExportPhoto = new DevComponents.DotNetBar.ButtonItem();
+            this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -119,6 +119,86 @@
             this.bar1.TabIndex = 0;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biAddUser
+            // 
+            this.biAddUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddUser.Image = global::SmartAccess.Properties.Resources.注册;
+            this.biAddUser.Name = "biAddUser";
+            this.biAddUser.Text = "注册";
+            this.biAddUser.Click += new System.EventHandler(this.biAddUser_Click);
+            // 
+            // biDeleteStaff
+            // 
+            this.biDeleteStaff.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteStaff.Image = global::SmartAccess.Properties.Resources.销户;
+            this.biDeleteStaff.Name = "biDeleteStaff";
+            this.biDeleteStaff.Text = "注销";
+            this.biDeleteStaff.Click += new System.EventHandler(this.biDeleteStaff_Click);
+            // 
+            // biReadCard
+            // 
+            this.biReadCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biReadCard.Image = global::SmartAccess.Properties.Resources.读卡;
+            this.biReadCard.Name = "biReadCard";
+            this.biReadCard.Text = "读卡";
+            this.biReadCard.Click += new System.EventHandler(this.biReadCard_Click);
+            // 
+            // biDeleteCard
+            // 
+            this.biDeleteCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteCard.Image = global::SmartAccess.Properties.Resources.销卡;
+            this.biDeleteCard.Name = "biDeleteCard";
+            this.biDeleteCard.Text = "销卡";
+            this.biDeleteCard.Click += new System.EventHandler(this.biDeleteCard_Click);
+            // 
+            // biChangeCard
+            // 
+            this.biChangeCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biChangeCard.Image = global::SmartAccess.Properties.Resources.换卡;
+            this.biChangeCard.Name = "biChangeCard";
+            this.biChangeCard.Text = "换卡/发卡";
+            this.biChangeCard.Click += new System.EventHandler(this.biChangeCard_Click);
+            // 
+            // biForbbiden
+            // 
+            this.biForbbiden.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biForbbiden.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biForbbiden.Name = "biForbbiden";
+            this.biForbbiden.Text = "挂失";
+            this.biForbbiden.Click += new System.EventHandler(this.biForbbiden_Click);
+            // 
+            // biUnForbbiden
+            // 
+            this.biUnForbbiden.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biUnForbbiden.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biUnForbbiden.Name = "biUnForbbiden";
+            this.biUnForbbiden.Text = "解挂";
+            this.biUnForbbiden.Click += new System.EventHandler(this.biUnForbbiden_Click);
+            // 
+            // biPrivateCopy
+            // 
+            this.biPrivateCopy.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biPrivateCopy.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biPrivateCopy.Name = "biPrivateCopy";
+            this.biPrivateCopy.Text = "权限复制";
+            this.biPrivateCopy.Click += new System.EventHandler(this.biPrivateCopy_Click);
+            // 
+            // biOneKeyUpload
+            // 
+            this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biOneKeyUpload.Name = "biOneKeyUpload";
+            this.biOneKeyUpload.Text = "一键上传所有权限";
+            this.biOneKeyUpload.Click += new System.EventHandler(this.biOneKeyUpload_Click);
+            // 
+            // biExportPhoto
+            // 
+            this.biExportPhoto.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biExportPhoto.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biExportPhoto.Name = "biExportPhoto";
+            this.biExportPhoto.Text = "导出照片";
+            this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
             // 
             // splitContainer1
             // 
@@ -186,14 +266,14 @@
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -208,28 +288,28 @@
             this.Col_XG,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
-            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(899, 393);
             this.dgvStaffs.TabIndex = 0;
@@ -506,17 +586,6 @@
             this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem1.Name = "controlContainerItem1";
             // 
-            // controlContainerItem2
-            // 
-            this.controlContainerItem2.AllowItemResize = false;
-            this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem2.Name = "controlContainerItem2";
-            // 
-            // saveImageDlg
-            // 
-            this.saveImageDlg.DefaultExt = "png";
-            this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
-            // 
             // biDoSearch
             // 
             this.biDoSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
@@ -533,85 +602,16 @@
             this.biClear.Text = "清空";
             this.biClear.Click += new System.EventHandler(this.biClear_Click);
             // 
-            // biAddUser
+            // controlContainerItem2
             // 
-            this.biAddUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddUser.Image = global::SmartAccess.Properties.Resources.注册;
-            this.biAddUser.Name = "biAddUser";
-            this.biAddUser.Text = "注册";
-            this.biAddUser.Click += new System.EventHandler(this.biAddUser_Click);
+            this.controlContainerItem2.AllowItemResize = false;
+            this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem2.Name = "controlContainerItem2";
             // 
-            // biDeleteStaff
+            // saveImageDlg
             // 
-            this.biDeleteStaff.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteStaff.Image = global::SmartAccess.Properties.Resources.销户;
-            this.biDeleteStaff.Name = "biDeleteStaff";
-            this.biDeleteStaff.Text = "注销";
-            this.biDeleteStaff.Click += new System.EventHandler(this.biDeleteStaff_Click);
-            // 
-            // biReadCard
-            // 
-            this.biReadCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biReadCard.Image = global::SmartAccess.Properties.Resources.读卡;
-            this.biReadCard.Name = "biReadCard";
-            this.biReadCard.Text = "读卡";
-            this.biReadCard.Click += new System.EventHandler(this.biReadCard_Click);
-            // 
-            // biDeleteCard
-            // 
-            this.biDeleteCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteCard.Image = global::SmartAccess.Properties.Resources.销卡;
-            this.biDeleteCard.Name = "biDeleteCard";
-            this.biDeleteCard.Text = "销卡";
-            this.biDeleteCard.Click += new System.EventHandler(this.biDeleteCard_Click);
-            // 
-            // biChangeCard
-            // 
-            this.biChangeCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biChangeCard.Image = global::SmartAccess.Properties.Resources.换卡;
-            this.biChangeCard.Name = "biChangeCard";
-            this.biChangeCard.Text = "换卡/发卡";
-            this.biChangeCard.Click += new System.EventHandler(this.biChangeCard_Click);
-            // 
-            // biForbbiden
-            // 
-            this.biForbbiden.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biForbbiden.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biForbbiden.Name = "biForbbiden";
-            this.biForbbiden.Text = "挂失";
-            this.biForbbiden.Click += new System.EventHandler(this.biForbbiden_Click);
-            // 
-            // biUnForbbiden
-            // 
-            this.biUnForbbiden.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biUnForbbiden.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biUnForbbiden.Name = "biUnForbbiden";
-            this.biUnForbbiden.Text = "解挂";
-            this.biUnForbbiden.Click += new System.EventHandler(this.biUnForbbiden_Click);
-            // 
-            // biPrivateCopy
-            // 
-            this.biPrivateCopy.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biPrivateCopy.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biPrivateCopy.Name = "biPrivateCopy";
-            this.biPrivateCopy.Text = "权限复制";
-            this.biPrivateCopy.Click += new System.EventHandler(this.biPrivateCopy_Click);
-            // 
-            // biOneKeyUpload
-            // 
-            this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biOneKeyUpload.Name = "biOneKeyUpload";
-            this.biOneKeyUpload.Text = "一键上传所有权限";
-            this.biOneKeyUpload.Click += new System.EventHandler(this.biOneKeyUpload_Click);
-            // 
-            // biExportPhoto
-            // 
-            this.biExportPhoto.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biExportPhoto.Image = global::SmartAccess.Properties.Resources.本地图片;
-            this.biExportPhoto.Name = "biExportPhoto";
-            this.biExportPhoto.Text = "导出照片";
-            this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
+            this.saveImageDlg.DefaultExt = "png";
+            this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
             // StaffInfoMgr
             // 

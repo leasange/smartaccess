@@ -397,7 +397,7 @@ namespace SmartAccess.ControlDevMgr
                         if (upload)
                         {
                             string errMsg = null;
-                            if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors))
+                            if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors,true))
                             {
                                 if (errMsg != "")
                                 {

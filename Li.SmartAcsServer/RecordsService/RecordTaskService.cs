@@ -48,7 +48,7 @@ namespace Li.SmartAcsServer.RecordsService
         public void Start()
         {
             log.Info("开始启动记录读取服务...");
-            
+            TestDb();
             for (int i = 0; i < ThreadCount; i++)
             {
                 Thread t = new Thread(ThreadDoTask);
@@ -61,7 +61,11 @@ namespace Li.SmartAcsServer.RecordsService
             _createTask = new Thread(ThreadCreateTask);
             _createTask.Start();
         }
-
+        private void TestDb()
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+            bll.GetList("1=1");
+        }
         private void _timerLoadCtrlr_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _timerLoadCtrlr.Stop();

@@ -1,5 +1,6 @@
 ﻿using Li.Access.Core;
 using Li.Access.Core.WGAccesses;
+using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading;
 
 namespace SmartAccess.Common.Datas
 {
+    
     /// <summary>
     /// 上传权限
     /// </summary>
@@ -21,54 +23,77 @@ namespace SmartAccess.Common.Datas
             List<Maticsoft.Model.SMT_DOOR_INFO> allDoors = null,
             List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrlrs=null)
         {
+            FrmDetailInfo.Show();
+            FrmDetailInfo.AddOneMsg(string.Format("开始上传“{0}”权限...",staffInfo.REAL_NAME));
             errMsg = "";
             if (staffCards == null)
             {
                 Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
                 staffCards = scBll.GetModelListWithCardNo("STAFF_ID=" + staffInfo.ID);
             }
+            
             if (staffCards.Count == 0)
             {
-                if (staffInfo.IS_DELETE||staffInfo.IS_FORBIDDEN||staffInfo.DELETE_CARD)
-                {
-                    return true;
-                }
-                errMsg = "上传失败，该人员没有授权的卡片！";
+                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”没有授权的卡,上传结束！",staffInfo.REAL_NAME),progress:100);
+                return true;
+                //if (staffInfo.IS_DELETE||staffInfo.IS_FORBIDDEN||staffInfo.DELETE_CARD)
+                //{
+                //    return true;
+                //}
+               // errMsg = "上传失败，该人员没有授权的卡片！";
                // WinInfo.WinInfoHelper.ShowInfoWindow(null,"“"+staffInfo.REAL_NAME+ "”权限上传失败，该人员没有授权的卡片！");
-                return false;
+                //return false;
             }
+            string cds="";
+            foreach (var item in staffCards)
+	        {
+		        cds+=item.CARD_NO+"；";
+	        }
+            FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权卡：{1}",staffInfo.REAL_NAME,cds.TrimEnd('；')));
             if (allDoors == null)
             {
                 allDoors = GetUploadAllDoors();
             }
             if (allDoors.Count == 0)
             {
-                if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
-                {
-                    return true;
-                }
-                errMsg = "上传失败，当前没有任何门！";
+                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”没有授权的门禁,上传结束！", staffInfo.REAL_NAME), 100, true);
+                return true;
+               // if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
+              //  {
+              //      return true;
+              //  }
+              //  errMsg = "上传失败，当前没有任何门！";
                // WinInfo.WinInfoHelper.ShowInfoWindow(null, "“" + staffInfo.REAL_NAME + "”权限上传失败，当前没有任何可用门禁！");
-                return false;
+              //  return false;
             }
+            FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权门禁数：{1}", staffInfo.REAL_NAME, allDoors.Count));
             if (ctrlrs == null)
             {
                 ctrlrs = GetUploadCtrlr();
             }
             if (ctrlrs.Count==0)
             {
-                if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
-                {
-                    return true;
-                }
-                errMsg = "上传失败，当前没有任何可用控制器！";
+                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”上传时，未查到任何可用的控制器,上传结束！", staffInfo.REAL_NAME), 100,true);
+                return true;
+                //if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
+                //{
+                //    return true;
+                //}
+               // errMsg = "上传失败，当前没有任何可用控制器！";
                 //WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，当前没有任何可用控制器！");
-                return false;
+                //return false;
             }
+            FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权控制器数：{1}", staffInfo.REAL_NAME, ctrlrs.Count));
+
             if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)//被删除、禁用或者挂失、销卡
             {
+                FrmDetailInfo.AddOneMsg(string.Format("开始执行删除“{0}”的权限...", staffInfo.REAL_NAME));
+
                 List<ManualResetEvent> eventlist = new List<ManualResetEvent>();
                 string msg = "";
+                int total = ctrlrs.Count * staffCards.Count;
+                float step = 100f / total;
+                float precent = 0;
                 foreach (var item in ctrlrs)
                 {
                     var ctrlr = ControllerHelper.ToController(item);
@@ -82,9 +107,15 @@ namespace SmartAccess.Common.Datas
                                     foreach (var card in staffCards)
                                     {
                                         bool ret = access.DeleteAuthority(ctrlr, card.CARD_NO);
+                                        precent += step;
                                         if (!ret)
                                         {
-                                            msg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
+                                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的一个权限失败，控制器：{1}，卡号：{2}", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)precent, true);
+                                            //msg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
+                                        }
+                                        else
+                                        {
+                                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的一个权限成功，控制器：{1}，卡号：{2}", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), progress: (int)precent);
                                         }
                                     }
                                 }
@@ -106,6 +137,7 @@ namespace SmartAccess.Common.Datas
                     item.WaitOne(30000);
                 }
                 errMsg += msg;
+                FrmDetailInfo.AddOneMsg(string.Format("执行“{0}”的权限删除结束。",staffInfo.REAL_NAME), 100);
                 return true;
             }
 
@@ -124,6 +156,10 @@ namespace SmartAccess.Common.Datas
 
             List<ManualResetEvent> aeventlist = new List<ManualResetEvent>();
             string amsg = "";
+            FrmDetailInfo.AddOneMsg(string.Format("执行更新/上传“{0}”的权限...", staffInfo.REAL_NAME));
+
+            float stp = 100f / ctrlrs.Count;
+            float percent = 0;
             foreach (var item in priGroup)
             {
                 var doors = item.ToList();
@@ -132,7 +168,8 @@ namespace SmartAccess.Common.Datas
                 var ctrl = ctrlrs.Find(m => m.ID == ctrlId);
                 if (ctrl==null)//未找到控制器
                 {
-                    errMsg += "\r\n控制器无效：CTRL_ID=" + ctrlId;
+                    FrmDetailInfo.AddOneMsg(string.Format("警告：未找到“{0}”控制器：ID={1}", staffInfo.REAL_NAME, ctrlId),-1,true);
+                    //errMsg += "\r\n控制器无效：CTRL_ID=" + ctrlId;
                     continue;
                 }
                 Dictionary<int, bool> doorNumAuthorities = new Dictionary<int, bool>();
@@ -143,6 +180,7 @@ namespace SmartAccess.Common.Datas
                         doorNumAuthorities.Add((int)d.CTRL_DOOR_INDEX, d.IS_ENABLE);
                     }
                 }
+                percent += stp;
                 if (doorNumAuthorities.Count>0)
                 {
                     Controller c = ControllerHelper.ToController(ctrl);
@@ -158,10 +196,12 @@ namespace SmartAccess.Common.Datas
                                         bool ret = access.AddOrModifyAuthority(c, card.CARD_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME, doorNumAuthorities);
                                         if (!ret)
                                         {
-                                            amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
+                                         //   amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent,true);
                                         }
                                         else
                                         {
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限成功：控制器：{1}，卡号：{2} 。", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent);
                                             Maticsoft.BLL.SMT_STAFF_DOOR sdBll = new Maticsoft.BLL.SMT_STAFF_DOOR();
                                             var findscs = staffDoors.FindAll(m =>
                                             {
@@ -176,10 +216,13 @@ namespace SmartAccess.Common.Datas
                                         }
                                     }
                                 }
+                                FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的控制器“{1}”权限结束。", staffInfo.REAL_NAME, ctrl.NAME), (int)percent);
                             }
                             catch (Exception ex)
                             {
-                                amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME + ";异常信息：" + ex.Message;
+                               // amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME + ";异常信息：" + ex.Message;
+                                FrmDetailInfo.AddOneMsg(string.Format("设置“{0}”的权限发生异常：控制器：{1}，异常信息：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, ex.Message), (int)percent,true);
+                               
                             }
                             finally
                             {
@@ -189,6 +232,7 @@ namespace SmartAccess.Common.Datas
                     aeventlist.Add(reset);
                 }
             }
+           
             foreach (var item in aeventlist)
             {
                 item.WaitOne(30000);
@@ -202,6 +246,7 @@ namespace SmartAccess.Common.Datas
                 {
                     continue;
                 }
+                percent += stp;
                 var ctrlr = ControllerHelper.ToController(item);
                 ManualResetEvent reset = new ManualResetEvent(false);
                 ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
@@ -215,14 +260,20 @@ namespace SmartAccess.Common.Datas
                                     bool ret = access.DeleteAuthority(ctrlr, card.CARD_NO);
                                     if (!ret)
                                     {
-                                        dmsg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
+                                        FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)percent,true);
+                                       // dmsg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
+                                    }
+                                    else
+                                    {
+                                        FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限成功：控制器：{1}，卡号：{2} 。", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)percent);
                                     }
                                 }
                             }
+                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限结束：控制器：{1} 。", staffInfo.REAL_NAME, item.NAME), (int)percent);
                         }
                         catch (Exception ex)
                         {
-                            
+                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限发生异常：控制器：{1} ，异常信息：{2}。", staffInfo.REAL_NAME, item.NAME,ex.Message), (int)percent);
                         }
                         finally
                         {
@@ -238,22 +289,34 @@ namespace SmartAccess.Common.Datas
             }
             errMsg += dmsg;
             errMsg = errMsg.Trim('\r', '\n');
+            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限结束。",staffInfo.REAL_NAME),100);
             return true;
         }
-        public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr,out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors=null)
+        public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr,out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors=null,bool isOnlyCall=false)
         {
+            if (isOnlyCall)
+            {
+                FrmDetailInfo.Show(false);
+            }
             errMsg="";
             Controller cc = ControllerHelper.ToController(ctrlr);
             using (IAccessCore access = new WGAccess())
             {
+                FrmDetailInfo.AddOneMsg(string.Format("清除控制器“{0}”的权限...",ctrlr.NAME));
                 bool ret = access.ClearAuthority(cc);
                 if (!ret)
                 {
                     errMsg = "清除控制器的权限异常！";
+                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器的“{0}”的权限失败！", ctrlr.NAME),isRed:true);
                     return false;
+                }
+                else
+                {
+                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器的“{0}”的权限成功。", ctrlr.NAME));
                 }
                 if (!ctrlr.IS_ENABLE)
                 {
+                    FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”未启用，结束该控制器权限上传。", ctrlr.NAME));
                     return ret;
                 }
             }
@@ -266,8 +329,10 @@ namespace SmartAccess.Common.Datas
             if (ctrlDoors.Count == 0)
             {
                 errMsg = "控制器门为空！";
+                FrmDetailInfo.AddOneMsg(string.Format("警告：控制器“{0}”没有门禁，结束该控制器权限上传。", ctrlr.NAME),isRed:true);
                 return true;
             }
+            FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁个数为：{1}。", ctrlr.NAME,ctrlDoors.Count));
             string str = "";
             foreach (var item in ctrlDoors)
             {
@@ -279,6 +344,7 @@ namespace SmartAccess.Common.Datas
             if (staffDoors.Count==0)
             {
                // errMsg = "无授权门禁！";
+                FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有人员授权，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
             str = "";
@@ -292,7 +358,8 @@ namespace SmartAccess.Common.Datas
 
             if (staffs.Count==0)
             {
-                errMsg = "无授权人员！";
+                //errMsg = "无授权人员！";
+                FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有人员授权，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
             /*
@@ -316,6 +383,7 @@ namespace SmartAccess.Common.Datas
             if (cards.Count==0)
             {
                 errMsg = "无授权卡片！";
+                FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有授权的卡，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
 
@@ -329,6 +397,7 @@ namespace SmartAccess.Common.Datas
 	                {
                         continue;
 	                }
+                    FrmDetailInfo.AddOneMsg(string.Format("开始上传，控制器“{0}”的人员“{1}”,卡号“{2}”权限...", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
                     var doors= staffDoors.FindAll(m=>m.STAFF_ID==staff.ID);
                     Dictionary<int,bool> aus=new Dictionary<int,bool>();
                     foreach (var d in doors)
@@ -344,9 +413,15 @@ namespace SmartAccess.Common.Datas
                     if (!ret)
                     {
                         errMsg = "添加权限中断异常！卡号：" + item.CARD_NO;
+                        FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限异常，上传该控制器权限中断！", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO),isRed:true);
                         return false;
                     }
+                    else
+                    {
+                        FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限成功。", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
+                    }
                 }
+                FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的权限结束。", ctrlr.NAME));
             }
             return true;
         }
@@ -425,30 +500,39 @@ namespace SmartAccess.Common.Datas
         {
             string outMsg = "";
             errMsg = "";
+            FrmDetailInfo.Show();
+            FrmDetailInfo.AddOneMsg("开始上传所有权限...");
             var ctrls = GetUploadCtrlr();
             if (ctrls.Count == 0)
             {
                 errMsg = "没有可用控制器！";
+                FrmDetailInfo.AddOneMsg("没有可用的控制器，上传结束！",100);
                 return false;
             }
             List<ManualResetEvent> events = new List<ManualResetEvent>();
+            float step = 100f / ctrls.Count;
+            float percent = 0;
             foreach (var item in ctrls)
             {
                 ManualResetEvent reset = new ManualResetEvent(false);
+                events.Add(reset);
                 ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                     {
                         try
                         {
+                            percent += step;
                             string tmsg = "";
                             UploadByCtrlr(item, out tmsg);
                             if (tmsg != "")
                             {
                                 outMsg += "\r\n" + tmsg;
                             }
+                            FrmDetailInfo.AddOneMsg(string.Format("上传指定控制器“{0}”的权限结束.", item.NAME),(int)percent);
                         }
                         catch (Exception ex)
                         {
                             outMsg += "\r\n" + ex.Message;
+                            FrmDetailInfo.AddOneMsg(string.Format("上传指定控制器“{0}”的权限异常，异常信息：{1}", item.NAME,ex.Message), (int)percent,true);
                         }
                         finally
                         {
@@ -461,6 +545,7 @@ namespace SmartAccess.Common.Datas
                 item.WaitOne(60000);
             }
             errMsg = outMsg;
+            FrmDetailInfo.AddOneMsg(string.Format("上传所有权限结束！"),100);
             return true;
         }
     }

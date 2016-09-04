@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.btnAllSelect = new DevComponents.DotNetBar.ButtonX();
@@ -42,7 +44,13 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.dtpStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectDoor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
             this.SuspendLayout();
             // 
             // labelX1
@@ -168,26 +176,42 @@
             this.dgvSelectDoor.AllowUserToAddRows = false;
             this.dgvSelectDoor.AllowUserToDeleteRows = false;
             this.dgvSelectDoor.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvSelectDoor.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSelectDoor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvSelectDoor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSelectDoor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSelectDoor.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvSelectDoor.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSelectDoor.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgvSelectDoor.EnableHeadersVisualStyles = false;
+            this.dgvSelectDoor.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvSelectDoor.Location = new System.Drawing.Point(441, 39);
             this.dgvSelectDoor.Name = "dgvSelectDoor";
             this.dgvSelectDoor.ReadOnly = true;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSelectDoor.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvSelectDoor.RowTemplate.Height = 23;
             this.dgvSelectDoor.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSelectDoor.Size = new System.Drawing.Size(306, 404);
+            this.dgvSelectDoor.Size = new System.Drawing.Size(306, 376);
             this.dgvSelectDoor.TabIndex = 2;
             // 
             // Column1
@@ -211,8 +235,136 @@
             this.doorTree.Location = new System.Drawing.Point(21, 40);
             this.doorTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorTree.Name = "doorTree";
-            this.doorTree.Size = new System.Drawing.Size(299, 403);
+            this.doorTree.Size = new System.Drawing.Size(299, 375);
             this.doorTree.TabIndex = 0;
+            // 
+            // labelX3
+            // 
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Location = new System.Drawing.Point(196, 424);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(75, 23);
+            this.labelX3.TabIndex = 5;
+            this.labelX3.Text = "有效时间：";
+            // 
+            // dtpStart
+            // 
+            // 
+            // 
+            // 
+            this.dtpStart.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtpStart.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.ButtonClear.Text = "清除";
+            this.dtpStart.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtpStart.ButtonDropDown.Visible = true;
+            this.dtpStart.CustomFormat = "yyyy-MM-dd";
+            this.dtpStart.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtpStart.IsPopupCalendarOpen = false;
+            this.dtpStart.Location = new System.Drawing.Point(265, 424);
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtpStart.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.DisplayMonth = new System.DateTime(2016, 9, 1, 0, 0, 0, 0);
+            this.dtpStart.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtpStart.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtpStart.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.TodayButtonVisible = true;
+            this.dtpStart.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(148, 23);
+            this.dtpStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtpStart.TabIndex = 6;
+            // 
+            // dtpEnd
+            // 
+            // 
+            // 
+            // 
+            this.dtpEnd.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtpEnd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpEnd.ButtonClear.Text = "清除";
+            this.dtpEnd.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtpEnd.ButtonDropDown.Visible = true;
+            this.dtpEnd.CustomFormat = "yyyy-MM-dd";
+            this.dtpEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtpEnd.IsPopupCalendarOpen = false;
+            this.dtpEnd.Location = new System.Drawing.Point(441, 424);
+            // 
+            // 
+            // 
+            this.dtpEnd.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpEnd.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpEnd.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtpEnd.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtpEnd.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpEnd.MonthCalendar.DisplayMonth = new System.DateTime(2016, 9, 1, 0, 0, 0, 0);
+            this.dtpEnd.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtpEnd.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtpEnd.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpEnd.MonthCalendar.TodayButtonVisible = true;
+            this.dtpEnd.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(148, 23);
+            this.dtpEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtpEnd.TabIndex = 6;
+            // 
+            // labelX4
+            // 
+            // 
+            // 
+            // 
+            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX4.Location = new System.Drawing.Point(419, 424);
+            this.labelX4.Name = "labelX4";
+            this.labelX4.Size = new System.Drawing.Size(22, 23);
+            this.labelX4.TabIndex = 5;
+            this.labelX4.Text = "至";
             // 
             // FrmAddOrModifyStaffPrivate
             // 
@@ -221,6 +373,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(804, 512);
+            this.Controls.Add(this.dtpEnd);
+            this.Controls.Add(this.dtpStart);
+            this.Controls.Add(this.labelX4);
+            this.Controls.Add(this.labelX3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOkUpload);
             this.Controls.Add(this.btnOk);
@@ -244,6 +400,8 @@
             this.Text = "添加或修改人员门禁权限";
             this.Load += new System.EventHandler(this.FrmAddOrModifyStaffPrivate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectDoor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,6 +421,10 @@
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnOkUpload;
         private DevComponents.DotNetBar.ButtonX btnCancel;
+        private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpStart;
+        private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpEnd;
+        private DevComponents.DotNetBar.LabelX labelX4;
 
     }
 }

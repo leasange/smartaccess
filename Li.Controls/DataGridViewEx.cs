@@ -45,6 +45,18 @@ namespace Li.Controls
                 this.RowHeadersDefaultCellStyle.ForeColor,
                 TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
+
+        private void DataGridViewEx_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            DataGridViewRow row = this.Rows[e.RowIndex];
+            foreach (DataGridViewCell item in row.Cells)
+            {
+                if (item.Value == DBNull.Value)
+                {
+                    item.Value = null;
+                }
+            }
+        }
         
     }
 

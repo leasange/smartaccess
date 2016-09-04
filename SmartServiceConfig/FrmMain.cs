@@ -71,6 +71,7 @@ namespace SmartServiceConfig
                     catch (Exception ex)
                     {
                         MessageBox.Show("重启服务SmartAcsService异常，请手动重启，异常信息：" + ex.Message);
+                        System.Diagnostics.Process.Start("services.msc");
                     }
                     this.Close();
                 }

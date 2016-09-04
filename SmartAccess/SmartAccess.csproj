@@ -85,6 +85,12 @@
     <Compile Include="Common\WinInfo\CtrlWaiting.Designer.cs">
       <DependentUpon>CtrlWaiting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\WinInfo\FrmDetailInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\WinInfo\FrmDetailInfo.Designer.cs">
+      <DependentUpon>FrmDetailInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\WinInfo\FrmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,9 @@
     </Compile>
     <EmbeddedResource Include="Common\WinInfo\CtrlWaiting.resx">
       <DependentUpon>CtrlWaiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\WinInfo\FrmDetailInfo.resx">
+      <DependentUpon>FrmDetailInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\WinInfo\FrmInfo.resx">
       <DependentUpon>FrmInfo.cs</DependentUpon>
