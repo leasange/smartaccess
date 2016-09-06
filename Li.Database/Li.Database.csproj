@@ -62,6 +62,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_USER_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO_EX.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_USER_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO_EX.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_USER_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO_EX.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_VER_FORMAT.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

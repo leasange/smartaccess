@@ -46,6 +46,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="DevComponents.Instrumentation, Version=10.7.0.3, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0" />
+    <Reference Include="FastReport, Version=2014.4.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\Client\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="FastReport.Editor, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="log4net">
       <HintPath>..\dlls\log4net.dll</HintPath>
     </Reference>
@@ -60,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -224,6 +231,12 @@
     </Compile>
     <Compile Include="InfoSearchMgr\StaffRouteInfo.Designer.cs">
       <DependentUpon>StaffRouteInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelMgr\FrmInputModelName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelMgr\FrmInputModelName.Designer.cs">
+      <DependentUpon>FrmInputModelName.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelMgr\FrmVerModelEditor.cs">
       <SubType>Form</SubType>
@@ -412,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\StaffRouteInfo.resx">
       <DependentUpon>StaffRouteInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelMgr\FrmInputModelName.resx">
+      <DependentUpon>FrmInputModelName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelMgr\FrmVerModelEditor.resx">
       <DependentUpon>FrmVerModelEditor.cs</DependentUpon>

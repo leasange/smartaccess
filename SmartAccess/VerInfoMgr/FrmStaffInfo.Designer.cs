@@ -71,8 +71,6 @@
             this.picPhoto = new System.Windows.Forms.PictureBox();
             this.dtValidTimeStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.dtValidTimeEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.picVerFront = new System.Windows.Forms.PictureBox();
-            this.picVerBack = new System.Windows.Forms.PictureBox();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biNew = new DevComponents.DotNetBar.ButtonItem();
             this.biSelectPic = new DevComponents.DotNetBar.ButtonItem();
@@ -91,24 +89,19 @@
             this.dtTimeOut = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX27 = new DevComponents.DotNetBar.LabelX();
             this.cboVeMoBan = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.comboItem7 = new DevComponents.Editors.ComboItem();
-            this.comboItem8 = new DevComponents.Editors.ComboItem();
-            this.comboItem9 = new DevComponents.Editors.ComboItem();
             this.dtBirthday = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.lbPhotoTip = new DevComponents.DotNetBar.LabelX();
-            this.labelX24 = new DevComponents.DotNetBar.LabelX();
-            this.labelX25 = new DevComponents.DotNetBar.LabelX();
             this.labelX26 = new DevComponents.DotNetBar.LabelX();
             this.tbCardNums = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnSetCard = new System.Windows.Forms.Button();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.btnSaveAndUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
+            this.previewControl = new FastReport.Preview.PreviewControl();
+            this.btnShow = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picVerFront)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picVerBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtTimeIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtTimeOut)).BeginInit();
@@ -734,28 +727,6 @@
             this.dtValidTimeEnd.TabIndex = 16;
             this.dtValidTimeEnd.Value = new System.DateTime(2016, 6, 24, 21, 24, 50, 0);
             // 
-            // picVerFront
-            // 
-            this.picVerFront.BackColor = System.Drawing.Color.LightGray;
-            this.picVerFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picVerFront.Location = new System.Drawing.Point(482, 28);
-            this.picVerFront.Name = "picVerFront";
-            this.picVerFront.Size = new System.Drawing.Size(318, 235);
-            this.picVerFront.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picVerFront.TabIndex = 16;
-            this.picVerFront.TabStop = false;
-            // 
-            // picVerBack
-            // 
-            this.picVerBack.BackColor = System.Drawing.Color.LightGray;
-            this.picVerBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picVerBack.Location = new System.Drawing.Point(482, 270);
-            this.picVerBack.Name = "picVerBack";
-            this.picVerBack.Size = new System.Drawing.Size(318, 235);
-            this.picVerBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picVerBack.TabIndex = 16;
-            this.picVerBack.TabStop = false;
-            // 
             // bar1
             // 
             this.bar1.AntiAlias = true;
@@ -792,11 +763,13 @@
             // 
             this.biPreView.Name = "biPreView";
             this.biPreView.Text = "预览";
+            this.biPreView.Click += new System.EventHandler(this.biPreView_Click);
             // 
             // biPrint
             // 
             this.biPrint.Name = "biPrint";
             this.biPrint.Text = "打印";
+            this.biPrint.Click += new System.EventHandler(this.biPrint_Click);
             // 
             // cbTreeDept
             // 
@@ -1016,31 +989,18 @@
             // 
             // cboVeMoBan
             // 
-            this.cboVeMoBan.DisplayMember = "Text";
             this.cboVeMoBan.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboVeMoBan.DropDownHeight = 200;
+            this.cboVeMoBan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboVeMoBan.FormattingEnabled = true;
+            this.cboVeMoBan.IntegralHeight = false;
             this.cboVeMoBan.ItemHeight = 15;
-            this.cboVeMoBan.Items.AddRange(new object[] {
-            this.comboItem7,
-            this.comboItem8,
-            this.comboItem9});
             this.cboVeMoBan.Location = new System.Drawing.Point(321, 432);
             this.cboVeMoBan.Name = "cboVeMoBan";
             this.cboVeMoBan.Size = new System.Drawing.Size(155, 21);
             this.cboVeMoBan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboVeMoBan.TabIndex = 23;
-            // 
-            // comboItem7
-            // 
-            this.comboItem7.Text = "未知";
-            // 
-            // comboItem8
-            // 
-            this.comboItem8.Text = "未婚";
-            // 
-            // comboItem9
-            // 
-            this.comboItem9.Text = "已婚";
+            this.cboVeMoBan.SelectedIndexChanged += new System.EventHandler(this.cboVeMoBan_SelectedIndexChanged);
             // 
             // dtBirthday
             // 
@@ -1107,34 +1067,6 @@
             this.lbPhotoTip.Size = new System.Drawing.Size(59, 17);
             this.lbPhotoTip.TabIndex = 25;
             this.lbPhotoTip.Text = "照片";
-            // 
-            // labelX24
-            // 
-            this.labelX24.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX24.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX24.Location = new System.Drawing.Point(616, 119);
-            this.labelX24.Name = "labelX24";
-            this.labelX24.Size = new System.Drawing.Size(59, 17);
-            this.labelX24.TabIndex = 25;
-            this.labelX24.Text = "证件正面";
-            // 
-            // labelX25
-            // 
-            this.labelX25.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX25.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX25.Location = new System.Drawing.Point(616, 379);
-            this.labelX25.Name = "labelX25";
-            this.labelX25.Size = new System.Drawing.Size(59, 17);
-            this.labelX25.TabIndex = 25;
-            this.labelX25.Text = "证件背面";
             // 
             // labelX26
             // 
@@ -1214,17 +1146,42 @@
             this.btnClose.Text = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // previewControl
+            // 
+            this.previewControl.Font = new System.Drawing.Font("宋体", 9F);
+            this.previewControl.Location = new System.Drawing.Point(491, 28);
+            this.previewControl.Name = "previewControl";
+            this.previewControl.PageOffset = new System.Drawing.Point(10, 10);
+            this.previewControl.Size = new System.Drawing.Size(306, 476);
+            this.previewControl.StatusbarVisible = false;
+            this.previewControl.TabIndex = 28;
+            this.previewControl.ToolbarVisible = false;
+            this.previewControl.UIStyle = FastReport.Utils.UIStyle.VisualStudio2005;
+            // 
+            // btnShow
+            // 
+            this.btnShow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnShow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnShow.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnShow.Location = new System.Drawing.Point(390, 457);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(86, 23);
+            this.btnShow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnShow.TabIndex = 29;
+            this.btnShow.Text = "刷新显示=>";
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 601);
+            this.Controls.Add(this.btnShow);
+            this.Controls.Add(this.previewControl);
             this.Controls.Add(this.btnSaveAndUpload);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSetCard);
-            this.Controls.Add(this.labelX25);
-            this.Controls.Add(this.labelX24);
             this.Controls.Add(this.lbPhotoTip);
             this.Controls.Add(this.dtBirthday);
             this.Controls.Add(this.cboVeMoBan);
@@ -1236,8 +1193,6 @@
             this.Controls.Add(this.dtValidTimeEnd);
             this.Controls.Add(this.dtTimeIn);
             this.Controls.Add(this.dtValidTimeStart);
-            this.Controls.Add(this.picVerBack);
-            this.Controls.Add(this.picVerFront);
             this.Controls.Add(this.picPhoto);
             this.Controls.Add(this.tbCellPhone);
             this.Controls.Add(this.labelX18);
@@ -1295,8 +1250,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picVerFront)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picVerBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtTimeIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtTimeOut)).EndInit();
@@ -1347,8 +1300,6 @@
         private System.Windows.Forms.PictureBox picPhoto;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtValidTimeStart;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtValidTimeEnd;
-        private System.Windows.Forms.PictureBox picVerFront;
-        private System.Windows.Forms.PictureBox picVerBack;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biPreView;
         private DevComponents.DotNetBar.ButtonItem biPrint;
@@ -1368,20 +1319,17 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtTimeOut;
         private DevComponents.DotNetBar.LabelX labelX27;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboVeMoBan;
-        private DevComponents.Editors.ComboItem comboItem7;
-        private DevComponents.Editors.ComboItem comboItem8;
-        private DevComponents.Editors.ComboItem comboItem9;
         private DevComponents.DotNetBar.ButtonItem biSelectPic;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtBirthday;
         private DevComponents.DotNetBar.ButtonItem biNew;
         private DevComponents.DotNetBar.LabelX lbPhotoTip;
-        private DevComponents.DotNetBar.LabelX labelX24;
-        private DevComponents.DotNetBar.LabelX labelX25;
         private DevComponents.DotNetBar.LabelX labelX26;
         private DevComponents.DotNetBar.Controls.TextBoxX tbCardNums;
         private System.Windows.Forms.Button btnSetCard;
         private DevComponents.DotNetBar.ButtonX btnSave;
         private DevComponents.DotNetBar.ButtonX btnSaveAndUpload;
         private DevComponents.DotNetBar.ButtonX btnClose;
+        private FastReport.Preview.PreviewControl previewControl;
+        private DevComponents.DotNetBar.ButtonX btnShow;
     }
 }

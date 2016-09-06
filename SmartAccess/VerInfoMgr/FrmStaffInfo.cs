@@ -1,4 +1,5 @@
-﻿using Li.Access.Core;
+﻿using DevComponents.Editors;
+using Li.Access.Core;
 using Li.Access.Core.BJTWHCardIssue;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.Datas;
@@ -133,7 +134,7 @@ namespace SmartAccess.VerInfoMgr
 
                 try
                 {
-                    _staffInfo.PRINT_TEMPLET_ID = cboVeMoBan.SelectedValue == null ? -1 : (decimal)cboVeMoBan.SelectedValue;
+                    _staffInfo.PRINT_TEMPLET_ID = cboVeMoBan.SelectedItem == null ? -1 : ((Maticsoft.Model.SMT_VERMODEL_INFO)(((ComboItem)cboVeMoBan.SelectedItem).Tag)).ID;
                 }
                 catch (Exception ex)
                 {
@@ -146,8 +147,8 @@ namespace SmartAccess.VerInfoMgr
                     _staffInfo.PHOTO = ms.GetBuffer();
                 }
                 _staffInfo.PHOTO = GetPicImage(picPhoto);
-                _staffInfo.CER_PHOTO_FRONT = GetPicImage(picVerFront);
-                _staffInfo.CER_PHOTO_BACK = GetPicImage(picVerBack);
+                _staffInfo.CER_PHOTO_FRONT = null;
+                _staffInfo.CER_PHOTO_BACK = null;
                 _staffInfo.MODIFY_TIME = DateTime.Now;
 
                 Maticsoft.BLL.SMT_STAFF_INFO saffInfoBll = new Maticsoft.BLL.SMT_STAFF_INFO();
@@ -319,13 +320,56 @@ namespace SmartAccess.VerInfoMgr
             Init();
         }
 
+        private void LoadModels()
+        {
+            ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_VERMODEL_INFO bll = new Maticsoft.BLL.SMT_VERMODEL_INFO();
+                    var models= bll.GetModelList("");
+                    this.Invoke(new Action(() =>
+                    {
+                        try
+                        {
+                            cboVeMoBan.Items.Clear();
+                            decimal id = -1;
+                            if (_staffInfo != null && _staffInfo.PRINT_TEMPLET_ID != null)
+                            {
+                                id = (decimal)_staffInfo.PRINT_TEMPLET_ID;
+                            }
+
+                            foreach (var item in models)
+                            {
+                                ComboItem ci = new ComboItem(item.VERM_NAME);
+                                ci.Tag = item;
+                                cboVeMoBan.Items.Add(ci);
+                                if (id==item.ID)
+                                {
+                                    cboVeMoBan.SelectedItem = ci;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "加载部门异常：" + ex.Message);
+                        }
+                    }));
+                }
+                catch (Exception exx)
+                {
+
+                }
+            }));
+        }
+
         private void Init(bool loadDept = true)
         {
             dtValidTimeStart.Value = DateTime.Parse("2000-01-01 00:00:00");
             dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
             dtTimeIn.Value = DateTime.Parse("2000-01-01 00:00:00");
             dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
-
+            LoadModels();
             if (loadDept)
             {
                 LoadDeptsTree();
@@ -358,16 +402,6 @@ namespace SmartAccess.VerInfoMgr
                     picPhoto.Image = null;
                     lbPhotoTip.Visible = true;
                 }
-                if (picVerFront.Image != null)
-                {
-                    picVerFront.Image.Dispose();
-                    picVerFront.Image = null;
-                }
-                if (picVerBack.Image != null)
-                {
-                    picVerBack.Image.Dispose();
-                    picVerBack.Image = null;
-                }
             }
             else
             {
@@ -381,7 +415,8 @@ namespace SmartAccess.VerInfoMgr
                             ((DevComponents.DotNetBar.Controls.TextBoxX)item).ReadOnly = true;
                         }
                     }
-                    bar1.Enabled = false;
+                    biNew.Visible = false;
+                    biSelectPic.Visible = false;
                     btnSetCard.Visible = false;
                     btnSave.Visible = false;
                     btnSaveAndUpload.Visible = false;
@@ -434,8 +469,6 @@ namespace SmartAccess.VerInfoMgr
                 }
                 SetPicImage(picPhoto, _staffInfo.PHOTO);
                 lbPhotoTip.Visible = picPhoto.Image == null;
-                SetPicImage(picVerFront, _staffInfo.CER_PHOTO_FRONT);
-                SetPicImage(picVerBack, _staffInfo.CER_PHOTO_BACK);
             }
         }
         private void SetPicImage(PictureBox picBox, byte[] bts)
@@ -633,16 +666,6 @@ namespace SmartAccess.VerInfoMgr
                 picPhoto.Image.Dispose();
                 picPhoto.Image = null;
             }
-            if (picVerFront.Image != null)
-            {
-                picVerFront.Image.Dispose();
-                picVerFront.Image = null;
-            }
-            if (picVerBack.Image != null)
-            {
-                picVerBack.Image.Dispose();
-                picVerFront.Image = null;
-            }
         }
 
         private void picPhoto_DoubleClick(object sender, EventArgs e)
@@ -672,6 +695,68 @@ namespace SmartAccess.VerInfoMgr
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private FastReport.Report _report = null;
+        private void cboVeMoBan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowSimplePreview();
+        }
+
+        private void ShowSimplePreview()
+        {
+            ComboItem item = cboVeMoBan.SelectedItem as ComboItem;
+            if (item == null)
+            {
+                return;
+            }
+            Maticsoft.Model.SMT_VERMODEL_INFO model = item.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
+            if (model == null)
+            {
+                return;
+            }
+            if (_report == null)
+            {
+                _report = new FastReport.Report();
+                _report.Preview = previewControl;
+            }
+            MemoryStream ms = new MemoryStream(model.VERM_CONTENT);
+            _report.Load(ms);
+            ModelMgr.VerModelMgr.BindingDataSet(_report);
+            ms.Dispose();
+            _report.Prepare();
+            _report.ShowPrepared();
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            ShowSimplePreview();
+        }
+
+        private void biPreView_Click(object sender, EventArgs e)
+        {
+            ComboItem item = cboVeMoBan.SelectedItem as ComboItem;
+            if (item == null)
+            {
+                return;
+            }
+            Maticsoft.Model.SMT_VERMODEL_INFO model = item.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
+            if (model == null)
+            {
+                return;
+            }
+            FastReport.Report report = new FastReport.Report();
+            MemoryStream ms = new MemoryStream(model.VERM_CONTENT);
+            report.Load(ms);
+            ModelMgr.VerModelMgr.BindingDataSet(report);
+            ms.Dispose();
+            report.Prepare();
+            report.ShowPrepared();
+        }
+
+        private void biPrint_Click(object sender, EventArgs e)
+        {
+            ShowSimplePreview();
+            previewControl.Print();
         }
 
     }

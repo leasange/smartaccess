@@ -34,34 +34,27 @@
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biNewVerModel = new DevComponents.DotNetBar.ButtonItem();
             this.biModifyModel = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.advTreeEx2 = new Li.Controls.AdvTreeEx();
+            this.modelTree = new Li.Controls.AdvTreeEx();
             this.node2 = new DevComponents.AdvTree.Node();
             this.node4 = new DevComponents.AdvTree.Node();
             this.node5 = new DevComponents.AdvTree.Node();
             this.nodeConnector2 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle2 = new DevComponents.DotNetBar.ElementStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
-            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.previewControl = new FastReport.Preview.PreviewControl();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeEx1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeEx2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modelTree)).BeginInit();
             this.panelEx1.SuspendLayout();
-            this.groupPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // advTreeEx1
@@ -118,6 +111,7 @@
             this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biRefresh,
             this.biNewVerModel,
             this.biModifyModel,
             this.buttonItem2});
@@ -130,20 +124,31 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
+            // biRefresh
+            // 
+            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefresh.Image = global::SmartAccess.Properties.Resources.刷新;
+            this.biRefresh.Name = "biRefresh";
+            this.biRefresh.Text = "刷新";
+            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
+            // 
             // biNewVerModel
             // 
+            this.biNewVerModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biNewVerModel.Name = "biNewVerModel";
             this.biNewVerModel.Text = "新建模板";
             this.biNewVerModel.Click += new System.EventHandler(this.biNewVerModel_Click);
             // 
             // biModifyModel
             // 
+            this.biModifyModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biModifyModel.Name = "biModifyModel";
             this.biModifyModel.Text = "编辑模板";
             this.biModifyModel.Click += new System.EventHandler(this.biModifyModel_Click);
             // 
             // buttonItem2
             // 
+            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.buttonItem2.Name = "buttonItem2";
             this.buttonItem2.Text = "删除模板";
             // 
@@ -157,39 +162,40 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.advTreeEx2);
+            this.splitContainer1.Panel1.Controls.Add(this.modelTree);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panelEx1);
             this.splitContainer1.Size = new System.Drawing.Size(785, 408);
-            this.splitContainer1.SplitterDistance = 239;
+            this.splitContainer1.SplitterDistance = 247;
             this.splitContainer1.TabIndex = 2;
             // 
-            // advTreeEx2
+            // modelTree
             // 
-            this.advTreeEx2.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
-            this.advTreeEx2.AllowDrop = true;
-            this.advTreeEx2.BackColor = System.Drawing.SystemColors.Window;
+            this.modelTree.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.modelTree.AllowDrop = true;
+            this.modelTree.BackColor = System.Drawing.SystemColors.Window;
             // 
             // 
             // 
-            this.advTreeEx2.BackgroundStyle.Class = "TreeBorderKey";
-            this.advTreeEx2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.advTreeEx2.CheckBoxVisible = false;
-            this.advTreeEx2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advTreeEx2.Location = new System.Drawing.Point(0, 0);
-            this.advTreeEx2.Name = "advTreeEx2";
-            this.advTreeEx2.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
+            this.modelTree.BackgroundStyle.Class = "TreeBorderKey";
+            this.modelTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.modelTree.CheckBoxVisible = false;
+            this.modelTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modelTree.Location = new System.Drawing.Point(0, 0);
+            this.modelTree.Name = "modelTree";
+            this.modelTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
             this.node2});
-            this.advTreeEx2.NodesConnector = this.nodeConnector2;
-            this.advTreeEx2.NodeStyle = this.elementStyle2;
-            this.advTreeEx2.PathSeparator = ";";
-            this.advTreeEx2.SelectionPerCell = true;
-            this.advTreeEx2.Size = new System.Drawing.Size(239, 408);
-            this.advTreeEx2.Styles.Add(this.elementStyle2);
-            this.advTreeEx2.TabIndex = 0;
-            this.advTreeEx2.Text = "advTreeEx2";
+            this.modelTree.NodesConnector = this.nodeConnector2;
+            this.modelTree.NodeStyle = this.elementStyle2;
+            this.modelTree.PathSeparator = ";";
+            this.modelTree.SelectionPerCell = true;
+            this.modelTree.Size = new System.Drawing.Size(247, 408);
+            this.modelTree.Styles.Add(this.elementStyle2);
+            this.modelTree.TabIndex = 0;
+            this.modelTree.Text = "advTreeEx2";
+            this.modelTree.AfterNodeSelect += new DevComponents.AdvTree.AdvTreeNodeEventHandler(this.modelTree_AfterNodeSelect);
             // 
             // node2
             // 
@@ -226,11 +232,11 @@
             // 
             this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx1.Controls.Add(this.groupPanel1);
+            this.panelEx1.Controls.Add(this.previewControl);
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEx1.Location = new System.Drawing.Point(0, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(542, 408);
+            this.panelEx1.Size = new System.Drawing.Size(534, 408);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -240,125 +246,17 @@
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 3;
             // 
-            // groupPanel1
+            // previewControl
             // 
-            this.groupPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel1.Controls.Add(this.pictureBox1);
-            this.groupPanel1.Controls.Add(this.labelX1);
-            this.groupPanel1.Controls.Add(this.labelX4);
-            this.groupPanel1.Controls.Add(this.labelX2);
-            this.groupPanel1.Controls.Add(this.labelX5);
-            this.groupPanel1.Controls.Add(this.labelX3);
-            this.groupPanel1.Location = new System.Drawing.Point(39, 34);
-            this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(460, 264);
-            // 
-            // 
-            // 
-            this.groupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.groupPanel1.Style.BackColorGradientAngle = 90;
-            this.groupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.groupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderBottomWidth = 1;
-            this.groupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.groupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderLeftWidth = 1;
-            this.groupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderRightWidth = 1;
-            this.groupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderTopWidth = 1;
-            this.groupPanel1.Style.CornerDiameter = 4;
-            this.groupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.groupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
-            this.groupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.groupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near;
-            // 
-            // 
-            // 
-            this.groupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanel1.TabIndex = 2;
-            this.groupPanel1.Text = "预览效果";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SmartAccess.Properties.Resources.读卡器;
-            this.pictureBox1.Location = new System.Drawing.Point(297, 16);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(129, 143);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
-            // labelX1
-            // 
-            this.labelX1.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(73, 16);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(67, 29);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "姓名";
-            // 
-            // labelX4
-            // 
-            this.labelX4.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(73, 191);
-            this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(75, 23);
-            this.labelX4.TabIndex = 1;
-            this.labelX4.Text = "有效日期";
-            // 
-            // labelX2
-            // 
-            this.labelX2.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(73, 51);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(67, 29);
-            this.labelX2.TabIndex = 0;
-            this.labelX2.Text = "性别";
-            // 
-            // labelX5
-            // 
-            this.labelX5.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Location = new System.Drawing.Point(73, 144);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(67, 29);
-            this.labelX5.TabIndex = 0;
-            this.labelX5.Text = "证件类型";
-            // 
-            // labelX3
-            // 
-            this.labelX3.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(73, 97);
-            this.labelX3.Name = "labelX3";
-            this.labelX3.Size = new System.Drawing.Size(67, 29);
-            this.labelX3.TabIndex = 0;
-            this.labelX3.Text = "证件号码";
+            this.previewControl.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.previewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previewControl.Font = new System.Drawing.Font("宋体", 9F);
+            this.previewControl.Location = new System.Drawing.Point(0, 0);
+            this.previewControl.Name = "previewControl";
+            this.previewControl.PageOffset = new System.Drawing.Point(10, 10);
+            this.previewControl.Size = new System.Drawing.Size(534, 408);
+            this.previewControl.TabIndex = 0;
+            this.previewControl.UIStyle = FastReport.Utils.UIStyle.Office2007Black;
             // 
             // VerModelMgr
             // 
@@ -368,16 +266,15 @@
             this.Controls.Add(this.bar1);
             this.Name = "VerModelMgr";
             this.Size = new System.Drawing.Size(785, 437);
+            this.Load += new System.EventHandler(this.VerModelMgr_Load);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeEx1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.advTreeEx2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modelTree)).EndInit();
             this.panelEx1.ResumeLayout(false);
-            this.groupPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -394,20 +291,15 @@
         private DevComponents.DotNetBar.ButtonItem buttonItem2;
         private DevComponents.DotNetBar.ButtonItem biNewVerModel;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Li.Controls.AdvTreeEx advTreeEx2;
+        private Li.Controls.AdvTreeEx modelTree;
         private DevComponents.AdvTree.Node node2;
         private DevComponents.AdvTree.Node node4;
         private DevComponents.AdvTree.Node node5;
         private DevComponents.AdvTree.NodeConnector nodeConnector2;
         private DevComponents.DotNetBar.ElementStyle elementStyle2;
-        private DevComponents.DotNetBar.LabelX labelX1;
-        private DevComponents.DotNetBar.LabelX labelX2;
-        private DevComponents.DotNetBar.LabelX labelX3;
-        private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.LabelX labelX5;
-        private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private DevComponents.DotNetBar.PanelEx panelEx1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private FastReport.Preview.PreviewControl previewControl;
+        private DevComponents.DotNetBar.ButtonItem biRefresh;
 
     }
 }

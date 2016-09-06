@@ -28,39 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVerModelEditor));
+            this.designerControl = new FastReport.Design.StandardDesigner.DesignerControl();
+            ((System.ComponentModel.ISupportInitialize)(this.designerControl)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelX1
+            // designerControl
             // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.Location = new System.Drawing.Point(87, 96);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(256, 58);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "内容设计待定....";
+            this.designerControl.AskSave = true;
+            this.designerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.designerControl.LayoutState = resources.GetString("designerControl.LayoutState");
+            this.designerControl.Location = new System.Drawing.Point(0, 0);
+            this.designerControl.Name = "designerControl";
+            this.designerControl.Size = new System.Drawing.Size(829, 525);
+            this.designerControl.TabIndex = 0;
+            this.designerControl.UIStyle = FastReport.Utils.UIStyle.Office2007Black;
             // 
             // FrmVerModelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 425);
-            this.Controls.Add(this.labelX1);
+            this.ClientSize = new System.Drawing.Size(829, 525);
+            this.Controls.Add(this.designerControl);
             this.DoubleBuffered = true;
             this.Name = "FrmVerModelEditor";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "证件模板新建/编辑";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.FrmVerModelEditor_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.designerControl)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DevComponents.DotNetBar.LabelX labelX1;
+        private FastReport.Design.StandardDesigner.DesignerControl designerControl;
+
     }
 }
