@@ -278,10 +278,13 @@ namespace SmartAccess
         {
 
         }
-
+        //电子地图配置
         private void linkMapEditor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            if (!CheckControl(typeof(MapsMgr)))
+            {
+                AddControl(new MapsMgr(), "地图编辑");
+            }
         }
 
         private void linkAccessPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

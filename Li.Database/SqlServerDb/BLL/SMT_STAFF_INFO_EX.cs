@@ -72,6 +72,10 @@ namespace Maticsoft.BLL
                         {
                             model.ORG_NAME = dt.Rows[n]["ORG_NAME"].ToString();
                         }
+                        if (dt.Rows[n]["ORG_CODE"] != null)
+                        {
+                            model.ORG_CODE = dt.Rows[n]["ORG_CODE"].ToString();
+                        }
                         modelList.Add(model);
                         ids += model.ID + ",";
                     }

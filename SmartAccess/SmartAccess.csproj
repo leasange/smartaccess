@@ -84,6 +84,7 @@
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\Datas\ControllerHelper.cs" />
     <Compile Include="Common\Datas\DoorDataHelper.cs" />
+    <Compile Include="Common\Datas\StaffDataHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">
@@ -105,11 +106,30 @@
       <DependentUpon>FrmInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\WinInfo\WinInfoHelper.cs" />
+    <Compile Include="ConfigMgr\DoorRectangle.cs" />
     <Compile Include="ConfigMgr\FrmCardIssueSetting.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConfigMgr\FrmCardIssueSetting.Designer.cs">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmEditMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmEditMap.Designer.cs">
+      <DependentUpon>FrmEditMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\MapCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\MapCtrl.Designer.cs">
+      <DependentUpon>MapCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\MapsMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\MapsMgr.Designer.cs">
+      <DependentUpon>MapsMgr.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
       <SubType>UserControl</SubType>
@@ -365,6 +385,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmCardIssueSetting.resx">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmEditMap.resx">
+      <DependentUpon>FrmEditMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\MapCtrl.resx">
+      <DependentUpon>MapCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\MapsMgr.resx">
+      <DependentUpon>MapsMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>
@@ -663,6 +692,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo1.ico" />
+    <None Include="Resources\room_open.png" />
+    <None Include="Resources\door_dump.png" />
+    <None Include="Resources\door_close.png" />
+    <None Include="Resources\示例证件.jpg" />
     <None Include="Resources\loginbk.png" />
     <None Include="Resources\读卡.png" />
     <None Include="Resources\企业logo.png" />

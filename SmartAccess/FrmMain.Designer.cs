@@ -176,12 +176,10 @@
             this.expandablePanel9.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel9.Controls.Add(this.panel10);
             this.expandablePanel9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel9.Expanded = false;
-            this.expandablePanel9.ExpandedBounds = new System.Drawing.Rectangle(0, 272, 246, 354);
             this.expandablePanel9.ExpandOnTitleClick = true;
             this.expandablePanel9.Location = new System.Drawing.Point(0, 272);
             this.expandablePanel9.Name = "expandablePanel9";
-            this.expandablePanel9.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel9.Size = new System.Drawing.Size(246, 354);
             this.expandablePanel9.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel9.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel9.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -220,7 +218,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 34);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(246, 0);
+            this.panel10.Size = new System.Drawing.Size(246, 320);
             this.panel10.TabIndex = 2;
             // 
             // linkCardInssue
@@ -245,7 +243,6 @@
             // linkProPrivi
             // 
             this.linkProPrivi.BackColor = System.Drawing.Color.Transparent;
-            this.linkProPrivi.Enabled = false;
             this.linkProPrivi.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkProPrivi.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkProPrivi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -284,7 +281,6 @@
             // linkModifyUserPwd
             // 
             this.linkModifyUserPwd.BackColor = System.Drawing.Color.Transparent;
-            this.linkModifyUserPwd.Enabled = false;
             this.linkModifyUserPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkModifyUserPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkModifyUserPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -303,7 +299,6 @@
             // linkUserUse
             // 
             this.linkUserUse.BackColor = System.Drawing.Color.Transparent;
-            this.linkUserUse.Enabled = false;
             this.linkUserUse.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkUserUse.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkUserUse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -322,7 +317,6 @@
             // linkInOutTimeSet
             // 
             this.linkInOutTimeSet.BackColor = System.Drawing.Color.Transparent;
-            this.linkInOutTimeSet.Enabled = false;
             this.linkInOutTimeSet.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkInOutTimeSet.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkInOutTimeSet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -341,7 +335,6 @@
             // linkDbBak
             // 
             this.linkDbBak.BackColor = System.Drawing.Color.Transparent;
-            this.linkDbBak.Enabled = false;
             this.linkDbBak.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkDbBak.Image = global::SmartAccess.Properties.Resources.数据库配置;
             this.linkDbBak.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -360,7 +353,6 @@
             // linkMapEditor
             // 
             this.linkMapEditor.BackColor = System.Drawing.Color.Transparent;
-            this.linkMapEditor.Enabled = false;
             this.linkMapEditor.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkMapEditor.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkMapEditor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -379,7 +371,6 @@
             // linkAccessPwd
             // 
             this.linkAccessPwd.BackColor = System.Drawing.Color.Transparent;
-            this.linkAccessPwd.Enabled = false;
             this.linkAccessPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkAccessPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkAccessPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -517,7 +508,6 @@
             this.expandablePanel7.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel7.TitleStyle.GradientAngle = 90;
             this.expandablePanel7.TitleText = "实时监控管理";
-            this.expandablePanel7.Visible = false;
             // 
             // panel8
             // 

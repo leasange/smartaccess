@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
 using DevComponents.AdvTree;
 using System.IO;
+using SmartAccess.Common.Datas;
 
 namespace SmartAccess.ModelMgr
 {
@@ -64,7 +65,6 @@ namespace SmartAccess.ModelMgr
             FastReport.Utils.Config.Root.FindItem("Language").SetProp("Folder", Path.Combine(Application.StartupPath, "Localization"));
             _report = new FastReport.Report();
             _report.Preview = previewControl;
-            BindingDataSet(_report);
             InitTree();
         }
         //初始化树
@@ -72,22 +72,26 @@ namespace SmartAccess.ModelMgr
         {
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
-                try
-                {
-                    Maticsoft.BLL.SMT_VERMODEL_INFO bll = new Maticsoft.BLL.SMT_VERMODEL_INFO();
-                    var list = bll.GetModelList("");
-                    this.Invoke(new Action(() =>
-                    {
-                        ShowModels(list);
-                    }));
-                }
-                catch (Exception ex)
-                {
-                    WinInfoHelper.ShowInfoWindow(this, "获取模板列表异常：" + ex.Message);
-                    log.Error("获取模板列表异常：", ex);
-                }
+                InternalInitTree();
             });
             waiting.Show(this);
+        }
+        private void InternalInitTree()
+        {
+            try
+            {
+                Maticsoft.BLL.SMT_VERMODEL_INFO bll = new Maticsoft.BLL.SMT_VERMODEL_INFO();
+                var list = bll.GetModelList("");
+                this.Invoke(new Action(() =>
+                {
+                    ShowModels(list);
+                }));
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "获取模板列表异常：" + ex.Message);
+                log.Error("获取模板列表异常：", ex);
+            }
         }
         private void ShowModels(List<Maticsoft.Model.SMT_VERMODEL_INFO> infos)
         {
@@ -102,6 +106,12 @@ namespace SmartAccess.ModelMgr
                     _lastSelectModel = item;
                     modelTree.SelectedNode = model;
                 }
+            }
+            if (_lastSelectModel==null)
+            {
+                _report.Clear();
+                _report.Prepare();
+                _report.ShowPrepared();
             }
             modelTree.ExpandAll();
         }
@@ -128,6 +138,9 @@ namespace SmartAccess.ModelMgr
                 MemoryStream ms = new MemoryStream(content);
                 _report.Load(ms);
                 ms.Dispose();
+                var dt = StaffDataHelper.GetTestReportDataTable();
+                _report.RegisterData(dt, dt.TableName);
+                _report.AutoFillDataSet = true;
                 _report.Prepare();
                 _report.ShowPrepared();
             }
@@ -138,37 +151,37 @@ namespace SmartAccess.ModelMgr
             }
 
         }
-        public static void BindingDataSet(FastReport.Report report)
+
+        private void biDeleteModel_Click(object sender, EventArgs e)
         {
-            DataSet ds = new DataSet("人员信息");
+            var model = GetSelectModel();
+            if (model==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择删除的模板！");
+            }
+            else
+            {
+                if (MessageBox.Show("确定删除“"+model.VERM_NAME+"”模板？","提示",MessageBoxButtons.OKCancel)==DialogResult.OK)
+                {
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        try
+                        {
+                            Maticsoft.BLL.SMT_VERMODEL_INFO bll = new Maticsoft.BLL.SMT_VERMODEL_INFO();
+                            bll.Delete(model.ID);
+                            _lastSelectModel = null;
+                            InternalInitTree();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("删除模板异常：" + ex.Message);
+                            WinInfoHelper.ShowInfoWindow(this, "删除模板异常：" + ex.Message);
+                        }
 
-            DataTable staff = ds.Tables.Add("人员表");
-            staff.Columns.AddRange(new DataColumn[]{
-            new DataColumn("部门ID",typeof(int)),
-            new DataColumn("姓名",typeof(string)),
-            new DataColumn("照片",typeof(Image))
-            });
-            DataRow staffRow = staff.NewRow();
-            staffRow[0] = 0;
-            staffRow[1] = "张三";
-            staff.Rows.Add(staffRow);
-
-            DataTable dept = ds.Tables.Add("部门表");
-            dept.Columns.AddRange(new DataColumn[]{
-            new DataColumn("部门ID",typeof(int)),
-            new DataColumn("部门编号",typeof(string)),
-            new DataColumn("部门名称",typeof(string))
-            });
-            DataRow deptRow = dept.NewRow();
-            deptRow[0] = 0;
-            deptRow[1] = "020202";
-            deptRow[1] = "财务部";
-            dept.Rows.Add(deptRow);
-
-
-            ds.Relations.Add("关联部门信息", dept.Columns["部门ID"], staff.Columns["部门ID"]);
-            report.RegisterData(ds);
-            report.AutoFillDataSet = true;
+                    });
+                    waiting.Show(this);
+                }
+            }
         }
     }
 }

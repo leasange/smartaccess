@@ -73,6 +73,26 @@ namespace SmartAccess.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap door_close {
+            get {
+                object obj = ResourceManager.GetObject("door_close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap door_dump {
+            get {
+                object obj = ResourceManager.GetObject("door_dump", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap editor {
             get {
                 object obj = ResourceManager.GetObject("editor", resourceCulture);
@@ -116,6 +136,16 @@ namespace SmartAccess.Properties {
         internal static System.Drawing.Bitmap menuback {
             get {
                 object obj = ResourceManager.GetObject("menuback", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap room_open {
+            get {
+                object obj = ResourceManager.GetObject("room_open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -416,6 +446,16 @@ namespace SmartAccess.Properties {
         internal static System.Drawing.Bitmap 登陆背景 {
             get {
                 object obj = ResourceManager.GetObject("登陆背景", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 示例证件 {
+            get {
+                object obj = ResourceManager.GetObject("示例证件", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

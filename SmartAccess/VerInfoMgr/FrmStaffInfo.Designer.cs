@@ -756,19 +756,19 @@
             // biSelectPic
             // 
             this.biSelectPic.Name = "biSelectPic";
-            this.biSelectPic.Text = "照片";
+            this.biSelectPic.Text = "选择照片";
             this.biSelectPic.Click += new System.EventHandler(this.biSelectPic_Click);
             // 
             // biPreView
             // 
             this.biPreView.Name = "biPreView";
-            this.biPreView.Text = "预览";
+            this.biPreView.Text = "证件打印预览";
             this.biPreView.Click += new System.EventHandler(this.biPreView_Click);
             // 
             // biPrint
             // 
             this.biPrint.Name = "biPrint";
-            this.biPrint.Text = "打印";
+            this.biPrint.Text = "证件打印";
             this.biPrint.Click += new System.EventHandler(this.biPrint_Click);
             // 
             // cbTreeDept
@@ -1148,6 +1148,7 @@
             // 
             // previewControl
             // 
+            this.previewControl.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.previewControl.Font = new System.Drawing.Font("宋体", 9F);
             this.previewControl.Location = new System.Drawing.Point(491, 28);
             this.previewControl.Name = "previewControl";

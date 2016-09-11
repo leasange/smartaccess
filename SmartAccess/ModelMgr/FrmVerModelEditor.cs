@@ -1,4 +1,5 @@
-﻿using SmartAccess.Common.WinInfo;
+﻿using SmartAccess.Common.Datas;
+using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,7 +49,8 @@ namespace SmartAccess.ModelMgr
                 MemoryStream ms = new MemoryStream(_model.VERM_CONTENT);
                 report.Load(ms);
             }
-            VerModelMgr.BindingDataSet(report);
+            var dt = StaffDataHelper.GetTestReportDataTable();
+            report.RegisterData(dt, dt.TableName);
             designerControl.Report = report;
 
             foreach (FastReport.Data.DataSourceBase item in report.Dictionary.DataSources)

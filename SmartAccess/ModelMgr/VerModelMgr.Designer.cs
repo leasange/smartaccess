@@ -37,7 +37,7 @@
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biNewVerModel = new DevComponents.DotNetBar.ButtonItem();
             this.biModifyModel = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteModel = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.modelTree = new Li.Controls.AdvTreeEx();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -114,7 +114,7 @@
             this.biRefresh,
             this.biNewVerModel,
             this.biModifyModel,
-            this.buttonItem2});
+            this.biDeleteModel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.Size = new System.Drawing.Size(785, 29);
@@ -146,11 +146,12 @@
             this.biModifyModel.Text = "编辑模板";
             this.biModifyModel.Click += new System.EventHandler(this.biModifyModel_Click);
             // 
-            // buttonItem2
+            // biDeleteModel
             // 
-            this.buttonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem2.Name = "buttonItem2";
-            this.buttonItem2.Text = "删除模板";
+            this.biDeleteModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteModel.Name = "biDeleteModel";
+            this.biDeleteModel.Text = "删除模板";
+            this.biDeleteModel.Click += new System.EventHandler(this.biDeleteModel_Click);
             // 
             // splitContainer1
             // 
@@ -288,7 +289,7 @@
         private DevComponents.AdvTree.Node node3;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biModifyModel;
-        private DevComponents.DotNetBar.ButtonItem buttonItem2;
+        private DevComponents.DotNetBar.ButtonItem biDeleteModel;
         private DevComponents.DotNetBar.ButtonItem biNewVerModel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Li.Controls.AdvTreeEx modelTree;

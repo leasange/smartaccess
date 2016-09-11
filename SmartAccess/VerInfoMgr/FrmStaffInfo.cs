@@ -456,6 +456,18 @@ namespace SmartAccess.VerInfoMgr
                 tbXueLi.Text = _staffInfo.EDUCATIONAL;
                 dtTimeIn.ValueObject = _staffInfo.ENTRY_TIME;
                 dtTimeOut.ValueObject = _staffInfo.ABORT_TIME;
+
+                if (_view)
+                {
+                    cbSex.Enabled = false;
+                    cbMarry.Enabled = false;
+                    dtBirthday.Enabled = false;
+                    dtValidTimeStart.Enabled = false;
+                    dtValidTimeEnd.Enabled = false;
+                    dtTimeIn.Enabled = false;
+                    dtTimeOut.Enabled = false;
+                }
+
                 try
                 {
                     if (_staffInfo.PRINT_TEMPLET_ID != null)
@@ -511,7 +523,12 @@ namespace SmartAccess.VerInfoMgr
                                    {
                                        cbTreeDept.SelectedNode = node;
                                        node.EnsureVisible();
+                                       ShowSimplePreview();
                                    }
+                                }
+                                if (_view)
+                                {
+                                    cbTreeDept.Enabled = false;
                                 }
                             }
                             catch (Exception ex)
@@ -702,29 +719,109 @@ namespace SmartAccess.VerInfoMgr
             ShowSimplePreview();
         }
 
-        private void ShowSimplePreview()
+        private bool LoadReportData(FastReport.Report report)
         {
             ComboItem item = cboVeMoBan.SelectedItem as ComboItem;
             if (item == null)
             {
-                return;
+                return false;
             }
             Maticsoft.Model.SMT_VERMODEL_INFO model = item.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
             if (model == null)
             {
-                return;
-            }
-            if (_report == null)
-            {
-                _report = new FastReport.Report();
-                _report.Preview = previewControl;
+                return false;
             }
             MemoryStream ms = new MemoryStream(model.VERM_CONTENT);
-            _report.Load(ms);
-            ModelMgr.VerModelMgr.BindingDataSet(_report);
+            report.Load(ms);
+            string deptName = "";
+            string deptNo = "";
+            if (cbTreeDept.SelectedNode != null)
+            {
+                Maticsoft.Model.SMT_ORG_INFO org = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                if (org != null)
+                {
+                    deptName = org.ORG_NAME;
+                    deptNo = org.ORG_CODE;
+                }
+                else if (_staffInfo != null)
+                {
+                    deptName = _staffInfo.ORG_NAME;
+                    deptNo = _staffInfo.ORG_CODE;
+                }
+            }
+            string sex = "未知";
+            if (cbSex.SelectedIndex==1)
+            {
+                sex = "男";
+            }
+            else if (cbSex.SelectedIndex==2)
+            {
+                sex = "女";
+            }
+            string marry = "未知";
+            if (cbMarry.SelectedIndex == 1)
+            {
+                marry = "已婚";
+            }
+            else if (cbMarry.SelectedIndex == 2)
+            {
+                marry = "未婚";
+            }
+            var dt = StaffDataHelper.GetReportDataTable(
+                deptName,
+                deptNo,
+                tbVerNo.Text.Trim(),
+                tbStaffName.Text.Trim(),
+                sex,
+                tbJob.Text.Trim(),
+                dtBirthday.Value.Date,
+                tbPublic.Text.Trim(),
+                marry,
+                tbSkillLevel.Text.Trim(),
+                tbPrivateVerName.Text.Trim(),
+                tbPrivateVerNo.Text.Trim(),
+                tbTelphone.Text.Trim(),
+                tbCellPhone.Text.Trim(),
+                tbJiGuan.Text.Trim(),
+                tbMinZu.Text.Trim(),
+                tbZonJiao.Text.Trim(),
+                tbXueLi.Text.Trim(),
+                tbEmail.Text.Trim(),
+                dtValidTimeStart.Value.Date,
+                dtValidTimeEnd.Value.Date.Add(new TimeSpan(23, 59, 59)),
+                dtTimeIn.Value.Date,
+                dtTimeOut.Value.Date,
+                tbAddress.Text.Trim(),
+                picPhoto.Image,
+                _staffInfo != null ? _staffInfo.REG_TIME : DateTime.Now
+                );
+            report.RegisterData(dt, dt.TableName);
+            //ModelMgr.VerModelMgr.BindingDataSet(_report);
             ms.Dispose();
-            _report.Prepare();
-            _report.ShowPrepared();
+            return true;
+        }
+
+        private void ShowSimplePreview()
+        {
+            try
+            {
+                if (_report == null)
+                {
+                    _report = new FastReport.Report();
+                    _report.Preview = previewControl;
+                }
+                if (LoadReportData(_report))
+                {
+                    _report.Prepare();
+                    _report.ShowPrepared();
+                }
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "预览证件异常：" + ex.Message);
+                log.Error("预览证件异常：", ex);
+            }
+
         }
 
         private void btnShow_Click(object sender, EventArgs e)
@@ -734,29 +831,21 @@ namespace SmartAccess.VerInfoMgr
 
         private void biPreView_Click(object sender, EventArgs e)
         {
-            ComboItem item = cboVeMoBan.SelectedItem as ComboItem;
-            if (item == null)
-            {
-                return;
-            }
-            Maticsoft.Model.SMT_VERMODEL_INFO model = item.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
-            if (model == null)
-            {
-                return;
-            }
             FastReport.Report report = new FastReport.Report();
-            MemoryStream ms = new MemoryStream(model.VERM_CONTENT);
-            report.Load(ms);
-            ModelMgr.VerModelMgr.BindingDataSet(report);
-            ms.Dispose();
-            report.Prepare();
-            report.ShowPrepared();
+            if (LoadReportData(report))
+            {
+                report.Prepare();
+                report.ShowPrepared();
+            }
         }
 
         private void biPrint_Click(object sender, EventArgs e)
         {
             ShowSimplePreview();
-            previewControl.Print();
+            this.BeginInvoke(new Action(() =>
+                {
+                    previewControl.Print();
+                }));
         }
 
     }

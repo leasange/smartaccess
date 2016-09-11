@@ -105,7 +105,7 @@ namespace Maticsoft.DAL
             strSql.Append("            from SMT_ORG_INFO ssi2 ");
             strSql.Append("            inner join temp on ssi2.PAR_ID = temp.ID ");
             strSql.Append(") ");
-            strSql.AppendFormat(" select top {0} res.*,org.ORG_NAME from ", endIndex - startIndex + 1);
+            strSql.AppendFormat(" select top {0} res.*,org.ORG_NAME,org.ORG_CODE from ", endIndex - startIndex + 1);
             strSql.Append(" (select row_number() over(order by org_id) as rownumber,* from SMT_STAFF_INFO ssc where ssc.ORG_ID in (select * from temp )  and ssc.IS_DELETE=0) res ");
             strSql.AppendFormat(" left join SMT_ORG_INFO org on res.org_id=org.ID where res.rownumber>={0} ", startIndex);
 
@@ -116,7 +116,7 @@ namespace Maticsoft.DAL
             StringBuilder strSql = new StringBuilder();
 
             strSql.Append("select * from (");
-            strSql.Append("select SI.*,OI.ORG_NAME,ROW_NUMBER() over (order by ");
+            strSql.Append("select SI.*,OI.ORG_NAME,OI.ORG_CODE,ROW_NUMBER() over (order by ");
 
             if (string.IsNullOrWhiteSpace(orderby))
             {
