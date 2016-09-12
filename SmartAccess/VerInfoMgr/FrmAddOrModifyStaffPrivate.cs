@@ -54,7 +54,15 @@ namespace SmartAccess.VerInfoMgr
         }
         private void FrmAddOrModifyStaffPrivate_Load(object sender, EventArgs e)
         {
-           
+            doorTree.Tree.NodeDoubleClick += Tree_NodeDoubleClick;
+        }
+
+        void Tree_NodeDoubleClick(object sender, TreeNodeMouseEventArgs e)
+        {
+            if (e.Button== System.Windows.Forms.MouseButtons.Left)
+            {
+                DoSelectDoors(new List<Node>() { e.Node });
+            }
         }
         private void btnSelect_Click(object sender, EventArgs e)
         {
@@ -227,6 +235,17 @@ namespace SmartAccess.VerInfoMgr
                  }
              });
             ctrlWaiting.Show(this);
+        }
+
+        private void dgvSelectDoor_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button== System.Windows.Forms.MouseButtons.Left)
+            {
+                if (e.RowIndex>=0)
+                {
+                    DoUnSelect(new List<DataGridViewRow>() { dgvSelectDoor.Rows[e.RowIndex] });
+                }
+            }
         }
 
     }

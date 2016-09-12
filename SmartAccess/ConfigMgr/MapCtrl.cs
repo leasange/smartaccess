@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace SmartAccess.ConfigMgr
 {
@@ -82,6 +83,83 @@ namespace SmartAccess.ConfigMgr
             });
         }
 
+        public void LoadMapInfo(Maticsoft.Model.SMT_MAP_INFO mapInfo)
+        {
+            _doors.Clear();
+            _mapImage = null;
+            if (mapInfo.MAP_IMAGE!=null&&mapInfo.MAP_IMAGE.Length>0)
+            {
+                MemoryStream ms=new MemoryStream(mapInfo.MAP_IMAGE);
+                _mapImage = Image.FromStream(ms);
+                ms.Dispose();
+            }
+            if (mapInfo.MAP_DOORS!=null&&mapInfo.MAP_DOORS.Count>0)
+            {
+                foreach (var item in mapInfo.MAP_DOORS)
+                {
+                    DoorRectangle dr = new DoorRectangle();
+                    dr.Id = item.DOOR_ID;
+                    dr.IsOnline = true;
+                    dr.IsOpen = false;
+                    dr.IsSelected = false;
+                    dr.RatioX = (double)item.LOCATION_X;
+                    dr.RatioY = (double)item.LOCATION_Y;
+                    dr.RatioWidth = (double)item.WIDTH;
+                    dr.RatioHeight = (double)item.HEIGHT;
+                    dr.DoorName = item.DOOR.DOOR_NAME;
+                    _doors.Add(dr);
+                }
+            }
+            this.Invalidate();
+        }
+
+        private PointF ToExtentPoint(Point ctrlPoint)
+        {
+            float x = (ctrlPoint.X - _mapRect.Left) / _mapRect.Width;
+            float y = (ctrlPoint.Y - _mapRect.Top) / _mapRect.Height;
+            return new PointF(x, y);
+        }
+
+        public void AddDoorInfo(Maticsoft.Model.SMT_DOOR_INFO doorInfo, Point ctrlPoint)
+        {
+            if (_doors.Exists(m => m.Id == doorInfo.ID))
+            {
+                return;
+            }
+            DoorRectangle dr = new DoorRectangle();
+            dr.Id = doorInfo.ID;
+            dr.IsOnline = true;
+            dr.IsOpen = false;
+            dr.IsSelected = false;
+            PointF pf = ToExtentPoint(ctrlPoint);
+            dr.RatioX = pf.X;
+            dr.RatioY = pf.Y;
+            dr.RatioWidth = (double)32 / this.Width;
+            dr.RatioHeight = (double)32 / this.Height;
+
+            RectangleF rect= dr.GetRect(_mapRect);
+            if (rect.Left-_mapRect.Left<0)
+            {
+                dr.RatioX = 0;
+            }
+            if (rect.Top-_mapRect.Top<0)
+            {
+                dr.RatioY = 0;
+            }
+            if (rect.Right>_mapRect.Right)
+            {
+                dr.RatioX -= (rect.Right - _mapRect.Right) / _mapRect.Width;
+            }
+            if (rect.Bottom>_mapRect.Bottom)
+            {
+                dr.RatioY-=(rect.Bottom - _mapRect.Bottom) / _mapRect.Height;
+            }
+
+            dr.DoorName = doorInfo.DOOR_NAME;
+            _doors.Add(dr);
+            this.Invalidate();
+        }
+
 
         public void AddDoors(params DoorRectangle[] doors)
         {
@@ -98,6 +176,26 @@ namespace SmartAccess.ConfigMgr
         public DoorRectangle[] GetDoors()
         {
             return _doors.ToArray();
+        }
+
+        public void RemoveDoors(params decimal[] doorIds)
+        {
+            if (doorIds!=null&&doorIds.Length>0)
+            {
+               _doors.RemoveAll(m => doorIds.Contains(m.Id));
+               this.Invalidate();
+            }
+        }
+
+        public List<DoorRectangle> DeleteSelectDoors()
+        {
+             var ds=_doors.FindAll(m => m.IsSelected);
+             foreach (var item in ds)
+             {
+                 _doors.Remove(item);
+             }
+            this.Invalidate();
+            return ds;
         }
 
         public void ClearDoors()
@@ -171,6 +269,20 @@ namespace SmartAccess.ConfigMgr
                 this.Refresh();
             }
         }
+
+        public void DelayFullExtent(int miniSeconds = 200)
+        {
+            Timer t = new Timer();
+            t.Interval = miniSeconds;
+            t.Tick += delegate(object sender, EventArgs e)
+                {
+                    t.Stop();
+                    FullExtent();
+                };
+            t.Start();
+        }
+
+       
 
         //绘制背景地图
         private void DrawMapImage(Graphics g)

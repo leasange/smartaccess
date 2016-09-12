@@ -15,5 +15,11 @@ namespace SmartAccess.ConfigMgr
         {
             InitializeComponent();
         }
+
+        private void biNewMap_Click(object sender, EventArgs e)
+        {
+            FrmEditMap editMap = new FrmEditMap();
+            editMap.ShowDialog(this);
+        }
     }
 }

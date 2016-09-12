@@ -38,6 +38,7 @@ namespace SmartAccess.Common.Datas
                 nodes.Insert(0, doorNode);
             }
             Node root = new Node("所有的门");
+            root.Image = Properties.Resources.house1818;
             root.Nodes.AddRange(nodes.ToArray());
             nodes.Clear();
             nodes.Add(root);
@@ -53,10 +54,11 @@ namespace SmartAccess.Common.Datas
                     var item = fdoors[i];
                     Node doorNode = new Node("<font color='blue'>" + item.DOOR_NAME + "</font>");
                     doorNode.Tag = item;
+                    doorNode.Image = Properties.Resources.door1818;
                     node.Nodes.Insert(0, doorNode);
                     doors.Remove(item);
                 }
-                node.Text += " (" + fdoors.Count + ")";
+                //node.Text += " (" + fdoors.Count + ")";
             }
             foreach (Node item in node.Nodes)
             {

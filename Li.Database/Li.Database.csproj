@@ -54,7 +54,9 @@
     <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_MAP_DOOR_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_MAP_DOOR.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_MAP_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ORG_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_CARD_EX.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_MAP_DOOR_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_MAP_DOOR.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ORG_INFO.cs" />
@@ -94,7 +97,9 @@
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_MAP_DOOR_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_MAP_DOOR.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_MAP_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ORG_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ORG_INFO.cs" />
