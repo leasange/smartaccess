@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -14,7 +15,14 @@ namespace SmartAccess.ConfigMgr
     public partial class FrmEditMap : DevComponents.DotNetBar.Office2007Form
     {
         private Maticsoft.Model.SMT_MAP_INFO _mapInfo = null;
+        public bool IsChanged = false;
+        public Maticsoft.Model.SMT_MAP_INFO MapInfo
+        {
+            get { return _mapInfo; }
+            set { _mapInfo = value; }
+        }
         private List<Node> _selectNodes = null;
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmEditMap));
         public FrmEditMap(Maticsoft.Model.SMT_MAP_INFO mapInfo=null)
         {
             InitializeComponent();
@@ -86,29 +94,33 @@ namespace SmartAccess.ConfigMgr
                 e.Effect = DragDropEffects.All;
             }
         }
-
-        private void biDeleteDoor_Click(object sender, EventArgs e)
+        private void DoDeletes(List<DoorRectangle> deletes)
         {
-            var deletes = mapCtrl.DeleteSelectDoors();
-            if (deletes.Count==0)
+            if (deletes.Count == 0)
             {
                 return;
             }
-            if (_selectNodes==null||_selectNodes.Count==0)
+            if (_selectNodes == null || _selectNodes.Count == 0)
             {
                 return;
             }
-            var nodes= _selectNodes.FindAll(m =>
-                {
-                    Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
-                    return deletes.Exists(n => n.Id == di.ID);
-                });
+            var nodes = _selectNodes.FindAll(m =>
+            {
+                Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
+                return deletes.Exists(n => n.Id == di.ID);
+            });
             foreach (var item in nodes)
             {
                 _selectNodes.Remove(item);
                 Node p = (Node)item.DataKey;
                 p.Nodes.Add(item);
             }
+        }
+
+        private void biDeleteDoor_Click(object sender, EventArgs e)
+        {
+            var deletes = mapCtrl.DeleteSelectDoors();
+            DoDeletes(deletes);
         }
 
         private void biFullExtent_Click(object sender, EventArgs e)
@@ -121,6 +133,134 @@ namespace SmartAccess.ConfigMgr
             if (e.KeyCode == Keys.Delete)
             {
                 biDeleteDoor_Click(sender, e);
+            }
+        }
+
+        private void biSelectImage_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string file = openFileDialog.FileName;
+                try
+                {
+                    Image image = Image.FromFile(file);
+                    mapCtrl.MapImage = (Image)image.Clone();
+                    image.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("打开地图图片异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "打开图片异常！" + ex.Message);
+                }
+            }
+        }
+
+        private void biSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbMapName.Text))
+            {
+                WinInfoHelper.ShowInfoWindow(this, "地图名称不能为空！");
+                tbMapName.Focus();
+                return;
+            }
+            if (_mapInfo==null)
+            {
+                _mapInfo = new Maticsoft.Model.SMT_MAP_INFO();
+                _mapInfo.CREATE_TIME = DateTime.Now;
+                _mapInfo.ID = -1;
+            }
+            if (mapCtrl.MapImage!=null)
+            {
+                MemoryStream ms = new MemoryStream();
+                mapCtrl.MapImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                _mapInfo.MAP_IMAGE = ms.GetBuffer();
+                ms.Dispose();
+            }
+            else
+            {
+                _mapInfo.MAP_IMAGE = new byte[0];
+            }
+            _mapInfo.MAP_NAME = tbMapName.Text.Trim();
+            _mapInfo.GROUP_ID = -1;
+            var doors = mapCtrl.GetDoors();
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_MAP_INFO mapBll = new Maticsoft.BLL.SMT_MAP_INFO();
+                    Maticsoft.BLL.SMT_MAP_DOOR mdBll = new Maticsoft.BLL.SMT_MAP_DOOR();
+                    List<Maticsoft.Model.SMT_MAP_DOOR> mds = new List<Maticsoft.Model.SMT_MAP_DOOR>();
+                    foreach (var item in doors)
+                    {
+                        Maticsoft.Model.SMT_MAP_DOOR md = new Maticsoft.Model.SMT_MAP_DOOR();
+                        md.DOOR_ID = item.Id;
+                        md.MAP_ID = _mapInfo.ID;
+                        md.LOCATION_X = (decimal)item.RatioX;
+                        md.LOCATION_Y = (decimal)item.RatioY;
+                        md.WIDTH = (decimal)item.RatioWidth;
+                        md.HEIGHT = (decimal)item.RatioHeight;
+                        mds.Add(md);
+                    }
+                    if (_mapInfo.ID == -1)
+                    {
+                        _mapInfo.ID = mapBll.Add(_mapInfo);
+                    }
+                    else
+                    {
+                        mapBll.Update(_mapInfo);
+                        var olds = mdBll.GetModelList("MAP_ID=" + _mapInfo.ID);
+                        foreach (var old in olds)
+                        {
+                            mdBll.Delete(old.MAP_ID, old.DOOR_ID);
+                        }
+                    }
+                    foreach (var md in mds)
+                    {
+                        md.MAP_ID = _mapInfo.ID;
+                        mdBll.Add(md);
+                        _selectNodes.Find(m =>
+                            {
+                                if (((Maticsoft.Model.SMT_DOOR_INFO)m.Tag).ID == md.DOOR_ID)
+                                {
+                                    md.DOOR = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
+                                    return true;
+                                }
+                                return false;
+                            });
+                    }
+                    _mapInfo.MAP_DOORS = mds;
+
+                    IsChanged = true;
+                    this.Invoke(new Action(() =>
+                    {
+                        this.Text = "修改地图：" + tbMapName.Text;
+                    }));
+                    WinInfoHelper.ShowInfoWindow(this, "保存地图成功！");
+                }
+                catch (Exception ex)
+                {
+                    log.Error("保存地图异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "保存异常！" + ex.Message);
+                }
+
+            });
+            waiting.Show(this);
+        }
+
+        private void biClearDoors_Click(object sender, EventArgs e)
+        {
+            var doors = mapCtrl.GetDoors();
+            var list = new List<DoorRectangle>();
+            list.AddRange(doors);
+            mapCtrl.ClearDoors();
+            DoDeletes(list);
+        }
+
+        private void biClearImage_Click(object sender, EventArgs e)
+        {
+            if (mapCtrl.MapImage!=null)
+            {
+                mapCtrl.MapImage = null;
             }
         }
     }

@@ -33,17 +33,20 @@ namespace Maticsoft.BLL
         {
             DataSet ds = dal.GetList(strWhere);
             var list = DataTableToList(ds.Tables[0]);
-            string mapIds="";
-            foreach (var item in list)
+            if (list.Count>0)
             {
-                mapIds += item.ID + ",";
-            }
-            mapIds = mapIds.TrimEnd(',');
-            SMT_MAP_DOOR bllMd = new SMT_MAP_DOOR();
-            var doors = bllMd.GetModelList("MAP_ID in (" + mapIds + ")");
-            foreach (var item in list)
-            {
-                item.MAP_DOORS = doors.FindAll(m => m.MAP_ID == item.ID);
+                string mapIds = "";
+                foreach (var item in list)
+                {
+                    mapIds += item.ID + ",";
+                }
+                mapIds = mapIds.TrimEnd(',');
+                SMT_MAP_DOOR bllMd = new SMT_MAP_DOOR();
+                var doors = bllMd.GetModelListWithDoor("MAP_ID in (" + mapIds + ")");
+                foreach (var item in list)
+                {
+                    item.MAP_DOORS = doors.FindAll(m => m.MAP_ID == item.ID);
+                } 
             }
             return list;
         }

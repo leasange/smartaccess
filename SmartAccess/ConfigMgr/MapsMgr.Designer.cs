@@ -43,6 +43,7 @@
             this.elementStyle2 = new DevComponents.DotNetBar.ElementStyle();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.mapCtrl = new SmartAccess.ConfigMgr.MapCtrl();
+            this.biFullExtent = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelTree)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +60,7 @@
             this.biModifyMap.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biModifyMap.Name = "biModifyMap";
             this.biModifyMap.Text = "编辑地图";
+            this.biModifyMap.Click += new System.EventHandler(this.biModifyMap_Click);
             // 
             // biDeleteMap
             // 
@@ -75,7 +77,8 @@
             this.biRefresh,
             this.biNewMap,
             this.biModifyMap,
-            this.biDeleteMap});
+            this.biDeleteMap,
+            this.biFullExtent});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.Size = new System.Drawing.Size(709, 29);
@@ -91,6 +94,7 @@
             this.biRefresh.Image = global::SmartAccess.Properties.Resources.刷新;
             this.biRefresh.Name = "biRefresh";
             this.biRefresh.Text = "刷新";
+            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
             // 
             // modelTree
             // 
@@ -116,6 +120,7 @@
             this.modelTree.Styles.Add(this.elementStyle2);
             this.modelTree.TabIndex = 4;
             this.modelTree.Text = "advTreeEx2";
+            this.modelTree.NodeMouseUp += new DevComponents.AdvTree.TreeNodeMouseEventHandler(this.modelTree_NodeMouseUp);
             // 
             // node2
             // 
@@ -185,8 +190,9 @@
             this.mapCtrl.BackColor = System.Drawing.Color.White;
             this.mapCtrl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.mapCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapCtrl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mapCtrl.IsEditMode = true;
+            this.mapCtrl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mapCtrl.ForeColor = System.Drawing.Color.Black;
+            this.mapCtrl.IsEditMode = false;
             this.mapCtrl.Location = new System.Drawing.Point(253, 29);
             this.mapCtrl.MapImage = null;
             this.mapCtrl.MapRect = ((System.Drawing.RectangleF)(resources.GetObject("mapCtrl.MapRect")));
@@ -195,6 +201,13 @@
             this.mapCtrl.Size = new System.Drawing.Size(456, 329);
             this.mapCtrl.TabIndex = 6;
             this.mapCtrl.TextBoundColor = System.Drawing.Color.White;
+            // 
+            // biFullExtent
+            // 
+            this.biFullExtent.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biFullExtent.Name = "biFullExtent";
+            this.biFullExtent.Text = "全图显示";
+            this.biFullExtent.Click += new System.EventHandler(this.biFullExtent_Click);
             // 
             // MapsMgr
             // 
@@ -206,6 +219,7 @@
             this.Controls.Add(this.bar1);
             this.Name = "MapsMgr";
             this.Size = new System.Drawing.Size(709, 358);
+            this.Load += new System.EventHandler(this.MapsMgr_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelTree)).EndInit();
             this.ResumeLayout(false);
@@ -227,6 +241,7 @@
         private DevComponents.DotNetBar.ElementStyle elementStyle2;
         private DevComponents.DotNetBar.ExpandableSplitter expandableSplitter1;
         private MapCtrl mapCtrl;
+        private DevComponents.DotNetBar.ButtonItem biFullExtent;
 
     }
 }

@@ -71,10 +71,10 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
             strSql.Append("select MD.*,DI.* ");
-            strSql.Append(" SMT_MAP_DOOR MD,SMT_DOOR_INFO DI ");
+            strSql.Append("FROM SMT_MAP_DOOR MD,SMT_DOOR_INFO DI where MD.DOOR_ID=DI.ID ");
 			if(strWhere.Trim()!="")
 			{
-				strSql.Append(" where "+strWhere);
+				strSql.Append(" and ("+strWhere+") ");
 			}
 			return DbHelperSQL.Query(strSql.ToString());
 		}

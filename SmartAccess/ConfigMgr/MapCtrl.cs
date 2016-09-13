@@ -87,6 +87,10 @@ namespace SmartAccess.ConfigMgr
         {
             _doors.Clear();
             _mapImage = null;
+            if (mapInfo==null)
+            {
+                return;
+            }
             if (mapInfo.MAP_IMAGE!=null&&mapInfo.MAP_IMAGE.Length>0)
             {
                 MemoryStream ms=new MemoryStream(mapInfo.MAP_IMAGE);
@@ -106,7 +110,10 @@ namespace SmartAccess.ConfigMgr
                     dr.RatioY = (double)item.LOCATION_Y;
                     dr.RatioWidth = (double)item.WIDTH;
                     dr.RatioHeight = (double)item.HEIGHT;
-                    dr.DoorName = item.DOOR.DOOR_NAME;
+                    if (item.DOOR!=null)
+                    {
+                        dr.DoorName = item.DOOR.DOOR_NAME;
+                    }
                     _doors.Add(dr);
                 }
             }
@@ -134,8 +141,8 @@ namespace SmartAccess.ConfigMgr
             PointF pf = ToExtentPoint(ctrlPoint);
             dr.RatioX = pf.X;
             dr.RatioY = pf.Y;
-            dr.RatioWidth = (double)32 / this.Width;
-            dr.RatioHeight = (double)32 / this.Height;
+            dr.RatioWidth = (double)32 / _mapRect.Width;
+            dr.RatioHeight = (double)32 / _mapRect.Height;
 
             RectangleF rect= dr.GetRect(_mapRect);
             if (rect.Left-_mapRect.Left<0)
