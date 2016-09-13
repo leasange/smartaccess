@@ -114,5 +114,41 @@ namespace SmartAccess.ConfigMgr
         {
             mapCtrl.FullExtent();
         }
+
+        private void biDeleteMap_Click(object sender, EventArgs e)
+        {
+            var map = GetSelectMap();
+            if (map==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择要删除的地图！");
+            }
+            if (MessageBox.Show("确定删除选择地图？","提示",MessageBoxButtons.OKCancel)==DialogResult.OK)
+            {
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    try
+                    {
+                        Maticsoft.BLL.SMT_MAP_DOOR mdbll = new Maticsoft.BLL.SMT_MAP_DOOR();
+                        foreach (var item in map.MAP_DOORS)
+                        {
+                            mdbll.Delete(item.MAP_ID, item.DOOR_ID);
+                        }
+                        Maticsoft.BLL.SMT_MAP_INFO mapBll = new Maticsoft.BLL.SMT_MAP_INFO();
+                        mapBll.Delete(map.ID);
+                        this.Invoke(new Action(() =>
+                        {
+                            modelTree.SelectedNode.Remove();
+                            mapCtrl.LoadMapInfo(null);
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "删除地图异常：" + ex.Message);
+                        log.Error("删除地图异常：", ex);
+                    }
+                });
+                waiting.Show(this);
+            }
+        }
     }
 }

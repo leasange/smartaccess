@@ -35,6 +35,7 @@
             this.biDeleteMap = new DevComponents.DotNetBar.ButtonItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.biFullExtent = new DevComponents.DotNetBar.ButtonItem();
             this.modelTree = new Li.Controls.AdvTreeEx();
             this.node2 = new DevComponents.AdvTree.Node();
             this.node4 = new DevComponents.AdvTree.Node();
@@ -43,7 +44,6 @@
             this.elementStyle2 = new DevComponents.DotNetBar.ElementStyle();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.mapCtrl = new SmartAccess.ConfigMgr.MapCtrl();
-            this.biFullExtent = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelTree)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +67,7 @@
             this.biDeleteMap.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biDeleteMap.Name = "biDeleteMap";
             this.biDeleteMap.Text = "删除地图";
+            this.biDeleteMap.Click += new System.EventHandler(this.biDeleteMap_Click);
             // 
             // bar1
             // 
@@ -95,6 +96,13 @@
             this.biRefresh.Name = "biRefresh";
             this.biRefresh.Text = "刷新";
             this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
+            // 
+            // biFullExtent
+            // 
+            this.biFullExtent.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biFullExtent.Name = "biFullExtent";
+            this.biFullExtent.Text = "全图显示";
+            this.biFullExtent.Click += new System.EventHandler(this.biFullExtent_Click);
             // 
             // modelTree
             // 
@@ -201,13 +209,6 @@
             this.mapCtrl.Size = new System.Drawing.Size(456, 329);
             this.mapCtrl.TabIndex = 6;
             this.mapCtrl.TextBoundColor = System.Drawing.Color.White;
-            // 
-            // biFullExtent
-            // 
-            this.biFullExtent.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biFullExtent.Name = "biFullExtent";
-            this.biFullExtent.Text = "全图显示";
-            this.biFullExtent.Click += new System.EventHandler(this.biFullExtent_Click);
             // 
             // MapsMgr
             // 

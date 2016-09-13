@@ -89,6 +89,7 @@ namespace SmartAccess.ConfigMgr
             _mapImage = null;
             if (mapInfo==null)
             {
+                this.Invalidate();
                 return;
             }
             if (mapInfo.MAP_IMAGE!=null&&mapInfo.MAP_IMAGE.Length>0)
@@ -231,11 +232,24 @@ namespace SmartAccess.ConfigMgr
 
         public void CloseMap()
         {
-            if (_mapImage != null)
+            try
             {
-                _mapImage.Dispose();
-                _mapImage = null;
+                if (_mapImage != null)
+                {
+                    _mapImage.Dispose();
+                    _mapImage = null;
+                }
+                _doors.Clear();
+                if (!this.IsDisposed)
+                {
+                    FullExtent();
+                    this.Invalidate();
+                }
             }
+            catch (Exception)
+            {
+            }
+
         }
 
         //铺满窗口
