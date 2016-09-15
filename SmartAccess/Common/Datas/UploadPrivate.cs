@@ -4,6 +4,8 @@ using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 
@@ -548,5 +550,8 @@ namespace SmartAccess.Common.Datas
             FrmDetailInfo.AddOneMsg(string.Format("上传所有权限结束！"),100);
             return true;
         }
+
+        public static AccessWatchService WatchService = new AccessWatchService();
+    
     }
 }

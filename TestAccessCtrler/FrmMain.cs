@@ -215,5 +215,21 @@ namespace TestAccessCtrler
             FrmCardIssue frmIssue = new FrmCardIssue();
             frmIssue.Show(this);
         }
+
+        private void btnRevIP_Click(object sender, EventArgs e)
+        {
+            IAccessCore access = new WGAccess();
+            Controller ctrl = GetSelectedController();
+            if (ctrl == null)
+            {
+                return;
+            }
+            string ip="";
+            int port=0;
+            if(access.GetReceiveServer(ctrl, ref ip,ref port))
+            {
+                MessageBox.Show("Server IP:" + ip + ",Port:" + port);
+            }
+        }
     }
 }

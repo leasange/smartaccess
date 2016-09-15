@@ -6,6 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 
 namespace Li.Access.Core
@@ -120,6 +122,22 @@ namespace Li.Access.Core
         /// <param name="controller">控制器</param>
         /// <returns>成功与否</returns>
         bool ClearAuthority(Controller controller);
+        /// <summary>
+        /// 设置接收服务器的IP和端口
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="ip">IP地址</param>
+        /// <param name="port">端口</param>
+        /// <returns>成功与否</returns>
+        bool SetReceiveServer(Controller controller, string ip, int port);
+        /// <summary>
+        /// 获取接收服务器的IP和端口
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="ip">返回IP</param>
+        /// <param name="port">返回 端口</param>
+        /// <returns>成功与否</returns>
+        bool GetReceiveServer(Controller controller, ref string ip, ref int port);
     }
     public enum DoorControlStyle
     {
@@ -330,6 +348,76 @@ namespace Li.Access.Core
         }
     }
 
+    public delegate void AccessDataCallBackHandler(ControllerState record,int port);
+    public class AccessDataCallBack
+    {
+        public event AccessDataCallBackHandler CallBack;
+        private UdpClient _wgAccessClient=null;
+        public bool BeginWGAccessReceiver(string ip=null,int port=0)
+        {
+            StopWGAccessReceiver();
+            if (_wgAccessClient == null)
+            {
+                if (string.IsNullOrWhiteSpace(ip))
+                {
+                    _wgAccessClient = new UdpClient(port);
+                }
+                else
+                {
+                    IPAddress add = IPAddress.Parse(ip);
+                    IPEndPoint p = new IPEndPoint(add, port);
+                    _wgAccessClient = new UdpClient(p);
+                }
+                _wgAccessClient.BeginReceive(new AsyncCallback(WGAccessReceiverCallBack), _wgAccessClient);
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsWGAccessReceiverRun()
+        {
+            return _wgAccessClient != null;
+        }
+
+        public void StopWGAccessReceiver()
+        {
+            try
+            {
+                if (_wgAccessClient != null)
+                {
+                    _wgAccessClient.Close();
+                    _wgAccessClient = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("关闭Socket异常：" + ex.Message);
+            }
+            _wgAccessClient = null;
+        }
+
+        private void WGAccessReceiverCallBack(IAsyncResult ar)
+        {
+            try
+            {
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] bts = _wgAccessClient.EndReceive(ar, ref endPoint);
+                if (CallBack != null)
+                {
+                    var record = WGAccesses.WGAccess.ToWGPacket(bts).ToControllerState(true);
+                    CallBack(record, ((IPEndPoint)_wgAccessClient.Client.LocalEndPoint).Port);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("接收Socket异常：" + ex.Message);
+            }
+            finally
+            {
+                _wgAccessClient.BeginReceive(new AsyncCallback(WGAccessReceiverCallBack), _wgAccessClient);
+            }
+        }
+    }
 
     /// <summary>
     /// 控制器类

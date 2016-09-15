@@ -48,6 +48,7 @@
     <Compile Include="IAccessCore.cs" />
     <Compile Include="ICardIssueDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AccessWatchService.cs" />
     <Compile Include="WGAccesses\WGAccess.cs" />
   </ItemGroup>
   <ItemGroup />

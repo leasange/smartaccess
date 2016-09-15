@@ -158,5 +158,29 @@ namespace Li.Access.Core
 	        }
             return temp;
         }
+
+        public static byte[] GetIPBytes(string ip)
+        {
+            if (string.IsNullOrWhiteSpace(ip))
+            {
+                return null;
+            }
+            string[] ips = ip.Split('.');
+            if (ips.Length!=4)
+            {
+                return null;
+            }
+            byte[] bytes = new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                byte bt;
+                if(!byte.TryParse(ips[i], out bt))
+                {
+                    return null;
+                }
+                bytes[i] = bt;
+            }
+            return bytes;
+        }
     }
 }

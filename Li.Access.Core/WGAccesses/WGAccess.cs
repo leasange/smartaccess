@@ -87,7 +87,7 @@ namespace Li.Access.Core.WGAccesses
             return ret;
         }
 
-        private WGPacket ToWGPacket(byte[] buffer)
+        public static WGPacket ToWGPacket(byte[] buffer)
         {
             IntPtr ptr = Marshal.AllocHGlobal(64);
             Marshal.Copy(buffer, 0, ptr, 64);
@@ -345,6 +345,41 @@ namespace Li.Access.Core.WGAccesses
             if (packets.Count == 1)
             {
                 return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+
+        public bool SetReceiveServer(Controller controller, string ip, int port)
+        {
+            WGPacket packet = new WGPacket(0x90);
+            packet.SetDevSn(controller.sn);
+            var bts= DataHelper.GetIPBytes(ip);
+            if (bts==null)
+            {
+                return false;
+            }
+            packet.SetRecieverIPAndPort(bts, port);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+
+        public bool GetReceiveServer(Controller controller, ref string ip, ref int port)
+        {
+            WGPacket packet = new WGPacket(0x92);
+            packet.SetDevSn(controller.sn);
+           
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+               return packets[0].GetReceiveServer(ref ip, ref port);
             }
             return false;
         }
@@ -634,6 +669,28 @@ namespace Li.Access.Core.WGAccesses
             data[16] = (byte)(password & 0x0000ff);
             data[17] = (byte)((password>>8) & 0x0000ff);
             data[18] = (byte)((password >> 16) & 0x0000ff);
+        }
+
+        public void SetRecieverIPAndPort(byte[] ips, int port)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                data[i] = ips[i];
+            }
+            data[4] = (byte)(0xff & port);
+            data[5] = (byte)((port >> 8) & 0xff);
+        }
+
+        public bool GetReceiveServer(ref string ip, ref int port)
+        {
+            ip = "";
+            for (int i = 0; i < 4; i++)
+            {
+                ip += data[i] + ".";
+            }
+            ip = ip.TrimEnd('.');
+            port = ((int)data[5] << 8)&0xff00|data[4];
+            return true;
         }
     }
 }

@@ -51,6 +51,7 @@
             this.btnAddAuth = new System.Windows.Forms.Button();
             this.btnResetRecord = new System.Windows.Forms.Button();
             this.btnCardIssue = new System.Windows.Forms.Button();
+            this.btnRevIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iintValue)).BeginInit();
             this.SuspendLayout();
@@ -269,11 +270,22 @@
             this.btnCardIssue.UseVisualStyleBackColor = true;
             this.btnCardIssue.Click += new System.EventHandler(this.btnCardIssue_Click);
             // 
+            // btnRevIP
+            // 
+            this.btnRevIP.Location = new System.Drawing.Point(587, 49);
+            this.btnRevIP.Name = "btnRevIP";
+            this.btnRevIP.Size = new System.Drawing.Size(111, 31);
+            this.btnRevIP.TabIndex = 6;
+            this.btnRevIP.Text = "获取接收服务器";
+            this.btnRevIP.UseVisualStyleBackColor = true;
+            this.btnRevIP.Click += new System.EventHandler(this.btnRevIP_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 404);
+            this.Controls.Add(this.btnRevIP);
             this.Controls.Add(this.iintValue);
             this.Controls.Add(this.btnGetReadedIndex);
             this.Controls.Add(this.dateTimePicker1);
@@ -320,6 +332,7 @@
         private System.Windows.Forms.Button btnAddAuth;
         private System.Windows.Forms.Button btnResetRecord;
         private System.Windows.Forms.Button btnCardIssue;
+        private System.Windows.Forms.Button btnRevIP;
 
     }
 }
