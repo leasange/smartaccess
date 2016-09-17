@@ -17,8 +17,9 @@ namespace Li.SmartAcsServer
         public static void StartAllServices()
         {
             Maticsoft.DBUtility.DbHelperSQL.connectionString = SunCreate.Common.ConfigHelper.GetConfigString("SqlServerConnectString");
+            int interval = SunCreate.Common.ConfigHelper.GetConfigInt("RecordReadInterval");
             //启动记录读取服务
-            RecordTaskService.Instance.Start();
+            RecordTaskService.Instance.Start(interval);
         }
         /// <summary>
         /// 程序退出时退出所有服务

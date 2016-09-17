@@ -37,11 +37,10 @@
             this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
             this.biStop = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem8 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem9 = new DevComponents.DotNetBar.ButtonItem();
+            this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
+            this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
+            this.biUploadSetting = new DevComponents.DotNetBar.ButtonItem();
+            this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
             this.smallImageList = new System.Windows.Forms.ImageList(this.components);
             this.metroTileItem1 = new DevComponents.DotNetBar.Metro.MetroTileItem();
@@ -64,11 +63,10 @@
             this.biSelectAll,
             this.biRealDetect,
             this.biStop,
-            this.buttonItem1,
-            this.buttonItem4,
-            this.buttonItem5,
-            this.buttonItem8,
-            this.buttonItem9,
+            this.biDetectCtrlr,
+            this.biAdjustTime,
+            this.biUploadSetting,
+            this.biClearInfo,
             this.buttonItem10});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -102,41 +100,36 @@
             this.biStop.Image = global::SmartAccess.Properties.Resources.editor;
             this.biStop.Name = "biStop";
             this.biStop.Text = "停止";
+            this.biStop.Click += new System.EventHandler(this.biStop_Click);
             // 
-            // buttonItem1
+            // biDetectCtrlr
             // 
-            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem1.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "检测控制器";
+            this.biDetectCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDetectCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDetectCtrlr.Name = "biDetectCtrlr";
+            this.biDetectCtrlr.Text = "检测控制器";
+            this.biDetectCtrlr.Click += new System.EventHandler(this.biDetectCtrlr_Click);
             // 
-            // buttonItem4
+            // biAdjustTime
             // 
-            this.buttonItem4.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem4.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem4.Name = "buttonItem4";
-            this.buttonItem4.Text = "校准时间";
+            this.biAdjustTime.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAdjustTime.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAdjustTime.Name = "biAdjustTime";
+            this.biAdjustTime.Text = "校准时间";
             // 
-            // buttonItem5
+            // biUploadSetting
             // 
-            this.buttonItem5.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem5.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem5.Name = "buttonItem5";
-            this.buttonItem5.Text = "上传设置";
+            this.biUploadSetting.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biUploadSetting.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biUploadSetting.Name = "biUploadSetting";
+            this.biUploadSetting.Text = "上传设置";
             // 
-            // buttonItem8
+            // biClearInfo
             // 
-            this.buttonItem8.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem8.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem8.Name = "buttonItem8";
-            this.buttonItem8.Text = "清空信息";
-            // 
-            // buttonItem9
-            // 
-            this.buttonItem9.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.buttonItem9.Image = global::SmartAccess.Properties.Resources.editor;
-            this.buttonItem9.Name = "buttonItem9";
-            this.buttonItem9.Text = "人员定位";
+            this.biClearInfo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClearInfo.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biClearInfo.Name = "biClearInfo";
+            this.biClearInfo.Text = "清空信息";
             // 
             // buttonItem10
             // 
@@ -181,30 +174,30 @@
             // 
             // expandableSplitter1
             // 
-            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
             this.expandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.expandableSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.expandableSplitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
             this.expandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.expandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
             this.expandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.expandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(201)))));
+            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.expandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(60)))));
+            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(61)))));
             this.expandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
             this.expandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
             this.expandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
-            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
             this.expandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.expandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
             this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(201)))));
+            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.expandableSplitter1.Location = new System.Drawing.Point(0, 261);
             this.expandableSplitter1.Name = "expandableSplitter1";
@@ -232,7 +225,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvRealLog.Location = new System.Drawing.Point(0, 267);
             this.dgvRealLog.Name = "dgvRealLog";
             this.dgvRealLog.ReadOnly = true;
@@ -289,11 +282,10 @@
         private DevComponents.DotNetBar.ButtonItem biSelectAll;
         private DevComponents.DotNetBar.ButtonItem biRealDetect;
         private DevComponents.DotNetBar.ButtonItem biStop;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
-        private DevComponents.DotNetBar.ButtonItem buttonItem4;
-        private DevComponents.DotNetBar.ButtonItem buttonItem5;
-        private DevComponents.DotNetBar.ButtonItem buttonItem8;
-        private DevComponents.DotNetBar.ButtonItem buttonItem9;
+        private DevComponents.DotNetBar.ButtonItem biDetectCtrlr;
+        private DevComponents.DotNetBar.ButtonItem biAdjustTime;
+        private DevComponents.DotNetBar.ButtonItem biUploadSetting;
+        private DevComponents.DotNetBar.ButtonItem biClearInfo;
         private DevComponents.DotNetBar.ButtonItem buttonItem10;
         private System.Windows.Forms.ImageList smallImageList;
         private DevComponents.DotNetBar.Metro.MetroTileItem metroTileItem1;

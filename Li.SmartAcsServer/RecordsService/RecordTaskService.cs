@@ -45,7 +45,7 @@ namespace Li.SmartAcsServer.RecordsService
         /// <summary>
         /// 启动记录提起服务
         /// </summary>
-        public void Start()
+        public void Start(int interval=3)
         {
             log.Info("开始启动记录读取服务...");
             TestDb();
@@ -55,7 +55,11 @@ namespace Li.SmartAcsServer.RecordsService
                 _taskThreads.Add(t);
                 t.Start();
             }
-            _timerLoadCtrlr = new System.Timers.Timer(5000);
+            if (interval<1||interval>60)
+            {
+                interval = 3;
+            }
+            _timerLoadCtrlr = new System.Timers.Timer(interval*1000);
             _timerLoadCtrlr.Elapsed += _timerLoadCtrlr_Elapsed;
             _timerLoadCtrlr.Start();
             _createTask = new Thread(ThreadCreateTask);
@@ -185,7 +189,7 @@ namespace Li.SmartAcsServer.RecordsService
                 }
             }
         }
-
+        //保存记录
         public void SaveRecord(decimal ctrlrId,ControllerState record)
         {
             try
@@ -236,6 +240,34 @@ namespace Li.SmartAcsServer.RecordsService
                 log.Error("记录保存失败：CTRLID=" + ctrlrId,ex);
             }
         }
+        //更新状态
+        public void SaveState(decimal ctrlrId,ControllerState state)
+        {
+            try
+            {
+                Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+                List<Maticsoft.Model.SMT_DOOR_INFO> doors = doorBll.GetModelList("CTRL_ID=" + ctrlrId);
+                foreach (var item in doors)
+                {
+                    if (item.CTRL_DOOR_INDEX==null)
+                    {
+                        continue;
+                    }
+                    if (state==null)
+                    {
+                        item.OPEN_STATE = 2;
+                    }
+                    else
+                    {
+                        item.OPEN_STATE = state.relayState[((int)item.CTRL_DOOR_INDEX - 1)] ? 1 : 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("保存状态失败：CTRLID=" + ctrlrId, ex);
+            }
+        }
     }
 
     public class RecordTask
@@ -257,19 +289,32 @@ namespace Li.SmartAcsServer.RecordsService
             log.Info("开始读取记录：" + _controller.sn);
             using (IAccessCore acc = new WGAccess())
             {
-                if (acc.BeginReadRecord(Controller))
+                try
                 {
-                    while (true)
+                    if (acc.BeginReadRecord(Controller))
                     {
-                        ControllerState record = acc.ReadNextRecord();
-                        if (record == null || record.recordType == RecordType.NoRecord)
+                        while (true)
                         {
-                            acc.EndReadRecord();
-                            log.Info("记录读取完毕：" + _controller.sn);
-                            return;
+                            ControllerState record = acc.ReadNextRecord();
+                            if (record == null || record.recordType == RecordType.NoRecord)
+                            {
+                                acc.EndReadRecord();
+                                log.Info("记录读取完毕：" + _controller.sn);
+                                break;
+                            }
+                            RecordTaskService.Instance.SaveRecord(_controller.id, record);
                         }
-                        RecordTaskService.Instance.SaveRecord(_controller.id,record);
                     }
+                    ControllerState state = acc.GetControllerState(Controller);
+                    if (state != null)
+                    {
+                        RecordTaskService.Instance.SaveState(_controller.id, state);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    RecordTaskService.Instance.SaveState(_controller.id, null);
+                    throw ex;
                 }
             }
         }

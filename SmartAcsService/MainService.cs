@@ -28,14 +28,21 @@ namespace SmartAcsService
         {
             try
             {
-                host = new ServiceHost(typeof(AcsService));
-                host.Open();
                 AcsService.StartAllServices();
             }
             catch (Exception ex)
             {
-                log.Error("服务启动异常", ex);
+                log.Error("记录读取服务启动异常", ex);
                 throw;
+            }
+            try
+            {
+                host = new ServiceHost(typeof(AcsService));
+                host.Open();
+            }
+            catch (Exception ex)
+            {
+                log.Error("发布服务启动异常", ex);
             }
         }
 

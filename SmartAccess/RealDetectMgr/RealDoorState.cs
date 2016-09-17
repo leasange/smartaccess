@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using Li.Access.Core;
+using System.Threading;
 
 namespace SmartAccess.RealDetectMgr
 {
@@ -16,6 +17,7 @@ namespace SmartAccess.RealDetectMgr
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(RealDoorState));
         private List<Maticsoft.Model.SMT_CARD_INFO> _cards = new List<Maticsoft.Model.SMT_CARD_INFO>();
+        private List<ListViewItem> _lastDetectDoorItems = new List<ListViewItem>();
         public RealDoorState()
         {
             InitializeComponent();
@@ -40,38 +42,33 @@ namespace SmartAccess.RealDetectMgr
 
         private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate)
         {
-            string cardNo = state.cardOrNoNumber;
-            if (state!=null)
+            string cardNo = null;
+            if (state != null)
             {
-               var card=  _cards.Find(m => m.CARD_WG_NO == state.cardOrNoNumber);
-               if (card!=null)
-               {
-                   cardNo = card.CARD_NO;
-               }
+                cardNo = state.cardOrNoNumber;
+                var card = _cards.Find(m => m.CARD_WG_NO == state.cardOrNoNumber);
+                if (card != null)
+                {
+                    cardNo = card.CARD_NO;
+                }
             }
-            bool isadd = false;
-            foreach (ListViewItem item in listDoors.Items)
+            foreach (ListViewItem item in _lastDetectDoorItems)
             {
                 Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
-                if (door.IS_ENABLE&&door.CTRL_ID!=null&&door.CTRL_DOOR_INDEX!=null)
+                if (door.IS_ENABLE && door.CTRL_ID != null && door.CTRL_DOOR_INDEX != null)
                 {
-                    if (ctrlr.id!=(decimal)door.CTRL_ID)
+                    if (ctrlr.id != (decimal)door.CTRL_ID)
                     {
                         continue;
                     }
-                    if (!connected||(connected&&state==null))
+                    if (!connected || state == null)
                     {
                         item.ImageIndex = connected ? 0 : 2;
-                        if (!isadd)
-                        {
-                            isadd = true;
-                            DataGridViewRow row = new DataGridViewRow();
-                            row.Tag = ctrlr;
-                            row.CreateCells(dgvRealLog, DateTime.Now, "控制器：" + ctrlr.ip, string.Format("控制器：IP={0},SN={1} {2}！", ctrlr.ip, ctrlr.sn, connected?"连接成功":"无法连接"));
-                            dgvRealLog.Rows.Insert(0, row);
-                        }
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Tag = ctrlr;
+                        row.CreateCells(dgvRealLog, DateTime.Now, door.DOOR_NAME, string.Format("控制器：IP={0},SN={1} {2}！", ctrlr.ip, ctrlr.sn, connected ? "连接成功" : "无法连接"));
+                        dgvRealLog.Rows.Insert(0, row);
                     }
-                    
                     else if ((byte)door.CTRL_DOOR_INDEX == state.doorNum)
                     {
                         DataGridViewRow row = new DataGridViewRow();
@@ -82,35 +79,30 @@ namespace SmartAccess.RealDetectMgr
                         }
                         else
                         {
-                            DateTime dt=DateTime.Now;
-                            if (state.recordTime>dt)
-	                        {
-		                        dt=state.recordTime.AddSeconds(3);
-	                        }
-                            row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},动作：门禁状态改变({2})", door.DOOR_NAME, cardNo, state.relayState[state.doorNum - 1]?"开门":"关门"));
+                            DateTime dt = DateTime.Now;
+                            if (state.recordTime > dt)
+                            {
+                                dt = state.recordTime.AddSeconds(3);
+                            }
+                            row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},动作：门禁状态改变({2})", door.DOOR_NAME, cardNo, state.relayState[state.doorNum - 1] ? "开门" : "关门"));
                         }
                         dgvRealLog.Rows.Insert(0, row);
                         item.ImageIndex = state.relayState[state.doorNum - 1] ? 1 : 0;
-//                         switch (state.doorNum)
-//                         {
-//                             case 1: item.ImageIndex = state.isOpenDoorOfLock1 ? 1 : 0;
-//                                 break;
-//                             case 2:  item.ImageIndex = state.isOpenDoorOfLock2 ? 1 : 0;
-//                                 break;
-//                             case 3: item.ImageIndex = state.isOpenDoorOfLock3 ? 1 : 0;
-//                                 break;
-//                             case 4: item.ImageIndex = state.isOpenDoorOfLock4 ? 1 : 0;
-//                                 break;
-//                             default:
-//                                 break;
-//                         }
                     }
                     else
                     {
                         item.ImageIndex = state.relayState[(byte)door.CTRL_DOOR_INDEX - 1] ? 1 : 0;
-                       
+
                     }
                 }
+            }
+            foreach (DataGridViewRow item in dgvRealLog.SelectedRows)
+            {
+                item.Selected = false;
+            }
+            if (dgvRealLog.Rows.Count>0)
+            {
+                dgvRealLog.Rows[0].Selected = true;
             }
         }
 
@@ -181,15 +173,15 @@ namespace SmartAccess.RealDetectMgr
                 item.Selected = true;
             }
         }
-        
-        private void biRealDetect_Click(object sender, EventArgs e)
+
+        private List<Maticsoft.Model.SMT_DOOR_INFO> GetSelectDoors()
         {
-            if ( listDoors.SelectedItems.Count==0)
-            {
-                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
-                return;
-            }
             List<Maticsoft.Model.SMT_DOOR_INFO> doors = new List<Maticsoft.Model.SMT_DOOR_INFO>();
+            if (listDoors.SelectedItems.Count == 0)
+            {
+                return doors;
+            }
+            
             foreach (ListViewItem item in listDoors.SelectedItems)
             {
                 Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
@@ -198,28 +190,160 @@ namespace SmartAccess.RealDetectMgr
                     doors.Add(d);
                 }
             }
+            return doors;
+        }
+
+        private List<decimal> GetSelectCtrlIDs(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
+        {
             var g = doors.GroupBy(m => m.CTRL_ID);
             List<decimal> ctrIds = new List<decimal>();
             foreach (var item in g)
             {
-                if (item.ToArray()[0].CTRL_ID==null)
+                if (item.ToArray()[0].CTRL_ID == null)
                 {
                     continue;
                 }
                 decimal ctrlId = (decimal)item.ToArray()[0].CTRL_ID;
                 ctrIds.Add(ctrlId);
             }
+            return ctrIds;
+        }
+
+        private List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetSelectCtrls(List<decimal> ctrIds)
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+            var models = ctrlBll.GetModelList("ID in (" + string.Join(",", ctrIds.ToArray()) + ")");
+            return models;
+        }
+
+        private void biRealDetect_Click(object sender, EventArgs e)
+        {
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = GetSelectDoors();
+            _lastDetectDoorItems.Clear();
+            foreach (ListViewItem item in listDoors.SelectedItems)
+            {
+                Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                if (d.IS_ENABLE)
+                {
+                    _lastDetectDoorItems.Add(item);
+                }
+            }
+            if (doors.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
+            List<decimal> ctrIds = GetSelectCtrlIDs(doors);
+          
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
-                Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-                var models= ctrlBll.GetModelList("ID in ("+ string.Join(",",ctrIds.ToArray()) +")");
+                var models = GetSelectCtrls(ctrIds);
                 if (models.Count==0)
                 {
-                    WinInfoHelper.ShowInfoWindow(this,"没有控制器！");
+                    WinInfoHelper.ShowInfoWindow(this,"未找到控制器！");
+                    return;
                 }
                 foreach (var item in models)
 	            {
                     UploadPrivate.WatchService.AddController(ControllerHelper.ToController(item), ControllerStateCallBack, this.GetType().FullName);
+                }
+                this.Invoke(new Action(() =>
+                {
+                    biRealDetect.Text = "实时监控中...";
+                    biRealDetect.Enabled = false;
+                }));
+            });
+            waiting.Show(this);
+        }
+
+        private void biStop_Click(object sender, EventArgs e)
+        {
+            UploadPrivate.WatchService.ClearControllers(this.GetType().FullName);
+            biRealDetect.Text = "实时监控";
+            biRealDetect.Enabled = true;
+        }
+
+        private void biDetectCtrlr_Click(object sender, EventArgs e)
+        {
+            dgvRealLog.ClearSelection();
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = GetSelectDoors();
+            List<ListViewItem> items=new List<ListViewItem>();
+            foreach (ListViewItem item in listDoors.SelectedItems)
+	        {
+                items.Add(item);
+            }
+           
+            if (doors.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
+            List<decimal> ctrIds = GetSelectCtrlIDs(doors);
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                var models = GetSelectCtrls(ctrIds);
+                if (models.Count == 0)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "未找到控制器！");
+                    return;
+                }
+                List<ManualResetEvent> events = new List<ManualResetEvent>();
+                foreach (var item in models)
+                {
+                    ManualResetEvent evt=new ManualResetEvent(false);
+                    events.Add(evt);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                            Maticsoft.Model.SMT_CONTROLLER_INFO cinfo = item;
+                            Controller c = ControllerHelper.ToController(item);
+                            bool isconnect = false;
+                            try
+                            {
+                                IAccessCore acc = new Li.Access.Core.WGAccesses.WGAccess();
+                                ControllerState state = acc.GetControllerState(c);
+                                if (state==null)
+                                {
+                                    throw new Exception("通信不上");
+                                }
+                                isconnect = true;
+                            }
+                            catch(Exception ex)
+                            {
+                                isconnect = false;
+                            }
+                            finally
+                            {
+                                lock (items)
+                                {
+                                    this.Invoke(new Action(() =>
+                                              {
+                                                  foreach (var it in items)
+                                                  {
+                                                      Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)it.Tag;
+                                                      if (door.CTRL_ID == null || !door.IS_ENABLE)
+                                                      {
+                                                          continue;
+                                                      }
+                                                      if (door.CTRL_ID == c.id)
+                                                      {
+
+                                                          it.ImageIndex = 2;
+                                                          DateTime dt = DateTime.Now;
+                                                          DataGridViewRow row = new DataGridViewRow();
+                                                          row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("控制器通信{0}：IP={1},SN={2}", isconnect ? "正常" : "不上", cinfo.IP, cinfo.SN_NO));
+                                                          dgvRealLog.Rows.Insert(0, row);
+                                                          row.Selected = true;
+                                                      }
+                                                  }
+                                              }));
+                                }
+                                evt.Set();
+                            }
+                        }));
+                }
+                foreach (var item in events)
+                {
+                    item.WaitOne(15000);
                 }
             });
             waiting.Show(this);

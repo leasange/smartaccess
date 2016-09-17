@@ -17,7 +17,7 @@ namespace Li.Access.Core
         {
             get { return _controllerThreads; }
         }
-        public void AddController(Controller ctrlr,ControllerStateCallBackHandler callback,object tag)
+        public void AddController(Controller ctrlr,ControllerStateCallBackHandler callback,string tag)
         {
             lock (_controllerThreads)
             {
@@ -64,7 +64,7 @@ namespace Li.Access.Core
             }
         }
 
-        public void ClearControllers(object tag)
+        public void ClearControllers(string tag)
         {
             lock (_controllerThreads)
             {
@@ -97,7 +97,7 @@ namespace Li.Access.Core
     public class AccessWatchThread
     {
         public event ControllerStateCallBackHandler CallBack = null;
-        public object Tag=null;
+        public string Tag=null;
         private bool _isRun = false;
         private Thread _threadRead = null;
         private Controller _controler = null;
