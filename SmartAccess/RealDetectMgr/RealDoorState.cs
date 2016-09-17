@@ -348,5 +348,102 @@ namespace SmartAccess.RealDetectMgr
             });
             waiting.Show(this);
         }
+
+        private void biAdjustTime_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定校准选择门禁的时间？","提示",MessageBoxButtons.OKCancel)==DialogResult.Cancel)
+            {
+                return;
+            }
+            dgvRealLog.ClearSelection();
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = GetSelectDoors();
+            List<ListViewItem> items = new List<ListViewItem>();
+            foreach (ListViewItem item in listDoors.SelectedItems)
+            {
+                items.Add(item);
+            }
+
+            if (doors.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
+            List<decimal> ctrIds = GetSelectCtrlIDs(doors);
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                var models = GetSelectCtrls(ctrIds);
+                if (models.Count == 0)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "未找到控制器！");
+                    return;
+                }
+                List<ManualResetEvent> events = new List<ManualResetEvent>();
+                foreach (var item in models)
+                {
+                    ManualResetEvent evt = new ManualResetEvent(false);
+                    events.Add(evt);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        Maticsoft.Model.SMT_CONTROLLER_INFO cinfo = item;
+                        Controller c = ControllerHelper.ToController(item);
+                        bool isconnect = false;
+                        bool succeed = false;
+                        try
+                        {
+                            IAccessCore acc = new Li.Access.Core.WGAccesses.WGAccess();
+                            succeed = acc.SetControllerTime(c, DateTime.Now);
+                            if (!succeed)
+                            {
+                                throw new Exception("通信不上");
+                            }
+                            isconnect = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            isconnect = false;
+                        }
+                        finally
+                        {
+                            lock (items)
+                            {
+                                this.Invoke(new Action(() =>
+                                {
+                                    foreach (var it in items)
+                                    {
+                                        Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)it.Tag;
+                                        if (door.CTRL_ID == null || !door.IS_ENABLE)
+                                        {
+                                            continue;
+                                        }
+                                        if (door.CTRL_ID == c.id)
+                                        {
+                                            it.ImageIndex = 2;
+                                            DateTime dt = DateTime.Now;
+                                            DataGridViewRow row = new DataGridViewRow();
+                                            if (!isconnect)
+                                            {
+                                                row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("校准时间{0}，控制器通信{1}：IP={2},SN={3}", succeed ? "成功" : "失败", isconnect ? "正常" : "不上", cinfo.IP, cinfo.SN_NO));
+                                            }
+                                            else
+                                            {
+                                                row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("校准时间{0}", succeed ? "失败" : "成功"));
+                                            }
+                                            dgvRealLog.Rows.Insert(0, row);
+                                            row.Selected = true;
+                                        }
+                                    }
+                                }));
+                            }
+                            evt.Set();
+                        }
+                    }));
+                }
+                foreach (var item in events)
+                {
+                    item.WaitOne(15000);
+                }
+            });
+            waiting.Show(this);
+        }
     }
 }
