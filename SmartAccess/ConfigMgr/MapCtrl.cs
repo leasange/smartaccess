@@ -224,10 +224,10 @@ namespace SmartAccess.ConfigMgr
         }
 
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnHandleDestroyed(EventArgs e)
         {
             CloseMap();
-            base.OnHandleCreated(e);
+            base.OnHandleDestroyed(e);
         }
 
         public void CloseMap()
@@ -486,15 +486,24 @@ namespace SmartAccess.ConfigMgr
             return null;
         }
 
-        protected override void OnMouseWheel(MouseEventArgs e)
+        public void ZoomPlus()
         {
-            base.OnMouseWheel(e);
+            Point p=new Point(this.Width/2,this.Height/2);
+            DoZoom(p, true);
+        }
+        public void ZoomMinus()
+        {
+            Point p = new Point(this.Width / 2, this.Height / 2);
+            DoZoom(p, false);
+        }
+        private void DoZoom(Point e,bool plus=true)
+        {
             if (timerWheel.Enabled)
             {
                 return;
             }
             timerWheel.Start();
-            if (e.Delta > 0)
+            if (plus)
             {
                 if (_mapRect.Width * 2 > 40000 || _mapRect.Height * 2 > 40000)
                 {
@@ -517,8 +526,22 @@ namespace SmartAccess.ConfigMgr
                 _mapRect.Y = e.Y / 2 + _mapRect.Y / 2;
                 _mapRect.Width = _mapRect.Width / 2;
                 _mapRect.Height = _mapRect.Height / 2;
+
             }
             this.Invalidate();
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+            if (e.Delta > 0)
+            {
+                DoZoom(e.Location,true);
+            }
+            else
+            {
+                DoZoom(e.Location, false);
+            }
         }
 
         private void timerWheel_Tick(object sender, EventArgs e)

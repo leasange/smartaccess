@@ -140,7 +140,26 @@ namespace SmartAccess.RealDetectMgr
             });
             waiting.Show(this,200);
         }
-
+        private string GetDoorText(Maticsoft.Model.SMT_DOOR_INFO door)
+        {
+            string text = door.DOOR_NAME;
+            if (!door.IS_ENABLE)
+            {
+                text += "(禁用)";
+            }
+            else
+            {
+                if (door.CTRL_STYLE==1)
+                {
+                    text += "(常开)";
+                }
+                else if (door.CTRL_STYLE==2)
+                {
+                    text += "(常关)";
+                }
+            }
+            return text;
+        }
         private void AddDoorsToView(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             listDoors.Items.Clear();
@@ -159,7 +178,7 @@ namespace SmartAccess.RealDetectMgr
                 {
                     index = 3;
                 }
-                ListViewItem lvi = new ListViewItem(item.DOOR_NAME, index);
+                ListViewItem lvi = new ListViewItem(GetDoorText(item), index);
                 lvi.Tag = item;
                 lvi.ToolTipText = item.DOOR_NAME + "," + (item.IS_ENABLE ? "启用" : "未启用") + "";
                 listDoors.Items.Add(lvi);
@@ -297,10 +316,11 @@ namespace SmartAccess.RealDetectMgr
                             Maticsoft.Model.SMT_CONTROLLER_INFO cinfo = item;
                             Controller c = ControllerHelper.ToController(item);
                             bool isconnect = false;
+                         ControllerState state =null;
                             try
                             {
                                 IAccessCore acc = new Li.Access.Core.WGAccesses.WGAccess();
-                                ControllerState state = acc.GetControllerState(c);
+                               state= acc.GetControllerState(c);
                                 if (state==null)
                                 {
                                     throw new Exception("通信不上");
@@ -326,8 +346,14 @@ namespace SmartAccess.RealDetectMgr
                                                       }
                                                       if (door.CTRL_ID == c.id)
                                                       {
-
-                                                          it.ImageIndex = 2;
+                                                          if (state==null||!isconnect)
+                                                          {
+                                                              it.ImageIndex = 2;
+                                                          }
+                                                          else
+                                                          {
+                                                              it.ImageIndex = state.relayState[(int)door.CTRL_DOOR_INDEX - 1] ? 1 : 0;
+                                                          }
                                                           DateTime dt = DateTime.Now;
                                                           DataGridViewRow row = new DataGridViewRow();
                                                           row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("控制器通信{0}：IP={1},SN={2}", isconnect ? "正常" : "不上", cinfo.IP, cinfo.SN_NO));
@@ -444,6 +470,59 @@ namespace SmartAccess.RealDetectMgr
                 }
             });
             waiting.Show(this);
+        }
+
+        private void biClearInfo_Click(object sender, EventArgs e)
+        {
+            dgvRealLog.Rows.Clear();
+        }
+
+        private void tsmiDoorStateCfg_Click(object sender, EventArgs e)
+        {
+            var doors = GetSelectDoors();
+            if (doors.Count==0)
+            {
+                foreach (ListViewItem item in listDoors.Items)
+                {
+                    item.Selected = true;
+                }
+            }
+            doors = GetSelectDoors();
+            FrmDoorStateCfg cfg = new FrmDoorStateCfg(doors,dgvRealLog);
+            cfg.ShowDialog(this);
+            if (cfg.IsChanged)
+            {
+                foreach (ListViewItem item in listDoors.SelectedItems)
+                {
+                    Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                    item.Text = GetDoorText(door);
+                }
+            }
+        }
+
+        private void biSearch_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbFilterItem.Text))
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请输入查询信息！");
+            }
+            string filter = tbFilterItem.Text.Trim();
+            foreach (ListViewItem item in listDoors.Items)
+            {
+                if (item.Text.Contains(filter))
+                {
+                    item.Selected = true;
+                }
+                else
+                {
+                    item.Selected = false;
+                }
+            }
+        }
+
+        private void biUploadSetting_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
