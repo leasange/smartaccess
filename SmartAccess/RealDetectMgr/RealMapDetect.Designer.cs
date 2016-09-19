@@ -40,13 +40,13 @@
             this.biZoomPlus = new DevComponents.DotNetBar.ButtonItem();
             this.biZoomMinus = new DevComponents.DotNetBar.ButtonItem();
             this.biDetectCurMap = new DevComponents.DotNetBar.ButtonItem();
+            this.biStopCurrMap = new DevComponents.DotNetBar.ButtonItem();
             this.biDetectAllMap = new DevComponents.DotNetBar.ButtonItem();
             this.biStopDetectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
             this.stcMaps = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-            this.biStopCurrMap = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.modelTree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stcMaps)).BeginInit();
@@ -199,12 +199,21 @@
             this.biDetectCurMap.Text = "监控当前地图";
             this.biDetectCurMap.Click += new System.EventHandler(this.biDetectCurMap_Click);
             // 
+            // biStopCurrMap
+            // 
+            this.biStopCurrMap.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biStopCurrMap.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biStopCurrMap.Name = "biStopCurrMap";
+            this.biStopCurrMap.Text = "停止当前";
+            this.biStopCurrMap.Click += new System.EventHandler(this.biStopCurrMap_Click);
+            // 
             // biDetectAllMap
             // 
             this.biDetectAllMap.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biDetectAllMap.Image = global::SmartAccess.Properties.Resources.editor;
             this.biDetectAllMap.Name = "biDetectAllMap";
             this.biDetectAllMap.Text = "监控所有地图";
+            this.biDetectAllMap.Click += new System.EventHandler(this.biDetectAllMap_Click);
             // 
             // biStopDetectAll
             // 
@@ -212,6 +221,7 @@
             this.biStopDetectAll.Image = global::SmartAccess.Properties.Resources.editor;
             this.biStopDetectAll.Name = "biStopDetectAll";
             this.biStopDetectAll.Text = "停止所有";
+            this.biStopDetectAll.Click += new System.EventHandler(this.biStopDetectAll_Click);
             // 
             // biAddRootArea
             // 
@@ -252,6 +262,7 @@
             this.stcMaps.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabItem1});
             this.stcMaps.Text = "superTabControl";
+            this.stcMaps.TabItemClose += new System.EventHandler<DevComponents.DotNetBar.SuperTabStripTabItemCloseEventArgs>(this.stcMaps_TabItemClose);
             // 
             // superTabControlPanel1
             // 
@@ -268,13 +279,6 @@
             this.superTabItem1.GlobalItem = false;
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "地图1";
-            // 
-            // biStopCurrMap
-            // 
-            this.biStopCurrMap.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biStopCurrMap.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biStopCurrMap.Name = "biStopCurrMap";
-            this.biStopCurrMap.Text = "停止当前";
             // 
             // RealMapDetect
             // 

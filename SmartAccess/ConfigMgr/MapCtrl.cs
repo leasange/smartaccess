@@ -17,6 +17,12 @@ namespace SmartAccess.ConfigMgr
         private RectangleF _mapRect = RectangleF.Empty;//地图区域
         private Color _textBoundColor = Color.Black;
         private bool _isEditMode = false;
+        private string _mapName = "";
+        public string MapName
+        {
+            get { return _mapName; }
+            set { _mapName = value; }
+        }
         public bool IsEditMode
         {
             get { return _isEditMode; }
@@ -92,6 +98,7 @@ namespace SmartAccess.ConfigMgr
                 this.Invalidate();
                 return;
             }
+            _mapName = mapInfo.MAP_NAME;
             if (mapInfo.MAP_IMAGE!=null&&mapInfo.MAP_IMAGE.Length>0)
             {
                 MemoryStream ms=new MemoryStream(mapInfo.MAP_IMAGE);
@@ -104,8 +111,6 @@ namespace SmartAccess.ConfigMgr
                 {
                     DoorRectangle dr = new DoorRectangle();
                     dr.Id = item.DOOR_ID;
-                    dr.IsOnline = true;
-                    dr.IsOpen = false;
                     dr.IsSelected = false;
                     dr.RatioX = (double)item.LOCATION_X;
                     dr.RatioY = (double)item.LOCATION_Y;
@@ -113,6 +118,19 @@ namespace SmartAccess.ConfigMgr
                     dr.RatioHeight = (double)item.HEIGHT;
                     if (item.DOOR!=null)
                     {
+                        dr.IsOnline = item.DOOR.OPEN_STATE != 2;
+                        if (item.DOOR.CTRL_STYLE == 1)
+                        {
+                            dr.IsOpen = true;
+                        }
+                        else if (item.DOOR.CTRL_STYLE == 2)
+                        {
+                            dr.IsOpen = false;
+                        }
+                        else
+                        {
+                            dr.IsOpen = item.DOOR.OPEN_STATE == 1;
+                        }
                         dr.DoorName = item.DOOR.DOOR_NAME;
                     }
                     _doors.Add(dr);
@@ -184,6 +202,10 @@ namespace SmartAccess.ConfigMgr
         public DoorRectangle[] GetDoors()
         {
             return _doors.ToArray();
+        }
+        public DoorRectangle GetDoor(decimal id)
+        {
+            return _doors.Find(m => m.Id == id);
         }
 
         public void RemoveDoors(params decimal[] doorIds)

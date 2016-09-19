@@ -9,15 +9,26 @@ using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
 using DevComponents.AdvTree;
 using SmartAccess.ConfigMgr;
+using SmartAccess.Common.Datas;
+using DevComponents.DotNetBar;
+using Li.Access.Core;
+using System.Threading;
 
 namespace SmartAccess.RealDetectMgr
 {
     public partial class RealMapDetect : UserControl
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(RealMapDetect));
+        private List<MapCtrl> _detectedMaps = new List<MapCtrl>();
         public RealMapDetect()
         {
             InitializeComponent();
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            UploadPrivate.WatchService.ClearControllers(this.GetType().FullName);
+            base.OnHandleDestroyed(e);
         }
 
         private void RealMapDetect_Load(object sender, EventArgs e)
@@ -111,6 +122,46 @@ namespace SmartAccess.RealDetectMgr
             return mapCtrl;
         }
 
+        private List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors(MapCtrl mapCtrl)
+        {
+            Maticsoft.Model.SMT_MAP_INFO mapInfo = (Maticsoft.Model.SMT_MAP_INFO)mapCtrl.Tag;
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = new List<Maticsoft.Model.SMT_DOOR_INFO>();
+            if (mapInfo.MAP_DOORS == null || mapInfo.MAP_DOORS.Count == 0)
+            {
+                return doors;
+            }
+            foreach (var item in mapInfo.MAP_DOORS)
+            {
+                if (!item.DOOR.IS_ENABLE || item.DOOR.CTRL_ID == null || item.DOOR.CTRL_DOOR_INDEX == null)
+                {
+                    continue;
+                }
+                doors.Add(item.DOOR);
+            }
+            return doors;
+        }
+
+        private List<decimal> GetCtrlIDs(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
+        {
+            var g = doors.GroupBy(m => m.CTRL_ID);
+            List<decimal> ctrIds = new List<decimal>();
+            foreach (var item in g)
+            {
+                if (item.ToArray()[0].CTRL_ID == null)
+                {
+                    continue;
+                }
+                decimal ctrlId = (decimal)item.ToArray()[0].CTRL_ID;
+                ctrIds.Add(ctrlId);
+            }
+            return ctrIds;
+        }
+        private List<Maticsoft.Model.SMT_CONTROLLER_INFO> GetCtrls(List<decimal> ctrIds)
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+            var models = ctrlBll.GetModelList("ID in (" + string.Join(",", ctrIds.ToArray()) + ")");
+            return models;
+        }
         private void modelTree_NodeDoubleClick(object sender, TreeNodeMouseEventArgs e)
         {
             if (e.Button== System.Windows.Forms.MouseButtons.Left)
@@ -157,7 +208,197 @@ namespace SmartAccess.RealDetectMgr
 
         private void biDetectCurMap_Click(object sender, EventArgs e)
         {
-            
+            if (stcMaps.SelectedTab == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未有地图被选中！");
+                return;
+            }
+            DoDetectMap(stcMaps.SelectedTab);
+        }
+
+        private void DoDetectMap(SuperTabItem tabItem)
+        {
+            if (tabItem==null||tabItem.AttachedControl ==null || tabItem.AttachedControl.Controls.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "没有地图打开！");
+                return;
+            }
+            MapCtrl mapCtrl = tabItem.AttachedControl.Controls[0] as MapCtrl;
+            if (mapCtrl==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "地图无效！名称：" + tabItem.Text);
+                return;
+            }
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = GetDoors(mapCtrl);
+            if (doors.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "地图中门禁状态不可用！");
+                return;
+            }
+            List<decimal> ctrlIds = GetCtrlIDs(doors);
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                var models = GetCtrls(ctrlIds);
+                if (models.Count == 0)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "未找到控制器！");
+                    return;
+                }
+                _detectedMaps.Add(mapCtrl);
+                foreach (var model in models)
+                {
+                    UploadPrivate.WatchService.AddController(ControllerHelper.ToController(model), ControllerStateCallBack, this.GetType().FullName);
+                }
+                this.Invoke(new Action(() =>
+                {
+                    tabItem.Text = mapCtrl.MapName + "<监控中>";
+                }));
+                WinInfoHelper.ShowInfoWindow(this, "成功开启监控！地图名称：" + mapCtrl.MapName);
+            });
+            waiting.Show(this);
+        }
+        
+        private void CloseDetect(SuperTabItem tabItem)
+        {
+            lock (_detectedMaps)
+            {
+                SuperTabItem item = tabItem;
+                if (_detectedMaps.Contains(item.AttachedControl.Controls[0]))
+                {
+                    MapCtrl mapCtrl = (MapCtrl)item.AttachedControl.Controls[0];
+                    _detectedMaps.Remove(mapCtrl);
+                    var doors = GetDoors(mapCtrl);
+                    var ctrlIds = GetCtrlIDs(doors);
+                    item.Text = mapCtrl.MapName;
+                    foreach (var it in _detectedMaps)
+                    {
+                        if (it == item.AttachedControl.Controls[0])
+                        {
+                            continue;
+                        }
+                        var doorsFind = GetDoors((MapCtrl)it);
+                        var ctrlIdsFind = GetCtrlIDs(doorsFind);
+                        List<decimal> finds = new List<decimal>();
+                        foreach (var id in ctrlIds)
+                        {
+                            if (ctrlIdsFind.Contains(id))
+                            {
+                                finds.Add(id);
+                            }
+                        }
+                        foreach (var id in finds)
+                        {
+                            ctrlIds.Remove(id);
+                        }
+                    }
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                        {
+                            foreach (var id in ctrlIds)
+                            {
+                                UploadPrivate.WatchService.RemoveControllerById(id, this.GetType().FullName);
+                            }
+                        }));
+                }
+            }
+        }
+        private void stcMaps_TabItemClose(object sender, DevComponents.DotNetBar.SuperTabStripTabItemCloseEventArgs e)
+        {
+            CloseDetect((SuperTabItem)e.Tab);
+        }
+        private void ControllerStateCallBack(Li.Access.Core.Controller ctrlr, bool connected, Li.Access.Core.ControllerState state, bool doorstate)
+        {
+            lock (_detectedMaps)
+            {
+                List<MapCtrl> disposeds = new List<MapCtrl>();
+                foreach (var item in _detectedMaps)
+                {
+                    if (item.IsDisposed)
+                    {
+                        disposeds.Add(item);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            this.Invoke(new Action(() =>
+                            {
+                                AddWatchData(ctrlr, connected, state, doorstate);
+                            }));
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
+                foreach (var item in disposeds)
+                {
+                    _detectedMaps.Remove(item);
+                }
+            }
+        }
+        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate)
+        {
+            foreach (MapCtrl item in _detectedMaps)
+            {
+                var doors = GetDoors(item);
+                foreach (var door in doors)
+                {
+                    if ((decimal)door.CTRL_ID != ctrlr.id)
+                    {
+                        continue;
+                    }
+                    var doorRect = item.GetDoor(door.ID);
+                    if (doorRect == null)
+                    {
+                        continue;
+                    }
+                    if (!connected || state == null)
+                    {
+                        doorRect.IsOnline = connected;
+                        if (state != null)
+                        {
+                            doorRect.IsOpen = state.relayState[(int)door.CTRL_DOOR_INDEX - 1];
+                        }
+                    }
+                    else if ((byte)door.CTRL_DOOR_INDEX == state.doorNum)
+                    {
+                        doorRect.IsOnline = true;
+                        doorRect.IsOpen = state.relayState[(int)door.CTRL_DOOR_INDEX - 1];
+                    }
+                    else
+                    {
+                        doorRect.IsOnline = true;
+                        doorRect.IsOpen = state.relayState[(byte)door.CTRL_DOOR_INDEX - 1];
+                    }
+                }
+                item.Invalidate();
+            }
+        }
+
+        private void biStopCurrMap_Click(object sender, EventArgs e)
+        {
+            if (stcMaps.SelectedTab == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未有地图被选中！");
+                return;
+            }
+            CloseDetect(stcMaps.SelectedTab);
+        }
+
+        private void biDetectAllMap_Click(object sender, EventArgs e)
+        {
+            foreach (SuperTabItem item in stcMaps.Tabs)
+            {
+                DoDetectMap(item);
+            }
+        }
+
+        private void biStopDetectAll_Click(object sender, EventArgs e)
+        {
+            foreach (SuperTabItem item in stcMaps.Tabs)
+            {
+                CloseDetect(item);
+            }
         }
     }
 }

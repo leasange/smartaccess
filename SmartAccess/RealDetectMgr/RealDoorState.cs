@@ -174,6 +174,10 @@ namespace SmartAccess.RealDetectMgr
                 {
                     index = 0;
                 }
+                if (item.CTRL_STYLE==1)
+                {
+                    index = 1;
+                }
                 if (!item.IS_ENABLE)
                 {
                     index = 3;
@@ -496,6 +500,20 @@ namespace SmartAccess.RealDetectMgr
                 {
                     Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
                     item.Text = GetDoorText(door);
+                    int index = door.OPEN_STATE;
+                    if (index < 0 || index > 2)
+                    {
+                        index = 0;
+                    }
+                    if (door.CTRL_STYLE == 1)
+                    {
+                        index = 1;
+                    }
+                    if (!door.IS_ENABLE)
+                    {
+                        index = 3;
+                    }
+                    item.ImageIndex = index;
                 }
             }
         }

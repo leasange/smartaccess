@@ -21,83 +21,179 @@ namespace Li.Access.Core
         {
             lock (_controllerThreads)
             {
-                if (ctrlr == null)
+                try
                 {
-                    return;
-                }
-                if (callback==null)
-                {
-                    return;
-                }
-                var ctrlthread = _controllerThreads.Find(m => m.Controller.sn == ctrlr.sn);
-                if (ctrlthread == null)
-                {
-                    ctrlthread = new AccessWatchThread();
-                    ctrlthread.Tag = tag;
-                    ctrlthread.Controller = ctrlr;
-                    _controllerThreads.Add(ctrlthread);
-                    ctrlthread.Controller = ctrlr;
-
-                    ctrlthread.SetCallBack(callback);
-
-                    ctrlthread.Start();
-                }
-                else
-                {
-                    ctrlthread.Controller = ctrlr;
-                    ctrlthread.SetCallBack(callback);
-                    ctrlthread.Tag = tag;
-                }
-            }
-        }
-
-        public void RemoveController(string sn)
-        {
-            lock (_controllerThreads)
-            {
-                var ctrlthread = _controllerThreads.Find(m => m.Controller.sn == sn);
-                if (ctrlthread != null)
-                {
-                    _controllerThreads.Remove(ctrlthread);
-                    ctrlthread.Stop();
-                }
-            }
-        }
-
-        public void ClearControllers(string tag)
-        {
-            lock (_controllerThreads)
-            {
-                List<AccessWatchThread> ths = new List<AccessWatchThread>();
-                foreach (var item in _controllerThreads)
-                {
-                    if (item.Tag==tag)
+                    if (ctrlr == null)
                     {
-                        item.Stop();
-                        ths.Add(item);
+                        return;
+                    }
+                    if (callback == null)
+                    {
+                        return;
+                    }
+                    var ctrlthread = _controllerThreads.Find(m => m.Controller.sn == ctrlr.sn);
+                    if (ctrlthread == null)
+                    {
+                        ctrlthread = new AccessWatchThread();
+                        ctrlthread.Tags.Add(tag);
+                        ctrlthread.Controller = ctrlr;
+                        _controllerThreads.Add(ctrlthread);
+                        ctrlthread.Controller = ctrlr;
+                        ctrlthread.AddCallBack(tag, callback);
+                        ctrlthread.Start();
+                    }
+                    else
+                    {
+                        ctrlthread.Controller = ctrlr;
+                        ctrlthread.AddCallBack(tag, callback);
+                        if (!ctrlthread.Tags.Contains(tag))
+                        {
+                            ctrlthread.Tags.Add(tag);
+                        }
+                    }
+
+                }
+                catch (Exception)
+                {
+                    
+                }
+            }
+        }
+        public void RemoveControllerById(decimal id,string tag=null)
+        {
+            lock (_controllerThreads)
+            {
+                try
+                {
+                    if (tag == null)
+                    {
+                        ClearControllers();
+                        return;
+                    }
+                    var ctrlthread = _controllerThreads.Find(m => m.Controller.id == id && m.Tags.Contains(tag));
+                    if (ctrlthread != null)
+                    {
+                        if (ctrlthread.Tags.Count > 1)
+                        {
+                            ctrlthread.RemoveCallBack(tag);
+                        }
+                        else
+                        {
+                            _controllerThreads.Remove(ctrlthread);
+                            ctrlthread.Stop();
+                        }
                     }
                 }
-                foreach (var item in ths)
+                catch (Exception)
                 {
-                    _controllerThreads.Remove(item);
                 }
+               
+            }
+        }
+        public void RemoveController(string sn, string tag = null)
+        {
+            lock (_controllerThreads)
+            {
+                if (tag == null)
+                {
+                    ClearControllers();
+                    return;
+                }
+                var ctrlthread = _controllerThreads.Find(m => m.Controller.sn == sn && m.Tags.Contains(tag));
+                if (ctrlthread != null)
+                {
+                    if (ctrlthread.Tags.Count > 1)
+                    {
+                        ctrlthread.RemoveCallBack(tag);
+                    }
+                    else
+                    {
+                        _controllerThreads.Remove(ctrlthread);
+                        ctrlthread.Stop();
+                    }
+                }
+            }
+        }
+
+        private void ClearControllers()
+        {
+            try
+            {
+                foreach (var item in _controllerThreads)
+                {
+                    item.Stop();
+                }
+                _controllerThreads.Clear();
+            }
+            catch (Exception)
+            {
+                 
+            }
+
+        }
+
+        public void ClearControllers(string tag=null)
+        {
+            lock (_controllerThreads)
+            {
+                try
+                {
+                    if (tag == null)
+                    {
+                        ClearControllers();
+                        return;
+                    }
+
+                    List<AccessWatchThread> ths = new List<AccessWatchThread>();
+                    foreach (var item in _controllerThreads)
+                    {
+                        if (item.Tags.Contains(tag))
+                        {
+                            // item.Stop();
+                            ths.Add(item);
+                        }
+                    }
+                    foreach (var item in ths)
+                    {
+                        if (item.Tags.Count > 1)
+                        {
+                            item.RemoveCallBack(tag);
+                        }
+                        else
+                        {
+                            _controllerThreads.Remove(item);
+                            item.Stop();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                
             }
         }
 
         public void Dispose()
         {
-            foreach (var item in _controllerThreads)
+            try
             {
-                item.Stop();
+                foreach (var item in _controllerThreads)
+                {
+                    item.Stop();
+                }
+                _controllerThreads.Clear();
             }
-            _controllerThreads.Clear();
+            catch (Exception)
+            {
+            }
+
         }
     }
     public delegate void ControllerStateCallBackHandler(Controller ctrlr,bool connected,ControllerState state,bool doorstate);
     public class AccessWatchThread
     {
-        public event ControllerStateCallBackHandler CallBack = null;
-        public string Tag=null;
+        private Dictionary<string, ControllerStateCallBackHandler> CallBacks = new Dictionary<string, ControllerStateCallBackHandler>();
+        public List<string> Tags= new List<string>();
         private bool _isRun = false;
         private Thread _threadRead = null;
         private Controller _controler = null;
@@ -134,6 +230,7 @@ namespace Li.Access.Core
             catch (Exception)
             {
             }
+            CallBacks.Clear();
             _threadRead = null;
         }
         private ControllerState lastState = null;
@@ -176,7 +273,12 @@ namespace Li.Access.Core
             {
                 if (lastState == null && connected && state != null)//首次连接
                 {
+                    _connected = connected;
                     lastState = state;
+                    foreach (var item in CallBacks)
+                    {
+                        item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
+                    }
                 }
                 else
                 {
@@ -188,9 +290,9 @@ namespace Li.Access.Core
                             return;
                         }
                         _connected = connected;
-                        if (CallBack != null)
+                        foreach (var item in CallBacks)
                         {
-                            CallBack.BeginInvoke(_controler, connected, lastState,false, null, null);
+                            item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
                         }
                     }
                     else
@@ -199,9 +301,9 @@ namespace Li.Access.Core
                         {
                             _connected = connected;
                            // lastState = state;
-                            if (CallBack != null)
+                            foreach (var item in CallBacks)
                             {
-                                CallBack.BeginInvoke(_controler, connected, state,false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, state,false, null, null);
                             }
                         }
                         else if (!_connected&&connected)
@@ -214,33 +316,33 @@ namespace Li.Access.Core
                                     if(lastState.relayState[i]!=state.relayState[i])
                                     {
                                         lastState = state;
-                                        if (CallBack != null)
+                                        foreach (var item in CallBacks)
                                         {
-                                            CallBack.BeginInvoke(_controler, connected, lastState,true, null, null);
+                                            item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
                                         }
                                     }
                                 }
                                 lastState = state;
-                                if (CallBack != null)
+                                foreach (var item in CallBacks)
                                 {
-                                    CallBack.BeginInvoke(_controler, connected, null,false, null, null);
+                                    item.Value.BeginInvoke(_controler, connected, null, false, null, null);
                                 }
                             }
                             else
                             {
                                 lastState = state;
-                                if (CallBack != null)
+                                foreach (var item in CallBacks)
                                 {
-                                    CallBack.BeginInvoke(_controler, connected, lastState,false, null, null);
+                                    item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
                                 }
                             }
                         }
                         else if (lastState.lastRecordIndex != state.lastRecordIndex)
                         {
                             lastState = state;
-                            if (CallBack != null)
+                            foreach (var item in CallBacks)
                             {
-                                CallBack.BeginInvoke(_controler, connected, lastState,false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
                             }
                         }
                         else
@@ -250,9 +352,9 @@ namespace Li.Access.Core
                                 if (lastState.relayState[i] != state.relayState[i])
                                 {
                                     lastState = state;
-                                    if (CallBack != null)
+                                    foreach (var item in CallBacks)
                                     {
-                                        CallBack.BeginInvoke(_controler, connected, lastState,true, null, null);
+                                        item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
                                     }
                                 }
                             }
@@ -265,9 +367,40 @@ namespace Li.Access.Core
             }
         }
 
-        public void SetCallBack(ControllerStateCallBackHandler callback)
+        public void AddCallBack(string tag,ControllerStateCallBackHandler callback)
         {
-            CallBack = callback;
+            if (callback==null)
+	        {
+		         return;
+	        }
+            if (tag==null)
+            {
+                tag = "";
+            }
+            if (!CallBacks.ContainsKey(tag))
+            {
+                CallBacks.Add(tag, callback);
+                if (CallBacks.Count>1)
+                {
+                    callback.BeginInvoke(_controler, _connected, lastState, true, null, null);
+                }
+            }
+        }
+
+        public void RemoveCallBack(string tag)
+        {
+            if (Tags.Contains(tag))
+            {
+                Tags.Remove(tag);
+            }
+            if (tag == null)
+            {
+                tag = "";
+            }
+            if (CallBacks.ContainsKey(tag))
+            {
+                CallBacks.Remove(tag);
+            }
         }
 
     }
