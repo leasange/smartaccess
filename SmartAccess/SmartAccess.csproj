@@ -105,6 +105,7 @@
     <Compile Include="Common\Datas\StaffDataHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
+    <Compile Include="Common\SmtLog.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,6 +138,18 @@
     <Compile Include="ConfigMgr\FrmEditMap.Designer.cs">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmInOutTimeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmInOutTimeEditor.Designer.cs">
+      <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\InOutTimeCfg.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\InOutTimeCfg.Designer.cs">
+      <DependentUpon>InOutTimeCfg.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\MapCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,12 +173,6 @@
     </Compile>
     <Compile Include="ControlDevMgr\ControllerMgr.Designer.cs">
       <DependentUpon>ControllerMgr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlDevMgr\ControlState.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ControlDevMgr\ControlState.Designer.cs">
-      <DependentUpon>ControlState.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlDevMgr\DoorNameAttri.cs">
       <SubType>UserControl</SubType>
@@ -413,6 +420,12 @@
     <EmbeddedResource Include="ConfigMgr\FrmEditMap.resx">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmInOutTimeEditor.resx">
+      <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\InOutTimeCfg.resx">
+      <DependentUpon>InOutTimeCfg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\MapCtrl.resx">
       <DependentUpon>MapCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -424,9 +437,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControllerMgr.resx">
       <DependentUpon>ControllerMgr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlDevMgr\ControlState.resx">
-      <DependentUpon>ControlState.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\DoorNameAttri.resx">
       <DependentUpon>DoorNameAttri.cs</DependentUpon>

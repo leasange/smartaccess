@@ -16,6 +16,56 @@ namespace Li.Controls
         {
             InitializeComponent();
         }
+
+        protected override void OnCellMouseDown(DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button!= System.Windows.Forms.MouseButtons.Left)
+            {
+                if (e.RowIndex>=0&&e.ColumnIndex<0)
+                {
+                    foreach (DataGridViewCell item in this.SelectedCells)
+                    {
+                        item.Selected = false;
+                    }
+                    if (!this.Rows[e.RowIndex].Selected)
+                    {
+                        foreach (DataGridViewRow item in this.SelectedRows)
+                        {
+                            item.Selected = false;
+                        }
+                        this.Rows[e.RowIndex].Selected = true;
+                    }
+                }
+                else if (e.RowIndex>=0&&e.ColumnIndex>=0)
+                {
+                    if (this.SelectionMode== DataGridViewSelectionMode.FullRowSelect)
+                    {
+                        if (!this.Rows[e.RowIndex].Selected)
+                        {
+                            foreach (DataGridViewRow item in this.SelectedRows)
+                            {
+                                item.Selected = false;
+                            }
+                            this.Rows[e.RowIndex].Selected = true;
+                        }
+                        
+                    }
+                    else
+                    {
+                        foreach (DataGridViewCell item in this.SelectedCells)
+                        {
+                            item.Selected = false;
+                        }
+                        if (!this.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected)
+                        {
+                            this.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                        }
+                    }
+                }
+            }
+            base.OnCellMouseDown(e);
+        }
+
         public new void StyleManagerStyleChanged(DevComponents.DotNetBar.eDotNetBarStyle newStyle)
         {
             try

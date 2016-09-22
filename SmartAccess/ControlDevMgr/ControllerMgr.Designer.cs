@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
@@ -44,6 +45,8 @@
             this.biAddSubArea = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteArea = new DevComponents.DotNetBar.ButtonItem();
             this.biModifyArea = new DevComponents.DotNetBar.ButtonItem();
+            this.cmsCtrl = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiResetRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.advTreeArea = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -63,12 +66,14 @@
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_XG = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_SC = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.tsmiCtrlIPPrivate = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
+            this.cmsCtrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).BeginInit();
             this.SuspendLayout();
@@ -217,6 +222,21 @@
             this.biModifyArea.Text = "修改";
             this.biModifyArea.Tooltip = "修改选择区域";
             // 
+            // cmsCtrl
+            // 
+            this.cmsCtrl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiResetRecord,
+            this.tsmiCtrlIPPrivate});
+            this.cmsCtrl.Name = "cmsCtrl";
+            this.cmsCtrl.Size = new System.Drawing.Size(172, 70);
+            // 
+            // tsmiResetRecord
+            // 
+            this.tsmiResetRecord.Name = "tsmiResetRecord";
+            this.tsmiResetRecord.Size = new System.Drawing.Size(171, 22);
+            this.tsmiResetRecord.Text = "恢复已提取记录";
+            this.tsmiResetRecord.Click += new System.EventHandler(this.tsmiResetRecord_Click);
+            // 
             // advTreeArea
             // 
             this.advTreeArea.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
@@ -290,14 +310,14 @@
             this.dgvCtrlr.AllowUserToAddRows = false;
             this.dgvCtrlr.AllowUserToDeleteRows = false;
             this.dgvCtrlr.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCtrlr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCtrlr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCtrlr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -310,32 +330,33 @@
             this.Column9,
             this.Col_XG,
             this.Col_SC});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCtrlr.EnableHeadersVisualStyles = false;
             this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvCtrlr.Location = new System.Drawing.Point(0, 29);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCtrlr.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCtrlr.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCtrlr.RowTemplate.Height = 23;
             this.dgvCtrlr.Size = new System.Drawing.Size(826, 428);
             this.dgvCtrlr.TabIndex = 3;
             this.dgvCtrlr.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCtrlr_CellContentClick);
+            this.dgvCtrlr.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCtrlr_CellMouseUp);
             // 
             // Column1
             // 
@@ -415,6 +436,13 @@
             this.Col_SC.Name = "Col_SC";
             this.Col_SC.ReadOnly = true;
             // 
+            // tsmiCtrlIPPrivate
+            // 
+            this.tsmiCtrlIPPrivate.Name = "tsmiCtrlIPPrivate";
+            this.tsmiCtrlIPPrivate.Size = new System.Drawing.Size(171, 22);
+            this.tsmiCtrlIPPrivate.Text = "控制器IP访问约束";
+            this.tsmiCtrlIPPrivate.Click += new System.EventHandler(this.tsmiCtrlIPPrivate_Click);
+            // 
             // ControllerMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -429,6 +457,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
+            this.cmsCtrl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTreeArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).EndInit();
             this.ResumeLayout(false);
@@ -469,5 +498,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewLinkColumn Col_XG;
         private System.Windows.Forms.DataGridViewLinkColumn Col_SC;
+        private System.Windows.Forms.ContextMenuStrip cmsCtrl;
+        private System.Windows.Forms.ToolStripMenuItem tsmiResetRecord;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCtrlIPPrivate;
     }
 }

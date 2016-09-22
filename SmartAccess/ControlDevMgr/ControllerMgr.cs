@@ -407,5 +407,64 @@ namespace SmartAccess.ControlDevMgr
         {
             WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
         }
+        private DataGridViewRow GetSelectRow()
+        {
+            if (dgvCtrlr.SelectedRows.Count>0)
+            {
+                return dgvCtrlr.SelectedRows[0];
+            }
+            else if (dgvCtrlr.SelectedCells.Count>0)
+            {
+                return dgvCtrlr.Rows[dgvCtrlr.SelectedCells[0].RowIndex];
+            }
+            return null;
+        }
+        private void dgvCtrlr_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button== System.Windows.Forms.MouseButtons.Right)
+            {
+                if (e.RowIndex>=0)
+                {
+                    cmsCtrl.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void tsmiResetRecord_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = GetSelectRow();
+            if (row==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未有选择控制器！");
+                return;
+            }
+            Maticsoft.Model.SMT_CONTROLLER_INFO ctrlInfo = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+            if (MessageBox.Show("确定恢复该控制器"+ctrlInfo.NAME+"记录读取？","确定",MessageBoxButtons.OKCancel)!= DialogResult.OK)
+            {
+                return;
+            }
+            
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    IAccessCore acc = new WGAccess();
+                    var c = ControllerHelper.ToController(ctrlInfo);
+                    bool ret = acc.SetControllerReadedIndex(c, 0);
+                    WinInfoHelper.ShowInfoWindow(this, "恢复控制器" + ctrlInfo.NAME+ "记录" + (ret ? "成功！" : "失败！"));
+                }
+                catch (Exception ex)
+                {
+                    log.Error("恢复控制器记录异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "恢复控制器" + ctrlInfo.NAME + "记录异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void tsmiCtrlIPPrivate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

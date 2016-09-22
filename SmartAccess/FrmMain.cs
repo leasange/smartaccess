@@ -244,10 +244,7 @@ namespace SmartAccess
 
         private void linkCtrlState_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!CheckControl(typeof(ControlDevMgr.ControlState)))
-            {
-                AddControl(new ControlDevMgr.ControlState(), "控制访问约束");
-            }
+             
         }
 
         private void linkRealMap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -291,10 +288,13 @@ namespace SmartAccess
         {
 
         }
-
+        //出入时段管理
         private void linkInOutTimeSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            if (!CheckControl(typeof(InOutTimeCfg)))
+            {
+                AddControl(new InOutTimeCfg(), "出入时段管理");
+            }
         }
 
         private void linkDbBak_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
