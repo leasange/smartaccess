@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/6 12:12:16   N/A    初版
+* V0.01  2016/9/25 8:33:57   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -55,20 +55,22 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_STAFF_DOOR(");
-			strSql.Append("STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME)");
+			strSql.Append("STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,TIME_NUM)");
 			strSql.Append(" values (");
-			strSql.Append("@STAFF_ID,@DOOR_ID,@IS_UPLOAD,@UPLOAD_TIME,@ADD_TIME)");
+			strSql.Append("@STAFF_ID,@DOOR_ID,@IS_UPLOAD,@UPLOAD_TIME,@ADD_TIME,@TIME_NUM)");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@IS_UPLOAD", SqlDbType.Bit,1),
 					new SqlParameter("@UPLOAD_TIME", SqlDbType.DateTime),
-					new SqlParameter("@ADD_TIME", SqlDbType.DateTime)};
+					new SqlParameter("@ADD_TIME", SqlDbType.DateTime),
+					new SqlParameter("@TIME_NUM", SqlDbType.Int,4)};
 			parameters[0].Value = model.STAFF_ID;
 			parameters[1].Value = model.DOOR_ID;
 			parameters[2].Value = model.IS_UPLOAD;
 			parameters[3].Value = model.UPLOAD_TIME;
 			parameters[4].Value = model.ADD_TIME;
+			parameters[5].Value = model.TIME_NUM;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -89,19 +91,22 @@ namespace Maticsoft.DAL
 			strSql.Append("update SMT_STAFF_DOOR set ");
 			strSql.Append("IS_UPLOAD=@IS_UPLOAD,");
 			strSql.Append("UPLOAD_TIME=@UPLOAD_TIME,");
-			strSql.Append("ADD_TIME=@ADD_TIME");
+			strSql.Append("ADD_TIME=@ADD_TIME,");
+			strSql.Append("TIME_NUM=@TIME_NUM");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and DOOR_ID=@DOOR_ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@IS_UPLOAD", SqlDbType.Bit,1),
 					new SqlParameter("@UPLOAD_TIME", SqlDbType.DateTime),
 					new SqlParameter("@ADD_TIME", SqlDbType.DateTime),
+					new SqlParameter("@TIME_NUM", SqlDbType.Int,4),
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.IS_UPLOAD;
 			parameters[1].Value = model.UPLOAD_TIME;
 			parameters[2].Value = model.ADD_TIME;
-			parameters[3].Value = model.STAFF_ID;
-			parameters[4].Value = model.DOOR_ID;
+			parameters[3].Value = model.TIME_NUM;
+			parameters[4].Value = model.STAFF_ID;
+			parameters[5].Value = model.DOOR_ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -148,7 +153,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME from SMT_STAFF_DOOR ");
+			strSql.Append("select  top 1 STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,TIME_NUM from SMT_STAFF_DOOR ");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and DOOR_ID=@DOOR_ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
@@ -204,6 +209,10 @@ namespace Maticsoft.DAL
 				{
 					model.ADD_TIME=DateTime.Parse(row["ADD_TIME"].ToString());
 				}
+				if(row["TIME_NUM"]!=null && row["TIME_NUM"].ToString()!="")
+				{
+					model.TIME_NUM=int.Parse(row["TIME_NUM"].ToString());
+				}
 			}
 			return model;
 		}
@@ -214,7 +223,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME ");
+			strSql.Append("select STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,TIME_NUM ");
 			strSql.Append(" FROM SMT_STAFF_DOOR ");
 			if(strWhere.Trim()!="")
 			{
@@ -234,7 +243,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME ");
+			strSql.Append(" STAFF_ID,DOOR_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,TIME_NUM ");
 			strSql.Append(" FROM SMT_STAFF_DOOR ");
 			if(strWhere.Trim()!="")
 			{

@@ -103,6 +103,7 @@
     <Compile Include="Common\Datas\ControllerHelper.cs" />
     <Compile Include="Common\Datas\DoorDataHelper.cs" />
     <Compile Include="Common\Datas\StaffDataHelper.cs" />
+    <Compile Include="Common\Datas\TimeScaleHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\SmtLog.cs" />

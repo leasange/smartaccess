@@ -88,7 +88,13 @@ namespace SmartAccess.Common.WinInfo
                         this.tbMsg.AppendText(text);
                         if (isRed)
                         {
-                            this.tbMsg.Select(this.tbMsg.TextLength - text.Length, text.Length-1);
+                            string str = text.TrimEnd('\r', '\n');
+                            int index = this.tbMsg.TextLength - str.Length;
+                            if (index<0)
+                            {
+                                index = 0;
+                            }
+                            this.tbMsg.Select(index, str.Length);
                             this.tbMsg.SelectionColor = Color.Red;
                             this.tbMsg.SelectionLength = 0;
                         }

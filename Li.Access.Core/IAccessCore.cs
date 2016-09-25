@@ -138,6 +138,36 @@ namespace Li.Access.Core
         /// <param name="port">返回 端口</param>
         /// <returns>成功与否</returns>
         bool GetReceiveServer(Controller controller, ref string ip, ref int port);
+        /// <summary>
+        /// 设置时段号
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="tsNum">时段号参数</param>
+        /// <returns>成功与否</returns>
+        bool SetTimeScales(Controller controller,TimeScaleNum tsNum);
+
+        /// <summary>
+        /// 清除时段
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>成功与否</returns>
+        bool ClearTimeScales(Controller controller);
+
+    }
+
+    public class TimeScaleNum
+    {
+        public int Num;//时段号
+        public int NextNum = 1;//下一时段号
+        public DateTime startDate;//开始日期
+        public DateTime endDate;//结束日期
+        public bool[] weekDaysEnable = new bool[7];
+        public List<TimeScale> timeScales = new List<TimeScale>();
+    }
+    public struct TimeScale
+    {
+        public TimeSpan start;
+        public TimeSpan end;
     }
     public enum DoorControlStyle
     {

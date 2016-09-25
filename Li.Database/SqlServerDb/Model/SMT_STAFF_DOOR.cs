@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/6 12:12:16   N/A    初版
+* V0.01  2016/9/25 8:33:57   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,6 +31,7 @@ namespace Maticsoft.Model
 		private bool _is_upload;
 		private DateTime _upload_time;
 		private DateTime _add_time;
+		private int _time_num;
 		/// <summary>
 		/// 员工ID
 		/// </summary>
@@ -70,6 +71,14 @@ namespace Maticsoft.Model
 		{
 			set{ _add_time=value;}
 			get{return _add_time;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public int TIME_NUM
+		{
+			set{ _time_num=value;}
+			get{return _time_num;}
 		}
 		#endregion Model
 

@@ -383,6 +383,36 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+
+        public bool SetTimeScales(Controller controller, TimeScaleNum tsNum)
+        {
+            WGPacket packet = new WGPacket(0x88);
+            packet.SetDevSn(controller.sn);
+            packet.SetTimeScale(tsNum);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+
+        public bool ClearTimeScales(Controller controller)
+        {
+            WGPacket packet = new WGPacket(0x8A);
+            packet.SetDevSn(controller.sn);
+            packet.SetClearTag();
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包
@@ -691,6 +721,39 @@ namespace Li.Access.Core.WGAccesses
             ip = ip.TrimEnd('.');
             port = ((int)data[5] << 8)&0xff00|data[4];
             return true;
+        }
+
+        public void SetTimeScale(TimeScaleNum tsNum)
+        {
+            data[0] = (byte)tsNum.Num;
+            data[1] = DataHelper.ToByteBCD((int)(tsNum.startDate.Year / 100));
+            data[2] = DataHelper.ToByteBCD(tsNum.startDate.Year - ((int)(tsNum.startDate.Year / 100)) * 100);
+            data[3] = DataHelper.ToByteBCD(tsNum.startDate.Month);
+            data[4] = DataHelper.ToByteBCD(tsNum.startDate.Day);
+
+            data[5] = DataHelper.ToByteBCD((int)(tsNum.endDate.Year / 100));
+            data[6] = DataHelper.ToByteBCD(tsNum.endDate.Year - ((int)(tsNum.endDate.Year / 100)) * 100);
+            data[7] = DataHelper.ToByteBCD(tsNum.endDate.Month);
+            data[8] = DataHelper.ToByteBCD(tsNum.endDate.Day);
+
+            for (int i = 0; i < 7; i++)
+            {
+                data[9 + i] = tsNum.weekDaysEnable[i] ? (byte)1 : (byte)0;
+            }
+             //data[15]
+            for (int i = 0; i < tsNum.timeScales.Count; i++)
+            {
+                if (i == 3)
+                {
+                    break;
+                }
+                data[16 + i * 4] = DataHelper.ToByteBCD(tsNum.timeScales[i].start.Hours);
+                data[16 + i * 4 + 1] = DataHelper.ToByteBCD(tsNum.timeScales[i].start.Minutes);
+                data[16 + i * 4 + 2] = DataHelper.ToByteBCD(tsNum.timeScales[i].end.Hours);
+                data[16 + i * 4 + 3] = DataHelper.ToByteBCD(tsNum.timeScales[i].end.Minutes);
+            }
+            //data[27]
+            data[28] = (byte)tsNum.NextNum;
         }
     }
 }
