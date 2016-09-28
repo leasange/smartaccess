@@ -316,11 +316,17 @@
     <Compile Include="RealDetectMgr\RealMapDetect.Designer.cs">
       <DependentUpon>RealMapDetect.cs</DependentUpon>
     </Compile>
-    <Compile Include="RuleSetMrg\DoorRuleCtrlSet.cs">
+    <Compile Include="RuleSetMrg\DoorRuleCtrlTask.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RuleSetMrg\DoorRuleCtrlSet.Designer.cs">
-      <DependentUpon>DoorRuleCtrlSet.cs</DependentUpon>
+    <Compile Include="RuleSetMrg\DoorRuleCtrlTask.Designer.cs">
+      <DependentUpon>DoorRuleCtrlTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleSetMrg\FrmCtrlTaskEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RuleSetMrg\FrmCtrlTaskEditor.Designer.cs">
+      <DependentUpon>FrmCtrlTaskEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="RuleSetMrg\NormalRuleSet.cs">
       <SubType>UserControl</SubType>
@@ -518,8 +524,11 @@
     <EmbeddedResource Include="RealDetectMgr\RealMapDetect.resx">
       <DependentUpon>RealMapDetect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RuleSetMrg\DoorRuleCtrlSet.resx">
-      <DependentUpon>DoorRuleCtrlSet.cs</DependentUpon>
+    <EmbeddedResource Include="RuleSetMrg\DoorRuleCtrlTask.resx">
+      <DependentUpon>DoorRuleCtrlTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleSetMrg\FrmCtrlTaskEditor.resx">
+      <DependentUpon>FrmCtrlTaskEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RuleSetMrg\NormalRuleSet.resx">
       <DependentUpon>NormalRuleSet.cs</DependentUpon>

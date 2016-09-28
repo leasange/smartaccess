@@ -265,9 +265,9 @@ namespace SmartAccess
 
         private void linkCtrlStyle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!CheckControl(typeof(RuleSetMrg.DoorRuleCtrlSet)))
+            if (!CheckControl(typeof(RuleSetMrg.DoorRuleCtrlTask)))
             {
-                AddControl(new RuleSetMrg.DoorRuleCtrlSet(), "控制方式设定");
+                AddControl(new RuleSetMrg.DoorRuleCtrlTask(), "控制定时任务");
             }
         }
 
