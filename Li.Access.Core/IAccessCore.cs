@@ -98,7 +98,7 @@ namespace Li.Access.Core
         /// <param name="doorNumAuthorities">每个门控制权限：<第一个门号，第二个该时间段的权限>，true 表示允许通过，false表示禁止通过</param>
         /// <param name="password">用户设置的密码【启用了密码键盘才有效】，密码最大长度为6位数字(也就是最大为999999)(如果有要求时设置. 否则设为0)缺省值: 345678</param>
         /// <returns>成功与否</returns>
-        bool AddOrModifyAuthority(Controller controller, string  hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities,int password=0);
+        bool AddOrModifyAuthority(Controller controller, string  hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, int> doorNumAuthorities,int password=0);
         /// <summary>
         /// 删除权限
         /// </summary>

@@ -48,6 +48,8 @@
             this.dtpStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
+            this.cbTimeNum = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.LabelX5 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectDoor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
@@ -245,7 +247,7 @@
             // 
             // 
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(196, 424);
+            this.labelX3.Location = new System.Drawing.Point(330, 421);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(75, 23);
             this.labelX3.TabIndex = 5;
@@ -253,6 +255,7 @@
             // 
             // dtpStart
             // 
+            this.dtpStart.AllowEmptyState = false;
             // 
             // 
             // 
@@ -264,7 +267,7 @@
             this.dtpStart.CustomFormat = "yyyy-MM-dd";
             this.dtpStart.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtpStart.IsPopupCalendarOpen = false;
-            this.dtpStart.Location = new System.Drawing.Point(265, 424);
+            this.dtpStart.Location = new System.Drawing.Point(399, 421);
             // 
             // 
             // 
@@ -305,6 +308,7 @@
             // 
             // dtpEnd
             // 
+            this.dtpEnd.AllowEmptyState = false;
             // 
             // 
             // 
@@ -316,7 +320,7 @@
             this.dtpEnd.CustomFormat = "yyyy-MM-dd";
             this.dtpEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtpEnd.IsPopupCalendarOpen = false;
-            this.dtpEnd.Location = new System.Drawing.Point(441, 424);
+            this.dtpEnd.Location = new System.Drawing.Point(575, 421);
             // 
             // 
             // 
@@ -361,11 +365,37 @@
             // 
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(419, 424);
+            this.labelX4.Location = new System.Drawing.Point(553, 421);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(22, 23);
             this.labelX4.TabIndex = 5;
             this.labelX4.Text = "至";
+            // 
+            // cbTimeNum
+            // 
+            this.cbTimeNum.DisplayMember = "Text";
+            this.cbTimeNum.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbTimeNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTimeNum.FormattingEnabled = true;
+            this.cbTimeNum.ItemHeight = 17;
+            this.cbTimeNum.Location = new System.Drawing.Point(166, 422);
+            this.cbTimeNum.Name = "cbTimeNum";
+            this.cbTimeNum.Size = new System.Drawing.Size(121, 23);
+            this.cbTimeNum.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbTimeNum.TabIndex = 7;
+            this.cbTimeNum.SelectedIndexChanged += new System.EventHandler(this.cbTimeNum_SelectedIndexChanged);
+            // 
+            // LabelX5
+            // 
+            // 
+            // 
+            // 
+            this.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.LabelX5.Location = new System.Drawing.Point(113, 422);
+            this.LabelX5.Name = "LabelX5";
+            this.LabelX5.Size = new System.Drawing.Size(75, 23);
+            this.LabelX5.TabIndex = 5;
+            this.LabelX5.Text = "时间段：";
             // 
             // FrmAddOrModifyStaffPrivate
             // 
@@ -374,9 +404,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(804, 512);
+            this.Controls.Add(this.cbTimeNum);
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.dtpStart);
             this.Controls.Add(this.labelX4);
+            this.Controls.Add(this.LabelX5);
             this.Controls.Add(this.labelX3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOkUpload);
@@ -426,6 +458,8 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpStart;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpEnd;
         private DevComponents.DotNetBar.LabelX labelX4;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbTimeNum;
+        private DevComponents.DotNetBar.LabelX LabelX5;
 
     }
 }

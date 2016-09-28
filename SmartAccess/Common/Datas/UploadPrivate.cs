@@ -174,12 +174,21 @@ namespace SmartAccess.Common.Datas
                     //errMsg += "\r\n控制器无效：CTRL_ID=" + ctrlId;
                     continue;
                 }
-                Dictionary<int, bool> doorNumAuthorities = new Dictionary<int, bool>();
+                Dictionary<int, int> doorNumAuthorities = new Dictionary<int, int>();
                 foreach (var d in doors)
                 {
                     if (d.CTRL_DOOR_INDEX!=null&&d.CTRL_DOOR_INDEX>=0)
                     {
-                        doorNumAuthorities.Add((int)d.CTRL_DOOR_INDEX, d.IS_ENABLE);
+                        int num = 0;
+                        if (d.IS_ENABLE)
+                        {
+                            var staffDoor = staffDoors.Find(m => m.DOOR_ID == d.ID);
+                            if (staffDoor!=null)
+                            {
+                                num = staffDoor.TIME_NUM;
+                            }
+                        }
+                        doorNumAuthorities.Add((int)d.CTRL_DOOR_INDEX, num);
                     }
                 }
                 percent += stp;
@@ -401,7 +410,7 @@ namespace SmartAccess.Common.Datas
 	                }
                     FrmDetailInfo.AddOneMsg(string.Format("开始上传，控制器“{0}”的人员“{1}”,卡号“{2}”权限...", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
                     var doors= staffDoors.FindAll(m=>m.STAFF_ID==staff.ID);
-                    Dictionary<int,bool> aus=new Dictionary<int,bool>();
+                    Dictionary<int, int> aus = new Dictionary<int, int>();
                     foreach (var d in doors)
 	                {
                         var di= ctrlDoors.Find(m=>m.ID==d.DOOR_ID);
@@ -409,7 +418,12 @@ namespace SmartAccess.Common.Datas
 	                    {
 		                     continue;
 	                    }
-                        aus.Add((int)di.CTRL_DOOR_INDEX, di.IS_ENABLE);
+                        int num = 0;
+                        if (di.IS_ENABLE)
+                        {
+                            num = d.TIME_NUM;
+                        }
+                        aus.Add((int)di.CTRL_DOOR_INDEX, num);
 	                }
                     bool ret = access.AddOrModifyAuthority(cc, item.CARD_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
                     if (!ret)

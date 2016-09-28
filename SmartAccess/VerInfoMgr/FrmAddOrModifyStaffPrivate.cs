@@ -1,4 +1,5 @@
 ﻿using DevComponents.AdvTree;
+using DevComponents.DotNetBar;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
@@ -54,7 +55,38 @@ namespace SmartAccess.VerInfoMgr
         }
         private void FrmAddOrModifyStaffPrivate_Load(object sender, EventArgs e)
         {
+            InitTimeNum();
             doorTree.Tree.NodeDoubleClick += Tree_NodeDoubleClick;
+        }
+
+        private void InitTimeNum()
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_TIMESCALE_INFO tsBll = new Maticsoft.BLL.SMT_TIMESCALE_INFO();
+                    var models = tsBll.GetModelList("");
+                    this.Invoke(new Action(() =>
+                    {
+                        cbTimeNum.Items.Add(new ComboBoxItem("任意时间段", "任意时间段"));
+                        foreach (var item in models)
+                        {
+                            var cbi = new ComboBoxItem(item.TIME_NO + "(" + item.TIME_NAME + ")", item.TIME_NO + "(" + item.TIME_NAME + ")");
+                            cbi.Tag = item;
+                            cbTimeNum.Items.Add(cbi);
+                        }
+                        cbTimeNum.SelectedIndex = 0;
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    log.Error("加载列表异常：" + ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "加载列表异常：" + ex.Message);
+                }
+
+            });
+            waiting.Show(this);
         }
 
         void Tree_NodeDoubleClick(object sender, TreeNodeMouseEventArgs e)
@@ -164,6 +196,17 @@ namespace SmartAccess.VerInfoMgr
                 WinInfoHelper.ShowInfoWindow(this, "起始时间不能小于结束时间！");
                 return;
             }
+            int timenum = 0;
+            ComboBoxItem cbi = (ComboBoxItem)cbTimeNum.SelectedItem;
+            if (cbi.Tag is Maticsoft.Model.SMT_TIMESCALE_INFO)
+            {
+                Maticsoft.Model.SMT_TIMESCALE_INFO tsInfo = (Maticsoft.Model.SMT_TIMESCALE_INFO)cbi.Tag;
+                timenum = tsInfo.TIME_NO;
+            }
+            else
+            {
+                timenum = 1;
+            }
 
             CtrlWaiting ctrlWaiting = new CtrlWaiting("正在保存...", () =>
              {
@@ -193,6 +236,8 @@ namespace SmartAccess.VerInfoMgr
                          newSd.IS_UPLOAD = false;
                          newSd.UPLOAD_TIME = DateTime.Now;
                          newSd.STAFF_ID = staffInfo.ID;
+                         newSd.TIME_NUM = timenum;
+                        
                          sdBLL.Add(newSd);
                      }
                      if (staffInfo.VALID_STARTTIME != dtpStart.Value || staffInfo.VALID_ENDTIME != dtpEnd.Value)
@@ -219,7 +264,7 @@ namespace SmartAccess.VerInfoMgr
                          }
                          else
                          {
-                             WinInfoHelper.ShowInfoWindow(null, "上传权限成功！");
+                             WinInfoHelper.ShowInfoWindow(null, "上传权限结束！");
                          }
                      }
                      this.Invoke(new Action(() =>
@@ -246,6 +291,22 @@ namespace SmartAccess.VerInfoMgr
                     DoUnSelect(new List<DataGridViewRow>() { dgvSelectDoor.Rows[e.RowIndex] });
                 }
             }
+        }
+
+        private void cbTimeNum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //ComboBoxItem item = (ComboBoxItem)cbTimeNum.SelectedItem;
+            //if (item.Tag==null)
+            //{
+            //    this.dtpStart.Value = this.staffInfo.VALID_STARTTIME;
+            //    this.dtpEnd.Value = this.staffInfo.VALID_ENDTIME;
+            //}
+            //else
+            //{
+            //    Maticsoft.Model.SMT_TIMESCALE_INFO tsInfo = (Maticsoft.Model.SMT_TIMESCALE_INFO)item.Tag;
+            //    this.dtpStart.Value = tsInfo.TIME_DATE_START;
+            //    this.dtpEnd.Value = tsInfo.TIME_DATE_END;
+            //}
         }
 
     }

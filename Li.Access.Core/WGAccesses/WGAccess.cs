@@ -284,7 +284,7 @@ namespace Li.Access.Core.WGAccesses
         }
 
 
-        public bool AddOrModifyAuthority(Controller controller, string hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, bool> doorNumAuthorities, int password = 0)
+        public bool AddOrModifyAuthority(Controller controller, string hexCardNum, DateTime startTime, DateTime endTime, Dictionary<int, int> doorNumAuthorities, int password = 0)
         {
             WGPacket packet = new WGPacket(0x50);
             packet.SetDevSn(controller.sn);
@@ -674,14 +674,14 @@ namespace Li.Access.Core.WGAccesses
             data[11] = DataHelper.ToByteBCD(endTime.Day);
         }
 
-        public void SetAuthoriDoors(Dictionary<int, bool> doorNumAuthorities)
+        public void SetAuthoriDoors(Dictionary<int, int> doorNumAuthorities)
         {
             for (int i = 0; i < 4; i++)
             {
-                bool ret = false;
+                int ret = -1;
                 if (doorNumAuthorities.TryGetValue(i + 1, out ret))
                 {
-                    data[12 + i] = (byte)(ret ? 0x01 : 0x00);
+                    data[12 + i] = (byte)(ret);
                 }
                 else
                 {

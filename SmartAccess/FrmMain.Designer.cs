@@ -176,10 +176,12 @@
             this.expandablePanel9.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel9.Controls.Add(this.panel10);
             this.expandablePanel9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.expandablePanel9.Expanded = false;
+            this.expandablePanel9.ExpandedBounds = new System.Drawing.Rectangle(0, 272, 246, 354);
             this.expandablePanel9.ExpandOnTitleClick = true;
-            this.expandablePanel9.Location = new System.Drawing.Point(0, 272);
+            this.expandablePanel9.Location = new System.Drawing.Point(0, 341);
             this.expandablePanel9.Name = "expandablePanel9";
-            this.expandablePanel9.Size = new System.Drawing.Size(246, 354);
+            this.expandablePanel9.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel9.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel9.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel9.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -218,7 +220,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 34);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(246, 320);
+            this.panel10.Size = new System.Drawing.Size(246, 0);
             this.panel10.TabIndex = 2;
             // 
             // linkCardInssue
@@ -397,7 +399,7 @@
             this.expandablePanel8.Expanded = false;
             this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 238, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
-            this.expandablePanel8.Location = new System.Drawing.Point(0, 238);
+            this.expandablePanel8.Location = new System.Drawing.Point(0, 307);
             this.expandablePanel8.Name = "expandablePanel8";
             this.expandablePanel8.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel8.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -484,7 +486,7 @@
             this.expandablePanel7.Expanded = false;
             this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 204, 246, 139);
             this.expandablePanel7.ExpandOnTitleClick = true;
-            this.expandablePanel7.Location = new System.Drawing.Point(0, 204);
+            this.expandablePanel7.Location = new System.Drawing.Point(0, 273);
             this.expandablePanel7.Name = "expandablePanel7";
             this.expandablePanel7.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel7.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -568,7 +570,7 @@
             this.expandablePanel6.Expanded = false;
             this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 184);
             this.expandablePanel6.ExpandOnTitleClick = true;
-            this.expandablePanel6.Location = new System.Drawing.Point(0, 170);
+            this.expandablePanel6.Location = new System.Drawing.Point(0, 239);
             this.expandablePanel6.Name = "expandablePanel6";
             this.expandablePanel6.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel6.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -668,12 +670,10 @@
             this.expandablePanel5.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel5.Controls.Add(this.panel6);
             this.expandablePanel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel5.Expanded = false;
-            this.expandablePanel5.ExpandedBounds = new System.Drawing.Rectangle(0, 136, 246, 103);
             this.expandablePanel5.ExpandOnTitleClick = true;
             this.expandablePanel5.Location = new System.Drawing.Point(0, 136);
             this.expandablePanel5.Name = "expandablePanel5";
-            this.expandablePanel5.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel5.Size = new System.Drawing.Size(246, 103);
             this.expandablePanel5.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel5.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel5.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -695,7 +695,6 @@
             this.expandablePanel5.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel5.TitleStyle.GradientAngle = 90;
             this.expandablePanel5.TitleText = "报表统计管理";
-            this.expandablePanel5.Visible = false;
             // 
             // panel6
             // 
@@ -705,13 +704,12 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 34);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(246, 0);
+            this.panel6.Size = new System.Drawing.Size(246, 69);
             this.panel6.TabIndex = 2;
             // 
             // linkLabel11
             // 
             this.linkLabel11.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel11.Enabled = false;
             this.linkLabel11.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel11.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkLabel11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -779,7 +777,6 @@
             // linkOprLogSearch
             // 
             this.linkOprLogSearch.BackColor = System.Drawing.Color.Transparent;
-            this.linkOprLogSearch.Enabled = false;
             this.linkOprLogSearch.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkOprLogSearch.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkOprLogSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -816,7 +813,6 @@
             // linkRouteSearch
             // 
             this.linkRouteSearch.BackColor = System.Drawing.Color.Transparent;
-            this.linkRouteSearch.Enabled = false;
             this.linkRouteSearch.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkRouteSearch.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkRouteSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
