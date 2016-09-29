@@ -31,7 +31,7 @@ namespace Maticsoft.Model
 		private string _task_name;
 		private DateTime _valid_startdate;
 		private DateTime _valid_enddate;
-		private DateTime _action_time;
+        private TimeSpan _action_time;
 		private bool _mon_state;
 		private bool _tue_state;
 		private bool _thi_state;
@@ -85,7 +85,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 触发时间
 		/// </summary>
-		public DateTime ACTION_TIME
+        public TimeSpan ACTION_TIME
 		{
 			set{ _action_time=value;}
 			get{return _action_time;}

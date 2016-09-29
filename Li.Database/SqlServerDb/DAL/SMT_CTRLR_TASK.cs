@@ -267,7 +267,7 @@ namespace Maticsoft.DAL
 				}
 				if(row["ACTION_TIME"]!=null && row["ACTION_TIME"].ToString()!="")
 				{
-					model.ACTION_TIME=DateTime.Parse(row["ACTION_TIME"].ToString());
+                    model.ACTION_TIME = TimeSpan.Parse(row["ACTION_TIME"].ToString());
 				}
 				if(row["MON_STATE"]!=null && row["MON_STATE"].ToString()!="")
 				{

@@ -33,6 +33,8 @@
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.tbTaskName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.dtiTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.dtpStartDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
@@ -45,22 +47,33 @@
             this.cbWeek3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.cbWeek2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.cbWeek6 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.dtiTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.cbtDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.labelX7 = new DevComponents.DotNetBar.LabelX();
             this.cboCtrlStyle = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.cbtDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
+            this.labelX7 = new DevComponents.DotNetBar.LabelX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
             this.tbTaskDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.comboItem1 = new DevComponents.Editors.ComboItem();
+            this.comboItem2 = new DevComponents.Editors.ComboItem();
+            this.comboItem3 = new DevComponents.Editors.ComboItem();
+            this.comboItem4 = new DevComponents.Editors.ComboItem();
+            this.comboItem5 = new DevComponents.Editors.ComboItem();
+            this.comboItem6 = new DevComponents.Editors.ComboItem();
+            this.comboItem7 = new DevComponents.Editors.ComboItem();
+            this.comboItem8 = new DevComponents.Editors.ComboItem();
+            this.comboItem9 = new DevComponents.Editors.ComboItem();
+            this.comboItem10 = new DevComponents.Editors.ComboItem();
+            this.comboItem11 = new DevComponents.Editors.ComboItem();
+            this.comboItem12 = new DevComponents.Editors.ComboItem();
+            this.comboItem13 = new DevComponents.Editors.ComboItem();
             this.groupPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStartDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEndDate)).BeginInit();
             this.groupPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).BeginInit();
             this.groupPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,6 +168,75 @@
             this.groupPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel3.TabIndex = 9;
             this.groupPanel3.Text = "时间范围";
+            // 
+            // dtiTime
+            // 
+            // 
+            // 
+            // 
+            this.dtiTime.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtiTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtiTime.ButtonDropDown.Visible = true;
+            this.dtiTime.Format = DevComponents.Editors.eDateTimePickerFormat.LongTime;
+            this.dtiTime.IsPopupCalendarOpen = false;
+            this.dtiTime.Location = new System.Drawing.Point(69, 59);
+            // 
+            // 
+            // 
+            this.dtiTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtiTime.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiTime.MonthCalendar.DisplayMonth = new System.DateTime(2016, 9, 1, 0, 0, 0, 0);
+            this.dtiTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtiTime.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtiTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiTime.MonthCalendar.TodayButtonVisible = true;
+            this.dtiTime.MonthCalendar.Visible = false;
+            this.dtiTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtiTime.Name = "dtiTime";
+            this.dtiTime.ShowUpDown = true;
+            this.dtiTime.Size = new System.Drawing.Size(114, 23);
+            this.dtiTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtiTime.TabIndex = 2;
+            this.dtiTime.TimeSelectorTimeFormat = DevComponents.Editors.DateTimeAdv.eTimeSelectorFormat.Time24H;
+            this.dtiTime.Value = new System.DateTime(2016, 9, 22, 1, 3, 47, 0);
+            // 
+            // labelX6
+            // 
+            this.labelX6.AutoSize = true;
+            this.labelX6.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX6.Location = new System.Drawing.Point(8, 62);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(56, 20);
+            this.labelX6.TabIndex = 11;
+            this.labelX6.Text = "触发时间";
             // 
             // dtpStartDate
             // 
@@ -445,75 +527,6 @@
             this.cbWeek6.TabIndex = 5;
             this.cbWeek6.Text = "星期六";
             // 
-            // dtiTime
-            // 
-            // 
-            // 
-            // 
-            this.dtiTime.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.dtiTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
-            this.dtiTime.ButtonDropDown.Visible = true;
-            this.dtiTime.Format = DevComponents.Editors.eDateTimePickerFormat.LongTime;
-            this.dtiTime.IsPopupCalendarOpen = false;
-            this.dtiTime.Location = new System.Drawing.Point(69, 59);
-            // 
-            // 
-            // 
-            this.dtiTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtiTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
-            this.dtiTime.MonthCalendar.ClearButtonVisible = true;
-            // 
-            // 
-            // 
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
-            this.dtiTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiTime.MonthCalendar.DisplayMonth = new System.DateTime(2016, 9, 1, 0, 0, 0, 0);
-            this.dtiTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
-            this.dtiTime.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.dtiTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.dtiTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiTime.MonthCalendar.TodayButtonVisible = true;
-            this.dtiTime.MonthCalendar.Visible = false;
-            this.dtiTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.dtiTime.Name = "dtiTime";
-            this.dtiTime.ShowUpDown = true;
-            this.dtiTime.Size = new System.Drawing.Size(114, 23);
-            this.dtiTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtiTime.TabIndex = 2;
-            this.dtiTime.TimeSelectorTimeFormat = DevComponents.Editors.DateTimeAdv.eTimeSelectorFormat.Time24H;
-            this.dtiTime.Value = new System.DateTime(2016, 9, 22, 1, 3, 47, 0);
-            // 
-            // labelX6
-            // 
-            this.labelX6.AutoSize = true;
-            this.labelX6.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX6.Location = new System.Drawing.Point(8, 62);
-            this.labelX6.Name = "labelX6";
-            this.labelX6.Size = new System.Drawing.Size(56, 20);
-            this.labelX6.TabIndex = 11;
-            this.labelX6.Text = "触发时间";
-            // 
             // groupPanel2
             // 
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
@@ -556,6 +569,32 @@
             this.groupPanel2.TabIndex = 10;
             this.groupPanel2.Text = "门及控制方式";
             // 
+            // cboCtrlStyle
+            // 
+            this.cboCtrlStyle.DisplayMember = "Text";
+            this.cboCtrlStyle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboCtrlStyle.FormattingEnabled = true;
+            this.cboCtrlStyle.ItemHeight = 17;
+            this.cboCtrlStyle.Items.AddRange(new object[] {
+            this.comboItem1,
+            this.comboItem2,
+            this.comboItem3,
+            this.comboItem4,
+            this.comboItem5,
+            this.comboItem6,
+            this.comboItem7,
+            this.comboItem8,
+            this.comboItem9,
+            this.comboItem10,
+            this.comboItem11,
+            this.comboItem12,
+            this.comboItem13});
+            this.cboCtrlStyle.Location = new System.Drawing.Point(65, 31);
+            this.cboCtrlStyle.Name = "cboCtrlStyle";
+            this.cboCtrlStyle.Size = new System.Drawing.Size(118, 23);
+            this.cboCtrlStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboCtrlStyle.TabIndex = 1;
+            // 
             // cbtDoorTree
             // 
             this.cbtDoorTree.BackColor = System.Drawing.SystemColors.Window;
@@ -570,21 +609,6 @@
             this.cbtDoorTree.Size = new System.Drawing.Size(118, 23);
             this.cbtDoorTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbtDoorTree.TabIndex = 0;
-            // 
-            // labelX5
-            // 
-            this.labelX5.AutoSize = true;
-            this.labelX5.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX5.Location = new System.Drawing.Point(3, 7);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(56, 20);
-            this.labelX5.TabIndex = 0;
-            this.labelX5.Text = "适用门禁";
             // 
             // labelX7
             // 
@@ -601,17 +625,20 @@
             this.labelX7.TabIndex = 0;
             this.labelX7.Text = "控制方式";
             // 
-            // cboCtrlStyle
+            // labelX5
             // 
-            this.cboCtrlStyle.DisplayMember = "Text";
-            this.cboCtrlStyle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cboCtrlStyle.FormattingEnabled = true;
-            this.cboCtrlStyle.ItemHeight = 17;
-            this.cboCtrlStyle.Location = new System.Drawing.Point(65, 31);
-            this.cboCtrlStyle.Name = "cboCtrlStyle";
-            this.cboCtrlStyle.Size = new System.Drawing.Size(118, 23);
-            this.cboCtrlStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboCtrlStyle.TabIndex = 1;
+            this.labelX5.AutoSize = true;
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX5.Location = new System.Drawing.Point(3, 7);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(56, 20);
+            this.labelX5.TabIndex = 0;
+            this.labelX5.Text = "适用门禁";
             // 
             // labelX8
             // 
@@ -662,11 +689,66 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 3;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // comboItem1
+            // 
+            this.comboItem1.Text = "0. 在线";
+            // 
+            // comboItem2
+            // 
+            this.comboItem2.Text = "1. 常开";
+            // 
+            // comboItem3
+            // 
+            this.comboItem3.Text = "2. 常闭";
+            // 
+            // comboItem4
+            // 
+            this.comboItem4.Text = "3. 禁止 2以上时段的用户开门(包括2时段)";
+            // 
+            // comboItem5
+            // 
+            this.comboItem5.Text = "4. 取消禁止 2以上时段的用户开门(包括2时段)";
+            // 
+            // comboItem6
+            // 
+            this.comboItem6.Text = "5. 刷卡-无密码";
+            // 
+            // comboItem7
+            // 
+            this.comboItem7.Text = "6. (进门) 刷卡 + 密码";
+            // 
+            // comboItem8
+            // 
+            this.comboItem8.Text = "7. (进出门) 刷卡 + 密码";
+            // 
+            // comboItem9
+            // 
+            this.comboItem9.Text = "8. 多卡开门生效";
+            // 
+            // comboItem10
+            // 
+            this.comboItem10.Text = "9. 单卡开门, 不要求多卡";
+            // 
+            // comboItem11
+            // 
+            this.comboItem11.Text = "10. 动作一次";
+            // 
+            // comboItem12
+            // 
+            this.comboItem12.Text = "11. 禁用按钮";
+            // 
+            // comboItem13
+            // 
+            this.comboItem13.Text = "12. 启用按钮";
             // 
             // FrmCtrlTaskEditor
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(558, 305);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -689,13 +771,14 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "定时任务编辑";
+            this.Load += new System.EventHandler(this.FrmCtrlTaskEditor_Load);
             this.groupPanel3.ResumeLayout(false);
             this.groupPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStartDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEndDate)).EndInit();
             this.groupPanel1.ResumeLayout(false);
             this.groupPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).EndInit();
             this.groupPanel2.ResumeLayout(false);
             this.groupPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -732,5 +815,18 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbTaskDesc;
         private DevComponents.DotNetBar.ButtonX btnCancel;
         private DevComponents.DotNetBar.ButtonX btnOk;
+        private DevComponents.Editors.ComboItem comboItem1;
+        private DevComponents.Editors.ComboItem comboItem2;
+        private DevComponents.Editors.ComboItem comboItem3;
+        private DevComponents.Editors.ComboItem comboItem4;
+        private DevComponents.Editors.ComboItem comboItem5;
+        private DevComponents.Editors.ComboItem comboItem6;
+        private DevComponents.Editors.ComboItem comboItem7;
+        private DevComponents.Editors.ComboItem comboItem8;
+        private DevComponents.Editors.ComboItem comboItem9;
+        private DevComponents.Editors.ComboItem comboItem10;
+        private DevComponents.Editors.ComboItem comboItem11;
+        private DevComponents.Editors.ComboItem comboItem12;
+        private DevComponents.Editors.ComboItem comboItem13;
     }
 }
