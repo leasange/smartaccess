@@ -114,11 +114,46 @@ namespace SmartAccess.VerInfoMgr
                 format.VER_NAME,
                 strType,
                 format.VER_FORMAT,
-                "编辑",
                 "删除"
                 );
             dgvr.Tag = format;
             dgvData.Rows.Add(dgvr);
+        }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex>=0&&e.RowIndex>=0)
+            {
+                if (dgvData.Columns[e.ColumnIndex].Name=="ColDelete")
+                {
+                    Maticsoft.BLL.SMT_VER_FORMAT verBll = new Maticsoft.BLL.SMT_VER_FORMAT();
+                    DataGridViewRow row = dgvData.Rows[e.RowIndex];
+                    Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)row.Tag;
+                    if (MessageBox.Show("确定删除该证件编码？","提示",MessageBoxButtons.OKCancel)!=DialogResult.OK)
+                    {
+                        return;
+                    }
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        try
+                        {
+                            verBll.Delete(verModel.ID);
+                            this.Invoke(new Action(() =>
+                            {
+                                dgvData.Rows.Remove(row);
+                            }));
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("删除证件编码异常！",ex);
+
+                            WinInfoHelper.ShowInfoWindow(this, "删除证件编码异常：" + ex.Message);
+                        }
+                        
+                    });
+                    waiting.Show(this);                  
+                }
+            }
         }
     }
 }

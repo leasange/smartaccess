@@ -6,10 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevComponents.DotNetBar.Controls;
 
 namespace Li.Controls
 {
-    public partial class VerTextBox :MaskedTextBox
+    public partial class VerTextBox :MaskedTextBoxAdv
     {
         private string _verTextFormat = null;
         private string _defaultText = "";

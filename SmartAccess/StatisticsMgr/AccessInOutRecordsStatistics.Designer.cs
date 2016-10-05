@@ -28,25 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCreateReport = new DevComponents.DotNetBar.ButtonX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
-            this.cboDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
-            this.dtpStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.dtpStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.cboDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
+            this.btnExportReport = new DevComponents.DotNetBar.ButtonX();
             this.dgvData = new Li.Controls.DataGridViewEx();
-            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelEx1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,6 +61,7 @@
             this.btnCreateReport.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCreateReport.TabIndex = 5;
             this.btnCreateReport.Text = "生成报表";
+            this.btnCreateReport.Click += new System.EventHandler(this.btnCreateReport_Click);
             // 
             // labelX6
             // 
@@ -104,7 +106,7 @@
             this.panelEx1.Controls.Add(this.dtpEnd);
             this.panelEx1.Controls.Add(this.dtpStart);
             this.panelEx1.Controls.Add(this.cboDoorTree);
-            this.panelEx1.Controls.Add(this.buttonX1);
+            this.panelEx1.Controls.Add(this.btnExportReport);
             this.panelEx1.Controls.Add(this.btnCreateReport);
             this.panelEx1.Controls.Add(this.labelX6);
             this.panelEx1.Controls.Add(this.labelX5);
@@ -123,86 +125,20 @@
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 2;
             // 
-            // cboDoorTree
-            // 
-            this.cboDoorTree.BackColor = System.Drawing.SystemColors.Window;
-            // 
-            // 
-            // 
-            this.cboDoorTree.BackgroundStyle.Class = "TextBoxBorder";
-            this.cboDoorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cboDoorTree.ButtonDropDown.Visible = true;
-            this.cboDoorTree.DropDownHeight = 200;
-            this.cboDoorTree.Location = new System.Drawing.Point(63, 10);
-            this.cboDoorTree.Name = "cboDoorTree";
-            this.cboDoorTree.Size = new System.Drawing.Size(141, 23);
-            this.cboDoorTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboDoorTree.TabIndex = 7;
-            // 
-            // dtpStart
-            // 
-            this.dtpStart.AllowEmptyState = false;
-            // 
-            // 
-            // 
-            this.dtpStart.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.dtpStart.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpStart.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
-            this.dtpStart.ButtonDropDown.Visible = true;
-            this.dtpStart.CustomFormat = "yyyy-MM-dd";
-            this.dtpStart.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
-            this.dtpStart.IsPopupCalendarOpen = false;
-            this.dtpStart.Location = new System.Drawing.Point(290, 10);
-            // 
-            // 
-            // 
-            this.dtpStart.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtpStart.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpStart.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
-            this.dtpStart.MonthCalendar.ClearButtonVisible = true;
-            // 
-            // 
-            // 
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
-            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpStart.MonthCalendar.DisplayMonth = new System.DateTime(2016, 6, 1, 0, 0, 0, 0);
-            this.dtpStart.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
-            this.dtpStart.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.dtpStart.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpStart.MonthCalendar.TodayButtonVisible = true;
-            this.dtpStart.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.dtpStart.Name = "dtpStart";
-            this.dtpStart.Size = new System.Drawing.Size(119, 23);
-            this.dtpStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtpStart.TabIndex = 8;
-            this.dtpStart.TimeSelectorTimeFormat = DevComponents.Editors.DateTimeAdv.eTimeSelectorFormat.Time24H;
-            // 
             // dtpEnd
             // 
             this.dtpEnd.AllowEmptyState = false;
+            this.dtpEnd.AutoSelectDate = true;
             // 
             // 
             // 
             this.dtpEnd.BackgroundStyle.Class = "DateTimeInputBackground";
             this.dtpEnd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpEnd.ButtonClear.Text = "清除";
             this.dtpEnd.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
             this.dtpEnd.ButtonDropDown.Visible = true;
-            this.dtpEnd.CustomFormat = "yyyy-MM-dd";
+            this.dtpEnd.CustomFormat = "yyyy-MM";
+            this.dtpEnd.DateTimeSelectorVisibility = DevComponents.Editors.DateTimeAdv.eDateTimeSelectorVisibility.DateSelector;
             this.dtpEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtpEnd.IsPopupCalendarOpen = false;
             this.dtpEnd.Location = new System.Drawing.Point(487, 10);
@@ -237,12 +173,98 @@
             this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
             this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.dtpEnd.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpEnd.MonthCalendar.TodayButtonVisible = true;
             this.dtpEnd.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.ShowUpDown = true;
             this.dtpEnd.Size = new System.Drawing.Size(118, 23);
             this.dtpEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtpEnd.TabIndex = 9;
+            this.dtpEnd.Value = new System.DateTime(2016, 10, 5, 10, 19, 35, 51);
+            // 
+            // dtpStart
+            // 
+            this.dtpStart.AllowEmptyState = false;
+            this.dtpStart.AutoSelectDate = true;
+            // 
+            // 
+            // 
+            this.dtpStart.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtpStart.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.ButtonClear.Text = "清除";
+            this.dtpStart.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtpStart.ButtonDropDown.Visible = true;
+            this.dtpStart.CustomFormat = "yyyy-MM";
+            this.dtpStart.DateTimeSelectorVisibility = DevComponents.Editors.DateTimeAdv.eDateTimeSelectorVisibility.DateSelector;
+            this.dtpStart.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtpStart.IsPopupCalendarOpen = false;
+            this.dtpStart.Location = new System.Drawing.Point(290, 10);
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtpStart.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtpStart.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.DisplayMonth = new System.DateTime(2016, 6, 1, 0, 0, 0, 0);
+            this.dtpStart.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtpStart.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtpStart.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtpStart.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtpStart.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.ShowUpDown = true;
+            this.dtpStart.Size = new System.Drawing.Size(119, 23);
+            this.dtpStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtpStart.TabIndex = 8;
+            this.dtpStart.TimeSelectorTimeFormat = DevComponents.Editors.DateTimeAdv.eTimeSelectorFormat.Time24H;
+            this.dtpStart.Value = new System.DateTime(2016, 10, 5, 10, 19, 35, 79);
+            // 
+            // cboDoorTree
+            // 
+            this.cboDoorTree.BackColor = System.Drawing.SystemColors.Window;
+            // 
+            // 
+            // 
+            this.cboDoorTree.BackgroundStyle.Class = "TextBoxBorder";
+            this.cboDoorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cboDoorTree.ButtonDropDown.Visible = true;
+            this.cboDoorTree.DropDownHeight = 200;
+            this.cboDoorTree.Location = new System.Drawing.Point(63, 10);
+            this.cboDoorTree.Name = "cboDoorTree";
+            this.cboDoorTree.Size = new System.Drawing.Size(141, 23);
+            this.cboDoorTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboDoorTree.TabIndex = 7;
+            // 
+            // btnExportReport
+            // 
+            this.btnExportReport.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnExportReport.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnExportReport.Location = new System.Drawing.Point(732, 10);
+            this.btnExportReport.Name = "btnExportReport";
+            this.btnExportReport.Size = new System.Drawing.Size(81, 23);
+            this.btnExportReport.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnExportReport.TabIndex = 5;
+            this.btnExportReport.Text = "导出报表";
+            this.btnExportReport.Click += new System.EventHandler(this.btnExportReport_Click);
             // 
             // dgvData
             // 
@@ -251,19 +273,20 @@
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column5,
             this.Column4,
             this.Column6,
             this.Column1,
             this.Column2,
             this.Column3});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvData.Location = new System.Drawing.Point(0, 51);
@@ -273,16 +296,12 @@
             this.dgvData.Size = new System.Drawing.Size(1024, 462);
             this.dgvData.TabIndex = 3;
             // 
-            // buttonX1
+            // Column5
             // 
-            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(732, 10);
-            this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(81, 23);
-            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX1.TabIndex = 5;
-            this.buttonX1.Text = "导出报表";
+            this.Column5.HeaderText = "时间段";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 66;
             // 
             // Column4
             // 
@@ -293,10 +312,10 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "全部统计";
+            this.Column6.HeaderText = "小计";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
-            this.Column6.Width = 78;
+            this.Column6.Width = 54;
             // 
             // Column1
             // 
@@ -329,8 +348,8 @@
             this.Size = new System.Drawing.Size(1024, 513);
             this.Load += new System.EventHandler(this.AccessInOutRecordsStatistics_Load);
             this.panelEx1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.ResumeLayout(false);
 
@@ -347,7 +366,8 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpStart;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpEnd;
         private Li.Controls.DataGridViewEx dgvData;
-        private DevComponents.DotNetBar.ButtonX buttonX1;
+        private DevComponents.DotNetBar.ButtonX btnExportReport;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

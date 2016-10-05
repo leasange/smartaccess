@@ -31,7 +31,6 @@
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.tbVerNo = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.tbStaffName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX7 = new DevComponents.DotNetBar.LabelX();
@@ -99,6 +98,7 @@
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
             this.previewControl = new FastReport.Preview.PreviewControl();
             this.btnShow = new DevComponents.DotNetBar.ButtonX();
+            this.tbVerNo = new Li.Controls.VerTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -149,18 +149,6 @@
             this.labelX5.TabIndex = 0;
             this.labelX5.Text = "证件编号";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // tbVerNo
-            // 
-            // 
-            // 
-            // 
-            this.tbVerNo.Border.Class = "TextBoxBorder";
-            this.tbVerNo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbVerNo.Location = new System.Drawing.Point(93, 113);
-            this.tbVerNo.Name = "tbVerNo";
-            this.tbVerNo.Size = new System.Drawing.Size(152, 21);
-            this.tbVerNo.TabIndex = 3;
             // 
             // labelX6
             // 
@@ -798,6 +786,7 @@
             this.cboVerTypeStyle.Size = new System.Drawing.Size(152, 21);
             this.cboVerTypeStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboVerTypeStyle.TabIndex = 2;
+            this.cboVerTypeStyle.SelectedIndexChanged += new System.EventHandler(this.cboVerTypeStyle_SelectedIndexChanged);
             // 
             // labelX1
             // 
@@ -1172,11 +1161,28 @@
             this.btnShow.Text = "刷新显示=>";
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
+            // tbVerNo
+            // 
+            // 
+            // 
+            // 
+            this.tbVerNo.BackgroundStyle.Class = "TextBoxBorder";
+            this.tbVerNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbVerNo.ButtonClear.Visible = true;
+            this.tbVerNo.Location = new System.Drawing.Point(93, 114);
+            this.tbVerNo.Name = "tbVerNo";
+            this.tbVerNo.Size = new System.Drawing.Size(152, 20);
+            this.tbVerNo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.tbVerNo.TabIndex = 30;
+            this.tbVerNo.Text = "";
+            this.tbVerNo.VerTextFormat = null;
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 601);
+            this.Controls.Add(this.tbVerNo);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.previewControl);
             this.Controls.Add(this.btnSaveAndUpload);
@@ -1231,7 +1237,6 @@
             this.Controls.Add(this.labelX7);
             this.Controls.Add(this.tbStaffName);
             this.Controls.Add(this.labelX6);
-            this.Controls.Add(this.tbVerNo);
             this.Controls.Add(this.labelX5);
             this.Controls.Add(this.labelX4);
             this.Controls.Add(this.labelX3);
@@ -1264,7 +1269,6 @@
         private DevComponents.DotNetBar.LabelX labelX3;
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.LabelX labelX5;
-        private DevComponents.DotNetBar.Controls.TextBoxX tbVerNo;
         private DevComponents.DotNetBar.LabelX labelX6;
         private DevComponents.DotNetBar.Controls.TextBoxX tbStaffName;
         private DevComponents.DotNetBar.LabelX labelX7;
@@ -1332,5 +1336,6 @@
         private DevComponents.DotNetBar.ButtonX btnClose;
         private FastReport.Preview.PreviewControl previewControl;
         private DevComponents.DotNetBar.ButtonX btnShow;
+        private Li.Controls.VerTextBox tbVerNo;
     }
 }

@@ -83,7 +83,11 @@ namespace SmartAccess.VerInfoMgr
 
                 try
                 {
-                    cboVerTypeStyle.SelectedValue = _staffInfo.STAFF_NO_TEMPLET;//证件编号模板
+                    if (cboVerTypeStyle.SelectedItem!=null&&cboVerTypeStyle.SelectedIndex>0)
+                    {
+                        _staffInfo.STAFF_NO_TEMPLET = ((Maticsoft.Model.SMT_VER_FORMAT)(((ComboItem)(cboVerTypeStyle.SelectedItem)).Tag)).ID;
+                    }
+                    else _staffInfo.STAFF_NO_TEMPLET=-1;//证件编号模板
                 }
                 catch (Exception ex)
                 {
@@ -328,6 +332,8 @@ namespace SmartAccess.VerInfoMgr
                 {
                     Maticsoft.BLL.SMT_VERMODEL_INFO bll = new Maticsoft.BLL.SMT_VERMODEL_INFO();
                     var models= bll.GetModelList("");
+                    Maticsoft.BLL.SMT_VER_FORMAT verBll = new Maticsoft.BLL.SMT_VER_FORMAT();
+                    var verModels = verBll.GetModelList("");
                     this.Invoke(new Action(() =>
                     {
                         try
@@ -349,10 +355,28 @@ namespace SmartAccess.VerInfoMgr
                                     cboVeMoBan.SelectedItem = ci;
                                 }
                             }
+
+                            cboVerTypeStyle.Items.Clear();
+                            cboVerTypeStyle.Items.Add(new ComboItem("--无--"));
+                            cboVerTypeStyle.SelectedIndex = 0;
+                            foreach (var item in verModels)
+                            {
+                                ComboItem cbi = new ComboItem(item.VER_NAME);
+                                cbi.Tag = item;
+                                cboVerTypeStyle.Items.Add(cbi);
+                                if (_staffInfo!=null&&_staffInfo.STAFF_NO_TEMPLET!=null)
+                                {
+                                    if (item.ID==_staffInfo.STAFF_NO_TEMPLET)
+                                    {
+                                        cboVerTypeStyle.SelectedItem = cbi;
+                                    }
+                                }
+                            }
+
                         }
                         catch (Exception ex)
                         {
-                            WinInfoHelper.ShowInfoWindow(this, "加载部门异常：" + ex.Message);
+                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常：" + ex.Message);
                         }
                     }));
                 }
@@ -848,5 +872,14 @@ namespace SmartAccess.VerInfoMgr
                 }));
         }
 
+        private void cboVerTypeStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboVerTypeStyle.SelectedItem != null && cboVerTypeStyle.SelectedIndex > 0)
+            {
+                ComboItem item = (ComboItem)cboVerTypeStyle.SelectedItem;
+                Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
+                tbVerNo.VerTextFormat = verModel.VER_FORMAT;
+            }
+        }
     }
 }
