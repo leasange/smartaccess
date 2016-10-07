@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DevComponents.AdvTree;
+using SmartAccess.Common.Datas;
+using SmartAccess.Common.WinInfo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,6 +57,56 @@ namespace SmartAccess.RuleSetMrg
             {
                 this.Text = "添加定时任务";
             }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                var doors = DoorDataHelper.GetDoors();
+                var areas = AreaDataHelper.GetAreas();
+
+                this.Invoke(new Action(() =>
+                {
+                    var doorNodes = DoorDataHelper.ToTree(areas, doors);
+                    //cboDoorTree.Nodes.Add(new Node("--所有门禁--"));
+                    doorTree.Nodes.Clear();
+                    doorTree.Nodes.AddRange(doorNodes.ToArray());
+
+                    if (_task!=null&&doorTree.Nodes.Count>0)
+                    {
+                        if (!string.IsNullOrWhiteSpace(_task.DOOR_ID))
+                        {
+                            if (_task.DOOR_ID == "-1")
+                            {
+                                doorTree.Nodes[0].Checked = true;
+                            }
+                            else
+                            {
+                                string[] doorIds = _task.DOOR_ID.Split(',');
+                                List<decimal> doorIdd = new List<decimal>();
+                                foreach (var id in doorIds)
+                                {
+                                    decimal dd;
+                                    if(decimal.TryParse(id,out dd))
+                                    {
+                                        doorIdd.Add(decimal.Parse(id));
+                                    }
+                                }
+                                var nodes= doorTree.GetNodeList(typeof(Maticsoft.Model.SMT_DOOR_INFO));
+                                foreach (var item in nodes)
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (Node item in doorTree.Nodes)
+                    {
+                        item.ExpandAll();
+                    }
+                }));
+
+
+            });
+            waiting.Show(this, 300);
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -61,5 +114,19 @@ namespace SmartAccess.RuleSetMrg
 
         }
 
+        private void doorTree_AfterCheck(object sender, AdvTreeCellEventArgs e)
+        {
+            if (e.Action == eTreeAction.Mouse)
+            {
+                var nodes = doorTree.GetNodeList(true, typeof(Maticsoft.Model.SMT_DOOR_INFO));
+                string str = "";
+                foreach (var item in nodes)
+                {
+                    Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                    str += door.DOOR_NAME + "；";
+                }
+                tbDoorDropDown.Text = str;
+            }
+        }
     }
 }

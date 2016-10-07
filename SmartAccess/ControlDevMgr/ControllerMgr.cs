@@ -10,6 +10,7 @@ using SmartAccess.Common.Datas;
 using Li.Access.Core;
 using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.WinInfo;
+using Li.Controls.Excel;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -405,7 +406,7 @@ namespace SmartAccess.ControlDevMgr
 
         private void biExport_Click(object sender, EventArgs e)
         {
-            WinInfoHelper.ShowInfoWindow(this, "建设中，敬请期待！");
+            ExportHelper.ExportEx(dgvCtrlr, "控制器.xls", "控制器");
         }
         private DataGridViewRow GetSelectRow()
         {

@@ -447,16 +447,20 @@ namespace SmartAccess.RealDetectMgr
                                         }
                                         if (door.CTRL_ID == c.id)
                                         {
-                                            it.ImageIndex = 2;
                                             DateTime dt = DateTime.Now;
                                             DataGridViewRow row = new DataGridViewRow();
                                             if (!isconnect)
                                             {
+                                                it.ImageIndex = 2;
                                                 row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("校准时间{0}，控制器通信{1}：IP={2},SN={3}", succeed ? "成功" : "失败", isconnect ? "正常" : "不上", cinfo.IP, cinfo.SN_NO));
                                             }
                                             else
                                             {
-                                                row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("校准时间{0}", succeed ? "失败" : "成功"));
+                                                if (it.ImageIndex ==2)
+                                                {
+                                                    it.ImageIndex = 0;
+                                                }
+                                                row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("校准时间{0}", succeed ? "成功" : "失败"));
                                             }
                                             dgvRealLog.Rows.Insert(0, row);
                                             row.Selected = true;

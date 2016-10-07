@@ -16,6 +16,7 @@ namespace SmartAccess.ModelMgr
     public partial class FrmVerModelEditor : DevComponents.DotNetBar.Office2007Form
     {
         private Maticsoft.Model.SMT_VERMODEL_INFO _model = null;
+        private FileInfo _demo = null;
         private string _name = "";
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmVerModelEditor));
         public bool IsChanged = false;
@@ -23,6 +24,11 @@ namespace SmartAccess.ModelMgr
         {
             InitializeComponent();
             _model = model;
+        }
+        public  FrmVerModelEditor(FileInfo demo)
+        {
+            InitializeComponent();
+            _demo = demo;
         }
 
         private void FrmVerModelEditor_Load(object sender, EventArgs e)
@@ -42,10 +48,15 @@ namespace SmartAccess.ModelMgr
             if (_model == null)
             {
                 this.Text = "新建模板：未命名";
+                if (_demo!=null)
+                {
+                    report.Load(_demo.FullName);
+                }
             }
             else
             {
                 this.Text = "编辑模板：" + _model.VERM_NAME;
+                _name = _model.VERM_NAME;
                 MemoryStream ms = new MemoryStream(_model.VERM_CONTENT);
                 report.Load(ms);
             }
@@ -93,6 +104,7 @@ namespace SmartAccess.ModelMgr
                 else
                 {
                     this.Text = "编辑模板：" + _name;
+                    _model.VERM_NAME = _name;
                 }
             }
         }
@@ -175,6 +187,24 @@ namespace SmartAccess.ModelMgr
                 _name = frmName.ModelName;
                 NewModel();
                 DoSave(_model);
+            }
+        }
+
+        private void FrmVerModelEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("是否保存模板？", "提示", MessageBoxButtons.YesNoCancel);
+            if (dr == DialogResult.Yes)
+            {
+                DoSave(_model);
+                e.Cancel = false;
+            }
+            else if(dr== DialogResult.No)
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
     }

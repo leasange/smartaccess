@@ -47,6 +47,9 @@
             this.elementStyle2 = new DevComponents.DotNetBar.ElementStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.previewControl = new FastReport.Preview.PreviewControl();
+            this.node6 = new DevComponents.AdvTree.Node();
+            this.biExportModel = new DevComponents.DotNetBar.ButtonItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.advTreeEx1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -114,7 +117,8 @@
             this.biRefresh,
             this.biNewVerModel,
             this.biModifyModel,
-            this.biDeleteModel});
+            this.biDeleteModel,
+            this.biExportModel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.Size = new System.Drawing.Size(785, 29);
@@ -187,6 +191,7 @@
             this.modelTree.Location = new System.Drawing.Point(0, 0);
             this.modelTree.Name = "modelTree";
             this.modelTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
+            this.node6,
             this.node2});
             this.modelTree.NodesConnector = this.nodeConnector2;
             this.modelTree.NodeStyle = this.elementStyle2;
@@ -250,6 +255,11 @@
             // previewControl
             // 
             this.previewControl.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.previewControl.Buttons = ((FastReport.PreviewButtons)((((((FastReport.PreviewButtons.Print | FastReport.PreviewButtons.Save) 
+            | FastReport.PreviewButtons.Zoom) 
+            | FastReport.PreviewButtons.Outline) 
+            | FastReport.PreviewButtons.PageSetup) 
+            | FastReport.PreviewButtons.Navigator)));
             this.previewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previewControl.Font = new System.Drawing.Font("宋体", 9F);
             this.previewControl.Location = new System.Drawing.Point(0, 0);
@@ -258,6 +268,22 @@
             this.previewControl.Size = new System.Drawing.Size(534, 408);
             this.previewControl.TabIndex = 0;
             this.previewControl.UIStyle = FastReport.Utils.UIStyle.Office2007Black;
+            // 
+            // node6
+            // 
+            this.node6.Name = "node6";
+            this.node6.Text = "示例模板";
+            // 
+            // biExportModel
+            // 
+            this.biExportModel.Name = "biExportModel";
+            this.biExportModel.Text = "保存成模板文件";
+            this.biExportModel.Click += new System.EventHandler(this.biExportModel_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "模板文件(*.fpx)|*.fpx";
+            this.saveFileDialog.Title = "模板";
             // 
             // VerModelMgr
             // 
@@ -301,6 +327,9 @@
         private DevComponents.DotNetBar.PanelEx panelEx1;
         private FastReport.Preview.PreviewControl previewControl;
         private DevComponents.DotNetBar.ButtonItem biRefresh;
+        private DevComponents.AdvTree.Node node6;
+        private DevComponents.DotNetBar.ButtonItem biExportModel;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
 
     }
 }

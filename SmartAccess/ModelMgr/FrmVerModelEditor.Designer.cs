@@ -56,6 +56,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "证件模板新建/编辑";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmVerModelEditor_FormClosing);
             this.Load += new System.EventHandler(this.FrmVerModelEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.designerControl)).EndInit();
             this.ResumeLayout(false);

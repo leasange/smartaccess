@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvData = new Li.Controls.DataGridViewEx();
-            this.biUpload = new DevComponents.DotNetBar.ButtonItem();
-            this.biView = new DevComponents.DotNetBar.ButtonItem();
-            this.biDelete = new DevComponents.DotNetBar.ButtonItem();
-            this.biModify = new DevComponents.DotNetBar.ButtonItem();
-            this.biNew = new DevComponents.DotNetBar.ButtonItem();
-            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
-            this.bar1 = new DevComponents.DotNetBar.Bar();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
@@ -52,6 +47,13 @@
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.biUpload = new DevComponents.DotNetBar.ButtonItem();
+            this.biView = new DevComponents.DotNetBar.ButtonItem();
+            this.biDelete = new DevComponents.DotNetBar.ButtonItem();
+            this.biModify = new DevComponents.DotNetBar.ButtonItem();
+            this.biNew = new DevComponents.DotNetBar.ButtonItem();
+            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +63,14 @@
             this.dgvData.AllowUserToAddRows = false;
             this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -78,80 +88,32 @@
             this.Column12,
             this.Column13,
             this.Column14});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvData.EnableHeadersVisualStyles = false;
             this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvData.Location = new System.Drawing.Point(0, 29);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvData.RowTemplate.Height = 23;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(995, 355);
             this.dgvData.TabIndex = 7;
-            // 
-            // biUpload
-            // 
-            this.biUpload.Name = "biUpload";
-            this.biUpload.Text = "上传所有定时任务";
-            // 
-            // biView
-            // 
-            this.biView.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biView.Name = "biView";
-            this.biView.Text = "查看";
-            // 
-            // biDelete
-            // 
-            this.biDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDelete.Name = "biDelete";
-            this.biDelete.Text = "删除";
-            // 
-            // biModify
-            // 
-            this.biModify.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModify.Name = "biModify";
-            this.biModify.Text = "修改";
-            // 
-            // biNew
-            // 
-            this.biNew.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biNew.Name = "biNew";
-            this.biNew.Text = "添加";
-            // 
-            // biRefresh
-            // 
-            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefresh.Image = global::SmartAccess.Properties.Resources.刷新;
-            this.biRefresh.Name = "biRefresh";
-            this.biRefresh.Text = "刷新";
-            // 
-            // bar1
-            // 
-            this.bar1.AntiAlias = true;
-            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biRefresh,
-            this.biNew,
-            this.biModify,
-            this.biDelete,
-            this.biView,
-            this.biUpload});
-            this.bar1.Location = new System.Drawing.Point(0, 0);
-            this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(995, 29);
-            this.bar1.Stretch = true;
-            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar1.TabIndex = 6;
-            this.bar1.TabStop = false;
-            this.bar1.Text = "bar1";
             // 
             // Column1
             // 
@@ -352,6 +314,65 @@
             this.Column14.ReadOnly = true;
             this.Column14.Width = 54;
             // 
+            // biUpload
+            // 
+            this.biUpload.Name = "biUpload";
+            this.biUpload.Text = "上传所有定时任务";
+            // 
+            // biView
+            // 
+            this.biView.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biView.Name = "biView";
+            this.biView.Text = "查看";
+            // 
+            // biDelete
+            // 
+            this.biDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDelete.Name = "biDelete";
+            this.biDelete.Text = "删除";
+            // 
+            // biModify
+            // 
+            this.biModify.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModify.Name = "biModify";
+            this.biModify.Text = "修改";
+            // 
+            // biNew
+            // 
+            this.biNew.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biNew.Name = "biNew";
+            this.biNew.Text = "添加";
+            this.biNew.Click += new System.EventHandler(this.biNew_Click);
+            // 
+            // biRefresh
+            // 
+            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefresh.Image = global::SmartAccess.Properties.Resources.刷新;
+            this.biRefresh.Name = "biRefresh";
+            this.biRefresh.Text = "刷新";
+            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
+            // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biRefresh,
+            this.biNew,
+            this.biModify,
+            this.biDelete,
+            this.biView,
+            this.biUpload});
+            this.bar1.Location = new System.Drawing.Point(0, 0);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(995, 29);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 6;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            // 
             // DoorRuleCtrlTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -360,6 +381,7 @@
             this.Controls.Add(this.bar1);
             this.Name = "DoorRuleCtrlTask";
             this.Size = new System.Drawing.Size(995, 384);
+            this.Load += new System.EventHandler(this.DoorRuleCtrlTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.ResumeLayout(false);

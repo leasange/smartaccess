@@ -25,7 +25,15 @@ namespace SmartAccess.ModelMgr
 
         private void biNewVerModel_Click(object sender, EventArgs e)
         {
-            FrmVerModelEditor newModel = new FrmVerModelEditor();
+            FrmVerModelEditor newModel = null;
+            if (modelTree.SelectedNode.Tag is FileInfo)
+            {
+                newModel = new FrmVerModelEditor(modelTree.SelectedNode.Tag as FileInfo);
+            }
+            else
+            {
+                newModel = new FrmVerModelEditor();
+            }
             newModel.ShowDialog(this);
             if (newModel.IsChanged)
             {
@@ -70,11 +78,36 @@ namespace SmartAccess.ModelMgr
         //初始化树
         private void InitTree()
         {
+            modelTree.Nodes[0].Nodes.Clear();
+            try
+            {
+                string path = Path.Combine(Application.StartupPath, "vermodes");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                else
+                {
+                    string[] files = Directory.GetFiles(path, "*.fpx");
+                    foreach (var item in files)
+                    {
+                        FileInfo fi = new FileInfo(item);
+                        Node node = new Node(fi.Name);
+                        node.Tag = fi;
+                        modelTree.Nodes[0].Nodes.Add(node);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("获取示例模板异常：", ex);
+            }
+
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 InternalInitTree();
             });
-            waiting.Show(this);
+            waiting.Show(this,300);
         }
         private void InternalInitTree()
         {
@@ -95,12 +128,12 @@ namespace SmartAccess.ModelMgr
         }
         private void ShowModels(List<Maticsoft.Model.SMT_VERMODEL_INFO> infos)
         {
-            modelTree.Nodes[0].Nodes.Clear();
+            modelTree.Nodes[1].Nodes.Clear();
             foreach (var item in infos)
             {
                 Node model = new Node(item.VERM_NAME);
                 model.Tag = item;
-                modelTree.Nodes[0].Nodes.Add(model);
+                modelTree.Nodes[1].Nodes.Add(model);
                 if (_lastSelectModel!=null&&_lastSelectModel.ID==item.ID)
                 {
                     _lastSelectModel = item;
@@ -123,11 +156,32 @@ namespace SmartAccess.ModelMgr
 
         private void modelTree_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
         {
-            Maticsoft.Model.SMT_VERMODEL_INFO model = e.Node.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
-            if (model!=null)
+            if (e.Node.Tag is Maticsoft.Model.SMT_VERMODEL_INFO)
             {
-                _lastSelectModel = model;
-                ShowModelReportPreview(_lastSelectModel);
+                Maticsoft.Model.SMT_VERMODEL_INFO model = e.Node.Tag as Maticsoft.Model.SMT_VERMODEL_INFO;
+                if (model != null)
+                {
+                    _lastSelectModel = model;
+                    ShowModelReportPreview(_lastSelectModel);
+                }
+            }
+            else if(e.Node.Tag is FileInfo)//示例模板
+            {
+                try
+                {
+                    var dt = StaffDataHelper.GetTestReportDataTable();
+                    FileInfo fi = (FileInfo)e.Node.Tag;
+                    _report.Load(fi.FullName);
+                    _report.RegisterData(dt, dt.TableName);
+                    _report.AutoFillDataSet = true;
+                    _report.Prepare();
+                    _report.ShowPrepared();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("预览示例模板异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "预览示例模板异常：" + ex.Message);
+                }
             }
         }
         private void ShowModelReportPreview(Maticsoft.Model.SMT_VERMODEL_INFO model)
@@ -181,6 +235,19 @@ namespace SmartAccess.ModelMgr
                     });
                     waiting.Show(this);
                 }
+            }
+        }
+
+        private void biExportModel_Click(object sender, EventArgs e)
+        {
+            var model = GetSelectModel();
+            if (model!=null)
+            {
+                saveFileDialog.FileName = model.VERM_NAME;
+                if (saveFileDialog.ShowDialog(this)==DialogResult.OK)
+	            {
+                    _report.Save(saveFileDialog.FileName);
+	            }
             }
         }
     }

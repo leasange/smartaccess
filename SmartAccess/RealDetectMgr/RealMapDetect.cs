@@ -88,7 +88,7 @@ namespace SmartAccess.RealDetectMgr
         private MapCtrl GetSelectMapCtrl()
         {
             DevComponents.DotNetBar.SuperTabItem item = stcMaps.SelectedTab;
-            if (item!=null)
+            if (item != null && item.AttachedControl.Controls.Count>0)
             {
                 return item.AttachedControl.Controls[0] as MapCtrl;
             }

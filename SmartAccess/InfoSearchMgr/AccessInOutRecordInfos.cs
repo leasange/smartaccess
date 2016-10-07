@@ -109,7 +109,7 @@ namespace SmartAccess.InfoSearchMgr
             }
             if (staffName!="")
             {
-                if (strWhere!=null)
+                if (!string.IsNullOrWhiteSpace(strWhere))
                 {
                     strWhere += " and ";
                 }

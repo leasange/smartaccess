@@ -49,13 +49,6 @@
             this.cbWeek6 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.cboCtrlStyle = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.cbtDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
-            this.labelX7 = new DevComponents.DotNetBar.LabelX();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.labelX8 = new DevComponents.DotNetBar.LabelX();
-            this.tbTaskDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
             this.comboItem3 = new DevComponents.Editors.ComboItem();
@@ -69,12 +62,24 @@
             this.comboItem11 = new DevComponents.Editors.ComboItem();
             this.comboItem12 = new DevComponents.Editors.ComboItem();
             this.comboItem13 = new DevComponents.Editors.ComboItem();
+            this.labelX7 = new DevComponents.DotNetBar.LabelX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
+            this.labelX8 = new DevComponents.DotNetBar.LabelX();
+            this.tbTaskDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.tbDoorDropDown = new DevComponents.DotNetBar.Controls.TextBoxDropDown();
+            this.doorTree = new Li.Controls.AdvTreeEx();
+            this.node1 = new DevComponents.AdvTree.Node();
+            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.groupPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStartDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEndDate)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.groupPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doorTree)).BeginInit();
             this.SuspendLayout();
             // 
             // labelX1
@@ -532,9 +537,10 @@
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanel2.Controls.Add(this.cboCtrlStyle);
-            this.groupPanel2.Controls.Add(this.cbtDoorTree);
+            this.groupPanel2.Controls.Add(this.tbDoorDropDown);
             this.groupPanel2.Controls.Add(this.labelX7);
             this.groupPanel2.Controls.Add(this.labelX5);
+            this.groupPanel2.Controls.Add(this.doorTree);
             this.groupPanel2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupPanel2.Location = new System.Drawing.Point(233, 136);
             this.groupPanel2.Name = "groupPanel2";
@@ -595,20 +601,57 @@
             this.cboCtrlStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboCtrlStyle.TabIndex = 1;
             // 
-            // cbtDoorTree
+            // comboItem1
             // 
-            this.cbtDoorTree.BackColor = System.Drawing.SystemColors.Window;
+            this.comboItem1.Text = "0. 在线";
             // 
+            // comboItem2
             // 
+            this.comboItem2.Text = "1. 常开";
             // 
-            this.cbtDoorTree.BackgroundStyle.Class = "TextBoxBorder";
-            this.cbtDoorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbtDoorTree.ButtonDropDown.Visible = true;
-            this.cbtDoorTree.Location = new System.Drawing.Point(65, 4);
-            this.cbtDoorTree.Name = "cbtDoorTree";
-            this.cbtDoorTree.Size = new System.Drawing.Size(118, 23);
-            this.cbtDoorTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbtDoorTree.TabIndex = 0;
+            // comboItem3
+            // 
+            this.comboItem3.Text = "2. 常闭";
+            // 
+            // comboItem4
+            // 
+            this.comboItem4.Text = "3. 禁止 2以上时段的用户开门(包括2时段)";
+            // 
+            // comboItem5
+            // 
+            this.comboItem5.Text = "4. 取消禁止 2以上时段的用户开门(包括2时段)";
+            // 
+            // comboItem6
+            // 
+            this.comboItem6.Text = "5. 刷卡-无密码";
+            // 
+            // comboItem7
+            // 
+            this.comboItem7.Text = "6. (进门) 刷卡 + 密码";
+            // 
+            // comboItem8
+            // 
+            this.comboItem8.Text = "7. (进出门) 刷卡 + 密码";
+            // 
+            // comboItem9
+            // 
+            this.comboItem9.Text = "8. 多卡开门生效";
+            // 
+            // comboItem10
+            // 
+            this.comboItem10.Text = "9. 单卡开门, 不要求多卡";
+            // 
+            // comboItem11
+            // 
+            this.comboItem11.Text = "10. 动作一次";
+            // 
+            // comboItem12
+            // 
+            this.comboItem12.Text = "11. 禁用按钮";
+            // 
+            // comboItem13
+            // 
+            this.comboItem13.Text = "12. 启用按钮";
             // 
             // labelX7
             // 
@@ -691,57 +734,63 @@
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // comboItem1
+            // tbDoorDropDown
             // 
-            this.comboItem1.Text = "0. 在线";
             // 
-            // comboItem2
             // 
-            this.comboItem2.Text = "1. 常开";
             // 
-            // comboItem3
+            this.tbDoorDropDown.BackgroundStyle.Class = "TextBoxBorder";
+            this.tbDoorDropDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDoorDropDown.ButtonDropDown.Visible = true;
+            this.tbDoorDropDown.DropDownControl = this.doorTree;
+            this.tbDoorDropDown.Location = new System.Drawing.Point(65, 3);
+            this.tbDoorDropDown.Name = "tbDoorDropDown";
+            this.tbDoorDropDown.Size = new System.Drawing.Size(118, 22);
+            this.tbDoorDropDown.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.tbDoorDropDown.TabIndex = 11;
+            this.tbDoorDropDown.Text = "";
             // 
-            this.comboItem3.Text = "2. 常闭";
+            // doorTree
             // 
-            // comboItem4
+            this.doorTree.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.doorTree.AllowDrop = true;
+            this.doorTree.BackColor = System.Drawing.SystemColors.Window;
             // 
-            this.comboItem4.Text = "3. 禁止 2以上时段的用户开门(包括2时段)";
             // 
-            // comboItem5
             // 
-            this.comboItem5.Text = "4. 取消禁止 2以上时段的用户开门(包括2时段)";
+            this.doorTree.BackgroundStyle.Class = "TreeBorderKey";
+            this.doorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.doorTree.CheckBoxVisible = true;
+            this.doorTree.Location = new System.Drawing.Point(65, 26);
+            this.doorTree.Name = "doorTree";
+            this.doorTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
+            this.node1});
+            this.doorTree.NodesConnector = this.nodeConnector1;
+            this.doorTree.NodeStyle = this.elementStyle1;
+            this.doorTree.PathSeparator = ";";
+            this.doorTree.SelectionPerCell = true;
+            this.doorTree.Size = new System.Drawing.Size(187, 160);
+            this.doorTree.Styles.Add(this.elementStyle1);
+            this.doorTree.TabIndex = 12;
+            this.doorTree.Text = "doorTree";
+            this.doorTree.AfterCheck += new DevComponents.AdvTree.AdvTreeCellEventHandler(this.doorTree_AfterCheck);
             // 
-            // comboItem6
+            // node1
             // 
-            this.comboItem6.Text = "5. 刷卡-无密码";
+            this.node1.CheckBoxVisible = true;
+            this.node1.Expanded = true;
+            this.node1.Name = "node1";
+            this.node1.Text = "node1";
             // 
-            // comboItem7
+            // nodeConnector1
             // 
-            this.comboItem7.Text = "6. (进门) 刷卡 + 密码";
+            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
             // 
-            // comboItem8
+            // elementStyle1
             // 
-            this.comboItem8.Text = "7. (进出门) 刷卡 + 密码";
-            // 
-            // comboItem9
-            // 
-            this.comboItem9.Text = "8. 多卡开门生效";
-            // 
-            // comboItem10
-            // 
-            this.comboItem10.Text = "9. 单卡开门, 不要求多卡";
-            // 
-            // comboItem11
-            // 
-            this.comboItem11.Text = "10. 动作一次";
-            // 
-            // comboItem12
-            // 
-            this.comboItem12.Text = "11. 禁用按钮";
-            // 
-            // comboItem13
-            // 
-            this.comboItem13.Text = "12. 启用按钮";
+            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.elementStyle1.Name = "elementStyle1";
+            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
             // FrmCtrlTaskEditor
             // 
@@ -781,6 +830,7 @@
             this.groupPanel1.PerformLayout();
             this.groupPanel2.ResumeLayout(false);
             this.groupPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doorTree)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -807,7 +857,6 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtiTime;
         private DevComponents.DotNetBar.LabelX labelX6;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel2;
-        private DevComponents.DotNetBar.Controls.ComboTree cbtDoorTree;
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.LabelX labelX7;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboCtrlStyle;
@@ -828,5 +877,10 @@
         private DevComponents.Editors.ComboItem comboItem11;
         private DevComponents.Editors.ComboItem comboItem12;
         private DevComponents.Editors.ComboItem comboItem13;
+        private DevComponents.DotNetBar.Controls.TextBoxDropDown tbDoorDropDown;
+        private Li.Controls.AdvTreeEx doorTree;
+        private DevComponents.AdvTree.Node node1;
+        private DevComponents.AdvTree.NodeConnector nodeConnector1;
+        private DevComponents.DotNetBar.ElementStyle elementStyle1;
     }
 }
