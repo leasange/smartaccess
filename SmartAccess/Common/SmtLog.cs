@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartAccess.Common.Datas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,18 @@ namespace SmartAccess.Common
                     try
                     {
                         Maticsoft.BLL.SMT_LOG_INFO logBll = new Maticsoft.BLL.SMT_LOG_INFO();
-                        Maticsoft.Model.SMT_LOG_INFO model=new Maticsoft.Model.SMT_LOG_INFO();
-                        model.LOG_CONTENT=msg;
-                        model.LOG_LEVEL=(int)level;
-                        model.LOG_TIME=DateTime.Now;
-                        model.LOG_TYPE=logType;
+                        Maticsoft.Model.SMT_LOG_INFO model = new Maticsoft.Model.SMT_LOG_INFO();
+                        model.OPR_CONTENT = msg;
+                        model.LOG_LEVEL = (int)level;
+                        model.OPR_TIME = DateTime.Now;
+                        model.LOG_TYPE = logType;
+                        model.OPR_USERID = UserInfoHelper.UserID;
+
+                        if (string.IsNullOrWhiteSpace(UserInfoHelper.UserInfo.REAL_NAME))
+                        {
+                            model.OPR_REALNAME = UserInfoHelper.UserInfo.USER_NAME;
+                        }
+                        else model.OPR_REALNAME = UserInfoHelper.UserInfo.USER_NAME + "(" + UserInfoHelper.UserInfo.REAL_NAME + ")";
                         logBll.Add(model);
                     }
                     catch (Exception ex)

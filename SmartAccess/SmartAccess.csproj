@@ -105,6 +105,7 @@
     <Compile Include="Common\Datas\StaffDataHelper.cs" />
     <Compile Include="Common\Datas\TimeScaleHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
+    <Compile Include="Common\Datas\UserInfoHelper.cs" />
     <Compile Include="Common\EncDec\EncDecClass.cs" />
     <Compile Include="Common\SmtLog.cs" />
     <Compile Include="Common\WinInfo\CtrlWaiting.cs">

@@ -1,4 +1,5 @@
 ﻿using DevComponents.DotNetBar.Controls;
+using SmartAccess.Common;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -168,10 +169,12 @@ namespace SmartAccess.ConfigMgr
                              return;
                          }
                          _timeScaleInfo.ID = scBll.Add(_timeScaleInfo);
+                         SmtLog.Info("配置", "添加时区，编号：" + _timeScaleInfo.TIME_NO+",名称："+_timeScaleInfo.TIME_NAME);
                      }
                      else
                      {
                          scBll.Update(_timeScaleInfo);
+                         SmtLog.Info("配置", "更新时区，编号：" + _timeScaleInfo.TIME_NO + ",名称：" + _timeScaleInfo.TIME_NAME);
                      }
                      this.Invoke(new Action(() =>
                      {

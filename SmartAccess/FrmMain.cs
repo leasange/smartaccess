@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using SmartAccess.ConfigMgr;
+using SmartAccess.Common;
 
 namespace SmartAccess
 {
@@ -18,6 +19,7 @@ namespace SmartAccess
         {
             InitializeComponent();
             Instance = this;
+            SmtLog.Info("系统", "进入系统");
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -84,7 +86,12 @@ namespace SmartAccess
         }
         private bool CheckDoExitSystem()
         {
-            return DevComponents.DotNetBar.TaskDialog.Show("退出系统", eTaskDialogIcon.Help, "退出", "确定退出系统？", eTaskDialogButton.Ok | eTaskDialogButton.Cancel) == eTaskDialogResult.Ok;
+            bool ret = DevComponents.DotNetBar.TaskDialog.Show("退出系统", eTaskDialogIcon.Help, "退出", "确定退出系统？", eTaskDialogButton.Ok | eTaskDialogButton.Cancel) == eTaskDialogResult.Ok;
+            if (ret)
+            {
+                SmtLog.Info("系统", "退出系统");
+            }
+            return ret;
         }
         //退出系统
         private void DoExitSystem()

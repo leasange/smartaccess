@@ -541,10 +541,5 @@ namespace SmartAccess.RealDetectMgr
                 }
             }
         }
-
-        private void biUploadSetting_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

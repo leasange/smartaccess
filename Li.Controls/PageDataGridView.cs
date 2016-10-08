@@ -59,7 +59,6 @@ namespace Li.Controls
         //复位
         public void Reset()
         {
-            mSqlWhere = null;
             if (mDataGridView != null)
             {
                 this.mDataGridView.Rows.Clear();

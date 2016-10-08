@@ -110,6 +110,11 @@ namespace SmartAccess.RuleSetMrg
         }
         private void biModify_Click(object sender, EventArgs e)
         {
+            DoModify();
+        }
+
+        private void DoModify()
+        {
             if (dgvData.SelectedRows.Count > 0)
             {
                 FrmCtrlTaskEditor taskEditor = new FrmCtrlTaskEditor((Maticsoft.Model.SMT_CTRLR_TASK)dgvData.SelectedRows[0].Tag);
@@ -231,8 +236,7 @@ namespace SmartAccess.RuleSetMrg
         {
             if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
-                FrmCtrlTaskEditor taskEditor = new FrmCtrlTaskEditor((Maticsoft.Model.SMT_CTRLR_TASK)dgvData.Rows[e.RowIndex].Tag, true);
-                taskEditor.ShowDialog(this);
+                DoModify();
             }
         }
     }

@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/22 0:25:36   N/A    初版
+* V0.01  2016/10/8 22:36:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,7 +22,7 @@ using Maticsoft.Model;
 namespace Maticsoft.BLL
 {
 	/// <summary>
-	/// 日志记录表
+	/// 操作日志表
 	/// </summary>
 	public partial class SMT_LOG_INFO
 	{
@@ -41,7 +41,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.SMT_LOG_INFO model)
+		public decimal Add(Maticsoft.Model.SMT_LOG_INFO model)
 		{
 			return dal.Add(model);
 		}

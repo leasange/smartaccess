@@ -1,4 +1,5 @@
 ﻿using SmartAccess.Common.Config;
+using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -56,9 +57,8 @@ namespace SmartAccess
                     {
                         if (users.Count > 0)
                         {
-
+                            UserInfoHelper.UserInfo = users[0];
                             DoEnter();
-
                         }
                         else
                         {

@@ -13,6 +13,7 @@ namespace SmartAccess.Common.Datas
     /// </summary>
     public class CommonClass
     {
+
         public delegate void FuntionHandle(params object[] objs);
         /// <summary> 
         /// 把汉字转换成拼音第一个字母 

@@ -179,7 +179,7 @@
             this.expandablePanel9.Expanded = false;
             this.expandablePanel9.ExpandedBounds = new System.Drawing.Rectangle(0, 272, 246, 354);
             this.expandablePanel9.ExpandOnTitleClick = true;
-            this.expandablePanel9.Location = new System.Drawing.Point(0, 442);
+            this.expandablePanel9.Location = new System.Drawing.Point(0, 491);
             this.expandablePanel9.Name = "expandablePanel9";
             this.expandablePanel9.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel9.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -396,10 +396,12 @@
             this.expandablePanel8.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel8.Controls.Add(this.panel9);
             this.expandablePanel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.expandablePanel8.Expanded = false;
+            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 307, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
-            this.expandablePanel8.Location = new System.Drawing.Point(0, 307);
+            this.expandablePanel8.Location = new System.Drawing.Point(0, 457);
             this.expandablePanel8.Name = "expandablePanel8";
-            this.expandablePanel8.Size = new System.Drawing.Size(246, 135);
+            this.expandablePanel8.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel8.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel8.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel8.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -431,7 +433,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(0, 34);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(246, 101);
+            this.panel9.Size = new System.Drawing.Size(246, 0);
             this.panel9.TabIndex = 2;
             // 
             // linkCtrlStyle
@@ -480,9 +482,9 @@
             this.expandablePanel7.Controls.Add(this.panel8);
             this.expandablePanel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel7.Expanded = false;
-            this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 204, 246, 139);
+            this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 273, 246, 139);
             this.expandablePanel7.ExpandOnTitleClick = true;
-            this.expandablePanel7.Location = new System.Drawing.Point(0, 273);
+            this.expandablePanel7.Location = new System.Drawing.Point(0, 423);
             this.expandablePanel7.Name = "expandablePanel7";
             this.expandablePanel7.Size = new System.Drawing.Size(246, 34);
             this.expandablePanel7.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -563,12 +565,10 @@
             this.expandablePanel6.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.expandablePanel6.Controls.Add(this.panel7);
             this.expandablePanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandablePanel6.Expanded = false;
-            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 184);
             this.expandablePanel6.ExpandOnTitleClick = true;
             this.expandablePanel6.Location = new System.Drawing.Point(0, 239);
             this.expandablePanel6.Name = "expandablePanel6";
-            this.expandablePanel6.Size = new System.Drawing.Size(246, 34);
+            this.expandablePanel6.Size = new System.Drawing.Size(246, 184);
             this.expandablePanel6.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel6.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.expandablePanel6.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -601,7 +601,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 34);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(246, 0);
+            this.panel7.Size = new System.Drawing.Size(246, 150);
             this.panel7.TabIndex = 2;
             // 
             // linkCtrlState
@@ -620,6 +620,7 @@
             this.linkCtrlState.Text = "      控制访问约束";
             this.linkCtrlState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkCtrlState.UseCompatibleTextRendering = true;
+            this.linkCtrlState.Visible = false;
             this.linkCtrlState.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCtrlState_LinkClicked);
             // 
             // linkOneMangMgr
@@ -638,6 +639,7 @@
             this.linkOneMangMgr.Text = "      一卡多门管理";
             this.linkOneMangMgr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkOneMangMgr.UseCompatibleTextRendering = true;
+            this.linkOneMangMgr.Visible = false;
             this.linkOneMangMgr.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOneMangMgr_LinkClicked);
             // 
             // linkControlerMgr

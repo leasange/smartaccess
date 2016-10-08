@@ -11,6 +11,7 @@ using SmartAccess.Common.Datas;
 using System.Threading;
 using Li.Access.Core;
 using Li.Access.Core.WGAccesses;
+using SmartAccess.Common;
 
 namespace SmartAccess.ConfigMgr
 {
@@ -151,6 +152,7 @@ namespace SmartAccess.ConfigMgr
                             foreach (var item in mscs)
                             {
                                 scBll.Delete(item.ID);
+                                SmtLog.InfoFormat("配置", "删除定时任务，编号：{0},名称：{1}", item.TIME_NO, item.TIME_NAME);
                             }
                             this.Invoke(new Action(() =>
                             {
@@ -213,6 +215,7 @@ namespace SmartAccess.ConfigMgr
                     WinInfoHelper.ShowInfoWindow(this, "没有可用时间段待上传！");
                     return;
                 }
+                SmtLog.Info("设置","上传时间段设置");
                 FrmDetailInfo.Show(false);
                 FrmDetailInfo.AddOneMsg(string.Format("开始上传控制器时段：控制器数={0},时段数={1} ...", ctrls.Count, models.Count));
                 List<ManualResetEvent> eventList = new List<ManualResetEvent>();
@@ -254,6 +257,7 @@ namespace SmartAccess.ConfigMgr
                             {
                                 FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message), isRed: true);
                                 log.Error("上传控制器时间段失败，" ,ex);
+                                SmtLog.ErrorFormat("设置", "上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message);
                             }
                             finally
                             {
@@ -265,6 +269,7 @@ namespace SmartAccess.ConfigMgr
                 {
                     item.WaitOne(60000);
                 }
+                FrmDetailInfo.AddOneMsg("结束控制器时段上传！");
             });
             waiting.Show(this);
         }

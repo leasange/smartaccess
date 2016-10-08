@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/22 0:25:36   N/A    初版
+* V0.01  2016/10/8 22:36:31   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -37,9 +37,10 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from SMT_LOG_INFO");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
@@ -49,33 +50,36 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.SMT_LOG_INFO model)
+		public decimal Add(Maticsoft.Model.SMT_LOG_INFO model)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_LOG_INFO(");
-			strSql.Append("ID,LOG_TYPE,LOG_LEVEL,LOG_CONTENT,LOG_TIME)");
+			strSql.Append("LOG_TYPE,LOG_LEVEL,OPR_USERID,OPR_REALNAME,OPR_TIME,OPR_CONTENT)");
 			strSql.Append(" values (");
-			strSql.Append("@ID,@LOG_TYPE,@LOG_LEVEL,@LOG_CONTENT,@LOG_TIME)");
+			strSql.Append("@LOG_TYPE,@LOG_LEVEL,@OPR_USERID,@OPR_REALNAME,@OPR_TIME,@OPR_CONTENT)");
+			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9),
-					new SqlParameter("@LOG_TYPE", SqlDbType.NVarChar,50),
-					new SqlParameter("@LOG_LEVEL", SqlDbType.TinyInt,1),
-					new SqlParameter("@LOG_CONTENT", SqlDbType.NVarChar,300),
-					new SqlParameter("@LOG_TIME", SqlDbType.DateTime)};
-			parameters[0].Value = model.ID;
-			parameters[1].Value = model.LOG_TYPE;
-			parameters[2].Value = model.LOG_LEVEL;
-			parameters[3].Value = model.LOG_CONTENT;
-			parameters[4].Value = model.LOG_TIME;
+					new SqlParameter("@LOG_TYPE", SqlDbType.VarChar,50),
+					new SqlParameter("@LOG_LEVEL", SqlDbType.SmallInt,2),
+					new SqlParameter("@OPR_USERID", SqlDbType.Decimal,9),
+					new SqlParameter("@OPR_REALNAME", SqlDbType.NVarChar,100),
+					new SqlParameter("@OPR_TIME", SqlDbType.DateTime),
+					new SqlParameter("@OPR_CONTENT", SqlDbType.NVarChar,400)};
+			parameters[0].Value = model.LOG_TYPE;
+			parameters[1].Value = model.LOG_LEVEL;
+			parameters[2].Value = model.OPR_USERID;
+			parameters[3].Value = model.OPR_REALNAME;
+			parameters[4].Value = model.OPR_TIME;
+			parameters[5].Value = model.OPR_CONTENT;
 
-			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-			if (rows > 0)
+			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
+			if (obj == null)
 			{
-				return true;
+				return 0;
 			}
 			else
 			{
-				return false;
+				return Convert.ToDecimal(obj);
 			}
 		}
 		/// <summary>
@@ -87,20 +91,26 @@ namespace Maticsoft.DAL
 			strSql.Append("update SMT_LOG_INFO set ");
 			strSql.Append("LOG_TYPE=@LOG_TYPE,");
 			strSql.Append("LOG_LEVEL=@LOG_LEVEL,");
-			strSql.Append("LOG_CONTENT=@LOG_CONTENT,");
-			strSql.Append("LOG_TIME=@LOG_TIME");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append("OPR_USERID=@OPR_USERID,");
+			strSql.Append("OPR_REALNAME=@OPR_REALNAME,");
+			strSql.Append("OPR_TIME=@OPR_TIME,");
+			strSql.Append("OPR_CONTENT=@OPR_CONTENT");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@LOG_TYPE", SqlDbType.NVarChar,50),
-					new SqlParameter("@LOG_LEVEL", SqlDbType.TinyInt,1),
-					new SqlParameter("@LOG_CONTENT", SqlDbType.NVarChar,300),
-					new SqlParameter("@LOG_TIME", SqlDbType.DateTime),
+					new SqlParameter("@LOG_TYPE", SqlDbType.VarChar,50),
+					new SqlParameter("@LOG_LEVEL", SqlDbType.SmallInt,2),
+					new SqlParameter("@OPR_USERID", SqlDbType.Decimal,9),
+					new SqlParameter("@OPR_REALNAME", SqlDbType.NVarChar,100),
+					new SqlParameter("@OPR_TIME", SqlDbType.DateTime),
+					new SqlParameter("@OPR_CONTENT", SqlDbType.NVarChar,400),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.LOG_TYPE;
 			parameters[1].Value = model.LOG_LEVEL;
-			parameters[2].Value = model.LOG_CONTENT;
-			parameters[3].Value = model.LOG_TIME;
-			parameters[4].Value = model.ID;
+			parameters[2].Value = model.OPR_USERID;
+			parameters[3].Value = model.OPR_REALNAME;
+			parameters[4].Value = model.OPR_TIME;
+			parameters[5].Value = model.OPR_CONTENT;
+			parameters[6].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -121,9 +131,10 @@ namespace Maticsoft.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from SMT_LOG_INFO ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
@@ -163,10 +174,11 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,LOG_TYPE,LOG_LEVEL,LOG_CONTENT,LOG_TIME from SMT_LOG_INFO ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append("select  top 1 ID,LOG_TYPE,LOG_LEVEL,OPR_USERID,OPR_REALNAME,OPR_TIME,OPR_CONTENT from SMT_LOG_INFO ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			Maticsoft.Model.SMT_LOG_INFO model=new Maticsoft.Model.SMT_LOG_INFO();
@@ -202,13 +214,21 @@ namespace Maticsoft.DAL
 				{
 					model.LOG_LEVEL=int.Parse(row["LOG_LEVEL"].ToString());
 				}
-				if(row["LOG_CONTENT"]!=null)
+				if(row["OPR_USERID"]!=null && row["OPR_USERID"].ToString()!="")
 				{
-					model.LOG_CONTENT=row["LOG_CONTENT"].ToString();
+					model.OPR_USERID=decimal.Parse(row["OPR_USERID"].ToString());
 				}
-				if(row["LOG_TIME"]!=null && row["LOG_TIME"].ToString()!="")
+				if(row["OPR_REALNAME"]!=null)
 				{
-					model.LOG_TIME=DateTime.Parse(row["LOG_TIME"].ToString());
+					model.OPR_REALNAME=row["OPR_REALNAME"].ToString();
+				}
+				if(row["OPR_TIME"]!=null && row["OPR_TIME"].ToString()!="")
+				{
+					model.OPR_TIME=DateTime.Parse(row["OPR_TIME"].ToString());
+				}
+				if(row["OPR_CONTENT"]!=null)
+				{
+					model.OPR_CONTENT=row["OPR_CONTENT"].ToString();
 				}
 			}
 			return model;
@@ -220,7 +240,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,LOG_TYPE,LOG_LEVEL,LOG_CONTENT,LOG_TIME ");
+			strSql.Append("select ID,LOG_TYPE,LOG_LEVEL,OPR_USERID,OPR_REALNAME,OPR_TIME,OPR_CONTENT ");
 			strSql.Append(" FROM SMT_LOG_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -240,7 +260,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,LOG_TYPE,LOG_LEVEL,LOG_CONTENT,LOG_TIME ");
+			strSql.Append(" ID,LOG_TYPE,LOG_LEVEL,OPR_USERID,OPR_REALNAME,OPR_TIME,OPR_CONTENT ");
 			strSql.Append(" FROM SMT_LOG_INFO ");
 			if(strWhere.Trim()!="")
 			{

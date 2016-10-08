@@ -1,4 +1,5 @@
 ﻿using DevComponents.AdvTree;
+using SmartAccess.Common;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -204,10 +205,12 @@ namespace SmartAccess.ConfigMgr
                     if (_mapInfo.ID == -1)
                     {
                         _mapInfo.ID = mapBll.Add(_mapInfo);
+                        SmtLog.Info("配置", "添加地图：" + _mapInfo.MAP_NAME);
                     }
                     else
                     {
                         mapBll.Update(_mapInfo);
+                        SmtLog.Info("配置", "更新地图：" + _mapInfo.MAP_NAME);
                         var olds = mdBll.GetModelList("MAP_ID=" + _mapInfo.ID);
                         foreach (var old in olds)
                         {

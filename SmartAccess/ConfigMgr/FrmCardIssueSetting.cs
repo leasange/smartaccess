@@ -1,5 +1,6 @@
 ﻿using DevComponents.Editors;
 using Li.Access.Core;
+using SmartAccess.Common;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.WinInfo;
 using System;
@@ -79,6 +80,7 @@ namespace SmartAccess.ConfigMgr
             config.cardIssueModel = (CardIssueModel)((ComboItem)cboModel.SelectedItem).Tag;
             config.comBuad = (ComBuad)((ComboItem)cboBaud.SelectedItem).Tag;
             SysConfig.SetCardIssueConfig(config);
+            SmtLog.Info("配置", "修改读卡器端口");
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
