@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/28 23:21:56   N/A    初版
+* V0.01  2016/10/7 22:17:03   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -85,7 +85,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 触发时间
 		/// </summary>
-        public TimeSpan ACTION_TIME
+		public TimeSpan ACTION_TIME
 		{
 			set{ _action_time=value;}
 			get{return _action_time;}
@@ -162,6 +162,7 @@ namespace Maticsoft.Model
 			set{ _ctrl_style=value;}
 			get{return _ctrl_style;}
 		}
+        
 		/// <summary>
 		/// 备注
 		/// </summary>

@@ -103,6 +103,7 @@
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_ZONE.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />

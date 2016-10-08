@@ -47,16 +47,7 @@ namespace Li.Access.Core.WGAccesses
         {
             try
             {
-                List<byte[]> dics = WGRecieveFrom(maxCount);
-                List<WGPacket> list = new List<WGPacket>();
-                if (dics.Count > 0)
-                {
-                    foreach (var item in dics)
-                    {
-                        WGPacket p = ToWGPacket(item);
-                        list.Add(p);
-                    }
-                }
+                List<WGPacket> list = WGRecievePacket(maxCount);
                 return list;
             }
             finally
@@ -66,6 +57,20 @@ namespace Li.Access.Core.WGAccesses
                     this.Close();
                 }
             }
+        }
+        public List<WGPacket> WGRecievePacket(int maxCount = -1)
+        {
+            List<byte[]> dics = WGRecieveFrom(maxCount);
+            List<WGPacket> list = new List<WGPacket>();
+            if (dics.Count > 0)
+            {
+                foreach (var item in dics)
+                {
+                    WGPacket p = ToWGPacket(item);
+                    list.Add(p);
+                }
+            }
+            return list;
         }
         private bool DoSend(WGPacket packet, string controllerIp = null,int controllerPort=60000)
         {
@@ -413,6 +418,51 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+
+        public bool ClearTimeTask(Controller controller)
+        {
+            WGPacket packet = new WGPacket(0xA6);
+            packet.SetDevSn(controller.sn);
+            packet.SetClearTag();
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+        public bool AddTimeTask(Controller controller, TimeTask task)
+        {
+            try
+            {
+                WGPacket packet = new WGPacket(0xA8);
+                packet.SetDevSn(controller.sn);
+                packet.SetTimeTask(task);
+                bool ret = true;
+                foreach (var item in task.doorIndexs)
+                {
+                    if (item < 1 || item > 4)
+                    {
+                        continue;
+                    }
+                    packet.SetTimeTaskDoorIndex(item);
+                    DoSend(packet, controller.ip, controller.port);
+                    List<WGPacket> packets = WGRecievePacket(1);
+                    if (packets.Count == 1)
+                    {
+                        ret = ret && (packets[0].data[0] == 1);
+                    }
+                }
+                return ret;
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
     }
     /// <summary>
     /// WG请求包
@@ -754,6 +804,33 @@ namespace Li.Access.Core.WGAccesses
             }
             //data[27]
             data[28] = (byte)tsNum.NextNum;
+        }
+
+        public void SetTimeTask(TimeTask task)
+        {
+            data[0] = DataHelper.ToByteBCD((int)(task.startDate.Year / 100));
+            data[1] = DataHelper.ToByteBCD(task.startDate.Year - ((int)(task.startDate.Year / 100)) * 100);
+            data[2] = DataHelper.ToByteBCD(task.startDate.Month);
+            data[3] = DataHelper.ToByteBCD(task.startDate.Day);
+
+            data[4] = DataHelper.ToByteBCD((int)(task.endDate.Year / 100));
+            data[5] = DataHelper.ToByteBCD(task.endDate.Year - ((int)(task.endDate.Year / 100)) * 100);
+            data[6] = DataHelper.ToByteBCD(task.endDate.Month);
+            data[7] = DataHelper.ToByteBCD(task.endDate.Day);
+
+            for (int i = 0; i < task.weekDaysEnable.Length; i++)
+			{
+                data[8 + i] = task.weekDaysEnable[i] ? (byte)1 : (byte)0;
+			}//data[14]
+            data[15] = DataHelper.ToByteBCD(task.actionTime.Hours);
+            data[16] = DataHelper.ToByteBCD(task.actionTime.Minutes);
+            //data[17]
+            data[18] = task.ctrlStyle;
+            data[19] = task.cardCount;
+        }
+        public void SetTimeTaskDoorIndex(byte doorIndex)
+        {
+            data[17] = doorIndex;
         }
     }
 }

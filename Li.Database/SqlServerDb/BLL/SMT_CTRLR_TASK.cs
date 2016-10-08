@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/28 23:21:57   N/A    初版
+* V0.01  2016/10/7 22:17:03   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -41,7 +41,7 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.SMT_CTRLR_TASK model)
+		public decimal Add(Maticsoft.Model.SMT_CTRLR_TASK model)
 		{
 			return dal.Add(model);
 		}

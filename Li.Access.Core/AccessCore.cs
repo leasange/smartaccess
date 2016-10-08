@@ -23,6 +23,10 @@ namespace Li.Access.Core
         /// <param name="protocol"></param>
         public bool Bind(int localPort, ProtocolType protocol = ProtocolType.Udp)
         {
+            if (socket!=null)
+            {
+                return true;
+            }
             if (protocol == ProtocolType.Udp)
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, protocol);

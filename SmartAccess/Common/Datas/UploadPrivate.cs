@@ -2,6 +2,7 @@
 using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.WinInfo;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -566,6 +567,143 @@ namespace SmartAccess.Common.Datas
         }
 
         public static AccessWatchService WatchService = new AccessWatchService();
-    
+
+        public static void UploadTimeTasks(List<Maticsoft.Model.SMT_CTRLR_TASK> tasks)
+        {
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg(string.Format("开始上传定时任务,任务数目：{0} ....",tasks.Count));
+            var ctrls = ControllerHelper.GetList("1=1");
+            if (ctrls.Count == 0)
+            {
+                FrmDetailInfo.AddOneMsg("没有获取到控制器,上传结束！",isRed:true);
+                return;
+            }
+            var doors = GetUploadAllDoors();
+            if (doors.Count==0)
+            {
+                FrmDetailInfo.AddOneMsg("没有获取到控制器，上传结束！", isRed: true);
+                return;
+            }
+            var groupDoors = doors.GroupBy(m => (decimal)m.CTRL_ID);
+            Dictionary<Controller, List<TimeTask>> ctasks = new Dictionary<Controller, List<TimeTask>>();//控制器定时任务列表
+            foreach (var item in tasks)
+            {
+                IEnumerable<System.Linq.IGrouping<decimal, Maticsoft.Model.SMT_DOOR_INFO>> group = groupDoors;//所有门禁
+                if (item.DOOR_ID!="-1")
+                {
+                    var doorIds = item.DOOR_ID.Split(',');
+                    List<decimal> ids = new List<decimal>();
+                    foreach (var di in doorIds)
+                    {
+                        decimal d = -1;
+                        if (decimal.TryParse(di, out d))
+                        {
+                            ids.Add(d);
+                        }
+                    }
+                    var tdoors = doors.FindAll(m => ids.Contains(m.ID));
+                    group = tdoors.GroupBy(m => (decimal)m.CTRL_ID);
+                }
+                foreach (var gd in group)
+                {
+                    var list = gd.ToList();
+                    Controller c = null;
+                    List<TimeTask> vtasks = null;
+                    foreach (var ct in ctasks)
+                    {
+                        if (ct.Key.id == list[0].CTRL_ID)
+                        {
+                            c = ct.Key;
+                            vtasks = ct.Value;
+                            break;
+                        }
+                    }
+                    if (c == null)
+                    {
+                        var ctrl=ctrls.Find(m=>m.ID==list[0].CTRL_ID);
+                        if (ctrl==null)
+	                    {
+                             FrmDetailInfo.AddOneMsg(string.Format("没有获取到控制器：ID={0}",list[0].CTRL_ID), isRed: true);
+                             continue;
+	                    }
+                        c = ControllerHelper.ToController(ctrl);
+                        vtasks = new List<TimeTask>();
+                        ctasks.Add(c, vtasks);
+                    }
+                    TimeTask tt = new TimeTask()
+                    {
+                        actionTime = item.ACTION_TIME,
+                        cardCount = 2,
+                        ctrlStyle = (byte)item.CTRL_STYLE,
+                        no = item.TASK_NO,
+                        startDate = item.VALID_STARTDATE,
+                        endDate = item.VALID_ENDDATE
+                    };
+                    tt.weekDaysEnable[0] = item.MON_STATE;
+                    tt.weekDaysEnable[1] = item.TUE_STATE;
+                    tt.weekDaysEnable[2] = item.THI_STATE;
+                    tt.weekDaysEnable[3] = item.WES_STATE;
+                    tt.weekDaysEnable[4] = item.FRI_STATE;
+                    tt.weekDaysEnable[5] = item.SAT_STATE;
+                    tt.weekDaysEnable[6] = item.SUN_STATE;
+                    
+                    foreach (var dr in list)//遍历门
+                    {
+                        if (dr.CTRL_DOOR_INDEX==null)
+                        {
+                            continue;
+                        }
+                        tt.doorIndexs.Add((byte)(int)dr.CTRL_DOOR_INDEX);
+                    }
+                    vtasks.Add(tt);
+                }
+            }
+            List<ManualResetEvent> evts = new List<ManualResetEvent>();
+            foreach (var item in ctasks)
+            {
+                ManualResetEvent evt = new ManualResetEvent(false);
+                evts.Add(evt);
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
+                        {
+                            IAccessCore access = new WGAccess();
+                            FrmDetailInfo.AddOneMsg(string.Format("开始清除控制器SN={0} 定时任务...", item.Key.sn));
+                            if (!access.ClearTimeTask(item.Key))
+                            {
+                                FrmDetailInfo.AddOneMsg(string.Format("清空控制器定时任务失败：ID={0},IP={1},SN={2},终止该控制器定时任务上传！", item.Key.id, item.Key.ip, item.Key.sn), isRed: true);
+                                return;
+                            }
+                            FrmDetailInfo.AddOneMsg(string.Format("清除控制器SN={0} 定时任务成功.", item.Key.sn));
+                            FrmDetailInfo.AddOneMsg(string.Format("开始上传控制器SN={0} 定时任务...", item.Key.sn));
+                            foreach (var t in item.Value)
+                            {
+                                bool ret = access.AddTimeTask(item.Key, t);
+                                if (!ret)
+                                {
+                                    FrmDetailInfo.AddOneMsg(string.Format("上传控制器SN={0} 定时任务：NO={1} 异常！", item.Key.sn, t.no), isRed: true);
+                                }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg(string.Format("上传控制器SN={0} 定时任务：NO={1} 成功！", item.Key.sn, t.no));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器SN={0} 的定时任务异常：{1}", item.Key.sn, ex.Message));
+                        }
+                        finally
+                        {
+                            evt.Set();
+                        }
+                    }));
+            }
+            foreach (var item in evts)
+            {
+                item.WaitOne(40000);
+            }
+            FrmDetailInfo.AddOneMsg("上传定时任务结束！");
+        }
     }
 }

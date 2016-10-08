@@ -13,6 +13,7 @@ using Li.Access.Core;
 using Li.Access.Core.BJTWHCardIssue;
 using SmartAccess.Common.Config;
 using System.IO;
+using Li.Controls.Excel;
 
 namespace SmartAccess.VerInfoMgr
 {
@@ -27,7 +28,7 @@ namespace SmartAccess.VerInfoMgr
 
         void Tree_NodeMouseDown(object sender, TreeNodeMouseEventArgs e)
         {
-            if (e.Button== System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 Node deptNode = e.Node;
                 decimal orgId = -1;
@@ -39,7 +40,7 @@ namespace SmartAccess.VerInfoMgr
                         orgId = orgInfo.ID;
                     }
                 }
-                DoSearch(true, true,false,null, orgId);
+                DoSearch(true, true, false, null, orgId);
             }
         }
 
@@ -116,7 +117,7 @@ namespace SmartAccess.VerInfoMgr
                         }*/
 
                     }
-                    else 
+                    else
                     {
                         if (orgId != -1)
                         {
@@ -127,9 +128,9 @@ namespace SmartAccess.VerInfoMgr
                     {
                         strWhere += " and IS_FORBIDDEN=1";
                     }
-                    if ((cbHasCard.Checked&&cbHasNoCard.Checked)||(!cbHasCard.Checked&&!cbHasNoCard.Checked))
-                    {}
-                    else if(cbHasCard.Checked)
+                    if ((cbHasCard.Checked && cbHasNoCard.Checked) || (!cbHasCard.Checked && !cbHasNoCard.Checked))
+                    { }
+                    else if (cbHasCard.Checked)
                     {
                         strWhere += " and  SI.ID in ( select SC.STAFF_ID  from SMT_STAFF_CARD SC,SMT_CARD_INFO CI where SC.CARD_ID=CI.ID group by SC.STAFF_ID )";
                     }
@@ -139,7 +140,7 @@ namespace SmartAccess.VerInfoMgr
                     }
                     if ((cbHasDoor.Checked && cbHasNoDoor.Checked) || (!cbHasDoor.Checked && !cbHasNoDoor.Checked))
                     { }
-                    else if(cbHasDoor.Checked)
+                    else if (cbHasDoor.Checked)
                     {
                         strWhere += " and  SI.ID in ( select SC.STAFF_ID as CARD_STAFF_ID from SMT_STAFF_DOOR SC,SMT_DOOR_INFO DI where SC.DOOR_ID=DI.ID  group by SC.STAFF_ID )";
                     }
@@ -148,7 +149,7 @@ namespace SmartAccess.VerInfoMgr
                         strWhere += " and  SI.ID not in ( select SC.STAFF_ID as CARD_STAFF_ID from SMT_STAFF_DOOR SC,SMT_DOOR_INFO DI where SC.DOOR_ID=DI.ID  group by SC.STAFF_ID )";
                     }
                 }
-                
+
                 _strWhere = strWhere;
             }
             else
@@ -200,10 +201,10 @@ namespace SmartAccess.VerInfoMgr
                     }
                 }
                 DataSet ds = null;
-//                 if (byDeptTree)
-//                 {
-//                     ds = bll.GetListByPageByDept(orgId, startIndex, endIndex);
-//                 }
+                //                 if (byDeptTree)
+                //                 {
+                //                     ds = bll.GetListByPageByDept(orgId, startIndex, endIndex);
+                //                 }
                 if (!byCardNum)
                 {
                     ds = bll.GetListByPageWithDept(strWhere, "ORG_ID", startIndex, endIndex);
@@ -244,7 +245,7 @@ namespace SmartAccess.VerInfoMgr
                     item.ORG_NAME,
                     cards.TrimEnd(';'),
                     count,
-                    item.IS_FORBIDDEN? "已挂失" : "正常",
+                    item.IS_FORBIDDEN ? "已挂失" : "正常",
                     item.VALID_STARTTIME.ToString("yyyy-MM-dd") + " 至 " + item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
                     item.TELE_PHONE,
                     "查看",
@@ -258,22 +259,22 @@ namespace SmartAccess.VerInfoMgr
         }
         private void StaffInfoMgr_Load(object sender, EventArgs e)
         {
-            DoSearch(true,true,false,null,-1,300);
+            DoSearch(true, true, false, null, -1, 300);
         }
 
         private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
         {
-            DoSearch(false, _byDeptTree,false,null, _orgId);
+            DoSearch(false, _byDeptTree, false, null, _orgId);
         }
 
         private void dgvStaffs_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex>=0&&e.ColumnIndex>=0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                if(dgvStaffs.Columns[e.ColumnIndex].Name=="Col_XG")
+                if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_XG")
                 {
                     Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
-                    if (staffInfo!=null)
+                    if (staffInfo != null)
                     {
                         FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo);
                         frmStaffInfo.ShowDialog(this);
@@ -283,12 +284,12 @@ namespace SmartAccess.VerInfoMgr
                         }
                     }
                 }
-                else if (dgvStaffs.Columns[e.ColumnIndex].Name=="Col_CK")
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_CK")
                 {
                     Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
                     if (staffInfo != null)
                     {
-                        FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo,true);
+                        FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo, true);
                         frmStaffInfo.ShowDialog(this);
                     }
                 }
@@ -308,9 +309,9 @@ namespace SmartAccess.VerInfoMgr
                     {
                         CtrlWaiting waiting = new CtrlWaiting(() =>
                         {
-                            string errMsg="";
+                            string errMsg = "";
                             bool ret = UploadPrivate.Upload(staffInfo, out errMsg);
-                            if (!ret||!string.IsNullOrWhiteSpace(errMsg))
+                            if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "权限上传异常：" + errMsg);
                                 return;
@@ -327,9 +328,9 @@ namespace SmartAccess.VerInfoMgr
         }
         private DataGridViewRow GetSelectRow()
         {
-            if (dgvStaffs.SelectedRows.Count>0)
+            if (dgvStaffs.SelectedRows.Count > 0)
             {
-                if (dgvStaffs.SelectedRows.Count>1)
+                if (dgvStaffs.SelectedRows.Count > 1)
                 {
                     WinInfoHelper.ShowInfoWindow(this, "请选择一个人员！");
                     return null;
@@ -344,7 +345,7 @@ namespace SmartAccess.VerInfoMgr
                 WinInfoHelper.ShowInfoWindow(this, "请选择人员！");
                 return null;
             }
-            if (dgvStaffs.SelectedCells.Count>1)
+            if (dgvStaffs.SelectedCells.Count > 1)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择一个人员！");
                 return null;
@@ -361,10 +362,10 @@ namespace SmartAccess.VerInfoMgr
         private void biDeleteStaff_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = GetSelectRow();
-            if (row==null)
+            if (row == null)
             {
                 return;
-            } 
+            }
             if (MessageBox.Show("确定注销选择人员？", "提示", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
             {
                 return;
@@ -390,10 +391,10 @@ namespace SmartAccess.VerInfoMgr
                         return;
                     }
 
-                    
-                    string errMsg="";
+
+                    string errMsg = "";
                     bool ret = UploadPrivate.Upload(staffInfo, out errMsg);
-                    if (!ret||!string.IsNullOrWhiteSpace(errMsg))
+                    if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                     {
                         WinInfoHelper.ShowInfoWindow(this, "注销时，权限删除存在异常：" + errMsg);
                     }
@@ -421,7 +422,7 @@ namespace SmartAccess.VerInfoMgr
             DoDeleteCard(false);
         }
 
-        private void DoDeleteCard(bool resetCard=false)
+        private void DoDeleteCard(bool resetCard = false)
         {
             DataGridViewRow row = GetSelectRow();
             if (row == null)
@@ -644,7 +645,7 @@ namespace SmartAccess.VerInfoMgr
             });
             ctrlwaiting.Show(this);
         }
-        private bool InternalDeleteCard(Maticsoft.Model.SMT_STAFF_INFO staffInfo,out string errMsg)
+        private bool InternalDeleteCard(Maticsoft.Model.SMT_STAFF_INFO staffInfo, out string errMsg)
         {
             Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
             staffInfo.DELETE_CARD = true;
@@ -691,7 +692,7 @@ namespace SmartAccess.VerInfoMgr
                     WinInfoHelper.ShowInfoWindow(this, "读卡异常：" + ex.Message);
                 }
             }
-            
+
         }
 
         private void biChangeCard_Click(object sender, EventArgs e)
@@ -772,13 +773,13 @@ namespace SmartAccess.VerInfoMgr
                 return;
             }
             Maticsoft.Model.SMT_STAFF_INFO staffInfo = row.Tag as Maticsoft.Model.SMT_STAFF_INFO;
-            if (staffInfo.PHOTO==null||staffInfo.PHOTO.Length==0)
+            if (staffInfo.PHOTO == null || staffInfo.PHOTO.Length == 0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "该人员没有照片！");
                 return;
             }
             saveImageDlg.FileName = staffInfo.REAL_NAME + "[" + staffInfo.STAFF_NO + "]";
-            if (saveImageDlg.ShowDialog(this)==DialogResult.OK)
+            if (saveImageDlg.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
@@ -862,7 +863,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 catch (Exception ex)
                 {
-                    WinInfoHelper.ShowInfoWindow(this, "复制权限异常："+ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "复制权限异常：" + ex.Message);
                     log.Error("复制权限异常:", ex);
                     return;
                 }
@@ -872,7 +873,7 @@ namespace SmartAccess.VerInfoMgr
 
         private void biOneKeyUpload_Click(object sender, EventArgs e)
         {
-            CtrlWaiting waiting = new CtrlWaiting("正在上传权限...",() =>
+            CtrlWaiting waiting = new CtrlWaiting("正在上传权限...", () =>
             {
                 try
                 {
@@ -880,7 +881,7 @@ namespace SmartAccess.VerInfoMgr
                     //var staffs = staffbll.GetModelList("");
                     string errMsg = "";
                     bool ret = UploadPrivate.UploadAllPrivate(out errMsg);
-                    if (errMsg=="")
+                    if (errMsg == "")
                     {
                         errMsg = "成功！";
                     }
@@ -893,6 +894,60 @@ namespace SmartAccess.VerInfoMgr
                 }
             });
             waiting.Show(this);
+        }
+
+        private void pageDataGridView_PageControl_ExportCurrent(object sender, Li.Controls.PageEventArgs args)
+        {
+            DoExport(args.StartIndex, args.EndIndex);
+        }
+
+        private void pageDataGridView_PageControl_ExportAll(object sender, Li.Controls.PageEventArgs args)
+        {
+            DoExport(-1, -1);
+        }
+        private void DoExport(int startIndex,int endIndex)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+
+                try
+                {
+                    Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                    DataSet ds = null;
+                    //                 if (byDeptTree)
+                    //                 {
+                    //                     ds = bll.GetListByPageByDept(orgId, startIndex, endIndex);
+                    //                 }
+                    if (!_byCardNum)
+                    {
+                        ds = bll.GetListByPageWithDept(_strWhere, "ORG_ID", startIndex, endIndex);
+                    }
+                    else
+                    {
+                        ds = bll.GetListByCardNum(_cardNum);
+                    }
+                    var list = bll.DataTableToListWithDept(ds.Tables[0]);
+
+                    this.Invoke(new Action(() =>
+                    {
+                        DoExport(list);
+                    }));
+                }
+                catch (System.Exception ex)
+                {
+                    log.Error("导出异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "导出异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+        private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs)
+        {
+            DataTable dt = new DataTable();
+            foreach (var item in staffs)
+            {
+                
+            }
         }
     }
 }

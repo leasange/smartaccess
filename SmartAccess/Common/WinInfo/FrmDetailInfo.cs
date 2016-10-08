@@ -89,7 +89,7 @@ namespace SmartAccess.Common.WinInfo
                         if (isRed)
                         {
                             string str = text.TrimEnd('\r', '\n');
-                            int index = this.tbMsg.TextLength - str.Length;
+                            int index = this.tbMsg.TextLength - str.Length-1;
                             if (index<0)
                             {
                                 index = 0;

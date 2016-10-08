@@ -62,17 +62,17 @@
             this.comboItem11 = new DevComponents.Editors.ComboItem();
             this.comboItem12 = new DevComponents.Editors.ComboItem();
             this.comboItem13 = new DevComponents.Editors.ComboItem();
+            this.tbDoorDropDown = new DevComponents.DotNetBar.Controls.TextBoxDropDown();
+            this.doorTree = new Li.Controls.AdvTreeEx();
+            this.node1 = new DevComponents.AdvTree.Node();
+            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
+            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.labelX7 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
             this.tbTaskDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
-            this.tbDoorDropDown = new DevComponents.DotNetBar.Controls.TextBoxDropDown();
-            this.doorTree = new Li.Controls.AdvTreeEx();
-            this.node1 = new DevComponents.AdvTree.Node();
-            this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
-            this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.groupPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtiTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStartDate)).BeginInit();
@@ -245,6 +245,7 @@
             // 
             // dtpStartDate
             // 
+            this.dtpStartDate.AllowEmptyState = false;
             // 
             // 
             // 
@@ -326,6 +327,7 @@
             // 
             // dtpEndDate
             // 
+            this.dtpEndDate.AllowEmptyState = false;
             // 
             // 
             // 
@@ -653,6 +655,64 @@
             // 
             this.comboItem13.Text = "12. 启用按钮";
             // 
+            // tbDoorDropDown
+            // 
+            // 
+            // 
+            // 
+            this.tbDoorDropDown.BackgroundStyle.Class = "TextBoxBorder";
+            this.tbDoorDropDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDoorDropDown.ButtonDropDown.Visible = true;
+            this.tbDoorDropDown.DropDownControl = this.doorTree;
+            this.tbDoorDropDown.Location = new System.Drawing.Point(65, 3);
+            this.tbDoorDropDown.Name = "tbDoorDropDown";
+            this.tbDoorDropDown.Size = new System.Drawing.Size(118, 22);
+            this.tbDoorDropDown.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.tbDoorDropDown.TabIndex = 11;
+            this.tbDoorDropDown.Text = "";
+            // 
+            // doorTree
+            // 
+            this.doorTree.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
+            this.doorTree.AllowDrop = true;
+            this.doorTree.BackColor = System.Drawing.SystemColors.Window;
+            // 
+            // 
+            // 
+            this.doorTree.BackgroundStyle.Class = "TreeBorderKey";
+            this.doorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.doorTree.CheckBoxVisible = true;
+            this.doorTree.Location = new System.Drawing.Point(65, 26);
+            this.doorTree.Name = "doorTree";
+            this.doorTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
+            this.node1});
+            this.doorTree.NodesConnector = this.nodeConnector1;
+            this.doorTree.NodeStyle = this.elementStyle1;
+            this.doorTree.PathSeparator = ";";
+            this.doorTree.SelectionPerCell = true;
+            this.doorTree.Size = new System.Drawing.Size(187, 160);
+            this.doorTree.Styles.Add(this.elementStyle1);
+            this.doorTree.TabIndex = 12;
+            this.doorTree.Text = "doorTree";
+            this.doorTree.AfterCheck += new DevComponents.AdvTree.AdvTreeCellEventHandler(this.doorTree_AfterCheck);
+            // 
+            // node1
+            // 
+            this.node1.CheckBoxVisible = true;
+            this.node1.Expanded = true;
+            this.node1.Name = "node1";
+            this.node1.Text = "node1";
+            // 
+            // nodeConnector1
+            // 
+            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // elementStyle1
+            // 
+            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.elementStyle1.Name = "elementStyle1";
+            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
+            // 
             // labelX7
             // 
             this.labelX7.AutoSize = true;
@@ -733,64 +793,6 @@
             this.btnOk.TabIndex = 3;
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // tbDoorDropDown
-            // 
-            // 
-            // 
-            // 
-            this.tbDoorDropDown.BackgroundStyle.Class = "TextBoxBorder";
-            this.tbDoorDropDown.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDoorDropDown.ButtonDropDown.Visible = true;
-            this.tbDoorDropDown.DropDownControl = this.doorTree;
-            this.tbDoorDropDown.Location = new System.Drawing.Point(65, 3);
-            this.tbDoorDropDown.Name = "tbDoorDropDown";
-            this.tbDoorDropDown.Size = new System.Drawing.Size(118, 22);
-            this.tbDoorDropDown.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.tbDoorDropDown.TabIndex = 11;
-            this.tbDoorDropDown.Text = "";
-            // 
-            // doorTree
-            // 
-            this.doorTree.AccessibleRole = System.Windows.Forms.AccessibleRole.Outline;
-            this.doorTree.AllowDrop = true;
-            this.doorTree.BackColor = System.Drawing.SystemColors.Window;
-            // 
-            // 
-            // 
-            this.doorTree.BackgroundStyle.Class = "TreeBorderKey";
-            this.doorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.doorTree.CheckBoxVisible = true;
-            this.doorTree.Location = new System.Drawing.Point(65, 26);
-            this.doorTree.Name = "doorTree";
-            this.doorTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
-            this.node1});
-            this.doorTree.NodesConnector = this.nodeConnector1;
-            this.doorTree.NodeStyle = this.elementStyle1;
-            this.doorTree.PathSeparator = ";";
-            this.doorTree.SelectionPerCell = true;
-            this.doorTree.Size = new System.Drawing.Size(187, 160);
-            this.doorTree.Styles.Add(this.elementStyle1);
-            this.doorTree.TabIndex = 12;
-            this.doorTree.Text = "doorTree";
-            this.doorTree.AfterCheck += new DevComponents.AdvTree.AdvTreeCellEventHandler(this.doorTree_AfterCheck);
-            // 
-            // node1
-            // 
-            this.node1.CheckBoxVisible = true;
-            this.node1.Expanded = true;
-            this.node1.Name = "node1";
-            this.node1.Text = "node1";
-            // 
-            // nodeConnector1
-            // 
-            this.nodeConnector1.LineColor = System.Drawing.SystemColors.ControlText;
-            // 
-            // elementStyle1
-            // 
-            this.elementStyle1.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.elementStyle1.Name = "elementStyle1";
-            this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
             // FrmCtrlTaskEditor
             // 

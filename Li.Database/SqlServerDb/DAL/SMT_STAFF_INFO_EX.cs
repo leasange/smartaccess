@@ -131,8 +131,15 @@ namespace Maticsoft.DAL
             {
                 strSql.Append(" WHERE " + strWhere);
             }
-
-            strSql.AppendFormat(") TT WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+            if (endIndex<=-1)
+            {
+                strSql.Append(") TT");
+            }
+            else
+            {
+                strSql.AppendFormat(") TT WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+            }
+           
             return DbHelperSQL.Query(strSql.ToString());
         }
         public int GetRecordCountWithDept(string strWhere)

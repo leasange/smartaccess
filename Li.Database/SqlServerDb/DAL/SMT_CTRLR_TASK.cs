@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/28 23:21:57   N/A    初版
+* V0.01  2016/10/7 22:17:03   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -37,9 +37,10 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from SMT_CTRLR_TASK");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
@@ -49,15 +50,15 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.SMT_CTRLR_TASK model)
+		public decimal Add(Maticsoft.Model.SMT_CTRLR_TASK model)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_CTRLR_TASK(");
-			strSql.Append("ID,TASK_NO,TASK_NAME,VALID_STARTDATE,VALID_ENDDATE,ACTION_TIME,MON_STATE,TUE_STATE,THI_STATE,WES_STATE,FRI_STATE,SAT_STATE,SUN_STATE,DOOR_ID,CTRL_STYLE,TASK_DESC)");
+			strSql.Append("TASK_NO,TASK_NAME,VALID_STARTDATE,VALID_ENDDATE,ACTION_TIME,MON_STATE,TUE_STATE,THI_STATE,WES_STATE,FRI_STATE,SAT_STATE,SUN_STATE,DOOR_ID,CTRL_STYLE,TASK_DESC)");
 			strSql.Append(" values (");
-			strSql.Append("@ID,@TASK_NO,@TASK_NAME,@VALID_STARTDATE,@VALID_ENDDATE,@ACTION_TIME,@MON_STATE,@TUE_STATE,@THI_STATE,@WES_STATE,@FRI_STATE,@SAT_STATE,@SUN_STATE,@DOOR_ID,@CTRL_STYLE,@TASK_DESC)");
+			strSql.Append("@TASK_NO,@TASK_NAME,@VALID_STARTDATE,@VALID_ENDDATE,@ACTION_TIME,@MON_STATE,@TUE_STATE,@THI_STATE,@WES_STATE,@FRI_STATE,@SAT_STATE,@SUN_STATE,@DOOR_ID,@CTRL_STYLE,@TASK_DESC)");
+			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9),
 					new SqlParameter("@TASK_NO", SqlDbType.VarChar,20),
 					new SqlParameter("@TASK_NAME", SqlDbType.NVarChar,200),
 					new SqlParameter("@VALID_STARTDATE", SqlDbType.Date,3),
@@ -73,31 +74,30 @@ namespace Maticsoft.DAL
 					new SqlParameter("@DOOR_ID", SqlDbType.VarChar,5000),
 					new SqlParameter("@CTRL_STYLE", SqlDbType.TinyInt,1),
 					new SqlParameter("@TASK_DESC", SqlDbType.NVarChar,200)};
-			parameters[0].Value = model.ID;
-			parameters[1].Value = model.TASK_NO;
-			parameters[2].Value = model.TASK_NAME;
-			parameters[3].Value = model.VALID_STARTDATE;
-			parameters[4].Value = model.VALID_ENDDATE;
-			parameters[5].Value = model.ACTION_TIME;
-			parameters[6].Value = model.MON_STATE;
-			parameters[7].Value = model.TUE_STATE;
-			parameters[8].Value = model.THI_STATE;
-			parameters[9].Value = model.WES_STATE;
-			parameters[10].Value = model.FRI_STATE;
-			parameters[11].Value = model.SAT_STATE;
-			parameters[12].Value = model.SUN_STATE;
-			parameters[13].Value = model.DOOR_ID;
-			parameters[14].Value = model.CTRL_STYLE;
-			parameters[15].Value = model.TASK_DESC;
+			parameters[0].Value = model.TASK_NO;
+			parameters[1].Value = model.TASK_NAME;
+			parameters[2].Value = model.VALID_STARTDATE;
+			parameters[3].Value = model.VALID_ENDDATE;
+			parameters[4].Value = model.ACTION_TIME;
+			parameters[5].Value = model.MON_STATE;
+			parameters[6].Value = model.TUE_STATE;
+			parameters[7].Value = model.THI_STATE;
+			parameters[8].Value = model.WES_STATE;
+			parameters[9].Value = model.FRI_STATE;
+			parameters[10].Value = model.SAT_STATE;
+			parameters[11].Value = model.SUN_STATE;
+			parameters[12].Value = model.DOOR_ID;
+			parameters[13].Value = model.CTRL_STYLE;
+			parameters[14].Value = model.TASK_DESC;
 
-			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-			if (rows > 0)
+			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
+			if (obj == null)
 			{
-				return true;
+				return 0;
 			}
 			else
 			{
-				return false;
+				return Convert.ToDecimal(obj);
 			}
 		}
 		/// <summary>
@@ -122,7 +122,7 @@ namespace Maticsoft.DAL
 			strSql.Append("DOOR_ID=@DOOR_ID,");
 			strSql.Append("CTRL_STYLE=@CTRL_STYLE,");
 			strSql.Append("TASK_DESC=@TASK_DESC");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@TASK_NO", SqlDbType.VarChar,20),
 					new SqlParameter("@TASK_NAME", SqlDbType.NVarChar,200),
@@ -176,9 +176,10 @@ namespace Maticsoft.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from SMT_CTRLR_TASK ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
@@ -219,9 +220,10 @@ namespace Maticsoft.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 ID,TASK_NO,TASK_NAME,VALID_STARTDATE,VALID_ENDDATE,ACTION_TIME,MON_STATE,TUE_STATE,THI_STATE,WES_STATE,FRI_STATE,SAT_STATE,SUN_STATE,DOOR_ID,CTRL_STYLE,TASK_DESC from SMT_CTRLR_TASK ");
-			strSql.Append(" where ID=@ID ");
+			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@ID", SqlDbType.Decimal)
+			};
 			parameters[0].Value = ID;
 
 			Maticsoft.Model.SMT_CTRLR_TASK model=new Maticsoft.Model.SMT_CTRLR_TASK();
@@ -267,7 +269,7 @@ namespace Maticsoft.DAL
 				}
 				if(row["ACTION_TIME"]!=null && row["ACTION_TIME"].ToString()!="")
 				{
-                    model.ACTION_TIME = TimeSpan.Parse(row["ACTION_TIME"].ToString());
+					model.ACTION_TIME=TimeSpan.Parse(row["ACTION_TIME"].ToString());
 				}
 				if(row["MON_STATE"]!=null && row["MON_STATE"].ToString()!="")
 				{

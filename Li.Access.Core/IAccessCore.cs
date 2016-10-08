@@ -152,9 +152,24 @@ namespace Li.Access.Core
         /// <param name="controller">控制器</param>
         /// <returns>成功与否</returns>
         bool ClearTimeScales(Controller controller);
+        /// <summary>
+        /// 清除定时任务
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <returns>成功与否</returns>
+        bool ClearTimeTask(Controller controller);
+        /// <summary>
+        /// 添加定时任务
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="task">任务</param>
+        /// <returns>成功与否</returns>
+        bool AddTimeTask(Controller controller, TimeTask task);
 
     }
-
+    /// <summary>
+    /// 时间段参数
+    /// </summary>
     public class TimeScaleNum
     {
         public int Num;//时段号
@@ -163,6 +178,20 @@ namespace Li.Access.Core
         public DateTime endDate;//结束日期
         public bool[] weekDaysEnable = new bool[7];
         public List<TimeScale> timeScales = new List<TimeScale>();
+    }
+    /// <summary>
+    /// 定时任务参数
+    /// </summary>
+    public class TimeTask
+    {
+        public string no;//任务编号
+        public DateTime startDate;//开始时间
+        public DateTime endDate;//结束时间
+        public bool[] weekDaysEnable = new bool[7];//星期激活
+        public TimeSpan actionTime;//触发时间
+        public List<byte> doorIndexs = new List<byte>();//适用门号
+        public byte ctrlStyle;//控制方式
+        public byte cardCount=2;//选填，只有在控制方式为8时设置, 此门多卡要求的卡数量
     }
     public struct TimeScale
     {
