@@ -281,6 +281,7 @@
             // linkModifyUserPwd
             // 
             this.linkModifyUserPwd.BackColor = System.Drawing.Color.Transparent;
+            this.linkModifyUserPwd.Enabled = false;
             this.linkModifyUserPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkModifyUserPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkModifyUserPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -299,6 +300,7 @@
             // linkUserUse
             // 
             this.linkUserUse.BackColor = System.Drawing.Color.Transparent;
+            this.linkUserUse.Enabled = false;
             this.linkUserUse.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkUserUse.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkUserUse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -335,6 +337,7 @@
             // linkDbBak
             // 
             this.linkDbBak.BackColor = System.Drawing.Color.Transparent;
+            this.linkDbBak.Enabled = false;
             this.linkDbBak.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkDbBak.Image = global::SmartAccess.Properties.Resources.数据库配置;
             this.linkDbBak.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -371,6 +374,7 @@
             // linkAccessPwd
             // 
             this.linkAccessPwd.BackColor = System.Drawing.Color.Transparent;
+            this.linkAccessPwd.Enabled = false;
             this.linkAccessPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkAccessPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkAccessPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -395,7 +399,7 @@
             this.expandablePanel8.Controls.Add(this.panel9);
             this.expandablePanel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel8.Expanded = false;
-            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 307, 246, 135);
+            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 238, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
             this.expandablePanel8.Location = new System.Drawing.Point(0, 238);
             this.expandablePanel8.Name = "expandablePanel8";
@@ -469,6 +473,7 @@
             this.linkRuleSet.Text = "      一般规则设定";
             this.linkRuleSet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkRuleSet.UseCompatibleTextRendering = true;
+            this.linkRuleSet.Visible = false;
             this.linkRuleSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRuleSet_LinkClicked);
             // 
             // expandablePanel7
