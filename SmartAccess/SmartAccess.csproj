@@ -140,11 +140,29 @@
     <Compile Include="ConfigMgr\FrmEditMap.Designer.cs">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmEditorUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmEditorUser.Designer.cs">
+      <DependentUpon>FrmEditorUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmInOutTimeEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConfigMgr\FrmInOutTimeEditor.Designer.cs">
       <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmRoleFunSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmRoleFunSelector.Designer.cs">
+      <DependentUpon>FrmRoleFunSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmRoleMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmRoleMgr.Designer.cs">
+      <DependentUpon>FrmRoleMgr.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigMgr\InOutTimeCfg.cs">
       <SubType>UserControl</SubType>
@@ -163,6 +181,12 @@
     </Compile>
     <Compile Include="ConfigMgr\MapsMgr.Designer.cs">
       <DependentUpon>MapsMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigMgr\UserManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\UserManager.Designer.cs">
+      <DependentUpon>UserManager.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
       <SubType>UserControl</SubType>
@@ -428,8 +452,17 @@
     <EmbeddedResource Include="ConfigMgr\FrmEditMap.resx">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmEditorUser.resx">
+      <DependentUpon>FrmEditorUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmInOutTimeEditor.resx">
       <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmRoleFunSelector.resx">
+      <DependentUpon>FrmRoleFunSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmRoleMgr.resx">
+      <DependentUpon>FrmRoleMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\InOutTimeCfg.resx">
       <DependentUpon>InOutTimeCfg.cs</DependentUpon>
@@ -439,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\MapsMgr.resx">
       <DependentUpon>MapsMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\UserManager.resx">
+      <DependentUpon>UserManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
       <DependentUpon>ControlAreaMgr.cs</DependentUpon>

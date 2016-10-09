@@ -62,7 +62,7 @@ namespace SmartAccess
                         }
                         else
                         {
-                            MessageBox.Show("不存在此用户！");
+                            MessageBox.Show("输入用户信息错误！");
                         }
                     }));
                 }

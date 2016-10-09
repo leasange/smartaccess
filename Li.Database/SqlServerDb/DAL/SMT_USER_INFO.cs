@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:30   N/A    初版
+* V0.01  2016/10/9 20:03:26   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -57,9 +57,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_USER_INFO(");
-			strSql.Append("USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ)");
+			strSql.Append("USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ,ROLE_ID,KEY_VAL)");
 			strSql.Append(" values (");
-			strSql.Append("@USER_NAME,@PASS_WORD,@IS_ENABLE,@IS_DELETE,@ORDER_VALUE,@REAL_NAME,@ORG_ID,@TELEPHONE,@ADDRESS,@EMAIL,@QQ)");
+			strSql.Append("@USER_NAME,@PASS_WORD,@IS_ENABLE,@IS_DELETE,@ORDER_VALUE,@REAL_NAME,@ORG_ID,@TELEPHONE,@ADDRESS,@EMAIL,@QQ,@ROLE_ID,@KEY_VAL)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@USER_NAME", SqlDbType.NVarChar,50),
@@ -72,7 +72,9 @@ namespace Maticsoft.DAL
 					new SqlParameter("@TELEPHONE", SqlDbType.NVarChar,50),
 					new SqlParameter("@ADDRESS", SqlDbType.NVarChar,100),
 					new SqlParameter("@EMAIL", SqlDbType.NVarChar,100),
-					new SqlParameter("@QQ", SqlDbType.NVarChar,50)};
+					new SqlParameter("@QQ", SqlDbType.NVarChar,50),
+					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@KEY_VAL", SqlDbType.VarChar,200)};
 			parameters[0].Value = model.USER_NAME;
 			parameters[1].Value = model.PASS_WORD;
 			parameters[2].Value = model.IS_ENABLE;
@@ -84,6 +86,8 @@ namespace Maticsoft.DAL
 			parameters[8].Value = model.ADDRESS;
 			parameters[9].Value = model.EMAIL;
 			parameters[10].Value = model.QQ;
+			parameters[11].Value = model.ROLE_ID;
+			parameters[12].Value = model.KEY_VAL;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -110,7 +114,9 @@ namespace Maticsoft.DAL
 			strSql.Append("TELEPHONE=@TELEPHONE,");
 			strSql.Append("ADDRESS=@ADDRESS,");
 			strSql.Append("EMAIL=@EMAIL,");
-			strSql.Append("QQ=@QQ");
+			strSql.Append("QQ=@QQ,");
+			strSql.Append("ROLE_ID=@ROLE_ID,");
+			strSql.Append("KEY_VAL=@KEY_VAL");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@PASS_WORD", SqlDbType.NVarChar,100),
@@ -122,6 +128,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ADDRESS", SqlDbType.NVarChar,100),
 					new SqlParameter("@EMAIL", SqlDbType.NVarChar,100),
 					new SqlParameter("@QQ", SqlDbType.NVarChar,50),
+					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@KEY_VAL", SqlDbType.VarChar,200),
 					new SqlParameter("@ID", SqlDbType.Decimal,9),
 					new SqlParameter("@USER_NAME", SqlDbType.NVarChar,50),
 					new SqlParameter("@IS_DELETE", SqlDbType.Bit,1)};
@@ -134,9 +142,11 @@ namespace Maticsoft.DAL
 			parameters[6].Value = model.ADDRESS;
 			parameters[7].Value = model.EMAIL;
 			parameters[8].Value = model.QQ;
-			parameters[9].Value = model.ID;
-			parameters[10].Value = model.USER_NAME;
-			parameters[11].Value = model.IS_DELETE;
+			parameters[9].Value = model.ROLE_ID;
+			parameters[10].Value = model.KEY_VAL;
+			parameters[11].Value = model.ID;
+			parameters[12].Value = model.USER_NAME;
+			parameters[13].Value = model.IS_DELETE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -227,7 +237,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ from SMT_USER_INFO ");
+			strSql.Append("select  top 1 ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ,ROLE_ID,KEY_VAL from SMT_USER_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -317,6 +327,14 @@ namespace Maticsoft.DAL
 				{
 					model.QQ=row["QQ"].ToString();
 				}
+				if(row["ROLE_ID"]!=null && row["ROLE_ID"].ToString()!="")
+				{
+					model.ROLE_ID=decimal.Parse(row["ROLE_ID"].ToString());
+				}
+				if(row["KEY_VAL"]!=null)
+				{
+					model.KEY_VAL=row["KEY_VAL"].ToString();
+				}
 			}
 			return model;
 		}
@@ -327,7 +345,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ ");
+			strSql.Append("select ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ,ROLE_ID,KEY_VAL ");
 			strSql.Append(" FROM SMT_USER_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -347,7 +365,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ ");
+			strSql.Append(" ID,USER_NAME,PASS_WORD,IS_ENABLE,IS_DELETE,ORDER_VALUE,REAL_NAME,ORG_ID,TELEPHONE,ADDRESS,EMAIL,QQ,ROLE_ID,KEY_VAL ");
 			strSql.Append(" FROM SMT_USER_INFO ");
 			if(strWhere.Trim()!="")
 			{

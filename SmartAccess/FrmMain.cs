@@ -321,7 +321,10 @@ namespace SmartAccess
 
         private void linkProPrivi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            if (!CheckControl(typeof(UserManager)))
+            {
+                AddControl(new UserManager(), "用户权限管理");
+            }
         }
 
         private void linkChangeCard_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -1,8 +1,8 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_FUN_MENUPOINT.cs
+* SMT_ROLE_FUN.cs
 *
 * 功 能： N/A
-* 类 名： SMT_FUN_MENUPOINT
+* 类 名： SMT_ROLE_FUN
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
@@ -18,58 +18,31 @@ using System;
 namespace Maticsoft.Model
 {
 	/// <summary>
-	/// 功能菜单/功能点表[SMT_FUN_MENUPOINT]
+	/// 角色权限表
 	/// </summary>
 	[Serializable]
-	public partial class SMT_FUN_MENUPOINT
+	public partial class SMT_ROLE_FUN
 	{
-		public SMT_FUN_MENUPOINT()
+		public SMT_ROLE_FUN()
 		{}
 		#region Model
-		private decimal _id;
-		private decimal _par_id;
-		private string _fun_code;
-		private string _fun_name;
-		private bool _is_menu;
+		private decimal _role_id;
+		private decimal _fun_id;
+		/// <summary>
+		/// 用户ID
+		/// </summary>
+		public decimal ROLE_ID
+		{
+			set{ _role_id=value;}
+			get{return _role_id;}
+		}
 		/// <summary>
 		/// 功能ID
 		/// </summary>
-		public decimal ID
+		public decimal FUN_ID
 		{
-			set{ _id=value;}
-			get{return _id;}
-		}
-		/// <summary>
-		/// 上一级功能ID
-		/// </summary>
-		public decimal PAR_ID
-		{
-			set{ _par_id=value;}
-			get{return _par_id;}
-		}
-		/// <summary>
-		/// 功能代码
-		/// </summary>
-		public string FUN_CODE
-		{
-			set{ _fun_code=value;}
-			get{return _fun_code;}
-		}
-		/// <summary>
-		/// 功能名称
-		/// </summary>
-		public string FUN_NAME
-		{
-			set{ _fun_name=value;}
-			get{return _fun_name;}
-		}
-		/// <summary>
-		/// 是否是菜单
-		/// </summary>
-		public bool IS_MENU
-		{
-			set{ _is_menu=value;}
-			get{return _is_menu;}
+			set{ _fun_id=value;}
+			get{return _fun_id;}
 		}
 		#endregion Model
 

@@ -1,8 +1,8 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_FUN_MENUPOINT.cs
+* SMT_ROLE_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_FUN_MENUPOINT
+* 类 名： SMT_ROLE_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
@@ -22,11 +22,11 @@ using Maticsoft.DBUtility;//Please add references
 namespace Maticsoft.DAL
 {
 	/// <summary>
-	/// 数据访问类:SMT_FUN_MENUPOINT
+	/// 数据访问类:SMT_ROLE_INFO
 	/// </summary>
-	public partial class SMT_FUN_MENUPOINT
+	public partial class SMT_ROLE_INFO
 	{
-		public SMT_FUN_MENUPOINT()
+		public SMT_ROLE_INFO()
 		{}
 		#region  BasicMethod
 
@@ -36,7 +36,7 @@ namespace Maticsoft.DAL
 		public bool Exists(decimal ID)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) from SMT_FUN_MENUPOINT");
+			strSql.Append("select count(1) from SMT_ROLE_INFO");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -50,23 +50,19 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public decimal Add(Maticsoft.Model.SMT_FUN_MENUPOINT model)
+		public decimal Add(Maticsoft.Model.SMT_ROLE_INFO model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("insert into SMT_FUN_MENUPOINT(");
-			strSql.Append("PAR_ID,FUN_CODE,FUN_NAME,IS_MENU)");
+			strSql.Append("insert into SMT_ROLE_INFO(");
+			strSql.Append("ROLE_NAME,ROLE_DESC)");
 			strSql.Append(" values (");
-			strSql.Append("@PAR_ID,@FUN_CODE,@FUN_NAME,@IS_MENU)");
+			strSql.Append("@ROLE_NAME,@ROLE_DESC)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("@PAR_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_CODE", SqlDbType.VarChar,100),
-					new SqlParameter("@FUN_NAME", SqlDbType.NVarChar,200),
-					new SqlParameter("@IS_MENU", SqlDbType.Bit,1)};
-			parameters[0].Value = model.PAR_ID;
-			parameters[1].Value = model.FUN_CODE;
-			parameters[2].Value = model.FUN_NAME;
-			parameters[3].Value = model.IS_MENU;
+					new SqlParameter("@ROLE_NAME", SqlDbType.NVarChar,50),
+					new SqlParameter("@ROLE_DESC", SqlDbType.NVarChar,200)};
+			parameters[0].Value = model.ROLE_NAME;
+			parameters[1].Value = model.ROLE_DESC;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -81,26 +77,20 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(Maticsoft.Model.SMT_FUN_MENUPOINT model)
+		public bool Update(Maticsoft.Model.SMT_ROLE_INFO model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("update SMT_FUN_MENUPOINT set ");
-			strSql.Append("PAR_ID=@PAR_ID,");
-			strSql.Append("FUN_CODE=@FUN_CODE,");
-			strSql.Append("FUN_NAME=@FUN_NAME,");
-			strSql.Append("IS_MENU=@IS_MENU");
+			strSql.Append("update SMT_ROLE_INFO set ");
+			strSql.Append("ROLE_NAME=@ROLE_NAME,");
+			strSql.Append("ROLE_DESC=@ROLE_DESC");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("@PAR_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_CODE", SqlDbType.VarChar,100),
-					new SqlParameter("@FUN_NAME", SqlDbType.NVarChar,200),
-					new SqlParameter("@IS_MENU", SqlDbType.Bit,1),
+					new SqlParameter("@ROLE_NAME", SqlDbType.NVarChar,50),
+					new SqlParameter("@ROLE_DESC", SqlDbType.NVarChar,200),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
-			parameters[0].Value = model.PAR_ID;
-			parameters[1].Value = model.FUN_CODE;
-			parameters[2].Value = model.FUN_NAME;
-			parameters[3].Value = model.IS_MENU;
-			parameters[4].Value = model.ID;
+			parameters[0].Value = model.ROLE_NAME;
+			parameters[1].Value = model.ROLE_DESC;
+			parameters[2].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -120,7 +110,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from SMT_FUN_MENUPOINT ");
+			strSql.Append("delete from SMT_ROLE_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -143,7 +133,7 @@ namespace Maticsoft.DAL
 		public bool DeleteList(string IDlist )
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from SMT_FUN_MENUPOINT ");
+			strSql.Append("delete from SMT_ROLE_INFO ");
 			strSql.Append(" where ID in ("+IDlist + ")  ");
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString());
 			if (rows > 0)
@@ -160,18 +150,18 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_FUN_MENUPOINT GetModel(decimal ID)
+		public Maticsoft.Model.SMT_ROLE_INFO GetModel(decimal ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,PAR_ID,FUN_CODE,FUN_NAME,IS_MENU from SMT_FUN_MENUPOINT ");
+			strSql.Append("select  top 1 ID,ROLE_NAME,ROLE_DESC from SMT_ROLE_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
 			};
 			parameters[0].Value = ID;
 
-			Maticsoft.Model.SMT_FUN_MENUPOINT model=new Maticsoft.Model.SMT_FUN_MENUPOINT();
+			Maticsoft.Model.SMT_ROLE_INFO model=new Maticsoft.Model.SMT_ROLE_INFO();
 			DataSet ds=DbHelperSQL.Query(strSql.ToString(),parameters);
 			if(ds.Tables[0].Rows.Count>0)
 			{
@@ -187,37 +177,22 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_FUN_MENUPOINT DataRowToModel(DataRow row)
+		public Maticsoft.Model.SMT_ROLE_INFO DataRowToModel(DataRow row)
 		{
-			Maticsoft.Model.SMT_FUN_MENUPOINT model=new Maticsoft.Model.SMT_FUN_MENUPOINT();
+			Maticsoft.Model.SMT_ROLE_INFO model=new Maticsoft.Model.SMT_ROLE_INFO();
 			if (row != null)
 			{
 				if(row["ID"]!=null && row["ID"].ToString()!="")
 				{
 					model.ID=decimal.Parse(row["ID"].ToString());
 				}
-				if(row["PAR_ID"]!=null && row["PAR_ID"].ToString()!="")
+				if(row["ROLE_NAME"]!=null)
 				{
-					model.PAR_ID=decimal.Parse(row["PAR_ID"].ToString());
+					model.ROLE_NAME=row["ROLE_NAME"].ToString();
 				}
-				if(row["FUN_CODE"]!=null)
+				if(row["ROLE_DESC"]!=null)
 				{
-					model.FUN_CODE=row["FUN_CODE"].ToString();
-				}
-				if(row["FUN_NAME"]!=null)
-				{
-					model.FUN_NAME=row["FUN_NAME"].ToString();
-				}
-				if(row["IS_MENU"]!=null && row["IS_MENU"].ToString()!="")
-				{
-					if((row["IS_MENU"].ToString()=="1")||(row["IS_MENU"].ToString().ToLower()=="true"))
-					{
-						model.IS_MENU=true;
-					}
-					else
-					{
-						model.IS_MENU=false;
-					}
+					model.ROLE_DESC=row["ROLE_DESC"].ToString();
 				}
 			}
 			return model;
@@ -229,8 +204,8 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,PAR_ID,FUN_CODE,FUN_NAME,IS_MENU ");
-			strSql.Append(" FROM SMT_FUN_MENUPOINT ");
+			strSql.Append("select ID,ROLE_NAME,ROLE_DESC ");
+			strSql.Append(" FROM SMT_ROLE_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -249,8 +224,8 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,PAR_ID,FUN_CODE,FUN_NAME,IS_MENU ");
-			strSql.Append(" FROM SMT_FUN_MENUPOINT ");
+			strSql.Append(" ID,ROLE_NAME,ROLE_DESC ");
+			strSql.Append(" FROM SMT_ROLE_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -265,7 +240,7 @@ namespace Maticsoft.DAL
 		public int GetRecordCount(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) FROM SMT_FUN_MENUPOINT ");
+			strSql.Append("select count(1) FROM SMT_ROLE_INFO ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -296,7 +271,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append("order by T.ID desc");
 			}
-			strSql.Append(")AS Row, T.*  from SMT_FUN_MENUPOINT T ");
+			strSql.Append(")AS Row, T.*  from SMT_ROLE_INFO T ");
 			if (!string.IsNullOrEmpty(strWhere.Trim()))
 			{
 				strSql.Append(" WHERE " + strWhere);
@@ -321,7 +296,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "SMT_FUN_MENUPOINT";
+			parameters[0].Value = "SMT_ROLE_INFO";
 			parameters[1].Value = "ID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

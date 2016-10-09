@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:29   N/A    初版
+* V0.01  2016/10/9 19:59:50   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -67,7 +67,7 @@ namespace Maticsoft.BLL
 		/// </summary>
 		public bool DeleteList(string IDlist )
 		{
-			return dal.DeleteList(IDlist );
+            return dal.DeleteList(IDlist);
 		}
 
 		/// <summary>

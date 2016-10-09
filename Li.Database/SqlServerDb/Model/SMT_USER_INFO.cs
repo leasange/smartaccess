@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:30   N/A    初版
+* V0.01  2016/10/9 20:03:26   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -38,6 +38,8 @@ namespace Maticsoft.Model
 		private string _address;
 		private string _email;
 		private string _qq;
+		private decimal? _role_id;
+		private string _key_val;
 		/// <summary>
 		/// 用户ID
 		/// </summary>
@@ -133,6 +135,22 @@ namespace Maticsoft.Model
 		{
 			set{ _qq=value;}
 			get{return _qq;}
+		}
+		/// <summary>
+		/// 角色ID
+		/// </summary>
+		public decimal? ROLE_ID
+		{
+			set{ _role_id=value;}
+			get{return _role_id;}
+		}
+		/// <summary>
+		/// key值
+		/// </summary>
+		public string KEY_VAL
+		{
+			set{ _key_val=value;}
+			get{return _key_val;}
 		}
 		#endregion Model
 
