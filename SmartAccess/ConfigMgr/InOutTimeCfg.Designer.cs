@@ -36,6 +36,7 @@
             this.biDelete = new DevComponents.DotNetBar.ButtonItem();
             this.biView = new DevComponents.DotNetBar.ButtonItem();
             this.biWeekEX = new DevComponents.DotNetBar.ButtonItem();
+            this.biUploadTimeNo = new DevComponents.DotNetBar.ButtonItem();
             this.dgvData = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +56,7 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.biUploadTimeNo = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +73,8 @@
             this.biDelete,
             this.biView,
             this.biWeekEX,
-            this.biUploadTimeNo});
+            this.biUploadTimeNo,
+            this.labelItem1});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.Size = new System.Drawing.Size(800, 29);
@@ -124,6 +126,12 @@
             this.biWeekEX.Name = "biWeekEX";
             this.biWeekEX.Text = "假期约束";
             this.biWeekEX.Click += new System.EventHandler(this.biWeekEX_Click);
+            // 
+            // biUploadTimeNo
+            // 
+            this.biUploadTimeNo.Name = "biUploadTimeNo";
+            this.biUploadTimeNo.Text = "上传所有时间段";
+            this.biUploadTimeNo.Click += new System.EventHandler(this.biUploadTimeNo_Click);
             // 
             // dgvData
             // 
@@ -330,11 +338,11 @@
             this.Column17.ReadOnly = true;
             this.Column17.Width = 78;
             // 
-            // biUploadTimeNo
+            // labelItem1
             // 
-            this.biUploadTimeNo.Name = "biUploadTimeNo";
-            this.biUploadTimeNo.Text = "上传所有时间段";
-            this.biUploadTimeNo.Click += new System.EventHandler(this.biUploadTimeNo_Click);
+            this.labelItem1.ForeColor = System.Drawing.Color.Red;
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "时段1为每天任意时间有效，时段0为完全禁止";
             // 
             // InOutTimeCfg
             // 
@@ -380,5 +388,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private DevComponents.DotNetBar.ButtonItem biView;
         private DevComponents.DotNetBar.ButtonItem biUploadTimeNo;
+        private DevComponents.DotNetBar.LabelItem labelItem1;
     }
 }

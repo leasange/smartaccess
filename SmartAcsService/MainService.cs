@@ -50,7 +50,14 @@ namespace SmartAcsService
         {
             try
             {
-                host.Close();
+                try
+                {
+                    host.Close();
+                }
+                catch (Exception)
+                { 
+                }
+                
                 AcsService.StopAllServices();
             }
             catch (Exception ex)

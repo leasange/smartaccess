@@ -1,5 +1,6 @@
 ﻿using SmartAccess.Common.Config;
 using SmartAccess.Common.Database;
+using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,19 +94,32 @@ namespace SmartAccess
 
         private void btnTestDataBase_Click(object sender, EventArgs e)
         {
-            try
+
+            if (CheckInput())
             {
-                if (CheckInput())
-                {
-                    using (SqlConnection conn = DatabaseHelper.ConnectDatabase(GetInputConfig().ToString()))
-                    {
-                        lbMsg.Text = "测试连接成功！";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                lbMsg.Text = "测试连接异常，" + ex.Message + "！";
+                string connStr = GetInputConfig().ToString();
+                CtrlWaiting waiting = new CtrlWaiting("连接中...",() =>
+                 {
+                     try
+                     {
+                         using (SqlConnection conn = DatabaseHelper.ConnectDatabase(connStr))
+                         {
+                             conn.Close();
+                             this.Invoke(new Action(() =>
+                             {
+                                 lbMsg.Text = "测试连接成功！";
+                             }));
+                         }
+                     }
+                     catch (Exception ex)
+                     {
+                         this.Invoke(new Action(() =>
+                         {
+                             lbMsg.Text = "测试连接异常，" + ex.Message + "！";
+                         }));
+                     }
+                 });
+                waiting.ShowDialog(this);
             }
         }
 
@@ -127,74 +141,132 @@ namespace SmartAccess
         {
             this.Close();
         }
-
+        
         private void btnCreateDatabase_Click(object sender, EventArgs e)
         {
-            try
+            DatabaseConfigClass config = GetInputConfig();
+            if (CheckInput())
             {
-                if (CheckInput())
+                bool exsit = false;
+                config.database = "master";
+                string connStr = GetInputConfig().ToString();
+                CtrlWaiting waiting = new CtrlWaiting("创建中...",() =>
                 {
-                    using (SqlConnection conn = DatabaseHelper.ConnectDatabase(GetInputConfig().ToString()))
+                    try
                     {
-                        MessageBox.Show("数据库已经存在！");
+                        using (SqlConnection conn = DatabaseHelper.ConnectDatabase(connStr))
+                        {
+                            using (SqlCommand command = conn.CreateCommand())
+                            {
+                                command.CommandType = System.Data.CommandType.Text;
+                                command.CommandText = "select count(*) From master.dbo.sysdatabases where name='SmartAccess'";//查询数据库路径
+                                var single = command.ExecuteScalar();
+                                int num = 0;
+                                if (object.Equals(single, null) || object.Equals(single, DBNull.Value))
+                                {
+                                    num = 0;
+                                }
+                                else
+                                {
+                                    num = int.Parse(single.ToString());
+                                }
+                                if (num == 0)
+                                {
+                                    exsit = false;
+                                }
+                                exsit = true;
+                            }
+                        }
+                        exsit = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        exsit = false;
+                    }
+                });
+                waiting.ShowDialog(this);
+                if (exsit)
+                {
+                    if (MessageBox.Show("数据库已存在，是否重新创建？\r\n原始数据库会备份至服务器目录：C:\\SmartAccessBak 下。", "确定", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                    {
                         return;
                     }
                 }
             }
-            catch (Exception ex)
+            else
+            {
+                return;
+            }
+            //创建和备份数据库
+           
+            CtrlWaiting waiting1 = new CtrlWaiting("创建中...", () =>
             {
                 try
                 {
-                    DoCreateDataBase();
-                    MessageBox.Show("创建数据库成功！");
+                    DoCreateDataBase(config);
+                    this.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("创建数据库成功！");
+                    }));
                 }
-                catch (Exception exx)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("创建数据库异常：" + exx.Message);
-                    return;
+                    this.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("创建数据库异常：" + ex.Message);
+                    }));
                 }
-            }
+
+            });
+            waiting1.Show(this);
         }
-        private void DoCreateDataBase()
+        private void DoCreateDataBase(DatabaseConfigClass config = null)
         {
-            DatabaseConfigClass config = GetInputConfig();
             config.database = "master";
             string sqlstring = config.ToString();
-             Stream s= this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database.smartaccess.sql");
-             StreamReader sr=new StreamReader(s,Encoding.UTF8);
-             string createDBSql = sr.ReadToEnd();
-             s.Dispose();
-             using (SqlConnection conn = DatabaseHelper.ConnectDatabase(sqlstring))
-             {
-                 string[] sqlList = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
-                 using (SqlCommand command = conn.CreateCommand())
-                 {
-                     command.CommandType = System.Data.CommandType.Text;
-                     command.CommandText = "select filename from sysdatabases where name='master'";//查询数据库路径
-                     SqlDataReader reader = command.ExecuteReader();
-                     if (!reader.Read())
-                     {
-                         throw  new Exception("数据库创建失败，为获取数据库到路径");
-                     }
-                     string dbpath = reader["filename"].ToString();
-                     dbpath = Path.GetDirectoryName(dbpath);
-                     reader.Dispose();
-                     int result;
-                     foreach (string sqlItem in sqlList)
-                     {
-                         string sql = sqlItem.Trim('\r', '\n', ' ');
-                         if (sql.Length > 2)
-                         {
-                             if (sql.Contains("CREATE DATABASE"))
-                             {
-                                 sql = sql.Replace("${DBPATH}", dbpath);
-                             }
-                             command.CommandText = sql;
-                             result = command.ExecuteNonQuery();
-                         }
-                     }
-                 }
-             }
+            Stream s = this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database.smartaccess.sql");
+            StreamReader sr = new StreamReader(s, Encoding.UTF8);
+            string createDBSql = sr.ReadToEnd();
+            s.Dispose();
+            using (SqlConnection conn = DatabaseHelper.ConnectDatabase(sqlstring))
+            {
+                string[] sqlList = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                using (SqlCommand command = conn.CreateCommand())
+                {
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "select filename from sysdatabases where name='master'";//查询数据库路径
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (!reader.Read())
+                    {
+                        throw new Exception("数据库创建失败，为获取数据库到路径");
+                    }
+                    string dbpath = reader["filename"].ToString();
+                    dbpath = Path.GetDirectoryName(dbpath);
+                    reader.Dispose();
+                    int result;
+                    foreach (string sqlItem in sqlList)
+                    {
+                        string sql = sqlItem.Trim('\r', '\n', ' ');
+                        if (sql.Length > 2)
+                        {
+                            if (sql.Contains("CREATE DATABASE"))
+                            {
+                                sql = sql.Replace("${DBPATH}", dbpath);
+                            }
+                            else if (sql.Contains("BACKUP DATABASE"))
+                            {
+                                if (!Directory.Exists("C:\\SmartAccessBak"))
+                                {
+                                    Directory.CreateDirectory("C:\\SmartAccessBak");
+                                }
+                                sql = sql.Replace("${DATE}", DateTime.Now.ToString("_yyyyMMdd_HHmmss"));
+                            }
+                            command.CommandText = sql;
+                            result = command.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
         }
     }
 }

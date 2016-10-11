@@ -53,6 +53,7 @@ namespace Li.SmartAcsServer.RecordsService
             {
                 Thread t = new Thread(ThreadDoTask);
                 _taskThreads.Add(t);
+                t.IsBackground = true;
                 t.Start();
             }
             if (interval<1||interval>60)
@@ -63,6 +64,7 @@ namespace Li.SmartAcsServer.RecordsService
             _timerLoadCtrlr.Elapsed += _timerLoadCtrlr_Elapsed;
             _timerLoadCtrlr.Start();
             _createTask = new Thread(ThreadCreateTask);
+            _createTask.IsBackground = true;
             _createTask.Start();
         }
         private void TestDb()
@@ -81,6 +83,30 @@ namespace Li.SmartAcsServer.RecordsService
         {
             log.Info("停止记录读取服务...");
             _start = false;
+            try
+            {
+                _createTask.Abort();
+
+            }
+            catch (Exception)
+            {
+                 
+            }
+            try
+            {
+                foreach (var item in _taskThreads)
+                {
+                    if (item.IsAlive)
+                    {
+                        item.Abort();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                 
+            }
+
         }
 
         private void DoLoadCtrlr()

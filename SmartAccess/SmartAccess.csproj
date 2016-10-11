@@ -126,6 +126,12 @@
     <Compile Include="Common\WinInfo\FrmInfo.Designer.cs">
       <DependentUpon>FrmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\WinInfo\FrmWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\WinInfo\FrmWaiting.Designer.cs">
+      <DependentUpon>FrmWaiting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\WinInfo\WinInfoHelper.cs" />
     <Compile Include="ConfigMgr\DoorRectangle.cs" />
     <Compile Include="ConfigMgr\FrmCardIssueSetting.cs">
@@ -445,6 +451,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\WinInfo\FrmInfo.resx">
       <DependentUpon>FrmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\WinInfo\FrmWaiting.resx">
+      <DependentUpon>FrmWaiting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmCardIssueSetting.resx">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>

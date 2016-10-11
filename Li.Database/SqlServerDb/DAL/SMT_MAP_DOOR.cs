@@ -43,7 +43,6 @@ namespace Maticsoft.DAL
 					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)			};
 			parameters[0].Value = MAP_ID;
 			parameters[1].Value = DOOR_ID;
-
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
 

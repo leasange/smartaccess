@@ -44,7 +44,7 @@ namespace SmartAccess.Common.WinInfo
 
         }
         private Control father = null;
-        public void Show(Control control,int delayMiniseconds=0)
+        public void Show(Control control,int delayMiniseconds=100)
         {
             try
             {
@@ -72,6 +72,30 @@ namespace SmartAccess.Common.WinInfo
                 log.Error("显示异常：", ex);
             }
         }
+        private FrmWaiting waiting = null;
+        public void ShowDialog(Control control)
+        {
+            try
+            {
+                if (_action == null)
+                {
+                    this.Dispose();
+                }
+                if (control != null)
+                {
+                    father = control;
+                    waiting = new FrmWaiting();
+                    waiting.Tip = this.lbText.Text;
+                    DoAction(control);
+                    waiting.ShowDialog(control);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("显示异常：", ex);
+            }
+        }
+
         private void ShowBackground(Control control)
         {
             if (!this.IsDisposed)
@@ -80,8 +104,9 @@ namespace SmartAccess.Common.WinInfo
                 this.BackgroundImage = bitmap;
                 this.BackgroundImageLayout = ImageLayout.Stretch;
                 this.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
-                this.SetBounds(0, 0, control.ClientSize.Width, control.ClientSize.Height);
+                
                 control.Controls.Add(this);
+                this.SetBounds(0, 0, control.ClientSize.Width, control.ClientSize.Height);
                 this.BringToFront();
             }
         }
@@ -94,6 +119,7 @@ namespace SmartAccess.Common.WinInfo
                 ShowBackground(father);
             }
         }
+
         private void DoAction(Control control)
         {
             try
@@ -118,6 +144,10 @@ namespace SmartAccess.Common.WinInfo
                                 father = null;
                                 timerShowBack.Stop();
                                 control.Controls.Remove(this);
+                                if (waiting!=null)
+                                {
+                                    waiting.Close();
+                                }
                                 this.Dispose();
                                 if (this.BackgroundImage != null)
                                 {

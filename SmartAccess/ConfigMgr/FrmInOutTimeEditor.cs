@@ -75,7 +75,7 @@ namespace SmartAccess.ConfigMgr
                 cbTimeNo.Items.Add(i);
                 cbNextTimeNo.Items.Add(i);
             }
-            cbNextTimeNo.SelectedItem = 1;
+            cbNextTimeNo.SelectedItem = 0;
             if (_timeScaleInfo != null)
             {
                 tbName.Text = _timeScaleInfo.TIME_NAME;
