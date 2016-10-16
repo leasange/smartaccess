@@ -58,6 +58,7 @@ namespace SmartAccess
                         if (users.Count > 0)
                         {
                             UserInfoHelper.UserInfo = users[0];
+                            UserInfoHelper.OldPwd = tbPwd.Text;
                             DoEnter();
                         }
                         else

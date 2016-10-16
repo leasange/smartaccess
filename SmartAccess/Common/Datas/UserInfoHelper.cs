@@ -8,6 +8,7 @@ namespace SmartAccess.Common.Datas
     public class UserInfoHelper
     {
         public static Maticsoft.Model.SMT_USER_INFO UserInfo = null;
+        public static string OldPwd = "";
         public static decimal UserID {
             get {
                 if (UserInfo!=null)

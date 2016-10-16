@@ -314,7 +314,8 @@ namespace SmartAccess
 
         private void linkModifyUserPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            FrmModifyUserPwd frmModifyUserPwd = new FrmModifyUserPwd();
+            frmModifyUserPwd.ShowDialog(this);
         }
 
         private void linkUserUse_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

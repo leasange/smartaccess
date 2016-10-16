@@ -164,6 +164,12 @@
     <Compile Include="ConfigMgr\FrmInOutTimeEditor.Designer.cs">
       <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmModifyUserPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmModifyUserPwd.Designer.cs">
+      <DependentUpon>FrmModifyUserPwd.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmRoleFunSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -481,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmInOutTimeEditor.resx">
       <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmModifyUserPwd.resx">
+      <DependentUpon>FrmModifyUserPwd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmRoleFunSelector.resx">
       <DependentUpon>FrmRoleFunSelector.cs</DependentUpon>

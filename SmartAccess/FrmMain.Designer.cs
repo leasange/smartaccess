@@ -281,7 +281,6 @@
             // linkModifyUserPwd
             // 
             this.linkModifyUserPwd.BackColor = System.Drawing.Color.Transparent;
-            this.linkModifyUserPwd.Enabled = false;
             this.linkModifyUserPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkModifyUserPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkModifyUserPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
