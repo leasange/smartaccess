@@ -32,8 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
+            this.biEditUser = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteUser = new DevComponents.DotNetBar.ButtonItem();
+            this.biRoleMgr = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.tbFilter = new DevComponents.DotNetBar.TextBoxItem();
+            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvData = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,12 +49,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new Li.Controls.DataGridViewLinkLabelColumn();
-            this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
-            this.biEditUser = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteUser = new DevComponents.DotNetBar.ButtonItem();
-            this.biRoleMgr = new DevComponents.DotNetBar.ButtonItem();
-            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
+            this.ColRole = new Li.Controls.DataGridViewLinkLabelColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.pageDataGridView.DataGridPanel.SuspendLayout();
             this.pageDataGridView.SuspendLayout();
@@ -78,6 +78,38 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
+            // biAddUser
+            // 
+            this.biAddUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddUser.Image = global::SmartAccess.Properties.Resources.注册;
+            this.biAddUser.Name = "biAddUser";
+            this.biAddUser.Text = "新建用户";
+            this.biAddUser.Click += new System.EventHandler(this.biAddUser_Click);
+            // 
+            // biEditUser
+            // 
+            this.biEditUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biEditUser.Image = global::SmartAccess.Properties.Resources.销户;
+            this.biEditUser.Name = "biEditUser";
+            this.biEditUser.Text = "编辑用户";
+            this.biEditUser.Click += new System.EventHandler(this.biEditUser_Click);
+            // 
+            // biDeleteUser
+            // 
+            this.biDeleteUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteUser.Image = global::SmartAccess.Properties.Resources.读卡;
+            this.biDeleteUser.Name = "biDeleteUser";
+            this.biDeleteUser.Text = "删除用户";
+            this.biDeleteUser.Click += new System.EventHandler(this.biDeleteUser_Click);
+            // 
+            // biRoleMgr
+            // 
+            this.biRoleMgr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRoleMgr.Image = global::SmartAccess.Properties.Resources.销卡;
+            this.biRoleMgr.Name = "biRoleMgr";
+            this.biRoleMgr.Text = "角色管理";
+            this.biRoleMgr.Click += new System.EventHandler(this.biRoleMgr_Click);
+            // 
             // labelItem1
             // 
             this.labelItem1.Name = "labelItem1";
@@ -90,6 +122,14 @@
             this.tbFilter.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbFilter.WatermarkText = "输入用户名或姓名";
             this.tbFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbFilter_KeyUp);
+            // 
+            // biSearch
+            // 
+            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSearch.Name = "biSearch";
+            this.biSearch.Text = "查找";
+            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
             // 
             // pageDataGridView
             // 
@@ -147,7 +187,7 @@
             this.Column6,
             this.Column7,
             this.Column8,
-            this.Column9});
+            this.ColRole});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -173,6 +213,7 @@
             this.dgvData.RowTemplate.Height = 23;
             this.dgvData.Size = new System.Drawing.Size(713, 344);
             this.dgvData.TabIndex = 0;
+            this.dgvData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellClick);
             // 
             // Column1
             // 
@@ -230,55 +271,15 @@
             this.Column8.ReadOnly = true;
             this.Column8.Width = 53;
             // 
-            // Column9
+            // ColRole
             // 
-            this.Column9.HeaderText = "所属角色";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column9.SplitLinkSymbol = ",";
-            this.Column9.Width = 81;
-            // 
-            // biAddUser
-            // 
-            this.biAddUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddUser.Image = global::SmartAccess.Properties.Resources.注册;
-            this.biAddUser.Name = "biAddUser";
-            this.biAddUser.Text = "新建用户";
-            this.biAddUser.Click += new System.EventHandler(this.biAddUser_Click);
-            // 
-            // biEditUser
-            // 
-            this.biEditUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biEditUser.Image = global::SmartAccess.Properties.Resources.销户;
-            this.biEditUser.Name = "biEditUser";
-            this.biEditUser.Text = "编辑用户";
-            this.biEditUser.Click += new System.EventHandler(this.biEditUser_Click);
-            // 
-            // biDeleteUser
-            // 
-            this.biDeleteUser.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteUser.Image = global::SmartAccess.Properties.Resources.读卡;
-            this.biDeleteUser.Name = "biDeleteUser";
-            this.biDeleteUser.Text = "删除用户";
-            this.biDeleteUser.Click += new System.EventHandler(this.biDeleteUser_Click);
-            // 
-            // biRoleMgr
-            // 
-            this.biRoleMgr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRoleMgr.Image = global::SmartAccess.Properties.Resources.销卡;
-            this.biRoleMgr.Name = "biRoleMgr";
-            this.biRoleMgr.Text = "角色管理";
-            this.biRoleMgr.Click += new System.EventHandler(this.biRoleMgr_Click);
-            // 
-            // biSearch
-            // 
-            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSearch.Name = "biSearch";
-            this.biSearch.Text = "查找";
-            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
+            this.ColRole.HeaderText = "所属角色";
+            this.ColRole.Name = "ColRole";
+            this.ColRole.ReadOnly = true;
+            this.ColRole.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColRole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColRole.SplitLinkSymbol = ",";
+            this.ColRole.Width = 81;
             // 
             // UserManager
             // 
@@ -317,6 +318,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private Li.Controls.DataGridViewLinkLabelColumn Column9;
+        private Li.Controls.DataGridViewLinkLabelColumn ColRole;
     }
 }

@@ -168,7 +168,7 @@ namespace SmartAccess.ConfigMgr
             {
                 Maticsoft.Model.SMT_ROLE_INFO role = (Maticsoft.Model.SMT_ROLE_INFO)_selectRow.Tag;
                 role.ROLE_NAME = tbRoleName.Text.Trim();
-                role.ROLE_DESC = tbRoleName.Text.Trim();
+                role.ROLE_DESC = tbRoleDesc.Text.Trim();
                 CtrlWaiting waiting = new CtrlWaiting(() =>
                 {
                     try

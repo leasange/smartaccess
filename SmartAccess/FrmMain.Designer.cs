@@ -374,7 +374,6 @@
             // linkAccessPwd
             // 
             this.linkAccessPwd.BackColor = System.Drawing.Color.Transparent;
-            this.linkAccessPwd.Enabled = false;
             this.linkAccessPwd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkAccessPwd.Image = global::SmartAccess.Properties.Resources.editor;
             this.linkAccessPwd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -399,7 +398,7 @@
             this.expandablePanel8.Controls.Add(this.panel9);
             this.expandablePanel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel8.Expanded = false;
-            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 238, 246, 135);
+            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 343, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
             this.expandablePanel8.Location = new System.Drawing.Point(0, 238);
             this.expandablePanel8.Name = "expandablePanel8";
@@ -485,7 +484,7 @@
             this.expandablePanel7.Controls.Add(this.panel8);
             this.expandablePanel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel7.Expanded = false;
-            this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 273, 246, 139);
+            this.expandablePanel7.ExpandedBounds = new System.Drawing.Rectangle(0, 204, 246, 139);
             this.expandablePanel7.ExpandOnTitleClick = true;
             this.expandablePanel7.Location = new System.Drawing.Point(0, 204);
             this.expandablePanel7.Name = "expandablePanel7";
@@ -569,7 +568,7 @@
             this.expandablePanel6.Controls.Add(this.panel7);
             this.expandablePanel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel6.Expanded = false;
-            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 239, 246, 184);
+            this.expandablePanel6.ExpandedBounds = new System.Drawing.Rectangle(0, 170, 246, 184);
             this.expandablePanel6.ExpandOnTitleClick = true;
             this.expandablePanel6.Location = new System.Drawing.Point(0, 170);
             this.expandablePanel6.Name = "expandablePanel6";

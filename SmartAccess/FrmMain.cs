@@ -293,7 +293,10 @@ namespace SmartAccess
 
         private void linkAccessPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            if (!CheckControl(typeof(AccessPasswordMgr)))
+            {
+                AddControl(new AccessPasswordMgr(), "门禁密码管理");
+            }
         }
         //出入时段管理
         private void linkInOutTimeSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

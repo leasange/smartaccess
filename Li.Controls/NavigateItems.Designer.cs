@@ -29,13 +29,10 @@
         private void InitializeComponent()
         {
             this.expandablePanel1 = new DevComponents.DotNetBar.ExpandablePanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.linkStaffInfo = new System.Windows.Forms.LinkLabel();
-            this.linkVerCodeInfo = new System.Windows.Forms.LinkLabel();
-            this.linkDeptMgr = new System.Windows.Forms.LinkLabel();
             this.expandablePanelX1 = new Li.Controls.ExpandablePanelX();
+            this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
+            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.expandablePanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // expandablePanel1
@@ -44,7 +41,7 @@
             this.expandablePanel1.AutoScroll = true;
             this.expandablePanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.expandablePanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.expandablePanel1.Controls.Add(this.panel2);
+            this.expandablePanel1.Controls.Add(this.itemPanel1);
             this.expandablePanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel1.ExpandOnTitleClick = true;
             this.expandablePanel1.Location = new System.Drawing.Point(0, 0);
@@ -63,6 +60,7 @@
             this.expandablePanel1.TitleStyle.Alignment = System.Drawing.StringAlignment.Center;
             this.expandablePanel1.TitleStyle.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.expandablePanel1.TitleStyle.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.expandablePanel1.TitleStyle.BackgroundImage = global::Li.Controls.Properties.Resources.部门管理;
             this.expandablePanel1.TitleStyle.BackgroundImagePosition = DevComponents.DotNetBar.eBackgroundImagePosition.CenterLeft;
             this.expandablePanel1.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
             this.expandablePanel1.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
@@ -70,67 +68,6 @@
             this.expandablePanel1.TitleStyle.ForeColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.expandablePanel1.TitleStyle.GradientAngle = 90;
             this.expandablePanel1.TitleText = "证件信息管理";
-            // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.linkStaffInfo);
-            this.panel2.Controls.Add(this.linkVerCodeInfo);
-            this.panel2.Controls.Add(this.linkDeptMgr);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 34);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(282, 128);
-            this.panel2.TabIndex = 2;
-            // 
-            // linkStaffInfo
-            // 
-            this.linkStaffInfo.BackColor = System.Drawing.Color.Transparent;
-            this.linkStaffInfo.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkStaffInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkStaffInfo.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkStaffInfo.LinkColor = System.Drawing.Color.DarkBlue;
-            this.linkStaffInfo.Location = new System.Drawing.Point(51, 89);
-            this.linkStaffInfo.Name = "linkStaffInfo";
-            this.linkStaffInfo.Size = new System.Drawing.Size(148, 25);
-            this.linkStaffInfo.TabIndex = 1;
-            this.linkStaffInfo.TabStop = true;
-            this.linkStaffInfo.Text = "      人员信息";
-            this.linkStaffInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkStaffInfo.UseCompatibleTextRendering = true;
-            // 
-            // linkVerCodeInfo
-            // 
-            this.linkVerCodeInfo.BackColor = System.Drawing.Color.Transparent;
-            this.linkVerCodeInfo.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkVerCodeInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkVerCodeInfo.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkVerCodeInfo.LinkColor = System.Drawing.Color.DarkBlue;
-            this.linkVerCodeInfo.Location = new System.Drawing.Point(51, 21);
-            this.linkVerCodeInfo.Name = "linkVerCodeInfo";
-            this.linkVerCodeInfo.Size = new System.Drawing.Size(148, 25);
-            this.linkVerCodeInfo.TabIndex = 1;
-            this.linkVerCodeInfo.TabStop = true;
-            this.linkVerCodeInfo.Text = "      证件编码";
-            this.linkVerCodeInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkVerCodeInfo.UseCompatibleTextRendering = true;
-            // 
-            // linkDeptMgr
-            // 
-            this.linkDeptMgr.BackColor = System.Drawing.Color.Transparent;
-            this.linkDeptMgr.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkDeptMgr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkDeptMgr.LinkArea = new System.Windows.Forms.LinkArea(6, 10);
-            this.linkDeptMgr.LinkColor = System.Drawing.Color.DarkBlue;
-            this.linkDeptMgr.Location = new System.Drawing.Point(51, 55);
-            this.linkDeptMgr.Name = "linkDeptMgr";
-            this.linkDeptMgr.Size = new System.Drawing.Size(148, 25);
-            this.linkDeptMgr.TabIndex = 1;
-            this.linkDeptMgr.TabStop = true;
-            this.linkDeptMgr.Text = "      部门管理";
-            this.linkDeptMgr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkDeptMgr.UseCompatibleTextRendering = true;
             // 
             // expandablePanelX1
             // 
@@ -162,6 +99,37 @@
             this.expandablePanelX1.TitleStyle.GradientAngle = 90;
             this.expandablePanelX1.TitleText = "Title Bar";
             // 
+            // itemPanel1
+            // 
+            this.itemPanel1.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.itemPanel1.BackgroundStyle.Class = "ItemPanel";
+            this.itemPanel1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemPanel1.ContainerControlProcessDialogKey = true;
+            this.itemPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.itemPanel1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.itemPanel1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem1});
+            this.itemPanel1.ItemSpacing = 5;
+            this.itemPanel1.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.itemPanel1.Location = new System.Drawing.Point(0, 34);
+            this.itemPanel1.Name = "itemPanel1";
+            this.itemPanel1.Size = new System.Drawing.Size(282, 128);
+            this.itemPanel1.TabIndex = 1;
+            this.itemPanel1.Text = "itemPanel1";
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.buttonItem1.HotFontBold = true;
+            this.buttonItem1.HotForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.buttonItem1.Image = global::Li.Controls.Properties.Resources.部门管理;
+            this.buttonItem1.ImagePaddingHorizontal = 20;
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.Text = "buttonItem1";
+            // 
             // NavigateItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -171,7 +139,6 @@
             this.Name = "NavigateItems";
             this.Size = new System.Drawing.Size(282, 448);
             this.expandablePanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -179,11 +146,9 @@
         #endregion
 
         private DevComponents.DotNetBar.ExpandablePanel expandablePanel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.LinkLabel linkStaffInfo;
-        private System.Windows.Forms.LinkLabel linkVerCodeInfo;
-        private System.Windows.Forms.LinkLabel linkDeptMgr;
         private ExpandablePanelX expandablePanelX1;
+        private DevComponents.DotNetBar.ItemPanel itemPanel1;
+        private DevComponents.DotNetBar.ButtonItem buttonItem1;
 
     }
 }

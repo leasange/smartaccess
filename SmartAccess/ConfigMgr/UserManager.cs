@@ -90,6 +90,10 @@ namespace SmartAccess.ConfigMgr
             {
                 user.ROLE_NAME = "设置角色";
             }
+            else
+            {
+                user.ROLE_NAME = user.ROLE_NAME + "(点击重设)";
+            }
             row.CreateCells(dgvData,
                 user.USER_NAME,
                 user.IS_ENABLE?"启用":"禁用",
@@ -244,6 +248,22 @@ namespace SmartAccess.ConfigMgr
         {
             FrmRoleMgr frmMgr = new FrmRoleMgr();
             frmMgr.ShowDialog(this);
+        }
+
+        private void dgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex>=0&&e.RowIndex>=0)
+            {
+                if (dgvData.Columns[e.ColumnIndex].Name == "ColRole")
+                {
+                    Maticsoft.Model.SMT_USER_INFO user = (Maticsoft.Model.SMT_USER_INFO)dgvData.Rows[e.RowIndex].Tag;
+                    FrmRoleSelect select = new FrmRoleSelect(user);
+                    if (select.ShowDialog(this)==DialogResult.OK)
+                    {
+                        dgvData.Rows[e.RowIndex].Cells[8].Value = user.ROLE_NAME;
+                    }
+                }
+            }
         }
 
     }
