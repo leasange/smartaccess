@@ -47,10 +47,11 @@ namespace Li.Controls
                                 }
                                 mask +=item;
                                 def += item;
-                            } 
+                            }
+                            index += ttt[i].Length;
                         }
                         string sp = _verTextFormat.Substring(index, 3);
-                        index += ttt[i].Length + 3;
+                        index += 3;
                         switch (sp)
                         {
                             case "[A]":
