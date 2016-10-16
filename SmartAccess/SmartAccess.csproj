@@ -279,6 +279,12 @@
     <Compile Include="ControlDevMgr\OneManyDoorMgr.Designer.cs">
       <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmDataBaseConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -382,6 +388,12 @@
     </Compile>
     <Compile Include="RuleSetMrg\NormalRuleSet.Designer.cs">
       <DependentUpon>NormalRuleSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmtNavigate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmtNavigate.Designer.cs">
+      <DependentUpon>SmtNavigate.cs</DependentUpon>
     </Compile>
     <Compile Include="StatisticsMgr\AccessInOutRecordsStatistics.cs">
       <SubType>UserControl</SubType>
@@ -545,6 +557,9 @@
     <EmbeddedResource Include="ControlDevMgr\OneManyDoorMgr.resx">
       <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmDataBaseConfig.resx">
       <DependentUpon>FrmDataBaseConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -605,6 +620,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RuleSetMrg\NormalRuleSet.resx">
       <DependentUpon>NormalRuleSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmtNavigate.resx">
+      <DependentUpon>SmtNavigate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatisticsMgr\AccessInOutRecordsStatistics.resx">
       <DependentUpon>AccessInOutRecordsStatistics.cs</DependentUpon>

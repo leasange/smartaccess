@@ -40,6 +40,7 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(200, 66);
             this.panel.TabIndex = 0;
+            this.panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel_Scroll);
             // 
             // ExpandablePanelX
             // 

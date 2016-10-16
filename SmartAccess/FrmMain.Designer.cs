@@ -397,7 +397,7 @@
             this.expandablePanel8.Controls.Add(this.panel9);
             this.expandablePanel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.expandablePanel8.Expanded = false;
-            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 343, 246, 135);
+            this.expandablePanel8.ExpandedBounds = new System.Drawing.Rectangle(0, 238, 246, 135);
             this.expandablePanel8.ExpandOnTitleClick = true;
             this.expandablePanel8.Location = new System.Drawing.Point(0, 238);
             this.expandablePanel8.Name = "expandablePanel8";
