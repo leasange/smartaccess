@@ -81,6 +81,7 @@
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
+            this.biImport = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -110,7 +111,8 @@
             this.biUnForbbiden,
             this.biPrivateCopy,
             this.biOneKeyUpload,
-            this.biExportPhoto});
+            this.biExportPhoto,
+            this.biImport});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.Size = new System.Drawing.Size(1131, 29);
@@ -615,6 +617,14 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
+            // biImport
+            // 
+            this.biImport.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biImport.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biImport.Name = "biImport";
+            this.biImport.Text = "导入人员";
+            this.biImport.Click += new System.EventHandler(this.biImport_Click);
+            // 
             // StaffInfoMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -692,5 +702,6 @@
         private DevComponents.DotNetBar.ButtonItem biClear;
         private DevComponents.DotNetBar.ButtonItem biPrivateCopy;
         private DevComponents.DotNetBar.ButtonItem biOneKeyUpload;
+        private DevComponents.DotNetBar.ButtonItem biImport;
     }
 }

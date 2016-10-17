@@ -147,10 +147,32 @@ namespace SmartAccess.VerInfoMgr
                 if (picPhoto.Image != null)
                 {
                     MemoryStream ms = new MemoryStream();
-                    picPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    //626*413 2寸
+                    if (picPhoto.Image.Width>413||picPhoto.Image.Height>626)
+                    {
+                        double ratio = picPhoto.Image.Width / (double)picPhoto.Image.Height;
+                        double oratio = 413 / 626d;
+                        double w = 413;
+                        double h = 626;
+                        if (ratio>oratio)
+                        {
+                            h = w / ratio;
+                        }
+                        else
+                        {
+                            w = h * ratio;
+                        }
+                        Bitmap bitmap = new Bitmap((int)w, (int)h);
+                        Graphics g = Graphics.FromImage(bitmap);
+                        g.DrawImage(picPhoto.Image, 0, 0, bitmap.Width, bitmap.Height);
+                        g.Dispose();
+                        bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        bitmap.Dispose();
+                    }
+                    else   picPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                     _staffInfo.PHOTO = ms.GetBuffer();
                 }
-                _staffInfo.PHOTO = GetPicImage(picPhoto);
+               // _staffInfo.PHOTO = GetPicImage(picPhoto);
                 _staffInfo.CER_PHOTO_FRONT = null;
                 _staffInfo.CER_PHOTO_BACK = null;
                 _staffInfo.MODIFY_TIME = DateTime.Now;

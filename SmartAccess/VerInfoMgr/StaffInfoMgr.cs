@@ -14,6 +14,7 @@ using Li.Access.Core.BJTWHCardIssue;
 using SmartAccess.Common.Config;
 using System.IO;
 using Li.Controls.Excel;
+using SmartAccess.Common;
 
 namespace SmartAccess.VerInfoMgr
 {
@@ -914,10 +915,6 @@ namespace SmartAccess.VerInfoMgr
                 {
                     Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
                     DataSet ds = null;
-                    //                 if (byDeptTree)
-                    //                 {
-                    //                     ds = bll.GetListByPageByDept(orgId, startIndex, endIndex);
-                    //                 }
                     if (!_byCardNum)
                     {
                         ds = bll.GetListByPageWithDept(_strWhere, "ORG_ID", startIndex, endIndex);
@@ -944,7 +941,154 @@ namespace SmartAccess.VerInfoMgr
         private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs)
         {
             DataTable dt = new DataTable();
+            dt.Columns.Add("部门名称");
+            dt.Columns.Add("证件编号");
+            dt.Columns.Add("姓名");
+            dt.Columns.Add("性别");
+            dt.Columns.Add("职务");
+            dt.Columns.Add("出生日期");
+            dt.Columns.Add("政治面貌");
+            dt.Columns.Add("婚姻状态");
+            dt.Columns.Add("技术等级");
+            dt.Columns.Add("有效证件名称");
+            dt.Columns.Add("有效证件号码");
+            dt.Columns.Add("办公电话");
+            dt.Columns.Add("手机");
+            dt.Columns.Add("籍贯");
+            dt.Columns.Add("民族");
+            dt.Columns.Add("宗教");
+            dt.Columns.Add("学历");
+            dt.Columns.Add("邮箱");
+            dt.Columns.Add("有效开始时间");
+            dt.Columns.Add("有效结束时间");
+            dt.Columns.Add("入职时间");
+            dt.Columns.Add("离职时间");
+            dt.Columns.Add("通信地址");
+            dt.Columns.Add("注册时间");
+            dt.Columns.Add("挂失状态");
+            dt.Columns.Add("卡号");
             foreach (var item in staffs)
+            {
+                DataRow dr = dt.NewRow();
+                dr[0] = item.ORG_NAME;
+                dr[1] = item.STAFF_NO;
+                dr[2] = item.REAL_NAME;
+                int isex = item.SEX == null ? 0 : (int)item.SEX;
+                string sex = "未知";
+                if (isex==1)
+                {
+                    sex = "男";
+                }
+                else if (isex==2)
+                {
+                    sex = "女";
+                }
+                dr[3] = sex;
+                dr[4] = item.JOB;
+                dr[5] = item.BIRTHDAY;
+                dr[6] = item.POLITICS;
+                int married = item.MARRIED == null ? 0 : (int)item.MARRIED;
+                string mm = "未知";
+                if (married == 1)
+                {
+                    mm = "已婚";
+                }
+                else if (married == 2)
+                {
+                    mm = "未婚";
+                }
+                dr[7] = mm;
+                dr[8] = item.SKIIL_LEVEL;
+                dr[9] = item.CER_NAME;
+                dr[10] = item.CER_NO;
+                dr[11] = item.TELE_PHONE;
+                dr[12] = item.CELL_PHONE;
+                dr[13] = item.NATIVE;
+                dr[14] = item.NATION;
+                dr[15] = item.RELIGION;
+                dr[16] = item.EDUCATIONAL;
+                dr[17] = item.EMAIL;
+                dr[18] = item.VALID_STARTTIME;
+                dr[19] = item.VALID_ENDTIME;
+                dr[20] = item.ENTRY_TIME;
+                dr[21] = item.ABORT_TIME;
+                dr[22] = item.ADDRESS;
+                dr[23] = item.REG_TIME;
+                dr[24] = item.IS_FORBIDDEN ? "已挂失" : "正常";
+                var cards = item.CARDS;
+                if (cards.Count==0)
+                {
+                    dr[25] = "";
+                }
+                else
+                {
+                    dr[25] = cards[0].CARD_NO;
+                }
+                dt.Rows.Add(dr);
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
+            sfd.FileName = "人员信息.xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                bool ret =ExportHelper.Export(dt, sfd.FileName, "人员信息");
+                SmtLog.InfoFormat("人员", "导出人员信息，个数：{0},目录：{1},结果：{2}", dt.Rows.Count, sfd.FileName, ret ? "成功" : "失败");
+                if (ret)
+                {
+                    try
+                    {
+                        string path = Path.GetDirectoryName(sfd.FileName);
+                        path = Path.Combine(path, "人员照片");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        foreach (var item in staffs)
+                        {
+                            if (item.PHOTO != null && item.PHOTO.Length > 0)
+                            {
+                                try
+                                {
+                                    MemoryStream ms = new MemoryStream(item.PHOTO);
+                                    Image image = Image.FromStream(ms);
+                                    string file = Path.Combine(path, item.REAL_NAME + ".jpg");
+                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    image.Dispose();
+                                    ms.Dispose();
+                                }
+                                catch (Exception ex)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "导出“" + item.REAL_NAME + "”照片发生异常：" + ex.Message);
+                                    log.Error("导出“" + item.REAL_NAME + "”照片发生异常：", ex);
+                                    SmtLog.ErrorFormat("人员", "导出人员：{0} 照片发生异常：{1}", item.REAL_NAME , ex.Message);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "导出照片发生异常：" + ex.Message);
+                        log.Error("导出照片发生异常：", ex);
+                        SmtLog.ErrorFormat("人员", "导出人员照片发生异常：{0}", ex.Message);
+                    }
+
+                    MessageBox.Show("导出结束,照片自动保存至导出目录“人员照片”下。");
+                }
+                else
+                {
+                    MessageBox.Show("导出失败!");
+                }
+
+            }
+        }
+
+        private void biImport_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
+            ofd.FileName = "人员信息.xls";
+            if (ofd.ShowDialog(this)==DialogResult.OK)
             {
                 
             }
