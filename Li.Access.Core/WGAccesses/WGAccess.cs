@@ -463,6 +463,21 @@ namespace Li.Access.Core.WGAccesses
                 this.Close();
             }
         }
+
+
+        public bool SetHoliday(Controller controller, HolidayPrm holiday)
+        {
+            WGPacket packet = new WGPacket(0xCC);
+            packet.SetDevSn(controller.sn);
+            packet.SetHoliday(holiday);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包
@@ -831,6 +846,28 @@ namespace Li.Access.Core.WGAccesses
         public void SetTimeTaskDoorIndex(byte doorIndex)
         {
             data[17] = doorIndex;
+        }
+
+        public void SetHoliday(HolidayPrm holiday)
+        {
+            data[0] = (byte)(holiday.IsOnDuty ? 0x02 : 0x01);
+            if (holiday.IsClear)
+            {
+                data[0] = (byte)0xA5;
+            }
+            data[1] = DataHelper.ToByteBCD((int)(holiday.startDate.Year / 100));
+            data[2] = DataHelper.ToByteBCD(holiday.startDate.Year - ((int)(holiday.startDate.Year / 100)) * 100);
+            data[3] = DataHelper.ToByteBCD(holiday.startDate.Month);
+            data[4] = DataHelper.ToByteBCD(holiday.startDate.Day);
+            data[5] = DataHelper.ToByteBCD(holiday.startDate.Hour);
+            data[6] = DataHelper.ToByteBCD(holiday.startDate.Minute);
+
+            data[7] = DataHelper.ToByteBCD((int)(holiday.endDate.Year / 100));
+            data[8] = DataHelper.ToByteBCD(holiday.endDate.Year - ((int)(holiday.endDate.Year / 100)) * 100);
+            data[9] = DataHelper.ToByteBCD(holiday.endDate.Month);
+            data[10] = DataHelper.ToByteBCD(holiday.endDate.Day);
+            data[11] = DataHelper.ToByteBCD(holiday.endDate.Hour);
+            data[12] = DataHelper.ToByteBCD(holiday.endDate.Minute);
         }
     }
 }

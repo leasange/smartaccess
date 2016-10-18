@@ -5,6 +5,7 @@ using System.Text;
 using DevComponents.DotNetBar;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace SmartAccess.Common.Datas
 {
@@ -273,6 +274,32 @@ namespace SmartAccess.Common.Datas
             }
             balloon.Location = new System.Drawing.Point(rect.Right - balloon.Width, rect.Bottom - balloon.Height);
             balloon.Show(false);
+        }
+
+        public static Image Get2InchPhoto(Image oldImage)
+        {
+            //626*413 2寸
+            if (oldImage.Width > 413 || oldImage.Height > 626)
+            {
+                double ratio = oldImage.Width / (double)oldImage.Height;
+                double oratio = 413 / 626d;
+                double w = 413;
+                double h = 626;
+                if (ratio > oratio)
+                {
+                    h = w / ratio;
+                }
+                else
+                {
+                    w = h * ratio;
+                }
+                Bitmap bitmap = new Bitmap((int)w, (int)h);
+                Graphics g = Graphics.FromImage(bitmap);
+                g.DrawImage(oldImage, 0, 0, bitmap.Width, bitmap.Height);
+                g.Dispose();
+                return bitmap;
+            }
+            return null;
         }
     }
 }

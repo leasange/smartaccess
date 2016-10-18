@@ -938,7 +938,7 @@ namespace SmartAccess.VerInfoMgr
             });
             waiting.Show(this);
         }
-        private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs)
+        private DataTable CreateStaffTable()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("部门名称");
@@ -967,9 +967,15 @@ namespace SmartAccess.VerInfoMgr
             dt.Columns.Add("注册时间");
             dt.Columns.Add("挂失状态");
             dt.Columns.Add("卡号");
+            return dt;
+        }
+        private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs)
+        {
+            DataTable dt = CreateStaffTable();
             foreach (var item in staffs)
             {
                 DataRow dr = dt.NewRow();
+                
                 dr[0] = item.ORG_NAME;
                 dr[1] = item.STAFF_NO;
                 dr[2] = item.REAL_NAME;
@@ -1082,7 +1088,22 @@ namespace SmartAccess.VerInfoMgr
 
             }
         }
-
+        private DateTime GetDateTime(object datetime,DateTime def)
+        {
+            string str = Convert.ToString(datetime);
+            DateTime dt=def;
+            DateTime.TryParse(str, out dt);
+            return dt;
+        }
+        private string GetNotNullString(object str)
+        {
+            string strr = Convert.ToString(str);
+            if (strr==null)
+            {
+                strr = "";
+            }
+            return strr;
+        }
         private void biImport_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -1090,8 +1111,144 @@ namespace SmartAccess.VerInfoMgr
             ofd.FileName = "人员信息.xls";
             if (ofd.ShowDialog(this)==DialogResult.OK)
             {
-                
+                DataTable dt = CreateStaffTable();
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    var depts = DeptDataHelper.GetDepts();
+                    FrmDetailInfo.Show(false);
+                    FrmDetailInfo.AddOneMsg("开始导入...");
+                    int count = 0;
+                    ImportHelper.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target) =>
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr.ItemArray = target;
+                        string name = GetNotNullString(dr["姓名"]);
+                        try
+                        {
+                            Maticsoft.Model.SMT_STAFF_INFO staffInfo = new Maticsoft.Model.SMT_STAFF_INFO();
+                            staffInfo.ABORT_TIME = GetDateTime(dr["离职时间"], DateTime.MaxValue);
+                            staffInfo.ADDRESS = GetNotNullString(dr["通信地址"]);
+                            staffInfo.BIRTHDAY = GetDateTime(dr["出生日期"], DateTime.MinValue);
+                            staffInfo.CELL_PHONE = GetNotNullString(dr["手机"]);
+                            staffInfo.CER_NAME = GetNotNullString(dr["有效证件名称"]);
+                            staffInfo.CER_NO = GetNotNullString(dr["有效证件号码"]);
+                            staffInfo.EDUCATIONAL = GetNotNullString(dr["学历"]);
+                            staffInfo.EMAIL = GetNotNullString(dr["邮箱"]);
+                            staffInfo.ENTRY_TIME = GetDateTime(dr["入职时间"], DateTime.MinValue);
+                            staffInfo.IS_FORBIDDEN = GetNotNullString(dr["挂失状态"]) == "已挂失";
+                            staffInfo.JOB = GetNotNullString(dr["职务"]);
+                            string marr = GetNotNullString(dr["婚姻状态"]);
+                            if (marr == "已婚")
+                            {
+                                staffInfo.MARRIED = 1;
+                            }
+                            else if (marr == "未婚")
+                            {
+                                staffInfo.MARRIED = 2;
+                            }
+                            else
+                            {
+                                staffInfo.MARRIED = 0;
+                            }
+                            staffInfo.NATION = GetNotNullString(dr["民族"]);
+                            staffInfo.NATIVE = GetNotNullString(dr["籍贯"]);
+                            string orgName = GetNotNullString(dr["部门名称"]);
+                            var dept = depts.Find(m => m.ORG_NAME == orgName);
+                            if (dept != null)
+                            {
+                                staffInfo.ORG_ID = dept.ID;
+                            }
+                            else
+                            {
+                                staffInfo.ORG_ID = -1;
+                            }
+                            try
+                            {
+                                string path = Path.Combine(Path.GetDirectoryName(ofd.FileName), "人员照片", dr["姓名"] + ".jpg");
+                                if (File.Exists(path))
+                                {
+                                    Image image = Image.FromFile(path);
+                                    MemoryStream ms = new MemoryStream();
+                                    Image newImage = CommonClass.Get2InchPhoto(image);
+                                    if (newImage != null)
+                                    {
+                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        newImage.Dispose();
+                                    }
+                                    else
+                                    {
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    image.Dispose();
+                                    staffInfo.PHOTO = ms.GetBuffer();
+                                }
+                                else
+                                {
+                                    staffInfo.PHOTO = new byte[0];
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            staffInfo.POLITICS = GetNotNullString(dr["政治面貌"]);
+                            staffInfo.REAL_NAME = GetNotNullString(dr["姓名"]);
+                            staffInfo.REG_TIME = GetDateTime(dr["注册时间"], DateTime.Now);
+                            staffInfo.RELIGION = GetNotNullString(dr["宗教"]);
+                            string sex = GetNotNullString(dr["性别"]);
+                            if (sex == "男")
+                            {
+                                staffInfo.SEX = 1;
+                            }
+                            else if (sex == "女")
+                                staffInfo.SEX = 2;
+                            else staffInfo.SEX = 0;
+                            staffInfo.SKIIL_LEVEL = GetNotNullString(dr["技术等级"]);
+                            staffInfo.STAFF_NO = GetNotNullString(dr["证件编号"]);
+                            staffInfo.TELE_PHONE = GetNotNullString(dr["办公电话"]);
+                            staffInfo.VALID_ENDTIME = GetDateTime(dr["有效结束时间"], DateTime.MaxValue);
+                            staffInfo.VALID_STARTTIME = GetDateTime(dr["有效开始时间"], DateTime.MinValue);
+                            Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                            staffInfo.ID = staffBll.Add(staffInfo);
+                            string cardNo = GetNotNullString(dr["卡号"]);
+                            if (!string.IsNullOrWhiteSpace(cardNo))
+                            {
+                                Maticsoft.BLL.SMT_CARD_INFO cardbll = new Maticsoft.BLL.SMT_CARD_INFO();
+                                var cards= cardbll.GetModelList("CARD_NO='" + cardNo.Trim() + "'");
+                                if (cards.Count==0)
+                                {
+                                    Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                    cardInfo.CARD_NO = cardNo.Trim();
+                                    cardInfo.CARD_TYPE = 0;
+                                    cardInfo.CARD_DESC = cardNo.Trim();
+                                    cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(cardNo.Trim());
+                                    cardInfo.ID = cardbll.Add(cardInfo);
+                                    cards.Add(cardInfo);
+                                }
+                                Maticsoft.Model.SMT_STAFF_CARD sc = new Maticsoft.Model.SMT_STAFF_CARD();
+                                sc.CARD_ID = cards[0].ID;
+                                sc.STAFF_ID = staffInfo.ID;
+                                sc.ACCESS_STARTTIME = staffInfo.VALID_STARTTIME;
+                                sc.ACCESS_ENDTIME = staffInfo.VALID_ENDTIME;
+                                Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
+                                scBll.Add(sc);
+                            }
+                            count++;
+                            FrmDetailInfo.AddOneMsg("成功导入人员：" + name);
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmDetailInfo.AddOneMsg("导入人员：" + name + " 异常：" + ex.Message);
+                        }
+                    }));
+                    FrmDetailInfo.AddOneMsg("导入结束！成功导入人员：" + count);
+                    this.Invoke(new Action(() =>
+                    {
+                    	DoSearch(true);
+                    }));
+                });
+                waiting.Show(this);
             }
         }
+
     }
 }

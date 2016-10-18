@@ -152,6 +152,9 @@ namespace Li.Access.Core
         /// <param name="controller">控制器</param>
         /// <returns>成功与否</returns>
         bool ClearTimeScales(Controller controller);
+
+        bool SetHoliday(Controller controller,HolidayPrm holiday);
+
         /// <summary>
         /// 清除定时任务
         /// </summary>
@@ -178,6 +181,16 @@ namespace Li.Access.Core
         public DateTime endDate;//结束日期
         public bool[] weekDaysEnable = new bool[7];
         public List<TimeScale> timeScales = new List<TimeScale>();
+    }
+    public class HolidayPrm
+    {
+//         = 0x01  添加假期 [不能开门]
+//         = 0x02  添加必须上班时间[允许开门]
+//         = 0xA5  清空假期
+        public bool IsOnDuty=false;
+        public bool IsClear = false;
+        public DateTime startDate;
+        public DateTime endDate;
     }
     /// <summary>
     /// 定时任务参数

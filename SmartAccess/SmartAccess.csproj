@@ -158,6 +158,12 @@
     <Compile Include="ConfigMgr\FrmEditorUser.Designer.cs">
       <DependentUpon>FrmEditorUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmHolidaySetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmHolidaySetting.Designer.cs">
+      <DependentUpon>FrmHolidaySetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmInOutTimeEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -496,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmEditorUser.resx">
       <DependentUpon>FrmEditorUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmHolidaySetting.resx">
+      <DependentUpon>FrmHolidaySetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmInOutTimeEditor.resx">
       <DependentUpon>FrmInOutTimeEditor.cs</DependentUpon>

@@ -61,7 +61,7 @@
             this.tbOldPwd.Name = "tbOldPwd";
             this.tbOldPwd.PasswordChar = '*';
             this.tbOldPwd.Size = new System.Drawing.Size(172, 23);
-            this.tbOldPwd.TabIndex = 1;
+            this.tbOldPwd.TabIndex = 0;
             // 
             // labelX2
             // 
@@ -111,7 +111,7 @@
             this.tbRePwd.Name = "tbRePwd";
             this.tbRePwd.PasswordChar = '*';
             this.tbRePwd.Size = new System.Drawing.Size(172, 23);
-            this.tbRePwd.TabIndex = 1;
+            this.tbRePwd.TabIndex = 2;
             // 
             // btnOk
             // 
@@ -121,7 +121,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(83, 28);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnOk.TabIndex = 2;
+            this.btnOk.TabIndex = 3;
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -134,7 +134,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(83, 28);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消";
             // 
             // FrmModifyUserPwd

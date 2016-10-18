@@ -70,7 +70,8 @@ namespace SmartAccess.ConfigMgr
 
         private void biWeekEX_Click(object sender, EventArgs e)
         {
-
+            FrmHolidaySetting setting = new FrmHolidaySetting();
+            setting.ShowDialog(this);
         }
 
         private void InOutTimeCfg_Load(object sender, EventArgs e)
@@ -213,8 +214,11 @@ namespace SmartAccess.ConfigMgr
                 if (models.Count == 0)
                 {
                     WinInfoHelper.ShowInfoWindow(this, "没有可用时间段待上传！");
-                    return;
+                   // return;
                 }
+                Maticsoft.BLL.SMT_WEEKEX_INFO wbll = new Maticsoft.BLL.SMT_WEEKEX_INFO();
+                var weekexs = wbll.GetModelList("");
+
                 SmtLog.Info("设置","上传时间段设置");
                 FrmDetailInfo.Show(false);
                 FrmDetailInfo.AddOneMsg(string.Format("开始上传控制器时段：控制器数={0},时段数={1} ...", ctrls.Count, models.Count));
@@ -250,6 +254,38 @@ namespace SmartAccess.ConfigMgr
                                     else
                                     {
                                         FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段失败：SN={0},IP={1}，结束该控制器上传...", ctrl.sn, ctrl.ip), isRed: true);
+                                    }
+                                    
+                                    if(acc.SetHoliday(ctrl, new HolidayPrm()
+                                    {
+                                         IsClear=true,
+                                         startDate=DateTime.Now,
+                                         endDate=DateTime.Now.AddDays(1)
+                                    }))
+                                    {
+                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束成功：SN={0},IP={1}，开始上传假期约束...", ctrl.sn, ctrl.ip));
+                                        foreach (var w in weekexs)
+                                        {
+                                            bool ret = acc.SetHoliday(ctrl, new HolidayPrm()
+                                                {
+                                                    IsClear = false,
+                                                    IsOnDuty = w.WEEKEX_ON_DUTY,
+                                                    startDate = w.WEEKEX_START_DATE,
+                                                    endDate = w.WEEKEX_END_DATE
+                                                });
+                                            if (!ret)
+                                            {
+                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束失败：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY?"上班":"假期",w.WEEKEX_START_DATE,w.WEEKEX_END_DATE,ctrl.ip), isRed: true);
+                                            }
+                                            else
+                                            {
+                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束成功：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY ? "上班" : "假期", w.WEEKEX_START_DATE, w.WEEKEX_END_DATE, ctrl.ip));
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束失败：SN={0},IP={1}", ctrl.sn, ctrl.ip),isRed:true);
                                     }
                                 }
                             }
