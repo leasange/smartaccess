@@ -13,13 +13,13 @@ namespace Li.Controls
     public partial class NavigateItems : UserControl
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ExpandablePanel ExpandedPanel
+        public ExpandablePanelX ExpandedPanel
         {
             get
             {
                 foreach (Control item in this.Controls)
                 {
-                    ExpandablePanel expand = item as ExpandablePanel;
+                    ExpandablePanelX expand = item as ExpandablePanelX;
                     if (expand!=null)
                     {
                         if (expand.Expanded)
@@ -34,7 +34,7 @@ namespace Li.Controls
             {
                 foreach (var item in this.Controls)
                 {
-                    ExpandablePanel expand = item as ExpandablePanel;
+                    ExpandablePanelX expand = item as ExpandablePanelX;
                     if (expand != null)
                     {
                         expand.Expanded = false;
@@ -45,6 +45,22 @@ namespace Li.Controls
                         expand.Expanded = true;
                     }
                 }
+            }
+        }
+        public List<ExpandablePanelX> Expands
+        {
+            get
+            {
+                List<ExpandablePanelX> list = new List<ExpandablePanelX>();
+                foreach (Control item in this.Controls)
+                {
+                    ExpandablePanelX expand = item as ExpandablePanelX;
+                    if (expand != null)
+                    {
+                        list.Insert(0,expand);
+                    }
+                }
+                return list;
             }
         }
         public NavigateItems()

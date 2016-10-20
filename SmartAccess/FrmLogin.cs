@@ -53,12 +53,16 @@ namespace SmartAccess
                 {
                     Maticsoft.BLL.SMT_USER_INFO userbll = new Maticsoft.BLL.SMT_USER_INFO();
                     var users = userbll.GetModelList("USER_NAME='" + tbUserName.Text.Trim() + "' and IS_ENABLE=1 and IS_DELETE=0 and PASS_WORD= substring(sys.fn_sqlvarbasetostr(HashBytes('MD5','" + tbPwd.Text + "')),3,32)");
+                    if (users.Count > 0)
+                    {
+                        UserInfoHelper.UserInfo = users[0];
+                        UserInfoHelper.OldPwd = tbPwd.Text;
+                        PrivateMgr.LoadPrivates();
+                    }
                     this.Invoke(new Action(() =>
                     {
                         if (users.Count > 0)
                         {
-                            UserInfoHelper.UserInfo = users[0];
-                            UserInfoHelper.OldPwd = tbPwd.Text;
                             DoEnter();
                         }
                         else
@@ -83,12 +87,20 @@ namespace SmartAccess
         private void DoEnter()
         {
             this.Enabled = false;
-            frmMain = new FrmMain();
-            frmMain.FormClosed += frmMain_FormClosed;
-            frmMain.Show();
-            frmMain.BringToFront();
-            this.WindowState = FormWindowState.Minimized;
-            this.Visible = false;
+            try
+            {
+                frmMain = new FrmMain();
+                frmMain.FormClosed += frmMain_FormClosed;
+                frmMain.Show();
+                frmMain.BringToFront();
+                this.WindowState = FormWindowState.Minimized;
+                this.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("进入系统异常：" + ex.Message);
+                this.Enabled = true;
+            }
         }
 
         //主窗口关闭事件

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using SmartAccess.ConfigMgr;
 using SmartAccess.Common;
+using SmartAccess.Common.WinInfo;
 
 namespace SmartAccess
 {
@@ -24,18 +25,32 @@ namespace SmartAccess
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            ExpandablePanel fexpanel = splitContainer.Panel1.Controls[splitContainer.Panel1.Controls.Count-1] as ExpandablePanel;
-            foreach (Control item in splitContainer.Panel1.Controls)
+            /*CtrlWaiting waiting = new CtrlWaiting("权限加载中...",() =>
             {
-                ExpandablePanel expanel = item as ExpandablePanel;
-                if (expanel != null)
+                try
                 {
-                    expanel.ExpandedChanging += expanel_ExpandedChanging;
-                    expanel.ExpandedChanged += expanel_ExpandedChanged;
+                    PrivateMgr.LoadPrivates();
                 }
-            }
-            fexpanel.Expanded = false;
-            fexpanel.Expanded = true;
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "权限加载异常："+ex.Message);
+                }
+              
+            });
+            waiting.ShowDialog(this);*/
+            smtNavigate.Main = this;
+//             ExpandablePanel fexpanel = splitContainer.Panel1.Controls[splitContainer.Panel1.Controls.Count-1] as ExpandablePanel;
+//             foreach (Control item in splitContainer.Panel1.Controls)
+//             {
+//                 ExpandablePanel expanel = item as ExpandablePanel;
+//                 if (expanel != null)
+//                 {
+//                     expanel.ExpandedChanging += expanel_ExpandedChanging;
+//                     expanel.ExpandedChanged += expanel_ExpandedChanged;
+//                 }
+//             }
+//             fexpanel.Expanded = false;
+//             fexpanel.Expanded = true;
         }
 
         void expanel_ExpandedChanging(object sender, ExpandedChangeEventArgs e)
@@ -107,7 +122,7 @@ namespace SmartAccess
             }
         }
 
-        private bool CheckControl(Type ctrlType)
+        public bool CheckControl(Type ctrlType)
         {
             foreach (SuperTabItem item in this.superTabControl.Tabs)
             {
@@ -119,7 +134,7 @@ namespace SmartAccess
             }
             return false;
         }
-        private void AddControl(Control ctrl,string title,Image image=null)
+        public void AddControl(Control ctrl, string title, Image image = null)
         {
             // 
             // superTabItem

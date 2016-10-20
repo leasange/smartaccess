@@ -357,6 +357,7 @@
     <Compile Include="ModelMgr\VerModelMgr.Designer.cs">
       <DependentUpon>VerModelMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrivateMgr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RealDetectMgr\FrmDoorStateCfg.cs">

@@ -78,7 +78,7 @@
             this.tbUserName.Location = new System.Drawing.Point(87, 23);
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(126, 23);
-            this.tbUserName.TabIndex = 1;
+            this.tbUserName.TabIndex = 0;
             // 
             // labelX2
             // 
@@ -104,7 +104,7 @@
             this.tbPwd.PasswordChar = '*';
             this.tbPwd.ReadOnly = true;
             this.tbPwd.Size = new System.Drawing.Size(126, 23);
-            this.tbPwd.TabIndex = 1;
+            this.tbPwd.TabIndex = 2;
             this.tbPwd.Text = "123456";
             this.toolTip1.SetToolTip(this.tbPwd, "默认密码123456");
             // 
@@ -130,7 +130,7 @@
             this.tbRealName.Location = new System.Drawing.Point(87, 81);
             this.tbRealName.Name = "tbRealName";
             this.tbRealName.Size = new System.Drawing.Size(126, 23);
-            this.tbRealName.TabIndex = 1;
+            this.tbRealName.TabIndex = 4;
             // 
             // labelX4
             // 
@@ -157,7 +157,7 @@
             this.cbEnable.Name = "cbEnable";
             this.cbEnable.Size = new System.Drawing.Size(100, 23);
             this.cbEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbEnable.TabIndex = 2;
+            this.cbEnable.TabIndex = 6;
             this.cbEnable.Text = "启用";
             // 
             // labelX5
@@ -206,7 +206,7 @@
             this.tbAddress.Location = new System.Drawing.Point(314, 52);
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(126, 23);
-            this.tbAddress.TabIndex = 1;
+            this.tbAddress.TabIndex = 3;
             // 
             // labelX7
             // 
@@ -230,7 +230,7 @@
             this.tbEmail.Location = new System.Drawing.Point(314, 81);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(126, 23);
-            this.tbEmail.TabIndex = 1;
+            this.tbEmail.TabIndex = 5;
             // 
             // labelX8
             // 
@@ -254,7 +254,7 @@
             this.tbQQ.Location = new System.Drawing.Point(314, 110);
             this.tbQQ.Name = "tbQQ";
             this.tbQQ.Size = new System.Drawing.Size(126, 23);
-            this.tbQQ.TabIndex = 1;
+            this.tbQQ.TabIndex = 7;
             // 
             // labelX9
             // 
@@ -281,7 +281,7 @@
             this.cbtDept.Name = "cbtDept";
             this.cbtDept.Size = new System.Drawing.Size(126, 23);
             this.cbtDept.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbtDept.TabIndex = 3;
+            this.cbtDept.TabIndex = 8;
             // 
             // labelX10
             // 
@@ -306,7 +306,7 @@
             this.cboRole.Name = "cboRole";
             this.cboRole.Size = new System.Drawing.Size(127, 23);
             this.cboRole.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboRole.TabIndex = 4;
+            this.cboRole.TabIndex = 9;
             // 
             // btnOk
             // 
@@ -316,7 +316,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(89, 29);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 10;
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -329,7 +329,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(89, 29);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "取消";
             // 
             // btnResetPwd

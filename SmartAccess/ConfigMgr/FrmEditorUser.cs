@@ -159,6 +159,7 @@ namespace SmartAccess.ConfigMgr
             }
             string oldUser = _userInfo.USER_NAME;
             _userInfo.USER_NAME = tbUserName.Text.Trim();
+            _userInfo.PASS_WORD = tbPwd.Text;
             if (_userInfo.PASS_WORD=="123456")
 	        {
                 _userInfo.PASS_WORD = "e10adc3949ba59abbe56e057f20f883e";
@@ -226,7 +227,7 @@ namespace SmartAccess.ConfigMgr
         {
             if (_userInfo!=null)
             {
-                _userInfo.PASS_WORD = "123456";
+                tbPwd.Text = "123456";
             }
         }
 
