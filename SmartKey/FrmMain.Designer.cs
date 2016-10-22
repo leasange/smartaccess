@@ -35,47 +35,47 @@
             this.tbAppID = new DevComponents.DotNetBar.TextBoxItem();
             this.biResetAppID = new DevComponents.DotNetBar.ButtonItem();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
+            this.tbSeed = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
             this.tbPin1 = new DevComponents.DotNetBar.TextBoxItem();
             this.tbPin2 = new DevComponents.DotNetBar.TextBoxItem();
             this.tbPin3 = new DevComponents.DotNetBar.TextBoxItem();
             this.tbPin4 = new DevComponents.DotNetBar.TextBoxItem();
+            this.biExportKeyFile = new DevComponents.DotNetBar.ButtonItem();
             this.dogListTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.panelPrivate = new DevComponents.DotNetBar.PanelEx();
+            this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.btnSet30Year = new DevComponents.DotNetBar.ButtonX();
+            this.btnSet10Year = new DevComponents.DotNetBar.ButtonX();
+            this.btnSet5Year = new DevComponents.DotNetBar.ButtonX();
+            this.btnSet3Year = new DevComponents.DotNetBar.ButtonX();
+            this.btnSetOneYear = new DevComponents.DotNetBar.ButtonX();
+            this.btnSetHalfYear = new DevComponents.DotNetBar.ButtonX();
+            this.btnSet3Month = new DevComponents.DotNetBar.ButtonX();
+            this.btnSetOneMonth = new DevComponents.DotNetBar.ButtonX();
+            this.lbDevNo = new DevComponents.DotNetBar.LabelX();
+            this.lbTimePrivate = new DevComponents.DotNetBar.LabelX();
+            this.dtiEndTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.dtiStartTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.tbDogName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.dtiEndTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.lbTimePrivate = new DevComponents.DotNetBar.LabelX();
-            this.btnSetOneMonth = new DevComponents.DotNetBar.ButtonX();
-            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.btnSet3Month = new DevComponents.DotNetBar.ButtonX();
-            this.btnSetHalfYear = new DevComponents.DotNetBar.ButtonX();
-            this.btnSetOneYear = new DevComponents.DotNetBar.ButtonX();
-            this.btnSet3Year = new DevComponents.DotNetBar.ButtonX();
-            this.btnSet5Year = new DevComponents.DotNetBar.ButtonX();
-            this.btnSet10Year = new DevComponents.DotNetBar.ButtonX();
-            this.btnSet30Year = new DevComponents.DotNetBar.ButtonX();
-            this.btnOk = new DevComponents.DotNetBar.ButtonX();
-            this.biExportKeyFile = new DevComponents.DotNetBar.ButtonItem();
-            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
-            this.tbSeed = new DevComponents.DotNetBar.TextBoxItem();
-            this.sfdKeyDialog = new System.Windows.Forms.SaveFileDialog();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.lbDevNo = new DevComponents.DotNetBar.LabelX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.sfdKeyDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dogListTree)).BeginInit();
             this.panelPrivate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiStartTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).BeginInit();
             this.groupPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiStartTime)).BeginInit();
             this.SuspendLayout();
             // 
             // bar1
@@ -142,6 +142,18 @@
             this.biRefresh.Text = "刷新列表";
             this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
             // 
+            // labelItem4
+            // 
+            this.labelItem4.Name = "labelItem4";
+            this.labelItem4.Text = "密码种子:";
+            // 
+            // tbSeed
+            // 
+            this.tbSeed.Name = "tbSeed";
+            this.tbSeed.TextBoxWidth = 120;
+            this.tbSeed.Tooltip = "密码种子是用于生成登陆密码的随机种子，在官方工具中使用";
+            this.tbSeed.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
             // labelItem3
             // 
             this.labelItem3.Name = "labelItem3";
@@ -170,6 +182,13 @@
             this.tbPin4.Name = "tbPin4";
             this.tbPin4.TextBoxWidth = 85;
             this.tbPin4.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // biExportKeyFile
+            // 
+            this.biExportKeyFile.Name = "biExportKeyFile";
+            this.biExportKeyFile.Text = "导出密钥文件";
+            this.biExportKeyFile.Tooltip = "导出密钥文件(已加密)，密钥文件放于客户端下（dogkey.data）一起随客户端打包发布";
+            this.biExportKeyFile.Click += new System.EventHandler(this.biExportKeyFile_Click);
             // 
             // dogListTree
             // 
@@ -276,6 +295,237 @@
             this.panelPrivate.Style.GradientAngle = 90;
             this.panelPrivate.TabIndex = 3;
             // 
+            // btnOk
+            // 
+            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnOk.Location = new System.Drawing.Point(123, 283);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(128, 29);
+            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnOk.TabIndex = 6;
+            this.btnOk.Text = "确定写入授权";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // groupPanel1
+            // 
+            this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
+            this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanel1.Controls.Add(this.btnSet30Year);
+            this.groupPanel1.Controls.Add(this.btnSet10Year);
+            this.groupPanel1.Controls.Add(this.btnSet5Year);
+            this.groupPanel1.Controls.Add(this.btnSet3Year);
+            this.groupPanel1.Controls.Add(this.btnSetOneYear);
+            this.groupPanel1.Controls.Add(this.btnSetHalfYear);
+            this.groupPanel1.Controls.Add(this.btnSet3Month);
+            this.groupPanel1.Controls.Add(this.btnSetOneMonth);
+            this.groupPanel1.Location = new System.Drawing.Point(410, 59);
+            this.groupPanel1.Name = "groupPanel1";
+            this.groupPanel1.Size = new System.Drawing.Size(214, 183);
+            // 
+            // 
+            // 
+            this.groupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.groupPanel1.Style.BackColorGradientAngle = 90;
+            this.groupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.groupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderBottomWidth = 1;
+            this.groupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.groupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderLeftWidth = 1;
+            this.groupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderRightWidth = 1;
+            this.groupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderTopWidth = 1;
+            this.groupPanel1.Style.CornerDiameter = 4;
+            this.groupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.groupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.groupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.groupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near;
+            // 
+            // 
+            // 
+            this.groupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPanel1.TabIndex = 5;
+            this.groupPanel1.Text = "快速设置有效期";
+            // 
+            // btnSet30Year
+            // 
+            this.btnSet30Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSet30Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSet30Year.Location = new System.Drawing.Point(104, 112);
+            this.btnSet30Year.Name = "btnSet30Year";
+            this.btnSet30Year.Size = new System.Drawing.Size(79, 24);
+            this.btnSet30Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSet30Year.TabIndex = 4;
+            this.btnSet30Year.Text = "三十年";
+            this.btnSet30Year.Click += new System.EventHandler(this.btnSet30Year_Click);
+            // 
+            // btnSet10Year
+            // 
+            this.btnSet10Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSet10Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSet10Year.Location = new System.Drawing.Point(19, 111);
+            this.btnSet10Year.Name = "btnSet10Year";
+            this.btnSet10Year.Size = new System.Drawing.Size(79, 24);
+            this.btnSet10Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSet10Year.TabIndex = 4;
+            this.btnSet10Year.Text = "十年";
+            this.btnSet10Year.Click += new System.EventHandler(this.btnSet10Year_Click);
+            // 
+            // btnSet5Year
+            // 
+            this.btnSet5Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSet5Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSet5Year.Location = new System.Drawing.Point(104, 82);
+            this.btnSet5Year.Name = "btnSet5Year";
+            this.btnSet5Year.Size = new System.Drawing.Size(79, 24);
+            this.btnSet5Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSet5Year.TabIndex = 4;
+            this.btnSet5Year.Text = "五年";
+            this.btnSet5Year.Click += new System.EventHandler(this.btnSet5Year_Click);
+            // 
+            // btnSet3Year
+            // 
+            this.btnSet3Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSet3Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSet3Year.Location = new System.Drawing.Point(19, 82);
+            this.btnSet3Year.Name = "btnSet3Year";
+            this.btnSet3Year.Size = new System.Drawing.Size(79, 24);
+            this.btnSet3Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSet3Year.TabIndex = 4;
+            this.btnSet3Year.Text = "三年";
+            this.btnSet3Year.Click += new System.EventHandler(this.btnSet3Year_Click);
+            // 
+            // btnSetOneYear
+            // 
+            this.btnSetOneYear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSetOneYear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSetOneYear.Location = new System.Drawing.Point(104, 52);
+            this.btnSetOneYear.Name = "btnSetOneYear";
+            this.btnSetOneYear.Size = new System.Drawing.Size(79, 24);
+            this.btnSetOneYear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSetOneYear.TabIndex = 4;
+            this.btnSetOneYear.Text = "一年";
+            this.btnSetOneYear.Click += new System.EventHandler(this.btnSetOneYear_Click);
+            // 
+            // btnSetHalfYear
+            // 
+            this.btnSetHalfYear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSetHalfYear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSetHalfYear.Location = new System.Drawing.Point(19, 52);
+            this.btnSetHalfYear.Name = "btnSetHalfYear";
+            this.btnSetHalfYear.Size = new System.Drawing.Size(79, 24);
+            this.btnSetHalfYear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSetHalfYear.TabIndex = 4;
+            this.btnSetHalfYear.Text = "半年";
+            this.btnSetHalfYear.Click += new System.EventHandler(this.btnSetHalfYear_Click);
+            // 
+            // btnSet3Month
+            // 
+            this.btnSet3Month.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSet3Month.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSet3Month.Location = new System.Drawing.Point(104, 22);
+            this.btnSet3Month.Name = "btnSet3Month";
+            this.btnSet3Month.Size = new System.Drawing.Size(79, 24);
+            this.btnSet3Month.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSet3Month.TabIndex = 4;
+            this.btnSet3Month.Text = "三个月";
+            this.btnSet3Month.Click += new System.EventHandler(this.btnSet3Month_Click);
+            // 
+            // btnSetOneMonth
+            // 
+            this.btnSetOneMonth.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSetOneMonth.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSetOneMonth.Location = new System.Drawing.Point(19, 22);
+            this.btnSetOneMonth.Name = "btnSetOneMonth";
+            this.btnSetOneMonth.Size = new System.Drawing.Size(79, 24);
+            this.btnSetOneMonth.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSetOneMonth.TabIndex = 4;
+            this.btnSetOneMonth.Text = "一个月";
+            this.btnSetOneMonth.Click += new System.EventHandler(this.btnSetOneMonth_Click);
+            // 
+            // lbDevNo
+            // 
+            this.lbDevNo.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbDevNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbDevNo.Location = new System.Drawing.Point(123, 22);
+            this.lbDevNo.Name = "lbDevNo";
+            this.lbDevNo.Size = new System.Drawing.Size(0, 0);
+            this.lbDevNo.TabIndex = 3;
+            // 
+            // lbTimePrivate
+            // 
+            this.lbTimePrivate.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbTimePrivate.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbTimePrivate.Location = new System.Drawing.Point(123, 145);
+            this.lbTimePrivate.Name = "lbTimePrivate";
+            this.lbTimePrivate.Size = new System.Drawing.Size(128, 20);
+            this.lbTimePrivate.TabIndex = 3;
+            this.lbTimePrivate.Text = "2000-12-12 12:00:00";
+            // 
+            // dtiEndTime
+            // 
+            this.dtiEndTime.AllowEmptyState = false;
+            // 
+            // 
+            // 
+            this.dtiEndTime.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtiEndTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtiEndTime.ButtonDropDown.Visible = true;
+            this.dtiEndTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dtiEndTime.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtiEndTime.IsPopupCalendarOpen = false;
+            this.dtiEndTime.Location = new System.Drawing.Point(123, 219);
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtiEndTime.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.DisplayMonth = new System.DateTime(2016, 10, 1, 0, 0, 0, 0);
+            this.dtiEndTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtiEndTime.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtiEndTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.TodayButtonVisible = true;
+            this.dtiEndTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtiEndTime.Name = "dtiEndTime";
+            this.dtiEndTime.Size = new System.Drawing.Size(259, 23);
+            this.dtiEndTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtiEndTime.TabIndex = 2;
+            // 
             // dtiStartTime
             // 
             this.dtiStartTime.AllowEmptyState = false;
@@ -356,82 +606,6 @@
             this.labelX3.TabIndex = 0;
             this.labelX3.Text = "有效结束时间";
             // 
-            // labelX2
-            // 
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(26, 183);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(86, 28);
-            this.labelX2.TabIndex = 0;
-            this.labelX2.Text = "有效开始时间";
-            // 
-            // labelX1
-            // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(26, 59);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(77, 28);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "身份名称";
-            // 
-            // dtiEndTime
-            // 
-            this.dtiEndTime.AllowEmptyState = false;
-            // 
-            // 
-            // 
-            this.dtiEndTime.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.dtiEndTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiEndTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
-            this.dtiEndTime.ButtonDropDown.Visible = true;
-            this.dtiEndTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dtiEndTime.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
-            this.dtiEndTime.IsPopupCalendarOpen = false;
-            this.dtiEndTime.Location = new System.Drawing.Point(123, 219);
-            // 
-            // 
-            // 
-            this.dtiEndTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtiEndTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiEndTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
-            this.dtiEndTime.MonthCalendar.ClearButtonVisible = true;
-            // 
-            // 
-            // 
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
-            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiEndTime.MonthCalendar.DisplayMonth = new System.DateTime(2016, 10, 1, 0, 0, 0, 0);
-            this.dtiEndTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
-            this.dtiEndTime.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.dtiEndTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtiEndTime.MonthCalendar.TodayButtonVisible = true;
-            this.dtiEndTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.dtiEndTime.Name = "dtiEndTime";
-            this.dtiEndTime.Size = new System.Drawing.Size(259, 23);
-            this.dtiEndTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtiEndTime.TabIndex = 2;
-            // 
             // labelX4
             // 
             // 
@@ -444,196 +618,17 @@
             this.labelX4.TabIndex = 0;
             this.labelX4.Text = "最后授权时间";
             // 
-            // lbTimePrivate
-            // 
-            this.lbTimePrivate.AutoSize = true;
+            // labelX2
             // 
             // 
             // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbTimePrivate.Location = new System.Drawing.Point(123, 145);
-            this.lbTimePrivate.Name = "lbTimePrivate";
-            this.lbTimePrivate.Size = new System.Drawing.Size(128, 20);
-            this.lbTimePrivate.TabIndex = 3;
-            this.lbTimePrivate.Text = "2000-12-12 12:00:00";
             // 
-            // btnSetOneMonth
-            // 
-            this.btnSetOneMonth.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSetOneMonth.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSetOneMonth.Location = new System.Drawing.Point(19, 22);
-            this.btnSetOneMonth.Name = "btnSetOneMonth";
-            this.btnSetOneMonth.Size = new System.Drawing.Size(79, 24);
-            this.btnSetOneMonth.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSetOneMonth.TabIndex = 4;
-            this.btnSetOneMonth.Text = "一个月";
-            this.btnSetOneMonth.Click += new System.EventHandler(this.btnSetOneMonth_Click);
-            // 
-            // groupPanel1
-            // 
-            this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel1.Controls.Add(this.btnSet30Year);
-            this.groupPanel1.Controls.Add(this.btnSet10Year);
-            this.groupPanel1.Controls.Add(this.btnSet5Year);
-            this.groupPanel1.Controls.Add(this.btnSet3Year);
-            this.groupPanel1.Controls.Add(this.btnSetOneYear);
-            this.groupPanel1.Controls.Add(this.btnSetHalfYear);
-            this.groupPanel1.Controls.Add(this.btnSet3Month);
-            this.groupPanel1.Controls.Add(this.btnSetOneMonth);
-            this.groupPanel1.Location = new System.Drawing.Point(410, 59);
-            this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(214, 183);
-            // 
-            // 
-            // 
-            this.groupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.groupPanel1.Style.BackColorGradientAngle = 90;
-            this.groupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.groupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderBottomWidth = 1;
-            this.groupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.groupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderLeftWidth = 1;
-            this.groupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderRightWidth = 1;
-            this.groupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderTopWidth = 1;
-            this.groupPanel1.Style.CornerDiameter = 4;
-            this.groupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.groupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
-            this.groupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.groupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near;
-            // 
-            // 
-            // 
-            this.groupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanel1.TabIndex = 5;
-            this.groupPanel1.Text = "快速设置有效期";
-            // 
-            // btnSet3Month
-            // 
-            this.btnSet3Month.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSet3Month.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSet3Month.Location = new System.Drawing.Point(104, 22);
-            this.btnSet3Month.Name = "btnSet3Month";
-            this.btnSet3Month.Size = new System.Drawing.Size(79, 24);
-            this.btnSet3Month.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSet3Month.TabIndex = 4;
-            this.btnSet3Month.Text = "三个月";
-            this.btnSet3Month.Click += new System.EventHandler(this.btnSet3Month_Click);
-            // 
-            // btnSetHalfYear
-            // 
-            this.btnSetHalfYear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSetHalfYear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSetHalfYear.Location = new System.Drawing.Point(19, 52);
-            this.btnSetHalfYear.Name = "btnSetHalfYear";
-            this.btnSetHalfYear.Size = new System.Drawing.Size(79, 24);
-            this.btnSetHalfYear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSetHalfYear.TabIndex = 4;
-            this.btnSetHalfYear.Text = "半年";
-            this.btnSetHalfYear.Click += new System.EventHandler(this.btnSetHalfYear_Click);
-            // 
-            // btnSetOneYear
-            // 
-            this.btnSetOneYear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSetOneYear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSetOneYear.Location = new System.Drawing.Point(104, 52);
-            this.btnSetOneYear.Name = "btnSetOneYear";
-            this.btnSetOneYear.Size = new System.Drawing.Size(79, 24);
-            this.btnSetOneYear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSetOneYear.TabIndex = 4;
-            this.btnSetOneYear.Text = "一年";
-            this.btnSetOneYear.Click += new System.EventHandler(this.btnSetOneYear_Click);
-            // 
-            // btnSet3Year
-            // 
-            this.btnSet3Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSet3Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSet3Year.Location = new System.Drawing.Point(19, 82);
-            this.btnSet3Year.Name = "btnSet3Year";
-            this.btnSet3Year.Size = new System.Drawing.Size(79, 24);
-            this.btnSet3Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSet3Year.TabIndex = 4;
-            this.btnSet3Year.Text = "三年";
-            this.btnSet3Year.Click += new System.EventHandler(this.btnSet3Year_Click);
-            // 
-            // btnSet5Year
-            // 
-            this.btnSet5Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSet5Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSet5Year.Location = new System.Drawing.Point(104, 82);
-            this.btnSet5Year.Name = "btnSet5Year";
-            this.btnSet5Year.Size = new System.Drawing.Size(79, 24);
-            this.btnSet5Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSet5Year.TabIndex = 4;
-            this.btnSet5Year.Text = "五年";
-            this.btnSet5Year.Click += new System.EventHandler(this.btnSet5Year_Click);
-            // 
-            // btnSet10Year
-            // 
-            this.btnSet10Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSet10Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSet10Year.Location = new System.Drawing.Point(19, 111);
-            this.btnSet10Year.Name = "btnSet10Year";
-            this.btnSet10Year.Size = new System.Drawing.Size(79, 24);
-            this.btnSet10Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSet10Year.TabIndex = 4;
-            this.btnSet10Year.Text = "十年";
-            this.btnSet10Year.Click += new System.EventHandler(this.btnSet10Year_Click);
-            // 
-            // btnSet30Year
-            // 
-            this.btnSet30Year.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSet30Year.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSet30Year.Location = new System.Drawing.Point(104, 112);
-            this.btnSet30Year.Name = "btnSet30Year";
-            this.btnSet30Year.Size = new System.Drawing.Size(79, 24);
-            this.btnSet30Year.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSet30Year.TabIndex = 4;
-            this.btnSet30Year.Text = "三十年";
-            this.btnSet30Year.Click += new System.EventHandler(this.btnSet30Year_Click);
-            // 
-            // btnOk
-            // 
-            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnOk.Location = new System.Drawing.Point(123, 283);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(128, 29);
-            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnOk.TabIndex = 6;
-            this.btnOk.Text = "确定写入授权";
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // biExportKeyFile
-            // 
-            this.biExportKeyFile.Name = "biExportKeyFile";
-            this.biExportKeyFile.Text = "导出密钥文件";
-            this.biExportKeyFile.Tooltip = "导出密钥文件(已加密)，密钥文件放于客户端下（dogkey.data）一起随客户端打包发布";
-            this.biExportKeyFile.Click += new System.EventHandler(this.biExportKeyFile_Click);
-            // 
-            // labelItem4
-            // 
-            this.labelItem4.Name = "labelItem4";
-            this.labelItem4.Text = "密码种子:";
-            // 
-            // tbSeed
-            // 
-            this.tbSeed.Name = "tbSeed";
-            this.tbSeed.TextBoxWidth = 120;
-            this.tbSeed.Tooltip = "密码种子是用于生成登陆密码的随机种子，在官方工具中使用";
-            this.tbSeed.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
-            // sfdKeyDialog
-            // 
-            this.sfdKeyDialog.FileName = "dogkey.data";
-            this.sfdKeyDialog.Filter = "密钥文件(*.data)|*.data";
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(26, 183);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(86, 28);
+            this.labelX2.TabIndex = 0;
+            this.labelX2.Text = "有效开始时间";
             // 
             // labelX5
             // 
@@ -647,17 +642,22 @@
             this.labelX5.TabIndex = 0;
             this.labelX5.Text = "硬件序列号";
             // 
-            // lbDevNo
-            // 
-            this.lbDevNo.AutoSize = true;
+            // labelX1
             // 
             // 
             // 
-            this.lbDevNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbDevNo.Location = new System.Drawing.Point(123, 22);
-            this.lbDevNo.Name = "lbDevNo";
-            this.lbDevNo.Size = new System.Drawing.Size(128, 20);
-            this.lbDevNo.TabIndex = 3;
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Location = new System.Drawing.Point(26, 59);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(77, 28);
+            this.labelX1.TabIndex = 0;
+            this.labelX1.Text = "身份名称";
+            // 
+            // sfdKeyDialog
+            // 
+            this.sfdKeyDialog.FileName = "dogkey.data";
+            this.sfdKeyDialog.Filter = "密钥文件(*.data)|*.data";
             // 
             // FrmMain
             // 
@@ -671,16 +671,16 @@
             this.DoubleBuffered = true;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "智能门禁加密狗管理工具";
+            this.Text = "智能门禁加密狗授权管理工具(v1.0.0.0)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dogListTree)).EndInit();
             this.panelPrivate.ResumeLayout(false);
             this.panelPrivate.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiStartTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).EndInit();
             this.groupPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiStartTime)).EndInit();
             this.ResumeLayout(false);
 
         }

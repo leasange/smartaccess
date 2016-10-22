@@ -242,6 +242,8 @@ namespace SmartKey
             tbPin4.Text = pin4.ToString();
             tbAppID.Text = appId;
             tbSeed.Text = SunCreate.Common.ConfigHelper.GetConfigString("Seed");
+            dtiStartTime.Value = DateTime.Now;
+            dtiEndTime.Value = dtiStartTime.Value.AddMonths(1);
             LoadKeys();
         }
 
