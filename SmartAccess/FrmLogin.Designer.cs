@@ -40,6 +40,8 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.styleManager = new DevComponents.DotNetBar.StyleManager(this.components);
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
+            this.lbDogTips = new DevComponents.DotNetBar.LabelX();
+            this.timerDogCheck = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // labelX1
@@ -174,6 +176,28 @@
             this.btnClose.Tooltip = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lbDogTips
+            // 
+            this.lbDogTips.AutoSize = true;
+            this.lbDogTips.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.lbDogTips.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbDogTips.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbDogTips.ForeColor = System.Drawing.Color.Red;
+            this.lbDogTips.Location = new System.Drawing.Point(154, 286);
+            this.lbDogTips.Name = "lbDogTips";
+            this.lbDogTips.Size = new System.Drawing.Size(180, 23);
+            this.lbDogTips.TabIndex = 6;
+            this.lbDogTips.Text = "授权已过期，请联系管理员";
+            this.lbDogTips.Visible = false;
+            // 
+            // timerDogCheck
+            // 
+            this.timerDogCheck.Interval = 1000;
+            this.timerDogCheck.Tick += new System.EventHandler(this.timerDogCheck_Tick);
+            // 
             // FrmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -183,6 +207,7 @@
             this.BackgroundImage = global::SmartAccess.Properties.Resources.loginbk;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(521, 345);
+            this.Controls.Add(this.lbDogTips);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnICMS);
@@ -200,6 +225,7 @@
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "欢迎登陆门禁系统";
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmLogin_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmLogin_MouseMove);
             this.ResumeLayout(false);
@@ -219,5 +245,7 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private DevComponents.DotNetBar.StyleManager styleManager;
         private DevComponents.DotNetBar.ButtonX btnClose;
+        private DevComponents.DotNetBar.LabelX lbDogTips;
+        private System.Windows.Forms.Timer timerDogCheck;
     }
 }

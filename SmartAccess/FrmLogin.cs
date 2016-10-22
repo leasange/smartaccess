@@ -1,6 +1,8 @@
-﻿using SmartAccess.Common.Config;
+﻿using NT.Net.App;
+using SmartAccess.Common.Config;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
+using SmartAccess.DogKey;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -155,6 +157,47 @@ namespace SmartAccess
             {
                 downPosition = Cursor.Position;
             }
+        }
+
+        private void CheckDog()
+        {
+            timerDogCheck.Stop();
+            if (!DogChecker.Login())
+            {
+                SetDogError("未插入授权加密狗！");
+                timerDogCheck.Start();
+            }
+            else if (!DogChecker.CheckValid())
+            {
+                SetDogError("加密狗已过期(或不在有效时间内)！");
+                timerDogCheck.Start();
+            }
+            else
+            {
+                SetDogError("", true);
+                DogChecker.StartTimeChecker();
+            }
+        }
+        private void SetDogError(string msg,bool valid=false)
+        {
+            lbDogTips.Visible = !valid;
+            if (!valid)
+            {
+                lbDogTips.Text = msg;
+            }
+            btnLogin.Enabled = valid;
+            btnICMS.Enabled = valid;
+            tbUserName.Enabled = valid;
+            tbPwd.Enabled = valid;
+        }
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            CheckDog();
+        }
+
+        private void timerDogCheck_Tick(object sender, EventArgs e)
+        {
+            CheckDog();
         }
     }
 }

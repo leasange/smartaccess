@@ -77,6 +77,9 @@
     <Reference Include="Maticsoft.DBUtility">
       <HintPath>..\dlls\Maticsoft.DBUtility.dll</HintPath>
     </Reference>
+    <Reference Include="NT158.net">
+      <HintPath>..\dlls\NT158.net.dll</HintPath>
+    </Reference>
     <Reference Include="SunCreate.Common">
       <HintPath>..\dlls\SunCreate.Common.dll</HintPath>
     </Reference>
@@ -285,6 +288,8 @@
     <Compile Include="ControlDevMgr\OneManyDoorMgr.Designer.cs">
       <DependentUpon>OneManyDoorMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="DogKey\DogChecker.cs" />
+    <Compile Include="DogKey\EecDecClass.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -674,6 +679,9 @@
       <DependentUpon>VerCodeInfo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="dogkey.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
