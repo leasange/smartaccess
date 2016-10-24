@@ -376,5 +376,72 @@ namespace SmartAccess.VerInfoMgr
             });
             waiting.Show(this);
         }
+
+        private void biCombine_Click(object sender, EventArgs e)
+        {
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = GetSelectOrg();
+            if (orgInfo == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择合并的部门！");
+                return;
+            }
+            FrmCombineDept frmCombine = new FrmCombineDept(orgInfo);
+            if (frmCombine.ShowDialog(this) == DialogResult.OK)
+            {
+                this.deptTree.RefreshTree();
+                //this.deptTree.EnsureVisible(orgInfo.ID);
+            }
+        }
+
+        private void biDeleteCurrent_Click(object sender, EventArgs e)
+        {
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = GetSelectOrg();
+            if (orgInfo == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择一个节点！");
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("确定删除当前部门（不包括下级部门）？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                   // List<Maticsoft.Model.SMT_ORG_INFO> depts = GetSelectWithSubDepts();
+                    CtrlWaiting waiting = new CtrlWaiting("删除部门...", () =>
+                    {
+                        try
+                        {
+                            decimal parId = orgInfo.PAR_ID;
+                            Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("update SMT_ORG_INFO set PAR_ID=" + parId + " where PAR_ID=" + orgInfo.ID);
+                            DeptDataHelper.DeleteDepts(new List<Maticsoft.Model.SMT_ORG_INFO> { orgInfo });
+                            this.Invoke(new Action(() =>
+                            {
+                                List<DevComponents.AdvTree.Node> nodes = new List<DevComponents.AdvTree.Node>();
+                                foreach (DevComponents.AdvTree.Node item in this.deptTree.Tree.SelectedNode.Nodes)
+                                {
+                                    nodes.Add(item);
+                                }
+                                this.deptTree.Tree.SelectedNode.Nodes.Clear();
+                                DevComponents.AdvTree.Node parent = this.deptTree.Tree.SelectedNode.Parent;
+                                this.deptTree.Tree.SelectedNode.Remove();
+                                if (parent == null)
+                                {
+                                    this.deptTree.Tree.Nodes.AddRange(nodes.ToArray());
+                                }
+                                else
+                                {
+                                    parent.Nodes.AddRange(nodes.ToArray());
+                                }
+                            }));
+                        }
+                        catch (System.Exception ex)
+                        {
+                            log.Error("删除部门错误：", ex);
+                            WinInfoHelper.ShowInfoWindow(this, "删除部门异常:" + ex.Message);
+                        }
+                    });
+                    waiting.Show(this);
+                }
+            }
+        }
     }
 }

@@ -169,7 +169,7 @@ namespace SmartAccess
             }
             else if (!DogChecker.CheckValid())
             {
-                SetDogError("加密狗已过期(或不在有效时间内)！");
+                SetDogError("无效加密狗（加密狗授权过期或无效，或不在有效时间内)！");
                 timerDogCheck.Start();
             }
             else

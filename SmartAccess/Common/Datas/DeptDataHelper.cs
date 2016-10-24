@@ -173,14 +173,7 @@ namespace SmartAccess.Common.Datas
             }
             ids = ids.TrimEnd(',');
             bll.DeleteList(ids);
-            depts.ForEach(m =>
-                {
-                    var temp = _depts.Find(n => n.ID == m.ID);
-                    if (temp!=null)
-                    {
-                        _depts.Remove(temp);
-                    }
-                });
+            _depts = null;
         }
 
 

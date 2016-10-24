@@ -251,7 +251,9 @@ namespace SmartKey
         {
             try
             {
-                Process.Start(Application.StartupPath + "\\nt158tool\\NT158AdminEditor.exe");
+                Process process = Process.Start(Application.StartupPath + "\\nt158tool\\NT158AdminEditor.exe");
+                process.WaitForExit();
+                LoadKeys();
             }
             catch (Exception ex)
             {
@@ -429,43 +431,90 @@ namespace SmartKey
             }
         }
         //写入权限
-        private bool DoWritePrivate()
+        private bool DoWritePrivate(bool isclear=false)
         {
             //设置加密狗身份名称
             byte[] nameBuffer = new byte[128];
-            var t = Encoding.UTF8.GetBytes(tbDogName.Text.Trim());
+            string str = tbDogName.Text.Trim();
+            if (isclear)
+            {
+                str = "";
+            }
+            var t = Encoding.UTF8.GetBytes(str);
             DoCopyArray(t, nameBuffer);
             long ret = NT158App.NT158WriteFile(_selectedDogClass.keyHandle, 0, 0, nameBuffer);
             if (ret != 0)
             {
-                log.Error("设置加密狗身份名称异常：" + GetError(ret));
-                MessageBox.Show("设置加密狗身份名称异常：" + GetError(ret));
+                if (isclear)
+                {
+                    log.Error("清除名称异常：" + GetError(ret));
+                    MessageBox.Show("清除名称异常：" + GetError(ret));
+                }
+                else
+                {
+                    log.Error("设置加密狗身份名称异常：" + GetError(ret));
+                    MessageBox.Show("设置加密狗身份名称异常：" + GetError(ret));
+                }
             }
 
             byte[] setTimeBuffer = Encoding.UTF8.GetBytes(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             ret = NT158App.NT158WriteFile(_selectedDogClass.keyHandle, 0, 128, setTimeBuffer);//设置授权时间
             if (ret != 0)
             {
-                log.Error("设置最后一次授权时间异常：" + GetError(ret));
-                MessageBox.Show("设置最后一次授权时间异常：" + GetError(ret));
+                if (isclear)
+                {
+                    log.Error("设置最后一次清除时间异常：" + GetError(ret));
+                    MessageBox.Show("设置最后一次清除时间异常：" + GetError(ret));
+                }
+                else
+                {
+                    log.Error("设置最后一次授权时间异常：" + GetError(ret));
+                    MessageBox.Show("设置最后一次授权时间异常：" + GetError(ret));
+                }
             }
-
-            byte[] starttime = Encoding.UTF8.GetBytes(dtiStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+            DateTime dtStart = dtiStartTime.Value;
+            if (isclear)
+            {
+                dtStart = DateTime.MinValue;
+            }
+            byte[] starttime = Encoding.UTF8.GetBytes(dtStart.ToString("yyyy-MM-dd HH:mm:ss"));
             ret = NT158App.NT158WriteFile(_selectedDogClass.keyHandle, 0, 128 + 19, starttime);//设置有效开始时间
             if (ret != 0)
             {
-                log.Error("设置有效开始时间异常：" + GetError(ret));
-                MessageBox.Show("设置有效开始时间异常：" + GetError(ret));
-                return false;
+                if (isclear)
+                {
+                    log.Error("清除有效开始时间异常：" + GetError(ret));
+                    MessageBox.Show("清除有效开始时间异常：" + GetError(ret));
+                    return false;
+                }
+                else
+                {
+                    log.Error("设置有效开始时间异常：" + GetError(ret));
+                    MessageBox.Show("设置有效开始时间异常：" + GetError(ret));
+                    return false;
+                }
             }
-
-            byte[] endtime = Encoding.UTF8.GetBytes(dtiEndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+            DateTime dtEnd = dtiEndTime.Value;
+            if (isclear)
+            {
+                dtEnd = DateTime.MinValue;
+            }
+            byte[] endtime = Encoding.UTF8.GetBytes(dtEnd.ToString("yyyy-MM-dd HH:mm:ss"));
             ret = NT158App.NT158WriteFile(_selectedDogClass.keyHandle, 0, 128 + 19 * 2, endtime);//设置有效开始时间
             if (ret != 0)
             {
-                log.Error("设置有效结束时间异常：" + GetError(ret));
-                MessageBox.Show("设置结束开始时间异常：" + GetError(ret));
-                return false;
+                if (isclear)
+                {
+                    log.Error("清除有效结束时间异常：" + GetError(ret));
+                    MessageBox.Show("清除有效结束时间异常：" + GetError(ret));
+                    return false;
+                }
+                else
+                {
+                    log.Error("设置有效结束时间异常：" + GetError(ret));
+                    MessageBox.Show("设置结束开始时间异常：" + GetError(ret));
+                    return false;
+                }
             }
             return true;
         }
@@ -532,6 +581,21 @@ namespace SmartKey
             else
             {
                 MessageBox.Show("授权写入失败！");
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            if(DoWritePrivate(true))
+            {
+                MessageBox.Show("清除权限成功！");
+                tbDogName.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("清除权限异常！");
+                dtiStartTime.Value = DateTime.MinValue;
+                dtiEndTime.Value = DateTime.MinValue;
             }
         }
     }

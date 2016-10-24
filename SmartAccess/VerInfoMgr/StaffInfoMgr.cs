@@ -969,7 +969,7 @@ namespace SmartAccess.VerInfoMgr
             dt.Columns.Add("卡号");
             return dt;
         }
-        private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs)
+        private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs,bool ismodel=false)
         {
             DataTable dt = CreateStaffTable();
             foreach (var item in staffs)
@@ -1035,11 +1035,22 @@ namespace SmartAccess.VerInfoMgr
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
-            sfd.FileName = "人员信息.xls";
+            if (!ismodel)
+            {
+                sfd.FileName = "人员信息.xls";
+            }
+            else
+            {
+                sfd.FileName = "人员信息模板.xls";
+            }
+            
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 bool ret =ExportHelper.Export(dt, sfd.FileName, "人员信息");
-                SmtLog.InfoFormat("人员", "导出人员信息，个数：{0},目录：{1},结果：{2}", dt.Rows.Count, sfd.FileName, ret ? "成功" : "失败");
+                if (!ismodel)
+                {
+                    SmtLog.InfoFormat("人员", "导出人员信息，个数：{0},目录：{1},结果：{2}", dt.Rows.Count, sfd.FileName, ret ? "成功" : "失败");
+                }
                 if (ret)
                 {
                     try
@@ -1078,8 +1089,14 @@ namespace SmartAccess.VerInfoMgr
                         log.Error("导出照片发生异常：", ex);
                         SmtLog.ErrorFormat("人员", "导出人员照片发生异常：{0}", ex.Message);
                     }
-
-                    MessageBox.Show("导出结束,照片自动保存至导出目录“人员照片”下。");
+                    if (!ismodel)
+                    {
+                        MessageBox.Show("导出结束,照片自动保存至导出目录“人员照片”下。");
+                    }
+                    else
+                    {
+                        MessageBox.Show("导出模板结束,照片导入时请放置导出目录的“人员照片”下，以人员姓名命名。");
+                    }
                 }
                 else
                 {
@@ -1248,6 +1265,11 @@ namespace SmartAccess.VerInfoMgr
                 });
                 waiting.Show(this);
             }
+        }
+
+        private void biDownloadModel_Click(object sender, EventArgs e)
+        {
+            DoExport(new List<Maticsoft.Model.SMT_STAFF_INFO>(),true);
         }
 
     }

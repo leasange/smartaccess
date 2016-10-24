@@ -186,7 +186,7 @@
             this.lbDogTips.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbDogTips.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbDogTips.ForeColor = System.Drawing.Color.Red;
-            this.lbDogTips.Location = new System.Drawing.Point(154, 286);
+            this.lbDogTips.Location = new System.Drawing.Point(134, 286);
             this.lbDogTips.Name = "lbDogTips";
             this.lbDogTips.Size = new System.Drawing.Size(180, 23);
             this.lbDogTips.TabIndex = 6;

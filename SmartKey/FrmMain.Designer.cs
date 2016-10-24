@@ -70,6 +70,7 @@
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.sfdKeyDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnClear = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dogListTree)).BeginInit();
             this.panelPrivate.SuspendLayout();
@@ -100,7 +101,7 @@
             this.biExportKeyFile});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(1155, 26);
+            this.bar1.Size = new System.Drawing.Size(1155, 28);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 0;
@@ -132,12 +133,16 @@
             // 
             // biResetAppID
             // 
+            this.biResetAppID.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biResetAppID.Image = global::SmartKey.Properties.Resources.editor;
             this.biResetAppID.Name = "biResetAppID";
-            this.biResetAppID.Text = "重置默认识别码";
+            this.biResetAppID.Text = "默认识别码";
             this.biResetAppID.Click += new System.EventHandler(this.biResetAppID_Click);
             // 
             // biRefresh
             // 
+            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefresh.Image = global::SmartKey.Properties.Resources.editor;
             this.biRefresh.Name = "biRefresh";
             this.biRefresh.Text = "刷新列表";
             this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
@@ -185,6 +190,8 @@
             // 
             // biExportKeyFile
             // 
+            this.biExportKeyFile.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biExportKeyFile.Image = global::SmartKey.Properties.Resources.editor;
             this.biExportKeyFile.Name = "biExportKeyFile";
             this.biExportKeyFile.Text = "导出密钥文件";
             this.biExportKeyFile.Tooltip = "导出密钥文件(已加密)，密钥文件放于客户端下（dogkey.data）一起随客户端打包发布";
@@ -203,7 +210,7 @@
             this.dogListTree.CheckBoxVisible = false;
             this.dogListTree.Dock = System.Windows.Forms.DockStyle.Left;
             this.dogListTree.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dogListTree.Location = new System.Drawing.Point(0, 26);
+            this.dogListTree.Location = new System.Drawing.Point(0, 28);
             this.dogListTree.Name = "dogListTree";
             this.dogListTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
             this.node1});
@@ -211,7 +218,7 @@
             this.dogListTree.NodeStyle = this.elementStyle1;
             this.dogListTree.PathSeparator = ";";
             this.dogListTree.SelectionPerCell = true;
-            this.dogListTree.Size = new System.Drawing.Size(284, 420);
+            this.dogListTree.Size = new System.Drawing.Size(284, 418);
             this.dogListTree.Styles.Add(this.elementStyle1);
             this.dogListTree.TabIndex = 1;
             this.dogListTree.Text = "advTreeEx1";
@@ -258,9 +265,9 @@
             this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(201)))));
             this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.Location = new System.Drawing.Point(284, 26);
+            this.expandableSplitter1.Location = new System.Drawing.Point(284, 28);
             this.expandableSplitter1.Name = "expandableSplitter1";
-            this.expandableSplitter1.Size = new System.Drawing.Size(6, 420);
+            this.expandableSplitter1.Size = new System.Drawing.Size(6, 418);
             this.expandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
             this.expandableSplitter1.TabIndex = 2;
             this.expandableSplitter1.TabStop = false;
@@ -269,6 +276,7 @@
             // 
             this.panelPrivate.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelPrivate.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelPrivate.Controls.Add(this.btnClear);
             this.panelPrivate.Controls.Add(this.btnOk);
             this.panelPrivate.Controls.Add(this.groupPanel1);
             this.panelPrivate.Controls.Add(this.lbDevNo);
@@ -283,9 +291,9 @@
             this.panelPrivate.Controls.Add(this.labelX1);
             this.panelPrivate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPrivate.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panelPrivate.Location = new System.Drawing.Point(290, 26);
+            this.panelPrivate.Location = new System.Drawing.Point(290, 28);
             this.panelPrivate.Name = "panelPrivate";
-            this.panelPrivate.Size = new System.Drawing.Size(865, 420);
+            this.panelPrivate.Size = new System.Drawing.Size(865, 418);
             this.panelPrivate.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelPrivate.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelPrivate.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -659,6 +667,18 @@
             this.sfdKeyDialog.FileName = "dogkey.data";
             this.sfdKeyDialog.Filter = "密钥文件(*.data)|*.data";
             // 
+            // btnClear
+            // 
+            this.btnClear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnClear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnClear.Location = new System.Drawing.Point(276, 283);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(128, 29);
+            this.btnClear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnClear.TabIndex = 6;
+            this.btnClear.Text = "清除授权";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -729,6 +749,7 @@
         private System.Windows.Forms.SaveFileDialog sfdKeyDialog;
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.LabelX lbDevNo;
+        private DevComponents.DotNetBar.ButtonX btnClear;
     }
 }
 

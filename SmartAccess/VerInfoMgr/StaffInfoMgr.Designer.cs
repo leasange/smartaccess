@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
@@ -42,6 +42,7 @@
             this.biPrivateCopy = new DevComponents.DotNetBar.ButtonItem();
             this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             this.biExportPhoto = new DevComponents.DotNetBar.ButtonItem();
+            this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
@@ -81,7 +82,7 @@
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
-            this.biImport = new DevComponents.DotNetBar.ButtonItem();
+            this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -112,6 +113,7 @@
             this.biPrivateCopy,
             this.biOneKeyUpload,
             this.biExportPhoto,
+            this.biDownloadModel,
             this.biImport});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -202,6 +204,14 @@
             this.biExportPhoto.Text = "导出照片";
             this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
             // 
+            // biImport
+            // 
+            this.biImport.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biImport.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biImport.Name = "biImport";
+            this.biImport.Text = "导入人员";
+            this.biImport.Click += new System.EventHandler(this.biImport_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -270,14 +280,14 @@
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -292,28 +302,28 @@
             this.Col_XG,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(899, 393);
             this.dgvStaffs.TabIndex = 0;
@@ -617,13 +627,13 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
-            // biImport
+            // biDownloadModel
             // 
-            this.biImport.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biImport.Image = global::SmartAccess.Properties.Resources.本地图片;
-            this.biImport.Name = "biImport";
-            this.biImport.Text = "导入人员";
-            this.biImport.Click += new System.EventHandler(this.biImport_Click);
+            this.biDownloadModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDownloadModel.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biDownloadModel.Name = "biDownloadModel";
+            this.biDownloadModel.Text = "模板下载";
+            this.biDownloadModel.Click += new System.EventHandler(this.biDownloadModel_Click);
             // 
             // StaffInfoMgr
             // 
@@ -703,5 +713,6 @@
         private DevComponents.DotNetBar.ButtonItem biPrivateCopy;
         private DevComponents.DotNetBar.ButtonItem biOneKeyUpload;
         private DevComponents.DotNetBar.ButtonItem biImport;
+        private DevComponents.DotNetBar.ButtonItem biDownloadModel;
     }
 }

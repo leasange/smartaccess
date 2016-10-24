@@ -455,6 +455,12 @@
     <Compile Include="VerInfoMgr\FrmGetPicture.Designer.cs">
       <DependentUpon>FrmGetPicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmCombineDept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmCombineDept.Designer.cs">
+      <DependentUpon>FrmCombineDept.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmMoveDept.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -662,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmGetPicture.resx">
       <DependentUpon>FrmGetPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmCombineDept.resx">
+      <DependentUpon>FrmCombineDept.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmMoveDept.resx">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
