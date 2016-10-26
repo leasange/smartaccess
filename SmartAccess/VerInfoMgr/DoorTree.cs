@@ -15,6 +15,17 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class DoorTree : UserControl
     {
+        public bool CheckBoxVisible
+        {
+            get
+            {
+                return this.advDoorTree.CheckBoxVisible;
+            }
+            set
+            {
+                this.advDoorTree.CheckBoxVisible = value;
+            }
+        }
         public AdvTreeEx Tree
         {
             get
