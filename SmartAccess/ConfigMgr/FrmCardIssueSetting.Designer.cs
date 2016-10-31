@@ -95,6 +95,7 @@
             this.cboPort.DisplayMember = "Text";
             this.cboPort.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboPort.DropDownHeight = 150;
+            this.cboPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPort.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cboPort.FormattingEnabled = true;
             this.cboPort.IntegralHeight = false;
@@ -161,6 +162,7 @@
             this.cboModel.DisplayMember = "Text";
             this.cboModel.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboModel.DropDownHeight = 150;
+            this.cboModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboModel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cboModel.FormattingEnabled = true;
             this.cboModel.IntegralHeight = false;
@@ -176,6 +178,7 @@
             this.cboBaud.DisplayMember = "Text";
             this.cboBaud.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboBaud.DropDownHeight = 150;
+            this.cboBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBaud.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cboBaud.FormattingEnabled = true;
             this.cboBaud.IntegralHeight = false;
