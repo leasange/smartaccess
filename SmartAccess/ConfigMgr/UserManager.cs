@@ -34,8 +34,8 @@ namespace SmartAccess.ConfigMgr
                 if (filter!="")
                 {
                     strWhere += " and (USER_NAME like '%" + filter + "%' or REAL_NAME like '%" + filter + "%')";
-                    pageDataGridView.SqlWhere = strWhere;
                 }
+                pageDataGridView.SqlWhere = strWhere;
             }
             if (pageDataGridView.SqlWhere==null)
             {
@@ -86,14 +86,22 @@ namespace SmartAccess.ConfigMgr
         private void AddToGrid(Maticsoft.Model.SMT_USER_INFO user)
         {
             DataGridViewRow row = new DataGridViewRow();
-            if (string.IsNullOrWhiteSpace(user.ROLE_NAME))
+            if (user.USER_NAME=="admin")
             {
-                user.ROLE_NAME = "设置角色";
+                user.ROLE_NAME = "超级管理员";
             }
             else
             {
-                user.ROLE_NAME = user.ROLE_NAME + "(点击重设)";
+                if (string.IsNullOrWhiteSpace(user.ROLE_NAME))
+                {
+                    user.ROLE_NAME = "设置角色";
+                }
+                else
+                {
+                    user.ROLE_NAME = user.ROLE_NAME + "(点击重设)";
+                }
             }
+
             row.CreateCells(dgvData,
                 user.USER_NAME,
                 user.IS_ENABLE?"启用":"禁用",
@@ -158,6 +166,10 @@ namespace SmartAccess.ConfigMgr
             else
             {
                 Maticsoft.Model.SMT_USER_INFO userInfo = (Maticsoft.Model.SMT_USER_INFO)row.Tag;
+                if (userInfo.USER_NAME=="admin")
+                {
+                    return;
+                }
                 FrmEditorUser frmUser = new FrmEditorUser(userInfo);
                 if (frmUser.ShowDialog(this) == DialogResult.OK)
                 {
@@ -201,33 +213,34 @@ namespace SmartAccess.ConfigMgr
                 {
                     try
                     {
-                        Maticsoft.BLL.SMT_USER_INFO userBll = new Maticsoft.BLL.SMT_USER_INFO();
-                        userInfo.IS_DELETE = true;
-                        if (userInfo.REAL_NAME==null)
-                        {
-                            userInfo.REAL_NAME = "";
-                        }
-                        if (userInfo.ADDRESS==null)
-                        {
-                            userInfo.ADDRESS = "";
-                        }
-                        if (userInfo.EMAIL==null)
-                        {
-                            userInfo.EMAIL = "";
-                        }
-                        if (userInfo.KEY_VAL==null)
-                        {
-                            userInfo.KEY_VAL = "";
-                        }
-                        if (userInfo.QQ==null)
-                        {
-                            userInfo.QQ = "";
-                        }
-                        if (userInfo.TELEPHONE == null)
-                        {
-                            userInfo.TELEPHONE = "";
-                        }
-                        userBll.Update(userInfo);
+//                         Maticsoft.BLL.SMT_USER_INFO userBll = new Maticsoft.BLL.SMT_USER_INFO();
+//                         userInfo.IS_DELETE = true;
+//                         if (userInfo.REAL_NAME==null)
+//                         {
+//                             userInfo.REAL_NAME = "";
+//                         }
+//                         if (userInfo.ADDRESS==null)
+//                         {
+//                             userInfo.ADDRESS = "";
+//                         }
+//                         if (userInfo.EMAIL==null)
+//                         {
+//                             userInfo.EMAIL = "";
+//                         }
+//                         if (userInfo.KEY_VAL==null)
+//                         {
+//                             userInfo.KEY_VAL = "";
+//                         }
+//                         if (userInfo.QQ==null)
+//                         {
+//                             userInfo.QQ = "";
+//                         }
+//                         if (userInfo.TELEPHONE == null)
+//                         {
+//                             userInfo.TELEPHONE = "";
+//                         }
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("update SMT_USER_INFO set IS_DELETE=1 where ID=" + userInfo.ID);
+                       // bool ret= userBll.Update(userInfo);
                         SmtLog.InfoFormat("用户", "删除用户：用户名={0}", userInfo.USER_NAME);
                         this.Invoke(new Action(() =>
                         {
@@ -257,6 +270,11 @@ namespace SmartAccess.ConfigMgr
                 if (dgvData.Columns[e.ColumnIndex].Name == "ColRole")
                 {
                     Maticsoft.Model.SMT_USER_INFO user = (Maticsoft.Model.SMT_USER_INFO)dgvData.Rows[e.RowIndex].Tag;
+                    if (user.USER_NAME=="admin")
+                    {
+                        MessageBox.Show("admin用户默认为超级管理员无法修改权限！");
+                        return;
+                    }
                     FrmRoleSelect select = new FrmRoleSelect(user);
                     if (select.ShowDialog(this)==DialogResult.OK)
                     {

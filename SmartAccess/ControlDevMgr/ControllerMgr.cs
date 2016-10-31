@@ -11,6 +11,7 @@ using Li.Access.Core;
 using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.WinInfo;
 using Li.Controls.Excel;
+using SmartAccess.Common;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -354,10 +355,50 @@ namespace SmartAccess.ControlDevMgr
                     try
                     {
                         Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+                        DialogResult dr= DialogResult.No;
+                        this.Invoke(new Action(() =>
+                        {
+                            dr = MessageBox.Show("是否清除该控制器权限？", "提示", MessageBoxButtons.YesNo);
+                        }));
+                        if (dr==DialogResult.Yes)
+                        {
+                            Controller c = ControllerHelper.ToController(ctrlr);
+                            using (IAccessCore ac=new WGAccess())
+                            {
+                                try
+                                {
+                                    bool ret = ac.ClearAuthority(c);
+                                    if (!ret)
+                                    {
+                                        this.Invoke(new Action(() =>
+                                        {
+                                            dr = MessageBox.Show("清除控制器权限失败（控制器可能离线），是否继续删除控制器？", "提示", MessageBoxButtons.YesNo);
+                                        }));
+                                        if (dr == DialogResult.No)
+                                        {
+                                            return;
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Error("清除控制器权限失败（控制器可能离线）(删除控制器)：", ex);
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        dr = MessageBox.Show("清除控制器权限失败（控制器可能离线），是否继续删除控制器？", "提示", MessageBoxButtons.YesNo);
+                                    }));
+                                    if (dr == DialogResult.No)
+                                    {
+                                        return;
+                                    }
+                                }
+                            }
+                        }
                         Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
                         ctrlBll.Delete(ctrlr.ID);
                         //置门关联控制器为空
                         Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("update SMT_DOOR_INFO set CTRL_ID=-1,CTRL_DOOR_INDEX=0 where CTRL_ID=" + ctrlr.ID);
+                        SmtLog.Info("设备", "控制器删除：" + ctrlr.IP + "," + ctrlr.NAME);
                         this.Invoke(new Action(() =>
                             {
                                 dgvCtrlr.Rows.Remove(row);
@@ -466,6 +507,25 @@ namespace SmartAccess.ControlDevMgr
         private void tsmiCtrlIPPrivate_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void biModifyArea_Click(object sender, EventArgs e)
+        {
+            Maticsoft.Model.SMT_CONTROLLER_ZONE area = GetSelectArea();
+            FrmControlAreaEditor areaEditor = new FrmControlAreaEditor(area);
+            if (area != null)
+            {
+                areaEditor.ParentAreaID = area.PAR_ID;
+            }
+            else
+            {
+                areaEditor.ParentAreaID = 0;
+            }
+            if (areaEditor.ShowDialog(this) == DialogResult.OK)
+            {
+                Maticsoft.Model.SMT_CONTROLLER_ZONE update = areaEditor.Area;
+                AreaDataHelper.UpdateNode(advTreeArea.SelectedNode, update);
+            }
         }
     }
 }

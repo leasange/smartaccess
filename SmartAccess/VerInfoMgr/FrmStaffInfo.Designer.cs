@@ -908,7 +908,6 @@
             this.dtTimeIn.Size = new System.Drawing.Size(155, 21);
             this.dtTimeIn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtTimeIn.TabIndex = 21;
-            this.dtTimeIn.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
             // 
             // dtTimeOut
             // 
@@ -960,7 +959,6 @@
             this.dtTimeOut.Size = new System.Drawing.Size(155, 21);
             this.dtTimeOut.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtTimeOut.TabIndex = 22;
-            this.dtTimeOut.Value = new System.DateTime(2016, 6, 24, 21, 24, 50, 0);
             // 
             // labelX27
             // 

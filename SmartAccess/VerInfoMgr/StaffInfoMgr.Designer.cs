@@ -42,6 +42,7 @@
             this.biPrivateCopy = new DevComponents.DotNetBar.ButtonItem();
             this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             this.biExportPhoto = new DevComponents.DotNetBar.ButtonItem();
+            this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
@@ -82,7 +83,7 @@
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
-            this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
+            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -110,6 +111,7 @@
             this.biChangeCard,
             this.biForbbiden,
             this.biUnForbbiden,
+            this.biRefresh,
             this.biPrivateCopy,
             this.biOneKeyUpload,
             this.biExportPhoto,
@@ -203,6 +205,14 @@
             this.biExportPhoto.Name = "biExportPhoto";
             this.biExportPhoto.Text = "导出照片";
             this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
+            // 
+            // biDownloadModel
+            // 
+            this.biDownloadModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDownloadModel.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biDownloadModel.Name = "biDownloadModel";
+            this.biDownloadModel.Text = "模板下载";
+            this.biDownloadModel.Click += new System.EventHandler(this.biDownloadModel_Click);
             // 
             // biImport
             // 
@@ -627,13 +637,13 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
-            // biDownloadModel
+            // biRefresh
             // 
-            this.biDownloadModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDownloadModel.Image = global::SmartAccess.Properties.Resources.本地图片;
-            this.biDownloadModel.Name = "biDownloadModel";
-            this.biDownloadModel.Text = "模板下载";
-            this.biDownloadModel.Click += new System.EventHandler(this.biDownloadModel_Click);
+            this.biRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefresh.Image = global::SmartAccess.Properties.Resources.刷新;
+            this.biRefresh.Name = "biRefresh";
+            this.biRefresh.Text = "刷新";
+            this.biRefresh.Click += new System.EventHandler(this.biRefresh_Click);
             // 
             // StaffInfoMgr
             // 
@@ -714,5 +724,6 @@
         private DevComponents.DotNetBar.ButtonItem biOneKeyUpload;
         private DevComponents.DotNetBar.ButtonItem biImport;
         private DevComponents.DotNetBar.ButtonItem biDownloadModel;
+        private DevComponents.DotNetBar.ButtonItem biRefresh;
     }
 }

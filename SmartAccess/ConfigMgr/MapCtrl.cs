@@ -102,7 +102,9 @@ namespace SmartAccess.ConfigMgr
             if (mapInfo.MAP_IMAGE!=null&&mapInfo.MAP_IMAGE.Length>0)
             {
                 MemoryStream ms=new MemoryStream(mapInfo.MAP_IMAGE);
+                //Image image = Image.FromStream(ms);
                 _mapImage = Image.FromStream(ms);
+                //image.Dispose();
                 ms.Dispose();
             }
             if (mapInfo.MAP_DOORS!=null&&mapInfo.MAP_DOORS.Count>0)

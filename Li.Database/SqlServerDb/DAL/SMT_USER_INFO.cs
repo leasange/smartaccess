@@ -146,7 +146,7 @@ namespace Maticsoft.DAL
 			parameters[10].Value = model.KEY_VAL;
 			parameters[11].Value = model.ID;
 			parameters[12].Value = model.USER_NAME;
-			parameters[13].Value = model.IS_DELETE;
+            parameters[13].Value = model.IS_DELETE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)

@@ -173,7 +173,10 @@ namespace SmartAccess.ConfigMgr
             if (mapCtrl.MapImage!=null)
             {
                 MemoryStream ms = new MemoryStream();
-                mapCtrl.MapImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                using (Bitmap bitmap=new Bitmap(mapCtrl.MapImage))
+                {
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
                 _mapInfo.MAP_IMAGE = ms.GetBuffer();
                 ms.Dispose();
             }

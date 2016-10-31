@@ -62,6 +62,17 @@ namespace SmartAccess.Common.Datas
             node.Tooltip = area.ZONE_DESC;
             return node;
         }
+        public static void UpdateNode(DevComponents.AdvTree.Node node,Maticsoft.Model.SMT_CONTROLLER_ZONE area)
+        {
+            if (node==null)
+            {
+                return;
+            }
+            node.Text = area.ZONE_NAME;
+            node.Tag = area;
+            node.Image = Properties.Resources.house1818;
+            node.Tooltip = area.ZONE_DESC;
+        }
         /// <summary>
         /// 递归创建下级节点
         /// </summary>
@@ -126,7 +137,22 @@ namespace SmartAccess.Common.Datas
             return tree;
         }
 
-
+        public static bool UpdateArea(Maticsoft.Model.SMT_CONTROLLER_ZONE Area)
+        {
+            Maticsoft.BLL.SMT_CONTROLLER_ZONE bll = new Maticsoft.BLL.SMT_CONTROLLER_ZONE();
+            bool ret= bll.Update(Area);
+            var area= _areas.Find(m => m.ID == Area.ID);
+            if (area!=null&&area!=Area)
+            {
+                _areas.Remove(area);
+                _areas.Add(Area);
+            }
+            else if (area==null)
+            {
+                _areas.Add(Area);
+            }
+            return ret;
+        }
         public static decimal AddArea(Maticsoft.Model.SMT_CONTROLLER_ZONE Area)
         {
             Maticsoft.BLL.SMT_CONTROLLER_ZONE bll = new Maticsoft.BLL.SMT_CONTROLLER_ZONE();

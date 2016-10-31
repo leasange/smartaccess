@@ -10,6 +10,7 @@ using DevComponents.DotNetBar;
 using SmartAccess.ConfigMgr;
 using SmartAccess.Common;
 using SmartAccess.Common.WinInfo;
+using SmartAccess.Common.Datas;
 
 namespace SmartAccess
 {
@@ -38,6 +39,14 @@ namespace SmartAccess
               
             });
             waiting.ShowDialog(this);*/
+            try
+            {
+                tsslStateUser.Text = UserInfoHelper.UserInfo.USER_NAME;
+            }
+            catch (Exception)
+            {
+            }
+            
             smtNavigate.Main = this;
 //             ExpandablePanel fexpanel = splitContainer.Panel1.Controls[splitContainer.Panel1.Controls.Count-1] as ExpandablePanel;
 //             foreach (Control item in splitContainer.Panel1.Controls)

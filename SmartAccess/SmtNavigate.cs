@@ -24,18 +24,19 @@ namespace SmartAccess
             verMgr.Items.AddRange(new ExpandItem[]
                 {
                     new ExpandItem("证件编码", Properties.Resources.证件管理, SYS_FUN_POINT.VER_CODE,typeof(VerInfoMgr.VerCodeInfo)),
+                    new ExpandItem("证件模板", Properties.Resources.dkq_2525, SYS_FUN_POINT.VER_MODEL,typeof(ModelMgr.VerModelMgr)),
                     new ExpandItem("部门管理", Properties.Resources.部门管理, SYS_FUN_POINT.DEPT_MGR,typeof(VerInfoMgr.DeptMgr)),
-                    new ExpandItem("人员信息", Properties.Resources.人员信息, SYS_FUN_POINT.STAFF_MGR,typeof(VerInfoMgr.StaffInfoMgr)),
+                    new ExpandItem("人员信息", Properties.Resources.人员信息, SYS_FUN_POINT.STAFF_MGR,typeof(VerInfoMgr.StaffInfoMgr))
                 });
             MenuItems.Add(verMgr);
-
+            /*
             ExpandItem modelMgr = new ExpandItem("模板设定管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.MODEL_INFO_MGR);
             modelMgr.Items.AddRange(new ExpandItem[]
                 {
                     new ExpandItem("证件模板", Properties.Resources.dkq_2525, SYS_FUN_POINT.VER_MODEL,typeof(ModelMgr.VerModelMgr))
                 });
             MenuItems.Add(modelMgr);
-
+            */
 
             ExpandItem infoSearchMgr = new ExpandItem("信息系统查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.SEARCH_INFO_MGR);
             infoSearchMgr.Items.AddRange(new ExpandItem[]

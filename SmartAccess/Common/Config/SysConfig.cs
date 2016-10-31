@@ -69,7 +69,7 @@ namespace SmartAccess.Common.Config
         public int comPort=3;
         public ComBuad comBuad= ComBuad.CBR_14400;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(CardIssueConfig));
-        public CardIssueModel cardIssueModel = CardIssueModel.MF800A;
+        public CardIssueModel cardIssueModel = CardIssueModel.HY_EM800A;
         public void FromString(string strConfig)
         {
             if (string.IsNullOrWhiteSpace(strConfig))

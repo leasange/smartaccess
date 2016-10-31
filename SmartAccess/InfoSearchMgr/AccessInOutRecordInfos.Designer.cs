@@ -275,7 +275,7 @@
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(48, 23);
             this.labelX4.TabIndex = 0;
-            this.labelX4.Text = "门禁";
+            this.labelX4.Text = "位置";
             // 
             // labelX3
             // 
@@ -333,9 +333,9 @@
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Location = new System.Drawing.Point(12, 12);
             this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(48, 23);
+            this.labelX1.Size = new System.Drawing.Size(64, 23);
             this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "证件号";
+            this.labelX1.Text = "证件编号";
             // 
             // pageDataGridView
             // 
@@ -432,7 +432,7 @@
             // 
             // Column4
             // 
-            this.Column4.HeaderText = "门禁";
+            this.Column4.HeaderText = "位置";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 

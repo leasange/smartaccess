@@ -48,6 +48,7 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColDelete = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.comboItem5 = new DevComponents.Editors.ComboItem();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
@@ -101,6 +102,7 @@
             this.comboItem1,
             this.comboItem2,
             this.comboItem3,
+            this.comboItem5,
             this.comboItem4});
             this.cboVerType.Location = new System.Drawing.Point(371, 15);
             this.cboVerType.Name = "cboVerType";
@@ -129,7 +131,7 @@
             this.btnAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnAdd.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnAdd.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnAdd.Location = new System.Drawing.Point(632, 41);
+            this.btnAdd.Location = new System.Drawing.Point(607, 41);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -160,7 +162,7 @@
             this.tbVerFormat.Location = new System.Drawing.Point(89, 43);
             this.tbVerFormat.MaxLength = 300;
             this.tbVerFormat.Name = "tbVerFormat";
-            this.tbVerFormat.Size = new System.Drawing.Size(537, 21);
+            this.tbVerFormat.Size = new System.Drawing.Size(512, 21);
             this.tbVerFormat.TabIndex = 2;
             // 
             // labelX2
@@ -230,7 +232,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvData.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(0, 115);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
@@ -262,6 +264,10 @@
             this.ColDelete.HeaderText = "删除";
             this.ColDelete.Name = "ColDelete";
             this.ColDelete.ReadOnly = true;
+            // 
+            // comboItem5
+            // 
+            this.comboItem5.Text = "施工证";
             // 
             // VerCodeInfo
             // 
@@ -298,6 +304,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewLinkColumn ColDelete;
+        private DevComponents.Editors.ComboItem comboItem5;
 
     }
 }

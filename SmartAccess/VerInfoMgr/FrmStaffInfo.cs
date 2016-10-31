@@ -398,8 +398,8 @@ namespace SmartAccess.VerInfoMgr
 
         private void Init(bool loadDept = true)
         {
-            dtValidTimeStart.Value = DateTime.Parse("2000-01-01 00:00:00");
-            dtValidTimeEnd.Value = DateTime.Parse("2099-01-01 00:00:00");
+            dtValidTimeStart.Value = DateTime.Now.Date;
+            dtValidTimeEnd.Value = new DateTime(DateTime.Now.Year, 12, 31);
             dtTimeIn.Value = DateTime.Parse("2000-01-01 00:00:00");
             dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
             LoadModels();

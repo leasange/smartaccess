@@ -53,6 +53,6 @@ namespace Li.Access.Core
     /// </summary>
     public enum CardIssueModel
     {
-        MF800A,//
+        HY_EM800A,//HY-EM800A
     }
 }

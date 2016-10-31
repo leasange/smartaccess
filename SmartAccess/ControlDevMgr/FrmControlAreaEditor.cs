@@ -1,5 +1,7 @@
-﻿using SmartAccess.Common.Database;
+﻿using SmartAccess.Common;
+using SmartAccess.Common.Database;
 using SmartAccess.Common.Datas;
+using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,13 +19,18 @@ namespace SmartAccess.ControlDevMgr
         {
             InitializeComponent();
         }
-
+        public FrmControlAreaEditor(Maticsoft.Model.SMT_CONTROLLER_ZONE  area)
+        {
+            InitializeComponent();
+            Area = area;
+            IsAdd = false;
+        }
         public bool IsAdd { get; set; }
 
         public decimal? ParentAreaID { get; set; }
 
         public Maticsoft.Model.SMT_CONTROLLER_ZONE Area { get; set; }
-
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmControlAreaEditor));
         private void FrmControlAreaEditor_Load(object sender, EventArgs e)
         {
             if (IsAdd)
@@ -32,7 +39,12 @@ namespace SmartAccess.ControlDevMgr
             }
             else
             {
-
+                this.Text = "修改区域";
+                if (Area!=null)
+                {
+                    tbAreaName.Text = Area.ZONE_NAME;
+                    tbAreaDesc.Text = Area.ZONE_DESC;
+                }
             }
            
         }
@@ -47,19 +59,49 @@ namespace SmartAccess.ControlDevMgr
 	        }
             try
             {
-                Area = new Maticsoft.Model.SMT_CONTROLLER_ZONE();
+                if (Area==null)
+                {
+                    Area = new Maticsoft.Model.SMT_CONTROLLER_ZONE();
+                    Area.ID = -1;
+                    Area.PAR_ID = ParentAreaID == null ? 0 : (decimal)ParentAreaID;
+                    Area.ORDER_VALUE = 100;
+                }
                 Area.ZONE_NAME = tbAreaName.Text.Trim();
                 Area.ZONE_DESC = tbAreaDesc.Text.Trim();
-                Area.PAR_ID = ParentAreaID == null ? 0 : (decimal)ParentAreaID;
-                Area.ORDER_VALUE = 100;
-                Area.ID = AreaDataHelper.AddArea(Area);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    try
+                    {
+                        if (Area.ID == -1)
+                        {
+                            Area.ID = AreaDataHelper.AddArea(Area);
+                            SmtLog.Info("区域", "添加区域：" + Area.ZONE_NAME);
+                        }
+                        else
+                        {
+                            AreaDataHelper.UpdateArea(Area);
+                            SmtLog.Info("区域", "更新区域：" + Area.ZONE_NAME);
+                        }
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "保存区域异常：" + ex.Message);
+                        log.Error("保存区域异常：", ex);
+                    }
+
+                });
+                waiting.Show(this);
             }
             catch (Exception ex)
             {
-                
-                throw;
+                WinInfoHelper.ShowInfoWindow(this, "保存区域异常：" + ex.Message);
+                log.Error("保存区域异常：", ex);
             }
 
         }

@@ -337,7 +337,7 @@ namespace SmartAccess.StatisticsMgr
                             }
                             DataGridViewRow trow = new DataGridViewRow();
                             trow.CreateCells(dgvData,
-                                "总计",
+                                "总计(次)",
                                 ""
                                 );
                             for (int i = 0; i < monthCount + 1; i++)

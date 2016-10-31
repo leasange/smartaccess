@@ -244,6 +244,7 @@ namespace SmartAccess.ModelMgr
             if (model!=null)
             {
                 saveFileDialog.FileName = model.VERM_NAME;
+                saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "vermodes");
                 if (saveFileDialog.ShowDialog(this)==DialogResult.OK)
 	            {
                     _report.Save(saveFileDialog.FileName);

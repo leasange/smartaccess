@@ -26,7 +26,7 @@ namespace SmartAccess.VerInfoMgr
             InitializeComponent();
             deptTree.Tree.NodeMouseDown += Tree_NodeMouseDown;
         }
-
+        private List<decimal> _selectOrgIds = null;
         void Tree_NodeMouseDown(object sender, TreeNodeMouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -39,12 +39,26 @@ namespace SmartAccess.VerInfoMgr
                     if (orgInfo != null)
                     {
                         orgId = orgInfo.ID;
+                        _selectOrgIds = GetSelectIDs(deptNode);
                     }
                 }
                 DoSearch(true, true, false, null, orgId);
             }
         }
-
+        private List<decimal> GetSelectIDs(Node orgNode)
+        {
+            List<decimal> decs = new List<decimal>();
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = orgNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+            if (orgInfo!=null)
+            {
+                decs.Add(orgInfo.ID);
+            }
+            foreach (Node item in orgNode.Nodes)
+            {
+                decs.AddRange(GetSelectIDs(item).ToArray());
+            }
+            return decs;
+        }
         private void biAddUser_Click(object sender, EventArgs e)
         {
             FrmStaffInfo staffInfo = new FrmStaffInfo();
@@ -74,6 +88,7 @@ namespace SmartAccess.VerInfoMgr
                 _byDeptTree = byDeptTree;
                 _byCardNum = byCardNum;
                 _cardNum = cardNum;
+                _orgId = orgId;
             }
             else
             {
@@ -122,7 +137,7 @@ namespace SmartAccess.VerInfoMgr
                     {
                         if (orgId != -1)
                         {
-                            strWhere += " and ORG_ID=" + orgId;
+                            strWhere += " and ORG_ID in (" + string.Join(",", _selectOrgIds.ToArray()) + ")";
                         }
                     }
                     if (cbIsForbbiden.Checked)
@@ -158,7 +173,7 @@ namespace SmartAccess.VerInfoMgr
                 strWhere = _strWhere;
             }
 
-            if (_byDeptTree && orgId == -1)
+            /*if (_byDeptTree && orgId == -1)
             {
                 Node deptNode = deptTree.Tree.SelectedNode;
                 if (deptNode != null)
@@ -167,9 +182,10 @@ namespace SmartAccess.VerInfoMgr
                     if (orgInfo != null)
                     {
                         orgId = orgInfo.ID;
+                        _selectOrgIds = GetSelectIDs(deptTree.Tree.SelectedNode);
                     }
                 }
-            }
+            }*/
 
             if (resetCount)
             {
@@ -1270,6 +1286,11 @@ namespace SmartAccess.VerInfoMgr
         private void biDownloadModel_Click(object sender, EventArgs e)
         {
             DoExport(new List<Maticsoft.Model.SMT_STAFF_INFO>(),true);
+        }
+
+        private void biRefresh_Click(object sender, EventArgs e)
+        {
+            DoSearch(false, _byDeptTree, false, null, _orgId);
         }
 
     }

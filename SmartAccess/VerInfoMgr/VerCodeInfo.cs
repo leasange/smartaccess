@@ -106,6 +106,9 @@ namespace SmartAccess.VerInfoMgr
                 case 2:
                     strType = "驾驶证";
                     break;
+                case 3:
+                    strType = "施工证";
+                    break;
                 default:
                     break;
             }
