@@ -20,10 +20,12 @@ namespace SmartAccess
     public partial class FrmLogin : DevComponents.DotNetBar.Office2007Form
     {
         private FrmMain frmMain = null;
+        private bool _isEnableDog = true;
         public FrmLogin()
         {
             InitializeComponent();
            // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
+            _isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
         }
 
         #region 按钮事件
@@ -192,7 +194,10 @@ namespace SmartAccess
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            CheckDog();
+            if (_isEnableDog)
+            {
+                CheckDog();
+            }
         }
 
         private void timerDogCheck_Tick(object sender, EventArgs e)
