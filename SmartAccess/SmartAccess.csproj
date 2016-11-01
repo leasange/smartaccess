@@ -751,7 +751,7 @@
     <None Include="Resources\loading.gif" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Common\Database\smartaccess.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_createall.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\注册.png" />
@@ -856,6 +856,9 @@
     <None Include="Resources\证件管理.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Common\Database\smartaccess_before.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_update.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_data.sql" />
     <Content Include="logo1.ico" />
     <None Include="Resources\house1818.png" />
     <None Include="Resources\door1818.png" />

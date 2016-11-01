@@ -190,10 +190,10 @@
             this.btnCreateDatabase.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCreateDatabase.Location = new System.Drawing.Point(221, 174);
             this.btnCreateDatabase.Name = "btnCreateDatabase";
-            this.btnCreateDatabase.Size = new System.Drawing.Size(92, 23);
+            this.btnCreateDatabase.Size = new System.Drawing.Size(118, 23);
             this.btnCreateDatabase.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCreateDatabase.TabIndex = 5;
-            this.btnCreateDatabase.Text = "创建数据库";
+            this.btnCreateDatabase.Text = "创建或升级数据库";
             this.btnCreateDatabase.Click += new System.EventHandler(this.btnCreateDatabase_Click);
             // 
             // lbMsg

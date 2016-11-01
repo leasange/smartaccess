@@ -141,16 +141,17 @@ namespace SmartAccess
         {
             this.Close();
         }
-        
+
         private void btnCreateDatabase_Click(object sender, EventArgs e)
         {
             DatabaseConfigClass config = GetInputConfig();
+            bool isupdate = false;
             if (CheckInput())
             {
                 bool exsit = false;
                 config.database = "master";
                 string connStr = GetInputConfig().ToString();
-                CtrlWaiting waiting = new CtrlWaiting("创建中...",() =>
+                CtrlWaiting waiting = new CtrlWaiting("创建中...", () =>
                 {
                     try
                     {
@@ -187,9 +188,18 @@ namespace SmartAccess
                 waiting.ShowDialog(this);
                 if (exsit)
                 {
-                    if (MessageBox.Show("数据库已存在，是否重新创建？\r\n原始数据库会备份至服务器目录：C:\\SmartAccessBak 下。", "确定", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                    DialogResult dr = MessageBox.Show("数据库已存在，重新创建选择“是”，升级选择“否”，不改动选择“取消”？\r\n重新创建，原始数据库会备份至服务器目录：C:\\SmartAccessBak 下。", "确定", MessageBoxButtons.YesNoCancel);
+                    if (dr == DialogResult.Cancel)
                     {
                         return;
+                    }
+                    else if (dr == DialogResult.Yes)
+                    {
+                        isupdate = false;
+                    }
+                    else
+                    {
+                        isupdate = true;
                     }
                 }
             }
@@ -198,39 +208,63 @@ namespace SmartAccess
                 return;
             }
             //创建和备份数据库
-           
-            CtrlWaiting waiting1 = new CtrlWaiting("创建中...", () =>
+
+            CtrlWaiting waiting1 = new CtrlWaiting((isupdate ? "升级" : "创建") + "数据库中...", () =>
             {
                 try
                 {
-                    DoCreateDataBase(config);
+                    DoCreateDataBase(config, isupdate);
                     this.Invoke(new Action(() =>
                     {
-                        MessageBox.Show("创建数据库成功！");
+                        MessageBox.Show((isupdate ? "升级" : "创建") + "数据库成功！");
                     }));
                 }
                 catch (Exception ex)
                 {
                     this.Invoke(new Action(() =>
                     {
-                        MessageBox.Show("创建数据库异常：" + ex.Message);
+                        MessageBox.Show((isupdate ? "升级" : "创建") + "数据库异常：" + ex.Message);
                     }));
                 }
 
             });
             waiting1.Show(this);
         }
-        private void DoCreateDataBase(DatabaseConfigClass config = null)
+        private string GetFileSql(string fileName)
         {
-            config.database = "master";
-            string sqlstring = config.ToString();
-            Stream s = this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database.smartaccess.sql");
+            Stream s = this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database." + fileName);
             StreamReader sr = new StreamReader(s, Encoding.UTF8);
             string createDBSql = sr.ReadToEnd();
             s.Dispose();
+            return createDBSql;
+        }
+        private void DoCreateDataBase(DatabaseConfigClass config = null,bool isUpdate=false)
+        {
+            config.database = "master";
+            string sqlstring = config.ToString();
+            string createDBSql = GetFileSql("smartaccess_createall.sql");
+            string beforeDBSql = GetFileSql("smartaccess_before.sql");
+            string dataDBSql = GetFileSql("smartaccess_data.sql");
+            string updateDBSql = GetFileSql("smartaccess_update.sql");
             using (SqlConnection conn = DatabaseHelper.ConnectDatabase(sqlstring))
             {
-                string[] sqlList = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                List<string> sqlList = new List<string>();
+                if (isUpdate)
+                {
+                    var updateList=updateDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var dataList = dataDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    sqlList.AddRange(updateList);
+                    sqlList.AddRange(dataList);
+                }
+                else
+                {
+                    var list = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var beforeList = beforeDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var dataList = dataDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    sqlList.AddRange(beforeList);
+                    sqlList.AddRange(list);
+                    sqlList.AddRange(dataList);
+                }
                 using (SqlCommand command = conn.CreateCommand())
                 {
                     command.CommandType = System.Data.CommandType.Text;
