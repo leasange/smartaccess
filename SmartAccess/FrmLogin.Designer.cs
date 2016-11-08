@@ -101,7 +101,6 @@
             this.tbPwd.PasswordChar = '*';
             this.tbPwd.Size = new System.Drawing.Size(182, 23);
             this.tbPwd.TabIndex = 1;
-            this.tbPwd.Text = "123456";
             // 
             // btnLogin
             // 

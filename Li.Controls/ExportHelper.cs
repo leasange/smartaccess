@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Li.Controls.Excel
 {
-    public delegate void ImportDataHandle(string[] datas);
+    public delegate void ImportDataHandle(string[] datas,bool isError,int errorRow,string error);
     public class ExportHelper
     {
         /// <summary>
@@ -240,27 +240,46 @@ namespace Li.Controls.Excel
                     {
                         string[] strs = new string[colCount];
                         bool isnull = true;
+                        bool iserror = false;
+                        int errorRow = 0;
+                        string msg = "";
                         int end = colCount + startCol;
-                        if (end > ws.Rows[i].CellCount)
+//                         if (end > ws.Rows[i].CellCount)
+//                         {
+//                             end = ws.Rows[i].CellCount;
+//                         }
+
+                        for (ushort j = startCol; j < end; j++)
                         {
-                            end = ws.Rows[i].CellCount;
-                        }
-                        for (ushort j = startCol; j <= end; j++)
-                        {
-                            string str = Convert.ToString(ws.Rows[i].CellAtCol(j).Value);
-                            strs[j - startCol] = str;
-                            if (!string.IsNullOrWhiteSpace(str))
+                            try
                             {
-                                isnull = false;
+                                if (ws.Rows[i].CellExists(j))
+                                {
+                                    string str = Convert.ToString(ws.Rows[i].CellAtCol(j).Value);
+                                    strs[j - startCol] = str;
+                                    if (!string.IsNullOrWhiteSpace(str))
+                                    {
+                                        isnull = false;
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                iserror = true;
+                                msg = ex.Message;
+                                errorRow = i+1;
+                                //throw;
                             }
                         }
+
+
                         if (isnull)
                         {
-                            break;
+                            continue;
                         }
                         if (callback != null)
                         {
-                            callback(strs);
+                            callback(strs, iserror,errorRow,msg);
                         }
                     }
                 }

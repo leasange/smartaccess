@@ -1151,11 +1151,21 @@ namespace SmartAccess.VerInfoMgr
                     FrmDetailInfo.Show(false);
                     FrmDetailInfo.AddOneMsg("开始导入...");
                     int count = 0;
-                    ImportHelper.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target) =>
+                    ImportHelper.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target,iserror,row,error) =>
                     {
+                        if (iserror)
+                        {
+                            FrmDetailInfo.AddOneMsg("获取行值有错误，忽略改行导入,行号："+row+" 错误：" + error, isRed: true);
+                            return;
+                        }
                         DataRow dr = dt.NewRow();
                         dr.ItemArray = target;
                         string name = GetNotNullString(dr["姓名"]);
+                        if (string.IsNullOrWhiteSpace(name))
+                        {
+                            FrmDetailInfo.AddOneMsg("警告：姓名为空不予导入！",isRed:true);
+                            return;
+                        }
                         try
                         {
                             Maticsoft.Model.SMT_STAFF_INFO staffInfo = new Maticsoft.Model.SMT_STAFF_INFO();
@@ -1241,7 +1251,24 @@ namespace SmartAccess.VerInfoMgr
                             staffInfo.VALID_ENDTIME = GetDateTime(dr["有效结束时间"], DateTime.MaxValue);
                             staffInfo.VALID_STARTTIME = GetDateTime(dr["有效开始时间"], DateTime.MinValue);
                             Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                            if (!string.IsNullOrWhiteSpace(staffInfo.STAFF_NO))//判断证件号已存在
+                            {
+                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where STAFF_NO='" + staffInfo.STAFF_NO + "'"))
+                                {
+                                    FrmDetailInfo.AddOneMsg("已存在相同证件号人员：" + staffInfo.STAFF_NO + ",人员" + staffInfo.REAL_NAME + "跳过导入！", isRed: true);
+                                    return;
+                                }
+                            }
+                            if (!string.IsNullOrWhiteSpace(staffInfo.REAL_NAME))//判断证件号已存在
+                            {
+                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where REAL_NAME='" + staffInfo.REAL_NAME + "'"))
+                                {
+                                    FrmDetailInfo.AddOneMsg("已存在相同姓名人员（请使用其他姓名导入之后人工修改）：" + staffInfo.REAL_NAME + ",人员" + staffInfo.REAL_NAME + "跳过导入！", isRed: true);
+                                    return;
+                                }
+                            }
                             staffInfo.ID = staffBll.Add(staffInfo);
+
                             string cardNo = GetNotNullString(dr["卡号"]);
                             if (!string.IsNullOrWhiteSpace(cardNo))
                             {

@@ -160,10 +160,34 @@ namespace SmartAccess.RuleSetMrg
                     tasks.Add((Maticsoft.Model.SMT_CTRLR_TASK)item.Tag);
                     rows.Add(item);
                 }
+                List<Maticsoft.Model.SMT_CTRLR_TASK> alltasks = new List<Maticsoft.Model.SMT_CTRLR_TASK>();
+                foreach (DataGridViewRow item in dgvData.Rows)
+                {
+                     if(tasks.Contains((Maticsoft.Model.SMT_CTRLR_TASK)item.Tag))
+                     {
+                         continue;
+                     }
+                    alltasks.Add((Maticsoft.Model.SMT_CTRLR_TASK)item.Tag);
+                }
                 CtrlWaiting waiting = new CtrlWaiting(() =>
                 {
                     try
                     {
+                        try
+                        {
+                            UploadPrivate.DeleteTimeTasks(tasks);
+                            if (alltasks.Count>0)
+                            {
+                                UploadPrivate.UploadTimeTasks(alltasks);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "删除控制器定时任务发生异常：" + ex.Message);
+                            log.Error("上传定时任务发生异常：", ex);
+                            return;
+                        }
+
                         Maticsoft.BLL.SMT_CTRLR_TASK taskBll = new Maticsoft.BLL.SMT_CTRLR_TASK();
                         string ids = "";
                         foreach (var item in tasks)

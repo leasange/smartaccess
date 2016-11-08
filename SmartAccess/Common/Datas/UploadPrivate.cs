@@ -705,5 +705,120 @@ namespace SmartAccess.Common.Datas
             }
             FrmDetailInfo.AddOneMsg("上传定时任务结束！");
         }
+
+        public static void DeleteTimeTasks(List<Maticsoft.Model.SMT_CTRLR_TASK> tasks)
+        {
+            var ctrls = ControllerHelper.GetList("1=1");
+            if (ctrls.Count == 0)
+            {
+                return;
+            }
+            var doors = GetUploadAllDoors();
+            if (doors.Count == 0)
+            {
+                return;
+            }
+            var groupDoors = doors.GroupBy(m => (decimal)m.CTRL_ID);
+            Dictionary<Controller, List<TimeTask>> ctasks = new Dictionary<Controller, List<TimeTask>>();//控制器定时任务列表
+            foreach (var item in tasks)
+            {
+                IEnumerable<System.Linq.IGrouping<decimal, Maticsoft.Model.SMT_DOOR_INFO>> group = groupDoors;//所有门禁
+                if (item.DOOR_ID != "-1")
+                {
+                    var doorIds = item.DOOR_ID.Split(',');
+                    List<decimal> ids = new List<decimal>();
+                    foreach (var di in doorIds)
+                    {
+                        decimal d = -1;
+                        if (decimal.TryParse(di, out d))
+                        {
+                            ids.Add(d);
+                        }
+                    }
+                    var tdoors = doors.FindAll(m => ids.Contains(m.ID));
+                    group = tdoors.GroupBy(m => (decimal)m.CTRL_ID);
+                }
+                foreach (var gd in group)
+                {
+                    var list = gd.ToList();
+                    Controller c = null;
+                    List<TimeTask> vtasks = null;
+                    foreach (var ct in ctasks)
+                    {
+                        if (ct.Key.id == list[0].CTRL_ID)
+                        {
+                            c = ct.Key;
+                            vtasks = ct.Value;
+                            break;
+                        }
+                    }
+                    if (c == null)
+                    {
+                        var ctrl = ctrls.Find(m => m.ID == list[0].CTRL_ID);
+                        if (ctrl == null)
+                        {
+                            continue;
+                        }
+                        c = ControllerHelper.ToController(ctrl);
+                        vtasks = new List<TimeTask>();
+                        ctasks.Add(c, vtasks);
+                    }
+                    TimeTask tt = new TimeTask()
+                    {
+                        actionTime = item.ACTION_TIME,
+                        cardCount = 2,
+                        ctrlStyle = (byte)item.CTRL_STYLE,
+                        no = item.TASK_NO,
+                        startDate = item.VALID_STARTDATE,
+                        endDate = item.VALID_ENDDATE
+                    };
+                    tt.weekDaysEnable[0] = item.MON_STATE;
+                    tt.weekDaysEnable[1] = item.TUE_STATE;
+                    tt.weekDaysEnable[2] = item.THI_STATE;
+                    tt.weekDaysEnable[3] = item.WES_STATE;
+                    tt.weekDaysEnable[4] = item.FRI_STATE;
+                    tt.weekDaysEnable[5] = item.SAT_STATE;
+                    tt.weekDaysEnable[6] = item.SUN_STATE;
+
+                    foreach (var dr in list)//遍历门
+                    {
+                        if (dr.CTRL_DOOR_INDEX == null)
+                        {
+                            continue;
+                        }
+                        tt.doorIndexs.Add((byte)(int)dr.CTRL_DOOR_INDEX);
+                    }
+                    vtasks.Add(tt);
+                }
+            }
+            List<ManualResetEvent> evts = new List<ManualResetEvent>();
+            foreach (var item in ctasks)
+            {
+                ManualResetEvent evt = new ManualResetEvent(false);
+                evts.Add(evt);
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                {
+                    try
+                    {
+                        IAccessCore access = new WGAccess();
+                        if (!access.ClearTimeTask(item.Key))
+                        {
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    finally
+                    {
+                        evt.Set();
+                    }
+                }));
+            }
+            foreach (var item in evts)
+            {
+                item.WaitOne(40000);
+            }
+        }
     }
 }

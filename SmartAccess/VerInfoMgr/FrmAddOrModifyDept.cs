@@ -101,7 +101,7 @@ namespace SmartAccess.VerInfoMgr
                     }
                     if (ret)
                     {
-                        this.Invoke(new Action(() =>
+                        this.BeginInvoke(new Action(() =>
                             {
                                 this.DialogResult = DialogResult.OK;
                                 this.Close();

@@ -26,6 +26,7 @@ namespace SmartAccess
             InitializeComponent();
            // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
             _isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
+            this.tbUserName.Text = SunCreate.Common.ConfigHelper.GetConfigString("LastLoginUser");
         }
 
         #region 按钮事件
@@ -51,6 +52,7 @@ namespace SmartAccess
                 tbPwd.Focus();
                 return;
             }
+            SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginUser", tbUserName.Text.Trim());
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
@@ -194,6 +196,18 @@ namespace SmartAccess
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Timer t = new Timer();
+            t.Tick +=(ob,ee)=>
+            {
+                if (!string.IsNullOrWhiteSpace(this.tbUserName.Text))
+                {
+                    this.tbPwd.SelectAll();
+                    this.tbPwd.Focus();
+                }
+                t.Stop();
+            };
+            t.Start();
+
             if (_isEnableDog)
             {
                 CheckDog();

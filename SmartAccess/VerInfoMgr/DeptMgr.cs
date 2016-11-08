@@ -244,8 +244,13 @@ namespace SmartAccess.VerInfoMgr
                 {
                     bool iscancel;
                     List<Maticsoft.Model.SMT_ORG_INFO> orgs = new List<Maticsoft.Model.SMT_ORG_INFO>();
-                    ImportHelper.ImportEx(out iscancel, 2, 1, 4, new ImportDataHandle((o) =>
+                    ImportHelper.ImportEx(out iscancel, 2, 1, 4, new ImportDataHandle((o,ise,row,error) =>
                     {
+                        if (ise)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "导入中发生行值错误,行号：" + row + " 错误：" + error);
+                            return;
+                        }
                         Maticsoft.Model.SMT_ORG_INFO org = new Maticsoft.Model.SMT_ORG_INFO();
                         org.ORG_CODE = o[0];
                         int ord = 100;

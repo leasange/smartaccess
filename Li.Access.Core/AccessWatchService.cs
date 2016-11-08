@@ -244,6 +244,7 @@ namespace Li.Access.Core
                     {
                         IAccessCore ac = new WGAccess();
                         ControllerState state = ac.GetControllerState(_controler);
+                      //var s=  ac.GetControllerRecord(_controler, -1);
                         DoCallBack(state!=null, state);
                     }
                     catch (ThreadAbortException)
@@ -316,6 +317,7 @@ namespace Li.Access.Core
                                     if(lastState.relayState[i]!=state.relayState[i])
                                     {
                                         lastState = state;
+                                        lastState.doorNum = (byte)(i + 1);
                                         foreach (var item in CallBacks)
                                         {
                                             item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
@@ -352,6 +354,7 @@ namespace Li.Access.Core
                                 if (lastState.relayState[i] != state.relayState[i])
                                 {
                                     lastState = state;
+                                    lastState.doorNum = (byte)(i + 1);
                                     foreach (var item in CallBacks)
                                     {
                                         item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
