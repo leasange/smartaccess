@@ -6,6 +6,9 @@ using System.Data;
 using org.in2bits.MyXls;
 using System.IO;
 using System.Windows.Forms;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 
 namespace Li.Controls.Excel
 {
@@ -318,6 +321,146 @@ namespace Li.Controls.Excel
                     throw ex1;
                 }
                 if (fileName==null)
+                {
+                    iscancel = true;
+                    return;
+                }
+                Import(fileName, startRow, startCol, colCount, callback);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+    }
+
+    public class ImportHelper2
+    {
+
+        public static void Import(string fileName, ushort startRow = 2, ushort startCol = 1, int colCount = 4, ImportDataHandle callback = null)
+        {
+            try
+            {
+                //XlsDocument xls = new XlsDocument(fileName);//新建Excel
+                IWorkbook xls = null;
+                IFormulaEvaluator formula=null;
+                var  fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                if (fileName.IndexOf(".xlsx") > 0) // 2007版本
+                {
+                    xls = new XSSFWorkbook(fs);
+                    formula=new XSSFFormulaEvaluator(xls);
+                }
+                    
+                else if (fileName.IndexOf(".xls") > 0) // 2003版本
+                {
+                     xls = new HSSFWorkbook(fs);
+                    formula=new HSSFFormulaEvaluator(xls);
+                }
+                   
+
+                if (xls.NumberOfSheets > 0)
+                {
+                    ISheet ws = xls.GetSheetAt(0);
+                    for (ushort i = (ushort)(startRow-1); i < ws.LastRowNum; i++)
+                    {
+                        string[] strs = new string[colCount];
+                        bool isnull = true;
+                        bool iserror = false;
+                        int errorRow = 0;
+                        string msg = "";
+                        int end = colCount + startCol;
+                        //                         if (end > ws.Rows[i].CellCount)
+                        //                         {
+                        //                             end = ws.Rows[i].CellCount;
+                        //                         }
+                       IRow row= ws.GetRow(i);
+                       if (row==null)
+                       {
+                           continue;
+                       }
+                        for (ushort j = (ushort)(startCol - 1); j < end - 1; j++)
+                        {
+                            try
+                            {
+                                var cell = row.GetCell(j);
+                                if (cell==null)
+                                {
+                                    continue;
+                                }
+                                string str = cell.ToString();
+                                switch (cell.CellType)
+                                {
+                                    case CellType.Formula:
+                                        {
+                                            cell = formula.EvaluateInCell(cell);
+                                            str = cell.ToString();
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                
+                                strs[j+1 - startCol] = str;
+                                if (!string.IsNullOrWhiteSpace(str))
+                                {
+                                    isnull = false;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                iserror = true;
+                                msg = ex.Message;
+                                errorRow = i + 1;
+                                //throw;
+                            }
+                        }
+
+
+                        if (isnull)
+                        {
+                            continue;
+                        }
+                        if (callback != null)
+                        {
+                            callback(strs, iserror, errorRow, msg);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public static void ImportEx(out bool iscancel, ushort startRow = 2, ushort startCol = 1, int colCount = 4, ImportDataHandle callback = null)
+        {
+            try
+            {
+                string fileName = null;
+                Exception ex1 = null;
+                iscancel = false;
+                Application.OpenForms[0].Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        OpenFileDialog ofd = new OpenFileDialog();
+                        ofd.Filter = "Excel(*.xls)|*.xls|所有文件(*.*)|*.*";
+                        if (ofd.ShowDialog() == DialogResult.OK)
+                        {
+                            fileName = ofd.FileName;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ex1 = ex;
+                    }
+                }));
+                if (ex1 != null)
+                {
+                    throw ex1;
+                }
+                if (fileName == null)
                 {
                     iscancel = true;
                     return;

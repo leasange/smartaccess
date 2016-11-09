@@ -343,6 +343,38 @@ namespace SmartAccess.VerInfoMgr
                 }
             }
         }
+        private List<DataGridViewRow> GetSelectRows()
+        {
+            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            if (dgvStaffs.SelectedRows.Count > 0)
+            {
+                var s = dgvStaffs.SelectedRows;
+                foreach (DataGridViewRow item in s)
+                {
+                    rows.Add(item);
+                }
+            }
+            if (dgvStaffs.SelectedCells.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择人员！");
+                return null;
+            }
+            if (dgvStaffs.SelectedCells[0].RowIndex < 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择人员！");
+                return null;
+            }
+            foreach (DataGridViewCell item in dgvStaffs.SelectedCells)
+            {
+                if (item.RowIndex >= 0)
+                {
+                    if (!rows.Contains(dgvStaffs.Rows[item.RowIndex]))
+                        rows.Add(dgvStaffs.Rows[item.RowIndex]);
+                }
+            }
+            return rows;
+        }
+
         private DataGridViewRow GetSelectRow()
         {
             if (dgvStaffs.SelectedRows.Count > 0)
@@ -378,57 +410,59 @@ namespace SmartAccess.VerInfoMgr
         //销户
         private void biDeleteStaff_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = GetSelectRow();
-            if (row == null)
+            var rows = GetSelectRows();
+            if (rows.Count == 0)
             {
                 return;
             }
-            if (MessageBox.Show("确定注销选择人员？", "提示", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            if (MessageBox.Show("确定注销选择人员,选择个数：" + rows.Count + "？", "提示", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
             {
                 return;
             }
-
-            Maticsoft.Model.SMT_STAFF_INFO staffInfo = row.Tag as Maticsoft.Model.SMT_STAFF_INFO;
+            List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+            foreach (var item in rows)
+            {
+                staffInfos.Add((Maticsoft.Model.SMT_STAFF_INFO)item.Tag);
+            }
             CtrlWaiting ctrlwaiting = new CtrlWaiting(() =>
             {
-                try
+
+                Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                foreach (var item in staffInfos)
                 {
                     try
                     {
-                        Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                        staffInfo.IS_DELETE = true;
-                        staffInfo.DEL_TIME = DateTime.Now;
-                        bll.Update(staffInfo);
+                        item.IS_DELETE = true;
+                        item.DEL_TIME = DateTime.Now;
+                        bll.Update(item);
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_STAFF_CARD where STAFF_ID=" + item.ID);
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_STAFF_DOOR where STAFF_ID=" + item.ID);
                     }
                     catch (Exception ex)
                     {
                         log.Error("注销人员异常1：", ex);
                         WinInfoHelper.ShowInfoWindow(this, "注销异常：" + ex.Message);
-                        staffInfo.IS_DELETE = false;
+                        item.IS_DELETE = false;
                         return;
                     }
-
-
-                    string errMsg = "";
-                    bool ret = UploadPrivate.Upload(staffInfo, out errMsg);
-                    if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                    {
-                        WinInfoHelper.ShowInfoWindow(this, "注销时，权限删除存在异常：" + errMsg);
-                    }
-                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_STAFF_CARD where STAFF_ID=" + staffInfo.ID);
-                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_STAFF_DOOR where STAFF_ID=" + staffInfo.ID);
-
-                    this.Invoke(new Action(() =>
-                        {
-                            dgvStaffs.Rows.Remove(row);
-                        }));
-                    WinInfoHelper.ShowInfoWindow(this, "注销成功！");
                 }
-                catch (Exception ex)
+
+                string errMsg = "";
+                bool ret = UploadPrivate.Upload(staffInfos, out errMsg);
+                if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                 {
-                    log.Error("注销人员异常：", ex);
-                    WinInfoHelper.ShowInfoWindow(this, "注销异常：" + ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "注销时，权限删除存在异常：" + errMsg);
                 }
+
+                this.Invoke(new Action(() =>
+                    {
+                        foreach (var item in rows)
+                        {
+                            dgvStaffs.Rows.Remove(item);
+                        }
+
+                    }));
+                WinInfoHelper.ShowInfoWindow(this, "注销成功！");
 
             });
             ctrlwaiting.Show(this);
@@ -1126,6 +1160,11 @@ namespace SmartAccess.VerInfoMgr
             string str = Convert.ToString(datetime);
             DateTime dt=def;
             DateTime.TryParse(str, out dt);
+            var min = DateTime.Parse("1800-01-01 00:00:00");
+            if (dt<min)
+            {
+                dt = min;
+            }
             return dt;
         }
         private string GetNotNullString(object str)
@@ -1151,7 +1190,7 @@ namespace SmartAccess.VerInfoMgr
                     FrmDetailInfo.Show(false);
                     FrmDetailInfo.AddOneMsg("开始导入...");
                     int count = 0;
-                    ImportHelper.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target,iserror,row,error) =>
+                    ImportHelper2.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target,iserror,row,error) =>
                     {
                         if (iserror)
                         {
@@ -1234,7 +1273,7 @@ namespace SmartAccess.VerInfoMgr
                             {
                             }
                             staffInfo.POLITICS = GetNotNullString(dr["政治面貌"]);
-                            staffInfo.REAL_NAME = GetNotNullString(dr["姓名"]);
+                            staffInfo.REAL_NAME = name;
                             staffInfo.REG_TIME = GetDateTime(dr["注册时间"], DateTime.Now);
                             staffInfo.RELIGION = GetNotNullString(dr["宗教"]);
                             string sex = GetNotNullString(dr["性别"]);
@@ -1253,15 +1292,15 @@ namespace SmartAccess.VerInfoMgr
                             Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
                             if (!string.IsNullOrWhiteSpace(staffInfo.STAFF_NO))//判断证件号已存在
                             {
-                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where STAFF_NO='" + staffInfo.STAFF_NO + "'"))
+                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where STAFF_NO='" + staffInfo.STAFF_NO + "' and IS_DELETE=0"))
                                 {
                                     FrmDetailInfo.AddOneMsg("已存在相同证件号人员：" + staffInfo.STAFF_NO + ",人员" + staffInfo.REAL_NAME + "跳过导入！", isRed: true);
                                     return;
                                 }
                             }
-                            if (!string.IsNullOrWhiteSpace(staffInfo.REAL_NAME))//判断证件号已存在
+                            else if (!string.IsNullOrWhiteSpace(staffInfo.REAL_NAME))//判断姓名已存在
                             {
-                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where REAL_NAME='" + staffInfo.REAL_NAME + "'"))
+                                if (Maticsoft.DBUtility.DbHelperSQL.Exists("select count(1) from SMT_STAFF_INFO where REAL_NAME='" + staffInfo.REAL_NAME + "' and IS_DELETE=0"))
                                 {
                                     FrmDetailInfo.AddOneMsg("已存在相同姓名人员（请使用其他姓名导入之后人工修改）：" + staffInfo.REAL_NAME + ",人员" + staffInfo.REAL_NAME + "跳过导入！", isRed: true);
                                     return;
@@ -1272,25 +1311,33 @@ namespace SmartAccess.VerInfoMgr
                             string cardNo = GetNotNullString(dr["卡号"]);
                             if (!string.IsNullOrWhiteSpace(cardNo))
                             {
-                                Maticsoft.BLL.SMT_CARD_INFO cardbll = new Maticsoft.BLL.SMT_CARD_INFO();
-                                var cards= cardbll.GetModelList("CARD_NO='" + cardNo.Trim() + "'");
-                                if (cards.Count==0)
+                                try
                                 {
-                                    Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
-                                    cardInfo.CARD_NO = cardNo.Trim();
-                                    cardInfo.CARD_TYPE = 0;
-                                    cardInfo.CARD_DESC = cardNo.Trim();
-                                    cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(cardNo.Trim());
-                                    cardInfo.ID = cardbll.Add(cardInfo);
-                                    cards.Add(cardInfo);
+                                    Maticsoft.BLL.SMT_CARD_INFO cardbll = new Maticsoft.BLL.SMT_CARD_INFO();
+                                    var cards = cardbll.GetModelList("CARD_NO='" + cardNo.Trim() + "'");
+                                    if (cards.Count == 0)
+                                    {
+                                        Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                                        cardInfo.CARD_NO = cardNo.Trim();
+                                        cardInfo.CARD_TYPE = 0;
+                                        cardInfo.CARD_DESC = cardNo.Trim();
+                                        cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(cardNo.Trim());
+                                        cardInfo.ID = cardbll.Add(cardInfo);
+                                        cards.Add(cardInfo);
+                                    }
+                                    Maticsoft.Model.SMT_STAFF_CARD sc = new Maticsoft.Model.SMT_STAFF_CARD();
+                                    sc.CARD_ID = cards[0].ID;
+                                    sc.STAFF_ID = staffInfo.ID;
+                                    sc.ACCESS_STARTTIME = staffInfo.VALID_STARTTIME;
+                                    sc.ACCESS_ENDTIME = staffInfo.VALID_ENDTIME;
+                                    Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
+                                    scBll.Add(sc);
                                 }
-                                Maticsoft.Model.SMT_STAFF_CARD sc = new Maticsoft.Model.SMT_STAFF_CARD();
-                                sc.CARD_ID = cards[0].ID;
-                                sc.STAFF_ID = staffInfo.ID;
-                                sc.ACCESS_STARTTIME = staffInfo.VALID_STARTTIME;
-                                sc.ACCESS_ENDTIME = staffInfo.VALID_ENDTIME;
-                                Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
-                                scBll.Add(sc);
+                                catch (Exception ex)
+                                {
+                                    FrmDetailInfo.AddOneMsg(" 人员卡号导入异常：" + name + ",异常：" + ex.Message);
+                                }
+                               
                             }
                             count++;
                             FrmDetailInfo.AddOneMsg("成功导入人员：" + name);

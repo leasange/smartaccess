@@ -35,6 +35,21 @@
       <HintPath>..\dlls\dotnetbar\DevComponents.DotNetBar2.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\dlls\npoi\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\dlls\npoi\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\dlls\npoi\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\dlls\npoi\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\dlls\npoi\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="org.in2bits.MyXls">
       <HintPath>..\dlls\org.in2bits.MyXls.dll</HintPath>
     </Reference>

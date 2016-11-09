@@ -244,7 +244,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     bool iscancel;
                     List<Maticsoft.Model.SMT_ORG_INFO> orgs = new List<Maticsoft.Model.SMT_ORG_INFO>();
-                    ImportHelper.ImportEx(out iscancel, 2, 1, 4, new ImportDataHandle((o,ise,row,error) =>
+                    ImportHelper2.ImportEx(out iscancel, 2, 1, 4, new ImportDataHandle((o,ise,row,error) =>
                     {
                         if (ise)
                         {
