@@ -161,6 +161,7 @@ namespace SmartAccess.ConfigMgr
                                 {
                                     dgvData.Rows.Remove(item);
                                 }
+                                DoUpload();
                             }));
                         }
                         catch (Exception ex)
@@ -198,8 +199,7 @@ namespace SmartAccess.ConfigMgr
                 WinInfoHelper.ShowInfoWindow(this, "请选择查看的时区！");
             }
         }
-
-        private void biUploadTimeNo_Click(object sender, EventArgs e)
+        private void DoUpload()
         {
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
@@ -211,15 +211,10 @@ namespace SmartAccess.ConfigMgr
                 }
                 Maticsoft.BLL.SMT_TIMESCALE_INFO tsBll = new Maticsoft.BLL.SMT_TIMESCALE_INFO();
                 var models = tsBll.GetModelList("");
-                if (models.Count == 0)
-                {
-                    WinInfoHelper.ShowInfoWindow(this, "没有可用时间段待上传！");
-                   // return;
-                }
                 Maticsoft.BLL.SMT_WEEKEX_INFO wbll = new Maticsoft.BLL.SMT_WEEKEX_INFO();
                 var weekexs = wbll.GetModelList("");
 
-                SmtLog.Info("设置","上传时间段设置");
+                SmtLog.Info("设置", "上传时间段设置");
                 FrmDetailInfo.Show(false);
                 FrmDetailInfo.AddOneMsg(string.Format("开始上传控制器时段：控制器数={0},时段数={1} ...", ctrls.Count, models.Count));
                 List<ManualResetEvent> eventList = new List<ManualResetEvent>();
@@ -228,78 +223,78 @@ namespace SmartAccess.ConfigMgr
                     ManualResetEvent evt = new ManualResetEvent(false);
                     eventList.Add(evt);
                     ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
                         {
-                            try
+                            var ctrl = ControllerHelper.ToController(item);
+                            using (IAccessCore acc = new WGAccess())
                             {
-                                var ctrl = ControllerHelper.ToController(item);
-                                using (IAccessCore acc = new WGAccess())
+                                if (acc.ClearAuthority(ctrl))
                                 {
-                                    if(acc.ClearAuthority(ctrl))
+                                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段成功：SN={0},IP={1}，开始上传控制器时间段...", ctrl.sn, ctrl.ip));
+                                    foreach (var model in models)
                                     {
-                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段成功：SN={0},IP={1}，开始上传控制器时间段...", ctrl.sn, ctrl.ip));
-                                        foreach (var model in models)
-	                                    {
-                                            var m=TimeScaleHelper.ToTimeScale(model);
-                                            bool ret= acc.SetTimeScales(ctrl, m);
-                                            if (!ret)
-                                            {
-                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段失败：时段号={0},控制器IP={1}", model.TIME_NO, ctrl.ip), isRed: true);
-                                            }
-                                            else
-                                            {
-                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段成功：时段号={0},控制器IP={1}", model.TIME_NO, ctrl.ip));
-                                            }
-	                                    }                                    
-                                    }
-                                    else
-                                    {
-                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段失败：SN={0},IP={1}，结束该控制器上传...", ctrl.sn, ctrl.ip), isRed: true);
-                                    }
-                                    
-                                    if(acc.SetHoliday(ctrl, new HolidayPrm()
-                                    {
-                                         IsClear=true,
-                                         startDate=DateTime.Now,
-                                         endDate=DateTime.Now.AddDays(1)
-                                    }))
-                                    {
-                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束成功：SN={0},IP={1}，开始上传假期约束...", ctrl.sn, ctrl.ip));
-                                        foreach (var w in weekexs)
+                                        var m = TimeScaleHelper.ToTimeScale(model);
+                                        bool ret = acc.SetTimeScales(ctrl, m);
+                                        if (!ret)
                                         {
-                                            bool ret = acc.SetHoliday(ctrl, new HolidayPrm()
-                                                {
-                                                    IsClear = false,
-                                                    IsOnDuty = w.WEEKEX_ON_DUTY,
-                                                    startDate = w.WEEKEX_START_DATE,
-                                                    endDate = w.WEEKEX_END_DATE
-                                                });
-                                            if (!ret)
-                                            {
-                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束失败：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY?"上班":"假期",w.WEEKEX_START_DATE,w.WEEKEX_END_DATE,ctrl.ip), isRed: true);
-                                            }
-                                            else
-                                            {
-                                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束成功：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY ? "上班" : "假期", w.WEEKEX_START_DATE, w.WEEKEX_END_DATE, ctrl.ip));
-                                            }
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段失败：时段号={0},控制器IP={1}", model.TIME_NO, ctrl.ip), isRed: true);
+                                        }
+                                        else
+                                        {
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段成功：时段号={0},控制器IP={1}", model.TIME_NO, ctrl.ip));
                                         }
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段失败：SN={0},IP={1}，结束该控制器上传...", ctrl.sn, ctrl.ip), isRed: true);
+                                }
+
+                                if (acc.SetHoliday(ctrl, new HolidayPrm()
+                                {
+                                    IsClear = true,
+                                    startDate = DateTime.Now,
+                                    endDate = DateTime.Now.AddDays(1)
+                                }))
+                                {
+                                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束成功：SN={0},IP={1}，开始上传假期约束...", ctrl.sn, ctrl.ip));
+                                    foreach (var w in weekexs)
                                     {
-                                        FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束失败：SN={0},IP={1}", ctrl.sn, ctrl.ip),isRed:true);
+                                        bool ret = acc.SetHoliday(ctrl, new HolidayPrm()
+                                        {
+                                            IsClear = false,
+                                            IsOnDuty = w.WEEKEX_ON_DUTY,
+                                            startDate = w.WEEKEX_START_DATE,
+                                            endDate = w.WEEKEX_END_DATE
+                                        });
+                                        if (!ret)
+                                        {
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束失败：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY ? "上班" : "假期", w.WEEKEX_START_DATE, w.WEEKEX_END_DATE, ctrl.ip), isRed: true);
+                                        }
+                                        else
+                                        {
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器假期约束成功：约束={0},起止时间={1}~{2},控制器IP={3}", w.WEEKEX_ON_DUTY ? "上班" : "假期", w.WEEKEX_START_DATE, w.WEEKEX_END_DATE, ctrl.ip));
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器假期约束失败：SN={0},IP={1}", ctrl.sn, ctrl.ip), isRed: true);
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message), isRed: true);
-                                log.Error("上传控制器时间段失败，" ,ex);
-                                SmtLog.ErrorFormat("设置", "上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message);
-                            }
-                            finally
-                            {
-                                evt.Set();
-                            }
-                        }));
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmDetailInfo.AddOneMsg(string.Format("上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message), isRed: true);
+                            log.Error("上传控制器时间段失败，", ex);
+                            SmtLog.ErrorFormat("设置", "上传控制器时间段失败：SN={0},IP={1}，异常信息：{2},结束该控制器上传...", item.SN_NO, item.IP, ex.Message);
+                        }
+                        finally
+                        {
+                            evt.Set();
+                        }
+                    }));
                 }
                 foreach (var item in eventList)
                 {
@@ -308,6 +303,11 @@ namespace SmartAccess.ConfigMgr
                 FrmDetailInfo.AddOneMsg("结束控制器时段上传！");
             });
             waiting.Show(this);
+        }
+
+        private void biUploadTimeNo_Click(object sender, EventArgs e)
+        {
+            DoUpload();
         }
     }
 }

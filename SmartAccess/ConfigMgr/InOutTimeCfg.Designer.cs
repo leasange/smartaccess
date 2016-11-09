@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biNew = new DevComponents.DotNetBar.ButtonItem();
@@ -37,6 +37,7 @@
             this.biView = new DevComponents.DotNetBar.ButtonItem();
             this.biWeekEX = new DevComponents.DotNetBar.ButtonItem();
             this.biUploadTimeNo = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.dgvData = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,7 +57,6 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
@@ -110,7 +110,7 @@
             // 
             this.biDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biDelete.Name = "biDelete";
-            this.biDelete.Text = "删除";
+            this.biDelete.Text = "删除(自动重新上传)";
             this.biDelete.Click += new System.EventHandler(this.biDelete_Click);
             // 
             // biView
@@ -132,6 +132,12 @@
             this.biUploadTimeNo.Name = "biUploadTimeNo";
             this.biUploadTimeNo.Text = "上传所有时间段";
             this.biUploadTimeNo.Click += new System.EventHandler(this.biUploadTimeNo_Click);
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.ForeColor = System.Drawing.Color.Red;
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "时段1为每天任意时间有效，时段0为完全禁止";
             // 
             // dgvData
             // 
@@ -158,16 +164,16 @@
             this.Column15,
             this.Column16,
             this.Column17});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(0, 29);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
@@ -337,12 +343,6 @@
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
             this.Column17.Width = 78;
-            // 
-            // labelItem1
-            // 
-            this.labelItem1.ForeColor = System.Drawing.Color.Red;
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "时段1为每天任意时间有效，时段0为完全禁止";
             // 
             // InOutTimeCfg
             // 
