@@ -25,7 +25,7 @@ namespace SmartAccess
         {
             InitializeComponent();
            // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
-            _isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
+            //_isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
             this.tbUserName.Text = SunCreate.Common.ConfigHelper.GetConfigString("LastLoginUser");
         }
 

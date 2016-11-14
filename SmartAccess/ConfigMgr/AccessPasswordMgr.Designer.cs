@@ -31,7 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControl = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.dgvData = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,15 +49,16 @@
             this.tbPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.btnAdd = new DevComponents.DotNetBar.ButtonX();
-            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
+            this.stiSuperPwd = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
-            ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
-            this.superTabControl1.SuspendLayout();
+            this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
+            ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).BeginInit();
+            this.superTabControl.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
@@ -65,7 +66,7 @@
             this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // superTabControl1
+            // superTabControl
             // 
             // 
             // 
@@ -73,36 +74,37 @@
             // 
             // 
             // 
-            this.superTabControl1.ControlBox.CloseBox.Name = "";
+            this.superTabControl.ControlBox.CloseBox.Name = "";
             // 
             // 
             // 
-            this.superTabControl1.ControlBox.MenuBox.Name = "";
-            this.superTabControl1.ControlBox.Name = "";
-            this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.superTabControl1.ControlBox.MenuBox,
-            this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel3);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel1);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel4);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
-            this.superTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControl1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.superTabControl1.Location = new System.Drawing.Point(0, 0);
-            this.superTabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.superTabControl1.Name = "superTabControl1";
-            this.superTabControl1.ReorderTabsEnabled = true;
-            this.superTabControl1.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
-            this.superTabControl1.SelectedTabIndex = 0;
-            this.superTabControl1.Size = new System.Drawing.Size(876, 408);
-            this.superTabControl1.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.superTabControl1.TabIndex = 0;
-            this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.superTabControl.ControlBox.MenuBox.Name = "";
+            this.superTabControl.ControlBox.Name = "";
+            this.superTabControl.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.superTabControl.ControlBox.MenuBox,
+            this.superTabControl.ControlBox.CloseBox});
+            this.superTabControl.Controls.Add(this.superTabControlPanel3);
+            this.superTabControl.Controls.Add(this.superTabControlPanel1);
+            this.superTabControl.Controls.Add(this.superTabControlPanel4);
+            this.superTabControl.Controls.Add(this.superTabControlPanel2);
+            this.superTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.superTabControl.Location = new System.Drawing.Point(0, 0);
+            this.superTabControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.superTabControl.Name = "superTabControl";
+            this.superTabControl.ReorderTabsEnabled = true;
+            this.superTabControl.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.superTabControl.SelectedTabIndex = 0;
+            this.superTabControl.Size = new System.Drawing.Size(876, 408);
+            this.superTabControl.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.superTabControl.TabIndex = 0;
+            this.superTabControl.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabItem1,
             this.superTabItem2,
-            this.superTabItem3,
+            this.stiSuperPwd,
             this.superTabItem4});
-            this.superTabControl1.Text = "superTabControl1";
+            this.superTabControl.Text = "superTabControl1";
+            this.superTabControl.TabIndexChanged += new System.EventHandler(this.superTabControl_TabIndexChanged);
             // 
             // superTabControlPanel3
             // 
@@ -115,7 +117,7 @@
             this.superTabControlPanel3.Name = "superTabControlPanel3";
             this.superTabControlPanel3.Size = new System.Drawing.Size(876, 380);
             this.superTabControlPanel3.TabIndex = 0;
-            this.superTabControlPanel3.TabItem = this.superTabItem3;
+            this.superTabControlPanel3.TabItem = this.stiSuperPwd;
             // 
             // dgvData
             // 
@@ -139,12 +141,12 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.EnableHeadersVisualStyles = false;
-            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(392, 26);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
@@ -185,6 +187,7 @@
             this.bar1.DockSide = DevComponents.DotNetBar.eDockSide.Document;
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biRefresh,
             this.biUpload,
             this.biDeleteAll});
             this.bar1.Location = new System.Drawing.Point(392, 0);
@@ -364,13 +367,14 @@
             this.btnAdd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "添加=>";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // superTabItem3
+            // stiSuperPwd
             // 
-            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem3.GlobalItem = false;
-            this.superTabItem3.Name = "superTabItem3";
-            this.superTabItem3.Text = "超级通行密码";
+            this.stiSuperPwd.AttachedControl = this.superTabControlPanel3;
+            this.stiSuperPwd.GlobalItem = false;
+            this.stiSuperPwd.Name = "stiSuperPwd";
+            this.stiSuperPwd.Text = "超级通行密码";
             // 
             // superTabControlPanel1
             // 
@@ -426,17 +430,22 @@
             this.superTabItem2.Text = "用户密码";
             this.superTabItem2.Visible = false;
             // 
+            // biRefresh
+            // 
+            this.biRefresh.Name = "biRefresh";
+            this.biRefresh.Text = "刷新";
+            // 
             // AccessPasswordMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.superTabControl1);
+            this.Controls.Add(this.superTabControl);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AccessPasswordMgr";
             this.Size = new System.Drawing.Size(876, 408);
-            ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
-            this.superTabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).EndInit();
+            this.superTabControl.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
@@ -448,13 +457,13 @@
 
         #endregion
 
-        private DevComponents.DotNetBar.SuperTabControl superTabControl1;
+        private DevComponents.DotNetBar.SuperTabControl superTabControl;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
         private DevComponents.DotNetBar.SuperTabItem superTabItem1;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel2;
         private DevComponents.DotNetBar.SuperTabItem superTabItem2;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel3;
-        private DevComponents.DotNetBar.SuperTabItem superTabItem3;
+        private DevComponents.DotNetBar.SuperTabItem stiSuperPwd;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel4;
         private DevComponents.DotNetBar.SuperTabItem superTabItem4;
         private DevComponents.DotNetBar.PanelEx panelEx1;
@@ -473,5 +482,6 @@
         private DevComponents.DotNetBar.ButtonItem biDeleteAll;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbVisiblePwd;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
+        private DevComponents.DotNetBar.ButtonItem biRefresh;
     }
 }

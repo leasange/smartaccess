@@ -229,7 +229,7 @@ namespace SmartAccess.ConfigMgr
                             var ctrl = ControllerHelper.ToController(item);
                             using (IAccessCore acc = new WGAccess())
                             {
-                                if (acc.ClearAuthority(ctrl))
+                                if (acc.ClearTimeScales(ctrl))
                                 {
                                     FrmDetailInfo.AddOneMsg(string.Format("清除控制器时间段成功：SN={0},IP={1}，开始上传控制器时间段...", ctrl.sn, ctrl.ip));
                                     foreach (var model in models)

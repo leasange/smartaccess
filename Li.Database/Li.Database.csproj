@@ -68,6 +68,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_DOOR.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_SUPER_PWD.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_TIMESCALE_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_USER_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_USER_INFO.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_DOOR.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_SUPER_PWD.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_TIMESCALE_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_USER_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_USER_INFO.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="SqlServerDb\Model\SMT_STAFF_DOOR.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_SUPER_PWD.cs" />
     <Compile Include="SqlServerDb\Model\SMT_TIMESCALE_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_USER_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_USER_INFO_EX.cs" />

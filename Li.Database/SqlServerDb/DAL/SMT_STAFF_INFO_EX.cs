@@ -162,7 +162,8 @@ namespace Maticsoft.DAL
         }
         public DataSet GetListByCardNum(string cardNo)
         {
-            string strSql = "select SI.*,OI.ORG_NAME from SMT_STAFF_INFO SI left join SMT_ORG_INFO OI on SI.ORG_ID=OI.ID   where SI.IS_DELETE=0 and SI.ID in (select SC.STAFF_ID from SMT_CARD_INFO CI,SMT_STAFF_CARD SC where CI.CARD_NO='" + cardNo + "' and SC.CARD_ID=CI.ID)";
+            cardNo = cardNo.Substring(0, cardNo.Length - 2);
+            string strSql = "select SI.*,OI.ORG_NAME from SMT_STAFF_INFO SI left join SMT_ORG_INFO OI on SI.ORG_ID=OI.ID   where SI.IS_DELETE=0 and SI.ID in (select SC.STAFF_ID from SMT_CARD_INFO CI,SMT_STAFF_CARD SC where CI.CARD_NO like '" + cardNo + "%' and SC.CARD_ID=CI.ID)";
             return DbHelperSQL.Query(strSql);
         }
 	}
