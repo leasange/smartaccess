@@ -23,14 +23,16 @@ namespace SmartAccess.VerInfoMgr
 //             InitializeComponent();
 //             doorTree.LoadEnded += doorTree_LoadEnded;
 //         }
-
+        private List<Maticsoft.Model.SMT_STAFF_DOOR> _staffDoors = null;
         void doorTree_LoadEnded(object sender, EventArgs e)
         {
             CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
             {
                 Maticsoft.BLL.SMT_STAFF_DOOR sdBLL = new Maticsoft.BLL.SMT_STAFF_DOOR();
                 var sdList = sdBLL.GetModelList("STAFF_ID=" + staffInfo.ID);
+                _staffDoors = sdList;
                 var nodes = this.doorTree.Tree.GetNodeList(typeof(Maticsoft.Model.SMT_DOOR_INFO));
+                
                 var selectNodes = nodes.FindAll(m =>
                     {
                         Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
@@ -38,10 +40,34 @@ namespace SmartAccess.VerInfoMgr
                     });
                 this.Invoke(new Action(() =>
                     {
+                        DoSetTimeNum();
                         DoSelectDoors(selectNodes);
                     }));
             });
             ctrlWaiting.Show(this);
+        }
+        private void DoSetTimeNum()
+        {
+            if (_staffDoors!=null&&_staffDoors.Count>0&&cbTimeNum.Items.Count>0)
+            {
+                foreach (ComboBoxItem item in cbTimeNum.Items)
+                {
+                    var m = item.Tag as Maticsoft.Model.SMT_TIMESCALE_INFO;
+                    if (m==null)
+                    {
+                        continue;
+                    }
+                    if (m.TIME_NO==_staffDoors[0].TIME_NUM)
+                    {
+                        cbTimeNum.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+            if (cbTimeNum.Items.Count>0&&cbTimeNum.SelectedIndex <=-1)
+            {
+                cbTimeNum.SelectedIndex = 0;
+            }
         }
 
         public FrmAddOrModifyStaffPrivate(Maticsoft.Model.SMT_STAFF_INFO staffInfo)
@@ -76,7 +102,14 @@ namespace SmartAccess.VerInfoMgr
                             cbi.Tag = item;
                             cbTimeNum.Items.Add(cbi);
                         }
-                        cbTimeNum.SelectedIndex = 0;
+                        if (staffInfo!=null)
+                        {
+                            this.Invoke(new Action(() =>
+                            {
+                                DoSetTimeNum();
+                            }));
+                        }
+                        else cbTimeNum.SelectedIndex = 0;
                     }));
                 }
                 catch (Exception ex)

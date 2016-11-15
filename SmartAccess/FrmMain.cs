@@ -11,17 +11,74 @@ using SmartAccess.ConfigMgr;
 using SmartAccess.Common;
 using SmartAccess.Common.WinInfo;
 using SmartAccess.Common.Datas;
+using System.IO;
 
 namespace SmartAccess
 {
     public partial class FrmMain : DevComponents.DotNetBar.Office2007Form
     {
         public static FrmMain Instance;
+        public static StyleManager StyleMgr;
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmMain));
         public FrmMain()
         {
             InitializeComponent();
             Instance = this;
+            CreateStyleItems();
             SmtLog.Info("系统", "进入系统");
+
+            LoadSys();
+        }
+
+        private void LoadSys()
+        {
+            //加载logo
+            string logo = Path.Combine(Application.StartupPath, "Images\\企业logo.png");
+            if (File.Exists(logo))
+            {
+                try
+                {
+                    panelHeader.Style.BackgroundImage = Image.FromFile(logo);
+                }
+                catch (Exception ex)
+                {
+                    log.Error("企业LOGO加载失败！", ex);
+                }
+            }
+            //加载欢迎
+            string welcome = Path.Combine(Application.StartupPath, "Images\\欢迎.png");
+            if (File.Exists(welcome))
+            {
+                try
+                {
+                    panelWelCome.Style.BackgroundImage = Image.FromFile(welcome);
+                }
+                catch (Exception ex)
+                {
+                    log.Error("欢迎LOGO加载失败！", ex);
+                }
+            }
+            this.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysName");
+            lbTitle.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysTitle");
+        }
+
+        private void CreateStyleItems()
+        {
+            string[] names = Enum.GetNames(typeof(eStyle));
+            foreach (var item in names)
+	        {
+                var itm = new ButtonItem(item, item);
+                biSelectStyle.SubItems.Add(itm);
+                itm.Click += sti_Click;
+	        }
+           
+        }
+
+        void sti_Click(object sender, EventArgs e)
+        {
+            eStyle es = (eStyle)Enum.Parse(typeof(eStyle), ((ButtonItem)sender).Text);
+            StyleMgr.ManagerStyle = es;
+            SunCreate.Common.ConfigHelper.SetConfigValue("SysStyle", es.ToString());
         }
 
         private void FrmMain_Load(object sender, EventArgs e)

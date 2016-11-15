@@ -99,7 +99,7 @@ namespace SmartAccess.DogKey
                 NT158App.NT158Led(handle, 1);
                 if (ret != 0)
                 {
-                    log.Error("加密狗登陆错误：" + ret);
+                    log.Error("加密狗登陆错误：" + GetError(ret));
                     return false;
                 }
                 return true;
@@ -109,6 +109,136 @@ namespace SmartAccess.DogKey
                 log.Error("加密狗加载异常：", ex);
                 return false;
             }
+        }
+        private static string GetError(long ret)
+        {
+            string str = "成功";
+            switch (ret)
+            {
+                case 0: ; str = "成功"; break;
+                case 1: ; str = "指定应用程序ID的锁未找到"; break;
+
+                case 2: ; str = "参数不合法"; break;
+
+                case 3: ; str = "未找到加密锁"; break;
+
+                case 4: ; str = "未找到加密锁HANDLE"; break;
+
+                case 5: ; str = "权限不足"; break;
+
+                case 6: ; str = "驱动未打开"; break;
+
+                case 7: ; str = "不支持该特性"; break;
+
+                case 8: ; str = "内部错误"; break;
+
+                case 20: ; str = "HID读操作错误"; break;
+
+                case 21: ; str = "HID读操作错误 - 数据不足"; break;
+
+                case 22: ; str = "HID写操作错误"; break;
+
+                case 23: ; str = "HID写操作错误 - 数据不足"; break;
+
+                case 24: ; str = "HID读操作错误 - 超时"; break;
+
+                case 25: ; str = "HID读操作错误 - 未定义错误"; break;
+
+                case 26: ; str = "HID读操作错误 - 超时"; break;
+
+                case 27: ; str = "HID读操作错误 - 未定义错误"; break;
+
+                case 28: ; str = "设备未连接或半途拔掉"; break;
+
+                case 50: ; str = "内部错误"; break;
+
+                case 51: ; str = "内部错误"; break;
+
+                case 52: ; str = "内部错误"; break;
+
+                case 102: ; str = "内部错误"; break;
+
+                case 103: ; str = "内部错误"; break;
+
+                case 104: ; str = "内部错误"; break;
+
+                case 105: ; str = "内部错误"; break;
+
+                case 106: ; str = "内部错误"; break;
+
+                case 107: ; str = "内部错误"; break;
+
+                case 108: ; str = "内部错误"; break;
+
+                case 109: ; str = "内部错误"; break;
+
+                case 110: ; str = "内部错误"; break;
+
+                case 111: ; str = "内部错误"; break;
+
+                case 112: ; str = "内部错误"; break;
+
+                case 113: ; str = "内部错误"; break;
+
+                case 114: ; str = "内部错误"; break;
+
+                case 115: ; str = "文件大小必须为8的倍数"; break;
+
+                case 116: ; str = "文件系统未加载"; break;
+
+                case 202: ; str = "文件系统未初始化"; break;
+
+                case 203: ; str = "文件系统格式错误"; break;
+
+                case 204: ; str = "不支持的文件系统类型"; break;
+
+                case 205: ; str = "不存在此文件"; break;
+
+                case 206: ; str = "数据文件大小不一致"; break;
+
+                case 207: ; str = "没有更多的文件了"; break;
+
+                case 208: ; str = "文件系统空间不足"; break;
+
+                case 209: ; str = "已达到最大文件数限制"; break;
+
+                case 500: ; str = "内部错误"; break;
+
+                case 501: ; str = "权限不足"; break;
+
+                case 502: ; str = "内部错误"; break;
+
+                case 503: ; str = "内部错误"; break;
+
+                case 504: ; str = "内部错误"; break;
+
+                case 505: ; str = "内部错误"; break;
+
+                case 506: ; str = "内部错误"; break;
+
+                case 507: ; str = "登录密码错误"; break;
+
+                case 508: ; str = "数据写失败"; break;
+
+                case 509: ; str = "此ID可执行文件不存在"; break;
+
+                case 510: ; str = "文件系统不存在"; break;
+
+                case 511: ; str = "升级错误"; break;
+
+                case 512: ; str = "设备已进入安全模式"; break;
+
+                case 513: ; str = "BS模式用户登录失败"; break;
+
+                case 514: ; str = "未知错误"; break;
+                default:
+                    break;
+            }
+            if (ret != 0)
+            {
+                return str;
+            }
+            return "";
         }
         private static bool GetNowTime(out DateTime now)
         {
@@ -168,19 +298,19 @@ namespace SmartAccess.DogKey
                 long ret = NT158App.NT158ReadFile(handle, 0, 128 + 19, buffer);
                 if (ret != 0)
                 {
-                    log.Error("读取时间1异常：" + ret);
+                    log.Error("读取时间1异常：" + GetError(ret));
                     return false;
                 }
                 if (!DateTime.TryParse(Encoding.UTF8.GetString(buffer), out dtStart))
                 {
-                    log.Error("时间1异常：" + ret);
+                    log.Error("时间1异常：" + GetError(ret));
                     return false;
                 }
 
                 ret = NT158App.NT158ReadFile(handle, 0, 128 + 2 * 19, buffer);
                 if (ret != 0)
                 {
-                    log.Error("读取时间2异常：" + ret);
+                    log.Error("读取时间2异常：" + GetError(ret));
                     return false;
                 }
                 if (!DateTime.TryParse(Encoding.UTF8.GetString(buffer), out dtEnd))

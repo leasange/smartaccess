@@ -38,6 +38,8 @@
             this.biAddSubDept = new DevComponents.DotNetBar.ButtonItem();
             this.biModifyDept = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteDept = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteCurrent = new DevComponents.DotNetBar.ButtonItem();
+            this.biDeleteAllDept = new DevComponents.DotNetBar.ButtonItem();
             this.biMoveDept = new DevComponents.DotNetBar.ButtonItem();
             this.biCombine = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadDeptModel = new DevComponents.DotNetBar.ButtonItem();
@@ -48,6 +50,8 @@
             this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCobine = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
             this.dgvUsers = new Li.Controls.DataGridViewEx();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,10 +65,6 @@
             this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
-            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.biDeleteCurrent = new DevComponents.DotNetBar.ButtonItem();
-            this.biDeleteAllDept = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.ctxMenu.SuspendLayout();
             this.panelEx2.SuspendLayout();
@@ -141,6 +141,19 @@
             this.biDeleteAllDept});
             this.biDeleteDept.Text = "删除部门";
             this.biDeleteDept.Tooltip = "删除选择部门";
+            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click_1);
+            // 
+            // biDeleteCurrent
+            // 
+            this.biDeleteCurrent.Name = "biDeleteCurrent";
+            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
+            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
+            // 
+            // biDeleteAllDept
+            // 
+            this.biDeleteAllDept.Name = "biDeleteAllDept";
+            this.biDeleteAllDept.Text = "删除部门(包括下级)";
+            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
             // 
             // biMoveDept
             // 
@@ -193,7 +206,7 @@
             this.tsmiDeleteCurrent,
             this.tsmiDeleteAll});
             this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(193, 158);
+            this.ctxMenu.Size = new System.Drawing.Size(193, 136);
             // 
             // tsmiAddSubDept
             // 
@@ -222,6 +235,20 @@
             this.tsmiCobine.Size = new System.Drawing.Size(192, 22);
             this.tsmiCobine.Text = "合并部门";
             this.tsmiCobine.Click += new System.EventHandler(this.biCombine_Click);
+            // 
+            // tsmiDeleteCurrent
+            // 
+            this.tsmiDeleteCurrent.Name = "tsmiDeleteCurrent";
+            this.tsmiDeleteCurrent.Size = new System.Drawing.Size(192, 22);
+            this.tsmiDeleteCurrent.Text = "删除部门(不包括下级)";
+            this.tsmiDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
+            // 
+            // tsmiDeleteAll
+            // 
+            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(192, 22);
+            this.tsmiDeleteAll.Text = "删除部门(包括下级)";
+            this.tsmiDeleteAll.Click += new System.EventHandler(this.biDeleteDept_Click);
             // 
             // panelEx2
             // 
@@ -279,7 +306,7 @@
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvUsers.EnableHeadersVisualStyles = false;
-            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvUsers.Location = new System.Drawing.Point(20, 117);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
@@ -421,32 +448,6 @@
             this.deptTree.Name = "deptTree";
             this.deptTree.Size = new System.Drawing.Size(249, 446);
             this.deptTree.TabIndex = 6;
-            // 
-            // tsmiDeleteCurrent
-            // 
-            this.tsmiDeleteCurrent.Name = "tsmiDeleteCurrent";
-            this.tsmiDeleteCurrent.Size = new System.Drawing.Size(192, 22);
-            this.tsmiDeleteCurrent.Text = "删除部门(不包括下级)";
-            this.tsmiDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
-            // 
-            // tsmiDeleteAll
-            // 
-            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
-            this.tsmiDeleteAll.Size = new System.Drawing.Size(192, 22);
-            this.tsmiDeleteAll.Text = "删除部门(包括下级)";
-            this.tsmiDeleteAll.Click += new System.EventHandler(this.biDeleteDept_Click);
-            // 
-            // biDeleteCurrent
-            // 
-            this.biDeleteCurrent.Name = "biDeleteCurrent";
-            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
-            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
-            // 
-            // biDeleteAllDept
-            // 
-            this.biDeleteAllDept.Name = "biDeleteAllDept";
-            this.biDeleteAllDept.Text = "删除部门(包括下级)";
-            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
             // 
             // DeptMgr
             // 

@@ -448,5 +448,10 @@ namespace SmartAccess.VerInfoMgr
                 }
             }
         }
+
+        private void biDeleteDept_Click_1(object sender, EventArgs e)
+        {
+            biDeleteDept.Popup(Cursor.Position);
+        }
     }
 }

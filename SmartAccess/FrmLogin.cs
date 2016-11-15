@@ -1,4 +1,5 @@
-﻿using NT.Net.App;
+﻿using DevComponents.DotNetBar;
+using NT.Net.App;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -21,12 +23,30 @@ namespace SmartAccess
     {
         private FrmMain frmMain = null;
         private bool _isEnableDog = true;
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmLogin));
         public FrmLogin()
         {
             InitializeComponent();
            // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
             //_isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
             this.tbUserName.Text = SunCreate.Common.ConfigHelper.GetConfigString("LastLoginUser");
+            string style= SunCreate.Common.ConfigHelper.GetConfigString("SysStyle");
+            eStyle es=eStyle.Office2010Black;
+            Enum.TryParse<eStyle>(style, out es);
+            styleManager.ManagerStyle = es;
+            //加载登陆背景
+            string logo = Path.Combine(Application.StartupPath, "Images\\登陆背景.png");
+            if (File.Exists(logo))
+            {
+                try
+                {
+                    this.BackgroundImage = Image.FromFile(logo);
+                }
+                catch (Exception ex)
+                {
+                    log.Error("登陆背景加载失败！", ex);
+                }
+            }
         }
 
         #region 按钮事件
@@ -95,7 +115,8 @@ namespace SmartAccess
             this.Enabled = false;
             try
             {
-                frmMain = new FrmMain();
+                FrmMain.StyleMgr = styleManager;
+                frmMain = new FrmMain();                
                 frmMain.FormClosed += frmMain_FormClosed;
                 frmMain.Show();
                 frmMain.BringToFront();

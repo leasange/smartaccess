@@ -33,16 +33,17 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslStateUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.smtNavigate = new SmartAccess.SmtNavigate();
             this.superTabControl = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
+            this.panelWelCome = new DevComponents.DotNetBar.PanelEx();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-            this.panel1 = new DevComponents.DotNetBar.PanelEx();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.menuMain = new System.Windows.Forms.MenuStrip();
-            this.系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.smtNavigate = new SmartAccess.SmtNavigate();
+            this.panelHeader = new DevComponents.DotNetBar.PanelEx();
+            this.lbTitle = new DevComponents.DotNetBar.LabelX();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biSystem = new DevComponents.DotNetBar.ButtonItem();
+            this.biSelectStyle = new DevComponents.DotNetBar.ButtonItem();
+            this.biExitSys = new DevComponents.DotNetBar.ButtonItem();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -51,8 +52,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).BeginInit();
             this.superTabControl.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.menuMain.SuspendLayout();
+            this.panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -85,7 +86,7 @@
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer.Location = new System.Drawing.Point(0, 86);
+            this.splitContainer.Location = new System.Drawing.Point(0, 84);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -95,9 +96,17 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.superTabControl);
-            this.splitContainer.Size = new System.Drawing.Size(1014, 625);
+            this.splitContainer.Size = new System.Drawing.Size(1014, 627);
             this.splitContainer.SplitterDistance = 246;
             this.splitContainer.TabIndex = 4;
+            // 
+            // smtNavigate
+            // 
+            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smtNavigate.Location = new System.Drawing.Point(0, 0);
+            this.smtNavigate.Name = "smtNavigate";
+            this.smtNavigate.Size = new System.Drawing.Size(246, 627);
+            this.smtNavigate.TabIndex = 0;
             // 
             // superTabControl
             // 
@@ -124,7 +133,7 @@
             this.superTabControl.ReorderTabsEnabled = true;
             this.superTabControl.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.superTabControl.SelectedTabIndex = 0;
-            this.superTabControl.Size = new System.Drawing.Size(764, 625);
+            this.superTabControl.Size = new System.Drawing.Size(764, 627);
             this.superTabControl.TabIndex = 0;
             this.superTabControl.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabItem1});
@@ -132,30 +141,31 @@
             // 
             // superTabControlPanel1
             // 
-            this.superTabControlPanel1.Controls.Add(this.panelEx1);
+            this.superTabControlPanel1.Controls.Add(this.panelWelCome);
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 39);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(764, 586);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(764, 588);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.superTabItem1;
             // 
-            // panelEx1
+            // panelWelCome
             // 
-            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEx1.Font = new System.Drawing.Font("微软雅黑", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panelEx1.Location = new System.Drawing.Point(0, 0);
-            this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(764, 586);
-            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.panelEx1.Style.ForeColor.Color = System.Drawing.Color.White;
-            this.panelEx1.Style.GradientAngle = 90;
-            this.panelEx1.TabIndex = 0;
-            this.panelEx1.Text = "欢迎使用智能门禁管理系统";
+            this.panelWelCome.CanvasColor = System.Drawing.SystemColors.Control;
+            this.panelWelCome.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelWelCome.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelWelCome.Font = new System.Drawing.Font("微软雅黑", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panelWelCome.Location = new System.Drawing.Point(0, 0);
+            this.panelWelCome.Name = "panelWelCome";
+            this.panelWelCome.Size = new System.Drawing.Size(764, 588);
+            this.panelWelCome.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelWelCome.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.panelWelCome.Style.BackgroundImage = global::SmartAccess.Properties.Resources.welcomeback;
+            this.panelWelCome.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.panelWelCome.Style.ForeColor.Color = System.Drawing.Color.White;
+            this.panelWelCome.Style.GradientAngle = 90;
+            this.panelWelCome.TabIndex = 0;
+            this.panelWelCome.Text = "欢迎使用智能门禁管理系统";
             // 
             // superTabItem1
             // 
@@ -166,79 +176,77 @@
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "欢迎";
             // 
-            // panel1
+            // panelHeader
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2010;
-            this.panel1.Controls.Add(this.labelX1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 28);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1014, 58);
-            this.panel1.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.panel1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panel1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.panel1.Style.BackgroundImage = global::SmartAccess.Properties.Resources.企业logo;
-            this.panel1.Style.BackgroundImagePosition = DevComponents.DotNetBar.eBackgroundImagePosition.CenterRight;
-            this.panel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.panel1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.panel1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.panel1.Style.GradientAngle = 90;
-            this.panel1.TabIndex = 2;
+            this.panelHeader.AutoScroll = true;
+            this.panelHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelHeader.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2010;
+            this.panelHeader.Controls.Add(this.lbTitle);
+            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeader.Location = new System.Drawing.Point(0, 26);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(1014, 58);
+            this.panelHeader.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelHeader.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.panelHeader.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.panelHeader.Style.BackgroundImage = global::SmartAccess.Properties.Resources.企业logo;
+            this.panelHeader.Style.BackgroundImagePosition = DevComponents.DotNetBar.eBackgroundImagePosition.CenterRight;
+            this.panelHeader.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.panelHeader.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.panelHeader.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.panelHeader.Style.GradientAngle = 90;
+            this.panelHeader.TabIndex = 2;
             // 
-            // labelX1
+            // lbTitle
             // 
-            this.labelX1.AutoSize = true;
-            this.labelX1.BackColor = System.Drawing.Color.Transparent;
+            this.lbTitle.AutoSize = true;
+            this.lbTitle.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Font = new System.Drawing.Font("方正姚体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelX1.Location = new System.Drawing.Point(3, 7);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(555, 49);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "智能门禁管理系统，你的好管家！";
+            this.lbTitle.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbTitle.Font = new System.Drawing.Font("方正姚体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lbTitle.Location = new System.Drawing.Point(3, 5);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(555, 49);
+            this.lbTitle.TabIndex = 0;
+            this.lbTitle.Text = "智能门禁管理系统，你的好管家！";
             // 
-            // menuMain
+            // bar1
             // 
-            this.menuMain.BackColor = System.Drawing.Color.Gray;
-            this.menuMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.menuMain.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.系统ToolStripMenuItem});
-            this.menuMain.Location = new System.Drawing.Point(0, 0);
-            this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(1014, 28);
-            this.menuMain.TabIndex = 1;
-            this.menuMain.Text = "menuStrip1";
+            this.bar1.AntiAlias = true;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biSystem});
+            this.bar1.Location = new System.Drawing.Point(0, 0);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(1014, 26);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 1;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
             // 
-            // 系统ToolStripMenuItem
+            // biSystem
             // 
-            this.系统ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiExit});
-            this.系统ToolStripMenuItem.Name = "系统ToolStripMenuItem";
-            this.系统ToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
-            this.系统ToolStripMenuItem.Text = "系统";
+            this.biSystem.Name = "biSystem";
+            this.biSystem.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biSelectStyle,
+            this.biExitSys});
+            this.biSystem.Text = "系统";
             // 
-            // tsmiExit
+            // biSelectStyle
             // 
-            this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(127, 24);
-            this.tsmiExit.Text = "退出(&Q)";
-            this.tsmiExit.ToolTipText = "退出系统";
-            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
+            this.biSelectStyle.Name = "biSelectStyle";
+            this.biSelectStyle.Text = "选择样式";
             // 
-            // smtNavigate
+            // biExitSys
             // 
-            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.smtNavigate.Location = new System.Drawing.Point(0, 0);
-            this.smtNavigate.Name = "smtNavigate";
-            this.smtNavigate.Size = new System.Drawing.Size(246, 625);
-            this.smtNavigate.TabIndex = 0;
+            this.biExitSys.Name = "biExitSys";
+            this.biExitSys.Text = "退出系统(&Q)";
+            this.biExitSys.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // FrmMain
             // 
@@ -246,12 +254,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 733);
             this.Controls.Add(this.splitContainer);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.bar1);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.menuMain);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuMain;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "智能门禁管理系统";
@@ -267,10 +274,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).EndInit();
             this.superTabControl.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.menuMain.ResumeLayout(false);
-            this.menuMain.PerformLayout();
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,9 +284,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuMain;
-        private System.Windows.Forms.ToolStripMenuItem 系统ToolStripMenuItem;
-        private DevComponents.DotNetBar.PanelEx panel1;
+        private DevComponents.DotNetBar.PanelEx panelHeader;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel tsslStateUser;
@@ -288,10 +292,13 @@
         private DevComponents.DotNetBar.SuperTabControl superTabControl;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel1;
         private DevComponents.DotNetBar.SuperTabItem superTabItem1;
-        private DevComponents.DotNetBar.LabelX labelX1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
-        private DevComponents.DotNetBar.PanelEx panelEx1;
+        private DevComponents.DotNetBar.LabelX lbTitle;
+        private DevComponents.DotNetBar.PanelEx panelWelCome;
         private SmtNavigate smtNavigate;
+        private DevComponents.DotNetBar.Bar bar1;
+        private DevComponents.DotNetBar.ButtonItem biSystem;
+        private DevComponents.DotNetBar.ButtonItem biSelectStyle;
+        private DevComponents.DotNetBar.ButtonItem biExitSys;
     }
 }
 

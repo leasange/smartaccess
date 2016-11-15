@@ -251,14 +251,31 @@ namespace SmartKey
         {
             try
             {
-                Process process = Process.Start(Application.StartupPath + "\\nt158tool\\NT158AdminEditor.exe");
-                process.WaitForExit();
-                LoadKeys();
+                Process process = new Process();
+                process.EnableRaisingEvents = true;
+                process.Exited += process_Exited;
+                process.StartInfo.FileName = Application.StartupPath + "\\nt158tool\\NT158AdminEditor.exe";
+                process.Start();
+               
             }
             catch (Exception ex)
             {
                 MessageBox.Show("打开官方工具失败：", ex.Message);
                 log.Error("打开官方工具失败：", ex);
+            }
+        }
+
+        void process_Exited(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Invoke(new Action(() =>
+                {
+                    LoadKeys();
+                }));
+            }
+            catch (Exception)
+            {
             }
         }
 
