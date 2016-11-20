@@ -251,8 +251,11 @@ namespace SmartAccess.VerInfoMgr
                         }
                         else
                         {
-                            WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
-                            log.Error("保存人员信息成功！staff id=" + _staffInfo.ID);
+                            if (setcard)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
+                                log.Info("保存人员信息成功！staff id=" + _staffInfo.ID);
+                            }
                         }
 
                         if (addprivate)
@@ -270,7 +273,8 @@ namespace SmartAccess.VerInfoMgr
                         {
                             this.BeginInvoke(new Action(() =>
                                 {
-                                    WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
+                                    WinInfoHelper.ShowInfoWindow(FrmMain.Instance, "保存信息成功！");
+                                    log.Info("保存人员信息成功！staff id=" + _staffInfo.ID);
                                     this.Close();
                                 }));
                         }

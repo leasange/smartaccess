@@ -12,8 +12,8 @@ namespace SmartAccess.Common.WinInfo
     public partial class FrmInfo : DevComponents.DotNetBar.Office2007Form
     { 
         private  const int WS_EX_NOACTIVATE = 0x08000000;
-        private int _time = 0;
-        public static void ShowInfo(IWin32Window owner, string text, int timeCloseSecond = 5)
+        private float _time = 0;
+        public static void ShowInfo(IWin32Window owner, string text, float timeCloseSecond = 3.5f)
         {
             Control ctrl = owner as Control;
             if (ctrl == null)
@@ -38,6 +38,7 @@ namespace SmartAccess.Common.WinInfo
                     frmInfo.Show();
                 }
                 else frmInfo.Show(ctrl);
+                frmInfo.Refresh();
             }));
         }
         protected override CreateParams CreateParams
@@ -49,13 +50,13 @@ namespace SmartAccess.Common.WinInfo
                 return cp;
             }
         }
-        public FrmInfo(string text,int timeCloseSecond=5)
+        public FrmInfo(string text,float timeCloseSecond=3.5f)
         {
             InitializeComponent();
             if (timeCloseSecond>0)
             {
                 _time = timeCloseSecond;
-                timerClose.Interval = timeCloseSecond * 1000;
+                timerClose.Interval = (int)(timeCloseSecond * 1000);
             }
             this.tbMsg.Text = text;
         }

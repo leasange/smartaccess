@@ -932,6 +932,7 @@ namespace SmartAccess.VerInfoMgr
                     //var staffs = staffbll.GetModelList("");
                     string errMsg = "";
                     bool ret = UploadPrivate.UploadAllPrivate(out errMsg);
+                    SmtLog.InfoFormat("权限", "上传权限结果：{0},{1}", ret ? "成功" : "失败", errMsg);
                     if (errMsg == "")
                     {
                         errMsg = "成功！";
@@ -1365,6 +1366,42 @@ namespace SmartAccess.VerInfoMgr
         private void biRefresh_Click(object sender, EventArgs e)
         {
             DoSearch(false, _byDeptTree, false, null, _orgId);
+        }
+
+        private void biUploadSelect_Click(object sender, EventArgs e)
+        {
+            var rows = GetSelectRows();
+            if (rows.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未选择任何人员！");
+                return;
+            }
+            List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+            foreach (var item in rows)
+            {
+                staffInfos.Add((Maticsoft.Model.SMT_STAFF_INFO)item.Tag);
+            }
+
+            CtrlWaiting waiting = new CtrlWaiting("正在上传权限...", () =>
+            {
+                try
+                {
+                    string errMsg = "";
+                    bool ret = UploadPrivate.Upload(staffInfos, out errMsg);
+                    SmtLog.InfoFormat("权限", "上传权限结果：{0},{1}", ret ? "成功" : "失败", errMsg);
+                    if (errMsg == "")
+                    {
+                        errMsg = "成功！";
+                    }
+                    WinInfoHelper.ShowInfoWindow(this, "上传结束，输出结果：" + errMsg);
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "上传异常：" + ex.Message);
+                    log.Error("上传权限异常：", ex);
+                }
+            });
+            waiting.Show(this);
         }
 
     }
