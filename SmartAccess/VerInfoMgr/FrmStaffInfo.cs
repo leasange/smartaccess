@@ -188,6 +188,11 @@ namespace SmartAccess.VerInfoMgr
                         }
                         if (_staffInfo.ID == -1)
                         {
+                            if (Maticsoft.DBUtility.DbHelperSQL.Exists("select COUNT(*) from SMT_STAFF_INFO t where t.STAFF_NO='" + _staffInfo.STAFF_NO + "'"))
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "编号为"+_staffInfo.STAFF_NO+"已存在！");
+                                return;
+                            }
                             _staffInfo.ID = saffInfoBll.Add(_staffInfo);
                         }
                         else
@@ -261,6 +266,14 @@ namespace SmartAccess.VerInfoMgr
                                 }));
                             }
                         }
+                        else if (!setcard)
+                        {
+                            this.BeginInvoke(new Action(() =>
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "保存信息成功！");
+                                    this.Close();
+                                }));
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -307,6 +320,12 @@ namespace SmartAccess.VerInfoMgr
             {
                 WinInfoHelper.ShowInfoWindow(this, "人员名称不能为空！");
                 tbStaffName.Focus();
+                return false;
+            }
+            if (tbVerNo.Text.Trim()=="")
+            {
+                WinInfoHelper.ShowInfoWindow(this, "编码不能为空！");
+                tbVerNo.Focus();
                 return false;
             }
             return true;
@@ -400,8 +419,8 @@ namespace SmartAccess.VerInfoMgr
         {
             dtValidTimeStart.Value = DateTime.Now.Date;
             dtValidTimeEnd.Value = new DateTime(DateTime.Now.Year, 12, 31);
-            dtTimeIn.Value = DateTime.Parse("2000-01-01 00:00:00");
-            dtTimeOut.Value = DateTime.Parse("2099-01-01 00:00:00");
+            dtTimeIn.ValueObject = null;
+            dtTimeOut.ValueObject = null;
             LoadModels();
             if (loadDept)
             {
@@ -449,10 +468,10 @@ namespace SmartAccess.VerInfoMgr
                         }
                     }
                     biNew.Visible = false;
-                    biSelectPic.Visible = false;
                     btnSetCard.Visible = false;
                     btnSave.Visible = false;
                     btnSaveAndUpload.Visible = false;
+                    btnSelectPic.Visible = false;
                     picPhoto.DoubleClick -= picPhoto_DoubleClick;
                 }
                 else

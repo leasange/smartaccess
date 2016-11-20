@@ -46,6 +46,9 @@
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
+            this.pageDataGridView = new Li.Controls.PageDataGridView();
+            this.dgvStaffs = new Li.Controls.DataGridViewEx();
             this.bar3 = new DevComponents.DotNetBar.Bar();
             this.labelItem8 = new DevComponents.DotNetBar.LabelItem();
             this.cbHasCard = new DevComponents.DotNetBar.CheckBoxItem();
@@ -69,9 +72,6 @@
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
-            this.pageDataGridView = new Li.Controls.PageDataGridView();
-            this.dgvStaffs = new Li.Controls.DataGridViewEx();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,13 +89,13 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.pageDataGridView.DataGridPanel.SuspendLayout();
+            this.pageDataGridView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             this.bar2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).BeginInit();
-            this.pageDataGridView.DataGridPanel.SuspendLayout();
-            this.pageDataGridView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             this.SuspendLayout();
             // 
             // bar1
@@ -249,6 +249,102 @@
             this.splitContainer1.Size = new System.Drawing.Size(1131, 480);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 480);
+            this.deptTree.TabIndex = 0;
+            // 
+            // pageDataGridView
+            // 
+            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
+            // 
+            // pageDataGridView.DataGridPanel
+            // 
+            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
+            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
+            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(899, 393);
+            this.pageDataGridView.DataGridPanel.TabIndex = 1;
+            this.pageDataGridView.DataGridView = this.dgvStaffs;
+            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.Location = new System.Drawing.Point(0, 55);
+            this.pageDataGridView.Name = "pageDataGridView";
+            // 
+            // pageDataGridView.PageControl
+            // 
+            this.pageDataGridView.PageControl.CurrentPage = 1;
+            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pageDataGridView.PageControl.ExportButtonVisible = true;
+            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
+            this.pageDataGridView.PageControl.Name = "PageControl";
+            this.pageDataGridView.PageControl.RecordsPerPage = 30;
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(899, 32);
+            this.pageDataGridView.PageControl.TabIndex = 0;
+            this.pageDataGridView.PageControl.TotalRecords = 0;
+            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
+            this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
+            this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
+            this.pageDataGridView.Size = new System.Drawing.Size(899, 425);
+            this.pageDataGridView.SqlWhere = null;
+            this.pageDataGridView.TabIndex = 3;
+            // 
+            // dgvStaffs
+            // 
+            this.dgvStaffs.AllowUserToAddRows = false;
+            this.dgvStaffs.AllowUserToDeleteRows = false;
+            this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column8,
+            this.Column10,
+            this.Col_CK,
+            this.Col_XG,
+            this.Col_SQ,
+            this.Col_SC});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStaffs.EnableHeadersVisualStyles = false;
+            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
+            this.dgvStaffs.Name = "dgvStaffs";
+            this.dgvStaffs.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvStaffs.RowTemplate.Height = 23;
+            this.dgvStaffs.Size = new System.Drawing.Size(899, 393);
+            this.dgvStaffs.TabIndex = 0;
+            this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
             // 
             // bar3
             // 
@@ -468,109 +564,12 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
-            // pageDataGridView
-            // 
-            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
-            // 
-            // pageDataGridView.DataGridPanel
-            // 
-            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
-            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
-            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(899, 393);
-            this.pageDataGridView.DataGridPanel.TabIndex = 1;
-            this.pageDataGridView.DataGridView = this.dgvStaffs;
-            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView.Location = new System.Drawing.Point(0, 55);
-            this.pageDataGridView.Name = "pageDataGridView";
-            // 
-            // pageDataGridView.PageControl
-            // 
-            this.pageDataGridView.PageControl.CurrentPage = 1;
-            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pageDataGridView.PageControl.ExportButtonVisible = true;
-            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
-            this.pageDataGridView.PageControl.Name = "PageControl";
-            this.pageDataGridView.PageControl.RecordsPerPage = 30;
-            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(899, 32);
-            this.pageDataGridView.PageControl.TabIndex = 0;
-            this.pageDataGridView.PageControl.TotalRecords = 0;
-            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
-            this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
-            this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
-            this.pageDataGridView.Size = new System.Drawing.Size(899, 425);
-            this.pageDataGridView.SqlWhere = null;
-            this.pageDataGridView.TabIndex = 3;
-            // 
-            // dgvStaffs
-            // 
-            this.dgvStaffs.AllowUserToAddRows = false;
-            this.dgvStaffs.AllowUserToDeleteRows = false;
-            this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column8,
-            this.Column10,
-            this.Col_CK,
-            this.Col_XG,
-            this.Col_SQ,
-            this.Col_SC});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStaffs.EnableHeadersVisualStyles = false;
-            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
-            this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
-            this.dgvStaffs.Name = "dgvStaffs";
-            this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvStaffs.RowTemplate.Height = 23;
-            this.dgvStaffs.Size = new System.Drawing.Size(899, 393);
-            this.dgvStaffs.TabIndex = 0;
-            this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 480);
-            this.deptTree.TabIndex = 0;
-            // 
             // Column1
             // 
-            this.Column1.FillWeight = 20F;
+            this.Column1.FillWeight = 49.02422F;
             this.Column1.HeaderText = "证件编号";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
-            this.Column1.Width = 81;
             // 
             // Column2
             // 
@@ -578,7 +577,6 @@
             this.Column2.HeaderText = "姓名";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
-            this.Column2.Width = 57;
             // 
             // Column3
             // 
@@ -586,7 +584,6 @@
             this.Column3.HeaderText = "部门";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
-            this.Column3.Width = 57;
             // 
             // Column4
             // 
@@ -594,7 +591,6 @@
             this.Column4.HeaderText = "卡号";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
-            this.Column4.Width = 57;
             // 
             // Column5
             // 
@@ -602,7 +598,6 @@
             this.Column5.HeaderText = "发卡数";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
-            this.Column5.Width = 69;
             // 
             // Column6
             // 
@@ -611,7 +606,6 @@
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column6.Width = 57;
             // 
             // Column8
             // 
@@ -619,7 +613,6 @@
             this.Column8.HeaderText = "有效期";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
-            this.Column8.Width = 69;
             // 
             // Column10
             // 
@@ -627,46 +620,41 @@
             this.Column10.HeaderText = "电话";
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
-            this.Column10.Width = 57;
             // 
             // Col_CK
             // 
-            this.Col_CK.FillWeight = 49.02422F;
+            this.Col_CK.FillWeight = 25F;
             this.Col_CK.HeaderText = "详情";
             this.Col_CK.Name = "Col_CK";
             this.Col_CK.ReadOnly = true;
             this.Col_CK.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Col_CK.SplitLinkSymbol = ",";
-            this.Col_CK.Width = 38;
             // 
             // Col_XG
             // 
-            this.Col_XG.FillWeight = 49.02422F;
+            this.Col_XG.FillWeight = 25F;
             this.Col_XG.HeaderText = "修改";
             this.Col_XG.Name = "Col_XG";
             this.Col_XG.ReadOnly = true;
             this.Col_XG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Col_XG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_XG.Width = 57;
             // 
             // Col_SQ
             // 
-            this.Col_SQ.FillWeight = 49.02422F;
+            this.Col_SQ.FillWeight = 25F;
             this.Col_SQ.HeaderText = "授权";
             this.Col_SQ.Name = "Col_SQ";
             this.Col_SQ.ReadOnly = true;
             this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_SQ.Width = 57;
             // 
             // Col_SC
             // 
-            this.Col_SC.FillWeight = 49.02422F;
+            this.Col_SC.FillWeight = 25F;
             this.Col_SC.HeaderText = "上传";
             this.Col_SC.Name = "Col_SC";
             this.Col_SC.ReadOnly = true;
             this.Col_SC.SplitLinkSymbol = ",";
-            this.Col_SC.Width = 38;
             // 
             // StaffInfoMgr
             // 
@@ -682,13 +670,13 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
+            this.pageDataGridView.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             this.bar2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).EndInit();
-            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
-            this.pageDataGridView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             this.ResumeLayout(false);
 
         }

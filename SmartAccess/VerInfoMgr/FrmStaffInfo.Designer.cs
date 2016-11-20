@@ -72,9 +72,7 @@
             this.dtValidTimeEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biNew = new DevComponents.DotNetBar.ButtonItem();
-            this.biSelectPic = new DevComponents.DotNetBar.ButtonItem();
             this.biPreView = new DevComponents.DotNetBar.ButtonItem();
-            this.biPrint = new DevComponents.DotNetBar.ButtonItem();
             this.cbTreeDept = new DevComponents.DotNetBar.Controls.ComboTree();
             this.cboVerTypeStyle = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -92,13 +90,15 @@
             this.lbPhotoTip = new DevComponents.DotNetBar.LabelX();
             this.labelX26 = new DevComponents.DotNetBar.LabelX();
             this.tbCardNums = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.btnSetCard = new System.Windows.Forms.Button();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.btnSaveAndUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
             this.previewControl = new FastReport.Preview.PreviewControl();
             this.btnShow = new DevComponents.DotNetBar.ButtonX();
             this.tbVerNo = new Li.Controls.VerTextBox();
+            this.btnSelectPic = new DevComponents.DotNetBar.ButtonX();
+            this.btnPrint = new DevComponents.DotNetBar.ButtonX();
+            this.btnSetCard = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -173,7 +173,7 @@
             this.tbStaffName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbStaffName.Location = new System.Drawing.Point(93, 31);
             this.tbStaffName.Name = "tbStaffName";
-            this.tbStaffName.Size = new System.Drawing.Size(152, 21);
+            this.tbStaffName.Size = new System.Drawing.Size(211, 21);
             this.tbStaffName.TabIndex = 0;
             // 
             // labelX7
@@ -213,7 +213,7 @@
             this.tbJob.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbJob.Location = new System.Drawing.Point(93, 169);
             this.tbJob.Name = "tbJob";
-            this.tbJob.Size = new System.Drawing.Size(152, 21);
+            this.tbJob.Size = new System.Drawing.Size(211, 21);
             this.tbJob.TabIndex = 5;
             // 
             // labelX9
@@ -253,7 +253,7 @@
             this.tbPublic.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbPublic.Location = new System.Drawing.Point(93, 223);
             this.tbPublic.Name = "tbPublic";
-            this.tbPublic.Size = new System.Drawing.Size(152, 21);
+            this.tbPublic.Size = new System.Drawing.Size(211, 21);
             this.tbPublic.TabIndex = 7;
             // 
             // labelX11
@@ -279,7 +279,7 @@
             this.tbSkillLevel.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbSkillLevel.Location = new System.Drawing.Point(93, 275);
             this.tbSkillLevel.Name = "tbSkillLevel";
-            this.tbSkillLevel.Size = new System.Drawing.Size(152, 21);
+            this.tbSkillLevel.Size = new System.Drawing.Size(211, 21);
             this.tbSkillLevel.TabIndex = 9;
             // 
             // labelX12
@@ -305,7 +305,7 @@
             this.tbPrivateVerName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbPrivateVerName.Location = new System.Drawing.Point(93, 302);
             this.tbPrivateVerName.Name = "tbPrivateVerName";
-            this.tbPrivateVerName.Size = new System.Drawing.Size(152, 21);
+            this.tbPrivateVerName.Size = new System.Drawing.Size(211, 21);
             this.tbPrivateVerName.TabIndex = 10;
             // 
             // labelX13
@@ -331,7 +331,7 @@
             this.tbTelphone.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbTelphone.Location = new System.Drawing.Point(93, 380);
             this.tbTelphone.Name = "tbTelphone";
-            this.tbTelphone.Size = new System.Drawing.Size(152, 21);
+            this.tbTelphone.Size = new System.Drawing.Size(211, 21);
             this.tbTelphone.TabIndex = 13;
             // 
             // labelX14
@@ -341,9 +341,9 @@
             // 
             this.labelX14.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX14.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX14.Location = new System.Drawing.Point(11, 486);
+            this.labelX14.Location = new System.Drawing.Point(345, 196);
             this.labelX14.Name = "labelX14";
-            this.labelX14.Size = new System.Drawing.Size(75, 23);
+            this.labelX14.Size = new System.Drawing.Size(60, 23);
             this.labelX14.TabIndex = 0;
             this.labelX14.Text = "通信地址";
             this.labelX14.TextAlignment = System.Drawing.StringAlignment.Far;
@@ -355,9 +355,9 @@
             // 
             this.tbAddress.Border.Class = "TextBoxBorder";
             this.tbAddress.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbAddress.Location = new System.Drawing.Point(93, 486);
+            this.tbAddress.Location = new System.Drawing.Point(417, 198);
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(383, 21);
+            this.tbAddress.Size = new System.Drawing.Size(268, 21);
             this.tbAddress.TabIndex = 24;
             // 
             // labelX15
@@ -383,7 +383,7 @@
             this.tbEmail.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbEmail.Location = new System.Drawing.Point(93, 407);
             this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(152, 21);
+            this.tbEmail.Size = new System.Drawing.Size(211, 21);
             this.tbEmail.TabIndex = 14;
             // 
             // labelX16
@@ -418,6 +418,7 @@
             // 
             this.cbSex.DisplayMember = "Text";
             this.cbSex.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSex.FormattingEnabled = true;
             this.cbSex.ItemHeight = 15;
             this.cbSex.Items.AddRange(new object[] {
@@ -426,7 +427,7 @@
             this.comboItem2});
             this.cbSex.Location = new System.Drawing.Point(93, 140);
             this.cbSex.Name = "cbSex";
-            this.cbSex.Size = new System.Drawing.Size(152, 21);
+            this.cbSex.Size = new System.Drawing.Size(211, 21);
             this.cbSex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbSex.TabIndex = 4;
             // 
@@ -451,7 +452,7 @@
             this.tbCellPhone.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbCellPhone.Location = new System.Drawing.Point(93, 356);
             this.tbCellPhone.Name = "tbCellPhone";
-            this.tbCellPhone.Size = new System.Drawing.Size(152, 21);
+            this.tbCellPhone.Size = new System.Drawing.Size(211, 21);
             this.tbCellPhone.TabIndex = 12;
             // 
             // labelX18
@@ -477,7 +478,7 @@
             this.tbPrivateVerNo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbPrivateVerNo.Location = new System.Drawing.Point(93, 329);
             this.tbPrivateVerNo.Name = "tbPrivateVerNo";
-            this.tbPrivateVerNo.Size = new System.Drawing.Size(152, 21);
+            this.tbPrivateVerNo.Size = new System.Drawing.Size(211, 21);
             this.tbPrivateVerNo.TabIndex = 11;
             this.tbPrivateVerNo.Text = "111111111111111111";
             // 
@@ -502,9 +503,9 @@
             // 
             this.tbXueLi.Border.Class = "TextBoxBorder";
             this.tbXueLi.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbXueLi.Location = new System.Drawing.Point(321, 353);
+            this.tbXueLi.Location = new System.Drawing.Point(417, 116);
             this.tbXueLi.Name = "tbXueLi";
-            this.tbXueLi.Size = new System.Drawing.Size(155, 21);
+            this.tbXueLi.Size = new System.Drawing.Size(268, 21);
             this.tbXueLi.TabIndex = 20;
             // 
             // labelX20
@@ -514,7 +515,7 @@
             // 
             this.labelX20.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX20.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX20.Location = new System.Drawing.Point(269, 353);
+            this.labelX20.Location = new System.Drawing.Point(365, 114);
             this.labelX20.Name = "labelX20";
             this.labelX20.Size = new System.Drawing.Size(40, 23);
             this.labelX20.TabIndex = 6;
@@ -528,9 +529,9 @@
             // 
             this.tbZonJiao.Border.Class = "TextBoxBorder";
             this.tbZonJiao.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbZonJiao.Location = new System.Drawing.Point(321, 329);
+            this.tbZonJiao.Location = new System.Drawing.Point(417, 90);
             this.tbZonJiao.Name = "tbZonJiao";
-            this.tbZonJiao.Size = new System.Drawing.Size(155, 21);
+            this.tbZonJiao.Size = new System.Drawing.Size(268, 21);
             this.tbZonJiao.TabIndex = 19;
             // 
             // labelX21
@@ -540,7 +541,7 @@
             // 
             this.labelX21.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX21.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX21.Location = new System.Drawing.Point(269, 329);
+            this.labelX21.Location = new System.Drawing.Point(365, 88);
             this.labelX21.Name = "labelX21";
             this.labelX21.Size = new System.Drawing.Size(40, 23);
             this.labelX21.TabIndex = 7;
@@ -554,9 +555,9 @@
             // 
             this.tbMinZu.Border.Class = "TextBoxBorder";
             this.tbMinZu.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbMinZu.Location = new System.Drawing.Point(321, 302);
+            this.tbMinZu.Location = new System.Drawing.Point(417, 63);
             this.tbMinZu.Name = "tbMinZu";
-            this.tbMinZu.Size = new System.Drawing.Size(155, 21);
+            this.tbMinZu.Size = new System.Drawing.Size(268, 21);
             this.tbMinZu.TabIndex = 18;
             // 
             // labelX22
@@ -566,7 +567,7 @@
             // 
             this.labelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX22.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX22.Location = new System.Drawing.Point(269, 302);
+            this.labelX22.Location = new System.Drawing.Point(365, 61);
             this.labelX22.Name = "labelX22";
             this.labelX22.Size = new System.Drawing.Size(40, 23);
             this.labelX22.TabIndex = 8;
@@ -580,9 +581,9 @@
             // 
             this.tbJiGuan.Border.Class = "TextBoxBorder";
             this.tbJiGuan.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbJiGuan.Location = new System.Drawing.Point(321, 275);
+            this.tbJiGuan.Location = new System.Drawing.Point(417, 36);
             this.tbJiGuan.Name = "tbJiGuan";
-            this.tbJiGuan.Size = new System.Drawing.Size(155, 21);
+            this.tbJiGuan.Size = new System.Drawing.Size(268, 21);
             this.tbJiGuan.TabIndex = 17;
             // 
             // labelX23
@@ -592,7 +593,7 @@
             // 
             this.labelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX23.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX23.Location = new System.Drawing.Point(269, 275);
+            this.labelX23.Location = new System.Drawing.Point(365, 34);
             this.labelX23.Name = "labelX23";
             this.labelX23.Size = new System.Drawing.Size(40, 23);
             this.labelX23.TabIndex = 9;
@@ -603,9 +604,9 @@
             // 
             this.picPhoto.BackColor = System.Drawing.Color.LightGray;
             this.picPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picPhoto.Location = new System.Drawing.Point(271, 28);
+            this.picPhoto.Location = new System.Drawing.Point(701, 31);
             this.picPhoto.Name = "picPhoto";
-            this.picPhoto.Size = new System.Drawing.Size(205, 235);
+            this.picPhoto.Size = new System.Drawing.Size(225, 217);
             this.picPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPhoto.TabIndex = 16;
             this.picPhoto.TabStop = false;
@@ -658,7 +659,7 @@
             this.dtValidTimeStart.MonthCalendar.TodayButtonVisible = true;
             this.dtValidTimeStart.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtValidTimeStart.Name = "dtValidTimeStart";
-            this.dtValidTimeStart.Size = new System.Drawing.Size(152, 21);
+            this.dtValidTimeStart.Size = new System.Drawing.Size(211, 21);
             this.dtValidTimeStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtValidTimeStart.TabIndex = 15;
             this.dtValidTimeStart.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
@@ -710,7 +711,7 @@
             this.dtValidTimeEnd.MonthCalendar.TodayButtonVisible = true;
             this.dtValidTimeEnd.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtValidTimeEnd.Name = "dtValidTimeEnd";
-            this.dtValidTimeEnd.Size = new System.Drawing.Size(152, 21);
+            this.dtValidTimeEnd.Size = new System.Drawing.Size(211, 21);
             this.dtValidTimeEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtValidTimeEnd.TabIndex = 16;
             this.dtValidTimeEnd.Value = new System.DateTime(2016, 6, 24, 21, 24, 50, 0);
@@ -722,13 +723,11 @@
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biNew,
-            this.biSelectPic,
-            this.biPreView,
-            this.biPrint});
+            this.biPreView});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.RoundCorners = false;
-            this.bar1.Size = new System.Drawing.Size(800, 26);
+            this.bar1.Size = new System.Drawing.Size(927, 26);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 20;
@@ -738,26 +737,14 @@
             // biNew
             // 
             this.biNew.Name = "biNew";
-            this.biNew.Text = "新建";
+            this.biNew.Text = "新建(注册)";
             this.biNew.Click += new System.EventHandler(this.biNew_Click);
-            // 
-            // biSelectPic
-            // 
-            this.biSelectPic.Name = "biSelectPic";
-            this.biSelectPic.Text = "选择照片";
-            this.biSelectPic.Click += new System.EventHandler(this.biSelectPic_Click);
             // 
             // biPreView
             // 
             this.biPreView.Name = "biPreView";
             this.biPreView.Text = "证件打印预览";
             this.biPreView.Click += new System.EventHandler(this.biPreView_Click);
-            // 
-            // biPrint
-            // 
-            this.biPrint.Name = "biPrint";
-            this.biPrint.Text = "证件打印";
-            this.biPrint.Click += new System.EventHandler(this.biPrint_Click);
             // 
             // cbTreeDept
             // 
@@ -771,7 +758,7 @@
             this.cbTreeDept.DropDownHeight = 300;
             this.cbTreeDept.Location = new System.Drawing.Point(93, 59);
             this.cbTreeDept.Name = "cbTreeDept";
-            this.cbTreeDept.Size = new System.Drawing.Size(152, 23);
+            this.cbTreeDept.Size = new System.Drawing.Size(211, 23);
             this.cbTreeDept.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbTreeDept.TabIndex = 1;
             // 
@@ -779,11 +766,12 @@
             // 
             this.cboVerTypeStyle.DisplayMember = "Text";
             this.cboVerTypeStyle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboVerTypeStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboVerTypeStyle.FormattingEnabled = true;
             this.cboVerTypeStyle.ItemHeight = 15;
             this.cboVerTypeStyle.Location = new System.Drawing.Point(93, 86);
             this.cboVerTypeStyle.Name = "cboVerTypeStyle";
-            this.cboVerTypeStyle.Size = new System.Drawing.Size(152, 21);
+            this.cboVerTypeStyle.Size = new System.Drawing.Size(211, 21);
             this.cboVerTypeStyle.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboVerTypeStyle.TabIndex = 2;
             this.cboVerTypeStyle.SelectedIndexChanged += new System.EventHandler(this.cboVerTypeStyle_SelectedIndexChanged);
@@ -806,6 +794,7 @@
             // 
             this.cbMarry.DisplayMember = "Text";
             this.cbMarry.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbMarry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMarry.FormattingEnabled = true;
             this.cbMarry.ItemHeight = 15;
             this.cbMarry.Items.AddRange(new object[] {
@@ -814,7 +803,7 @@
             this.comboItem4});
             this.cbMarry.Location = new System.Drawing.Point(93, 250);
             this.cbMarry.Name = "cbMarry";
-            this.cbMarry.Size = new System.Drawing.Size(152, 21);
+            this.cbMarry.Size = new System.Drawing.Size(211, 21);
             this.cbMarry.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbMarry.TabIndex = 8;
             // 
@@ -837,7 +826,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(248, 380);
+            this.labelX2.Location = new System.Drawing.Point(344, 141);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(61, 23);
             this.labelX2.TabIndex = 0;
@@ -851,7 +840,7 @@
             // 
             this.labelX28.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX28.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX28.Location = new System.Drawing.Point(248, 407);
+            this.labelX28.Location = new System.Drawing.Point(344, 168);
             this.labelX28.Name = "labelX28";
             this.labelX28.Size = new System.Drawing.Size(61, 23);
             this.labelX28.TabIndex = 0;
@@ -870,7 +859,7 @@
             this.dtTimeIn.CustomFormat = "yyyy-MM-dd";
             this.dtTimeIn.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtTimeIn.IsPopupCalendarOpen = false;
-            this.dtTimeIn.Location = new System.Drawing.Point(321, 380);
+            this.dtTimeIn.Location = new System.Drawing.Point(417, 143);
             // 
             // 
             // 
@@ -905,7 +894,7 @@
             this.dtTimeIn.MonthCalendar.TodayButtonVisible = true;
             this.dtTimeIn.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtTimeIn.Name = "dtTimeIn";
-            this.dtTimeIn.Size = new System.Drawing.Size(155, 21);
+            this.dtTimeIn.Size = new System.Drawing.Size(268, 21);
             this.dtTimeIn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtTimeIn.TabIndex = 21;
             // 
@@ -921,7 +910,7 @@
             this.dtTimeOut.CustomFormat = "yyyy-MM-dd";
             this.dtTimeOut.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtTimeOut.IsPopupCalendarOpen = false;
-            this.dtTimeOut.Location = new System.Drawing.Point(321, 407);
+            this.dtTimeOut.Location = new System.Drawing.Point(417, 170);
             // 
             // 
             // 
@@ -956,7 +945,7 @@
             this.dtTimeOut.MonthCalendar.TodayButtonVisible = true;
             this.dtTimeOut.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtTimeOut.Name = "dtTimeOut";
-            this.dtTimeOut.Size = new System.Drawing.Size(155, 21);
+            this.dtTimeOut.Size = new System.Drawing.Size(268, 21);
             this.dtTimeOut.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtTimeOut.TabIndex = 22;
             // 
@@ -967,7 +956,7 @@
             // 
             this.labelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX27.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX27.Location = new System.Drawing.Point(248, 432);
+            this.labelX27.Location = new System.Drawing.Point(344, 223);
             this.labelX27.Name = "labelX27";
             this.labelX27.Size = new System.Drawing.Size(61, 23);
             this.labelX27.TabIndex = 0;
@@ -982,9 +971,9 @@
             this.cboVeMoBan.FormattingEnabled = true;
             this.cboVeMoBan.IntegralHeight = false;
             this.cboVeMoBan.ItemHeight = 15;
-            this.cboVeMoBan.Location = new System.Drawing.Point(321, 432);
+            this.cboVeMoBan.Location = new System.Drawing.Point(417, 225);
             this.cboVeMoBan.Name = "cboVeMoBan";
-            this.cboVeMoBan.Size = new System.Drawing.Size(155, 21);
+            this.cboVeMoBan.Size = new System.Drawing.Size(268, 21);
             this.cboVeMoBan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboVeMoBan.TabIndex = 23;
             this.cboVeMoBan.SelectedIndexChanged += new System.EventHandler(this.cboVeMoBan_SelectedIndexChanged);
@@ -1036,7 +1025,7 @@
             this.dtBirthday.MonthCalendar.TodayButtonVisible = true;
             this.dtBirthday.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.dtBirthday.Name = "dtBirthday";
-            this.dtBirthday.Size = new System.Drawing.Size(152, 21);
+            this.dtBirthday.Size = new System.Drawing.Size(211, 21);
             this.dtBirthday.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtBirthday.TabIndex = 6;
             this.dtBirthday.Value = new System.DateTime(2016, 6, 24, 21, 24, 54, 0);
@@ -1049,9 +1038,9 @@
             // 
             this.lbPhotoTip.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbPhotoTip.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbPhotoTip.Location = new System.Drawing.Point(348, 119);
+            this.lbPhotoTip.Location = new System.Drawing.Point(792, 113);
             this.lbPhotoTip.Name = "lbPhotoTip";
-            this.lbPhotoTip.Size = new System.Drawing.Size(59, 17);
+            this.lbPhotoTip.Size = new System.Drawing.Size(43, 17);
             this.lbPhotoTip.TabIndex = 25;
             this.lbPhotoTip.Text = "照片";
             // 
@@ -1062,9 +1051,9 @@
             // 
             this.labelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX26.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX26.Location = new System.Drawing.Point(12, 515);
+            this.labelX26.Location = new System.Drawing.Point(48, 488);
             this.labelX26.Name = "labelX26";
-            this.labelX26.Size = new System.Drawing.Size(75, 23);
+            this.labelX26.Size = new System.Drawing.Size(38, 23);
             this.labelX26.TabIndex = 0;
             this.labelX26.Text = "卡号";
             this.labelX26.TextAlignment = System.Drawing.StringAlignment.Far;
@@ -1076,35 +1065,24 @@
             // 
             this.tbCardNums.Border.Class = "TextBoxBorder";
             this.tbCardNums.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbCardNums.Location = new System.Drawing.Point(93, 513);
+            this.tbCardNums.Location = new System.Drawing.Point(93, 486);
             this.tbCardNums.Name = "tbCardNums";
             this.tbCardNums.ReadOnly = true;
-            this.tbCardNums.Size = new System.Drawing.Size(383, 21);
+            this.tbCardNums.Size = new System.Drawing.Size(211, 21);
             this.tbCardNums.TabIndex = 24;
             this.tbCardNums.Text = "未发卡";
-            // 
-            // btnSetCard
-            // 
-            this.btnSetCard.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetCard.Location = new System.Drawing.Point(482, 510);
-            this.btnSetCard.Name = "btnSetCard";
-            this.btnSetCard.Size = new System.Drawing.Size(104, 28);
-            this.btnSetCard.TabIndex = 26;
-            this.btnSetCard.Text = "应用并发卡";
-            this.btnSetCard.UseVisualStyleBackColor = true;
-            this.btnSetCard.Click += new System.EventHandler(this.btnSetCard_Click);
             // 
             // btnSave
             // 
             this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSave.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSave.Location = new System.Drawing.Point(217, 553);
+            this.btnSave.Location = new System.Drawing.Point(240, 596);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 36);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSave.TabIndex = 27;
-            this.btnSave.Text = "应用";
+            this.btnSave.Text = "保存";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveAndUpload
@@ -1112,7 +1090,7 @@
             this.btnSaveAndUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSaveAndUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSaveAndUpload.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSaveAndUpload.Location = new System.Drawing.Point(328, 553);
+            this.btnSaveAndUpload.Location = new System.Drawing.Point(351, 596);
             this.btnSaveAndUpload.Name = "btnSaveAndUpload";
             this.btnSaveAndUpload.Size = new System.Drawing.Size(99, 36);
             this.btnSaveAndUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1125,7 +1103,7 @@
             this.btnClose.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnClose.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnClose.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.Location = new System.Drawing.Point(439, 553);
+            this.btnClose.Location = new System.Drawing.Point(561, 596);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(99, 36);
             this.btnClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1137,10 +1115,10 @@
             // 
             this.previewControl.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.previewControl.Font = new System.Drawing.Font("宋体", 9F);
-            this.previewControl.Location = new System.Drawing.Point(491, 28);
+            this.previewControl.Location = new System.Drawing.Point(343, 282);
             this.previewControl.Name = "previewControl";
             this.previewControl.PageOffset = new System.Drawing.Point(10, 10);
-            this.previewControl.Size = new System.Drawing.Size(306, 476);
+            this.previewControl.Size = new System.Drawing.Size(582, 295);
             this.previewControl.StatusbarVisible = false;
             this.previewControl.TabIndex = 28;
             this.previewControl.ToolbarVisible = false;
@@ -1151,12 +1129,12 @@
             this.btnShow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnShow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnShow.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnShow.Location = new System.Drawing.Point(390, 457);
+            this.btnShow.Location = new System.Drawing.Point(849, 584);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(86, 23);
+            this.btnShow.Size = new System.Drawing.Size(77, 26);
             this.btnShow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnShow.TabIndex = 29;
-            this.btnShow.Text = "刷新显示=>";
+            this.btnShow.Text = "刷新显示";
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // tbVerNo
@@ -1169,24 +1147,65 @@
             this.tbVerNo.ButtonClear.Visible = true;
             this.tbVerNo.Location = new System.Drawing.Point(93, 114);
             this.tbVerNo.Name = "tbVerNo";
-            this.tbVerNo.Size = new System.Drawing.Size(152, 20);
+            this.tbVerNo.Size = new System.Drawing.Size(211, 20);
             this.tbVerNo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.tbVerNo.TabIndex = 30;
             this.tbVerNo.Text = "";
             this.tbVerNo.VerTextFormat = null;
             // 
+            // btnSelectPic
+            // 
+            this.btnSelectPic.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSelectPic.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSelectPic.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSelectPic.Location = new System.Drawing.Point(849, 250);
+            this.btnSelectPic.Name = "btnSelectPic";
+            this.btnSelectPic.Size = new System.Drawing.Size(77, 27);
+            this.btnSelectPic.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSelectPic.TabIndex = 31;
+            this.btnSelectPic.Text = "选择照片";
+            this.btnSelectPic.Click += new System.EventHandler(this.biSelectPic_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnPrint.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnPrint.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnPrint.Location = new System.Drawing.Point(456, 596);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(99, 36);
+            this.btnPrint.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnPrint.TabIndex = 27;
+            this.btnPrint.Text = "打印";
+            this.btnPrint.Click += new System.EventHandler(this.biPrint_Click);
+            // 
+            // btnSetCard
+            // 
+            this.btnSetCard.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSetCard.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSetCard.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetCard.Location = new System.Drawing.Point(217, 513);
+            this.btnSetCard.Name = "btnSetCard";
+            this.btnSetCard.Size = new System.Drawing.Size(87, 24);
+            this.btnSetCard.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSetCard.TabIndex = 32;
+            this.btnSetCard.Text = "发卡";
+            this.btnSetCard.Click += new System.EventHandler(this.btnSetCard_Click);
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 601);
+            this.ClientSize = new System.Drawing.Size(927, 637);
+            this.Controls.Add(this.btnSetCard);
+            this.Controls.Add(this.btnSelectPic);
             this.Controls.Add(this.tbVerNo);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.previewControl);
             this.Controls.Add(this.btnSaveAndUpload);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnSetCard);
             this.Controls.Add(this.lbPhotoTip);
             this.Controls.Add(this.dtBirthday);
             this.Controls.Add(this.cboVeMoBan);
@@ -1305,7 +1324,6 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtValidTimeEnd;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem biPreView;
-        private DevComponents.DotNetBar.ButtonItem biPrint;
         private DevComponents.DotNetBar.Controls.ComboTree cbTreeDept;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboVerTypeStyle;
         private DevComponents.Editors.ComboItem comboItem1;
@@ -1322,18 +1340,19 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtTimeOut;
         private DevComponents.DotNetBar.LabelX labelX27;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboVeMoBan;
-        private DevComponents.DotNetBar.ButtonItem biSelectPic;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtBirthday;
         private DevComponents.DotNetBar.ButtonItem biNew;
         private DevComponents.DotNetBar.LabelX lbPhotoTip;
         private DevComponents.DotNetBar.LabelX labelX26;
         private DevComponents.DotNetBar.Controls.TextBoxX tbCardNums;
-        private System.Windows.Forms.Button btnSetCard;
         private DevComponents.DotNetBar.ButtonX btnSave;
         private DevComponents.DotNetBar.ButtonX btnSaveAndUpload;
         private DevComponents.DotNetBar.ButtonX btnClose;
         private FastReport.Preview.PreviewControl previewControl;
         private DevComponents.DotNetBar.ButtonX btnShow;
         private Li.Controls.VerTextBox tbVerNo;
+        private DevComponents.DotNetBar.ButtonX btnSelectPic;
+        private DevComponents.DotNetBar.ButtonX btnPrint;
+        private DevComponents.DotNetBar.ButtonX btnSetCard;
     }
 }
