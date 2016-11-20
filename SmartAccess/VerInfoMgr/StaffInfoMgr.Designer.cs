@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
@@ -41,6 +41,7 @@
             this.biUnForbbiden = new DevComponents.DotNetBar.ButtonItem();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biPrivateCopy = new DevComponents.DotNetBar.ButtonItem();
+            this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
             this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             this.biExportPhoto = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
@@ -83,8 +84,9 @@
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
-            this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
+            this.biImportPic = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,11 +119,12 @@
             this.biUploadSelect,
             this.biOneKeyUpload,
             this.biExportPhoto,
+            this.biImportPic,
             this.biDownloadModel,
             this.biImport});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(1131, 29);
+            this.bar1.Size = new System.Drawing.Size(1172, 29);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 0;
@@ -200,12 +203,20 @@
             this.biPrivateCopy.Text = "权限复制";
             this.biPrivateCopy.Click += new System.EventHandler(this.biPrivateCopy_Click);
             // 
+            // biUploadSelect
+            // 
+            this.biUploadSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biUploadSelect.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biUploadSelect.Name = "biUploadSelect";
+            this.biUploadSelect.Text = "上传选择权限";
+            this.biUploadSelect.Click += new System.EventHandler(this.biUploadSelect_Click);
+            // 
             // biOneKeyUpload
             // 
             this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
             this.biOneKeyUpload.Name = "biOneKeyUpload";
-            this.biOneKeyUpload.Text = "一键上传所有权限";
+            this.biOneKeyUpload.Text = "上传所有权限";
             this.biOneKeyUpload.Click += new System.EventHandler(this.biOneKeyUpload_Click);
             // 
             // biExportPhoto
@@ -248,7 +259,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.bar3);
             this.splitContainer1.Panel2.Controls.Add(this.bar2);
-            this.splitContainer1.Size = new System.Drawing.Size(1131, 480);
+            this.splitContainer1.Size = new System.Drawing.Size(1172, 480);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -262,7 +273,7 @@
             this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
             this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(899, 393);
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(940, 393);
             this.pageDataGridView.DataGridPanel.TabIndex = 1;
             this.pageDataGridView.DataGridView = this.dgvStaffs;
             this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -277,13 +288,13 @@
             this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
             this.pageDataGridView.PageControl.Name = "PageControl";
             this.pageDataGridView.PageControl.RecordsPerPage = 30;
-            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(899, 32);
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(940, 32);
             this.pageDataGridView.PageControl.TabIndex = 0;
             this.pageDataGridView.PageControl.TotalRecords = 0;
             this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
             this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
             this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
-            this.pageDataGridView.Size = new System.Drawing.Size(899, 425);
+            this.pageDataGridView.Size = new System.Drawing.Size(940, 425);
             this.pageDataGridView.SqlWhere = null;
             this.pageDataGridView.TabIndex = 3;
             // 
@@ -292,14 +303,14 @@
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -313,30 +324,30 @@
             this.Col_XG,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvStaffs.RowTemplate.Height = 23;
-            this.dgvStaffs.Size = new System.Drawing.Size(899, 393);
+            this.dgvStaffs.Size = new System.Drawing.Size(940, 393);
             this.dgvStaffs.TabIndex = 0;
             this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
             // 
@@ -446,7 +457,7 @@
             this.cbHasNoDoor});
             this.bar3.Location = new System.Drawing.Point(0, 29);
             this.bar3.Name = "bar3";
-            this.bar3.Size = new System.Drawing.Size(899, 26);
+            this.bar3.Size = new System.Drawing.Size(940, 26);
             this.bar3.Stretch = true;
             this.bar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar3.TabIndex = 2;
@@ -510,7 +521,7 @@
             this.biClear});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.Name = "bar2";
-            this.bar2.Size = new System.Drawing.Size(899, 29);
+            this.bar2.Size = new System.Drawing.Size(940, 29);
             this.bar2.Stretch = true;
             this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar2.TabIndex = 1;
@@ -658,13 +669,14 @@
             this.deptTree.Size = new System.Drawing.Size(228, 480);
             this.deptTree.TabIndex = 0;
             // 
-            // biUploadSelect
+            // biImportPic
             // 
-            this.biUploadSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biUploadSelect.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biUploadSelect.Name = "biUploadSelect";
-            this.biUploadSelect.Text = "上传选择权限";
-            this.biUploadSelect.Click += new System.EventHandler(this.biUploadSelect_Click);
+            this.biImportPic.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biImportPic.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biImportPic.Name = "biImportPic";
+            this.biImportPic.Text = "导入照片";
+            this.biImportPic.Tooltip = "导选择导入照片目录，照片名称以姓名命名";
+            this.biImportPic.Click += new System.EventHandler(this.biImportPic_Click);
             // 
             // StaffInfoMgr
             // 
@@ -673,7 +685,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.bar1);
             this.Name = "StaffInfoMgr";
-            this.Size = new System.Drawing.Size(1131, 509);
+            this.Size = new System.Drawing.Size(1172, 509);
             this.Load += new System.EventHandler(this.StaffInfoMgr_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -747,5 +759,7 @@
         private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
         private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
         private DevComponents.DotNetBar.ButtonItem biUploadSelect;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowser;
+        private DevComponents.DotNetBar.ButtonItem biImportPic;
     }
 }

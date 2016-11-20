@@ -818,37 +818,53 @@ namespace SmartAccess.VerInfoMgr
 
         private void biExportPhoto_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = GetSelectRow();
-            if (row == null)
+            var rows = GetSelectRows();
+            if (rows.Count == 0)
             {
+                WinInfoHelper.ShowInfoWindow(this, "未选择任何人员！");
                 return;
             }
-            Maticsoft.Model.SMT_STAFF_INFO staffInfo = row.Tag as Maticsoft.Model.SMT_STAFF_INFO;
-            if (staffInfo.PHOTO == null || staffInfo.PHOTO.Length == 0)
+            List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+            foreach (var item in rows)
             {
-                WinInfoHelper.ShowInfoWindow(this, "该人员没有照片！");
-                return;
-            }
-            saveImageDlg.FileName = staffInfo.REAL_NAME + "[" + staffInfo.STAFF_NO + "]";
-            if (saveImageDlg.ShowDialog(this) == DialogResult.OK)
-            {
-                try
+                Maticsoft.Model.SMT_STAFF_INFO staffInfo = (Maticsoft.Model.SMT_STAFF_INFO)item.Tag;
+                if (staffInfo.PHOTO == null || staffInfo.PHOTO.Length == 0)
                 {
-                    using (MemoryStream ms = new MemoryStream(staffInfo.PHOTO))
+                    WinInfoHelper.ShowInfoWindow(this, staffInfo.REAL_NAME + " 没有照片！");
+                }
+                else
+                {
+                    staffInfos.Add(staffInfo);
+                }
+            }
+            if (staffInfos.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "没有照片可以导出！");
+                return;
+            }
+            if (folderBrowser.ShowDialog(this)==DialogResult.OK)
+            {
+                foreach (var item in staffInfos)
+                {
+                    try
                     {
-                        using (Image image = Image.FromStream(ms))
+                        using (MemoryStream ms = new MemoryStream(item.PHOTO))
                         {
-                            image.Save(saveImageDlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                            WinInfoHelper.ShowInfoWindow(this, "保存照片成功！");
+                            using (Image image = Image.FromStream(ms))
+                            {
+                                string file= Path.Combine(folderBrowser.SelectedPath, item.REAL_NAME + "[" + item.STAFF_NO + "].png");
+                                image.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this,item.REAL_NAME+ " 保存照片异常：" + ex.Message);
+                        log.Error(item.REAL_NAME + " 保存照片异常：", ex);
+                        return;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    WinInfoHelper.ShowInfoWindow(this, "保存照片异常：" + ex.Message);
-                    log.Error("保存照片异常：", ex);
-                    return;
-                }
+                WinInfoHelper.ShowInfoWindow(this, "保存照片结束！");
             }
         }
 
@@ -1247,8 +1263,19 @@ namespace SmartAccess.VerInfoMgr
                             }
                             try
                             {
-                                string path = Path.Combine(Path.GetDirectoryName(ofd.FileName), "人员照片", dr["姓名"] + ".jpg");
-                                if (File.Exists(path))
+                                string path = Path.Combine(Path.GetDirectoryName(ofd.FileName), "人员照片", dr["姓名"]+"");
+                                string[] ends = new string[] {".jpg",".png",".jpeg",".bmp" };
+                                string temp = null ;
+                                foreach (var item in ends)
+                                {
+                                    string t = path + item;
+                                    if (File.Exists(t))
+                                    {
+                                        temp = t;
+                                        break;
+                                    }
+                                }
+                                if (temp!=null)
                                 {
                                     Image image = Image.FromFile(path);
                                     MemoryStream ms = new MemoryStream();
@@ -1367,7 +1394,6 @@ namespace SmartAccess.VerInfoMgr
         {
             DoSearch(false, _byDeptTree, false, null, _orgId);
         }
-
         private void biUploadSelect_Click(object sender, EventArgs e)
         {
             var rows = GetSelectRows();
@@ -1402,6 +1428,93 @@ namespace SmartAccess.VerInfoMgr
                 }
             });
             waiting.Show(this);
+        }
+
+        private void biImportPic_Click(object sender, EventArgs e)
+        {
+            if (folderBrowser.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    string[] paths = Directory.GetFiles(folderBrowser.SelectedPath);
+                    string[] ends = new string[] { ".jpg", ".png", ".jpeg", ".bmp" };
+                    List<string> files = new List<string>();
+                    foreach (var item in paths)
+                    {
+                        foreach (var end in ends)
+                        {
+                            if (item.EndsWith(end,StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                files.Add(item);
+                                break;
+                            }
+                        }
+                    }
+                    if (files.Count==0)
+                    {
+                          WinInfoHelper.ShowInfoWindow(this, "无任何照片可导入！");
+                          return;
+                    }
+
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        foreach (var file in files)
+                        {
+                            try
+                            {
+                                Image image = Image.FromFile(file);
+                                MemoryStream ms = new MemoryStream();
+                                Image newImage = CommonClass.Get2InchPhoto(image);
+                                if (newImage != null)
+                                {
+                                    newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                    newImage.Dispose();
+                                }
+                                else
+                                {
+                                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                }
+                                image.Dispose();
+                                byte[] bts = ms.GetBuffer();
+                                Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                                string str= Path.GetFileName(file);
+                                int index= str.LastIndexOf('.');
+                                str= str.Substring(0,index);
+                                index= str.LastIndexOf('[');
+                                if (index>=0)
+	                            {
+                                    str= str.Substring(0,index);
+	                            }
+                                var models = staffBll.GetModelList("REAL_NAME='" + str + "'");
+                                if (models.Count>0)
+                                {
+                                    models[0].PHOTO = bts;
+                                    staffBll.Update(models[0]);
+                                }
+                                else
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "不存在姓名为" + str + "人员！");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "导入照片" + file + "异常：" + ex.Message);
+                                log.Error("导入照片" + file + "异常：" + ex.Message,ex);
+                            }
+                        }
+                        WinInfoHelper.ShowInfoWindow(this, "导入照片结束！");
+                        this.BeginInvoke(new Action(() =>
+                            {
+                                DoSearch(false, _byDeptTree, false, null, _orgId);
+                            }));
+                    });
+                    waiting.Show(this);
+                    
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
     }

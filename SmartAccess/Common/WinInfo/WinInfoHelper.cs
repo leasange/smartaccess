@@ -38,7 +38,7 @@ namespace SmartAccess.Common.WinInfo
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public extern static int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
-        public static void ShowInfoWindow(IWin32Window owner, string text, int timeclose = 4)
+        public static void ShowInfoWindow(IWin32Window owner, string text, float timeclose = 3.5f)
         {
             FrmInfo.ShowInfo(owner, text, timeclose);
         }
