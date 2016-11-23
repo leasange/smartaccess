@@ -246,6 +246,7 @@ namespace SmartAccess.VerInfoMgr
             {
                 DataGridViewRow row = new DataGridViewRow();
                 string cards = "未发卡";
+                string state = "正常";
                 int count = 0;
                 if (item.CARDS != null && item.CARDS.Count > 0)
                 {
@@ -256,15 +257,30 @@ namespace SmartAccess.VerInfoMgr
                         count++;
                     }
                 }
+                else
+                {
+                    state = "未发卡";
+                }
+                if (item.IS_FORBIDDEN)
+                {
+                    state = "已挂失";
+                }
+                if (cbHasNoDoor.Checked && (!cbHasDoor.Checked) && state == "正常")
+                {
+                    state = "未授权";
+                }
+                string pic = item.PHOTO != null && item.PHOTO.Length > 0 ? "照片" : "无";
+
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
                     item.ORG_NAME,
                     cards.TrimEnd(';'),
                     count,
-                    item.IS_FORBIDDEN ? "已挂失" : "正常",
+                    state,
                     item.VALID_STARTTIME.ToString("yyyy-MM-dd") + " 至 " + item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
                     item.TELE_PHONE,
+                    pic,
                     "查看",
                     "修改",
                     "授权",
@@ -288,7 +304,44 @@ namespace SmartAccess.VerInfoMgr
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_XG")
+                if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_Pic")
+                {
+                    Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
+                    if (staffInfo != null)
+                    {
+                        if (staffInfo.PHOTO != null && staffInfo.PHOTO.Length > 0)
+                        {
+                            try
+                            {
+                                MemoryStream ms = new MemoryStream(staffInfo.PHOTO);
+                                Image image = Image.FromStream(ms);
+                                if (picImage.Image != null)
+                                {
+                                    picImage.Image.Dispose();
+                                    picImage.Image = null;
+                                }
+                                picImage.Image = image;
+                                ms.Dispose();
+                                panelImage.Visible = true;
+                                panelImage.BringToFront();
+                            }
+                            catch (Exception ex)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "照片显示异常！" + ex.Message);
+                                log.Error("照片显示异常：", ex);
+                            }
+                        }
+                        else
+                        {
+                            if (picImage.Image != null)
+                            {
+                                picImage.Image.Dispose();
+                                picImage.Image = null;
+                            }
+                        }
+                    }
+                }
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_XG")
                 {
                     Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
                     if (staffInfo != null)
@@ -1515,6 +1568,23 @@ namespace SmartAccess.VerInfoMgr
                 {
                 }
             }
+        }
+
+        private void btnCloseImage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                panelImage.Visible = false;
+                if (picImage.Image != null)
+                {
+                    picImage.Image.Dispose();
+                    picImage.Image = null;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
         }
 
     }

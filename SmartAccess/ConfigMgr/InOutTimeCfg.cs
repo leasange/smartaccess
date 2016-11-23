@@ -211,6 +211,7 @@ namespace SmartAccess.ConfigMgr
                 }
                 Maticsoft.BLL.SMT_TIMESCALE_INFO tsBll = new Maticsoft.BLL.SMT_TIMESCALE_INFO();
                 var models = tsBll.GetModelList("");
+                models = models.OrderBy(m => m.TIME_NO).ToList();//时段升序
                 Maticsoft.BLL.SMT_WEEKEX_INFO wbll = new Maticsoft.BLL.SMT_WEEKEX_INFO();
                 var weekexs = wbll.GetModelList("");
 

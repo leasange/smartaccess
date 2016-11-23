@@ -131,6 +131,7 @@
             // 
             this.biUploadTimeNo.Name = "biUploadTimeNo";
             this.biUploadTimeNo.Text = "上传所有时间段";
+            this.biUploadTimeNo.Tooltip = "注意：上传时间段是按照时段号升序上传的";
             this.biUploadTimeNo.Click += new System.EventHandler(this.biUploadTimeNo_Click);
             // 
             // labelItem1
