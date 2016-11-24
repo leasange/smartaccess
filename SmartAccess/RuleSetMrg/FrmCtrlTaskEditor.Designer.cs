@@ -581,6 +581,7 @@
             // 
             this.cboCtrlStyle.DisplayMember = "Text";
             this.cboCtrlStyle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboCtrlStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCtrlStyle.FormattingEnabled = true;
             this.cboCtrlStyle.ItemHeight = 17;
             this.cboCtrlStyle.Items.AddRange(new object[] {

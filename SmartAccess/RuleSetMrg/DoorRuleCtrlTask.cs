@@ -222,14 +222,53 @@ namespace SmartAccess.RuleSetMrg
                 taskEditor.ShowDialog(this);
             }
         }
+        private List<Maticsoft.Model.SMT_CTRLR_TASK> GetTasks(bool all = true)
+        {
+            List<Maticsoft.Model.SMT_CTRLR_TASK> tasks = new List<Maticsoft.Model.SMT_CTRLR_TASK>();
+            if (all)//所有任务
+            {
+                foreach (DataGridViewRow row in dgvData.Rows)
+                {
+                    tasks.Add((Maticsoft.Model.SMT_CTRLR_TASK)row.Tag);
+                }
+            }
+            else
+            {
+                var rows = dgvData.SelectedRows;
+                if (rows.Count>0)
+                {
+                    foreach (DataGridViewRow row in rows)
+                    {
+                        tasks.Add((Maticsoft.Model.SMT_CTRLR_TASK)row.Tag);
+                    }
+                }
+                else
+                {
+                    var cells = dgvData.SelectedCells;
+                    if (cells.Count>0)
+                    {
+                        foreach (DataGridViewCell item in cells)
+                        {
+                            int rowIndex = item.RowIndex;
+                            if (rowIndex>=0)
+	                        {
+                                Maticsoft.Model.SMT_CTRLR_TASK task = (Maticsoft.Model.SMT_CTRLR_TASK)dgvData.Rows[rowIndex].Tag;
+                                if (!tasks.Contains(task))
+                                {
+                                    tasks.Add(task);
+                                }
+	                        }
+                        }
+                    }
+                }
+            }
+
+            return tasks;
+        }
 
         private void biUpload_Click(object sender, EventArgs e)
         {
-            List<Maticsoft.Model.SMT_CTRLR_TASK> tasks = new List<Maticsoft.Model.SMT_CTRLR_TASK>();
-            foreach (DataGridViewRow row in dgvData.Rows)
-            {
-                tasks.Add((Maticsoft.Model.SMT_CTRLR_TASK)row.Tag);
-            }
+            List<Maticsoft.Model.SMT_CTRLR_TASK> tasks = GetTasks();
             if (tasks.Count == 0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "没有定时任务待上传！");
@@ -262,6 +301,30 @@ namespace SmartAccess.RuleSetMrg
             {
                 DoModify();
             }
+        }
+
+        private void biUploadSelect_Click(object sender, EventArgs e)
+        {
+            List<Maticsoft.Model.SMT_CTRLR_TASK> tasks = GetTasks(false);
+            if (tasks.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "没有选择定时任务待上传！");
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    UploadPrivate.UploadTimeTasks(tasks);
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "上传定时任务发生异常：" + ex.Message);
+                    log.Error("上传定时任务发生异常：", ex);
+                }
+
+            });
+            waiting.Show(this);
         }
     }
 }

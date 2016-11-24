@@ -215,6 +215,12 @@
     <Compile Include="ConfigMgr\MapsMgr.Designer.cs">
       <DependentUpon>MapsMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\SuperPasswordMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\SuperPasswordMgr.Designer.cs">
+      <DependentUpon>SuperPasswordMgr.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\UserManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -541,6 +547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\MapsMgr.resx">
       <DependentUpon>MapsMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\SuperPasswordMgr.resx">
+      <DependentUpon>SuperPasswordMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>

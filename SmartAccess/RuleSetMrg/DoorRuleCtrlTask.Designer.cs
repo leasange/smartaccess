@@ -54,6 +54,7 @@
             this.biNew = new DevComponents.DotNetBar.ButtonItem();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.SuspendLayout();
@@ -369,6 +370,7 @@
             this.biModify,
             this.biView,
             this.biDelete,
+            this.biUploadSelect,
             this.biUpload});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -378,6 +380,12 @@
             this.bar1.TabIndex = 6;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biUploadSelect
+            // 
+            this.biUploadSelect.Name = "biUploadSelect";
+            this.biUploadSelect.Text = "上传选择定时任务";
+            this.biUploadSelect.Click += new System.EventHandler(this.biUploadSelect_Click);
             // 
             // DoorRuleCtrlTask
             // 
@@ -419,6 +427,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private DevComponents.DotNetBar.ButtonItem biUploadSelect;
 
     }
 }
