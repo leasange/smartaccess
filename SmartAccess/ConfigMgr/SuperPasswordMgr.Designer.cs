@@ -39,15 +39,16 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.cbVisiblePwd = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
             this.tbPassword = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.btnAdd = new DevComponents.DotNetBar.ButtonX();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvData = new Li.Controls.DataGridViewEx();
-            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
-            this.Col_Del = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Del = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.biUploadAll = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -63,6 +64,7 @@
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biRefresh,
             this.biUpload,
+            this.biUploadAll,
             this.biDeleteSelect});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
@@ -82,7 +84,7 @@
             // biUpload
             // 
             this.biUpload.Name = "biUpload";
-            this.biUpload.Text = "上传选择项通行密码";
+            this.biUpload.Text = "上传选择";
             this.biUpload.Click += new System.EventHandler(this.biUpload_Click);
             // 
             // biDeleteSelect
@@ -181,6 +183,18 @@
             this.labelX2.TabIndex = 0;
             this.labelX2.Text = "适用门禁";
             // 
+            // doorTree
+            // 
+            this.doorTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.doorTree.CheckBoxVisible = true;
+            this.doorTree.Location = new System.Drawing.Point(63, 32);
+            this.doorTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.doorTree.Name = "doorTree";
+            this.doorTree.Size = new System.Drawing.Size(230, 356);
+            this.doorTree.TabIndex = 5;
+            // 
             // tbPassword
             // 
             // 
@@ -262,7 +276,7 @@
             this.dgvData.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.EnableHeadersVisualStyles = false;
-            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.dgvData.Location = new System.Drawing.Point(0, 26);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
@@ -279,17 +293,17 @@
             this.dgvData.TabIndex = 10;
             this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
             // 
-            // doorTree
+            // Column1
             // 
-            this.doorTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.doorTree.CheckBoxVisible = true;
-            this.doorTree.Location = new System.Drawing.Point(63, 32);
-            this.doorTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.doorTree.Name = "doorTree";
-            this.doorTree.Size = new System.Drawing.Size(230, 356);
-            this.doorTree.TabIndex = 5;
+            this.Column1.HeaderText = "密码(已加密)";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "门禁";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Col_Del
             // 
@@ -299,17 +313,11 @@
             this.Col_Del.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Col_Del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // Column2
+            // biUploadAll
             // 
-            this.Column2.HeaderText = "门禁";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "密码(已加密)";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.biUploadAll.Name = "biUploadAll";
+            this.biUploadAll.Text = "上传全部";
+            this.biUploadAll.Click += new System.EventHandler(this.biUploadAll_Click);
             // 
             // SuperPasswordMgr
             // 
@@ -347,5 +355,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewLinkColumn Col_Del;
+        private DevComponents.DotNetBar.ButtonItem biUploadAll;
     }
 }

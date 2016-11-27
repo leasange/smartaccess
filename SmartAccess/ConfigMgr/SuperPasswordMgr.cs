@@ -310,16 +310,33 @@ namespace SmartAccess.ConfigMgr
             }
             return pwds;
         }
-
-        private void biUpload_Click(object sender, EventArgs e)
+        private List<Maticsoft.Model.SMT_SUPER_PWD> GetAllPwds()
         {
-            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = GetSelectPwds();
-            if (pwds.Count==0)
+            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = new List<Maticsoft.Model.SMT_SUPER_PWD>();
+            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            foreach (DataGridViewRow item in dgvData.Rows)
+            {
+                rows.Add(item);
+            }
+            
+            if (rows.Count > 0)
+            {
+                foreach (var item in rows)
+                {
+                    pwds.AddRange((List<Maticsoft.Model.SMT_SUPER_PWD>)item.Tag);
+                }
+            }
+            return pwds;
+        }
+
+        private void DoUpload(List<Maticsoft.Model.SMT_SUPER_PWD> pwds)
+        {
+            if (pwds.Count == 0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "未选择任何可上传密码！");
                 return;
             }
-            
+
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
@@ -331,9 +348,20 @@ namespace SmartAccess.ConfigMgr
                     WinInfoHelper.ShowInfoWindow(this, "上传密码发生异常：" + ex.Message);
                     log.Error("上传密码发生异常1：", ex);
                 }
-            	
+
             });
             waiting.Show(this);
+        }
+        private void biUpload_Click(object sender, EventArgs e)
+        {
+            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = GetSelectPwds();
+            DoUpload(pwds);
+        }
+       
+        private void biUploadAll_Click(object sender, EventArgs e)
+        {
+            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = GetAllPwds();
+            DoUpload(pwds);
         }
     }
 }
