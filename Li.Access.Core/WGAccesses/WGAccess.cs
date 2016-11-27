@@ -11,6 +11,7 @@ namespace Li.Access.Core.WGAccesses
 {
     public class WGAccess :AccessCore, IAccessCore
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(WGAccess));
         private static object lockPortObj = new object();//绑定端口锁定
         private void DoBindPort(bool multi=false)
         {
@@ -478,6 +479,30 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+        public bool SetSuperPwds(Controller controller, int doorIndex, List<string> pwds)
+        {
+            WGPacket packet = new WGPacket(0x8C);
+            packet.SetDevSn(controller.sn);
+            packet.SetDoorNum(doorIndex);
+            try
+            {
+                packet.SetSuperPwds(pwds);
+            }
+            catch (Exception ex)
+            {
+                log.Error("密码转换发生异常：", ex);
+                return false;
+            }
+           
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包
@@ -868,6 +893,22 @@ namespace Li.Access.Core.WGAccesses
             data[10] = DataHelper.ToByteBCD(holiday.endDate.Day);
             data[11] = DataHelper.ToByteBCD(holiday.endDate.Hour);
             data[12] = DataHelper.ToByteBCD(holiday.endDate.Minute);
+        }
+
+        public void SetSuperPwds(List<string> pwds)
+        {
+            for (int i = 0; i < pwds.Count; i++)
+            {
+                if (i == 4)
+                {
+                    break;
+                }
+                byte[] bts = DataHelper.GetBytesFromInt(int.Parse(pwds[i]));
+                for (int j = 0; j <4; j ++)
+                {
+                    data[4 + j + i * 4] = bts[j];
+                }
+            }
         }
     }
 }

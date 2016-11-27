@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
 using SmartAccess.Common;
 using SmartKey;
+using SmartAccess.Common.Datas;
 
 namespace SmartAccess.ConfigMgr
 {
@@ -55,7 +56,11 @@ namespace SmartAccess.ConfigMgr
                         }
                     }
                     DataGridViewRow row = new DataGridViewRow();
-                    string pwd= EncryptUtils.DESEncrypt(pms[0].SUPER_PWD, "4rer3eee", "fjkdjkgjk");
+                    string pwd = pms[0].SUPER_PWD;
+                    if (!cbVisiblePwd.Checked)
+                    {
+                        pwd = "******";
+                    }
                     row.CreateCells(dgvData,
                         pwd,
                         str,
@@ -107,6 +112,16 @@ namespace SmartAccess.ConfigMgr
         private void cbVisiblePwd_CheckedChanged(object sender, EventArgs e)
         {
             tbPassword.PasswordChar = cbVisiblePwd.Checked ? '\0' : '*';
+            foreach (DataGridViewRow item in dgvData.Rows)
+            {
+                List<Maticsoft.Model.SMT_SUPER_PWD> list = (List<Maticsoft.Model.SMT_SUPER_PWD>)item.Tag;
+                string pwd = list[0].SUPER_PWD;
+                if (!cbVisiblePwd.Checked)
+                {
+                    pwd = "******";
+                }
+                item.Cells[0].Value = pwd;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -206,6 +221,20 @@ namespace SmartAccess.ConfigMgr
                         {
                             pwdbll.Delete(item.ID);
                         }
+
+                        Maticsoft.BLL.SMT_SUPER_PWD pwdBll = new Maticsoft.BLL.SMT_SUPER_PWD();
+                        var models= pwdbll.GetModelList("");
+                        try
+                        {
+                            UploadPrivate.UploadPwds(models);
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "上传密码发生异常：" + ex.Message);
+                            log.Error("上传密码发生异常：", ex);
+                        }
+                       
+
                         this.Invoke(new Action(() =>
                         {
                             foreach (var item in rows)
@@ -225,12 +254,13 @@ namespace SmartAccess.ConfigMgr
             }
         }
 
-        private void biDeleteAll_Click(object sender, EventArgs e)
+        private void biDeleteSelect_Click(object sender, EventArgs e)
         {
-            List<DataGridViewRow> rows = new List<DataGridViewRow>();
-            foreach (DataGridViewRow item in dgvData.Rows)
+            var rows = GetSelectRows();
+            if (rows.Count==0)
             {
-                rows.Add(item);
+                WinInfoHelper.ShowInfoWindow(this, "未选择任何行！");
+                return;
             }
             DeleteRows(rows);
         }
@@ -238,6 +268,72 @@ namespace SmartAccess.ConfigMgr
         private void biRefresh_Click(object sender, EventArgs e)
         {
             RefreshDatas();
+        }
+
+        private List<DataGridViewRow> GetSelectRows()
+        {
+            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            if (dgvData.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow item in dgvData.SelectedRows)
+                {
+                    rows.Add(item);
+                }
+            }
+            else if (dgvData.SelectedCells.Count > 0)
+            {
+                foreach (DataGridViewCell item in dgvData.SelectedCells)
+                {
+                    if (item.RowIndex >= 0)
+                    {
+                        if (rows.Contains(dgvData.Rows[item.RowIndex]))
+                        {
+                            continue;
+                        }
+                        rows.Add(dgvData.Rows[item.RowIndex]);
+                    }
+                }
+            }
+            return rows;
+        }
+
+        private List<Maticsoft.Model.SMT_SUPER_PWD> GetSelectPwds()
+        {
+            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = new List<Maticsoft.Model.SMT_SUPER_PWD>();
+            List<DataGridViewRow> rows = GetSelectRows();
+            if (rows.Count>0)
+            {
+                foreach (var item in rows)
+                {
+                    pwds.AddRange((List<Maticsoft.Model.SMT_SUPER_PWD>)item.Tag);
+                }
+            }
+            return pwds;
+        }
+
+        private void biUpload_Click(object sender, EventArgs e)
+        {
+            List<Maticsoft.Model.SMT_SUPER_PWD> pwds = GetSelectPwds();
+            if (pwds.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未选择任何可上传密码！");
+                return;
+            }
+            
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    UploadPrivate.UploadPwds(pwds);
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "上传密码发生异常：" + ex.Message);
+                    log.Error("上传密码发生异常1：", ex);
+                }
+            	
+            });
+            waiting.Show(this);
         }
     }
 }

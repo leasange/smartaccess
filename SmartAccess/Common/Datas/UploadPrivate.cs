@@ -820,5 +820,64 @@ namespace SmartAccess.Common.Datas
                 item.WaitOne(40000);
             }
         }
+
+        public static void UploadPwds(List<Maticsoft.Model.SMT_SUPER_PWD> pwds)
+        {
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg("开始上传密码...");
+            var doors = GetUploadAllDoors();
+            var ctrls = GetUploadCtrlr();
+            FrmDetailInfo.AddOneMsg("获取控制器数目：" + ctrls.Count + ",门禁数目：" + doors.Count);
+            List<ManualResetEvent> evts = new List<ManualResetEvent>();
+            foreach (var item in ctrls)
+            {
+                ManualResetEvent evt = new ManualResetEvent(false);
+                evts.Add(evt);
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                {
+                    try
+                    {
+                        var thdoors = doors.FindAll(m => m.CTRL_ID == item.ID);
+                        var c = ControllerHelper.ToController(item);
+                        using (IAccessCore access = new WGAccess())
+                        {
+                            foreach (var d in thdoors)
+                            {
+                                var thpwds = pwds.FindAll(m => m.DOOR_ID == d.ID);
+                                List<string> listpwd = new List<string>();
+                                foreach (var thpwd in thpwds)
+                                {
+                                    listpwd.Add(thpwd.SUPER_PWD);
+                                }
+                                FrmDetailInfo.AddOneMsg("开始上传控制器：" + item.NAME + ",IP:" + item.IP + "门号：" + d.CTRL_DOOR_INDEX + " 密码上传数目：" + listpwd.Count);
+                                bool ret= access.SetSuperPwds(c, (int)d.CTRL_DOOR_INDEX, listpwd);
+                                if (!ret)
+                                {
+                                    FrmDetailInfo.AddOneMsg("控制器：" + item.NAME + ",IP:" + item.IP + "门号：" + d.CTRL_DOOR_INDEX + " 密码上传失败！", isRed: true);
+                                }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg("控制器：" + item.NAME + ",IP:" + item.IP + "门号：" + d.CTRL_DOOR_INDEX + " 密码上传成功！");
+                                }
+                            }
+                        }
+                         
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmDetailInfo.AddOneMsg("控制器" + item.NAME + ",IP:" + item.IP + " 密码上传异常，" + ex.Message, isRed: true);
+                    }
+                    finally
+                    {
+                        evt.Set();
+                    }
+                }));
+            }
+            foreach (var item in evts)
+            {
+                item.WaitOne(20000);
+            }
+            FrmDetailInfo.AddOneMsg("上传结束！");
+        }
     }
 }

@@ -58,6 +58,16 @@ namespace Li.Access.Core
             return str;
         }
 
+        public static byte[] GetBytesFromInt(int idata)
+        {
+            byte[] bts=new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                bts[i] = (byte)(0x000000FF & (idata >> (i*8)));
+            }
+            return bts;
+        }
+
         public static byte[] ToBytesFromHexString(string hexString)
         {
             if (hexString.Length==1)

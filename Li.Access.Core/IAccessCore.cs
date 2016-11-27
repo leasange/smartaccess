@@ -168,6 +168,14 @@ namespace Li.Access.Core
         /// <param name="task">任务</param>
         /// <returns>成功与否</returns>
         bool AddTimeTask(Controller controller, TimeTask task);
+        /// <summary>
+        /// 设置超级密码（密码缺失，可做清除使用）
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="doorIndex">门号</param>
+        /// <param name="pwds">密码列表</param>
+        /// <returns>成功与否</returns>
+        bool SetSuperPwds(Controller controller, int doorIndex, List<string> pwds);
 
     }
     /// <summary>

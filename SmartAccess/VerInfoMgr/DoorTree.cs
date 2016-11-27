@@ -58,10 +58,26 @@ namespace SmartAccess.VerInfoMgr
         {
             InitializeComponent();
         }
+        public static bool IsDesignMode()
+        {
+            bool returnFlag = false;
+
+#if DEBUG
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                returnFlag = true;
+            }
+            else if (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv")
+            {
+                returnFlag = true;
+            }
+#endif
+            return returnFlag;
+        }
 
         private void DoorTree_Load(object sender, EventArgs e)
         {
-            if (!this.DesignMode)
+            if (!IsDesignMode())
             {
                 CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
                 {
@@ -89,16 +105,16 @@ namespace SmartAccess.VerInfoMgr
                     {
                         WinInfoHelper.ShowInfoWindow(this, "门禁列表加载异常：" + ex.Message);
                         this.Invoke(new Action(() =>
-                          {
-                              lock (this)
-                              {
-                                  _isloaded = true;
-                                  if (_loadEnded != null)
-                                  {
-                                      _loadEnded(this, e);
-                                  }
-                              }
-                          }));
+                        {
+                            lock (this)
+                            {
+                                _isloaded = true;
+                                if (_loadEnded != null)
+                                {
+                                    _loadEnded(this, e);
+                                }
+                            }
+                        }));
                     }
                 });
                 ctrlWaiting.Show(this, 300);
