@@ -12,6 +12,8 @@ using SmartAccess.Common;
 using SmartAccess.Common.WinInfo;
 using SmartAccess.Common.Datas;
 using System.IO;
+using SmartAccess.Common.Config;
+using SmartAccess.Common.Database;
 
 namespace SmartAccess
 {
@@ -60,6 +62,7 @@ namespace SmartAccess
             }
             this.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysName");
             lbTitle.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysTitle");
+            panelWelCome.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysWelcomeText");
         }
 
         private void CreateStyleItems()
@@ -99,6 +102,11 @@ namespace SmartAccess
             try
             {
                 tsslStateUser.Text = UserInfoHelper.UserInfo.USER_NAME;
+                DatabaseConfigClass config = SysConfig.GetSqlServerServerConfig();
+                if (config != null)
+                {
+                    tsmiServerIp.Text = config.serverName;
+                }
             }
             catch (Exception)
             {
@@ -421,6 +429,32 @@ namespace SmartAccess
         {
             FrmCardIssueSetting frmCardSetting = new FrmCardIssueSetting();
             frmCardSetting.ShowDialog(this);
+        }
+
+        private void biLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定注销系统？","提示",MessageBoxButtons.OKCancel)==DialogResult.OK)
+            {
+                try
+                {
+                    this.Dispose();
+                    FrmLogin.Login.Enabled = true;
+                    FrmLogin.Login.Visible = true;
+                    FrmLogin.Login.WindowState = FormWindowState.Normal;
+                    FrmLogin.Login.BringToFront();
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "注销异常:"+ex.Message);
+                    log.Error("注销异常：", ex);
+                }
+
+            }
+        }
+
+        private void timerClock_Tick(object sender, EventArgs e)
+        {
+            tsmiNowTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }

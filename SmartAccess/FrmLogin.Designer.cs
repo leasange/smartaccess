@@ -42,6 +42,8 @@
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
             this.lbDogTips = new DevComponents.DotNetBar.LabelX();
             this.timerDogCheck = new System.Windows.Forms.Timer(this.components);
+            this.cbRememberUser = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbRememberPwd = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.SuspendLayout();
             // 
             // labelX1
@@ -86,7 +88,6 @@
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(182, 23);
             this.tbUserName.TabIndex = 0;
-            this.tbUserName.Text = "admin";
             // 
             // tbPwd
             // 
@@ -197,6 +198,36 @@
             this.timerDogCheck.Interval = 1000;
             this.timerDogCheck.Tick += new System.EventHandler(this.timerDogCheck_Tick);
             // 
+            // cbRememberUser
+            // 
+            this.cbRememberUser.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbRememberUser.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbRememberUser.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRememberUser.Location = new System.Drawing.Point(395, 159);
+            this.cbRememberUser.Name = "cbRememberUser";
+            this.cbRememberUser.Size = new System.Drawing.Size(100, 23);
+            this.cbRememberUser.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbRememberUser.TabIndex = 7;
+            this.cbRememberUser.Text = "记住用户名";
+            // 
+            // cbRememberPwd
+            // 
+            this.cbRememberPwd.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbRememberPwd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbRememberPwd.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRememberPwd.Location = new System.Drawing.Point(395, 202);
+            this.cbRememberPwd.Name = "cbRememberPwd";
+            this.cbRememberPwd.Size = new System.Drawing.Size(100, 23);
+            this.cbRememberPwd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbRememberPwd.TabIndex = 7;
+            this.cbRememberPwd.Text = "记住密码";
+            // 
             // FrmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -206,6 +237,8 @@
             this.BackgroundImage = global::SmartAccess.Properties.Resources.loginbk;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(521, 345);
+            this.Controls.Add(this.cbRememberPwd);
+            this.Controls.Add(this.cbRememberUser);
             this.Controls.Add(this.lbDogTips);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnClose);
@@ -246,5 +279,7 @@
         private DevComponents.DotNetBar.ButtonX btnClose;
         private DevComponents.DotNetBar.LabelX lbDogTips;
         private System.Windows.Forms.Timer timerDogCheck;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbRememberUser;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbRememberPwd;
     }
 }

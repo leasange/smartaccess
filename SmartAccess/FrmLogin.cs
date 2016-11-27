@@ -4,6 +4,7 @@ using SmartAccess.Common.Config;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using SmartAccess.DogKey;
+using SmartKey;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,12 +25,37 @@ namespace SmartAccess
         private FrmMain frmMain = null;
         private bool _isEnableDog = true;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmLogin));
+        public static FrmLogin Login = null;
+        
         public FrmLogin()
         {
             InitializeComponent();
+            Login = this;
            // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
             //_isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
-            this.tbUserName.Text = SunCreate.Common.ConfigHelper.GetConfigString("LastLoginUser");
+            
+            cbRememberUser.Checked = SunCreate.Common.ConfigHelper.GetConfigBool("RememberUser");
+            if (cbRememberUser.Checked)
+            {
+                this.tbUserName.Text = SunCreate.Common.ConfigHelper.GetConfigString("LastLoginUser");
+            }
+            cbRememberPwd.Checked = SunCreate.Common.ConfigHelper.GetConfigBool("RememberPwd");
+            if (cbRememberPwd.Checked)
+            {
+                string pwd=SunCreate.Common.ConfigHelper.GetConfigString("LastLoginPwd");
+                if (!string.IsNullOrWhiteSpace(pwd))
+                {
+                    try
+                    {
+                        this.tbPwd.Text = EncryptUtils.DESDecrypt(pwd, "yjdd@@!!", "djifd##c");
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error("加载密码失败：", ex);
+                    }
+                }
+            }
+
             string style= SunCreate.Common.ConfigHelper.GetConfigString("SysStyle");
             eStyle es=eStyle.Office2010Black;
             Enum.TryParse<eStyle>(style, out es);
@@ -72,7 +98,27 @@ namespace SmartAccess
                 tbPwd.Focus();
                 return;
             }
-            SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginUser", tbUserName.Text.Trim());
+            SunCreate.Common.ConfigHelper.SetConfigValue("RememberUser", cbRememberUser.Checked.ToString());
+            string user = tbUserName.Text.Trim();
+            if (cbRememberUser.Checked)
+            {
+                SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginUser", user);
+            }
+            else
+            {
+                SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginUser", "");
+            }
+            SunCreate.Common.ConfigHelper.SetConfigValue("RememberPwd", cbRememberPwd.Checked.ToString());
+            if (cbRememberPwd.Checked)
+            {
+                string p = EncryptUtils.DESEncrypt(tbPwd.Text, "yjdd@@!!", "djifd##c");
+                SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginPwd", p);
+            }
+            else
+            {
+                SunCreate.Common.ConfigHelper.SetConfigValue("LastLoginPwd", "");
+            }
+            
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
@@ -122,6 +168,7 @@ namespace SmartAccess
                 frmMain.BringToFront();
                 this.WindowState = FormWindowState.Minimized;
                 this.Visible = false;
+                
             }
             catch (Exception ex)
             {

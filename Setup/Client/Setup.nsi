@@ -5,7 +5,7 @@
 !define PRODUCT_SERIES "SMTA1000"
 !define PRODUCT_GUID "{E08B772F-82E4-451B-BE22-28F22BF815B2}" ;应用程序编号
 !define COMPANY_NAME "SmartProducts"  ;公司名称
-!define PRODUCT_ALIAS_NAME "智能门禁系统(${PRODUCT_SERIES})" ;//应用系统别名
+!define PRODUCT_ALIAS_NAME "智能卡综合管理系统(${PRODUCT_SERIES})" ;//应用系统别名
 !define PRODUCT_EXE "SmartAccess.exe" ;应用程序exe名称
 !define PRODUCT_VERSION "1.1.1.1115"  ;版本号
 !define PRODUCT_PUBLISHER "北京航英科技有限公司, Inc." ;公司名称
