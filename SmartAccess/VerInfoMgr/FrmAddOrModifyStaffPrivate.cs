@@ -258,6 +258,9 @@ namespace SmartAccess.VerInfoMgr
                          }
                          else
                          {
+                             item.TIME_NUM = timenum;
+                             item.IS_UPLOAD = false;
+                             sdBLL.Update(item);
                              tempDoors.Remove(sc);
                          }
                      }

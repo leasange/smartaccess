@@ -16,13 +16,79 @@ namespace SmartAccess.ConfigMgr
 {
     public partial class FrmCardIssueSetting : DevComponents.DotNetBar.Office2007Form
     {
+        private Dictionary<string, CardIssueModel> CardCardIssueModelDic = new Dictionary<string, CardIssueModel>();
         public FrmCardIssueSetting()
         {
             InitializeComponent();
+
+            try
+            {
+                string str = SunCreate.Common.ConfigHelper.GetConfigString("CARD_ISSUE_DIC");
+                if (!string.IsNullOrWhiteSpace(str))
+                {
+                    string[] temps = str.Split(';');
+                    foreach (var item in temps)
+                    {
+                        if (string.IsNullOrWhiteSpace(item))
+                        {
+                            continue;
+                        }
+                        string[] kvs = item.Split(',');
+                        string card = null;
+                        CardIssueModel m = CardIssueModel.HY_EM800A;
+                        foreach (var kv in kvs)
+                        {
+                            string[] tts = kv.Split('=');
+                            if (tts.Length != 2)
+                            {
+                                continue;
+                            }
+                            string key = tts[0].Trim().ToUpper();
+                            string val = tts[1].Trim();
+                            switch (key)
+                            {
+                                case "CARD":
+                                    card = val;
+                                    break;
+                                case "MODEL":
+                                    Enum.TryParse<CardIssueModel>(val, out m);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        if (card != null)
+                        {
+                            if (!CardCardIssueModelDic.ContainsKey(card))
+                            {
+                                CardCardIssueModelDic.Add(card, m);
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                 
+            }
+           
         }
 
         private void FrmCardIssueSetting_Load(object sender, EventArgs e)
         {
+            if (CardCardIssueModelDic.Count>0)
+            {
+                foreach (var item in CardCardIssueModelDic)
+                {
+                    ComboItem cbo = new ComboItem();
+                    cbo.Text = item.Key;
+                    cbo.Tag = item.Value;
+                    cboCardModel.Items.Add(cbo);
+                }
+            }
+            cboCardModel.SelectedIndex = 0;
+
             CardIssueConfig config = SysConfig.GetCardIssueConfig();
             if (config.comPort <= 10 && config.comPort > 0)
             {
@@ -89,6 +155,26 @@ namespace SmartAccess.ConfigMgr
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void cboCardModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboCardModel.SelectedIndex==0)
+            {
+                return;
+            }
+            else if (cboCardModel.SelectedIndex>0)
+            {
+                CardIssueModel model = (CardIssueModel)((ComboItem)cboCardModel.SelectedItem).Tag;
+                foreach (ComboItem item in cboModel.Items)
+                {
+                    if ((CardIssueModel)((ComboItem)cboCardModel.SelectedItem).Tag == model)
+                    {
+                        cboModel.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

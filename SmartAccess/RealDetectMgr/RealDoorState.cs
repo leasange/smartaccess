@@ -22,7 +22,7 @@ namespace SmartAccess.RealDetectMgr
         {
             InitializeComponent();
         }
-        private void ControllerStateCallBack(Controller ctrlr, bool connected, ControllerState state, bool doorstate)
+        private void ControllerStateCallBack(Controller ctrlr, bool connected, ControllerState state, bool doorstate,bool relaystate)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace SmartAccess.RealDetectMgr
                 {
                     this.Invoke(new Action(() =>
                     {
-                        AddWatchData(ctrlr, connected, state, doorstate);
+                        AddWatchData(ctrlr, connected, state, doorstate,relaystate);
                     }));
                 }
             }
@@ -40,7 +40,7 @@ namespace SmartAccess.RealDetectMgr
 
         }
 
-        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate)
+        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate,bool relaystate)
         {
             string cardNo = null;
             if (state != null)
@@ -61,8 +61,39 @@ namespace SmartAccess.RealDetectMgr
                     {
                         continue;
                     }
+                    int doorIndex = (int)door.CTRL_DOOR_INDEX;
+                    bool doorLock = false;
+                    if (state!=null)
+                    {
+                        //更新状态
+                        switch (doorIndex)
+                        {
+                            case 1:
+                                doorLock = state.isOpenDoorOfLock1;
+                                break;
+                            case 2:
+                                doorLock = state.isOpenDoorOfLock2;
+                                break;
+                            case 3:
+                                doorLock = state.isOpenDoorOfLock3;
+                                break;
+                            case 4:
+                                doorLock = state.isOpenDoorOfLock4;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //更新状态
+                        item.ImageIndex = doorLock ? 1 : 0;
+                        door.OPEN_STATE = doorLock ? 1 : 0;
+                        DoorDataHelper.UpdateDoorSync(door);
+                    }
+
                     if (!connected || state == null)
                     {
+                        door.OPEN_STATE = 2;
+                        DoorDataHelper.UpdateDoorSync(door);
                         item.ImageIndex = connected ? 0 : 2;
                         DataGridViewRow row = new DataGridViewRow();
                         row.Tag = ctrlr;
@@ -73,26 +104,24 @@ namespace SmartAccess.RealDetectMgr
                     {
                         DataGridViewRow row = new DataGridViewRow();
                         row.Tag = state;
-                        if (!doorstate)
+                        if (relaystate)
                         {
-                            row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},动作：{2}", door.DOOR_NAME, cardNo, AccessHelper.GetRecordReasonString(state.reasonNo)));
+                            row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},继电器状态改变！", door.DOOR_NAME, cardNo));
                         }
-                        else
+                        else if (doorstate)
                         {
                             DateTime dt = DateTime.Now;
                             if (state.recordTime > dt)
                             {
                                 dt = state.recordTime.AddSeconds(3);
                             }
-                            row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},动作：门禁状态改变({2})", door.DOOR_NAME, cardNo, state.relayState[state.doorNum - 1] ? "开门" : "关门"));
+                            row.CreateCells(dgvRealLog, dt, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},动作：门禁状态改变({2})", door.DOOR_NAME, cardNo, doorLock ? "开门" : "关门"));
+                        }
+                        else
+                        {
+                            row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME, string.Format("门禁:{0},卡号：{1},当前门禁状态({2})", door.DOOR_NAME, cardNo, doorLock ? "开" : "关"));
                         }
                         dgvRealLog.Rows.Insert(0, row);
-                        item.ImageIndex = state.relayState[state.doorNum - 1] ? 1 : 0;
-                    }
-                    else
-                    {
-                        item.ImageIndex = state.relayState[(byte)door.CTRL_DOOR_INDEX - 1] ? 1 : 0;
-
                     }
                 }
             }
@@ -140,7 +169,7 @@ namespace SmartAccess.RealDetectMgr
             });
             waiting.Show(this,200);
         }
-        private string GetDoorText(Maticsoft.Model.SMT_DOOR_INFO door)
+        private string GetDoorText(Maticsoft.Model.SMT_DOOR_INFO door,bool isdetect=false)
         {
             string text = door.DOOR_NAME;
             if (!door.IS_ENABLE)
@@ -156,6 +185,10 @@ namespace SmartAccess.RealDetectMgr
                 else if (door.CTRL_STYLE==2)
                 {
                     text += "(常关)";
+                }
+                else if (isdetect)
+                {
+                    text += "(监控中)";
                 }
             }
             return text;
@@ -274,6 +307,11 @@ namespace SmartAccess.RealDetectMgr
                 {
                     biRealDetect.Text = "实时监控中...";
                     biRealDetect.Enabled = false;
+                    foreach (var item in _lastDetectDoorItems)
+                    {
+                        Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                        item.Text = GetDoorText(d, true);
+                    }
                 }));
             });
             waiting.Show(this);
@@ -282,7 +320,13 @@ namespace SmartAccess.RealDetectMgr
         private void biStop_Click(object sender, EventArgs e)
         {
             UploadPrivate.WatchService.ClearControllers(this.GetType().FullName);
+            foreach (var item in _lastDetectDoorItems)
+            {
+                Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                item.Text = GetDoorText(d, false);
+            }
             biRealDetect.Text = "实时监控";
+            _lastDetectDoorItems.Clear();
             biRealDetect.Enabled = true;
         }
 

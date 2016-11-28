@@ -305,7 +305,7 @@ namespace SmartAccess.RealDetectMgr
         {
             CloseDetect((SuperTabItem)e.Tab);
         }
-        private void ControllerStateCallBack(Li.Access.Core.Controller ctrlr, bool connected, Li.Access.Core.ControllerState state, bool doorstate)
+        private void ControllerStateCallBack(Li.Access.Core.Controller ctrlr, bool connected, Li.Access.Core.ControllerState state, bool doorstate,bool relaystate)
         {
             lock (_detectedMaps)
             {
@@ -322,7 +322,7 @@ namespace SmartAccess.RealDetectMgr
                         {
                             this.Invoke(new Action(() =>
                             {
-                                AddWatchData(ctrlr, connected, state, doorstate);
+                                AddWatchData(ctrlr, connected, state, doorstate,relaystate);
                             }));
                         }
                         catch (Exception)
@@ -336,7 +336,7 @@ namespace SmartAccess.RealDetectMgr
                 }
             }
         }
-        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate)
+        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate,bool relaystate)
         {
             foreach (MapCtrl item in _detectedMaps)
             {
@@ -352,24 +352,39 @@ namespace SmartAccess.RealDetectMgr
                     {
                         continue;
                     }
-                    if (!connected || state == null)
+                    doorRect.IsOnline = connected;
+                    if (state != null)
                     {
-                        doorRect.IsOnline = connected;
-                        if (state != null)
+                        int doorIndex = (int)door.CTRL_DOOR_INDEX;
+                        switch (doorIndex)
                         {
-                            doorRect.IsOpen = state.relayState[(int)door.CTRL_DOOR_INDEX - 1];
+                            case 1:
+                                doorRect.IsOpen = state.isOpenDoorOfLock1;
+                                door.OPEN_STATE = state.isOpenDoorOfLock1 ? 1 : 0;
+                                break;
+                            case 2:
+                                doorRect.IsOpen = state.isOpenDoorOfLock2;
+                                door.OPEN_STATE = state.isOpenDoorOfLock2 ? 1 : 0;
+                                break;
+                            case 3:
+                                doorRect.IsOpen = state.isOpenDoorOfLock3;
+                                door.OPEN_STATE = state.isOpenDoorOfLock3 ? 1 : 0;
+                                break;
+                            case 4:
+                                doorRect.IsOpen = state.isOpenDoorOfLock4;
+                                door.OPEN_STATE = state.isOpenDoorOfLock4 ? 1 : 0;
+                                break;
+                            default:
+                                break;
                         }
+                        DoorDataHelper.UpdateDoorSync(door);
                     }
-                    else if ((byte)door.CTRL_DOOR_INDEX == state.doorNum)
+                    else if (!connected)
                     {
-                        doorRect.IsOnline = true;
-                        doorRect.IsOpen = state.relayState[(int)door.CTRL_DOOR_INDEX - 1];
+                        door.OPEN_STATE = 2;
+                        DoorDataHelper.UpdateDoorSync(door);
                     }
-                    else
-                    {
-                        doorRect.IsOnline = true;
-                        doorRect.IsOpen = state.relayState[(byte)door.CTRL_DOOR_INDEX - 1];
-                    }
+                  
                 }
                 item.Invalidate();
             }

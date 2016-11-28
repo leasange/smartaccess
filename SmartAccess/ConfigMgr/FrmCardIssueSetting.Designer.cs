@@ -46,6 +46,9 @@
             this.cboBaud = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
+            this.cboCardModel = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.comboItem21 = new DevComponents.Editors.ComboItem();
             this.SuspendLayout();
             // 
             // labelX1
@@ -56,7 +59,7 @@
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.Location = new System.Drawing.Point(64, 32);
+            this.labelX1.Location = new System.Drawing.Point(64, 42);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(56, 20);
             this.labelX1.TabIndex = 0;
@@ -70,7 +73,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(76, 61);
+            this.labelX2.Location = new System.Drawing.Point(76, 71);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(44, 20);
             this.labelX2.TabIndex = 0;
@@ -84,7 +87,7 @@
             // 
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX3.Location = new System.Drawing.Point(64, 90);
+            this.labelX3.Location = new System.Drawing.Point(64, 100);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(56, 20);
             this.labelX3.TabIndex = 0;
@@ -111,7 +114,7 @@
             this.comboItem8,
             this.comboItem9,
             this.comboItem10});
-            this.cboPort.Location = new System.Drawing.Point(126, 29);
+            this.cboPort.Location = new System.Drawing.Point(126, 39);
             this.cboPort.Name = "cboPort";
             this.cboPort.Size = new System.Drawing.Size(121, 23);
             this.cboPort.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -167,7 +170,7 @@
             this.cboModel.FormattingEnabled = true;
             this.cboModel.IntegralHeight = false;
             this.cboModel.ItemHeight = 17;
-            this.cboModel.Location = new System.Drawing.Point(126, 56);
+            this.cboModel.Location = new System.Drawing.Point(126, 66);
             this.cboModel.Name = "cboModel";
             this.cboModel.Size = new System.Drawing.Size(121, 23);
             this.cboModel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -183,7 +186,7 @@
             this.cboBaud.FormattingEnabled = true;
             this.cboBaud.IntegralHeight = false;
             this.cboBaud.ItemHeight = 17;
-            this.cboBaud.Location = new System.Drawing.Point(126, 83);
+            this.cboBaud.Location = new System.Drawing.Point(126, 93);
             this.cboBaud.Name = "cboBaud";
             this.cboBaud.Size = new System.Drawing.Size(121, 23);
             this.cboBaud.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -216,6 +219,43 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // labelX4
+            // 
+            this.labelX4.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX4.Location = new System.Drawing.Point(52, 13);
+            this.labelX4.Name = "labelX4";
+            this.labelX4.Size = new System.Drawing.Size(68, 20);
+            this.labelX4.TabIndex = 0;
+            this.labelX4.Text = "卡片介质：";
+            // 
+            // cboCardModel
+            // 
+            this.cboCardModel.DisplayMember = "Text";
+            this.cboCardModel.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboCardModel.DropDownHeight = 150;
+            this.cboCardModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCardModel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cboCardModel.FormattingEnabled = true;
+            this.cboCardModel.IntegralHeight = false;
+            this.cboCardModel.ItemHeight = 17;
+            this.cboCardModel.Items.AddRange(new object[] {
+            this.comboItem21});
+            this.cboCardModel.Location = new System.Drawing.Point(126, 10);
+            this.cboCardModel.Name = "cboCardModel";
+            this.cboCardModel.Size = new System.Drawing.Size(121, 23);
+            this.cboCardModel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboCardModel.TabIndex = 5;
+            this.cboCardModel.SelectedIndexChanged += new System.EventHandler(this.cboCardModel_SelectedIndexChanged);
+            // 
+            // comboItem21
+            // 
+            this.comboItem21.Text = "--无--";
+            // 
             // FrmCardIssueSetting
             // 
             this.AcceptButton = this.btnOk;
@@ -223,6 +263,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(327, 186);
+            this.Controls.Add(this.cboCardModel);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cboBaud);
@@ -230,6 +271,7 @@
             this.Controls.Add(this.cboPort);
             this.Controls.Add(this.labelX3);
             this.Controls.Add(this.labelX2);
+            this.Controls.Add(this.labelX4);
             this.Controls.Add(this.labelX1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -265,5 +307,8 @@
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboBaud;
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
+        private DevComponents.DotNetBar.LabelX labelX4;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cboCardModel;
+        private DevComponents.Editors.ComboItem comboItem21;
     }
 }

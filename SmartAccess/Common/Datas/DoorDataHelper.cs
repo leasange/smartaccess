@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace SmartAccess.Common.Datas
 {
     public class DoorDataHelper
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(typeof(DoorDataHelper));
         public static List<Node> ToTree(List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas,List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             var nodes = AreaDataHelper.ToTree(areas);
@@ -24,6 +26,26 @@ namespace SmartAccess.Common.Datas
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
             return doorBll.GetModelList("CTRL_ID=" + ctrlId);
         }
+
+        public static void UpdateDoorSync(Maticsoft.Model.SMT_DOOR_INFO door)
+        {
+            if (door!=null)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
+                        {
+                            Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+                            doorBll.Update(door);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("更新门禁异常：", ex);
+                        }
+                    }));
+            }
+        }
+
         private static void CreateDoorTree(List<Node> nodes, List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             foreach (var item in nodes)

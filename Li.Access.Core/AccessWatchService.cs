@@ -189,7 +189,14 @@ namespace Li.Access.Core
 
         }
     }
-    public delegate void ControllerStateCallBackHandler(Controller ctrlr,bool connected,ControllerState state,bool doorstate);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ctrlr"></param>
+    /// <param name="connected"></param>
+    /// <param name="state"></param>
+    /// <param name="doorstate"></param>
+    public delegate void ControllerStateCallBackHandler(Controller ctrlr,bool connected,ControllerState state,bool doorstate,bool relaystate);
     public class AccessWatchThread
     {
         private Dictionary<string, ControllerStateCallBackHandler> CallBacks = new Dictionary<string, ControllerStateCallBackHandler>();
@@ -278,39 +285,39 @@ namespace Li.Access.Core
                     lastState = state;
                     foreach (var item in CallBacks)
                     {
-                        item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
+                        item.Value.BeginInvoke(_controler, connected, lastState, false,false, null, null);
                     }
                 }
                 else
                 {
-                    if (lastState == null)
+                    if (lastState == null)//未连接
                     {
                         lastState = state;
                         if (!connected && !_connected)
                         {
                             return;
                         }
-                        _connected = connected;
+                        _connected = connected;//连接上
                         foreach (var item in CallBacks)
                         {
-                            item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
+                            item.Value.BeginInvoke(_controler, connected, lastState, false,false, null, null);
                         }
                     }
                     else
                     {
-                        if (_connected&&!connected)
+                        if (_connected&&!connected)//门禁断开
                         {
                             _connected = connected;
                            // lastState = state;
                             foreach (var item in CallBacks)
                             {
-                                item.Value.BeginInvoke(_controler, connected, state,false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, state,false,false, null, null);
                             }
                         }
-                        else if (!_connected&&connected)
+                        else if (!_connected&&connected)//连接上
                         {
                             _connected = connected;
-                            if (lastState.lastRecordIndex==state.lastRecordIndex)
+                            if (lastState.lastRecordIndex==state.lastRecordIndex)//同一条记录
                             {
                                 for (int i = 0; i < 8; i++)
                                 {
@@ -320,14 +327,25 @@ namespace Li.Access.Core
                                         lastState.doorNum = (byte)(i + 1);
                                         foreach (var item in CallBacks)
                                         {
-                                            item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
+                                            item.Value.BeginInvoke(_controler, connected, lastState, false,true, null, null);
                                         }
+                                        break;
+                                    }
+                                }
+                                if (lastState.isOpenDoorOfLock1!=state.isOpenDoorOfLock1
+                                    || lastState.isOpenDoorOfLock2 != state.isOpenDoorOfLock2
+                                    || lastState.isOpenDoorOfLock3 != state.isOpenDoorOfLock3
+                                    || lastState.isOpenDoorOfLock4 != state.isOpenDoorOfLock4)
+                                {//门锁发生改变
+                                    foreach (var item in CallBacks)
+                                    {
+                                        item.Value.BeginInvoke(_controler, connected, lastState, true, false, null, null);
                                     }
                                 }
                                 lastState = state;
                                 foreach (var item in CallBacks)
                                 {
-                                    item.Value.BeginInvoke(_controler, connected, null, false, null, null);
+                                    item.Value.BeginInvoke(_controler, connected, lastState, false, false, null, null);
                                 }
                             }
                             else
@@ -335,7 +353,7 @@ namespace Li.Access.Core
                                 lastState = state;
                                 foreach (var item in CallBacks)
                                 {
-                                    item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
+                                    item.Value.BeginInvoke(_controler, connected, lastState, true,false, null, null);
                                 }
                             }
                         }
@@ -344,11 +362,21 @@ namespace Li.Access.Core
                             lastState = state;
                             foreach (var item in CallBacks)
                             {
-                                item.Value.BeginInvoke(_controler, connected, lastState, false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, lastState, true,false, null, null);
                             }
                         }
                         else
                         {
+                            if (lastState.isOpenDoorOfLock1 != state.isOpenDoorOfLock1
+                                    || lastState.isOpenDoorOfLock2 != state.isOpenDoorOfLock2
+                                    || lastState.isOpenDoorOfLock3 != state.isOpenDoorOfLock3
+                                    || lastState.isOpenDoorOfLock4 != state.isOpenDoorOfLock4)
+                            {//门锁发生改变
+                                foreach (var item in CallBacks)
+                                {
+                                    item.Value.BeginInvoke(_controler, connected, lastState, true, false, null, null);
+                                }
+                            }
                             for (int i = 0; i < 8; i++)
                             {
                                 if (lastState.relayState[i] != state.relayState[i])
@@ -357,7 +385,7 @@ namespace Li.Access.Core
                                     lastState.doorNum = (byte)(i + 1);
                                     foreach (var item in CallBacks)
                                     {
-                                        item.Value.BeginInvoke(_controler, connected, lastState, true, null, null);
+                                        item.Value.BeginInvoke(_controler, connected, lastState, false,true, null, null);
                                     }
                                 }
                             }
@@ -385,7 +413,7 @@ namespace Li.Access.Core
                 CallBacks.Add(tag, callback);
                 if (CallBacks.Count>1)
                 {
-                    callback.BeginInvoke(_controler, _connected, lastState, true, null, null);
+                    callback.BeginInvoke(_controler, _connected, lastState, true,false, null, null);
                 }
             }
         }
