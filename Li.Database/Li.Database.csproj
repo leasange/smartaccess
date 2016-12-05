@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="SqlServerDb\BLL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_WEEKEX_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO.cs" />
@@ -107,6 +111,8 @@
     <Compile Include="SqlServerDb\DAL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_WEEKEX_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO.cs" />

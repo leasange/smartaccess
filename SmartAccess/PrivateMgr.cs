@@ -80,6 +80,7 @@ namespace SmartAccess
         REAL_MAP,//	实时地图显示
         REAL_ACCESS_STATE,//	实时状态显示
         CTRLR_TASK,//	控制定时任务
+        ALARM_CONNECT_SETTING,//报警联动设定
         MAP_CONFIG,//	地图编辑配置
         CARD_CONFIG,//	发卡编辑配置
         ACCESS_PASSWORD_CONFIG,//	门禁密码管理

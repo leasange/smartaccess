@@ -143,6 +143,12 @@
       <DependentUpon>AccessPasswordMgr.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigMgr\DoorRectangle.cs" />
+    <Compile Include="ConfigMgr\FrmAlarmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmAlarmSetting.Designer.cs">
+      <DependentUpon>FrmAlarmSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmCardIssueSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -511,6 +517,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\AccessPasswordMgr.resx">
       <DependentUpon>AccessPasswordMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmAlarmSetting.resx">
+      <DependentUpon>FrmAlarmSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmCardIssueSetting.resx">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
