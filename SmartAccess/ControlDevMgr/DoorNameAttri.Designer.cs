@@ -32,10 +32,10 @@
             this.tbDoorName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.lbNo = new DevComponents.DotNetBar.LabelX();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.iiTime = new DevComponents.Editors.IntegerInput();
-            this.cbType3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.cbType2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.cbType1 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbType2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbType3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.iiTime = new DevComponents.Editors.IntegerInput();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iiTime)).BeginInit();
             this.SuspendLayout();
@@ -101,57 +101,6 @@
             this.panel7.Size = new System.Drawing.Size(279, 25);
             this.panel7.TabIndex = 9;
             // 
-            // iiTime
-            // 
-            // 
-            // 
-            // 
-            this.iiTime.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.iiTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.iiTime.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.iiTime.Dock = System.Windows.Forms.DockStyle.Right;
-            this.iiTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.iiTime.Location = new System.Drawing.Point(221, 0);
-            this.iiTime.MaxValue = 100;
-            this.iiTime.MinValue = 1;
-            this.iiTime.Name = "iiTime";
-            this.iiTime.ShowUpDown = true;
-            this.iiTime.Size = new System.Drawing.Size(58, 23);
-            this.iiTime.TabIndex = 1;
-            this.iiTime.Value = 3;
-            // 
-            // cbType3
-            // 
-            // 
-            // 
-            // 
-            this.cbType3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbType3.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.cbType3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cbType3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbType3.Location = new System.Drawing.Point(163, 0);
-            this.cbType3.Name = "cbType3";
-            this.cbType3.Size = new System.Drawing.Size(58, 25);
-            this.cbType3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbType3.TabIndex = 3;
-            this.cbType3.Text = "常闭";
-            // 
-            // cbType2
-            // 
-            // 
-            // 
-            // 
-            this.cbType2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbType2.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.cbType2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cbType2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbType2.Location = new System.Drawing.Point(105, 0);
-            this.cbType2.Name = "cbType2";
-            this.cbType2.Size = new System.Drawing.Size(58, 25);
-            this.cbType2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbType2.TabIndex = 4;
-            this.cbType2.Text = "常开";
-            // 
             // cbType1
             // 
             // 
@@ -170,6 +119,57 @@
             this.cbType1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbType1.TabIndex = 5;
             this.cbType1.Text = "在线";
+            // 
+            // cbType2
+            // 
+            // 
+            // 
+            // 
+            this.cbType2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbType2.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbType2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbType2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbType2.Location = new System.Drawing.Point(105, 0);
+            this.cbType2.Name = "cbType2";
+            this.cbType2.Size = new System.Drawing.Size(58, 25);
+            this.cbType2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbType2.TabIndex = 4;
+            this.cbType2.Text = "常开";
+            // 
+            // cbType3
+            // 
+            // 
+            // 
+            // 
+            this.cbType3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbType3.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbType3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbType3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbType3.Location = new System.Drawing.Point(163, 0);
+            this.cbType3.Name = "cbType3";
+            this.cbType3.Size = new System.Drawing.Size(58, 25);
+            this.cbType3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbType3.TabIndex = 3;
+            this.cbType3.Text = "常闭";
+            // 
+            // iiTime
+            // 
+            // 
+            // 
+            // 
+            this.iiTime.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iiTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iiTime.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiTime.Dock = System.Windows.Forms.DockStyle.Right;
+            this.iiTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.iiTime.Location = new System.Drawing.Point(221, 0);
+            this.iiTime.MaxValue = 100;
+            this.iiTime.MinValue = 1;
+            this.iiTime.Name = "iiTime";
+            this.iiTime.ShowUpDown = true;
+            this.iiTime.Size = new System.Drawing.Size(58, 23);
+            this.iiTime.TabIndex = 1;
+            this.iiTime.Value = 3;
             // 
             // DoorNameAttri
             // 

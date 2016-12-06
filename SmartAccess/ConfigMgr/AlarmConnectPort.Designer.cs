@@ -29,30 +29,30 @@
         private void InitializeComponent()
         {
             this.cbPortEnable = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.checkBoxX5 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX4 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.groupPanelDoors = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.cbDoor4 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbDoor3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbDoor2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbDoor1 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.cbRelay = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbFire = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbInvalidCard = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbForceClose = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbForceAccess = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbUnClosed = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbEnbForcePwd = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.integerInput1 = new DevComponents.Editors.IntegerInput();
+            this.iFixedTime = new DevComponents.Editors.IntegerInput();
             this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.checkBoxX2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX1 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX6 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX7 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX8 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX9 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX10 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX11 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX12 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.checkBoxX13 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
-            this.groupPanel1.SuspendLayout();
+            this.cbFixedTime = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbKeepState = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.plItems = new DevComponents.DotNetBar.PanelEx();
+            this.groupPanelDoors.SuspendLayout();
             this.groupPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.integerInput1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iFixedTime)).BeginInit();
             this.groupPanel3.SuspendLayout();
-            this.panelEx1.SuspendLayout();
+            this.plItems.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbPortEnable
@@ -69,108 +69,129 @@
             this.cbPortEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbPortEnable.TabIndex = 0;
             this.cbPortEnable.Text = "启动";
+            this.cbPortEnable.CheckedChanged += new System.EventHandler(this.cbPortEnable_CheckedChanged);
             // 
-            // groupPanel1
+            // groupPanelDoors
             // 
-            this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel1.Controls.Add(this.checkBoxX6);
-            this.groupPanel1.Controls.Add(this.checkBoxX5);
-            this.groupPanel1.Controls.Add(this.checkBoxX4);
-            this.groupPanel1.Controls.Add(this.checkBoxX3);
-            this.groupPanel1.Location = new System.Drawing.Point(8, 11);
-            this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(167, 135);
-            // 
-            // 
-            // 
-            this.groupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.groupPanel1.Style.BackColorGradientAngle = 90;
-            this.groupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.groupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderBottomWidth = 1;
-            this.groupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.groupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderLeftWidth = 1;
-            this.groupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderRightWidth = 1;
-            this.groupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.groupPanel1.Style.BorderTopWidth = 1;
-            this.groupPanel1.Style.CornerDiameter = 4;
-            this.groupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.groupPanel1.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
-            this.groupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.groupPanel1.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near;
+            this.groupPanelDoors.CanvasColor = System.Drawing.SystemColors.Control;
+            this.groupPanelDoors.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanelDoors.Controls.Add(this.cbDoor4);
+            this.groupPanelDoors.Controls.Add(this.cbDoor3);
+            this.groupPanelDoors.Controls.Add(this.cbDoor2);
+            this.groupPanelDoors.Controls.Add(this.cbDoor1);
+            this.groupPanelDoors.Location = new System.Drawing.Point(8, 11);
+            this.groupPanelDoors.Name = "groupPanelDoors";
+            this.groupPanelDoors.Size = new System.Drawing.Size(167, 135);
             // 
             // 
             // 
-            this.groupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPanelDoors.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.groupPanelDoors.Style.BackColorGradientAngle = 90;
+            this.groupPanelDoors.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.groupPanelDoors.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanelDoors.Style.BorderBottomWidth = 1;
+            this.groupPanelDoors.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.groupPanelDoors.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanelDoors.Style.BorderLeftWidth = 1;
+            this.groupPanelDoors.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanelDoors.Style.BorderRightWidth = 1;
+            this.groupPanelDoors.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanelDoors.Style.BorderTopWidth = 1;
+            this.groupPanelDoors.Style.CornerDiameter = 4;
+            this.groupPanelDoors.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.groupPanelDoors.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.groupPanelDoors.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.groupPanelDoors.Style.TextLineAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Near;
             // 
             // 
             // 
-            this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanel1.TabIndex = 1;
-            this.groupPanel1.Text = "触发源";
-            // 
-            // checkBoxX5
-            // 
-            this.checkBoxX5.AutoSize = true;
-            this.checkBoxX5.BackColor = System.Drawing.Color.Transparent;
+            this.groupPanelDoors.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
-            this.checkBoxX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX5.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX5.Location = new System.Drawing.Point(3, 56);
-            this.checkBoxX5.Name = "checkBoxX5";
-            this.checkBoxX5.Size = new System.Drawing.Size(34, 20);
-            this.checkBoxX5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX5.TabIndex = 0;
-            this.checkBoxX5.Text = "3";
+            this.groupPanelDoors.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPanelDoors.TabIndex = 1;
+            this.groupPanelDoors.Text = "触发源";
             // 
-            // checkBoxX4
+            // cbDoor4
             // 
-            this.checkBoxX4.AutoSize = true;
-            this.checkBoxX4.BackColor = System.Drawing.Color.Transparent;
+            this.cbDoor4.AutoSize = true;
+            this.cbDoor4.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.checkBoxX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX4.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX4.Location = new System.Drawing.Point(3, 30);
-            this.checkBoxX4.Name = "checkBoxX4";
-            this.checkBoxX4.Size = new System.Drawing.Size(34, 20);
-            this.checkBoxX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX4.TabIndex = 0;
-            this.checkBoxX4.Text = "2";
+            this.cbDoor4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbDoor4.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbDoor4.Location = new System.Drawing.Point(3, 82);
+            this.cbDoor4.Name = "cbDoor4";
+            this.cbDoor4.Size = new System.Drawing.Size(34, 20);
+            this.cbDoor4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbDoor4.TabIndex = 1;
+            this.cbDoor4.Text = "4";
+            this.cbDoor4.Visible = false;
             // 
-            // checkBoxX3
+            // cbDoor3
             // 
-            this.checkBoxX3.AutoSize = true;
-            this.checkBoxX3.BackColor = System.Drawing.Color.Transparent;
+            this.cbDoor3.AutoSize = true;
+            this.cbDoor3.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.checkBoxX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX3.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX3.Location = new System.Drawing.Point(3, 6);
-            this.checkBoxX3.Name = "checkBoxX3";
-            this.checkBoxX3.Size = new System.Drawing.Size(34, 20);
-            this.checkBoxX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX3.TabIndex = 0;
-            this.checkBoxX3.Text = "1";
+            this.cbDoor3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbDoor3.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbDoor3.Location = new System.Drawing.Point(3, 56);
+            this.cbDoor3.Name = "cbDoor3";
+            this.cbDoor3.Size = new System.Drawing.Size(34, 20);
+            this.cbDoor3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbDoor3.TabIndex = 0;
+            this.cbDoor3.Text = "3";
+            this.cbDoor3.Visible = false;
+            // 
+            // cbDoor2
+            // 
+            this.cbDoor2.AutoSize = true;
+            this.cbDoor2.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbDoor2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbDoor2.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbDoor2.Location = new System.Drawing.Point(3, 30);
+            this.cbDoor2.Name = "cbDoor2";
+            this.cbDoor2.Size = new System.Drawing.Size(34, 20);
+            this.cbDoor2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbDoor2.TabIndex = 0;
+            this.cbDoor2.Text = "2";
+            this.cbDoor2.Visible = false;
+            // 
+            // cbDoor1
+            // 
+            this.cbDoor1.AutoSize = true;
+            this.cbDoor1.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbDoor1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbDoor1.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbDoor1.Location = new System.Drawing.Point(3, 6);
+            this.cbDoor1.Name = "cbDoor1";
+            this.cbDoor1.Size = new System.Drawing.Size(34, 20);
+            this.cbDoor1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbDoor1.TabIndex = 0;
+            this.cbDoor1.Text = "1";
+            this.cbDoor1.Visible = false;
             // 
             // groupPanel2
             // 
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel2.Controls.Add(this.checkBoxX13);
-            this.groupPanel2.Controls.Add(this.checkBoxX12);
-            this.groupPanel2.Controls.Add(this.checkBoxX11);
-            this.groupPanel2.Controls.Add(this.checkBoxX10);
-            this.groupPanel2.Controls.Add(this.checkBoxX9);
-            this.groupPanel2.Controls.Add(this.checkBoxX8);
-            this.groupPanel2.Controls.Add(this.checkBoxX7);
+            this.groupPanel2.Controls.Add(this.cbRelay);
+            this.groupPanel2.Controls.Add(this.cbFire);
+            this.groupPanel2.Controls.Add(this.cbInvalidCard);
+            this.groupPanel2.Controls.Add(this.cbForceClose);
+            this.groupPanel2.Controls.Add(this.cbForceAccess);
+            this.groupPanel2.Controls.Add(this.cbUnClosed);
+            this.groupPanel2.Controls.Add(this.cbEnbForcePwd);
             this.groupPanel2.Location = new System.Drawing.Point(184, 11);
             this.groupPanel2.Name = "groupPanel2";
             this.groupPanel2.Size = new System.Drawing.Size(238, 135);
@@ -205,6 +226,104 @@
             this.groupPanel2.TabIndex = 1;
             this.groupPanel2.Text = "触发事件";
             // 
+            // cbRelay
+            // 
+            this.cbRelay.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbRelay.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbRelay.Location = new System.Drawing.Point(14, 82);
+            this.cbRelay.Name = "cbRelay";
+            this.cbRelay.Size = new System.Drawing.Size(138, 23);
+            this.cbRelay.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbRelay.TabIndex = 0;
+            this.cbRelay.Text = "门继电器动作联动";
+            // 
+            // cbFire
+            // 
+            this.cbFire.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbFire.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbFire.Location = new System.Drawing.Point(135, 55);
+            this.cbFire.Name = "cbFire";
+            this.cbFire.Size = new System.Drawing.Size(100, 23);
+            this.cbFire.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbFire.TabIndex = 0;
+            this.cbFire.Text = "火警";
+            // 
+            // cbInvalidCard
+            // 
+            this.cbInvalidCard.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbInvalidCard.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbInvalidCard.Location = new System.Drawing.Point(135, 28);
+            this.cbInvalidCard.Name = "cbInvalidCard";
+            this.cbInvalidCard.Size = new System.Drawing.Size(100, 23);
+            this.cbInvalidCard.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbInvalidCard.TabIndex = 0;
+            this.cbInvalidCard.Text = "无效刷卡";
+            // 
+            // cbForceClose
+            // 
+            this.cbForceClose.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbForceClose.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbForceClose.Location = new System.Drawing.Point(135, 3);
+            this.cbForceClose.Name = "cbForceClose";
+            this.cbForceClose.Size = new System.Drawing.Size(100, 23);
+            this.cbForceClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbForceClose.TabIndex = 0;
+            this.cbForceClose.Text = "强行锁门";
+            // 
+            // cbForceAccess
+            // 
+            this.cbForceAccess.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbForceAccess.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbForceAccess.Location = new System.Drawing.Point(14, 55);
+            this.cbForceAccess.Name = "cbForceAccess";
+            this.cbForceAccess.Size = new System.Drawing.Size(100, 23);
+            this.cbForceAccess.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbForceAccess.TabIndex = 0;
+            this.cbForceAccess.Text = "强行闯入";
+            // 
+            // cbUnClosed
+            // 
+            this.cbUnClosed.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbUnClosed.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbUnClosed.Location = new System.Drawing.Point(14, 28);
+            this.cbUnClosed.Name = "cbUnClosed";
+            this.cbUnClosed.Size = new System.Drawing.Size(100, 23);
+            this.cbUnClosed.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbUnClosed.TabIndex = 0;
+            this.cbUnClosed.Text = "门长时未关";
+            // 
+            // cbEnbForcePwd
+            // 
+            this.cbEnbForcePwd.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbEnbForcePwd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbEnbForcePwd.Location = new System.Drawing.Point(14, 3);
+            this.cbEnbForcePwd.Name = "cbEnbForcePwd";
+            this.cbEnbForcePwd.Size = new System.Drawing.Size(100, 23);
+            this.cbEnbForcePwd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbEnbForcePwd.TabIndex = 0;
+            this.cbEnbForcePwd.Text = "胁迫报警";
+            // 
             // labelX1
             // 
             // 
@@ -217,29 +336,29 @@
             this.labelX1.TabIndex = 2;
             this.labelX1.Text = "固定延时(秒)";
             // 
-            // integerInput1
+            // iFixedTime
             // 
             // 
             // 
             // 
-            this.integerInput1.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.integerInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.integerInput1.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.integerInput1.Location = new System.Drawing.Point(509, 113);
-            this.integerInput1.MaxValue = 255;
-            this.integerInput1.MinValue = 0;
-            this.integerInput1.Name = "integerInput1";
-            this.integerInput1.ShowUpDown = true;
-            this.integerInput1.Size = new System.Drawing.Size(56, 23);
-            this.integerInput1.TabIndex = 3;
-            this.integerInput1.Value = 10;
+            this.iFixedTime.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iFixedTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iFixedTime.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iFixedTime.Location = new System.Drawing.Point(509, 113);
+            this.iFixedTime.MaxValue = 255;
+            this.iFixedTime.MinValue = 0;
+            this.iFixedTime.Name = "iFixedTime";
+            this.iFixedTime.ShowUpDown = true;
+            this.iFixedTime.Size = new System.Drawing.Size(56, 23);
+            this.iFixedTime.TabIndex = 3;
+            this.iFixedTime.Value = 10;
             // 
             // groupPanel3
             // 
             this.groupPanel3.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel3.Controls.Add(this.checkBoxX2);
-            this.groupPanel3.Controls.Add(this.checkBoxX1);
+            this.groupPanel3.Controls.Add(this.cbFixedTime);
+            this.groupPanel3.Controls.Add(this.cbKeepState);
             this.groupPanel3.Location = new System.Drawing.Point(428, 11);
             this.groupPanel3.Name = "groupPanel3";
             this.groupPanel3.Size = new System.Drawing.Size(175, 96);
@@ -274,188 +393,78 @@
             this.groupPanel3.TabIndex = 1;
             this.groupPanel3.Text = "联动选项";
             // 
-            // checkBoxX2
+            // cbFixedTime
             // 
-            this.checkBoxX2.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX2.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX2.Location = new System.Drawing.Point(3, 30);
-            this.checkBoxX2.Name = "checkBoxX2";
-            this.checkBoxX2.Size = new System.Drawing.Size(172, 23);
-            this.checkBoxX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX2.TabIndex = 0;
-            this.checkBoxX2.Text = "门动作后, 只输出固定延时";
-            // 
-            // checkBoxX1
-            // 
-            this.checkBoxX1.BackColor = System.Drawing.Color.Transparent;
+            this.cbFixedTime.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.checkBoxX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX1.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX1.Location = new System.Drawing.Point(3, 2);
-            this.checkBoxX1.Name = "checkBoxX1";
-            this.checkBoxX1.Size = new System.Drawing.Size(134, 23);
-            this.checkBoxX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX1.TabIndex = 0;
-            this.checkBoxX1.Text = "保持状态一致";
+            this.cbFixedTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbFixedTime.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbFixedTime.Location = new System.Drawing.Point(3, 30);
+            this.cbFixedTime.Name = "cbFixedTime";
+            this.cbFixedTime.Size = new System.Drawing.Size(172, 23);
+            this.cbFixedTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbFixedTime.TabIndex = 0;
+            this.cbFixedTime.Text = "门动作后, 只输出固定延时";
             // 
-            // checkBoxX6
+            // cbKeepState
             // 
-            this.checkBoxX6.AutoSize = true;
-            this.checkBoxX6.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX6.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxX6.Location = new System.Drawing.Point(3, 82);
-            this.checkBoxX6.Name = "checkBoxX6";
-            this.checkBoxX6.Size = new System.Drawing.Size(34, 20);
-            this.checkBoxX6.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX6.TabIndex = 1;
-            this.checkBoxX6.Text = "4";
-            // 
-            // checkBoxX7
-            // 
-            this.checkBoxX7.BackColor = System.Drawing.Color.Transparent;
+            this.cbKeepState.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.checkBoxX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX7.Location = new System.Drawing.Point(14, 3);
-            this.checkBoxX7.Name = "checkBoxX7";
-            this.checkBoxX7.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX7.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX7.TabIndex = 0;
-            this.checkBoxX7.Text = "胁迫报警";
+            this.cbKeepState.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbKeepState.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbKeepState.Checked = true;
+            this.cbKeepState.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbKeepState.CheckValue = "Y";
+            this.cbKeepState.Location = new System.Drawing.Point(3, 2);
+            this.cbKeepState.Name = "cbKeepState";
+            this.cbKeepState.Size = new System.Drawing.Size(134, 23);
+            this.cbKeepState.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbKeepState.TabIndex = 0;
+            this.cbKeepState.Text = "保持状态一致";
             // 
-            // checkBoxX8
+            // plItems
             // 
-            this.checkBoxX8.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX8.Location = new System.Drawing.Point(14, 28);
-            this.checkBoxX8.Name = "checkBoxX8";
-            this.checkBoxX8.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX8.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX8.TabIndex = 0;
-            this.checkBoxX8.Text = "门长时未关";
-            // 
-            // checkBoxX9
-            // 
-            this.checkBoxX9.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX9.Location = new System.Drawing.Point(14, 55);
-            this.checkBoxX9.Name = "checkBoxX9";
-            this.checkBoxX9.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX9.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX9.TabIndex = 0;
-            this.checkBoxX9.Text = "强行闯入";
-            // 
-            // checkBoxX10
-            // 
-            this.checkBoxX10.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX10.Location = new System.Drawing.Point(135, 3);
-            this.checkBoxX10.Name = "checkBoxX10";
-            this.checkBoxX10.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX10.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX10.TabIndex = 0;
-            this.checkBoxX10.Text = "强行锁门";
-            // 
-            // checkBoxX11
-            // 
-            this.checkBoxX11.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX11.Location = new System.Drawing.Point(135, 28);
-            this.checkBoxX11.Name = "checkBoxX11";
-            this.checkBoxX11.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX11.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX11.TabIndex = 0;
-            this.checkBoxX11.Text = "无效刷卡";
-            // 
-            // checkBoxX12
-            // 
-            this.checkBoxX12.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX12.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX12.Location = new System.Drawing.Point(135, 55);
-            this.checkBoxX12.Name = "checkBoxX12";
-            this.checkBoxX12.Size = new System.Drawing.Size(100, 23);
-            this.checkBoxX12.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX12.TabIndex = 0;
-            this.checkBoxX12.Text = "火警";
-            // 
-            // checkBoxX13
-            // 
-            this.checkBoxX13.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.checkBoxX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX13.Location = new System.Drawing.Point(14, 82);
-            this.checkBoxX13.Name = "checkBoxX13";
-            this.checkBoxX13.Size = new System.Drawing.Size(138, 23);
-            this.checkBoxX13.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX13.TabIndex = 0;
-            this.checkBoxX13.Text = "门继电器动作联动";
-            // 
-            // panelEx1
-            // 
-            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
-            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx1.Controls.Add(this.groupPanel2);
-            this.panelEx1.Controls.Add(this.integerInput1);
-            this.panelEx1.Controls.Add(this.labelX1);
-            this.panelEx1.Controls.Add(this.groupPanel3);
-            this.panelEx1.Controls.Add(this.groupPanel1);
-            this.panelEx1.Location = new System.Drawing.Point(17, 26);
-            this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(633, 148);
-            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.panelEx1.Style.GradientAngle = 90;
-            this.panelEx1.TabIndex = 4;
-            this.panelEx1.Text = "panelEx1";
+            this.plItems.CanvasColor = System.Drawing.SystemColors.Control;
+            this.plItems.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.plItems.Controls.Add(this.groupPanel2);
+            this.plItems.Controls.Add(this.iFixedTime);
+            this.plItems.Controls.Add(this.labelX1);
+            this.plItems.Controls.Add(this.groupPanel3);
+            this.plItems.Controls.Add(this.groupPanelDoors);
+            this.plItems.Enabled = false;
+            this.plItems.Location = new System.Drawing.Point(17, 26);
+            this.plItems.Name = "plItems";
+            this.plItems.Size = new System.Drawing.Size(633, 148);
+            this.plItems.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.plItems.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.plItems.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.plItems.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.plItems.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.plItems.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.plItems.Style.GradientAngle = 90;
+            this.plItems.TabIndex = 4;
+            this.plItems.Text = "panelEx1";
             // 
             // AlarmConnectPort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelEx1);
+            this.Controls.Add(this.plItems);
             this.Controls.Add(this.cbPortEnable);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AlarmConnectPort";
             this.Size = new System.Drawing.Size(662, 174);
-            this.groupPanel1.ResumeLayout(false);
-            this.groupPanel1.PerformLayout();
+            this.groupPanelDoors.ResumeLayout(false);
+            this.groupPanelDoors.PerformLayout();
             this.groupPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.integerInput1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iFixedTime)).EndInit();
             this.groupPanel3.ResumeLayout(false);
-            this.panelEx1.ResumeLayout(false);
+            this.plItems.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -464,24 +473,24 @@
         #endregion
 
         private DevComponents.DotNetBar.Controls.CheckBoxX cbPortEnable;
-        private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
+        private DevComponents.DotNetBar.Controls.GroupPanel groupPanelDoors;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel2;
         private DevComponents.DotNetBar.LabelX labelX1;
-        private DevComponents.Editors.IntegerInput integerInput1;
+        private DevComponents.Editors.IntegerInput iFixedTime;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel3;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX1;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX2;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX5;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX4;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX3;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX6;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX7;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX8;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX9;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX10;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX11;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX12;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX13;
-        private DevComponents.DotNetBar.PanelEx panelEx1;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbKeepState;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbFixedTime;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbDoor3;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbDoor2;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbDoor1;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbDoor4;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbEnbForcePwd;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbUnClosed;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbForceAccess;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbForceClose;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbInvalidCard;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbFire;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbRelay;
+        private DevComponents.DotNetBar.PanelEx plItems;
     }
 }

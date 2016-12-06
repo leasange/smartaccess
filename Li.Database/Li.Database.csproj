@@ -112,6 +112,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_WEEKEX_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />

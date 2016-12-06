@@ -293,6 +293,15 @@ namespace Li.Access.Core
         RemoteOpenDoor,//	操作员远程开门
         RemoteOpenDoorByUSBReader,//	发卡器确定发出的远程开门
     }
+    /// <summary>
+    /// 报警联动选项
+    /// </summary>
+    public enum AlarmConnectItem
+    {
+        KeepState=0,//保持状态一致
+        FixedTime,//门动作后, 只输出固定延时
+    }
+
     public class AccessHelper
     {
         public static string GetRecordReasonString(RecordReasonNo reason)
