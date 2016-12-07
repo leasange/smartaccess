@@ -176,7 +176,20 @@ namespace Li.Access.Core
         /// <param name="pwds">密码列表</param>
         /// <returns>成功与否</returns>
         bool SetSuperPwds(Controller controller, int doorIndex, List<string> pwds);
-
+        /// <summary>
+        /// 报警参数设置
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="setting">报警参数</param>
+        /// <returns>成功与否</returns>
+        bool SetAlarmParamsSetting(Controller controller, AlarmParamsSetting setting);
+        /// <summary>
+        /// 设置扩展卡联动
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="setting">联动端口设置</param>
+        /// <returns>成功与否</returns>
+        bool SetAlarmConnectPortSetting(Controller controller, AlarmConnectPortSetting setting);
     }
     /// <summary>
     /// 时间段参数
@@ -300,6 +313,39 @@ namespace Li.Access.Core
     {
         KeepState=0,//保持状态一致
         FixedTime,//门动作后, 只输出固定延时
+    }
+    /// <summary>
+    /// 报警参数设置
+    /// </summary>
+    public class AlarmParamsSetting
+    {
+        public bool EnableForcePwdAlarm = false;//胁迫报警
+        public bool EnableUnClosed = false;//门长时间未关
+        public bool EnableForceAccess = false;//强行闯入
+        public bool EnableForceCloseDoor = false;//强行关门
+        public bool EnableInvalidCard = false;//无效刷卡
+        public bool EnableFire = false;//火警
+        public bool EnableSteal = false;//防盗报警
+        public bool EnableForceWithCard = false;//胁迫报警必须刷合法卡
+        public string IForcePwd = "0";//胁迫密码
+    }
+    /// <summary>
+    /// 报警输出端口设置参数
+    /// </summary>
+    public class AlarmConnectPortSetting
+    {
+        public int IConnectPort = 0;//输出端口 (值范围: 1,2,3,4)
+        public int ActionDoorIndex = 0;//触发源门序号 0  无效 1= 一号门 2= 二号门 3= 三号门 4= 四号门
+        public int FixedDelayTime = 10;//固定延时时长 (秒)
+        public bool ForcePwdEvent = false;//胁迫报警 (0=不触发; 1= 触发)
+        public bool UnClosedTimeEvent = false;//门长时间未关报警(合法开门后) (0=不触发; 1= 触发)
+        public bool ForceAccessEvent = false;//强行闯入(0=不触发; 1= 触发)
+        public bool ForceLockDoorEvent = false;//强制锁门 (0=不触发; 1= 触发)
+        public bool InvalidCardEvent = false;//无效刷卡 (0=不触发; 1= 触发) 
+        public bool FireEvent = false;//火警 (0=不触发; 1= 触发) 
+        public bool DoorRelayActionEvent = false;//门的继电器动作联动 (0=不触发; 1= 触发),[独立事件, 一旦选中, 其他触发事件不起作用.  这时指定门有合法刷卡开门, 相应输出端口也动作固定时长(触发源为1-4] 
+        public AlarmConnectItem ConnectItem = AlarmConnectItem.KeepState;//联动选项   =0 保持状态一致 =1 门动作后, 只输出固定延时
+
     }
 
     public class AccessHelper

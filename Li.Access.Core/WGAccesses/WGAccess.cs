@@ -503,6 +503,35 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+
+        public bool SetAlarmParamsSetting(Controller controller, AlarmParamsSetting setting)
+        {
+            WGPacket packet = new WGPacket(0xAE);
+            packet.SetDevSn(controller.sn);
+            packet.SetAlarmParamsSetting(setting);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
+
+        public bool SetAlarmConnectPortSetting(Controller controller, AlarmConnectPortSetting setting)
+        {
+            WGPacket packet = new WGPacket(0xC6);
+            packet.SetDevSn(controller.sn);
+            packet.SetAlarmConnectPortSetting(setting);
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包
@@ -909,6 +938,40 @@ namespace Li.Access.Core.WGAccesses
                     data[4 + j + i * 4] = bts[j];
                 }
             }
+        }
+
+        public void SetAlarmParamsSetting(AlarmParamsSetting setting)
+        {
+            data[0] = setting.EnableForcePwdAlarm ? (byte)1 : (byte)0;
+            data[1] = setting.EnableUnClosed ? (byte)1 : (byte)0;
+            data[2] = setting.EnableForceAccess ? (byte)1 : (byte)0;
+            data[3] = setting.EnableForceCloseDoor ? (byte)1 : (byte)0;
+            data[4] = setting.EnableInvalidCard ? (byte)1 : (byte)0;
+            data[5] = setting.EnableFire ? (byte)1 : (byte)0;
+            data[6] = setting.EnableSteal ? (byte)1 : (byte)0;
+            data[7] = setting.EnableForceWithCard ? (byte)1 : (byte)0;
+            int pwd=0;
+            int.TryParse(setting.IForcePwd, out pwd);
+            byte[] bts = DataHelper.GetBytesFromInt(pwd);
+            for (int i = 0; i < 3; i++)
+            {
+                data[i + 8] = bts[i + 1];
+            }
+        }
+
+        public void SetAlarmConnectPortSetting(AlarmConnectPortSetting setting)
+        {
+            data[0] = (byte)setting.IConnectPort;
+            data[1] = (byte)setting.ActionDoorIndex;
+            data[2] = (byte)setting.FixedDelayTime;
+            data[3] = setting.ForcePwdEvent?(byte)1:(byte)0;
+            data[4] = setting.UnClosedTimeEvent ? (byte)1 : (byte)0;
+            data[5] = setting.ForceAccessEvent ? (byte)1 : (byte)0;
+            data[6] = setting.ForceLockDoorEvent ? (byte)1 : (byte)0;
+            data[7] = setting.InvalidCardEvent ? (byte)1 : (byte)0;
+            data[8] = setting.FireEvent ? (byte)1 : (byte)0;
+            data[9] = setting.DoorRelayActionEvent ? (byte)1 : (byte)0;
+            data[10] = setting.ConnectItem == AlarmConnectItem.KeepState ? (byte)0 : (byte)1;
         }
     }
 }
