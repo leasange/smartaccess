@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvData = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,14 +45,14 @@
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.groupPanel = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.btnApply = new DevComponents.DotNetBar.ButtonX();
             this.iUnClosedTimeOut = new DevComponents.Editors.IntegerInput();
             this.tbForcePwd = new Li.Controls.TextBoxEx();
@@ -70,10 +70,10 @@
             this.groupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
+            this.superTabControlPanel1.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
-            this.superTabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iUnClosedTimeOut)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,14 +82,14 @@
             this.dgvData.AllowUserToAddRows = false;
             this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -103,14 +103,14 @@
             this.Column9,
             this.Column10,
             this.Column11});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(0, 0);
@@ -313,57 +313,6 @@
             this.superTabItem4});
             this.superTabControl1.Text = "superTabControl1";
             // 
-            // superTabControlPanel4
-            // 
-            this.superTabControlPanel4.Controls.Add(this.alarmConnectPort4);
-            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(0, 30);
-            this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(805, 181);
-            this.superTabControlPanel4.TabIndex = 4;
-            this.superTabControlPanel4.TabItem = this.superTabItem4;
-            // 
-            // superTabItem4
-            // 
-            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
-            this.superTabItem4.GlobalItem = false;
-            this.superTabItem4.Name = "superTabItem4";
-            this.superTabItem4.Text = "4号扩展输出口";
-            // 
-            // superTabControlPanel3
-            // 
-            this.superTabControlPanel3.Controls.Add(this.alarmConnectPort3);
-            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 30);
-            this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(805, 181);
-            this.superTabControlPanel3.TabIndex = 3;
-            this.superTabControlPanel3.TabItem = this.superTabItem3;
-            // 
-            // superTabItem3
-            // 
-            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem3.GlobalItem = false;
-            this.superTabItem3.Name = "superTabItem3";
-            this.superTabItem3.Text = "3号扩展输出口";
-            // 
-            // superTabControlPanel2
-            // 
-            this.superTabControlPanel2.Controls.Add(this.alarmConnectPort2);
-            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 30);
-            this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(805, 181);
-            this.superTabControlPanel2.TabIndex = 2;
-            this.superTabControlPanel2.TabItem = this.superTabItem2;
-            // 
-            // superTabItem2
-            // 
-            this.superTabItem2.AttachedControl = this.superTabControlPanel2;
-            this.superTabItem2.GlobalItem = false;
-            this.superTabItem2.Name = "superTabItem2";
-            this.superTabItem2.Text = "2号扩展输出口";
-            // 
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.Controls.Add(this.alarmConnectPort1);
@@ -380,6 +329,57 @@
             this.superTabItem1.GlobalItem = false;
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "1号扩展输出口";
+            // 
+            // superTabControlPanel4
+            // 
+            this.superTabControlPanel4.Controls.Add(this.alarmConnectPort4);
+            this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel4.Name = "superTabControlPanel4";
+            this.superTabControlPanel4.Size = new System.Drawing.Size(805, 211);
+            this.superTabControlPanel4.TabIndex = 4;
+            this.superTabControlPanel4.TabItem = this.superTabItem4;
+            // 
+            // superTabItem4
+            // 
+            this.superTabItem4.AttachedControl = this.superTabControlPanel4;
+            this.superTabItem4.GlobalItem = false;
+            this.superTabItem4.Name = "superTabItem4";
+            this.superTabItem4.Text = "4号扩展输出口";
+            // 
+            // superTabControlPanel3
+            // 
+            this.superTabControlPanel3.Controls.Add(this.alarmConnectPort3);
+            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel3.Name = "superTabControlPanel3";
+            this.superTabControlPanel3.Size = new System.Drawing.Size(805, 211);
+            this.superTabControlPanel3.TabIndex = 3;
+            this.superTabControlPanel3.TabItem = this.superTabItem3;
+            // 
+            // superTabItem3
+            // 
+            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
+            this.superTabItem3.GlobalItem = false;
+            this.superTabItem3.Name = "superTabItem3";
+            this.superTabItem3.Text = "3号扩展输出口";
+            // 
+            // superTabControlPanel2
+            // 
+            this.superTabControlPanel2.Controls.Add(this.alarmConnectPort2);
+            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel2.Name = "superTabControlPanel2";
+            this.superTabControlPanel2.Size = new System.Drawing.Size(805, 211);
+            this.superTabControlPanel2.TabIndex = 2;
+            this.superTabControlPanel2.TabItem = this.superTabItem2;
+            // 
+            // superTabItem2
+            // 
+            this.superTabItem2.AttachedControl = this.superTabControlPanel2;
+            this.superTabItem2.GlobalItem = false;
+            this.superTabItem2.Name = "superTabItem2";
+            this.superTabItem2.Text = "2号扩展输出口";
             // 
             // btnApply
             // 
@@ -472,7 +472,8 @@
             this.btnOkUploaAll.Size = new System.Drawing.Size(116, 33);
             this.btnOkUploaAll.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOkUploaAll.TabIndex = 4;
-            this.btnOkUploaAll.Text = "确定并上传";
+            this.btnOkUploaAll.Text = "应用并上传";
+            this.btnOkUploaAll.Click += new System.EventHandler(this.btnOkUploaAll_Click);
             // 
             // btnOk
             // 
@@ -484,6 +485,7 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // alarmConnectPort1
             // 
@@ -507,7 +509,7 @@
             this.alarmConnectPort4.Location = new System.Drawing.Point(0, 0);
             this.alarmConnectPort4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.alarmConnectPort4.Name = "alarmConnectPort4";
-            this.alarmConnectPort4.Size = new System.Drawing.Size(805, 181);
+            this.alarmConnectPort4.Size = new System.Drawing.Size(805, 211);
             this.alarmConnectPort4.TabIndex = 2;
             // 
             // alarmConnectPort3
@@ -519,7 +521,7 @@
             this.alarmConnectPort3.Location = new System.Drawing.Point(0, 0);
             this.alarmConnectPort3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.alarmConnectPort3.Name = "alarmConnectPort3";
-            this.alarmConnectPort3.Size = new System.Drawing.Size(805, 181);
+            this.alarmConnectPort3.Size = new System.Drawing.Size(805, 211);
             this.alarmConnectPort3.TabIndex = 2;
             // 
             // alarmConnectPort2
@@ -531,7 +533,7 @@
             this.alarmConnectPort2.Location = new System.Drawing.Point(0, 0);
             this.alarmConnectPort2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.alarmConnectPort2.Name = "alarmConnectPort2";
-            this.alarmConnectPort2.Size = new System.Drawing.Size(805, 181);
+            this.alarmConnectPort2.Size = new System.Drawing.Size(805, 211);
             this.alarmConnectPort2.TabIndex = 2;
             // 
             // FrmAlarmSetting
@@ -557,10 +559,10 @@
             this.groupPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
+            this.superTabControlPanel1.ResumeLayout(false);
             this.superTabControlPanel4.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
-            this.superTabControlPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iUnClosedTimeOut)).EndInit();
             this.ResumeLayout(false);
 

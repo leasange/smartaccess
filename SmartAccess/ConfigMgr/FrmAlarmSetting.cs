@@ -104,7 +104,7 @@ namespace SmartAccess.ConfigMgr
             DoApply();
         }
 
-        private void DoApply(bool upload = false)
+        private void DoApply(bool upload = false,bool isclose=false)
         {
             List<Maticsoft.Model.SMT_ALARM_SETTING> settings = new List<Maticsoft.Model.SMT_ALARM_SETTING>();
             foreach (DataGridViewRow item in dgvData.Rows)
@@ -169,8 +169,16 @@ namespace SmartAccess.ConfigMgr
                     if (upload)
                     {
                         //上传
+                        UploadPrivate.UploadAlarmSetting(settings);
                     }
                     WinInfoHelper.ShowInfoWindow(this, "保存成功！");
+                    if (isclose)
+                    {
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            this.Close();
+                        }));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -222,6 +230,16 @@ namespace SmartAccess.ConfigMgr
                 log.Error("报警联动配置加载异常：", ex);
             }
            
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            DoApply(false, true);
+        }
+
+        private void btnOkUploaAll_Click(object sender, EventArgs e)
+        {
+            DoApply(true, false);
         }
     }
 }

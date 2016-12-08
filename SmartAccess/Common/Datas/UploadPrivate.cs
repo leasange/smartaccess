@@ -879,5 +879,139 @@ namespace SmartAccess.Common.Datas
             }
             FrmDetailInfo.AddOneMsg("上传结束！");
         }
+
+        public static void UploadAlarmSetting(List<Maticsoft.Model.SMT_ALARM_SETTING> settings=null)
+        {
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg("开始上传报警设置...");
+            try
+            {
+                if (settings == null)
+                {
+                    Maticsoft.BLL.SMT_ALARM_SETTING setbll = new Maticsoft.BLL.SMT_ALARM_SETTING();
+                    settings = setbll.GetModelList("");
+                }
+                FrmDetailInfo.AddOneMsg("获取报警设置数目：" + settings.Count);
+                if (settings.Count == 0)
+                {
+                    FrmDetailInfo.AddOneMsg("无报警设置，上传结束！");
+                    return;
+                }
+                Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                
+                foreach (var item in settings)
+                {
+                    if (item.CONTROLLER_INFO == null)
+                    {
+                        item.CONTROLLER_INFO = ctrlBll.GetModel(item.CTRL_ID);
+                    }
+                }
+
+                List<ManualResetEvent> evts = new List<ManualResetEvent>();
+                foreach (var item in settings)
+                {
+                    if (item.CONTROLLER_INFO==null)
+                    {
+                        FrmDetailInfo.AddOneMsg("报警设置所属控制器ID=" + item.CTRL_ID + ",不存在！", isRed: true);
+                        continue;
+                    }
+                                    Maticsoft.BLL.SMT_DOOR_INFO doorBll=new Maticsoft.BLL.SMT_DOOR_INFO();
+                    var doors= doorBll.GetModelList("CTRL_ID="+item.CTRL_ID);
+                    if (doors.Count==0)
+	{
+		 FrmDetailInfo.AddOneMsg("报警设置所属控制器 " + item.CONTROLLER_INFO.NAME + ",不存在对应门禁", isRed: true);
+                        continue;
+	}
+                    ManualResetEvent evt = new ManualResetEvent(false);
+                    evts.Add(evt);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                        {
+                            try
+                            {
+                                FrmDetailInfo.AddOneMsg("开始上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置...");
+                                Controller c = ControllerHelper.ToController(item.CONTROLLER_INFO);
+                                AlarmParamsSetting ast = new AlarmParamsSetting();
+                                ast.EnableFire = item.ENABLE_FIRE;
+                                ast.EnableForceAccess = item.ENABLE_FORCE_ACCESS;
+                                ast.EnableForceCloseDoor = item.ENABLE_FORCE_CLOSE;
+                                ast.EnableForcePwdAlarm = item.ENABLE_FORCE_PWD;
+                                ast.EnableForceWithCard = item.ENABLE_FORCE_CARD;
+                                ast.EnableInvalidCard = item.ENABLE_INVALID_CARD;
+                                ast.EnableSteal = item.ENABLE_STEAL;
+                                ast.EnableUnClosed = item.ENABLE_CLOSED_TIMEOUT;
+                                ast.IForcePwd = item.CTRL_FORCE_PWD;
+
+                                using (IAccessCore access = new WGAccess())
+                                {
+                                    bool ret = access.SetAlarmParamsSetting(c, ast);
+                                    if (!ret)
+                                    {
+                                        FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置失败！",isRed:true);
+                                    }
+                                    else
+                                    {
+                                        FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置成功.开始上传报警触发设置...");
+                                        Maticsoft.BLL.SMT_ALARM_CONNECT acBll = new Maticsoft.BLL.SMT_ALARM_CONNECT();
+                                        List<Maticsoft.Model.SMT_ALARM_CONNECT> asModels= acBll.GetModelList("CTRL_ID=" + item.CTRL_ID);
+                                        for (int i = 0; i < 4; i++)
+                                        {
+                                            var model = asModels.Find(m => m.OUT_PORT == i + 1);
+                                            AlarmConnectPortSetting cps = new AlarmConnectPortSetting();
+                                            if (model==null)
+                                            {
+                                                model = new Maticsoft.Model.SMT_ALARM_CONNECT();
+                                                model.DOOR_ID = -1;
+                                                model.OUT_PORT = i + 1;
+                                                continue;
+                                            }
+                                            var door=doors.Find(m=>m.ID==model.DOOR_ID);
+                                            cps.ActionDoorIndex = door == null || door.CTRL_DOOR_INDEX==null ? 0 : (int)door.CTRL_DOOR_INDEX;
+                                            cps.ConnectItem = (AlarmConnectItem)model.ENB_CONNECT_ITEM;
+                                            cps.DoorRelayActionEvent = model.ENB_RELAY_EVENT;
+                                            cps.FireEvent = model.ENB_FIRE_EVENT;
+                                            cps.FixedDelayTime = model.ENB_FIXED_TIME;
+                                            cps.ForceAccessEvent = model.ENB_FORCE_ACCESS_EVENT;
+                                            cps.ForceLockDoorEvent = model.ENB_FORCE_CLOSE_EVENT;
+                                            cps.ForcePwdEvent = model.ENB_FORCE_PWD_EVENT;
+                                            cps.IConnectPort = model.OUT_PORT;
+                                            cps.InvalidCardEvent = model.ENB_INVALID_CARD_EVENT;
+                                            cps.UnClosedTimeEvent = model.ENB_UNCLOSED_EVENT;
+                                            ret= access.SetAlarmConnectPortSetting(c, cps);
+                                            if (!ret)
+                                            {
+                                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警触发端口 " + cps .IConnectPort+ " 事件设置失败！", isRed: true);
+                                            }
+                                            else
+                                            {
+                                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警触发端口 " + cps.IConnectPort + " 事件设置成功.");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置异常失败："+ex.Message, isRed: true);
+                            }
+                            finally
+                            {
+                                evt.Set();
+                            }
+                            
+                        }));
+                }
+
+                foreach (var evt in evts)
+                {
+                    evt.WaitOne(50000);
+                }  
+            }
+            catch (Exception ex)
+            {
+                FrmDetailInfo.AddOneMsg("上传异常结束："+ex.Message,isRed:true);
+                return;
+            }
+            FrmDetailInfo.AddOneMsg("上传结束!");
+        }
     }
 }
