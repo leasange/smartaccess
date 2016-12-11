@@ -276,6 +276,7 @@ namespace SmartAccess.VerInfoMgr
                                 return;
                             }
                         }
+                        
                         foreach (var item in orgs)
                         {
                             var dept = DeptDataHelper.GetDeptByCode(item.ORG_CODE);
@@ -296,7 +297,7 @@ namespace SmartAccess.VerInfoMgr
                             {
                                 continue;
                             }
-                            var f= orgs.Find(m => m.ORG_CODE == item.PAR_ORG_CODE);
+                            var f = orgs.Find(m => m.ORG_CODE == item.PAR_ORG_CODE);
                             if (f==null)
 	                        {
                                 f = DeptDataHelper.GetDeptByCode(item.PAR_ORG_CODE);
