@@ -52,6 +52,7 @@
             this.btnResetRecord = new System.Windows.Forms.Button();
             this.btnCardIssue = new System.Windows.Forms.Button();
             this.btnRevIP = new System.Windows.Forms.Button();
+            this.biOpenImageEditor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iintValue)).BeginInit();
             this.SuspendLayout();
@@ -280,11 +281,22 @@
             this.btnRevIP.UseVisualStyleBackColor = true;
             this.btnRevIP.Click += new System.EventHandler(this.btnRevIP_Click);
             // 
+            // biOpenImageEditor
+            // 
+            this.biOpenImageEditor.Location = new System.Drawing.Point(706, 53);
+            this.biOpenImageEditor.Name = "biOpenImageEditor";
+            this.biOpenImageEditor.Size = new System.Drawing.Size(75, 23);
+            this.biOpenImageEditor.TabIndex = 7;
+            this.biOpenImageEditor.Text = "打开图片编辑器";
+            this.biOpenImageEditor.UseVisualStyleBackColor = true;
+            this.biOpenImageEditor.Click += new System.EventHandler(this.biOpenImageEditor_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 404);
+            this.Controls.Add(this.biOpenImageEditor);
             this.Controls.Add(this.btnRevIP);
             this.Controls.Add(this.iintValue);
             this.Controls.Add(this.btnGetReadedIndex);
@@ -333,6 +345,7 @@
         private System.Windows.Forms.Button btnResetRecord;
         private System.Windows.Forms.Button btnCardIssue;
         private System.Windows.Forms.Button btnRevIP;
+        private System.Windows.Forms.Button biOpenImageEditor;
 
     }
 }

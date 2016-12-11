@@ -361,7 +361,7 @@ namespace Li.Controls.Excel
                 if (xls.NumberOfSheets > 0)
                 {
                     ISheet ws = xls.GetSheetAt(0);
-                    for (ushort i = (ushort)(startRow-1); i < ws.LastRowNum; i++)
+                    for (ushort i = (ushort)(startRow-1); i <= ws.LastRowNum; i++)
                     {
                         string[] strs = new string[colCount];
                         bool isnull = true;

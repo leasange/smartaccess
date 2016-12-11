@@ -50,6 +50,12 @@
     <Compile Include="FrmCardIssue.Designer.cs">
       <DependentUpon>FrmCardIssue.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmImageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImageEditor.Designer.cs">
+      <DependentUpon>FrmImageEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmCardIssue.resx">
       <DependentUpon>FrmCardIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmImageEditor.resx">
+      <DependentUpon>FrmImageEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -87,6 +96,10 @@
     <ProjectReference Include="..\Li.Access.Core\Li.Access.Core.csproj">
       <Project>{f0b4a7a3-ef20-45ef-8794-beac15c9eb22}</Project>
       <Name>Li.Access.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
+      <Project>{3d529aa3-ff22-4e41-9924-0b0777d640b6}</Project>
+      <Name>Li.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

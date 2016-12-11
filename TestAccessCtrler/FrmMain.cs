@@ -231,5 +231,11 @@ namespace TestAccessCtrler
                 MessageBox.Show("Server IP:" + ip + ",Port:" + port);
             }
         }
+
+        private void biOpenImageEditor_Click(object sender, EventArgs e)
+        {
+            FrmImageEditor editor = new FrmImageEditor();
+            editor.ShowDialog(this);
+        }
     }
 }

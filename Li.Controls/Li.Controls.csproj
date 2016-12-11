@@ -90,6 +90,20 @@
     <Compile Include="ImageEditor.Designer.cs">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageEditors\ClipController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageEditors\ClipController.Designer.cs">
+      <DependentUpon>ClipController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageEditors\ClipImageFilter.cs" />
+    <Compile Include="ImageEditors\IImageFilter.cs" />
+    <Compile Include="ImageEditors\PictureBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageEditors\PictureBoxEx.Designer.cs">
+      <DependentUpon>PictureBoxEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigateItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImageEditor.resx">
       <DependentUpon>ImageEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageEditors\ClipController.resx">
+      <DependentUpon>ClipController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigateItems.resx">
       <DependentUpon>NavigateItems.cs</DependentUpon>
