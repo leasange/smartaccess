@@ -64,10 +64,14 @@
     <Reference Include="DevComponents.Instrumentation, Version=10.7.0.3, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0" />
     <Reference Include="FastReport, Version=2014.4.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\Debug\Client\FastReport.dll</HintPath>
+      <HintPath>..\dlls\fastreport\FastReport.dll</HintPath>
     </Reference>
-    <Reference Include="FastReport.Bars, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="FastReport.Editor, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="FastReport.Bars, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\dlls\fastreport\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor, Version=2014.4.8.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\dlls\fastreport\FastReport.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\dlls\log4net.dll</HintPath>
     </Reference>

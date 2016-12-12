@@ -25,6 +25,7 @@ namespace Li.Controls
                     _baseImage.Dispose();
                     _baseImage = null;
                 }
+                _viewMultiple = 1;
                 if (value == null)
                 {
                     UpdateResultImage();
@@ -125,17 +126,31 @@ namespace Li.Controls
         {
             if (_resultImage==null)
             {
+                pictureBox.Visible = false;
                 pictureBox.Size = new Size(plImageBack.Width - 5, plImageBack.Height - 5);
                 lbImageState.Text = "宽:0 高:0 显示比例:" + (int)(_viewMultiple*100) + "%";
             }
             else
             {
+                pictureBox.Visible = true;
                 double dw = _resultImage.Width * _viewMultiple;
                 double dh = _resultImage.Height * _viewMultiple;
-                pictureBox.Size = new Size((int)dw, (int)dh);
-                lbImageState.Text = "宽:" + _resultImage.Width + " 高:" + _resultImage.Height+ " 显示比例:" + (int)(_viewMultiple * 100) + "%";
+                
+                double x = plImageBack.Width / 2f - dw / 2f;
+                double y = plImageBack.Height / 2f - dh / 2f;
+                if (x>0&&y>0)
+                {
+                    pictureBox.SetBounds((int)x, (int)y, (int)dw, (int)dh);
+                }
+                else
+                {
+                    plImageBack.AutoScroll = false;
+                    pictureBox.SetBounds(0, 0, (int)dw, (int)dh);
+                    plImageBack.AutoScroll = true;
+                }
+
+                lbImageState.Text = "宽:" + _resultImage.Width + " 高:" + _resultImage.Height + " 显示比例:" + (int)(_viewMultiple * 100) + "%";
             }
-           
         }
         /// <summary>
         /// 更新处理结果
@@ -198,7 +213,8 @@ namespace Li.Controls
         /// </summary>
         public void DoClipAction()
         {
-             
+            _filters.Add(new ClipPreviewFilter());
+            UpdateResultImage();
         }
         /// <summary>
         /// 执行打开动作

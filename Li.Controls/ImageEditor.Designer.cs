@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.plState = new System.Windows.Forms.Panel();
+            this.viewSizeSlider = new DevComponents.DotNetBar.Controls.Slider();
             this.lbImageState = new System.Windows.Forms.Label();
             this.barProccess = new DevComponents.DotNetBar.Bar();
+            this.biOpen = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
             this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
             this.cbClipItem = new DevComponents.DotNetBar.ComboBoxItem();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
@@ -43,16 +46,11 @@
             this.biClip = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
             this.plImageBack = new System.Windows.Forms.Panel();
-            this.biOpen = new DevComponents.DotNetBar.ButtonItem();
-            this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
+            this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
             this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
-            this.viewSizeSlider = new DevComponents.DotNetBar.Controls.Slider();
-            this.clipController = new Li.Controls.ImageEditors.ClipController();
-            this.pictureBox = new Li.Controls.ImageEditors.PictureBoxEx();
             this.plState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).BeginInit();
             this.plImageBack.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // plState
@@ -62,15 +60,32 @@
             this.plState.Controls.Add(this.lbImageState);
             this.plState.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.plState.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.plState.Location = new System.Drawing.Point(0, 337);
+            this.plState.Location = new System.Drawing.Point(0, 343);
             this.plState.Name = "plState";
-            this.plState.Size = new System.Drawing.Size(648, 24);
+            this.plState.Size = new System.Drawing.Size(648, 18);
             this.plState.TabIndex = 2;
+            // 
+            // viewSizeSlider
+            // 
+            // 
+            // 
+            // 
+            this.viewSizeSlider.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.viewSizeSlider.Dock = System.Windows.Forms.DockStyle.Left;
+            this.viewSizeSlider.LabelVisible = false;
+            this.viewSizeSlider.Location = new System.Drawing.Point(143, 0);
+            this.viewSizeSlider.Name = "viewSizeSlider";
+            this.viewSizeSlider.Size = new System.Drawing.Size(256, 16);
+            this.viewSizeSlider.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.viewSizeSlider.TabIndex = 1;
+            this.viewSizeSlider.Value = 50;
+            this.viewSizeSlider.ValueChanged += new System.EventHandler(this.viewSizeSlider_ValueChanged);
             // 
             // lbImageState
             // 
             this.lbImageState.AutoSize = true;
-            this.lbImageState.Location = new System.Drawing.Point(3, 4);
+            this.lbImageState.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lbImageState.Location = new System.Drawing.Point(0, 0);
             this.lbImageState.Name = "lbImageState";
             this.lbImageState.Size = new System.Drawing.Size(143, 17);
             this.lbImageState.TabIndex = 0;
@@ -101,6 +116,18 @@
             this.barProccess.TabIndex = 4;
             this.barProccess.TabStop = false;
             this.barProccess.Text = "bar1";
+            // 
+            // biOpen
+            // 
+            this.biOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOpen.Name = "biOpen";
+            this.biOpen.Text = "打开";
+            this.biOpen.Click += new System.EventHandler(this.biOpen_Click);
+            // 
+            // labelItem5
+            // 
+            this.labelItem5.Name = "labelItem5";
+            this.labelItem5.Text = "|";
             // 
             // labelItem3
             // 
@@ -170,64 +197,27 @@
             // plImageBack
             // 
             this.plImageBack.AutoScroll = true;
-            this.plImageBack.Controls.Add(this.clipController);
             this.plImageBack.Controls.Add(this.pictureBox);
             this.plImageBack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plImageBack.Location = new System.Drawing.Point(0, 28);
             this.plImageBack.Name = "plImageBack";
-            this.plImageBack.Size = new System.Drawing.Size(648, 309);
+            this.plImageBack.Size = new System.Drawing.Size(648, 315);
             this.plImageBack.TabIndex = 5;
             // 
-            // biOpen
+            // pictureBox
             // 
-            this.biOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOpen.Name = "biOpen";
-            this.biOpen.Text = "打开";
-            this.biOpen.Click += new System.EventHandler(this.biOpen_Click);
-            // 
-            // labelItem5
-            // 
-            this.labelItem5.Name = "labelItem5";
-            this.labelItem5.Text = "|";
+            this.pictureBox.BackColor = System.Drawing.Color.White;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox.Image = null;
+            this.pictureBox.Location = new System.Drawing.Point(62, 51);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(235, 158);
+            this.pictureBox.TabIndex = 0;
             // 
             // openImageDlg
             // 
             this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
             this.openImageDlg.Title = "打开图片文件";
-            // 
-            // viewSizeSlider
-            // 
-            // 
-            // 
-            // 
-            this.viewSizeSlider.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.viewSizeSlider.Dock = System.Windows.Forms.DockStyle.Right;
-            this.viewSizeSlider.Location = new System.Drawing.Point(434, 0);
-            this.viewSizeSlider.Name = "viewSizeSlider";
-            this.viewSizeSlider.Size = new System.Drawing.Size(212, 22);
-            this.viewSizeSlider.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.viewSizeSlider.TabIndex = 1;
-            this.viewSizeSlider.Text = "显示比例";
-            this.viewSizeSlider.Value = 50;
-            this.viewSizeSlider.ValueChanged += new System.EventHandler(this.viewSizeSlider_ValueChanged);
-            // 
-            // clipController
-            // 
-            this.clipController.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.clipController.Location = new System.Drawing.Point(57, 52);
-            this.clipController.Name = "clipController";
-            this.clipController.Size = new System.Drawing.Size(79, 62);
-            this.clipController.TabIndex = 1;
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.Color.White;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(248, 248);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
             // 
             // ImageEditor
             // 
@@ -244,7 +234,6 @@
             this.plState.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).EndInit();
             this.plImageBack.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -256,7 +245,6 @@
         private DevComponents.DotNetBar.Bar barProccess;
         private DevComponents.DotNetBar.ButtonItem biClip;
         private System.Windows.Forms.Panel plImageBack;
-        private  Li.Controls.ImageEditors.PictureBoxEx pictureBox;
         private DevComponents.DotNetBar.ComboBoxItem cbClipItem;
         private DevComponents.Editors.ComboItem comboItem1;
         private DevComponents.Editors.ComboItem comboItem2;
@@ -271,6 +259,6 @@
         private DevComponents.DotNetBar.LabelItem labelItem5;
         private System.Windows.Forms.OpenFileDialog openImageDlg;
         private DevComponents.DotNetBar.Controls.Slider viewSizeSlider;
-        private ImageEditors.ClipController clipController;
+        private ImageEditors.PicturePanel pictureBox;
     }
 }

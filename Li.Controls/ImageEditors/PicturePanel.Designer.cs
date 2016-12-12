@@ -1,6 +1,6 @@
 ﻿namespace Li.Controls.ImageEditors
 {
-    partial class ClipController
+    partial class PicturePanel
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -30,18 +30,20 @@
         {
             this.SuspendLayout();
             // 
-            // ClipController
+            // PicturePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.Name = "ClipController";
-            this.Size = new System.Drawing.Size(177, 151);
-            this.SizeChanged += new System.EventHandler(this.ClipController_SizeChanged);
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DoubleBuffered = true;
+            this.Name = "PicturePanel";
+            this.Size = new System.Drawing.Size(390, 289);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }
