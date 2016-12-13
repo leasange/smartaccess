@@ -6,11 +6,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Li.Controls.ImageEditors.Covers;
 
 namespace Li.Controls.ImageEditors
 {
     public partial class PicturePanel : UserControl
     {
+        private ClipCoverController _clipConver = new ClipCoverController();
+        public ClipCoverController ClipConver
+        {
+            get { return _clipConver; }
+            set { _clipConver = value; }
+        }
         public Image Image
         {
             get
@@ -25,6 +32,7 @@ namespace Li.Controls.ImageEditors
         public PicturePanel()
         {
             InitializeComponent();
+            _clipConver.InitClip(this);
         }
     }
 }

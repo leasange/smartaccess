@@ -213,7 +213,7 @@ namespace Li.Controls
         /// </summary>
         public void DoClipAction()
         {
-            _filters.Add(new ClipPreviewFilter());
+            pictureBox.ClipConver.BeginClip(RectangleF.Empty);
             UpdateResultImage();
         }
         /// <summary>
