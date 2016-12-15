@@ -62,6 +62,12 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUdpBroadcastTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUdpBroadcastTest.Designer.cs">
+      <DependentUpon>FrmUdpBroadcastTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmCardIssue.resx">
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUdpBroadcastTest.resx">
+      <DependentUpon>FrmUdpBroadcastTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,6 +109,10 @@
     <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
       <Project>{3d529aa3-ff22-4e41-9924-0b0777d640b6}</Project>
       <Name>Li.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Li.UdpBroadcastMessage\Li.UdpBroadcastMessage.csproj">
+      <Project>{189e5152-cda5-4e92-8331-591ce3e1200a}</Project>
+      <Name>Li.UdpBroadcastMessage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
