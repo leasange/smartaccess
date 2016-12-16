@@ -31,11 +31,13 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.tbMsg = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbServer = new System.Windows.Forms.TextBox();
+            this.btnOpenServer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(50, 12);
+            this.btnSend.Location = new System.Drawing.Point(50, 38);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 0;
@@ -60,11 +62,31 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "收到消息";
             // 
+            // tbServer
+            // 
+            this.tbServer.Location = new System.Drawing.Point(50, 11);
+            this.tbServer.Name = "tbServer";
+            this.tbServer.Size = new System.Drawing.Size(224, 21);
+            this.tbServer.TabIndex = 3;
+            this.tbServer.Text = "127.0.0.1:56010";
+            // 
+            // btnOpenServer
+            // 
+            this.btnOpenServer.Location = new System.Drawing.Point(280, 9);
+            this.btnOpenServer.Name = "btnOpenServer";
+            this.btnOpenServer.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenServer.TabIndex = 4;
+            this.btnOpenServer.Text = "连接服务";
+            this.btnOpenServer.UseVisualStyleBackColor = true;
+            this.btnOpenServer.Click += new System.EventHandler(this.btnOpenServer_Click);
+            // 
             // FrmUdpBroadcastTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 279);
+            this.Controls.Add(this.btnOpenServer);
+            this.Controls.Add(this.tbServer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbMsg);
             this.Controls.Add(this.btnSend);
@@ -81,5 +103,7 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox tbMsg;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbServer;
+        private System.Windows.Forms.Button btnOpenServer;
     }
 }

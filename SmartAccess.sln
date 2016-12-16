@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartServiceConfig", "Smart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartKey", "SmartKey\SmartKey.csproj", "{F874A24B-D12B-4452-A9BF-9C8475F1C5AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Li.UdpBroadcastMessage", "Li.UdpBroadcastMessage\Li.UdpBroadcastMessage.csproj", "{189E5152-CDA5-4E92-8331-591CE3E1200A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Li.UdpMessageQueue", "Li.UdpMessageQueue\Li.UdpMessageQueue.csproj", "{189E5152-CDA5-4E92-8331-591CE3E1200A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Li.UdpBroadcastMessage
+namespace Li.UdpMessageQueue
 {
     public delegate void MessageRecieveCallBack(MessageType msgType,string msg);
     public class BroadcastClient
@@ -70,22 +70,9 @@ namespace Li.UdpBroadcastMessage
                 {
                     return;
                 }
-                string str = Encoding.UTF8.GetString(bts);
-                int ind = str.IndexOf('.');
-                MessageType type = MessageType.NONE;
-                if (ind>0)
-                {
-                    string msgType = str.Substring(0, ind);
-                    
-                    if (Enum.TryParse<MessageType>(msgType, out type))
-                    {
-                        str = str.Substring(ind + 1);
-                    }
-                    else
-                    {
-                        type = MessageType.NONE;
-                    }
-                }
+                MessageType type;
+                string str = UnitsHepler.ParseMessage(bts, out type);
+
                 if (MessageRecieved!=null)
                 {
                     MessageRecieved.BeginInvoke(type, str,null,null);
@@ -99,11 +86,6 @@ namespace Li.UdpBroadcastMessage
             {
                 BeginRecieve();
             }
-        }
-
-        public T ParseMessage<T>(string msg)
-        {
-           return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(msg);
         }
     }
 }

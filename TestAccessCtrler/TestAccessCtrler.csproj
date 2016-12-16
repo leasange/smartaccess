@@ -110,9 +110,9 @@
       <Project>{3d529aa3-ff22-4e41-9924-0b0777d640b6}</Project>
       <Name>Li.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Li.UdpBroadcastMessage\Li.UdpBroadcastMessage.csproj">
+    <ProjectReference Include="..\Li.UdpMessageQueue\Li.UdpMessageQueue.csproj">
       <Project>{189e5152-cda5-4e92-8331-591ce3e1200a}</Project>
-      <Name>Li.UdpBroadcastMessage</Name>
+      <Name>Li.UdpMessageQueue</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

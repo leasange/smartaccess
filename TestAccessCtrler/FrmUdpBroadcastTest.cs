@@ -1,4 +1,4 @@
-﻿using Li.UdpBroadcastMessage;
+﻿using Li.UdpMessageQueue;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +12,9 @@ namespace TestAccessCtrler
 {
     public partial class FrmUdpBroadcastTest : Form
     {
-        private BroadcastServer server = null;
-        private BroadcastClient client = null;
+        private BrokerServer server = null;
+        private ConsumerClient client = null;
+        private ProducterClient producter = null;
         class ALARM_INFO
         {
             public string Test="dddd";
@@ -25,15 +26,13 @@ namespace TestAccessCtrler
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            server.SendMessageAsync<ALARM_INFO>(new ALARM_INFO());
+            producter.SendMessageAsync<ALARM_INFO>(new ALARM_INFO());
         }
 
         private void FrmUdpBroadcastTest_Load(object sender, EventArgs e)
         {
-            server = new BroadcastServer();
-            client = new BroadcastClient();
-            client.MessageRecieved += client_MessageRecieved;
-            client.Start();
+            server = new BrokerServer();
+            server.Start();
         }
 
         void client_MessageRecieved(MessageType msgType, string msg)
@@ -43,10 +42,18 @@ namespace TestAccessCtrler
                 this.Invoke(new Action(() =>
                 {
                     tbMsg.AppendText("接收到报警消息：" + msg+"\r\n");
-                    ALARM_INFO info = client.ParseMessage<ALARM_INFO>(msg);
+                    ALARM_INFO info = UnitsHepler.ParseMessage<ALARM_INFO>(msg);
                     MessageBox.Show(info.Test);
                 }));
             }
+        }
+
+        private void btnOpenServer_Click(object sender, EventArgs e)
+        {
+            client = new ConsumerClient(tbServer.Text);
+            producter = new ProducterClient(tbServer.Text);
+            client.MessageRecieved += client_MessageRecieved;
+            client.Start();
         }
     }
 }
