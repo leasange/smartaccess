@@ -249,19 +249,29 @@ namespace Li.Access.Core.WGAccesses
 
         public ControllerState ReadNextRecord()
         {
-            ControllerState state = GetControllerRecord(currentController, currentReadedRecord + 1);
+            long index;
+            if (currentReadedRecord>=0xffffffff)
+            {
+                index = 0;
+            }
+            else
+            {
+                index = currentReadedRecord + 1;
+            }
+            ControllerState state = GetControllerRecord(currentController, index);
             if (state != null)
             {
                 if (state.recordType != RecordType.NoRecord)
                 {
+                    currentReadedRecord = index;
                     if (state.recordType == RecordType.CoveredRecord)
                     {
-                        state = GetControllerRecord(currentController, 0);
+                        SetControllerReadedIndex(currentController, currentReadedRecord);
+                        state = ReadNextRecord();
                     }
-                    if (state.recordType != RecordType.NoRecord)
+                    else if (state.recordType != RecordType.NoRecord)
                     {
-                        SetControllerReadedIndex(currentController, state.lastRecordIndex);
-                        currentReadedRecord = state.lastRecordIndex;
+                        SetControllerReadedIndex(currentController, currentReadedRecord);
                     }
                 }
             }

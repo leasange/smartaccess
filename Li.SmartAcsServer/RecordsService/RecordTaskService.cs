@@ -1,5 +1,6 @@
 ﻿using Li.Access.Core;
 using Li.Access.Core.WGAccesses;
+using Li.UdpMessageQueue;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace Li.SmartAcsServer.RecordsService
         private const int ThreadCount = 10;
         private bool _start = true;
         private System.Collections.IList _busyTasks = System.Collections.ArrayList.Synchronized(new List<string>());
+        private BrokerServer _alarmServer = null;
         protected RecordTaskService()
         {
 
@@ -48,7 +50,23 @@ namespace Li.SmartAcsServer.RecordsService
         public void Start(int interval=3)
         {
             log.Info("开始启动记录读取服务...");
-            TestDb();
+            int alarmPort = SunCreate.Common.ConfigHelper.GetConfigInt("AlarmPort");
+            if (alarmPort<=0||alarmPort>=65536)
+	        {
+                log.Warn("报警端口配置无效：" + alarmPort + ",使用默认端口：" + 56010);
+                alarmPort=56010;
+	        }
+            try
+            {
+                _alarmServer = new BrokerServer(alarmPort);
+                _alarmServer.Start();
+            }
+            catch (Exception ex)
+            {
+                log.Error("开启报警转发服务异常：", ex);
+            }
+
+            DoLoadCtrlr();
             for (int i = 0; i < ThreadCount; i++)
             {
                 Thread t = new Thread(ThreadDoTask);
@@ -69,8 +87,14 @@ namespace Li.SmartAcsServer.RecordsService
         }
         private void TestDb()
         {
-            Maticsoft.BLL.SMT_CONTROLLER_INFO bll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-            bll.GetList("1=1");
+            try
+            {
+                DoLoadCtrlr();
+            }
+            catch (Exception)
+            {
+              //  throw;
+            }
         }
         private void _timerLoadCtrlr_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -216,7 +240,7 @@ namespace Li.SmartAcsServer.RecordsService
             }
         }
         //保存记录
-        public void SaveRecord(decimal ctrlrId,ControllerState record)
+        public void SaveRecord(decimal ctrlrId, ControllerState record)
         {
             try
             {
@@ -257,15 +281,121 @@ namespace Li.SmartAcsServer.RecordsService
                 {
                     modelRecord.STAFF_ID = -1;
                 }
-
                 Maticsoft.BLL.SMT_CARD_RECORDS recordBll = new Maticsoft.BLL.SMT_CARD_RECORDS();
-                recordBll.Add(modelRecord);
+                modelRecord.ID = recordBll.Add(modelRecord);
+                switch (record.reasonNo)
+                {
+                    case RecordReasonNo.Swipe:
+                        break;
+                    case RecordReasonNo.Reserved2:
+                        break;
+                    case RecordReasonNo.Reserved3:
+                        break;
+                    case RecordReasonNo.Reserved4:
+                        break;
+                    case RecordReasonNo.DeniedAccessPCControl:
+                    case RecordReasonNo.DeniedAccessNoPRIVILEGE:
+                    case RecordReasonNo.DeniedAccessWrongPASSWORD:
+                    case RecordReasonNo.DeniedAccessAntiBack:
+                    case RecordReasonNo.DeniedAccessMoreCards:
+                    case RecordReasonNo.DeniedAccessFirstCardOpen:
+                    case RecordReasonNo.DeniedAccessDoorSetNC:
+                    case RecordReasonNo.DeniedAccessInterLock:
+                    case RecordReasonNo.DeniedAccessLimitedTimes:
+                    case RecordReasonNo.DeniedAccessInvalidTimezone:
+                    case RecordReasonNo.DeniedAccess:
+                    case RecordReasonNo.PushButtonInvalidForcedLock:
+                    case RecordReasonNo.PushButtonInvalidNotOnLine:
+                    case RecordReasonNo.PushButtonInvalidInterLock:
+                    case RecordReasonNo.Threat:
+                    case RecordReasonNo.OpenTooLong:
+                    case RecordReasonNo.ForcedOpen:
+                    case RecordReasonNo.Fire:
+                    case RecordReasonNo.ForcedClose:
+                    case RecordReasonNo.GuardAgainstTheft:
+                    case RecordReasonNo.H7X24HourZone:
+                    case RecordReasonNo.EmergencyCall:
+                        {
+                            Maticsoft.Model.SMT_ALARM_INFO alarmInfo = new Maticsoft.Model.SMT_ALARM_INFO();
+                            try
+                            {
+                                alarmInfo.ALARM_NAME = AccessHelper.GetRecordReasonString(record.reasonNo);
+                                alarmInfo.ALARM_CONTENT = alarmInfo.ALARM_NAME;
+                                alarmInfo.ALARM_TIME = record.recordTime;
+                                alarmInfo.ALARM_TYPE = (int)record.reasonNo;
+                                alarmInfo.CARD_NO = record.cardOrNoNumber;
+                                alarmInfo.CTRLR_DOOR_INDEX = record.doorNum;
+                                alarmInfo.CTRLR_ID = ctrlrId;
+                                alarmInfo.DOOR_ID = modelRecord.DOOR_ID;
+                                alarmInfo.RECORD_ID = modelRecord.ID;
+                                alarmInfo.STAFF_ID = modelRecord.STAFF_ID;
+                                Maticsoft.BLL.SMT_ALARM_INFO alarmBll = new Maticsoft.BLL.SMT_ALARM_INFO();
+                                alarmInfo.ID = alarmBll.Add(alarmInfo);
+                                try
+                                {
+                                    _alarmServer.SendMessageAsync<decimal>(alarmInfo.ID, MessageType.ALARM);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Error("转发报警消息失败：Alarm Id=" + alarmInfo.ID + ",EX=" + ex.Message);
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Error("报警记录保存失败：CTRLID=" + ctrlrId + ", RECORD ID=" + modelRecord.ID + ",ALARM_NAME=" + alarmInfo.ALARM_NAME, ex);
+                            }
+                        }
+                        break;
+                    case RecordReasonNo.Reserved14:
+                        break;
+                    case RecordReasonNo.Reserved16:
+                        break;
+                    case RecordReasonNo.Reserved17:
+                        break;
+                    case RecordReasonNo.Reserved19:
+                        break;
+                    case RecordReasonNo.PushButton:
+                        break;
+                    case RecordReasonNo.Reserved21:
+                        break;
+                    case RecordReasonNo.Reserved22:
+                        break;
+                    case RecordReasonNo.DoorOpen:
+                        break;
+                    case RecordReasonNo.DoorClosed:
+                        break;
+                    case RecordReasonNo.SuperPasswordOpenDoor:
+                        break;
+                    case RecordReasonNo.Reserved26:
+                        break;
+                    case RecordReasonNo.Reserved27:
+                        break;
+                    case RecordReasonNo.ControllerPowerOn:
+                        break;
+                    case RecordReasonNo.ControllerReset:
+                        break;
+                    case RecordReasonNo.Reserved30:
+                        break;
+                    case RecordReasonNo.Reserved35:
+                        break;
+                    case RecordReasonNo.Reserved36:
+                        break;
+                    case RecordReasonNo.RemoteOpenDoor:
+                        break;
+                    case RecordReasonNo.RemoteOpenDoorByUSBReader:
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                log.Error("记录保存失败：CTRLID=" + ctrlrId,ex);
+                log.Error("记录保存失败：CTRLID=" + ctrlrId, ex);
+                throw ex;
             }
         }
+
         //更新状态
         public void SaveState(decimal ctrlrId,ControllerState state)
         {
@@ -319,18 +449,41 @@ namespace Li.SmartAcsServer.RecordsService
                 {
                     if (acc.BeginReadRecord(Controller))
                     {
-                        while (true)
+                        try
                         {
-                            ControllerState record = acc.ReadNextRecord();
-                            if (record == null || record.recordType == RecordType.NoRecord)
+                            while (true)
                             {
-                                acc.EndReadRecord();
-                                log.Info("记录读取完毕：" + _controller.sn);
-                                break;
+                                ControllerState record = acc.ReadNextRecord();
+                                if (record == null || record.recordType == RecordType.NoRecord)
+                                {
+                                    log.Info("记录读取完毕：" + _controller.sn);
+                                    break;
+                                }
+                                try
+                                {
+                                    RecordTaskService.Instance.SaveRecord(_controller.id, record);
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (record.lastRecordIndex<=0)
+                                    {
+                                        record.lastRecordIndex = 0xffffffff;
+                                    }
+                                    else
+                                    {
+                                        record.lastRecordIndex--;
+                                    }
+                                    acc.SetControllerReadedIndex(Controller, record.lastRecordIndex);
+                                    return;
+                                }
                             }
-                            RecordTaskService.Instance.SaveRecord(_controller.id, record);
+                        }
+                        finally
+                        {
+                            acc.EndReadRecord();
                         }
                     }
+
                     ControllerState state = acc.GetControllerState(Controller);
                     if (state != null)
                     {

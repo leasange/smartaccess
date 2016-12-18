@@ -771,6 +771,10 @@
       <Project>{86ba130f-ac75-4c26-9989-74c48cae03cf}</Project>
       <Name>Li.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Li.UdpMessageQueue\Li.UdpMessageQueue.csproj">
+      <Project>{189e5152-cda5-4e92-8331-591ce3e1200a}</Project>
+      <Name>Li.UdpMessageQueue</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\welcomeback.png" />

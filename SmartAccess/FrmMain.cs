@@ -14,6 +14,7 @@ using SmartAccess.Common.Datas;
 using System.IO;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.Database;
+using Li.UdpMessageQueue;
 
 namespace SmartAccess
 {
@@ -22,6 +23,7 @@ namespace SmartAccess
         public static FrmMain Instance;
         public static StyleManager StyleMgr;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmMain));
+        private ConsumerClient consumerClient = null;
         public FrmMain()
         {
             InitializeComponent();
@@ -108,23 +110,53 @@ namespace SmartAccess
                     tsmiServerIp.Text = config.serverName;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.Error("读取配置异常：", ex);
             }
-            
             smtNavigate.Main = this;
-//             ExpandablePanel fexpanel = splitContainer.Panel1.Controls[splitContainer.Panel1.Controls.Count-1] as ExpandablePanel;
-//             foreach (Control item in splitContainer.Panel1.Controls)
-//             {
-//                 ExpandablePanel expanel = item as ExpandablePanel;
-//                 if (expanel != null)
-//                 {
-//                     expanel.ExpandedChanging += expanel_ExpandedChanging;
-//                     expanel.ExpandedChanged += expanel_ExpandedChanged;
-//                 }
-//             }
-//             fexpanel.Expanded = false;
-//             fexpanel.Expanded = true;
+            try
+            {
+                Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                var configs = dicBll.GetModelList("DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER'");
+                if (configs.Count > 0)
+                {
+                    log.Info("报警服务器地址为：" + configs[0].DATA_VALUE);
+                    consumerClient = new ConsumerClient(configs[0].DATA_VALUE);
+                    consumerClient.MessageRecieved += consumerClient_MessageRecieved;
+                    consumerClient.Start();
+                }
+                else
+                {
+                    log.Error("没有报警服务器地址,请在数据库中配置报警服务地址！其中 DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER' DATA_VALUE为配置值，如：192.168.1.1:56010");
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("报警接收初始化异常：", ex);
+            }
+        }
+
+        private void consumerClient_MessageRecieved(MessageType msgType, string msg)
+        {
+            if (msgType== MessageType.ALARM)
+            {
+                try
+                {
+                    decimal alarmId = consumerClient.ParseMessage<decimal>(msg);
+                    Maticsoft.BLL.SMT_ALARM_INFO alarmBll = new Maticsoft.BLL.SMT_ALARM_INFO();
+                    var alarmInfo = alarmBll.GetModel(alarmId);
+                    if (alarmInfo != null)
+                    {
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error("报警接收处理异常：", ex);
+                }
+
+            }
         }
 
         void expanel_ExpandedChanging(object sender, ExpandedChangeEventArgs e)
@@ -178,6 +210,10 @@ namespace SmartAccess
             bool ret = DevComponents.DotNetBar.TaskDialog.Show("退出系统", eTaskDialogIcon.Help, "退出", "确定退出系统？", eTaskDialogButton.Ok | eTaskDialogButton.Cancel) == eTaskDialogResult.Ok;
             if (ret)
             {
+                if (consumerClient != null)
+                {
+                    consumerClient.Stop();
+                }
                 SmtLog.Info("系统", "退出系统");
             }
             return ret;
@@ -437,6 +473,10 @@ namespace SmartAccess
             {
                 try
                 {
+                    if (consumerClient!=null)
+                    {
+                        consumerClient.Stop();
+                    }
                     this.Dispose();
                     FrmLogin.Login.Enabled = true;
                     FrmLogin.Login.Visible = true;

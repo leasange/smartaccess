@@ -32,6 +32,7 @@ namespace Li.UdpMessageQueue
         public BrokerServer(int serverPort = 56010)
         {
             this.serverPort = serverPort;
+            log.Info("报警端口为：" + serverPort);
             SendCallBackHandle = new AsyncCallback(SendCallBack);
             RecieveCallBack = new AsyncCallback(DoRecieveCallBack);
         }
@@ -77,6 +78,7 @@ namespace Li.UdpMessageQueue
                 timerCheck = new System.Timers.Timer(20000);
                 timerCheck.Elapsed += timerCheck_Elapsed;
                 timerCheck.Start();
+                log.Info("成功开启报警,端口：" + serverPort);
                 BeginRecieve();
             }
         }
@@ -149,6 +151,12 @@ namespace Li.UdpMessageQueue
                                 var client = clients.Find(m => m.ClientId == clientId);
                                 if (client == null)
                                 {
+                                    client = clients.Find(m =>
+                                       m.ClientPoint.Address.ToString() == point.Address.ToString() && m.ClientPoint.Port == point.Port);
+                                    if (client!=null)
+                                    {
+                                        clients.Remove(client);
+                                    }
                                     client = new BrokerClient(point, clientId);
                                     clients.Add(client);
                                     log.InfoFormat("接收到客户端：Point={0},ID={1}", point, clientId);
