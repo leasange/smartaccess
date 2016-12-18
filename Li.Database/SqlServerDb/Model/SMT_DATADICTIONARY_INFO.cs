@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* SMT_ORG_INFO.cs
+* SMT_DATADICTIONARY_INFO.cs
 *
 * 功 能： N/A
-* 类 名： SMT_ORG_INFO
+* 类 名： SMT_DATADICTIONARY_INFO
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/13 20:12:29   N/A    初版
+* V0.01  2016/12/17 22:43:32   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -18,58 +18,58 @@ using System;
 namespace Maticsoft.Model
 {
 	/// <summary>
-	/// 组织机构部门表
+	/// 数据字典管理
 	/// </summary>
 	[Serializable]
-	public partial class SMT_ORG_INFO
+	public partial class SMT_DATADICTIONARY_INFO
 	{
-		public SMT_ORG_INFO()
+		public SMT_DATADICTIONARY_INFO()
 		{}
 		#region Model
-		private decimal _id;
-		private decimal _par_id=1M;
-		private string _org_code;
-		private string _org_name;
-		private int? _order_value;
+		private string _data_type;
+		private string _data_key;
+		private string _data_value;
+		private string _data_name;
+		private string _data_content;
 		/// <summary>
-		/// 组织机构ID
+		/// 类型
 		/// </summary>
-		public decimal ID
+		public string DATA_TYPE
 		{
-			set{ _id=value;}
-			get{return _id;}
+			set{ _data_type=value;}
+			get{return _data_type;}
 		}
 		/// <summary>
-		/// 上级组织机构ID
+		/// 键
 		/// </summary>
-		public decimal PAR_ID
+		public string DATA_KEY
 		{
-			set{ _par_id=value;}
-			get{return _par_id;}
+			set{ _data_key=value;}
+			get{return _data_key;}
 		}
 		/// <summary>
-		/// 部门编码
+		/// 值
 		/// </summary>
-		public string ORG_CODE
+		public string DATA_VALUE
 		{
-			set{ _org_code=value;}
-			get{return _org_code;}
+			set{ _data_value=value;}
+			get{return _data_value;}
 		}
 		/// <summary>
-		/// 组织机构名称
+		/// 名称
 		/// </summary>
-		public string ORG_NAME
+		public string DATA_NAME
 		{
-			set{ _org_name=value;}
-			get{return _org_name;}
+			set{ _data_name=value;}
+			get{return _data_name;}
 		}
 		/// <summary>
-		/// 排序
+		/// 说明
 		/// </summary>
-		public int? ORDER_VALUE
+		public string DATA_CONTENT
 		{
-			set{ _order_value=value;}
-			get{return _order_value;}
+			set{ _data_content=value;}
+			get{return _data_content;}
 		}
 		#endregion Model
 

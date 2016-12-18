@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_RECORDS.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CTRLR_TASK.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_LOG_INFO.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_WEEKEX_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CTRLR_TASK.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_LOG_INFO.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_WEEKEX_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_CONNECT.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="SqlServerDb\Model\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_LOG_INFO.cs" />
