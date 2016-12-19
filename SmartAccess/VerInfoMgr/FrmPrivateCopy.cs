@@ -234,7 +234,8 @@ namespace SmartAccess.VerInfoMgr
                                 IS_UPLOAD = false,
                                 STAFF_ID = item.ID,
                                 UPLOAD_TIME = DateTime.Now,
-                                DOOR_ID = newdoor.DOOR_ID
+                                DOOR_ID = newdoor.DOOR_ID,
+                                TIME_NUM = newdoor.TIME_NUM
                             });
                         }
                     }

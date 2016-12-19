@@ -1538,7 +1538,7 @@ namespace SmartAccess.VerInfoMgr
 	                            {
                                     str= str.Substring(0,index);
 	                            }
-                                var models = staffBll.GetModelList("REAL_NAME='" + str + "'");
+                                var models = staffBll.GetModelList("REAL_NAME='" + str + "' and IS_DELETE = 0");
                                 if (models.Count>0)
                                 {
                                     models[0].PHOTO = bts;

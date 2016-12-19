@@ -903,6 +903,7 @@
     <None Include="Images\欢迎.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Common\Database\smartaccess_imscreate.sql" />
     <Content Include="logo1.ico" />
     <None Include="Resources\house1818.png" />
     <None Include="Resources\door1818.png" />

@@ -243,6 +243,8 @@ namespace SmartAccess
             config.database = "master";
             string sqlstring = config.ToString();
             string createDBSql = GetFileSql("smartaccess_createall.sql");
+            string createDBSqlIms = GetFileSql("smartaccess_imscreate.sql");
+
             string beforeDBSql = GetFileSql("smartaccess_before.sql");
             string dataDBSql = GetFileSql("smartaccess_data.sql");
             string updateDBSql = GetFileSql("smartaccess_update.sql");
@@ -259,10 +261,12 @@ namespace SmartAccess
                 else
                 {
                     var list = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var listIms = createDBSqlIms.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
                     var beforeList = beforeDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
                     var dataList = dataDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
                     sqlList.AddRange(beforeList);
                     sqlList.AddRange(list);
+                    sqlList.AddRange(listIms);
                     sqlList.AddRange(dataList);
                 }
                 using (SqlCommand command = conn.CreateCommand())
