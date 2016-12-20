@@ -15,6 +15,7 @@ using System.IO;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.Database;
 using Li.UdpMessageQueue;
+using SmartAccess.RealDetectMgr;
 
 namespace SmartAccess
 {
@@ -117,18 +118,21 @@ namespace SmartAccess
             smtNavigate.Main = this;
             try
             {
-                Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
-                var configs = dicBll.GetModelList("DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER'");
-                if (configs.Count > 0)
+                if (PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.REAL_ALARM_DETECT))
                 {
-                    log.Info("报警服务器地址为：" + configs[0].DATA_VALUE);
-                    consumerClient = new ConsumerClient(configs[0].DATA_VALUE);
-                    consumerClient.MessageRecieved += consumerClient_MessageRecieved;
-                    consumerClient.Start();
-                }
-                else
-                {
-                    log.Error("没有报警服务器地址,请在数据库中配置报警服务地址！其中 DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER' DATA_VALUE为配置值，如：192.168.1.1:56010");
+                    Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                    var configs = dicBll.GetModelList("DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER'");
+                    if (configs.Count > 0)
+                    {
+                        log.Info("报警服务器地址为：" + configs[0].DATA_VALUE);
+                        consumerClient = new ConsumerClient(configs[0].DATA_VALUE);
+                        consumerClient.MessageRecieved += consumerClient_MessageRecieved;
+                        consumerClient.Start();
+                    }
+                    else
+                    {
+                        log.Error("没有报警服务器地址,请在数据库中配置报警服务地址！其中 DATA_TYPE='ALARM_INFO' and DATA_KEY='ALARM_SERVER' DATA_VALUE为配置值，如：192.168.1.1:56010");
+                    }
                 }
             }
             catch (Exception ex)
@@ -144,11 +148,14 @@ namespace SmartAccess
                 try
                 {
                     decimal alarmId = consumerClient.ParseMessage<decimal>(msg);
-                    Maticsoft.BLL.SMT_ALARM_INFO alarmBll = new Maticsoft.BLL.SMT_ALARM_INFO();
-                    var alarmInfo = alarmBll.GetModel(alarmId);
-                    if (alarmInfo != null)
+                    this.Invoke(new Action(() =>
                     {
-                        
+                        smtNavigate.ShowRealAlarm();
+                    }));
+                   
+                    if (AlarmRealDetect.Instace != null)
+                    {
+                        AlarmRealDetect.Instace.AddRealAlarm(alarmId);
                     }
                 }
                 catch (Exception ex)
@@ -232,13 +239,16 @@ namespace SmartAccess
             }
         }
 
-        public bool CheckControl(Type ctrlType)
+        public bool CheckControl(Type ctrlType,bool isselect=true)
         {
             foreach (SuperTabItem item in this.superTabControl.Tabs)
             {
                 if(item.AttachedControl.Controls[0].GetType()==ctrlType)
                 {
-                    this.superTabControl.SelectedTab = item;
+                    if (isselect)
+                    {
+                        this.superTabControl.SelectedTab = item;
+                    }
                     return true;
                 }
             }

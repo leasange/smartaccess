@@ -14,6 +14,7 @@ namespace SmartAccess
     public partial class SmtNavigate : UserControl
     {
         private List<ExpandItem> MenuItems = new List<ExpandItem>();
+        private ExpandItem RealItem = null;
         public FrmMain Main = null;
         public SmtNavigate()
         {
@@ -43,7 +44,9 @@ namespace SmartAccess
                 {
                     new ExpandItem("门禁出入查询", Properties.Resources.门禁出入查询, SYS_FUN_POINT.ACCESS_RECORD,typeof(InfoSearchMgr.AccessInOutRecordInfos)),
                     new ExpandItem("人员轨迹查询", Properties.Resources.dkq_2525,SYS_FUN_POINT.STAFF_ROUTE,typeof(InfoSearchMgr.StaffRouteInfo)),
-                    new ExpandItem("操作日志查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.LOG_INFO,typeof(InfoSearchMgr.OprLogsInfo))
+                    new ExpandItem("操作日志查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.LOG_INFO,typeof(InfoSearchMgr.OprLogsInfo)),
+                    new ExpandItem("报警信息查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.ALARM_INFO,typeof(InfoSearchMgr.AlarmInfo)),
+                    
                 });
             MenuItems.Add(infoSearchMgr);
 
@@ -64,10 +67,12 @@ namespace SmartAccess
             MenuItems.Add(ctrlMgr);
 
             ExpandItem realMgr = new ExpandItem("实时监控管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_DETECT_MGR);
+            RealItem=new ExpandItem("报警实时监控", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ALARM_DETECT, typeof(RealDetectMgr.AlarmRealDetect));
             realMgr.Items.AddRange(new ExpandItem[]
                 {
                     new ExpandItem("实时地图显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_MAP, typeof(RealDetectMgr.RealMapDetect)),
-                    new ExpandItem("实时状态显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ACCESS_STATE, typeof(RealDetectMgr.RealDoorState))
+                    new ExpandItem("实时状态显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ACCESS_STATE, typeof(RealDetectMgr.RealDoorState)),
+                    RealItem
                  });
             MenuItems.Add(realMgr);
 
@@ -147,26 +152,39 @@ namespace SmartAccess
             }
             return PrivateMgr.FUN_POINTS.Contains(funPoint);
         }
-
-        private void ShowItem(ExpandItem item)
+        public void ShowRealAlarm()
         {
-            if (item.controlType!=null)
+            ShowItem(RealItem,false);
+        }
+        private void ShowItem(ExpandItem item,bool isselect=true)
+        {
+            if (item.controlType != null)
             {
-                Control ctrl = Activator.CreateInstance(item.controlType) as Control;
-                if (ctrl!=null)
+                if (Main != null)
                 {
-                    if (Main != null)
+                    if (!item.controlType.IsSubclassOf(typeof(Form)))
                     {
-                        if (ctrl is Form)
+                        if (Main.CheckControl(item.controlType, isselect))
                         {
-                            Form frm = (Form)ctrl;
-                            frm.ShowDialog(this);
+                            return;
                         }
-                        else
+                    }
+                    Control ctrl = Activator.CreateInstance(item.controlType) as Control;
+                    if (ctrl != null)
+                    {
+                        if (Main != null)
                         {
-                            if (!Main.CheckControl(item.controlType))
+                            if (ctrl is Form)
                             {
-                                Main.AddControl(ctrl, item.name,item.image);
+                                Form frm = (Form)ctrl;
+                                frm.ShowDialog(this);
+                            }
+                            else
+                            {
+                                if (!Main.CheckControl(item.controlType,isselect))
+                                {
+                                    Main.AddControl(ctrl, item.name, item.image);
+                                }
                             }
                         }
                     }

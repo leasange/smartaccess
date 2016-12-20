@@ -75,10 +75,12 @@ namespace SmartAccess
         ACCESS_RECORD,//	门禁出入查询
         STAFF_ROUTE,//	人员轨迹查询
         LOG_INFO,//	操作日志查询
+        ALARM_INFO,
         ACCESS_RECORD_STA,//	门禁出入统计
         CTRLR_INFO,//	控制器管理
         REAL_MAP,//	实时地图显示
         REAL_ACCESS_STATE,//	实时状态显示
+         REAL_ALARM_DETECT,//报警实时监控
         CTRLR_TASK,//	控制定时任务
         ALARM_CONNECT_SETTING,//报警联动设定
         MAP_CONFIG,//	地图编辑配置

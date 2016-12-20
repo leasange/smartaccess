@@ -80,8 +80,8 @@ namespace SmartAccess.InfoSearchMgr
 
             if (cboDoorTree.SelectedNode != null && cboDoorTree.SelectedNode.Tag != null)
             {
-                var orgs = GetSelectNodes<Maticsoft.Model.SMT_DOOR_INFO>(cboDoorTree.SelectedNode);
-                foreach (var item in orgs)
+                var doors = GetSelectNodes<Maticsoft.Model.SMT_DOOR_INFO>(cboDoorTree.SelectedNode);
+                foreach (var item in doors)
                 {
                     doorIds += item.ID + ",";
                 }

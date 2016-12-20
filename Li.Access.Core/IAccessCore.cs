@@ -481,6 +481,54 @@ namespace Li.Access.Core
             }
             return str;
         }
+
+    }
+    public class AlarmTypeName
+    {
+        public RecordReasonNo Reason = RecordReasonNo.DeniedAccess;
+        public string Name = "";
+        public AlarmTypeName(RecordReasonNo reason)
+        {
+            Reason = reason;
+            Name = AccessHelper.GetRecordReasonString(reason);
+        }
+        public override string ToString()
+        {
+            return Name;
+        }
+        public static IEnumerable<AlarmTypeName> GetAlarmTypes()
+        {
+            List<RecordReasonNo> reasons = new List<RecordReasonNo>()
+            {
+                RecordReasonNo.DeniedAccessPCControl,
+                    RecordReasonNo.DeniedAccessNoPRIVILEGE,
+                    RecordReasonNo.DeniedAccessWrongPASSWORD,
+                    RecordReasonNo.DeniedAccessAntiBack,
+                    RecordReasonNo.DeniedAccessMoreCards,
+                    RecordReasonNo.DeniedAccessFirstCardOpen,
+                    RecordReasonNo.DeniedAccessDoorSetNC,
+                    RecordReasonNo.DeniedAccessInterLock,
+                    RecordReasonNo.DeniedAccessLimitedTimes,
+                    RecordReasonNo.DeniedAccessInvalidTimezone,
+                    RecordReasonNo.DeniedAccess,
+                    RecordReasonNo.PushButtonInvalidForcedLock,
+                    RecordReasonNo.PushButtonInvalidNotOnLine,
+                    RecordReasonNo.PushButtonInvalidInterLock,
+                    RecordReasonNo.Threat,
+                    RecordReasonNo.OpenTooLong,
+                    RecordReasonNo.ForcedOpen,
+                    RecordReasonNo.Fire,
+                    RecordReasonNo.ForcedClose,
+                    RecordReasonNo.GuardAgainstTheft,
+                    RecordReasonNo.H7X24HourZone,
+                    RecordReasonNo.EmergencyCall
+            };
+            foreach (var item in reasons)
+            {
+                AlarmTypeName atn = new AlarmTypeName(item);
+                yield return atn;
+            }
+        }
     }
 
     public delegate void AccessDataCallBackHandler(ControllerState record,int port);

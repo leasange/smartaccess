@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace Li.UdpMessageQueue
 {
@@ -66,6 +67,7 @@ namespace Li.UdpMessageQueue
             if (udpClient == null)
             {
                 udpClient = new UdpClient(UnitsHepler.GetNextAvailableNetPort(10000));
+                udpClient.Client.ReceiveTimeout = 4000;
                 timerSend = new System.Timers.Timer(10000);
                 timerSend.Elapsed += timerSend_Elapsed;
                 timerSend.Start();
@@ -140,8 +142,17 @@ namespace Li.UdpMessageQueue
             }
             catch (Exception ex)
             {
+                log.Error("BeginRecieve Error:", ex);
+                if (udpClient==null)
+                {
+                    return;
+                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                {
+                    Thread.Sleep(1400);
+                    BeginRecieve();
+                }));
             }
-
         }
         private void DoRecieveCallBack(IAsyncResult ar)
         {

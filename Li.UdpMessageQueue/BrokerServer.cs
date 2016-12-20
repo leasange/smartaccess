@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Li.UdpMessageQueue
@@ -114,6 +115,16 @@ namespace Li.UdpMessageQueue
             }
             catch (Exception ex)
             {
+                log.Error("BeginRecieve Error:", ex);
+                if (udpServer == null)
+                {
+                    return;
+                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                {
+                    Thread.Sleep(1400);
+                    BeginRecieve();
+                }));
             }
 
         }
