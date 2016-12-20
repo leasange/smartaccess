@@ -48,6 +48,7 @@ namespace SmartAccess
         }
         private static void CreateFunPoint(List<Maticsoft.Model.SMT_FUN_MENUPOINT> list)
         {
+            FUN_POINTS.Clear();
             foreach (var item in list)
             {
                 SYS_FUN_POINT funPoint;
