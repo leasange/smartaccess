@@ -16,7 +16,6 @@ namespace Li.Controls.ImageEditors
         public ClipCoverController ClipConver
         {
             get { return _clipConver; }
-            set { _clipConver = value; }
         }
         public Image Image
         {

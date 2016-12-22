@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Li.Controls.ImageEditors;
+using Li.Controls.ImageEditors.Covers;
 
 namespace Li.Controls
 {
     public partial class ImageEditor : UserControl
     {
         private EditorState _editorState = EditorState.None;
+        private static int _staW = 3;
+        private static int _staH = 4;
         private Bitmap _baseImage = null;
         //显示的原始图片
         public System.Drawing.Bitmap BaseImage
@@ -53,11 +56,31 @@ namespace Li.Controls
         }
         private void DoSetViewMultiple(double val,bool updateBar)
         {
-            if (val <= 0.01d)
+            if (pictureBox.ClipConver.ClipState)
             {
                 return;
             }
-            else if (val > 10)
+            double min = 0.01d;
+            double max = 10;
+            int w = 100;
+            int h = 200;
+            if (_baseImage!=null)
+            {
+                w = _baseImage.Width;
+                h = _baseImage.Height;
+            }
+            if (_resultImage!=null)
+            {
+                w = _resultImage.Width;
+                h = _resultImage.Height;
+            }
+            min = 1d / w;
+            max = 30;
+            if (val <= min)
+            {
+                return;
+            }
+            else if (val > max)
             {
                 return;
             }
@@ -99,7 +122,15 @@ namespace Li.Controls
         {
             InitializeComponent();
             pictureBox.MouseWheel += pictureBox_MouseWheel;
-            
+            pictureBox.ClipConver.EndClipEvent += ClipConver_EndClipEvent;
+            tbClipWidth.Text = _staW.ToString();
+            tbClipHeight.Text = _staH.ToString();
+        }
+
+        private void ClipConver_EndClipEvent(RectangleF radio)
+        {
+            ClipImageFilter clip = new ClipImageFilter(radio);
+            AddFilter(clip);
         }
 
         private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
@@ -109,6 +140,11 @@ namespace Li.Controls
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
+            var p = plImageBack.PointToClient(Cursor.Position);
+            if (!new Rectangle(0,0,plImageBack.Width,plImageBack.Height).Contains(p))
+            {
+                return;
+            }
             viewSizeSlider.Tag = "1";
             if (e.Delta>0)
             {
@@ -118,6 +154,7 @@ namespace Li.Controls
             {
                 this.ViewMultiple = this.ViewMultiple / 1.1;
             }
+            base.OnMouseWheel(e);
         }
         /// <summary>
         /// 更新显示大小
@@ -144,9 +181,19 @@ namespace Li.Controls
                 }
                 else
                 {
+                    plImageBack.SuspendLayout();
                     plImageBack.AutoScroll = false;
-                    pictureBox.SetBounds(0, 0, (int)dw, (int)dh);
+                    if (x>0)
+                    {
+                        pictureBox.SetBounds((int)x, pictureBox.Top, (int)dw, (int)dh);
+                    }
+                    else if (y>0)
+                    {
+                         pictureBox.SetBounds(pictureBox.Left, (int)y, (int)dw, (int)dh);
+                    }
+                    else  pictureBox.SetBounds(0, 0, (int)dw, (int)dh);
                     plImageBack.AutoScroll = true;
+                    plImageBack.ResumeLayout();
                 }
 
                 lbImageState.Text = "宽:" + _resultImage.Width + " 高:" + _resultImage.Height + " 显示比例:" + (int)(_viewMultiple * 100) + "%";
@@ -185,7 +232,25 @@ namespace Li.Controls
                 UpdateViewSize();
             }
         }
-
+        public void AddFilter(IImageFilter filter)
+        {
+            if (_baseImage==null)
+            {
+                return;
+            }
+            if (filter==null)
+            {
+                return;
+            }
+            if (_resultImage==null)
+            {
+                _resultImage = (Bitmap)_baseImage.Clone();
+            }
+            _resultImage = filter.Proccess(_resultImage, true);
+            _filters.Add(filter);
+            pictureBox.Image = _resultImage;
+            UpdateViewSize();
+        }
         protected override void OnHandleDestroyed(EventArgs e)
         {
             if (_baseImage != null)
@@ -213,7 +278,37 @@ namespace Li.Controls
         /// </summary>
         public void DoClipAction()
         {
-            pictureBox.ClipConver.BeginClip(RectangleF.Empty);
+            ClipModel model = ClipModel.Auto;
+            SizeF size = SizeF.Empty;
+            if (cbClipItem.SelectedIndex==1)
+            {
+                model = ClipModel.FixedRatio;
+                int w = 3;
+                if (!int.TryParse(tbClipWidth.Text, out w))
+                {
+                    w = 3;
+                }
+                if (w<=0)
+                {
+                    w = 3;
+                }
+                tbClipWidth.Text = w.ToString();
+                int h = 4;
+                if (!int.TryParse(tbClipHeight.Text,out h))
+                {
+                    h = 4;
+                }
+                if (h<=0)
+                {
+                    h = 4;
+                }
+                tbClipHeight.Text = h.ToString();
+                pictureBox.ClipConver.BeginClip(new SizeF(w,h),model);
+            }
+            else
+            {
+                pictureBox.ClipConver.BeginClip(SizeF.Empty);
+            }
             UpdateResultImage();
         }
         /// <summary>
@@ -226,6 +321,7 @@ namespace Li.Controls
                 try
                 {
                     Bitmap bitmap = (Bitmap)Bitmap.FromFile(openImageDlg.FileName);
+                    _filters.Clear();
                     this.BaseImage = (Bitmap)bitmap.Clone();
                 }
                 catch (Exception ex)
@@ -263,6 +359,21 @@ namespace Li.Controls
             {
                 this.ViewMultiple = 0.01 + viewSizeSlider.Value / (double)viewSizeSlider.Maximum * (10 - 0.01);
             }
+        }
+
+        private void lbReset100_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.ViewMultiple = 1;
+        }
+
+        private void llReset50_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.ViewMultiple = 0.5;
+        }
+
+        private void llReset200_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.ViewMultiple = 2;
         }
     }
 }

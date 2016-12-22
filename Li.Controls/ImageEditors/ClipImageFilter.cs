@@ -40,29 +40,52 @@ namespace Li.Controls.ImageEditors
             {
                 return null;
             }
-            try
+            Bitmap bitmap = null;
+            if (_ratioRect == RectangleF.Empty)
             {
-                if (_ratioRect == RectangleF.Empty)
-                {
-                    Bitmap bitmap = (Bitmap)inBitmap.Clone();
-                    return bitmap;
-                }
+                bitmap = (Bitmap)inBitmap.Clone();
+            }
+            else
+            {
                 float left = _ratioRect.Left * inBitmap.Width;
                 float top = _ratioRect.Top * inBitmap.Height;
                 float w = _ratioRect.Width * inBitmap.Width;
                 float h = _ratioRect.Height * inBitmap.Height;
                 RectangleF rect = new RectangleF(left, top, w, h);
-                Bitmap bm = inBitmap.Clone(rect, inBitmap.PixelFormat);
-                return bm;
-            }
-            finally
-            {
-                if (disposeOrigin)
+                if (rect.X<0)
                 {
-                    inBitmap.Dispose();
+                    rect.Width += rect.X;
+                    rect.X = 0;
                 }
+                if (rect.Y<0)
+                {
+                    rect.Height += rect.Y;
+                    rect.Y = 0;
+                }
+                if (rect.X >= inBitmap.Width || rect.Y >= inBitmap.Height)
+                {
+                    return (Bitmap)inBitmap.Clone();
+                }
+                if (rect.X+rect.Width > inBitmap.Width)
+                {
+                    rect.Width = inBitmap.Width - rect.X;
+                }
+                if (rect.Y+rect.Height>inBitmap.Height)
+                {
+                    rect.Height = inBitmap.Height - rect.Y;
+                }
+                if (rect.Width<=2||rect.Height<=2)
+                {
+                    return (Bitmap)inBitmap.Clone();
+                }
+                bitmap = inBitmap.Clone(rect, inBitmap.PixelFormat);
             }
-            
+
+            if (disposeOrigin)
+            {
+                inBitmap.Dispose();
+            }
+            return bitmap;
         }
     }
 }

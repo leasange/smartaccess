@@ -91,7 +91,6 @@
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageEditors\ClipImageFilter.cs" />
-    <Compile Include="ImageEditors\ClipPreviewFilter.cs" />
     <Compile Include="ImageEditors\Covers\ClipCoverController.cs" />
     <Compile Include="ImageEditors\IImageFilter.cs" />
     <Compile Include="ImageEditors\PicturePanel.cs">
@@ -182,7 +181,21 @@
   <ItemGroup>
     <None Include="Resources\部门管理.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\cursor_color.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor_cross.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor_default.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor_red.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor_text.cur" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

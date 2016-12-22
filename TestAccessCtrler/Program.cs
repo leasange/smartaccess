@@ -15,7 +15,7 @@ namespace TestAccessCtrler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmUdpBroadcastTest());
+            Application.Run(new FrmImageEditor());
         }
     }
 }
