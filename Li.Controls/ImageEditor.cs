@@ -17,6 +17,18 @@ namespace Li.Controls
         private static int _staW = 3;
         private static int _staH = 4;
         private Bitmap _baseImage = null;
+        public bool OpenButtonVisible
+        {
+            get
+            {
+                return this.biOpen.Visible;
+            }
+            set
+            {
+                this.biOpen.Visible = value;
+            }
+        }
+
         //显示的原始图片
         public System.Drawing.Bitmap BaseImage
         {
@@ -127,6 +139,20 @@ namespace Li.Controls
             tbClipHeight.Text = _staH.ToString();
         }
 
+        public new void Dispose()
+        {
+            if (_baseImage != null)
+            {
+                _baseImage.Dispose();
+                _baseImage = null;
+            }
+            if (_resultImage != null)
+            {
+                pictureBox.Image = null;
+                _resultImage.Dispose();
+                _resultImage = null;
+            } 
+        }
         private void ClipConver_EndClipEvent(RectangleF radio)
         {
             ClipImageFilter clip = new ClipImageFilter(radio);
@@ -252,19 +278,7 @@ namespace Li.Controls
             UpdateViewSize();
         }
         protected override void OnHandleDestroyed(EventArgs e)
-        {
-            if (_baseImage != null)
-            {
-                _baseImage.Dispose();
-                _baseImage = null;
-            }
-            if (_resultImage != null)
-            {
-                pictureBox.Image = null;
-                _resultImage.Dispose();
-                _resultImage = null;
-            }
-            
+        {  
             base.OnHandleDestroyed(e);
         }
 
@@ -280,11 +294,11 @@ namespace Li.Controls
         {
             ClipModel model = ClipModel.Auto;
             SizeF size = SizeF.Empty;
-            if (cbClipItem.SelectedIndex==1)
+            if (cbClipItem.SelectedIndex>=1)
             {
                 model = ClipModel.FixedRatio;
-                int w = 3;
-                if (!int.TryParse(tbClipWidth.Text, out w))
+                float w = 3;
+                if (!float.TryParse(tbClipWidth.Text, out w))
                 {
                     w = 3;
                 }
@@ -293,8 +307,8 @@ namespace Li.Controls
                     w = 3;
                 }
                 tbClipWidth.Text = w.ToString();
-                int h = 4;
-                if (!int.TryParse(tbClipHeight.Text,out h))
+                float h = 4;
+                if (!float.TryParse(tbClipHeight.Text, out h))
                 {
                     h = 4;
                 }
@@ -341,6 +355,16 @@ namespace Li.Controls
         {
             tbClipWidth.Enabled = cbClipItem.SelectedIndex != 0;
             tbClipHeight.Enabled = cbClipItem.SelectedIndex != 0;
+            if (cbClipItem.SelectedIndex==2)
+            {
+                tbClipWidth.Text = "2.5";
+                tbClipHeight.Text = "3.5";
+            }
+            else if (cbClipItem.SelectedIndex == 3)
+            {
+                tbClipWidth.Text = "3.5";
+                tbClipHeight.Text = "5.3";
+            }
         }
 
         private void biOpen_Click(object sender, EventArgs e)
@@ -374,6 +398,15 @@ namespace Li.Controls
         private void llReset200_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.ViewMultiple = 2;
+        }
+
+        private void biCancel_Click(object sender, EventArgs e)
+        {
+            if(this._filters.Count>0)
+            {
+                this._filters.RemoveAt(this._filters.Count - 1);
+                UpdateResultImage();
+            }
         }
     }
 }

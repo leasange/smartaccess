@@ -388,7 +388,7 @@ namespace SmartAccess.VerInfoMgr
                             }
                             else
                             {
-                                WinInfoHelper.ShowInfoWindow(this, "权限上传成功！");
+                                WinInfoHelper.ShowInfoWindow(this, "权限上传结束！");
                             }
                         });
                         waiting.Show(this);

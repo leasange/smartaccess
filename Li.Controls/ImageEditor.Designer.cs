@@ -50,7 +50,10 @@
             this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
             this.plImageBack = new System.Windows.Forms.Panel();
             this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
+            this.comboItem3 = new DevComponents.Editors.ComboItem();
+            this.comboItem4 = new DevComponents.Editors.ComboItem();
             this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
+            this.biCancel = new DevComponents.DotNetBar.ButtonItem();
             this.plState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).BeginInit();
             this.plImageBack.SuspendLayout();
@@ -164,7 +167,8 @@
             this.labelItem2,
             this.tbClipHeight,
             this.biClip,
-            this.labelItem4});
+            this.labelItem4,
+            this.biCancel});
             this.barProccess.Location = new System.Drawing.Point(0, 0);
             this.barProccess.Name = "barProccess";
             this.barProccess.RoundCorners = false;
@@ -199,7 +203,9 @@
             this.cbClipItem.ItemHeight = 17;
             this.cbClipItem.Items.AddRange(new object[] {
             this.comboItem1,
-            this.comboItem2});
+            this.comboItem2,
+            this.comboItem3,
+            this.comboItem4});
             this.cbClipItem.Name = "cbClipItem";
             this.cbClipItem.SelectedIndexChanged += new System.EventHandler(this.cbClipItem_SelectedIndexChanged);
             // 
@@ -238,6 +244,8 @@
             // biClip
             // 
             this.biClip.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClip.Image = global::Li.Controls.Properties.Resources.clip;
+            this.biClip.ImageFixedSize = new System.Drawing.Size(12, 15);
             this.biClip.Name = "biClip";
             this.biClip.Text = "剪切";
             this.biClip.Click += new System.EventHandler(this.biClip_Click);
@@ -263,6 +271,14 @@
             this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
             this.openImageDlg.Title = "打开图片文件";
             // 
+            // comboItem3
+            // 
+            this.comboItem3.Text = "一寸比例";
+            // 
+            // comboItem4
+            // 
+            this.comboItem4.Text = "二寸比例";
+            // 
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.White;
@@ -272,6 +288,14 @@
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(235, 158);
             this.pictureBox.TabIndex = 0;
+            // 
+            // biCancel
+            // 
+            this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCancel.ImageFixedSize = new System.Drawing.Size(12, 15);
+            this.biCancel.Name = "biCancel";
+            this.biCancel.Text = "撤销";
+            this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
             // 
             // ImageEditor
             // 
@@ -317,5 +341,8 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.LinkLabel llReset50;
         private System.Windows.Forms.LinkLabel llReset200;
+        private DevComponents.Editors.ComboItem comboItem3;
+        private DevComponents.Editors.ComboItem comboItem4;
+        private DevComponents.DotNetBar.ButtonItem biCancel;
     }
 }

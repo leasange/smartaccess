@@ -20,6 +20,7 @@ namespace Li.Controls.ImageEditors.Covers
         private static Cursor _clipCursor = null;
         private SizeF _sizeF = SizeF.Empty;
         private ClipModel _clipModel = ClipModel.Auto;
+        private MouseState _mouseState = MouseState.Default;
         public event EndClipEventHandle EndClipEvent = null;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr LoadCursorFromFile(string fileName);
@@ -112,41 +113,191 @@ namespace Li.Controls.ImageEditors.Covers
             {
                 return;
             }
-            if (e.Button==MouseButtons.None&&_picPanel.Cursor!=_clipCursor)
+            if (e.Button==MouseButtons.None&&_mouseState!= MouseState.Clip)
             {
                 var p= _picPanel.PointToClient(Cursor.Position);
                 RectangleF rect = new RectangleF(_clipBounds.Left + 4, _clipBounds.Top + 4, _clipBounds.Width - 8, _clipBounds.Height - 8);
                 if (rect.Contains(p))
                 {
-                    _picPanel.Cursor = Cursors.SizeAll;
+                    SetActionState(MouseState.Move);
                 }
                 else
                 {
-                    _picPanel.Cursor = Cursors.Default;
+                    if ((p.X >= _clipBounds.Left && p.X <= _clipBounds.Left + 4 && p.Y >= _clipBounds.Top && p.Y <= _clipBounds.Top + 15) ||//LeftTop
+                        (p.X>=_clipBounds.Left&&p.X<=_clipBounds.Left+15&&p.Y>=_clipBounds.Top&&p.Y<=_clipBounds.Top+4))
+                    {
+                        SetActionState(MouseState.LeftTop);
+                    }
+                    else if (p.X>=(_clipBounds.Left+_clipBounds.Width/2-7.5)&&p.X<=(_clipBounds.Left+_clipBounds.Width/2+7.5)&&p.Y>=_clipBounds.Top&&p.Y<=_clipBounds.Top+4)//Top
+                    {
+                        SetActionState(MouseState.Top);
+                    }
+                    else if (p.X >= (_clipBounds.Left + _clipBounds.Width / 2 - 7.5) && p.X <= (_clipBounds.Left + _clipBounds.Width / 2 + 7.5) && p.Y >= _clipBounds.Bottom-4 && p.Y <= _clipBounds.Bottom)//Bottom
+                    {
+                        SetActionState(MouseState.Bottom);
+                    }
+                    else if ((p.X >= (_clipBounds.Right - 15) && p.X <= _clipBounds.Right && p.Y >= _clipBounds.Top && p.Y <= _clipBounds.Top+4)||
+                        (p.X>=_clipBounds.Right-4&&p.X<=_clipBounds.Right&&p.Y>=_clipBounds.Top&&p.Y<=_clipBounds.Top+15)
+                        )//RightTop
+                    {
+                        SetActionState(MouseState.RightTop);
+                    }
+                    else if (p.X>=_clipBounds.Left&&p.X<=_clipBounds.Left+4&&p.Y>=_clipBounds.Top+_clipBounds.Height/2-7.5&&p.Y<=_clipBounds.Top+_clipBounds.Height/2+7.5)//Left
+                    {
+                         SetActionState(MouseState.Left);
+                    }
+                    else if (p.X >= _clipBounds.Right-4 && p.X <= _clipBounds.Right && p.Y >= _clipBounds.Top + _clipBounds.Height / 2 - 7.5 && p.Y <= _clipBounds.Top + _clipBounds.Height / 2 + 7.5)//Left
+                    {
+                        SetActionState(MouseState.Right);
+                    }
+                    else if ((p.X>=_clipBounds.Left&&p.X<=_clipBounds.Left+4&&p.Y>=_clipBounds.Bottom-15&&p.Y<=_clipBounds.Bottom)||
+                         (p.X>=_clipBounds.Left&&p.X<=_clipBounds.Left+15&&p.Y>=_clipBounds.Bottom-4&&p.Y<=_clipBounds.Bottom))
+                    {
+                        SetActionState(MouseState.LeftBottom);
+                    }
+                    else if ((p.X>=_clipBounds.Right-4&&p.X<=_clipBounds.Right&&p.Y>=_clipBounds.Bottom-15&&p.Y<=_clipBounds.Bottom)||
+                        (p.X>=_clipBounds.Right-15&&p.X<=_clipBounds.Right&&p.Y>=_clipBounds.Bottom-4&&p.Y<=_clipBounds.Bottom))
+                    {
+                        SetActionState(MouseState.RightBottom);
+                    }
+                    else
+                    {
+                        SetActionState(MouseState.Default);
+                    }
                 }
             }
             if (e.Button== MouseButtons.Left)
             {
                 var p = _picPanel.PointToClient(Cursor.Position);
-                if (_picPanel.Cursor==_clipCursor)
+                if (_mouseState== MouseState.Clip)
                 {
                     int x = p.X < lastMousePoint.X ? p.X : lastMousePoint.X;
                     int y = p.Y < lastMousePoint.Y ? p.Y : lastMousePoint.Y;
                     int w = Math.Abs(p.X - lastMousePoint.X);
-                    int h = Math.Abs(p.Y - lastMousePoint.Y);
+                    float h = Math.Abs(p.Y - lastMousePoint.Y);
                     if (_clipModel == ClipModel.FixedRatio)
                     {
-                        h = (int)(_sizeF.Height / _sizeF.Width * w);
+                        h = _sizeF.Height / _sizeF.Width * w;
                     }
                     _clipBounds = new RectangleF(x, y, w, h);
                 }
-                else if (_picPanel.Cursor==Cursors.SizeAll)
+                else if (_mouseState== MouseState.Move)//移动
                 {
                     int dw = p.X - lastMousePoint.X;
                     int dh = p.Y - lastMousePoint.Y;
                     _clipBounds.X = _clipBounds.X + dw;
                     _clipBounds.Y = _clipBounds.Y + dh;
                     lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.Top)
+                {
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.Y = _clipBounds.Y + dh;
+                    _clipBounds.Height = _clipBounds.Height - dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Width = _sizeF.Width / _sizeF.Height * _clipBounds.Height;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.Bottom)
+                {
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.Height = _clipBounds.Height + dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Width = _sizeF.Width / _sizeF.Height * _clipBounds.Height;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.Left)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    _clipBounds.X = _clipBounds.X + dw;
+                    _clipBounds.Width = _clipBounds.Width - dw;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.Right)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    _clipBounds.Width = _clipBounds.Width + dw;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState== MouseState.LeftTop)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.X = _clipBounds.X + dw;
+                    _clipBounds.Width = _clipBounds.Width - dw;
+                    _clipBounds.Y = _clipBounds.Y + dh;
+                    _clipBounds.Height = _clipBounds.Height - dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.RightBottom)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.Width = _clipBounds.Width + dw;
+                    _clipBounds.Height = _clipBounds.Height + dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.RightTop)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.Y = _clipBounds.Y + dh;
+                    _clipBounds.Width = _clipBounds.Width + dw;
+                    _clipBounds.Height = _clipBounds.Height - dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                else if (_mouseState == MouseState.LeftBottom)
+                {
+                    int dw = p.X - lastMousePoint.X;
+                    int dh = p.Y - lastMousePoint.Y;
+                    _clipBounds.X = _clipBounds.X + dw;
+                    _clipBounds.Width = _clipBounds.Width - dw;
+                    _clipBounds.Height = _clipBounds.Height + dh;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                    lastMousePoint = p;
+                }
+                if (_clipBounds.Width<=5)
+                {
+                    _clipBounds.Width = 5;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Height = _sizeF.Height / _sizeF.Width * _clipBounds.Width;
+                    }
+                }
+                if (_clipBounds.Height <= 5)
+                {
+                    _clipBounds.Height = 5;
+                    if (_clipModel == ClipModel.FixedRatio)
+                    {
+                        _clipBounds.Width = _sizeF.Width / _sizeF.Height * _clipBounds.Height;
+                    }
                 }
                 _picPanel.Refresh();
             }
@@ -159,7 +310,7 @@ namespace Li.Controls.ImageEditors.Covers
             }
             if (e.Button== MouseButtons.Left)
 	        {
-                _picPanel.Cursor = Cursors.Default;
+                SetActionState(MouseState.Default);
 	        }
             else if (e.Button== MouseButtons.Right)
             {
@@ -251,7 +402,7 @@ namespace Li.Controls.ImageEditors.Covers
                 }
                 ClipState = true;
                 _clipBounds = RectangleF.Empty;
-                _picPanel.Cursor = _clipCursor;
+                SetActionState(MouseState.Clip);
                 _sizeF = size;
                 _clipModel = clipModel;
             }
@@ -283,12 +434,68 @@ namespace Li.Controls.ImageEditors.Covers
                 _picPanel.Invalidate();
             }
             _clipBounds = RectangleF.Empty;
-            _picPanel.Cursor = Cursors.Default;
+            SetActionState(MouseState.Default);
+        }
+        private void SetActionState(MouseState state)
+        {
+            _mouseState = state;
+            switch (_mouseState)
+            {
+                case MouseState.Default:
+                    _picPanel.Cursor = Cursors.Default;
+                    break;
+                case MouseState.Move:
+                    _picPanel.Cursor = Cursors.SizeAll;
+                    break;
+                case MouseState.Left:
+                    _picPanel.Cursor = Cursors.SizeWE;
+                    break;
+                case MouseState.Top:
+                    _picPanel.Cursor = Cursors.SizeNS;
+                    break;
+                case MouseState.Right:
+                    _picPanel.Cursor = Cursors.SizeWE;
+                    break;
+                case MouseState.Bottom:
+                    _picPanel.Cursor = Cursors.SizeNS;
+                    break;
+                case MouseState.LeftTop:
+                    _picPanel.Cursor = Cursors.SizeNWSE;
+                    break;
+                case MouseState.LeftBottom:
+                    _picPanel.Cursor = Cursors.SizeNESW;
+                    break;
+                case MouseState.RightTop:
+                    _picPanel.Cursor = Cursors.SizeNESW;
+                    break;
+                case MouseState.RightBottom:
+                    _picPanel.Cursor = Cursors.SizeNWSE;
+                    break;
+                case MouseState.Clip:
+                    _picPanel.Cursor = _clipCursor;
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public enum ClipModel
     {
         Auto,//自动
         FixedRatio,//固定比例
+    }
+    public enum MouseState
+    {
+        Default,
+        Move,
+        Left,
+        Top,
+        Right,
+        Bottom,
+        LeftTop,
+        LeftBottom,
+        RightTop,
+        RightBottom,
+        Clip
     }
 }

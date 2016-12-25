@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
+using Li.Controls;
 
 namespace SmartAccess.VerInfoMgr
 {
@@ -300,6 +301,21 @@ namespace SmartAccess.VerInfoMgr
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
- 
+
+        private void biEditor_Click(object sender, EventArgs e)
+        {
+            FrmImageEditor frmEditor = new FrmImageEditor();
+            frmEditor.LoadImage((Bitmap)picImage.Image);
+            if (frmEditor.ShowDialog(this)==DialogResult.OK)
+            {
+               Bitmap bitmap= frmEditor.ResultImage;
+               if (bitmap!=null)
+               {
+                   bitmap = (Bitmap)frmEditor.ResultImage.Clone();
+               }
+               picImage.Image = bitmap;
+               HasChanged = true;
+            }
+        }
     }
 }

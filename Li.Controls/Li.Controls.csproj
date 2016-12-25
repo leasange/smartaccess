@@ -84,6 +84,12 @@
       <DependentUpon>ExpandablePanelX.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportHelper.cs" />
+    <Compile Include="FrmImageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImageEditor.Designer.cs">
+      <DependentUpon>FrmImageEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     <EmbeddedResource Include="ExpandablePanelX.resx">
       <DependentUpon>ExpandablePanelX.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmImageEditor.resx">
+      <DependentUpon>FrmImageEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageEditor.resx">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cursor_text.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 ﻿using DevComponents.Editors;
 using Li.Access.Core;
 using Li.Access.Core.BJTWHCardIssue;
+using Li.Controls;
 using SmartAccess.Common.Config;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
@@ -476,6 +477,7 @@ namespace SmartAccess.VerInfoMgr
                     btnSave.Visible = false;
                     btnSaveAndUpload.Visible = false;
                     btnSelectPic.Visible = false;
+                    btnEditor.Visible = false;
                     picPhoto.DoubleClick -= picPhoto_DoubleClick;
                 }
                 else
@@ -726,6 +728,7 @@ namespace SmartAccess.VerInfoMgr
                         picPhoto.Image = null;
                     }
                     picPhoto.Image = (Image)frmGetPic.SelectImage.Clone();
+                    HasChanged = true;
                 }
             }
             lbPhotoTip.Visible = picPhoto.Image == null;
@@ -911,6 +914,26 @@ namespace SmartAccess.VerInfoMgr
                 ComboItem item = (ComboItem)cboVerTypeStyle.SelectedItem;
                 Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
                 tbVerNo.VerTextFormat = verModel.VER_FORMAT;
+            }
+        }
+
+        private void btnEditor_Click(object sender, EventArgs e)
+        {
+            if (picPhoto.Image==null)
+            {
+                return;
+            }
+            FrmImageEditor frmEditor = new FrmImageEditor();
+            frmEditor.LoadImage((Bitmap)picPhoto.Image);
+            if (frmEditor.ShowDialog(this) == DialogResult.OK)
+            {
+                Bitmap bitmap = frmEditor.ResultImage;
+                if (bitmap != null)
+                {
+                    bitmap = (Bitmap)frmEditor.ResultImage.Clone();
+                }
+                picPhoto.Image = bitmap;
+                HasChanged = true;
             }
         }
     }

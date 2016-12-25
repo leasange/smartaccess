@@ -99,6 +99,7 @@
             this.btnSelectPic = new DevComponents.DotNetBar.ButtonX();
             this.btnPrint = new DevComponents.DotNetBar.ButtonX();
             this.btnSetCard = new DevComponents.DotNetBar.ButtonX();
+            this.btnEditor = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -1158,7 +1159,7 @@
             this.btnSelectPic.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSelectPic.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSelectPic.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSelectPic.Location = new System.Drawing.Point(849, 250);
+            this.btnSelectPic.Location = new System.Drawing.Point(799, 249);
             this.btnSelectPic.Name = "btnSelectPic";
             this.btnSelectPic.Size = new System.Drawing.Size(77, 27);
             this.btnSelectPic.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1192,12 +1193,26 @@
             this.btnSetCard.Text = "发卡";
             this.btnSetCard.Click += new System.EventHandler(this.btnSetCard_Click);
             // 
+            // btnEditor
+            // 
+            this.btnEditor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnEditor.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnEditor.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnEditor.Location = new System.Drawing.Point(879, 249);
+            this.btnEditor.Name = "btnEditor";
+            this.btnEditor.Size = new System.Drawing.Size(44, 27);
+            this.btnEditor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnEditor.TabIndex = 31;
+            this.btnEditor.Text = "编辑";
+            this.btnEditor.Click += new System.EventHandler(this.btnEditor_Click);
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 637);
             this.Controls.Add(this.btnSetCard);
+            this.Controls.Add(this.btnEditor);
             this.Controls.Add(this.btnSelectPic);
             this.Controls.Add(this.tbVerNo);
             this.Controls.Add(this.btnShow);
@@ -1354,5 +1369,6 @@
         private DevComponents.DotNetBar.ButtonX btnSelectPic;
         private DevComponents.DotNetBar.ButtonX btnPrint;
         private DevComponents.DotNetBar.ButtonX btnSetCard;
+        private DevComponents.DotNetBar.ButtonX btnEditor;
     }
 }
