@@ -160,15 +160,15 @@ namespace SmartAccess.RealDetectMgr
                                 }
                                 if (doorstate)
                                 {
-                                    row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME, string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
+                                    row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME +(door.IS_ENTER1?"-进门":"-出门"), string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
                                 }
                                 else
                                 {
-                                    row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME, string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：当前状态=>{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
+                                    row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME + (door.IS_ENTER1 ? "-进门" : "-出门"), string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：当前状态=>{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
                                 }
                                 dgvRealLog.Rows.Insert(0, row);
-                                row.Tag = sinfo;
-                                ShowStaffInfo(sinfo,(DateTime)row.Cells[0].Value);
+                                row.Tag = new object[] { sinfo ,state};
+                                ShowStaffInfo(row, row.Tag as object[]);
                                 while (dgvRealLog.Rows.Count>2000)
                                 {
                                     dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
@@ -188,9 +188,9 @@ namespace SmartAccess.RealDetectMgr
                 }
             }));
         }
-        private void ShowStaffInfo(Maticsoft.Model.SMT_STAFF_INFO sinfo,DateTime time)
+        private void ShowStaffInfo(DataGridViewRow row,object[] infos)
         {
-            if (sinfo==null)
+            if (infos == null)
             {
                 return;
             }
@@ -201,15 +201,43 @@ namespace SmartAccess.RealDetectMgr
                     picBox.Image.Dispose();
                     picBox.Image = null;
                 }
+                Maticsoft.Model.SMT_STAFF_INFO sinfo = infos[0] as Maticsoft.Model.SMT_STAFF_INFO;
+                ControllerState state = infos[1] as ControllerState;
                 if (sinfo.PHOTO != null && sinfo.PHOTO.Length > 0)
                 {
                     MemoryStream ms = new MemoryStream(sinfo.PHOTO);
                     Image bitmap = Image.FromStream(ms);
                     picBox.Image = bitmap;
                 }
-                lbStaffName.Text = sinfo.REAL_NAME;
-                lbDeptName.Text = sinfo.ORG_NAME;
-                lbTime.Text = time.ToString("yyyy-MM-dd\r\nHH:mm:ss");
+                if (sinfo!=null)
+                {
+                    lbStaffName.Text = sinfo.REAL_NAME;
+                    lbDeptName.Text = sinfo.ORG_NAME;
+                }
+                else
+                {
+                    lbStaffName.Text = "----";
+                    lbDeptName.Text = "----";
+                }
+                if (state!=null)
+                {
+                    lbTime.Text = state.recordTime.ToString("yyyy-MM-dd HH:mm:ss ddd");
+                    if (row.Cells[1].Value!=null)
+                    {
+                        lbDoorName.Text = (string)row.Cells[1].Value;
+                    }
+                    else
+                    {
+                        lbDoorName.Text = "----";
+                    }
+                    lbAction.Text = AccessHelper.GetRecordReasonString(state.reasonNo).Replace(":","\r\n");
+                }
+                else
+                {
+                    lbTime.Text = ((DateTime)row.Cells[0].Value).ToString("yyyy-MM-dd HH:mm:ss ddd");
+                    lbDoorName.Text = "----";
+                    lbAction.Text = "----";
+                }
             }
             catch (Exception ex)
             {
@@ -673,7 +701,7 @@ namespace SmartAccess.RealDetectMgr
             if (e.RowIndex>=0)
             {
                 DataGridViewRow row = dgvRealLog.Rows[e.RowIndex];
-                ShowStaffInfo(row.Tag as Maticsoft.Model.SMT_STAFF_INFO, (DateTime)row.Cells[0].Value);
+                ShowStaffInfo(row, row.Tag as object[]);
             }
         }
     }
