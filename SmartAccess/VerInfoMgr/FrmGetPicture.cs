@@ -210,6 +210,24 @@ namespace SmartAccess.VerInfoMgr
             {
                 cboCameraList.SelectedIndex = 0;
             }
+            try
+            {
+                List<string> devices = WIAScanner.GetDevices();
+                foreach (var item in devices)
+                {
+                    cboScanner.Items.Add(item);
+                }
+                if (cboScanner.Items.Count>0)
+                {
+                    cboScanner.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "扫描仪设备加载失败！"+ex.Message);
+                log.Error("扫描仪设备加载失败：", ex);
+            }
+
         }
 
         private void FrmGetPicture_FormClosing(object sender, FormClosingEventArgs e)
@@ -315,6 +333,80 @@ namespace SmartAccess.VerInfoMgr
                }
                picImage.Image = bitmap;
                HasChanged = true;
+            }
+        }
+
+        private void biScan_Click(object sender, EventArgs e)
+        {
+            if(cboScanner.SelectedItem==null)
+            {
+                MessageBox.Show("未选择扫描仪！");
+                return;
+            }
+            List<Image> images = WIAScanner.Scan((string)cboScanner.SelectedItem);
+            if (images.Count>0)
+            {
+                for (int i = 0; i < images.Count; i++)
+                {
+                    if (i==0)
+                    {
+                        if(picBox1.Image!=null)
+                        {
+                            picBox1.Image.Dispose();
+                            picBox1.Image = null;
+                        }
+                        picBox1.Image = images[i];
+                        if (picImage.Image != null)
+                        {
+                            picImage.Image.Dispose();
+                            picImage.Image = null;
+                        }
+                        picImage.Image = (Image)images[i].Clone();
+                        HasChanged = true;
+                    }
+                    else if (i == 1)
+                    {
+                        if (picBox2.Image != null)
+                        {
+                            picBox2.Image.Dispose();
+                            picBox2.Image = null;
+                        }
+                        picBox2.Image = images[i];
+                    }
+                    else if (i == 2)
+                    {
+                        if (picBox3.Image != null)
+                        {
+                            picBox3.Image.Dispose();
+                            picBox3.Image = null;
+                        }
+                        picBox3.Image = images[i];
+                    }
+                    else if (i == 3)
+                    {
+                        if (picBox4.Image != null)
+                        {
+                            picBox4.Image.Dispose();
+                            picBox4.Image = null;
+                        }
+                        picBox4.Image = images[i];
+                    }
+                    else if (i == 4)
+                    {
+                        if (picBox5.Image != null)
+                        {
+                            picBox5.Image.Dispose();
+                            picBox5.Image = null;
+                        }
+                        picBox5.Image = images[i];
+                    }
+                }
+                for (int i = 5; i < images.Count; i++)
+                {
+                    Image image = images[i];
+                    images.Remove(image);
+                    image.Dispose();
+                }
             }
         }
     }

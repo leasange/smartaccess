@@ -39,7 +39,7 @@
             this.btnOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnOk.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOk.Location = new System.Drawing.Point(325, 417);
+            this.btnOk.Location = new System.Drawing.Point(333, 474);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(117, 39);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -54,7 +54,7 @@
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(465, 417);
+            this.btnCancel.Location = new System.Drawing.Point(473, 474);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(117, 39);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -71,7 +71,7 @@
             this.imageEditor.Name = "imageEditor";
             this.imageEditor.OpenButtonVisible = false;
             this.imageEditor.ProccessBarVisible = true;
-            this.imageEditor.Size = new System.Drawing.Size(830, 396);
+            this.imageEditor.Size = new System.Drawing.Size(845, 453);
             this.imageEditor.StateVisible = true;
             this.imageEditor.TabIndex = 0;
             this.imageEditor.ViewMultiple = 1D;
@@ -82,7 +82,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(833, 459);
+            this.ClientSize = new System.Drawing.Size(848, 516);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.imageEditor);

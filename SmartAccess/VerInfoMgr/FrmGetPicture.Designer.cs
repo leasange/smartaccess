@@ -36,6 +36,7 @@
             this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
+            this.biEditor = new DevComponents.DotNetBar.ButtonItem();
             this.panelVideo = new System.Windows.Forms.Panel();
             this.cameraControl = new Camera_NET.CameraControl();
             this.timerCapture = new System.Windows.Forms.Timer(this.components);
@@ -43,13 +44,17 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.biEditor = new DevComponents.DotNetBar.ButtonItem();
             this.picBox5 = new System.Windows.Forms.PictureBox();
             this.picBox4 = new System.Windows.Forms.PictureBox();
             this.picBox3 = new System.Windows.Forms.PictureBox();
             this.picBox2 = new System.Windows.Forms.PictureBox();
             this.picBox1 = new System.Windows.Forms.PictureBox();
             this.picImage = new System.Windows.Forms.PictureBox();
+            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
+            this.cboScanner = new DevComponents.DotNetBar.ComboBoxItem();
+            this.biScan = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
+            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.panelVideo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox5)).BeginInit();
@@ -68,16 +73,21 @@
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biOpenLocalPic,
             this.biSave,
+            this.labelItem2,
+            this.cboScanner,
+            this.biScan,
+            this.labelItem3,
             this.labelItem1,
             this.cboCameraList,
             this.biOpenCamera,
             this.biCaptureVideo,
+            this.labelItem4,
             this.biEditor});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bar1.Name = "bar1";
             this.bar1.RoundCorners = false;
-            this.bar1.Size = new System.Drawing.Size(843, 28);
+            this.bar1.Size = new System.Drawing.Size(848, 28);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 0;
@@ -98,7 +108,6 @@
             // 
             // labelItem1
             // 
-            this.labelItem1.ForeColor = System.Drawing.Color.Black;
             this.labelItem1.Name = "labelItem1";
             this.labelItem1.Text = "摄像头:";
             // 
@@ -120,6 +129,12 @@
             this.biCaptureVideo.Name = "biCaptureVideo";
             this.biCaptureVideo.Text = "拍照";
             this.biCaptureVideo.Click += new System.EventHandler(this.biCaptureVideo_Click);
+            // 
+            // biEditor
+            // 
+            this.biEditor.Name = "biEditor";
+            this.biEditor.Text = "编辑";
+            this.biEditor.Click += new System.EventHandler(this.biEditor_Click);
             // 
             // panelVideo
             // 
@@ -162,7 +177,7 @@
             this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnOk.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOk.Location = new System.Drawing.Point(320, 460);
+            this.btnOk.Location = new System.Drawing.Point(322, 472);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(106, 32);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -175,19 +190,13 @@
             this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(439, 460);
+            this.btnCancel.Location = new System.Drawing.Point(441, 472);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(106, 32);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // biEditor
-            // 
-            this.biEditor.Name = "biEditor";
-            this.biEditor.Text = "编辑";
-            this.biEditor.Click += new System.EventHandler(this.biEditor_Click);
             // 
             // picBox5
             // 
@@ -260,11 +269,39 @@
             this.picImage.TabIndex = 1;
             this.picImage.TabStop = false;
             // 
+            // labelItem2
+            // 
+            this.labelItem2.Name = "labelItem2";
+            this.labelItem2.Text = "扫描仪:";
+            // 
+            // cboScanner
+            // 
+            this.cboScanner.ComboWidth = 150;
+            this.cboScanner.DropDownHeight = 120;
+            this.cboScanner.ItemHeight = 17;
+            this.cboScanner.Name = "cboScanner";
+            // 
+            // biScan
+            // 
+            this.biScan.Name = "biScan";
+            this.biScan.Text = "扫描";
+            this.biScan.Click += new System.EventHandler(this.biScan_Click);
+            // 
+            // labelItem3
+            // 
+            this.labelItem3.Name = "labelItem3";
+            this.labelItem3.Text = "|";
+            // 
+            // labelItem4
+            // 
+            this.labelItem4.Name = "labelItem4";
+            this.labelItem4.Text = "|";
+            // 
             // FrmGetPicture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 513);
+            this.ClientSize = new System.Drawing.Size(848, 516);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.picBox5);
@@ -322,5 +359,10 @@
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
         private DevComponents.DotNetBar.ButtonItem biEditor;
+        private DevComponents.DotNetBar.LabelItem labelItem2;
+        private DevComponents.DotNetBar.ComboBoxItem cboScanner;
+        private DevComponents.DotNetBar.ButtonItem biScan;
+        private DevComponents.DotNetBar.LabelItem labelItem3;
+        private DevComponents.DotNetBar.LabelItem labelItem4;
     }
 }
