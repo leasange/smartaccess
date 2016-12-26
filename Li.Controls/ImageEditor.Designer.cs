@@ -42,18 +42,25 @@
             this.cbClipItem = new DevComponents.DotNetBar.ComboBoxItem();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
+            this.comboItem3 = new DevComponents.Editors.ComboItem();
+            this.comboItem4 = new DevComponents.Editors.ComboItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.tbClipWidth = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
             this.tbClipHeight = new DevComponents.DotNetBar.TextBoxItem();
-            this.biClip = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
+            this.biCancel = new DevComponents.DotNetBar.ButtonItem();
             this.plImageBack = new System.Windows.Forms.Panel();
             this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
-            this.comboItem3 = new DevComponents.Editors.ComboItem();
-            this.comboItem4 = new DevComponents.Editors.ComboItem();
+            this.biClip = new DevComponents.DotNetBar.ButtonItem();
+            this.biZoom = new DevComponents.DotNetBar.ButtonItem();
+            this.biRotate = new DevComponents.DotNetBar.ButtonItem();
+            this.biRotate90 = new DevComponents.DotNetBar.ButtonItem();
+            this.biReverse90 = new DevComponents.DotNetBar.ButtonItem();
+            this.biRotate180 = new DevComponents.DotNetBar.ButtonItem();
+            this.biFlipVertical = new DevComponents.DotNetBar.ButtonItem();
+            this.biFlipHorizintal = new DevComponents.DotNetBar.ButtonItem();
             this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
-            this.biCancel = new DevComponents.DotNetBar.ButtonItem();
             this.plState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).BeginInit();
             this.plImageBack.SuspendLayout();
@@ -167,6 +174,8 @@
             this.labelItem2,
             this.tbClipHeight,
             this.biClip,
+            this.biZoom,
+            this.biRotate,
             this.labelItem4,
             this.biCancel});
             this.barProccess.Location = new System.Drawing.Point(0, 0);
@@ -217,6 +226,14 @@
             // 
             this.comboItem2.Text = "固定比例";
             // 
+            // comboItem3
+            // 
+            this.comboItem3.Text = "一寸比例";
+            // 
+            // comboItem4
+            // 
+            this.comboItem4.Text = "二寸比例";
+            // 
             // labelItem1
             // 
             this.labelItem1.Name = "labelItem1";
@@ -241,19 +258,18 @@
             this.tbClipHeight.TextBoxWidth = 32;
             this.tbClipHeight.WatermarkColor = System.Drawing.SystemColors.GrayText;
             // 
-            // biClip
-            // 
-            this.biClip.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biClip.Image = global::Li.Controls.Properties.Resources.clip;
-            this.biClip.ImageFixedSize = new System.Drawing.Size(12, 15);
-            this.biClip.Name = "biClip";
-            this.biClip.Text = "剪切";
-            this.biClip.Click += new System.EventHandler(this.biClip_Click);
-            // 
             // labelItem4
             // 
             this.labelItem4.Name = "labelItem4";
             this.labelItem4.Text = "|";
+            // 
+            // biCancel
+            // 
+            this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCancel.ImageFixedSize = new System.Drawing.Size(12, 15);
+            this.biCancel.Name = "biCancel";
+            this.biCancel.Text = "撤销";
+            this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
             // 
             // plImageBack
             // 
@@ -271,13 +287,84 @@
             this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
             this.openImageDlg.Title = "打开图片文件";
             // 
-            // comboItem3
+            // biClip
             // 
-            this.comboItem3.Text = "一寸比例";
+            this.biClip.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClip.Image = global::Li.Controls.Properties.Resources.clip;
+            this.biClip.ImageFixedSize = new System.Drawing.Size(12, 15);
+            this.biClip.Name = "biClip";
+            this.biClip.Text = "剪切";
+            this.biClip.Click += new System.EventHandler(this.biClip_Click);
             // 
-            // comboItem4
+            // biZoom
             // 
-            this.comboItem4.Text = "二寸比例";
+            this.biZoom.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biZoom.Image = global::Li.Controls.Properties.Resources.zoom;
+            this.biZoom.ImageFixedSize = new System.Drawing.Size(18, 15);
+            this.biZoom.Name = "biZoom";
+            this.biZoom.Text = "缩放";
+            this.biZoom.Click += new System.EventHandler(this.biZoom_Click);
+            // 
+            // biRotate
+            // 
+            this.biRotate.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRotate.Image = global::Li.Controls.Properties.Resources.rotateright;
+            this.biRotate.ImageFixedSize = new System.Drawing.Size(18, 15);
+            this.biRotate.Name = "biRotate";
+            this.biRotate.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biRotate90,
+            this.biReverse90,
+            this.biRotate180,
+            this.biFlipVertical,
+            this.biFlipHorizintal});
+            this.biRotate.Text = "旋转";
+            this.biRotate.Tooltip = "旋转";
+            this.biRotate.Click += new System.EventHandler(this.biRotate_Click);
+            // 
+            // biRotate90
+            // 
+            this.biRotate90.Image = global::Li.Controls.Properties.Resources.rotateright;
+            this.biRotate90.ImageFixedSize = new System.Drawing.Size(23, 17);
+            this.biRotate90.Name = "biRotate90";
+            this.biRotate90.Text = "顺时针旋转90°";
+            this.biRotate90.Tooltip = "顺时针旋转90°";
+            this.biRotate90.Click += new System.EventHandler(this.biRotate90_Click);
+            // 
+            // biReverse90
+            // 
+            this.biReverse90.Image = global::Li.Controls.Properties.Resources.rotatereverse;
+            this.biReverse90.ImageFixedSize = new System.Drawing.Size(23, 17);
+            this.biReverse90.Name = "biReverse90";
+            this.biReverse90.Text = "逆时针旋转90°";
+            this.biReverse90.Tooltip = "逆时针旋转90°";
+            this.biReverse90.Click += new System.EventHandler(this.biReverse90_Click);
+            // 
+            // biRotate180
+            // 
+            this.biRotate180.Image = global::Li.Controls.Properties.Resources.rotate180;
+            this.biRotate180.ImageFixedSize = new System.Drawing.Size(23, 17);
+            this.biRotate180.Name = "biRotate180";
+            this.biRotate180.Text = "旋转180°";
+            this.biRotate180.Tooltip = "旋转180°";
+            this.biRotate180.Click += new System.EventHandler(this.biRotate180_Click);
+            // 
+            // biFlipVertical
+            // 
+            this.biFlipVertical.Image = global::Li.Controls.Properties.Resources.flipVertical;
+            this.biFlipVertical.ImageFixedSize = new System.Drawing.Size(23, 17);
+            this.biFlipVertical.Name = "biFlipVertical";
+            this.biFlipVertical.Text = "垂直翻转";
+            this.biFlipVertical.Tooltip = "垂直翻转";
+            this.biFlipVertical.Click += new System.EventHandler(this.biFlipVertical_Click);
+            // 
+            // biFlipHorizintal
+            // 
+            this.biFlipHorizintal.Image = global::Li.Controls.Properties.Resources.fliphorizintal;
+            this.biFlipHorizintal.ImageFixedSize = new System.Drawing.Size(23, 17);
+            this.biFlipHorizintal.Name = "biFlipHorizintal";
+            this.biFlipHorizintal.Text = "水平翻转";
+            this.biFlipHorizintal.Tooltip = "水平翻转";
+            this.biFlipHorizintal.Click += new System.EventHandler(this.biFlipHorizintal_Click);
             // 
             // pictureBox
             // 
@@ -288,14 +375,6 @@
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(235, 158);
             this.pictureBox.TabIndex = 0;
-            // 
-            // biCancel
-            // 
-            this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCancel.ImageFixedSize = new System.Drawing.Size(12, 15);
-            this.biCancel.Name = "biCancel";
-            this.biCancel.Text = "撤销";
-            this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
             // 
             // ImageEditor
             // 
@@ -344,5 +423,12 @@
         private DevComponents.Editors.ComboItem comboItem3;
         private DevComponents.Editors.ComboItem comboItem4;
         private DevComponents.DotNetBar.ButtonItem biCancel;
+        private DevComponents.DotNetBar.ButtonItem biZoom;
+        private DevComponents.DotNetBar.ButtonItem biRotate;
+        private DevComponents.DotNetBar.ButtonItem biRotate90;
+        private DevComponents.DotNetBar.ButtonItem biReverse90;
+        private DevComponents.DotNetBar.ButtonItem biRotate180;
+        private DevComponents.DotNetBar.ButtonItem biFlipVertical;
+        private DevComponents.DotNetBar.ButtonItem biFlipHorizintal;
     }
 }

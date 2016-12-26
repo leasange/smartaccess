@@ -90,12 +90,21 @@
     <Compile Include="FrmImageEditor.Designer.cs">
       <DependentUpon>FrmImageEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmZoomImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmZoomImage.Designer.cs">
+      <DependentUpon>FrmZoomImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ImageEditor.Designer.cs">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageEditors\FlipImageFilter.cs" />
+    <Compile Include="ImageEditors\RotateImageFilter.cs" />
+    <Compile Include="ImageEditors\ZoomImageFilter.cs" />
     <Compile Include="ImageEditors\ClipImageFilter.cs" />
     <Compile Include="ImageEditors\Covers\ClipCoverController.cs" />
     <Compile Include="ImageEditors\IImageFilter.cs" />
@@ -161,6 +170,9 @@
     <EmbeddedResource Include="FrmImageEditor.resx">
       <DependentUpon>FrmImageEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmZoomImage.resx">
+      <DependentUpon>FrmZoomImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageEditor.resx">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +219,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotateright.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotatereverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotate180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flipVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fliphorizintal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

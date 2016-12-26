@@ -408,5 +408,77 @@ namespace Li.Controls
                 UpdateResultImage();
             }
         }
+
+        private void biZoom_Click(object sender, EventArgs e)
+        {
+            if (_resultImage==null)
+	        {
+		         return;
+	        }
+            FrmZoomImage zoomImage = new FrmZoomImage(_resultImage.Width, _resultImage.Height);
+            if (zoomImage.ShowDialog(this)==DialogResult.OK)
+            {
+                ZoomImageFilter filter = new ZoomImageFilter(zoomImage.ZoomSize);
+                zoomImage.ZoomSize = Size.Empty;
+                AddFilter(filter);
+            }
+        }
+
+        private void biRotate_Click(object sender, EventArgs e)
+        {
+            Point p = biRotate.Bounds.Location;
+            p = barProccess.PointToScreen(p);
+            biRotate.Popup(p.X,p.Y+biRotate.Size.Height);
+        }
+
+        private void biRotate90_Click(object sender, EventArgs e)
+        {
+            if (_resultImage == null)
+            {
+                return;
+            }
+            RotateImageFilter filter = new RotateImageFilter(-90);
+            AddFilter(filter);
+        }
+
+        private void biReverse90_Click(object sender, EventArgs e)
+        {
+            if (_resultImage == null)
+            {
+                return;
+            }
+            RotateImageFilter filter = new RotateImageFilter(90);
+            AddFilter(filter);
+        }
+
+        private void biRotate180_Click(object sender, EventArgs e)
+        {
+            if (_resultImage == null)
+            {
+                return;
+            }
+            RotateImageFilter filter = new RotateImageFilter(180);
+            AddFilter(filter);
+        }
+
+        private void biFlipVertical_Click(object sender, EventArgs e)
+        {
+            if (_resultImage == null)
+            {
+                return;
+            }
+            FlipImageFilter filter = new FlipImageFilter(true);
+            AddFilter(filter);
+        }
+
+        private void biFlipHorizintal_Click(object sender, EventArgs e)
+        {
+            if (_resultImage == null)
+            {
+                return;
+            }
+            FlipImageFilter filter = new FlipImageFilter(false);
+            AddFilter(filter);
+        }
     }
 }
