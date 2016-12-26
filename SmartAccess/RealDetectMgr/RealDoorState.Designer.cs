@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RealDoorState));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("22222", 2);
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
@@ -46,16 +46,28 @@
             this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.smallImageList = new System.Windows.Forms.ImageList(this.components);
             this.metroTileItem1 = new DevComponents.DotNetBar.Metro.MetroTileItem();
-            this.listDoors = new System.Windows.Forms.ListView();
             this.cmsDoorState = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiDoorStateCfg = new System.Windows.Forms.ToolStripMenuItem();
-            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.picBox = new System.Windows.Forms.PictureBox();
+            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
+            this.lbDeptName = new DevComponents.DotNetBar.LabelX();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.lbStaffName = new DevComponents.DotNetBar.LabelX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.panelDown = new DevComponents.DotNetBar.PanelEx();
             this.dgvRealLog = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.listDoors = new System.Windows.Forms.ListView();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.lbTime = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
+            this.panelEx1.SuspendLayout();
+            this.panelDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,22 +176,6 @@
             // 
             this.metroTileItem1.TileStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // listDoors
-            // 
-            this.listDoors.ContextMenuStrip = this.cmsDoorState;
-            this.listDoors.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
-            this.listDoors.LargeImageList = this.smallImageList;
-            this.listDoors.Location = new System.Drawing.Point(0, 28);
-            this.listDoors.Name = "listDoors";
-            this.listDoors.ShowItemToolTips = true;
-            this.listDoors.Size = new System.Drawing.Size(955, 233);
-            this.listDoors.TabIndex = 4;
-            this.listDoors.UseCompatibleStateImageBehavior = false;
-            // 
             // cmsDoorState
             // 
             this.cmsDoorState.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -194,83 +190,160 @@
             this.tsmiDoorStateCfg.Text = "设置门禁状态";
             this.tsmiDoorStateCfg.Click += new System.EventHandler(this.tsmiDoorStateCfg_Click);
             // 
-            // expandableSplitter1
+            // picBox
             // 
-            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.expandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.expandableSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.expandableSplitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.expandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(201)))));
-            this.expandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(60)))));
-            this.expandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
-            this.expandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
-            this.expandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
-            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.expandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(201)))));
-            this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.Location = new System.Drawing.Point(0, 261);
-            this.expandableSplitter1.Name = "expandableSplitter1";
-            this.expandableSplitter1.Size = new System.Drawing.Size(955, 6);
-            this.expandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
-            this.expandableSplitter1.TabIndex = 6;
-            this.expandableSplitter1.TabStop = false;
+            this.picBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picBox.Location = new System.Drawing.Point(0, 0);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(157, 181);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox.TabIndex = 8;
+            this.picBox.TabStop = false;
+            // 
+            // panelEx1
+            // 
+            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
+            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.lbTime);
+            this.panelEx1.Controls.Add(this.lbDeptName);
+            this.panelEx1.Controls.Add(this.lbStaffName);
+            this.panelEx1.Controls.Add(this.labelX3);
+            this.panelEx1.Controls.Add(this.labelX2);
+            this.panelEx1.Controls.Add(this.labelX1);
+            this.panelEx1.Controls.Add(this.picBox);
+            this.panelEx1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelEx1.Location = new System.Drawing.Point(696, 0);
+            this.panelEx1.Name = "panelEx1";
+            this.panelEx1.Size = new System.Drawing.Size(259, 181);
+            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.panelEx1.Style.GradientAngle = 90;
+            this.panelEx1.TabIndex = 9;
+            // 
+            // lbDeptName
+            // 
+            this.lbDeptName.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbDeptName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbDeptName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbDeptName.Location = new System.Drawing.Point(190, 44);
+            this.lbDeptName.Name = "lbDeptName";
+            this.lbDeptName.Size = new System.Drawing.Size(28, 20);
+            this.lbDeptName.TabIndex = 9;
+            this.lbDeptName.Text = "----";
+            // 
+            // labelX2
+            // 
+            this.labelX2.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX2.Location = new System.Drawing.Point(159, 44);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(34, 20);
+            this.labelX2.TabIndex = 9;
+            this.labelX2.Text = "部门:";
+            // 
+            // lbStaffName
+            // 
+            this.lbStaffName.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbStaffName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbStaffName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbStaffName.Location = new System.Drawing.Point(190, 16);
+            this.lbStaffName.Name = "lbStaffName";
+            this.lbStaffName.Size = new System.Drawing.Size(28, 20);
+            this.lbStaffName.TabIndex = 9;
+            this.lbStaffName.Text = "----";
+            // 
+            // labelX1
+            // 
+            this.labelX1.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX1.Location = new System.Drawing.Point(159, 16);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(34, 20);
+            this.labelX1.TabIndex = 9;
+            this.labelX1.Text = "姓名:";
+            // 
+            // panelDown
+            // 
+            this.panelDown.CanvasColor = System.Drawing.SystemColors.Control;
+            this.panelDown.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelDown.Controls.Add(this.dgvRealLog);
+            this.panelDown.Controls.Add(this.panelEx1);
+            this.panelDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelDown.Location = new System.Drawing.Point(0, 217);
+            this.panelDown.Name = "panelDown";
+            this.panelDown.Size = new System.Drawing.Size(955, 181);
+            this.panelDown.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelDown.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.panelDown.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.panelDown.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.panelDown.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.panelDown.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.panelDown.Style.GradientAngle = 90;
+            this.panelDown.TabIndex = 11;
+            this.panelDown.Text = "panelEx2";
             // 
             // dgvRealLog
             // 
             this.dgvRealLog.AllowUserToAddRows = false;
             this.dgvRealLog.AllowUserToDeleteRows = false;
             this.dgvRealLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvRealLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRealLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle17;
             this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRealLog.EnableHeadersVisualStyles = false;
-            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.dgvRealLog.Location = new System.Drawing.Point(0, 267);
+            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvRealLog.Location = new System.Drawing.Point(0, 0);
             this.dgvRealLog.Name = "dgvRealLog";
             this.dgvRealLog.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgvRealLog.RowTemplate.Height = 23;
-            this.dgvRealLog.Size = new System.Drawing.Size(955, 131);
-            this.dgvRealLog.TabIndex = 7;
+            this.dgvRealLog.Size = new System.Drawing.Size(696, 181);
+            this.dgvRealLog.TabIndex = 11;
+            this.dgvRealLog.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRealLog_CellContentClick);
             // 
             // Column1
             // 
@@ -288,7 +361,6 @@
             this.Column2.HeaderText = "门禁";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
-            this.Column2.Width = 200;
             // 
             // Column3
             // 
@@ -298,19 +370,102 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
+            // expandableSplitter1
+            // 
+            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.expandableSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.expandableSplitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.expandableSplitter1.ExpandableControl = this.panelDown;
+            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(61)))));
+            this.expandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
+            this.expandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
+            this.expandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
+            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter1.Location = new System.Drawing.Point(0, 211);
+            this.expandableSplitter1.Name = "expandableSplitter1";
+            this.expandableSplitter1.Size = new System.Drawing.Size(955, 6);
+            this.expandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
+            this.expandableSplitter1.TabIndex = 12;
+            this.expandableSplitter1.TabStop = false;
+            // 
+            // listDoors
+            // 
+            this.listDoors.ContextMenuStrip = this.cmsDoorState;
+            this.listDoors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3,
+            listViewItem4});
+            this.listDoors.LargeImageList = this.smallImageList;
+            this.listDoors.Location = new System.Drawing.Point(0, 28);
+            this.listDoors.Name = "listDoors";
+            this.listDoors.ShowItemToolTips = true;
+            this.listDoors.Size = new System.Drawing.Size(955, 183);
+            this.listDoors.TabIndex = 13;
+            this.listDoors.UseCompatibleStateImageBehavior = false;
+            // 
+            // labelX3
+            // 
+            this.labelX3.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX3.Location = new System.Drawing.Point(159, 70);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(34, 20);
+            this.labelX3.TabIndex = 9;
+            this.labelX3.Text = "时间:";
+            // 
+            // lbTime
+            // 
+            this.lbTime.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbTime.Location = new System.Drawing.Point(190, 70);
+            this.lbTime.Name = "lbTime";
+            this.lbTime.Size = new System.Drawing.Size(28, 20);
+            this.lbTime.TabIndex = 9;
+            this.lbTime.Text = "----";
+            // 
             // RealDoorState
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dgvRealLog);
-            this.Controls.Add(this.expandableSplitter1);
             this.Controls.Add(this.listDoors);
+            this.Controls.Add(this.expandableSplitter1);
+            this.Controls.Add(this.panelDown);
             this.Controls.Add(this.bar1);
             this.Name = "RealDoorState";
             this.Size = new System.Drawing.Size(955, 398);
             this.Load += new System.EventHandler(this.RealDoorState_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.cmsDoorState.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
+            this.panelEx1.ResumeLayout(false);
+            this.panelEx1.PerformLayout();
+            this.panelDown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).EndInit();
             this.ResumeLayout(false);
 
@@ -328,14 +483,23 @@
         private DevComponents.DotNetBar.ButtonItem biSearch;
         private System.Windows.Forms.ImageList smallImageList;
         private DevComponents.DotNetBar.Metro.MetroTileItem metroTileItem1;
-        private System.Windows.Forms.ListView listDoors;
+        private System.Windows.Forms.ContextMenuStrip cmsDoorState;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDoorStateCfg;
+        private DevComponents.DotNetBar.TextBoxItem tbFilterItem;
+        private System.Windows.Forms.PictureBox picBox;
+        private DevComponents.DotNetBar.PanelEx panelEx1;
+        private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.DotNetBar.LabelX lbStaffName;
+        private DevComponents.DotNetBar.LabelX lbDeptName;
+        private DevComponents.DotNetBar.LabelX labelX2;
+        private DevComponents.DotNetBar.PanelEx panelDown;
         private DevComponents.DotNetBar.ExpandableSplitter expandableSplitter1;
         private Li.Controls.DataGridViewEx dgvRealLog;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.ContextMenuStrip cmsDoorState;
-        private System.Windows.Forms.ToolStripMenuItem tsmiDoorStateCfg;
-        private DevComponents.DotNetBar.TextBoxItem tbFilterItem;
+        private System.Windows.Forms.ListView listDoors;
+        private DevComponents.DotNetBar.LabelX lbTime;
+        private DevComponents.DotNetBar.LabelX labelX3;
     }
 }
