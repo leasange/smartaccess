@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddUser = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
@@ -48,10 +48,11 @@
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pageDataGridView = new Li.Controls.PageDataGridView();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.panelImage = new System.Windows.Forms.Panel();
             this.btnCloseImage = new DevComponents.DotNetBar.ButtonX();
             this.picImage = new System.Windows.Forms.PictureBox();
+            this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,16 +91,15 @@
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.pageDataGridView.DataGridPanel.SuspendLayout();
-            this.pageDataGridView.SuspendLayout();
             this.panelImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
+            this.pageDataGridView.DataGridPanel.SuspendLayout();
+            this.pageDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
@@ -228,7 +228,7 @@
             // biExportPhoto
             // 
             this.biExportPhoto.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biExportPhoto.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biExportPhoto.Image = global::SmartAccess.Properties.Resources.导出;
             this.biExportPhoto.Name = "biExportPhoto";
             this.biExportPhoto.Text = "导出照片";
             this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
@@ -236,7 +236,7 @@
             // biImportPic
             // 
             this.biImportPic.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biImportPic.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biImportPic.Image = global::SmartAccess.Properties.Resources.导入;
             this.biImportPic.Name = "biImportPic";
             this.biImportPic.Text = "导入照片";
             this.biImportPic.Tooltip = "导选择导入照片目录，照片名称以姓名命名";
@@ -245,7 +245,7 @@
             // biImport
             // 
             this.biImport.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biImport.Image = global::SmartAccess.Properties.Resources.本地图片;
+            this.biImport.Image = global::SmartAccess.Properties.Resources.导入;
             this.biImport.Name = "biImport";
             this.biImport.Text = "导入人员";
             this.biImport.Click += new System.EventHandler(this.biImport_Click);
@@ -267,7 +267,7 @@
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
-            //           
+            // 
             this.splitContainer1.Panel1.Controls.Add(this.deptTree);
             this.splitContainer1.Panel1.Controls.Add(this.panelImage);
             // 
@@ -280,40 +280,13 @@
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
             // 
-            // pageDataGridView
+            // deptTree
             // 
-            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
-            // 
-            // pageDataGridView.DataGridPanel
-            // 
-            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
-            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
-            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(940, 393);
-            this.pageDataGridView.DataGridPanel.TabIndex = 1;
-            this.pageDataGridView.DataGridView = this.dgvStaffs;
-            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageDataGridView.Location = new System.Drawing.Point(0, 55);
-            this.pageDataGridView.Name = "pageDataGridView";
-            // 
-            // pageDataGridView.PageControl
-            // 
-            this.pageDataGridView.PageControl.CurrentPage = 1;
-            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pageDataGridView.PageControl.ExportButtonVisible = true;
-            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
-            this.pageDataGridView.PageControl.Name = "PageControl";
-            this.pageDataGridView.PageControl.RecordsPerPage = 100;
-            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(940, 32);
-            this.pageDataGridView.PageControl.TabIndex = 0;
-            this.pageDataGridView.PageControl.TotalRecords = 0;
-            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
-            this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
-            this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
-            this.pageDataGridView.Size = new System.Drawing.Size(940, 425);
-            this.pageDataGridView.SqlWhere = null;
-            this.pageDataGridView.TabIndex = 3;
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 291);
+            this.deptTree.TabIndex = 0;
             // 
             // panelImage
             // 
@@ -351,19 +324,54 @@
             this.picImage.TabIndex = 1;
             this.picImage.TabStop = false;
             // 
+            // pageDataGridView
+            // 
+            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
+            // 
+            // pageDataGridView.DataGridPanel
+            // 
+            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
+            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
+            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(940, 393);
+            this.pageDataGridView.DataGridPanel.TabIndex = 1;
+            this.pageDataGridView.DataGridView = this.dgvStaffs;
+            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.Location = new System.Drawing.Point(0, 55);
+            this.pageDataGridView.Name = "pageDataGridView";
+            // 
+            // pageDataGridView.PageControl
+            // 
+            this.pageDataGridView.PageControl.CurrentPage = 1;
+            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pageDataGridView.PageControl.ExportButtonVisible = true;
+            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
+            this.pageDataGridView.PageControl.Name = "PageControl";
+            this.pageDataGridView.PageControl.RecordsPerPage = 100;
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(940, 32);
+            this.pageDataGridView.PageControl.TabIndex = 0;
+            this.pageDataGridView.PageControl.TotalRecords = 0;
+            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
+            this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
+            this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
+            this.pageDataGridView.Size = new System.Drawing.Size(940, 425);
+            this.pageDataGridView.SqlWhere = null;
+            this.pageDataGridView.TabIndex = 3;
+            // 
             // dgvStaffs
             // 
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -378,28 +386,28 @@
             this.Col_XG,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(940, 393);
             this.dgvStaffs.TabIndex = 0;
@@ -723,14 +731,6 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 480);
-            this.deptTree.TabIndex = 0;
-            // 
             // StaffInfoMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -745,10 +745,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
-            this.pageDataGridView.ResumeLayout(false);
             this.panelImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
+            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
+            this.pageDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();

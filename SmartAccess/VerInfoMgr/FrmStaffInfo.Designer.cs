@@ -144,11 +144,12 @@
             // 
             this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX5.ForeColor = System.Drawing.Color.Red;
             this.labelX5.Location = new System.Drawing.Point(12, 113);
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(75, 23);
             this.labelX5.TabIndex = 0;
-            this.labelX5.Text = "证件编号";
+            this.labelX5.Text = "*证件编号";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // labelX6
@@ -158,6 +159,7 @@
             // 
             this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX6.ForeColor = System.Drawing.Color.Red;
             this.labelX6.Location = new System.Drawing.Point(12, 32);
             this.labelX6.Name = "labelX6";
             this.labelX6.Size = new System.Drawing.Size(75, 23);

@@ -39,6 +39,7 @@ namespace SmartAccess.ControlDevMgr
                 }
                 IAccessCore access = new WGAccess();
                 List<Controller> ctrlrs = access.SearchController();
+                var dataCtrls = ControllerHelper.GetList("1=1", false);
                 if (ctrlrs == null || ctrlrs.Count == 0)
                 {
                     WinInfoHelper.ShowInfoWindow(this, "没有查询到控制器！", 5);
@@ -47,14 +48,14 @@ namespace SmartAccess.ControlDevMgr
                 {
                     this.Invoke(new Action(() =>
                     {
-                        AddControllerToGrid(ctrlrs);
+                        AddControllerToGrid(ctrlrs, dataCtrls);
                     }));
                 }
             }));
             ctrlWaiting.Show(this);
         }
 
-        private void AddControllerToGrid(List<Controller>  ctrlrs)
+        private void AddControllerToGrid(List<Controller>  ctrlrs,List<Maticsoft.Model.SMT_CONTROLLER_INFO> exists)
         {
             dgvCtrlr.Rows.Clear();
             string ip = "127.0.0.1";
@@ -78,6 +79,7 @@ namespace SmartAccess.ControlDevMgr
             
             foreach (Controller item in ctrlrs)
             {
+                var exist= exists.Find(m => m.SN_NO == item.sn);
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvCtrlr,
                     item.sn,
@@ -89,9 +91,13 @@ namespace SmartAccess.ControlDevMgr
                     ip,
                     item.driverVersion,
                     "修改IP",
-                    "添加/更新"
+                    exist==null?"添加":"更新[已添加]"
                     );
                 row.Tag = item;
+                if (exist!=null)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen;
+                }
                 dgvCtrlr.Rows.Add(row);
             }
         }
@@ -224,6 +230,32 @@ namespace SmartAccess.ControlDevMgr
             {
                 bool ret = access.SetControllerTime(ctrl, dtpTime.Value);
                 WinInfoHelper.ShowInfoWindow(this, "设置时间" + (ret ? "成功！" : "失败"));
+            }
+        }
+
+        private void tbSnFilter_TextChanged(object sender, EventArgs e)
+        {
+            string str = tbSnFilter.Text.Trim();
+            if (str=="")
+            {
+                foreach (DataGridViewRow item in dgvCtrlr.Rows)
+                {
+                    item.Visible = true;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow item in dgvCtrlr.Rows)
+                {
+                    if (((string)item.Cells[0].Value).Contains(str))
+                    {
+                        item.Visible = true;
+                    }
+                    else
+                    {
+                        item.Visible = false;
+                    }
+                }
             }
         }
     }

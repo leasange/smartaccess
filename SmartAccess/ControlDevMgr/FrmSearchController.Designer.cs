@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.dtpTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -46,15 +47,31 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_XQ = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_TJ = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.tbSnFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tsmiNetTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.全部恢复默认IPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.控制IP访问约束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.设置读卡器输入格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.恢复读卡器默认格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.指定格式WG26不带校验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.指定读卡器35位ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.通信10M100M配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.设置为10M100M自适应ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.设置为10M半双工适用于布线长ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtpTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).BeginInit();
+            this.cmsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelEx1
             // 
             this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.tbSnFilter);
+            this.panelEx1.Controls.Add(this.labelX1);
             this.panelEx1.Controls.Add(this.dtpTime);
             this.panelEx1.Controls.Add(this.cbAutoSearch);
             this.panelEx1.Controls.Add(this.btnSetTime);
@@ -63,7 +80,7 @@
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEx1.Location = new System.Drawing.Point(0, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(950, 57);
+            this.panelEx1.Size = new System.Drawing.Size(950, 66);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -201,6 +218,7 @@
             this.Column8,
             this.Col_XQ,
             this.Col_TJ});
+            this.dgvCtrlr.ContextMenuStrip = this.cmsMenu;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -210,12 +228,12 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.dgvCtrlr.Location = new System.Drawing.Point(0, 57);
+            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvCtrlr.Location = new System.Drawing.Point(0, 66);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;
             this.dgvCtrlr.RowTemplate.Height = 23;
-            this.dgvCtrlr.Size = new System.Drawing.Size(950, 460);
+            this.dgvCtrlr.Size = new System.Drawing.Size(950, 451);
             this.dgvCtrlr.TabIndex = 1;
             this.dgvCtrlr.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCtrlr_CellContentClick);
             this.dgvCtrlr.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCtrlr_CellDoubleClick);
@@ -280,6 +298,111 @@
             this.Col_TJ.Name = "Col_TJ";
             this.Col_TJ.ReadOnly = true;
             // 
+            // cmsMenu
+            // 
+            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiNetTest,
+            this.全部恢复默认IPToolStripMenuItem,
+            this.控制IP访问约束ToolStripMenuItem,
+            this.设置读卡器输入格式ToolStripMenuItem,
+            this.通信10M100M配置ToolStripMenuItem});
+            this.cmsMenu.Name = "cmsMenu";
+            this.cmsMenu.Size = new System.Drawing.Size(189, 114);
+            // 
+            // labelX1
+            // 
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX1.Location = new System.Drawing.Point(42, 41);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(86, 23);
+            this.labelX1.TabIndex = 3;
+            this.labelX1.Text = "序列号过滤：";
+            // 
+            // tbSnFilter
+            // 
+            // 
+            // 
+            // 
+            this.tbSnFilter.Border.Class = "TextBoxBorder";
+            this.tbSnFilter.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbSnFilter.Location = new System.Drawing.Point(134, 42);
+            this.tbSnFilter.Name = "tbSnFilter";
+            this.tbSnFilter.Size = new System.Drawing.Size(114, 21);
+            this.tbSnFilter.TabIndex = 4;
+            this.tbSnFilter.WatermarkText = "输入匹配字符";
+            this.tbSnFilter.TextChanged += new System.EventHandler(this.tbSnFilter_TextChanged);
+            // 
+            // tsmiNetTest
+            // 
+            this.tsmiNetTest.Name = "tsmiNetTest";
+            this.tsmiNetTest.Size = new System.Drawing.Size(188, 22);
+            this.tsmiNetTest.Text = "通信丢包测试";
+            // 
+            // 全部恢复默认IPToolStripMenuItem
+            // 
+            this.全部恢复默认IPToolStripMenuItem.Name = "全部恢复默认IPToolStripMenuItem";
+            this.全部恢复默认IPToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.全部恢复默认IPToolStripMenuItem.Text = "全部恢复默认IP";
+            // 
+            // 控制IP访问约束ToolStripMenuItem
+            // 
+            this.控制IP访问约束ToolStripMenuItem.Name = "控制IP访问约束ToolStripMenuItem";
+            this.控制IP访问约束ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.控制IP访问约束ToolStripMenuItem.Text = "控制IP访问约束";
+            // 
+            // 设置读卡器输入格式ToolStripMenuItem
+            // 
+            this.设置读卡器输入格式ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.恢复读卡器默认格式ToolStripMenuItem,
+            this.指定格式WG26不带校验ToolStripMenuItem,
+            this.指定读卡器35位ToolStripMenuItem});
+            this.设置读卡器输入格式ToolStripMenuItem.Name = "设置读卡器输入格式ToolStripMenuItem";
+            this.设置读卡器输入格式ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.设置读卡器输入格式ToolStripMenuItem.Text = "设置读卡器输入格式";
+            // 
+            // 恢复读卡器默认格式ToolStripMenuItem
+            // 
+            this.恢复读卡器默认格式ToolStripMenuItem.Name = "恢复读卡器默认格式ToolStripMenuItem";
+            this.恢复读卡器默认格式ToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.恢复读卡器默认格式ToolStripMenuItem.Text = "恢复读卡器默认格式";
+            // 
+            // 指定格式WG26不带校验ToolStripMenuItem
+            // 
+            this.指定格式WG26不带校验ToolStripMenuItem.Name = "指定格式WG26不带校验ToolStripMenuItem";
+            this.指定格式WG26不带校验ToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.指定格式WG26不带校验ToolStripMenuItem.Text = "指定格式(WG26不带校验)";
+            // 
+            // 指定读卡器35位ToolStripMenuItem
+            // 
+            this.指定读卡器35位ToolStripMenuItem.Name = "指定读卡器35位ToolStripMenuItem";
+            this.指定读卡器35位ToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.指定读卡器35位ToolStripMenuItem.Text = "指定读卡器35位输入格式";
+            // 
+            // 通信10M100M配置ToolStripMenuItem
+            // 
+            this.通信10M100M配置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设置为10M100M自适应ToolStripMenuItem,
+            this.设置为10M半双工适用于布线长ToolStripMenuItem});
+            this.通信10M100M配置ToolStripMenuItem.Name = "通信10M100M配置ToolStripMenuItem";
+            this.通信10M100M配置ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.通信10M100M配置ToolStripMenuItem.Text = "通信10M/100M配置";
+            // 
+            // 设置为10M100M自适应ToolStripMenuItem
+            // 
+            this.设置为10M100M自适应ToolStripMenuItem.Name = "设置为10M100M自适应ToolStripMenuItem";
+            this.设置为10M100M自适应ToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.设置为10M100M自适应ToolStripMenuItem.Text = "设置为10M/100M自适应";
+            // 
+            // 设置为10M半双工适用于布线长ToolStripMenuItem
+            // 
+            this.设置为10M半双工适用于布线长ToolStripMenuItem.Name = "设置为10M半双工适用于布线长ToolStripMenuItem";
+            this.设置为10M半双工适用于布线长ToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.设置为10M半双工适用于布线长ToolStripMenuItem.Text = "设置为10M半双工(适用于布线长，干扰多)";
+            // 
             // FrmSearchController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -296,6 +419,7 @@
             this.panelEx1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtpTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCtrlr)).EndInit();
+            this.cmsMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -319,5 +443,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewLinkColumn Col_XQ;
         private System.Windows.Forms.DataGridViewLinkColumn Col_TJ;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbSnFilter;
+        private System.Windows.Forms.ToolStripMenuItem tsmiNetTest;
+        private System.Windows.Forms.ToolStripMenuItem 全部恢复默认IPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 控制IP访问约束ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 设置读卡器输入格式ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 恢复读卡器默认格式ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 指定格式WG26不带校验ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 指定读卡器35位ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 通信10M100M配置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 设置为10M100M自适应ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 设置为10M半双工适用于布线长ToolStripMenuItem;
     }
 }
