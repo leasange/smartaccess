@@ -52,6 +52,7 @@
             this.biCancel = new DevComponents.DotNetBar.ButtonItem();
             this.plImageBack = new System.Windows.Forms.Panel();
             this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
             this.biClip = new DevComponents.DotNetBar.ButtonItem();
             this.biZoom = new DevComponents.DotNetBar.ButtonItem();
             this.biRotate = new DevComponents.DotNetBar.ButtonItem();
@@ -60,7 +61,6 @@
             this.biRotate180 = new DevComponents.DotNetBar.ButtonItem();
             this.biFlipVertical = new DevComponents.DotNetBar.ButtonItem();
             this.biFlipHorizintal = new DevComponents.DotNetBar.ButtonItem();
-            this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
             this.plState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).BeginInit();
             this.plImageBack.SuspendLayout();
@@ -266,7 +266,8 @@
             // biCancel
             // 
             this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCancel.ImageFixedSize = new System.Drawing.Size(12, 15);
+            this.biCancel.Image = global::Li.Controls.Properties.Resources.cancelproccess;
+            this.biCancel.ImageFixedSize = new System.Drawing.Size(15, 15);
             this.biCancel.Name = "biCancel";
             this.biCancel.Text = "撤销";
             this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
@@ -286,6 +287,16 @@
             // 
             this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
             this.openImageDlg.Title = "打开图片文件";
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BackColor = System.Drawing.Color.White;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox.Image = null;
+            this.pictureBox.Location = new System.Drawing.Point(62, 51);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(235, 158);
+            this.pictureBox.TabIndex = 0;
             // 
             // biClip
             // 
@@ -365,16 +376,6 @@
             this.biFlipHorizintal.Text = "水平翻转";
             this.biFlipHorizintal.Tooltip = "水平翻转";
             this.biFlipHorizintal.Click += new System.EventHandler(this.biFlipHorizintal_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.Color.White;
-            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox.Image = null;
-            this.pictureBox.Location = new System.Drawing.Point(62, 51);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(235, 158);
-            this.pictureBox.TabIndex = 0;
             // 
             // ImageEditor
             // 
