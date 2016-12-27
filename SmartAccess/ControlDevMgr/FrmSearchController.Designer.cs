@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
+            this.tbSnFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.dtpTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.cbAutoSearch = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.btnSetTime = new DevComponents.DotNetBar.ButtonX();
@@ -48,10 +50,8 @@
             this.Col_XQ = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_TJ = new System.Windows.Forms.DataGridViewLinkColumn();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.tbSnFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.tsmiNetTest = new System.Windows.Forms.ToolStripMenuItem();
-            this.全部恢复默认IPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiResetIP = new System.Windows.Forms.ToolStripMenuItem();
             this.控制IP访问约束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置读卡器输入格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.恢复读卡器默认格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +89,33 @@
             this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 0;
+            // 
+            // tbSnFilter
+            // 
+            // 
+            // 
+            // 
+            this.tbSnFilter.Border.Class = "TextBoxBorder";
+            this.tbSnFilter.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbSnFilter.Location = new System.Drawing.Point(134, 42);
+            this.tbSnFilter.Name = "tbSnFilter";
+            this.tbSnFilter.Size = new System.Drawing.Size(114, 21);
+            this.tbSnFilter.TabIndex = 4;
+            this.tbSnFilter.WatermarkText = "输入匹配字符";
+            this.tbSnFilter.TextChanged += new System.EventHandler(this.tbSnFilter_TextChanged);
+            // 
+            // labelX1
+            // 
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX1.Location = new System.Drawing.Point(42, 41);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(86, 23);
+            this.labelX1.TabIndex = 3;
+            this.labelX1.Text = "序列号过滤：";
             // 
             // dtpTime
             // 
@@ -302,51 +329,26 @@
             // 
             this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiNetTest,
-            this.全部恢复默认IPToolStripMenuItem,
+            this.tsmiResetIP,
             this.控制IP访问约束ToolStripMenuItem,
             this.设置读卡器输入格式ToolStripMenuItem,
             this.通信10M100M配置ToolStripMenuItem});
             this.cmsMenu.Name = "cmsMenu";
-            this.cmsMenu.Size = new System.Drawing.Size(189, 114);
-            // 
-            // labelX1
-            // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.Location = new System.Drawing.Point(42, 41);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(86, 23);
-            this.labelX1.TabIndex = 3;
-            this.labelX1.Text = "序列号过滤：";
-            // 
-            // tbSnFilter
-            // 
-            // 
-            // 
-            // 
-            this.tbSnFilter.Border.Class = "TextBoxBorder";
-            this.tbSnFilter.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbSnFilter.Location = new System.Drawing.Point(134, 42);
-            this.tbSnFilter.Name = "tbSnFilter";
-            this.tbSnFilter.Size = new System.Drawing.Size(114, 21);
-            this.tbSnFilter.TabIndex = 4;
-            this.tbSnFilter.WatermarkText = "输入匹配字符";
-            this.tbSnFilter.TextChanged += new System.EventHandler(this.tbSnFilter_TextChanged);
+            this.cmsMenu.Size = new System.Drawing.Size(189, 136);
             // 
             // tsmiNetTest
             // 
             this.tsmiNetTest.Name = "tsmiNetTest";
             this.tsmiNetTest.Size = new System.Drawing.Size(188, 22);
             this.tsmiNetTest.Text = "通信丢包测试";
+            this.tsmiNetTest.Click += new System.EventHandler(this.tsmiNetTest_Click);
             // 
-            // 全部恢复默认IPToolStripMenuItem
+            // tsmiResetIP
             // 
-            this.全部恢复默认IPToolStripMenuItem.Name = "全部恢复默认IPToolStripMenuItem";
-            this.全部恢复默认IPToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.全部恢复默认IPToolStripMenuItem.Text = "全部恢复默认IP";
+            this.tsmiResetIP.Name = "tsmiResetIP";
+            this.tsmiResetIP.Size = new System.Drawing.Size(188, 22);
+            this.tsmiResetIP.Text = "恢复默认IP";
+            this.tsmiResetIP.Click += new System.EventHandler(this.tsmiResetIP_Click);
             // 
             // 控制IP访问约束ToolStripMenuItem
             // 
@@ -447,7 +449,7 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.Controls.TextBoxX tbSnFilter;
         private System.Windows.Forms.ToolStripMenuItem tsmiNetTest;
-        private System.Windows.Forms.ToolStripMenuItem 全部恢复默认IPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiResetIP;
         private System.Windows.Forms.ToolStripMenuItem 控制IP访问约束ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 设置读卡器输入格式ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 恢复读卡器默认格式ToolStripMenuItem;

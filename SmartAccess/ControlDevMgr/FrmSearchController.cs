@@ -12,6 +12,7 @@ using Li.Access.Core;
 using System.Threading;
 using SmartAccess.Common.Datas;
 using System.Net;
+using System.Diagnostics;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -22,6 +23,35 @@ namespace SmartAccess.ControlDevMgr
         public FrmSearchController()
         {
             InitializeComponent();
+        }
+
+        private List<DataGridViewRow> GetSelectedRows()
+        {
+            List<DataGridViewRow> selectRows = new List<DataGridViewRow>();
+            var rows = dgvCtrlr.SelectedRows;
+            if (rows.Count>0)
+            {
+                foreach (DataGridViewRow item in rows)
+                {
+                    selectRows.Add(item);
+                }
+            }
+            else
+            {
+                var selectCells = dgvCtrlr.SelectedCells;
+                foreach (DataGridViewCell item in selectCells)
+                {
+                    if (item.RowIndex>=0)
+                    {
+                        DataGridViewRow row = dgvCtrlr.Rows[item.RowIndex];
+                        if(!selectRows.Contains(row))
+                        {
+                            selectRows.Add(row);
+                        }
+                    }
+                }
+            }
+            return selectRows;
         }
 
         private void btnSearchCtrlr_Click(object sender, EventArgs e)
@@ -256,6 +286,73 @@ namespace SmartAccess.ControlDevMgr
                         item.Visible = false;
                     }
                 }
+            }
+        }
+
+        private void tsmiNetTest_Click(object sender, EventArgs e)
+        {
+            var rows = GetSelectedRows();
+            if (rows.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择控制器！");
+            }
+            else
+            {
+                foreach (var item in rows)
+                {
+                    Process pro = new Process();
+                    pro.StartInfo.FileName = "cmd.exe";
+                    pro.StartInfo.Arguments = "/k ping " + item.Cells[1].Value+" -l 512";
+                    pro.Start();
+                }
+            }
+        }
+
+        private void tsmiResetIP_Click(object sender, EventArgs e)
+        {
+            var rows = GetSelectedRows();
+            if (rows.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择控制器！");
+            }
+            else
+            {
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    List<ManualResetEvent> evts = new List<ManualResetEvent>();
+                    foreach (var item in rows)
+                    {
+                        Controller c = (Controller)item.Tag;
+                        ManualResetEvent evt = new ManualResetEvent(false);
+                        evts.Add(evt);
+                        ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                            {
+                                try
+                                {
+                                    using (IAccessCore ac=new WGAccess())
+                                    {
+                                        c.ip="192.168.0.0";
+                                        c.mask="255.255.255.0";
+                                        c.gateway="192.168.0.254";
+                                        ac.SetControllerIP(c);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this,c.sn+ "重置IP异常：" + ex.Message);
+                                }
+                                finally
+                                {
+                                    evt.Set();
+                                }
+                            }));
+                    }
+                    foreach (var item in evts)
+                    {
+                        item.WaitOne(30000);
+                    }
+                });
+                waiting.Show(this);
             }
         }
     }
