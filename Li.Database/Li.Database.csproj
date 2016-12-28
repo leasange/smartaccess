@@ -57,6 +57,8 @@
     <Compile Include="SqlServerDb\BLL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CTRLR_TASK.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DATADICTIONARY_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_DEPT_USER_EX.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_LOG_INFO.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="SqlServerDb\DAL\SMT_CONTROLLER_ZONE.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CTRLR_TASK.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DATADICTIONARY_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_DEPT_USER_EX.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_LOG_INFO.cs" />
@@ -128,6 +132,8 @@
     <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CTRLR_TASK.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DATADICTIONARY_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_DEPT_USER_EX.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_LOG_INFO.cs" />

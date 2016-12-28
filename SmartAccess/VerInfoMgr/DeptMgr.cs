@@ -38,8 +38,10 @@ namespace SmartAccess.VerInfoMgr
             if (info!=null)
             {
                 tbSelectDeptPath.Text = e.Node.FullPath;
+                tbSelectDeptPath.Tag = info;
                 tbDeptNo.Text = info.ORG_CODE;
                 tbDeptName.Text = info.ORG_NAME;
+                ShowUsers(info.ID, info.ORG_NAME);
             }
         }
         private Maticsoft.Model.SMT_ORG_INFO GetSelectOrg()
@@ -453,6 +455,140 @@ namespace SmartAccess.VerInfoMgr
         private void biDeleteDept_Click_1(object sender, EventArgs e)
         {
             biDeleteDept.Popup(Cursor.Position);
+        }
+        private void ShowUsers(decimal orgId,string orgName)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                Maticsoft.BLL.SMT_DEPT_USER duBll = new Maticsoft.BLL.SMT_DEPT_USER();
+                var duModels = duBll.GetModelListEx("DEPT_ID=" + orgId);
+                this.Invoke(new Action(() =>
+                {
+                    DoShowUsersToGrid(duModels, orgName);
+                }));
+            });
+            waiting.Show(this);
+        }
+        private void DoShowUsersToGrid(List<Maticsoft.Model.SMT_DEPT_USER> dus,string orgName)
+        {
+            dgvUsers.Rows.Clear();
+            if (dus == null || dus.Count == 0)
+            {
+                return;
+            }
+            foreach (var item in dus)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(dgvUsers,
+                    item.USER_INFO.USER_NAME,
+                    item.USER_INFO.REAL_NAME,
+                    orgName,
+                    "删除"
+                    );
+                row.Tag = item;
+                dgvUsers.Rows.Add(row);
+            }
+        }
+
+        private void btnAddPrivate_Click(object sender, EventArgs e)
+        {
+            if (tbSelectDeptPath.Tag == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择部门！");
+                return;
+            }
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = (Maticsoft.Model.SMT_ORG_INFO)tbSelectDeptPath.Tag;
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_DEPT_USER duBll = new Maticsoft.BLL.SMT_DEPT_USER();
+                    var duModels = duBll.GetModelList("DEPT_ID=" + orgInfo.ID);
+                    this.Invoke(new Action(() =>
+                        {
+                            List<decimal> userIds = new List<decimal>();
+                            foreach (var item in duModels)
+                            {
+                                userIds.Add(item.USER_ID);
+                            }
+                            FrmSelectedUser frmUser = new FrmSelectedUser(userIds, orgInfo.ID);
+                            if (frmUser.ShowDialog(this) == DialogResult.OK)
+                            {
+
+                                DoShowUsersToGrid(frmUser.SelectedUsers, orgInfo.ORG_NAME);
+
+                            }
+                        }));
+                }
+                catch (System.Exception ex)
+                {
+                    log.Error("加载用户操作权限异常：" + ex.Message, ex);
+                    WinInfoHelper.ShowInfoWindow(this, "加载用户操作权限异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void DeletePrivateUsers(List<DataGridViewRow> rows)
+        {
+            List<Maticsoft.Model.SMT_DEPT_USER> deptUsers = new List<Maticsoft.Model.SMT_DEPT_USER>();
+            foreach (DataGridViewRow item in rows)
+            {
+                deptUsers.Add((Maticsoft.Model.SMT_DEPT_USER)item.Tag);
+            }
+            if (deptUsers.Count == 0)
+            {
+                return;
+            }
+            if (MessageBox.Show("确定删除用户？","提示", MessageBoxButtons.OKCancel)!=DialogResult.OK)
+            {
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    decimal orgId = deptUsers[0].DEPT_ID;
+                    List<string> userIds = new List<string>();
+                    foreach (var item in deptUsers)
+                    {
+                        userIds.Add(item.USER_ID.ToString());
+                    }
+                    string str = string.Format("  DELETE   FROM SMT_DEPT_USER WHERE DEPT_ID={0} and USER_ID in({1})", orgId, string.Join(",", userIds.ToArray()));
+                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql(str);
+                    this.Invoke(new Action(() =>
+                    {
+                        foreach (var item in rows)
+                        {
+                            dgvUsers.Rows.Remove(item);
+                        }
+                    }));
+                }
+                catch (System.Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "删除异常：" + ex.Message);
+                    log.Error("删除异常", ex);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void btnDeleteSelected_Click(object sender, EventArgs e)
+        {
+            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            foreach (DataGridViewRow item in dgvUsers.SelectedRows)
+            {
+                rows.Add(item);
+            }
+            DeletePrivateUsers(rows);
+        }
+
+        private void dgvUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0&&e.ColumnIndex==3)
+            {
+                DeletePrivateUsers(new List<DataGridViewRow>() {dgvUsers.Rows[e.RowIndex] });
+            }
         }
     }
 }
