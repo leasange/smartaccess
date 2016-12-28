@@ -103,7 +103,16 @@ namespace SmartAccess.ConfigMgr
                 cboModel.Items.Add(cbo);
                 if (config.cardIssueModel==item)
                 {
-                    cboModel.SelectedItem = cbo; 
+                    for (int i = 1; i < cboCardModel.Items.Count; i++)
+			        {
+                        ComboItem ci=(ComboItem)cboCardModel.Items[i];
+			            if ((CardIssueModel)ci.Tag==item)
+                        {
+                            cboCardModel.SelectedItem = ci;
+                            break;
+                        }
+			        }
+                    cboModel.SelectedItem = cbo;
                 }
             }
             Array arrayBaud = Enum.GetValues(typeof(ComBuad));

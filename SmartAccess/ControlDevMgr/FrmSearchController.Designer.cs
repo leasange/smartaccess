@@ -53,7 +53,7 @@
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiNetTest = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiResetIP = new System.Windows.Forms.ToolStripMenuItem();
-            this.控制IP访问约束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiIPPrivate = new System.Windows.Forms.ToolStripMenuItem();
             this.设置读卡器输入格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.恢复读卡器默认格式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.指定格式WG26不带校验ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -339,11 +339,11 @@
             this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiNetTest,
             this.tsmiResetIP,
-            this.控制IP访问约束ToolStripMenuItem,
+            this.tsmiIPPrivate,
             this.设置读卡器输入格式ToolStripMenuItem,
             this.通信10M100M配置ToolStripMenuItem});
             this.cmsMenu.Name = "cmsMenu";
-            this.cmsMenu.Size = new System.Drawing.Size(189, 114);
+            this.cmsMenu.Size = new System.Drawing.Size(189, 136);
             // 
             // tsmiNetTest
             // 
@@ -359,11 +359,11 @@
             this.tsmiResetIP.Text = "恢复默认IP";
             this.tsmiResetIP.Click += new System.EventHandler(this.tsmiResetIP_Click);
             // 
-            // 控制IP访问约束ToolStripMenuItem
+            // tsmiIPPrivate
             // 
-            this.控制IP访问约束ToolStripMenuItem.Name = "控制IP访问约束ToolStripMenuItem";
-            this.控制IP访问约束ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.控制IP访问约束ToolStripMenuItem.Text = "控制IP访问约束";
+            this.tsmiIPPrivate.Name = "tsmiIPPrivate";
+            this.tsmiIPPrivate.Size = new System.Drawing.Size(188, 22);
+            this.tsmiIPPrivate.Text = "控制IP访问约束";
             // 
             // 设置读卡器输入格式ToolStripMenuItem
             // 
@@ -374,6 +374,7 @@
             this.设置读卡器输入格式ToolStripMenuItem.Name = "设置读卡器输入格式ToolStripMenuItem";
             this.设置读卡器输入格式ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.设置读卡器输入格式ToolStripMenuItem.Text = "设置读卡器输入格式";
+            this.设置读卡器输入格式ToolStripMenuItem.Visible = false;
             // 
             // 恢复读卡器默认格式ToolStripMenuItem
             // 
@@ -401,6 +402,7 @@
             this.通信10M100M配置ToolStripMenuItem.Name = "通信10M100M配置ToolStripMenuItem";
             this.通信10M100M配置ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.通信10M100M配置ToolStripMenuItem.Text = "通信10M/100M配置";
+            this.通信10M100M配置ToolStripMenuItem.Visible = false;
             // 
             // 设置为10M100M自适应ToolStripMenuItem
             // 
@@ -459,7 +461,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbSnFilter;
         private System.Windows.Forms.ToolStripMenuItem tsmiNetTest;
         private System.Windows.Forms.ToolStripMenuItem tsmiResetIP;
-        private System.Windows.Forms.ToolStripMenuItem 控制IP访问约束ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiIPPrivate;
         private System.Windows.Forms.ToolStripMenuItem 设置读卡器输入格式ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 恢复读卡器默认格式ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 指定格式WG26不带校验ToolStripMenuItem;

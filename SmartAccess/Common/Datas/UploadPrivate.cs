@@ -1013,5 +1013,86 @@ namespace SmartAccess.Common.Datas
             }
             FrmDetailInfo.AddOneMsg("上传结束!");
         }
+        //远程开门
+        public static void RemoteOpenDoors(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
+        {
+            var ctrlIds = GetCtrlIds(doors);
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg("开始远程开门...");
+            try
+            {
+                Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBLL = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                var ctrls = ctrlBLL.GetModelList("ID in (" + string.Join(",", ctrlIds) + ")");
+
+                List<ManualResetEvent> resetEvents = new List<ManualResetEvent>();
+                foreach (var item in ctrls)
+                {
+                    var drs = doors.FindAll(m => m.CTRL_ID == item.ID);
+                    if (drs.Count == 0)
+                    {
+                        continue;
+                    }
+                    ManualResetEvent evt = new ManualResetEvent(false);
+                    resetEvents.Add(evt);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        try
+                        {
+                            var c = ControllerHelper.ToController(item);
+                            IAccessCore acc = new WGAccess();
+                            foreach (var d in drs)
+                            {
+                                if (d.CTRL_DOOR_INDEX == null)
+                                {
+                                    continue;
+                                }
+                                bool ret = acc.OpenRemoteControllerDoor(c, (int)d.CTRL_DOOR_INDEX);
+                                if (!ret)
+                                {
+                                    FrmDetailInfo.AddOneMsg("远程开门失败！门禁：" + d.DOOR_NAME, isRed: true);
+                                    continue;
+                                }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg("远程开门成功！门禁：" + d.DOOR_NAME);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmDetailInfo.AddOneMsg("远程开门异常！控制器：" + item.NAME + ",异常信息：" + ex.Message, isRed: true);
+                        }
+                        finally
+                        {
+                            evt.Set();
+                        }
+                    }));
+                }
+                foreach (var item in resetEvents)
+                {
+                    item.WaitOne(30000);
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmDetailInfo.AddOneMsg("远程开门发生异常!" + ex.Message, isRed: true);
+            }
+            FrmDetailInfo.AddOneMsg("远程开门结束！");
+        }
+        private static List<decimal> GetCtrlIds(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
+        {
+            var g = doors.GroupBy(m => m.CTRL_ID);
+            List<decimal> ctrlIds = new List<decimal>();
+            foreach (var item in g)
+            {
+                decimal? id = item.ToList()[0].CTRL_ID;
+                if (id == null)
+                {
+                    continue;
+                }
+                ctrlIds.Add((decimal)id);
+            }
+            return ctrlIds;
+        }
     }
 }

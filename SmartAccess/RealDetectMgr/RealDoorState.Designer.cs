@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RealDoorState));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("11111", 0);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("22222", 2);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
@@ -50,8 +50,12 @@
             this.tsmiDoorStateCfg = new System.Windows.Forms.ToolStripMenuItem();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
+            this.lbAction = new DevComponents.DotNetBar.LabelX();
+            this.lbDoorName = new DevComponents.DotNetBar.LabelX();
             this.lbTime = new DevComponents.DotNetBar.LabelX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.lbDeptName = new DevComponents.DotNetBar.LabelX();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.lbStaffName = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
@@ -63,10 +67,8 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.listDoors = new System.Windows.Forms.ListView();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.lbDoorName = new DevComponents.DotNetBar.LabelX();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.lbAction = new DevComponents.DotNetBar.LabelX();
+            this.tsmiRemoteOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
@@ -86,6 +88,7 @@
             this.biStop,
             this.biDetectCtrlr,
             this.biAdjustTime,
+            this.biRemoteOpen,
             this.biClearInfo,
             this.tbFilterItem,
             this.biSearch});
@@ -183,9 +186,10 @@
             // cmsDoorState
             // 
             this.cmsDoorState.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiDoorStateCfg});
+            this.tsmiDoorStateCfg,
+            this.tsmiRemoteOpen});
             this.cmsDoorState.Name = "cmsDoorState";
-            this.cmsDoorState.Size = new System.Drawing.Size(149, 26);
+            this.cmsDoorState.Size = new System.Drawing.Size(149, 48);
             // 
             // tsmiDoorStateCfg
             // 
@@ -234,6 +238,34 @@
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 9;
             // 
+            // lbAction
+            // 
+            this.lbAction.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbAction.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbAction.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbAction.Location = new System.Drawing.Point(40, 79);
+            this.lbAction.Name = "lbAction";
+            this.lbAction.Size = new System.Drawing.Size(28, 20);
+            this.lbAction.TabIndex = 9;
+            this.lbAction.Text = "----";
+            // 
+            // lbDoorName
+            // 
+            this.lbDoorName.AutoSize = true;
+            // 
+            // 
+            // 
+            this.lbDoorName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbDoorName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbDoorName.Location = new System.Drawing.Point(40, 55);
+            this.lbDoorName.Name = "lbDoorName";
+            this.lbDoorName.Size = new System.Drawing.Size(28, 20);
+            this.lbDoorName.TabIndex = 9;
+            this.lbDoorName.Text = "----";
+            // 
             // lbTime
             // 
             this.lbTime.AutoSize = true;
@@ -248,6 +280,20 @@
             this.lbTime.TabIndex = 9;
             this.lbTime.Text = "----";
             // 
+            // labelX5
+            // 
+            this.labelX5.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX5.Location = new System.Drawing.Point(9, 79);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(35, 20);
+            this.labelX5.TabIndex = 9;
+            this.labelX5.Text = "动作:";
+            // 
             // lbDeptName
             // 
             this.lbDeptName.AutoSize = true;
@@ -261,6 +307,20 @@
             this.lbDeptName.Size = new System.Drawing.Size(28, 20);
             this.lbDeptName.TabIndex = 9;
             this.lbDeptName.Text = "----";
+            // 
+            // labelX4
+            // 
+            this.labelX4.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX4.Location = new System.Drawing.Point(9, 55);
+            this.labelX4.Name = "labelX4";
+            this.labelX4.Size = new System.Drawing.Size(35, 20);
+            this.labelX4.TabIndex = 9;
+            this.labelX4.Text = "门禁:";
             // 
             // lbStaffName
             // 
@@ -343,41 +403,41 @@
             this.dgvRealLog.AllowUserToAddRows = false;
             this.dgvRealLog.AllowUserToDeleteRows = false;
             this.dgvRealLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvRealLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRealLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRealLog.EnableHeadersVisualStyles = false;
             this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvRealLog.Location = new System.Drawing.Point(0, 0);
             this.dgvRealLog.Name = "dgvRealLog";
             this.dgvRealLog.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvRealLog.RowTemplate.Height = 23;
             this.dgvRealLog.Size = new System.Drawing.Size(696, 181);
             this.dgvRealLog.TabIndex = 11;
@@ -449,8 +509,8 @@
             this.listDoors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
+            listViewItem1,
+            listViewItem2});
             this.listDoors.LargeImageList = this.smallImageList;
             this.listDoors.Location = new System.Drawing.Point(0, 28);
             this.listDoors.Name = "listDoors";
@@ -459,61 +519,20 @@
             this.listDoors.TabIndex = 13;
             this.listDoors.UseCompatibleStateImageBehavior = false;
             // 
-            // labelX4
+            // tsmiRemoteOpen
             // 
-            this.labelX4.AutoSize = true;
+            this.tsmiRemoteOpen.Name = "tsmiRemoteOpen";
+            this.tsmiRemoteOpen.Size = new System.Drawing.Size(148, 22);
+            this.tsmiRemoteOpen.Text = "远程开门";
+            this.tsmiRemoteOpen.Click += new System.EventHandler(this.tsmiRemoteOpen_Click);
             // 
+            // biRemoteOpen
             // 
-            // 
-            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX4.Location = new System.Drawing.Point(9, 55);
-            this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(35, 20);
-            this.labelX4.TabIndex = 9;
-            this.labelX4.Text = "门禁:";
-            // 
-            // lbDoorName
-            // 
-            this.lbDoorName.AutoSize = true;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbDoorName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbDoorName.Location = new System.Drawing.Point(40, 55);
-            this.lbDoorName.Name = "lbDoorName";
-            this.lbDoorName.Size = new System.Drawing.Size(28, 20);
-            this.lbDoorName.TabIndex = 9;
-            this.lbDoorName.Text = "----";
-            // 
-            // labelX5
-            // 
-            this.labelX5.AutoSize = true;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX5.Location = new System.Drawing.Point(9, 79);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(35, 20);
-            this.labelX5.TabIndex = 9;
-            this.labelX5.Text = "动作:";
-            // 
-            // lbAction
-            // 
-            this.lbAction.AutoSize = true;
-            // 
-            // 
-            // 
-            this.lbAction.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbAction.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbAction.Location = new System.Drawing.Point(40, 79);
-            this.lbAction.Name = "lbAction";
-            this.lbAction.Size = new System.Drawing.Size(28, 20);
-            this.lbAction.TabIndex = 9;
-            this.lbAction.Text = "----";
+            this.biRemoteOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRemoteOpen.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biRemoteOpen.Name = "biRemoteOpen";
+            this.biRemoteOpen.Text = "远程开门";
+            this.biRemoteOpen.Click += new System.EventHandler(this.biRemoteOpen_Click);
             // 
             // RealDoorState
             // 
@@ -571,5 +590,7 @@
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.LabelX lbAction;
         private DevComponents.DotNetBar.LabelX labelX5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemoteOpen;
+        private DevComponents.DotNetBar.ButtonItem biRemoteOpen;
     }
 }

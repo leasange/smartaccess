@@ -11,6 +11,7 @@ using SmartAccess.Common.WinInfo;
 using Li.Access.Core;
 using System.Threading;
 using System.IO;
+using Li.Access.Core.WGAccesses;
 
 namespace SmartAccess.RealDetectMgr
 {
@@ -648,8 +649,9 @@ namespace SmartAccess.RealDetectMgr
                 {
                     item.Selected = true;
                 }
+                doors = GetSelectDoors();
             }
-            doors = GetSelectDoors();
+            
             FrmDoorStateCfg cfg = new FrmDoorStateCfg(doors,dgvRealLog);
             cfg.ShowDialog(this);
             if (cfg.IsChanged)
@@ -694,6 +696,7 @@ namespace SmartAccess.RealDetectMgr
                     item.Selected = false;
                 }
             }
+            listDoors.Focus();
         }
 
         private void dgvRealLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -703,6 +706,44 @@ namespace SmartAccess.RealDetectMgr
                 DataGridViewRow row = dgvRealLog.Rows[e.RowIndex];
                 ShowStaffInfo(row, row.Tag as object[]);
             }
+        }
+        private void DoRemoteOpen()
+        {
+            var doors = GetSelectDoors();
+            if (doors.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                UploadPrivate.RemoteOpenDoors(doors);
+            });
+            waiting.Show(this);
+        }
+        private void tsmiRemoteOpen_Click(object sender, EventArgs e)
+        {
+            DoRemoteOpen(); 
+        }
+        private List<decimal> GetCtrlIds(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
+        {
+            var g = doors.GroupBy(m => m.CTRL_ID);
+            List<decimal> ctrlIds = new List<decimal>();
+            foreach (var item in g)
+            {
+                decimal? id = item.ToList()[0].CTRL_ID;
+                if (id == null)
+                {
+                    continue;
+                }
+                ctrlIds.Add((decimal)id);
+            }
+            return ctrlIds;
+        }
+
+        private void biRemoteOpen_Click(object sender, EventArgs e)
+        {
+            DoRemoteOpen();
         }
     }
 }
