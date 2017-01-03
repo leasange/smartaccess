@@ -317,6 +317,10 @@ namespace SmartAccess.ControlDevMgr
             }
             else
             {
+                if (MessageBox.Show("确定恢复选择控制器IP？","提示",MessageBoxButtons.OKCancel)==DialogResult.Cancel)
+                {
+                    return;
+                }
                 CtrlWaiting waiting = new CtrlWaiting(() =>
                 {
                     List<ManualResetEvent> evts = new List<ManualResetEvent>();
@@ -354,6 +358,11 @@ namespace SmartAccess.ControlDevMgr
                 });
                 waiting.Show(this);
             }
+        }
+
+        private void tsmiIPPrivate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

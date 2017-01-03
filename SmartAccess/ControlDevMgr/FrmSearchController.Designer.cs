@@ -364,6 +364,8 @@
             this.tsmiIPPrivate.Name = "tsmiIPPrivate";
             this.tsmiIPPrivate.Size = new System.Drawing.Size(188, 22);
             this.tsmiIPPrivate.Text = "控制IP访问约束";
+            this.tsmiIPPrivate.Visible = false;
+            this.tsmiIPPrivate.Click += new System.EventHandler(this.tsmiIPPrivate_Click);
             // 
             // 设置读卡器输入格式ToolStripMenuItem
             // 
