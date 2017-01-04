@@ -939,7 +939,6 @@
     <None Include="Images\欢迎.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="Common\Database\smartaccess_imscreate.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_excutebackup.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_createbackupjob.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_exebakenableordisable.sql" />

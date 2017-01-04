@@ -188,19 +188,19 @@ namespace SmartAccess
                 });
                 waiting.ShowDialog(this);
                 if (exsit)
-                {
-                    DialogResult dr = MessageBox.Show("数据库已存在，重新创建选择“是”，升级选择“否”，不改动选择“取消”？\r\n重新创建，原始数据库会备份至服务器目录：C:\\SmartAccessBak 下。", "确定", MessageBoxButtons.YesNoCancel);
+                {//\r\n重新创建，原始数据库会备份至服务器目录：C:\\SmartAccessBak 下。
+                    DialogResult dr = MessageBox.Show("数据库已存在，是否升级数据库？", "提示", MessageBoxButtons.YesNo);
                     if (dr == DialogResult.Cancel)
                     {
                         return;
                     }
                     else if (dr == DialogResult.Yes)
                     {
-                        isupdate = false;
+                        isupdate = true;
                     }
                     else
                     {
-                        isupdate = true;
+                        return;
                     }
                 }
             }
@@ -244,11 +244,12 @@ namespace SmartAccess
             config.database = "master";
             string sqlstring = config.ToString();
             string createDBSql = GetFileSql("smartaccess_createall.sql");
-            string createDBSqlIms = GetFileSql("smartaccess_imscreate.sql");
+           // string createDBSqlIms = GetFileSql("smartaccess_imscreate.sql");
 
             string beforeDBSql = GetFileSql("smartaccess_before.sql");
-            string dataDBSql = GetFileSql("smartaccess_data.sql");
             string updateDBSql = GetFileSql("smartaccess_update.sql");
+            string dataDBSql = GetFileSql("smartaccess_data.sql");
+            
             using (SqlConnection conn = DatabaseHelper.ConnectDatabase(sqlstring))
             {
                 List<string> sqlList = new List<string>();
@@ -262,12 +263,12 @@ namespace SmartAccess
                 else
                 {
                     var list = createDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
-                    var listIms = createDBSqlIms.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
+                    //var listIms = createDBSqlIms.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     var beforeList = beforeDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     var dataList = dataDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     sqlList.AddRange(beforeList);
                     sqlList.AddRange(list);
-                    sqlList.AddRange(listIms);
+                    //sqlList.AddRange(listIms);
                     sqlList.AddRange(dataList);
                 }
                 using (SqlCommand command = conn.CreateCommand())
@@ -301,7 +302,27 @@ namespace SmartAccess
                                 sql = sql.Replace("${DATE}", DateTime.Now.ToString("_yyyyMMdd_HHmmss"));
                             }
                             command.CommandText = sql;
-                            result = command.ExecuteNonQuery();
+                            try
+                            {
+                                result = command.ExecuteNonQuery();
+                            }
+                            catch (SqlException ex)
+                            {
+                                if (ex.ErrorCode==-2146232060)//已存在对象屏蔽
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    throw ex;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                
+                                throw;
+                            }
+                           
                         }
                     }
                 }
