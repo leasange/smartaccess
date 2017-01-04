@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -34,9 +34,6 @@
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Li.Controls">
-      <HintPath>..\Li.Controls\obj\Debug\Li.Controls.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\dlls\log4net.dll</HintPath>
@@ -104,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
+      <Project>{3d529aa3-ff22-4e41-9924-0b0777d640b6}</Project>
+      <Name>Li.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
