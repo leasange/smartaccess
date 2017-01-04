@@ -165,6 +165,12 @@
     <Compile Include="ConfigMgr\FrmCardIssueSetting.Designer.cs">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmDBBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmDBBackup.Designer.cs">
+      <DependentUpon>FrmDBBackup.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmEditMap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -555,6 +561,9 @@
     <EmbeddedResource Include="ConfigMgr\FrmCardIssueSetting.resx">
       <DependentUpon>FrmCardIssueSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmDBBackup.resx">
+      <DependentUpon>FrmDBBackup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmEditMap.resx">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </EmbeddedResource>
@@ -931,6 +940,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Common\Database\smartaccess_imscreate.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_excutebackup.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_createbackupjob.sql" />
+    <EmbeddedResource Include="Common\Database\smartaccess_exebakenableordisable.sql" />
     <Content Include="logo1.ico" />
     <None Include="Resources\house1818.png" />
     <None Include="Resources\door1818.png" />

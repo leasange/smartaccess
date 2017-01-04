@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -230,9 +231,9 @@ namespace SmartAccess
             });
             waiting1.Show(this);
         }
-        private string GetFileSql(string fileName)
+        public static string GetFileSql(string fileName)
         {
-            Stream s = this.GetType().Assembly.GetManifestResourceStream("SmartAccess.Common.Database." + fileName);
+            Stream s = typeof(FrmDataBaseConfig).Assembly.GetManifestResourceStream("SmartAccess.Common.Database." + fileName);
             StreamReader sr = new StreamReader(s, Encoding.UTF8);
             string createDBSql = sr.ReadToEnd();
             s.Dispose();
@@ -253,17 +254,17 @@ namespace SmartAccess
                 List<string> sqlList = new List<string>();
                 if (isUpdate)
                 {
-                    var updateList=updateDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
-                    var dataList = dataDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var updateList=updateDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
+                    var dataList = dataDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     sqlList.AddRange(updateList);
                     sqlList.AddRange(dataList);
                 }
                 else
                 {
-                    var list = createDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
-                    var listIms = createDBSqlIms.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
-                    var beforeList = beforeDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
-                    var dataList = dataDBSql.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries);
+                    var list = createDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
+                    var listIms = createDBSqlIms.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
+                    var beforeList = beforeDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
+                    var dataList = dataDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     sqlList.AddRange(beforeList);
                     sqlList.AddRange(list);
                     sqlList.AddRange(listIms);

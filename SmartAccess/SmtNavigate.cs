@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Li.Controls;
 using System.Reflection;
+using System.Diagnostics;
+using System.IO;
+using SmartAccess.Common.WinInfo;
 
 namespace SmartAccess
 {
@@ -92,9 +95,9 @@ namespace SmartAccess
                     new ExpandItem("门禁密码管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.ACCESS_PASSWORD_CONFIG, typeof(SmartAccess.ConfigMgr.AccessPasswordMgr)),
                     new ExpandItem("出入时段管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.INOUT_TIME_CONFIG, typeof(SmartAccess.ConfigMgr.InOutTimeCfg)),
                     new ExpandItem("报警联动设定", Properties.Resources.dkq_2525, SYS_FUN_POINT.ALARM_CONNECT_SETTING, typeof(SmartAccess.ConfigMgr.FrmAlarmSetting)),
-                    new ExpandItem("数据备份管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.DATABASE_BACK_CONFIG, null),
+                    new ExpandItem("数据备份管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.DATABASE_BACK_CONFIG, typeof(SmartAccess.ConfigMgr.FrmDBBackup)),
                     new ExpandItem("修改用户密码", Properties.Resources.dkq_2525, SYS_FUN_POINT.MODIFY_PWD_CONFIG, typeof(SmartAccess.ConfigMgr.FrmModifyUserPwd)),
-                    new ExpandItem("系统使用说明", Properties.Resources.dkq_2525, SYS_FUN_POINT.SYS_README_CONFIG, null),
+                    new ExpandItem("系统使用说明", Properties.Resources.dkq_2525, SYS_FUN_POINT.SYS_README_CONFIG, typeof(OpenHelperClass)),
                     new ExpandItem("用户权限管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.USER_PRIVATE_CONFIG, typeof(SmartAccess.ConfigMgr.UserManager))
              });
             MenuItems.Add(configMgr);
@@ -275,6 +278,21 @@ namespace SmartAccess
             this.image = image;
             this.funPoint = funPoint;
             this.controlType = controlType;
+        }
+    }
+    public class OpenHelperClass
+    {
+        public OpenHelperClass()
+        {
+            string path = Path.Combine(Application.StartupPath, "help.chm");
+            try
+            {
+                Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                WinInfoHelper.ShowInfoWindow(null, "帮助文件打开失败：" + ex.Message + "\r\n 路径：" + path);
+            }
         }
     }
 }
