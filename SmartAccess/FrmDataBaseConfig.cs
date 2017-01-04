@@ -262,9 +262,9 @@ namespace SmartAccess
                 }
                 else
                 {
+                    var beforeList = beforeDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     var list = createDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     //var listIms = createDBSqlIms.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
-                    var beforeList = beforeDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     var dataList = dataDBSql.Split(new string[] { "GO\r" }, StringSplitOptions.RemoveEmptyEntries);
                     sqlList.AddRange(beforeList);
                     sqlList.AddRange(list);
