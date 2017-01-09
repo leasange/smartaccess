@@ -331,18 +331,18 @@ namespace SmartAccess.VerInfoMgr
 
         private void cbTimeNum_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ComboBoxItem item = (ComboBoxItem)cbTimeNum.SelectedItem;
-            //if (item.Tag==null)
-            //{
-            //    this.dtpStart.Value = this.staffInfo.VALID_STARTTIME;
-            //    this.dtpEnd.Value = this.staffInfo.VALID_ENDTIME;
-            //}
-            //else
-            //{
-            //    Maticsoft.Model.SMT_TIMESCALE_INFO tsInfo = (Maticsoft.Model.SMT_TIMESCALE_INFO)item.Tag;
-            //    this.dtpStart.Value = tsInfo.TIME_DATE_START;
-            //    this.dtpEnd.Value = tsInfo.TIME_DATE_END;
-            //}
+            ComboBoxItem item = (ComboBoxItem)cbTimeNum.SelectedItem;
+            if (item.Tag == null)
+            {
+                this.dtpStart.Value = this.staffInfo.VALID_STARTTIME;
+                this.dtpEnd.Value = this.staffInfo.VALID_ENDTIME;
+            }
+            else
+            {
+                Maticsoft.Model.SMT_TIMESCALE_INFO tsInfo = (Maticsoft.Model.SMT_TIMESCALE_INFO)item.Tag;
+                this.dtpStart.Value = tsInfo.TIME_DATE_START;
+                this.dtpEnd.Value = tsInfo.TIME_DATE_END;
+            }
         }
 
     }
