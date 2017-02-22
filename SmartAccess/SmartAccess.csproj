@@ -525,12 +525,19 @@
     <Compile Include="VerInfoMgr\FrmStaffInfo.Designer.cs">
       <DependentUpon>FrmStaffInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmUSBInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmUSBInput.Designer.cs">
+      <DependentUpon>FrmUSBInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\StaffInfoMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="VerInfoMgr\StaffInfoMgr.Designer.cs">
       <DependentUpon>StaffInfoMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\USBInCardIssueDevice.cs" />
     <Compile Include="VerInfoMgr\VerCodeInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -747,6 +754,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmStaffInfo.resx">
       <DependentUpon>FrmStaffInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmUSBInput.resx">
+      <DependentUpon>FrmUSBInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\StaffInfoMgr.resx">
       <DependentUpon>StaffInfoMgr.cs</DependentUpon>

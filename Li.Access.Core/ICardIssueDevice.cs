@@ -36,6 +36,7 @@ namespace Li.Access.Core
         /// <returns>卡号数组</returns>
         string ReadCardX();
     }
+
     /// <summary>
     /// 串口波特率
     /// </summary>
@@ -54,5 +55,6 @@ namespace Li.Access.Core
     public enum CardIssueModel
     {
         HY_EM800A,//HY-EM800A
+        USB_INTCARD,//USB_INTCARD
     }
 }

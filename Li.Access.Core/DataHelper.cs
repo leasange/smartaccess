@@ -48,17 +48,28 @@ namespace Li.Access.Core
             return bts.ToArray();
         }
 
-        public static string GetHexString(byte[] buffer,int offset,int length)
+        public static string GetHexString(byte[] buffer,int offset,int length,bool right=true)
         {
             string str = "";
-            for (int i = offset; i < offset+length; i++)
+            if (right)
             {
-                str += string.Format("{0:X2}", buffer[i]);
+                for (int i = offset; i < offset + length; i++)
+                {
+                    str += string.Format("{0:X2}", buffer[i]);
+                }
             }
+            else
+            {
+                for (int i = offset + length-1; i >= offset; i--)
+                {
+                    str += string.Format("{0:X2}", buffer[i]);
+                }
+            }
+
             return str;
         }
 
-        public static byte[] GetBytesFromInt(int idata)
+        public static byte[] GetBytesFromInt(uint idata)
         {
             byte[] bts=new byte[4];
             for (int i = 0; i < 4; i++)

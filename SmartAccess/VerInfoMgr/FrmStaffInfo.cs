@@ -629,9 +629,23 @@ namespace SmartAccess.VerInfoMgr
 
         private bool DoSetCard()
         {
-            using (ICardIssueDevice issDevice = new MF800ACardIssueDevice())
+            CardIssueConfig config = SysConfig.GetCardIssueConfig();
+            ICardIssueDevice issDevice = null;
+            switch (config.cardIssueModel)
             {
-                CardIssueConfig config = SysConfig.GetCardIssueConfig();
+                case CardIssueModel.HY_EM800A:
+                    issDevice = new MF800ACardIssueDevice();
+                    break;
+                case CardIssueModel.USB_INTCARD:
+                    issDevice = new USBInCardIssueDevice();
+                    break;
+            }
+            if (issDevice==null)
+            {
+                return false;
+            }
+            using (issDevice)
+            {
                 try
                 {
                     issDevice.OpenCom(config.comPort, config.comBuad);
@@ -644,6 +658,11 @@ namespace SmartAccess.VerInfoMgr
                     }
                     else
                     {
+                        string wgNum = num;
+                        if (config.cardIssueModel == CardIssueModel.HY_EM800A)
+                        {
+                            wgNum = DataHelper.ToWGAccessCardNo(num);
+                        }
                         Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
                         var cards = sbll.GetModelListByCardNo(num);
                         if (cards.Count > 0)
@@ -676,7 +695,7 @@ namespace SmartAccess.VerInfoMgr
                                     cardInfo.CARD_NO = num;
                                     cardInfo.CARD_TYPE = 0;
                                     cardInfo.CARD_DESC = num;
-                                    cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
+                                    cardInfo.CARD_WG_NO = wgNum;
                                     _cardInfos.Add(cardInfo);
                                 }
                                 //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
@@ -691,7 +710,7 @@ namespace SmartAccess.VerInfoMgr
                                 cardInfo.CARD_NO = num;
                                 cardInfo.CARD_TYPE = 0;
                                 cardInfo.CARD_DESC = num;
-                                cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
+                                cardInfo.CARD_WG_NO = wgNum;
                                 _cardInfos.Add(cardInfo);
                             }
                             //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");

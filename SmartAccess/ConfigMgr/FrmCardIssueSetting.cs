@@ -174,9 +174,9 @@ namespace SmartAccess.ConfigMgr
             }
             else if (cboCardModel.SelectedIndex>0)
             {
-                CardIssueModel model = (CardIssueModel)((ComboItem)cboCardModel.SelectedItem).Tag;
                 foreach (ComboItem item in cboModel.Items)
                 {
+                    CardIssueModel model = (CardIssueModel)item.Tag;
                     if ((CardIssueModel)((ComboItem)cboCardModel.SelectedItem).Tag == model)
                     {
                         cboModel.SelectedItem = item;
