@@ -366,6 +366,12 @@
     <Compile Include="InfoSearchMgr\AlarmInfo.Designer.cs">
       <DependentUpon>AlarmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoSearchMgr\AttendanceInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\AttendanceInfo.Designer.cs">
+      <DependentUpon>AttendanceInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoSearchMgr\OprLogsInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -666,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\AlarmInfo.resx">
       <DependentUpon>AlarmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\AttendanceInfo.resx">
+      <DependentUpon>AttendanceInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\OprLogsInfo.resx">
       <DependentUpon>OprLogsInfo.cs</DependentUpon>

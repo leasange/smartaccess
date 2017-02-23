@@ -49,7 +49,7 @@ namespace SmartAccess
                     new ExpandItem("人员轨迹查询", Properties.Resources.dkq_2525,SYS_FUN_POINT.STAFF_ROUTE,typeof(InfoSearchMgr.StaffRouteInfo)),
                     new ExpandItem("操作日志查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.LOG_INFO,typeof(InfoSearchMgr.OprLogsInfo)),
                     new ExpandItem("报警信息查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.ALARM_INFO,typeof(InfoSearchMgr.AlarmInfo)),
-                    
+                    new ExpandItem("考勤信息查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.ATTENDANCE_INFO,typeof(InfoSearchMgr.AttendanceInfo)),
                 });
             MenuItems.Add(infoSearchMgr);
 

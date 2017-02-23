@@ -92,5 +92,6 @@ namespace SmartAccess
         MODIFY_PWD_CONFIG,//	修改用户密码
         SYS_README_CONFIG,//	系统使用说明
         USER_PRIVATE_CONFIG,//	用户权限管理
+        ATTENDANCE_INFO,//考勤管理
     }
 }
