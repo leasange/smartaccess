@@ -85,6 +85,8 @@ namespace Li.Access.Core
                 socket.ReceiveTimeout = 3000;
                 socket.SendTo(datas, endPoint);
             }
+            string str = DataHelper.GetHexString(datas, 0, datas.Length);
+            Console.WriteLine("send :" + endPoint + "=>" + str);
             return true;
         }
         public List<byte[]> RecieveFrom(int bufferLength,int maxCount=-1)
