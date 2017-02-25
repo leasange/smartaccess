@@ -29,8 +29,8 @@ namespace Maticsoft.Model
 		private decimal _id;
 		private decimal _staff_id;
 		private DateTime _atten_date;
-		private DateTime? _atten_on_time;
-		private DateTime? _atten_off_time;
+        private TimeSpan? _atten_on_time;
+        private TimeSpan? _atten_off_time;
 		private string _atten_on_state;
 		private string _atten_off_state;
 		private int? _atten_late_min;
@@ -66,7 +66,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 上班时间
 		/// </summary>
-		public DateTime? ATTEN_ON_TIME
+        public TimeSpan? ATTEN_ON_TIME
 		{
 			set{ _atten_on_time=value;}
 			get{return _atten_on_time;}
@@ -74,7 +74,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 下班时间
 		/// </summary>
-		public DateTime? ATTEN_OFF_TIME
+        public TimeSpan? ATTEN_OFF_TIME
 		{
 			set{ _atten_off_time=value;}
 			get{return _atten_off_time;}

@@ -246,11 +246,11 @@ namespace Maticsoft.DAL
 				}
 				if(row["ATTEN_ON_TIME"]!=null && row["ATTEN_ON_TIME"].ToString()!="")
 				{
-					model.ATTEN_ON_TIME=DateTime.Parse(row["ATTEN_ON_TIME"].ToString());
+                    model.ATTEN_ON_TIME = TimeSpan.Parse(row["ATTEN_ON_TIME"].ToString());
 				}
 				if(row["ATTEN_OFF_TIME"]!=null && row["ATTEN_OFF_TIME"].ToString()!="")
 				{
-					model.ATTEN_OFF_TIME=DateTime.Parse(row["ATTEN_OFF_TIME"].ToString());
+                    model.ATTEN_OFF_TIME = TimeSpan.Parse(row["ATTEN_OFF_TIME"].ToString());
 				}
 				if(row["ATTEN_ON_STATE"]!=null)
 				{
