@@ -122,7 +122,7 @@ namespace Maticsoft.BLL
 		/// </summary>
 		public List<Maticsoft.Model.SMT_ATTEN_REPORT> GetModelList(string strWhere)
 		{
-			DataSet ds = dal.GetList(strWhere);
+            DataSet ds = dal.GetList(strWhere);
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>

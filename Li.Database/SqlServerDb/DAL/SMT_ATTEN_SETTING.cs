@@ -309,19 +309,19 @@ namespace Maticsoft.DAL
 				}
 				if(row["DUTY_ON_TIME1"]!=null && row["DUTY_ON_TIME1"].ToString()!="")
 				{
-					model.DUTY_ON_TIME1=DateTime.Parse(row["DUTY_ON_TIME1"].ToString());
+                    model.DUTY_ON_TIME1 = TimeSpan.Parse(row["DUTY_ON_TIME1"].ToString());
 				}
 				if(row["DUTY_OFF_TIME1"]!=null && row["DUTY_OFF_TIME1"].ToString()!="")
 				{
-					model.DUTY_OFF_TIME1=DateTime.Parse(row["DUTY_OFF_TIME1"].ToString());
+                    model.DUTY_OFF_TIME1 = TimeSpan.Parse(row["DUTY_OFF_TIME1"].ToString());
 				}
 				if(row["DUTY_ON_TIME2"]!=null && row["DUTY_ON_TIME2"].ToString()!="")
 				{
-					model.DUTY_ON_TIME2=DateTime.Parse(row["DUTY_ON_TIME2"].ToString());
+                    model.DUTY_ON_TIME2 = TimeSpan.Parse(row["DUTY_ON_TIME2"].ToString());
 				}
 				if(row["DUTY_OFF_TIME2"]!=null && row["DUTY_OFF_TIME2"].ToString()!="")
 				{
-					model.DUTY_OFF_TIME2=DateTime.Parse(row["DUTY_OFF_TIME2"].ToString());
+                    model.DUTY_OFF_TIME2 = TimeSpan.Parse(row["DUTY_OFF_TIME2"].ToString());
 				}
 				if(row["DUTY_ONLY_ON"]!=null && row["DUTY_ONLY_ON"].ToString()!="")
 				{
@@ -336,7 +336,7 @@ namespace Maticsoft.DAL
 				}
 				if(row["DUTY_ON_EARLIEST"]!=null && row["DUTY_ON_EARLIEST"].ToString()!="")
 				{
-					model.DUTY_ON_EARLIEST=DateTime.Parse(row["DUTY_ON_EARLIEST"].ToString());
+                    model.DUTY_ON_EARLIEST = TimeSpan.Parse(row["DUTY_ON_EARLIEST"].ToString());
 				}
 				if(row["DUTY_WORK_LENGTH"]!=null && row["DUTY_WORK_LENGTH"].ToString()!="")
 				{

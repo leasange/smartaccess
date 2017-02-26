@@ -93,5 +93,6 @@ namespace SmartAccess
         SYS_README_CONFIG,//	系统使用说明
         USER_PRIVATE_CONFIG,//	用户权限管理
         ATTENDANCE_INFO,//考勤管理
+        ATTENDANCE_SETTING,//考勤设置
     }
 }

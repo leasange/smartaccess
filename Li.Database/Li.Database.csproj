@@ -49,6 +49,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_CONNECT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_SETTING.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_SETTING.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_CONNECT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_SETTING.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_SETTING.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="SqlServerDb\Model\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_SETTING.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />

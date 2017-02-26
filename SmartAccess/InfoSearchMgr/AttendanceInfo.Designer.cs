@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboDeptTree = new DevComponents.DotNetBar.Controls.ComboTree();
             this.btnSearch = new DevComponents.DotNetBar.ButtonX();
             this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -57,6 +57,7 @@
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnExport = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
             this.panelEx1.SuspendLayout();
@@ -72,9 +73,9 @@
             this.cboDeptTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.cboDeptTree.ButtonDropDown.Visible = true;
             this.cboDeptTree.DropDownHeight = 200;
-            this.cboDeptTree.Location = new System.Drawing.Point(514, 13);
+            this.cboDeptTree.Location = new System.Drawing.Point(301, 13);
             this.cboDeptTree.Name = "cboDeptTree";
-            this.cboDeptTree.Size = new System.Drawing.Size(121, 23);
+            this.cboDeptTree.Size = new System.Drawing.Size(170, 23);
             this.cboDeptTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboDeptTree.TabIndex = 2;
             // 
@@ -82,12 +83,13 @@
             // 
             this.btnSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSearch.Location = new System.Drawing.Point(640, 39);
+            this.btnSearch.Location = new System.Drawing.Point(649, 39);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 23);
             this.btnSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "查询";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // dtpEnd
             // 
@@ -102,7 +104,7 @@
             this.dtpEnd.CustomFormat = "yyyy-MM-dd dddd";
             this.dtpEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtpEnd.IsPopupCalendarOpen = false;
-            this.dtpEnd.Location = new System.Drawing.Point(305, 39);
+            this.dtpEnd.Location = new System.Drawing.Point(301, 39);
             // 
             // 
             // 
@@ -147,7 +149,7 @@
             // 
             // 
             this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX6.Location = new System.Drawing.Point(247, 39);
+            this.labelX6.Location = new System.Drawing.Point(243, 39);
             this.labelX6.Name = "labelX6";
             this.labelX6.Size = new System.Drawing.Size(73, 23);
             this.labelX6.TabIndex = 3;
@@ -224,7 +226,7 @@
             // 
             // 
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(481, 12);
+            this.labelX3.Location = new System.Drawing.Point(268, 12);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(48, 23);
             this.labelX3.TabIndex = 0;
@@ -237,9 +239,9 @@
             // 
             this.tbName.Border.Class = "TextBoxBorder";
             this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbName.Location = new System.Drawing.Point(305, 13);
+            this.tbName.Location = new System.Drawing.Point(542, 13);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(170, 23);
+            this.tbName.Size = new System.Drawing.Size(104, 23);
             this.tbName.TabIndex = 1;
             // 
             // labelX2
@@ -248,7 +250,7 @@
             // 
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(247, 10);
+            this.labelX2.Location = new System.Drawing.Point(484, 11);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(57, 23);
             this.labelX2.TabIndex = 0;
@@ -282,6 +284,7 @@
             // 
             this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.btnExport);
             this.panelEx1.Controls.Add(this.cboDeptTree);
             this.panelEx1.Controls.Add(this.btnCreateReport);
             this.panelEx1.Controls.Add(this.btnSearch);
@@ -312,9 +315,9 @@
             // 
             this.btnCreateReport.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCreateReport.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnCreateReport.Location = new System.Drawing.Point(514, 39);
+            this.btnCreateReport.Location = new System.Drawing.Point(481, 39);
             this.btnCreateReport.Name = "btnCreateReport";
-            this.btnCreateReport.Size = new System.Drawing.Size(120, 23);
+            this.btnCreateReport.Size = new System.Drawing.Size(66, 23);
             this.btnCreateReport.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCreateReport.TabIndex = 5;
             this.btnCreateReport.Text = "生成报表";
@@ -326,14 +329,14 @@
             this.dgvData.AllowUserToAddRows = false;
             this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -349,14 +352,14 @@
             this.Column11,
             this.Column12,
             this.Column13});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(0, 68);
@@ -444,6 +447,18 @@
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
             // 
+            // btnExport
+            // 
+            this.btnExport.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnExport.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnExport.Location = new System.Drawing.Point(837, 39);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(108, 23);
+            this.btnExport.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnExport.TabIndex = 7;
+            this.btnExport.Text = "导出";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // AttendanceInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -452,6 +467,7 @@
             this.Controls.Add(this.panelEx1);
             this.Name = "AttendanceInfo";
             this.Size = new System.Drawing.Size(965, 394);
+            this.Load += new System.EventHandler(this.AttendanceInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).EndInit();
             this.panelEx1.ResumeLayout(false);
@@ -489,5 +505,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private DevComponents.DotNetBar.ButtonX btnCreateReport;
+        private DevComponents.DotNetBar.ButtonX btnExport;
     }
 }

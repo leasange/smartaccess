@@ -36,12 +36,12 @@ namespace Maticsoft.Model
 		private decimal _duty_leave_punish;
 		private int _duty_extra_min;
 		private int _duty_swing_times;
-		private DateTime _duty_on_time1;
-		private DateTime _duty_off_time1;
-		private DateTime _duty_on_time2;
-		private DateTime _duty_off_time2;
+		private TimeSpan _duty_on_time1;
+        private TimeSpan _duty_off_time1;
+        private TimeSpan _duty_on_time2;
+        private TimeSpan _duty_off_time2;
 		private bool _duty_only_on;
-		private DateTime _duty_on_earliest;
+        private TimeSpan _duty_on_earliest;
 		private decimal _duty_work_length;
 		private bool _duty_full_time;
 		private int _duty_sat_type;
@@ -129,7 +129,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 上班时间1，time
 		/// </summary>
-		public DateTime DUTY_ON_TIME1
+        public TimeSpan DUTY_ON_TIME1
 		{
 			set{ _duty_on_time1=value;}
 			get{return _duty_on_time1;}
@@ -137,7 +137,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 下班时间1
 		/// </summary>
-		public DateTime DUTY_OFF_TIME1
+        public TimeSpan DUTY_OFF_TIME1
 		{
 			set{ _duty_off_time1=value;}
 			get{return _duty_off_time1;}
@@ -145,7 +145,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 上班时间2
 		/// </summary>
-		public DateTime DUTY_ON_TIME2
+        public TimeSpan DUTY_ON_TIME2
 		{
 			set{ _duty_on_time2=value;}
 			get{return _duty_on_time2;}
@@ -153,7 +153,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 下班时间2
 		/// </summary>
-		public DateTime DUTY_OFF_TIME2
+        public TimeSpan DUTY_OFF_TIME2
 		{
 			set{ _duty_off_time2=value;}
 			get{return _duty_off_time2;}
@@ -169,7 +169,7 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 上班最早刷卡时间，time
 		/// </summary>
-		public DateTime DUTY_ON_EARLIEST
+        public TimeSpan DUTY_ON_EARLIEST
 		{
 			set{ _duty_on_earliest=value;}
 			get{return _duty_on_earliest;}

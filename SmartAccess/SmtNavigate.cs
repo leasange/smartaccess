@@ -98,7 +98,8 @@ namespace SmartAccess
                     new ExpandItem("数据备份管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.DATABASE_BACK_CONFIG, typeof(SmartAccess.ConfigMgr.FrmDBBackup)),
                     new ExpandItem("修改用户密码", Properties.Resources.dkq_2525, SYS_FUN_POINT.MODIFY_PWD_CONFIG, typeof(SmartAccess.ConfigMgr.FrmModifyUserPwd)),
                     new ExpandItem("系统使用说明", Properties.Resources.dkq_2525, SYS_FUN_POINT.SYS_README_CONFIG, typeof(OpenHelperClass)),
-                    new ExpandItem("用户权限管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.USER_PRIVATE_CONFIG, typeof(SmartAccess.ConfigMgr.UserManager))
+                    new ExpandItem("用户权限管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.USER_PRIVATE_CONFIG, typeof(SmartAccess.ConfigMgr.UserManager)),
+                    new ExpandItem("考勤上班设置", Properties.Resources.dkq_2525, SYS_FUN_POINT.ATTENDANCE_SETTING, typeof(SmartAccess.ConfigMgr.AttenSetting))
              });
             MenuItems.Add(configMgr);
 // 
