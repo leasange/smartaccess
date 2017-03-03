@@ -37,6 +37,7 @@ namespace SmartAccess.VerInfoMgr
                 cardNo = DataHelper.GetHexString(bts, 0, 4,false);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+                return;
             }
             cardNo += (char)e.KeyValue;
             this.Text = cardNo;

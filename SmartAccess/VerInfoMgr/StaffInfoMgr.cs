@@ -553,162 +553,158 @@ namespace SmartAccess.VerInfoMgr
                 {
                     if (resetCard)//(发卡/换卡)
                     {
-                        using (ICardIssueDevice issDevice = new MF800ACardIssueDevice())
+                        string num;
+                        string wgNum;
+                        string errorMsg;
+                        if (!CardIssueDeviceHelper.ReadCard(out num, out wgNum, out errorMsg))
                         {
-                            CardIssueConfig config = SysConfig.GetCardIssueConfig();
-                            try
+                            WinInfoHelper.ShowInfoWindow(this, "读取卡号失败：" + errorMsg);
+                            return;
+                        }
+                        try
+                        {
+                            Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                            var cards = sbll.GetModelListByCardNo(num);
+                            if (cards.Count > 0)
                             {
-                                issDevice.OpenCom(config.comPort, config.comBuad);
-                                string num = issDevice.ReadCardX();
-                                issDevice.Close();
-                                if (num == null)
+                                bool delete = false;
+                                var card = cards.Find(m => m.STAFF_ID == staffInfo.ID && m.CARD_NO == num);
+                                if (card != null)
                                 {
-                                    WinInfoHelper.ShowInfoWindow(this, "未读取到卡号！");
+                                    WinInfoHelper.ShowInfoWindow(this, "该人员已绑定此卡，换卡或发卡结束！");
                                     return;
                                 }
-                                else
+                                this.Invoke(new Action(() =>
                                 {
-                                    Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
-                                    var cards = sbll.GetModelListByCardNo(num);
-                                    if (cards.Count > 0)
+                                    if (MessageBox.Show("该卡已绑定人员，是否强制解绑？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                     {
-                                        bool delete = false;
-                                        var card = cards.Find(m => m.STAFF_ID == staffInfo.ID && m.CARD_NO == num);
-                                        if (card != null)
-                                        {
-                                            WinInfoHelper.ShowInfoWindow(this, "该人员已绑定此卡，换卡或发卡结束！");
-                                            return;
-                                        }
+                                        delete = true;
+                                    }
+                                }));
+                                if (delete)
+                                {
+                                    string errMsg = "";
+                                    bool ret = UploadPrivate.DeletePrivateByCardNum(num, out errMsg, cards);
+                                    if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                                    {
+                                        WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
+                                        return;
+                                    }
+                                    foreach (var item in cards)
+                                    {
+                                        sbll.Delete(item.STAFF_ID, item.CARD_ID);
                                         this.Invoke(new Action(() =>
                                         {
-                                            if (MessageBox.Show("该卡已绑定人员，是否强制解绑？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                            foreach (DataGridViewRow old in dgvStaffs.Rows)
                                             {
-                                                delete = true;
+                                                Maticsoft.Model.SMT_STAFF_INFO staff = (Maticsoft.Model.SMT_STAFF_INFO)old.Tag;
+                                                if (staff.ID == item.STAFF_ID)
+                                                {
+                                                    var c = staff.CARDS.Find(m => m.ID == item.CARD_ID);
+                                                    if (c != null)
+                                                    {
+                                                        staff.CARDS.Remove(c);
+                                                    }
+                                                    string str = "";
+                                                    foreach (var cc in staff.CARDS)
+                                                    {
+                                                        str += cc.CARD_NO + ";";
+                                                    }
+                                                    str = str.TrimEnd(';');
+                                                    old.Cells[3].Value = str==""?"未发卡":str;
+                                                    old.Cells[4].Value = staff.CARDS.Count;
+                                                    old.Cells[5].Value = staff.CARDS.Count > 0 ? "正常" : "未发卡";
+                                                    break;
+                                                }
                                             }
                                         }));
-                                        if (delete)
-                                        {
-                                            string errMsg = "";
-                                            bool ret = UploadPrivate.DeletePrivateByCardNum(num, out errMsg, cards);
-                                            if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                                            {
-                                                WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
-                                                return;
-                                            }
-                                            foreach (var item in cards)
-                                            {
-                                                sbll.Delete(item.STAFF_ID, item.CARD_ID);
-                                                this.Invoke(new Action(() =>
-                                                    {
-                                                        foreach (DataGridViewRow old in dgvStaffs.Rows)
-                                                        {
-                                                            Maticsoft.Model.SMT_STAFF_INFO staff = (Maticsoft.Model.SMT_STAFF_INFO)old.Tag;
-                                                            if (staff.ID == item.STAFF_ID)
-                                                            {
-                                                                var c = staff.CARDS.Find(m => m.ID == item.CARD_ID);
-                                                                if (c != null)
-                                                                {
-                                                                    staff.CARDS.Remove(c);
-                                                                }
-                                                                string str = "未发卡";
-                                                                foreach (var cc in staff.CARDS)
-                                                                {
-                                                                    str += cc.CARD_NO + ";";
-                                                                }
-                                                                str = str.TrimEnd(';');
-                                                                old.Cells[3].Value = str;
-                                                                old.Cells[4].Value = staff.CARDS.Count;
-                                                                break;
-                                                            }
-                                                        }
-                                                    }));
-                                            }
-                                            staffInfo.CARDS.Clear();
+                                    }
+                                    staffInfo.CARDS.Clear();
 
-                                            Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
-                                            var cardInfos = cardBll.GetModelList("CARD_NO='" + num + "'");
-                                            var cardInfo = cardInfos[0];
-                                            staffInfo.CARDS.Add(cardInfo);
-                                            Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
-                                            scBll.Add(new Maticsoft.Model.SMT_STAFF_CARD()
-                                            {
-                                                STAFF_ID = staffInfo.ID,
-                                                CARD_ID = cardInfo.ID,
-                                                ACCESS_STARTTIME = staffInfo.VALID_STARTTIME,
-                                                ACCESS_ENDTIME = staffInfo.VALID_ENDTIME
-                                            });
-                                            bool uret = UploadPrivate.Upload(staffInfo, out errMsg);
-                                            if (!uret || !string.IsNullOrWhiteSpace(errMsg))
-                                            {
-                                                WinInfoHelper.ShowInfoWindow(this, "换卡权限上传异常：" + errMsg);
-                                            }
-                                            else
-                                            {
-                                                WinInfoHelper.ShowInfoWindow(this, "换卡或发卡成功。");
-                                            }
-                                            this.Invoke(new Action(() =>
-                                            {
-                                                staffInfo.DELETE_CARD = false;
-                                                row.Cells[3].Value = cardInfo.CARD_NO;
-                                                row.Cells[4].Value = 1;
-                                            }));
-                                        }
+                                    Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
+                                    var cardInfos = cardBll.GetModelList("CARD_NO='" + num + "'");
+                                    var cardInfo = cardInfos[0];
+                                    staffInfo.CARDS.Add(cardInfo);
+                                    Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
+                                    scBll.Add(new Maticsoft.Model.SMT_STAFF_CARD()
+                                    {
+                                        STAFF_ID = staffInfo.ID,
+                                        CARD_ID = cardInfo.ID,
+                                        ACCESS_STARTTIME = staffInfo.VALID_STARTTIME,
+                                        ACCESS_ENDTIME = staffInfo.VALID_ENDTIME
+                                    });
+                                    bool uret = UploadPrivate.Upload(staffInfo, out errMsg);
+                                    if (!uret || !string.IsNullOrWhiteSpace(errMsg))
+                                    {
+                                        WinInfoHelper.ShowInfoWindow(this, "换卡权限上传异常：" + errMsg);
                                     }
                                     else
                                     {
-                                        string errMsg;
-                                        bool ret = InternalDeleteCard(staffInfo, out errMsg);//销卡
-                                        if (!ret)
-                                        {
-                                            WinInfoHelper.ShowInfoWindow(this, "原始卡片注销异常：" + errMsg);
-                                            return;
-                                        }
-                                        Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
-                                        var cardInfos = cardBll.GetModelList("CARD_NO='" + num + "'");
-                                        if (cardInfos.Count == 0)//没有此卡
-                                        {
-                                            Maticsoft.Model.SMT_CARD_INFO card = new Maticsoft.Model.SMT_CARD_INFO();
-                                            card.CARD_NO = num;
-                                            card.CARD_DESC = num;
-                                            card.CARD_TYPE = 0;
-                                            card.CARD_WG_NO = DataHelper.ToWGAccessCardNo(num);
-                                            card.STAFF_ID = -1;
-                                            card.ID = cardBll.Add(card);
-                                            cardInfos.Add(card);
-                                        }
-                                        var cardInfo = cardInfos[0];
-                                        staffInfo.CARDS.Add(cardInfo);
-                                        Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
-                                        scBll.Add(new Maticsoft.Model.SMT_STAFF_CARD()
-                                        {
-                                            STAFF_ID = staffInfo.ID,
-                                            CARD_ID = cardInfo.ID,
-                                            ACCESS_STARTTIME = staffInfo.VALID_STARTTIME,
-                                            ACCESS_ENDTIME = staffInfo.VALID_ENDTIME
-                                        });
-                                        bool uret = UploadPrivate.Upload(staffInfo, out errMsg);
-                                        if (!uret || !string.IsNullOrWhiteSpace(errMsg))
-                                        {
-                                            WinInfoHelper.ShowInfoWindow(this, "换卡权限上传失败，请重新上传：" + errMsg);
-                                        }
-                                        else
-                                        {
-                                            WinInfoHelper.ShowInfoWindow(this, "换卡或发卡成功。");
-                                        }
-                                        this.Invoke(new Action(() =>
-                                        {
-                                            staffInfo.DELETE_CARD = false;
-                                            row.Cells[3].Value = cardInfo.CARD_NO;
-                                            row.Cells[4].Value = 1;
-                                        }));
+                                        WinInfoHelper.ShowInfoWindow(this, "换卡或发卡成功。");
                                     }
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        staffInfo.DELETE_CARD = false;
+                                        row.Cells[3].Value = cardInfo.CARD_NO;
+                                        row.Cells[4].Value = 1;
+                                        row.Cells[5].Value = "正常";
+                                    }));
                                 }
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                log.Error("发生异常：", ex);
-                                WinInfoHelper.ShowInfoWindow(this, "发生异常：" + ex.Message);
+                                string errMsg;
+                                bool ret = InternalDeleteCard(staffInfo, out errMsg);//销卡
+                                if (!ret)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "原始卡片注销异常：" + errMsg);
+                                    return;
+                                }
+                                Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
+                                var cardInfos = cardBll.GetModelList("CARD_NO='" + num + "'");
+                                if (cardInfos.Count == 0)//没有此卡
+                                {
+                                    Maticsoft.Model.SMT_CARD_INFO card = new Maticsoft.Model.SMT_CARD_INFO();
+                                    card.CARD_NO = num;
+                                    card.CARD_DESC = num;
+                                    card.CARD_TYPE = 0;
+                                    card.CARD_WG_NO = wgNum;
+                                    card.STAFF_ID = -1;
+                                    card.ID = cardBll.Add(card);
+                                    cardInfos.Add(card);
+                                }
+                                var cardInfo = cardInfos[0];
+                                staffInfo.CARDS.Add(cardInfo);
+                                Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
+                                scBll.Add(new Maticsoft.Model.SMT_STAFF_CARD()
+                                {
+                                    STAFF_ID = staffInfo.ID,
+                                    CARD_ID = cardInfo.ID,
+                                    ACCESS_STARTTIME = staffInfo.VALID_STARTTIME,
+                                    ACCESS_ENDTIME = staffInfo.VALID_ENDTIME
+                                });
+                                bool uret = UploadPrivate.Upload(staffInfo, out errMsg);
+                                if (!uret || !string.IsNullOrWhiteSpace(errMsg))
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "换卡权限上传失败，请重新上传：" + errMsg);
+                                }
+                                else
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "换卡或发卡成功。");
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    staffInfo.DELETE_CARD = false;
+                                    row.Cells[3].Value = cardInfo.CARD_NO;
+                                    row.Cells[4].Value = 1;
+                                    row.Cells[5].Value = "正常";
+                                }));
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("发生异常：", ex);
+                            WinInfoHelper.ShowInfoWindow(this, "发生异常：" + ex.Message);
                         }
                     }
                     else//销卡
@@ -723,6 +719,7 @@ namespace SmartAccess.VerInfoMgr
                                 staffInfo.DELETE_CARD = false;
                                 row.Cells[3].Value = "未发卡";
                                 row.Cells[4].Value = 0;
+                                row.Cells[5].Value = "未发卡";
                             }));
                         }
                         else

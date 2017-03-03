@@ -332,7 +332,7 @@ namespace SmartAccess.VerInfoMgr
         private void cbTimeNum_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)cbTimeNum.SelectedItem;
-            if (item.Tag == null)
+            if (item.Tag == null || item.Tag.ToString()=="")
             {
                 this.dtpStart.Value = this.staffInfo.VALID_STARTTIME;
                 this.dtpEnd.Value = this.staffInfo.VALID_ENDTIME;

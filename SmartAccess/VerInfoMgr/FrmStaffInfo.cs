@@ -629,103 +629,77 @@ namespace SmartAccess.VerInfoMgr
 
         private bool DoSetCard()
         {
-            CardIssueConfig config = SysConfig.GetCardIssueConfig();
-            ICardIssueDevice issDevice = null;
-            switch (config.cardIssueModel)
+            try
             {
-                case CardIssueModel.HY_EM800A:
-                    issDevice = new MF800ACardIssueDevice();
-                    break;
-                case CardIssueModel.USB_INTCARD:
-                    issDevice = new USBInCardIssueDevice();
-                    break;
-            }
-            if (issDevice==null)
-            {
-                return false;
-            }
-            using (issDevice)
-            {
-                try
+                string num;
+                string wgNum;
+                string errorMsg;
+                if (!CardIssueDeviceHelper.ReadCard(out num, out wgNum, out errorMsg))
                 {
-                    issDevice.OpenCom(config.comPort, config.comBuad);
-                    string num = issDevice.ReadCardX();
-                    issDevice.Close();
-                    if (num == null)
-                    {
-                        WinInfoHelper.ShowInfoWindow(this, "未读取到卡号！");
-                        return false;
-                    }
-                    else
-                    {
-                        string wgNum = num;
-                        if (config.cardIssueModel == CardIssueModel.HY_EM800A)
-                        {
-                            wgNum = DataHelper.ToWGAccessCardNo(num);
-                        }
-                        Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
-                        var cards = sbll.GetModelListByCardNo(num);
-                        if (cards.Count > 0)
-                        {
-                            bool delete = false;
-                            this.Invoke(new Action(() =>
-                            {
-                                if (MessageBox.Show("该卡已绑定人员，是否强制解绑？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                {
-                                    delete = true;
-                                }
-                            }));
-                            if (delete)
-                            {
-                                string errMsg = "";
-                                bool ret = UploadPrivate.DeletePrivateByCardNum(num, out errMsg, cards);
-                                if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                                {
-                                    WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
-                                    return false;
-                                }
-                                HasChanged = true;
-                                foreach (var item in cards)
-                                {
-                                    sbll.Delete(item.STAFF_ID, item.CARD_ID);
-                                }
-                                if (!_cardInfos.Exists(m => m.CARD_NO == num))
-                                {
-                                    Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
-                                    cardInfo.CARD_NO = num;
-                                    cardInfo.CARD_TYPE = 0;
-                                    cardInfo.CARD_DESC = num;
-                                    cardInfo.CARD_WG_NO = wgNum;
-                                    _cardInfos.Add(cardInfo);
-                                }
-                                //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
-                                return true;
-                            }
-                        }
-                        else
-                        {
-                            if (!_cardInfos.Exists(m => m.CARD_NO == num))
-                            {
-                                Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
-                                cardInfo.CARD_NO = num;
-                                cardInfo.CARD_TYPE = 0;
-                                cardInfo.CARD_DESC = num;
-                                cardInfo.CARD_WG_NO = wgNum;
-                                _cardInfos.Add(cardInfo);
-                            }
-                            //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
-                            return true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error("发卡器操作异常：", ex);
-                    WinInfoHelper.ShowInfoWindow(this, "读卡失败：" + ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "读取卡号失败：" + errorMsg);
                     return false;
                 }
+
+                Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
+                var cards = sbll.GetModelListByCardNo(num);
+                if (cards.Count > 0)
+                {
+                    bool delete = false;
+                    this.Invoke(new Action(() =>
+                    {
+                        if (MessageBox.Show("该卡已绑定人员，是否强制解绑？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            delete = true;
+                        }
+                    }));
+                    if (delete)
+                    {
+                        string errMsg = "";
+                        bool ret = UploadPrivate.DeletePrivateByCardNum(num, out errMsg, cards);
+                        if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
+                            return false;
+                        }
+                        HasChanged = true;
+                        foreach (var item in cards)
+                        {
+                            sbll.Delete(item.STAFF_ID, item.CARD_ID);
+                        }
+                        if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                        {
+                            Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                            cardInfo.CARD_NO = num;
+                            cardInfo.CARD_TYPE = 0;
+                            cardInfo.CARD_DESC = num;
+                            cardInfo.CARD_WG_NO = wgNum;
+                            _cardInfos.Add(cardInfo);
+                        }
+                        //WinInfoHelper.ShowInfoWindow(this, "发卡成功。");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                    {
+                        Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                        cardInfo.CARD_NO = num;
+                        cardInfo.CARD_TYPE = 0;
+                        cardInfo.CARD_DESC = num;
+                        cardInfo.CARD_WG_NO = wgNum;
+                        _cardInfos.Add(cardInfo);
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("发卡器操作异常：", ex);
+                WinInfoHelper.ShowInfoWindow(this, "读卡失败：" + ex.Message);
                 return false;
             }
+            return false;
         }
 
         private void biSetPrivate_Click(object sender, EventArgs e)
