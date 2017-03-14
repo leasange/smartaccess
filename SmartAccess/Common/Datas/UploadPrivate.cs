@@ -205,7 +205,7 @@ namespace SmartAccess.Common.Datas
                                 {
                                     foreach (var card in staffCards)
                                     {
-                                        bool ret = access.AddOrModifyAuthority(c, card.CARD_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME, doorNumAuthorities);
+                                        bool ret = access.AddOrModifyAuthority(c, card.CARD_WG_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME, doorNumAuthorities);
                                         if (!ret)
                                         {
                                          //   amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
@@ -426,7 +426,7 @@ namespace SmartAccess.Common.Datas
                         }
                         aus.Add((int)di.CTRL_DOOR_INDEX, num);
 	                }
-                    bool ret = access.AddOrModifyAuthority(cc, item.CARD_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
+                    bool ret = access.AddOrModifyAuthority(cc, item.CARD_WG_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
                     if (!ret)
                     {
                         errMsg = "添加权限中断异常！卡号：" + item.CARD_NO;
