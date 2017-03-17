@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_DATA_CONFIG.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_FACE_BLACKLIST.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_FACE_CAMERA.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_PEOPLE_RECORD.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_VEHICLE_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\IMS_VEHICLE_RECORD.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_CONNECT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ALARM_SETTING.cs" />
@@ -86,6 +92,12 @@
     <Compile Include="SqlServerDb\BLL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_WEEKEX_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_DATA_CONFIG.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_FACE_BLACKLIST.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_FACE_CAMERA.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_PEOPLE_RECORD.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_VEHICLE_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\IMS_VEHICLE_RECORD.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_CONNECT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ALARM_SETTING.cs" />
@@ -125,6 +137,12 @@
     <Compile Include="SqlServerDb\DAL\SMT_VERMODEL_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_VER_FORMAT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_WEEKEX_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_DATA_CONFIG.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_FACE_BLACKLIST.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_FACE_CAMERA.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_PEOPLE_RECORD.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_VEHICLE_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\IMS_VEHICLE_RECORD.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_CONNECT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ALARM_SETTING_EX.cs" />

@@ -74,6 +74,7 @@ namespace SmartAccess
         STAFF_MGR,//	人员管理
         VER_MODEL,//	证件模板
         ACCESS_RECORD,//	门禁出入查询
+        IMS_PEOPLE_RECORD,//查验记录查询
         STAFF_ROUTE,//	人员轨迹查询
         LOG_INFO,//	操作日志查询
         ALARM_INFO,

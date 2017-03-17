@@ -16,6 +16,7 @@ using SmartAccess.Common.Config;
 using SmartAccess.Common.Database;
 using Li.UdpMessageQueue;
 using SmartAccess.RealDetectMgr;
+using System.Reflection;
 
 namespace SmartAccess
 {
@@ -65,6 +66,8 @@ namespace SmartAccess
             }
             this.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysName");
             lbTitle.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysTitle");
+            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
             panelWelCome.Text = SunCreate.Common.ConfigHelper.GetConfigString("SysWelcomeText");
         }
 

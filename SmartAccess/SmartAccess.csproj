@@ -360,6 +360,12 @@
     <Compile Include="InfoBatchMgr\StaffInfosInput.Designer.cs">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoSearchMgr\ImsPeopleRecordInfos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\ImsPeopleRecordInfos.Designer.cs">
+      <DependentUpon>ImsPeopleRecordInfos.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoSearchMgr\AccessInOutRecordInfos.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -556,6 +562,7 @@
     <Compile Include="VerInfoMgr\VerCodeInfo.Designer.cs">
       <DependentUpon>VerCodeInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\WebImageReader.cs" />
     <EmbeddedResource Include="Common\WinInfo\CtrlWaiting.resx">
       <DependentUpon>CtrlWaiting.cs</DependentUpon>
     </EmbeddedResource>
@@ -675,6 +682,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoBatchMgr\StaffInfosInput.resx">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\ImsPeopleRecordInfos.resx">
+      <DependentUpon>ImsPeopleRecordInfos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\AccessInOutRecordInfos.resx">
       <DependentUpon>AccessInOutRecordInfos.cs</DependentUpon>

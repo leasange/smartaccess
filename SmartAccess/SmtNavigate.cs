@@ -46,6 +46,7 @@ namespace SmartAccess
             infoSearchMgr.Items.AddRange(new ExpandItem[]
                 {
                     new ExpandItem("门禁出入查询", Properties.Resources.门禁出入查询, SYS_FUN_POINT.ACCESS_RECORD,typeof(InfoSearchMgr.AccessInOutRecordInfos)),
+                     new ExpandItem("查验记录查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.IMS_PEOPLE_RECORD,typeof(InfoSearchMgr.ImsPeopleRecordInfos)),
                     new ExpandItem("人员轨迹查询", Properties.Resources.dkq_2525,SYS_FUN_POINT.STAFF_ROUTE,typeof(InfoSearchMgr.StaffRouteInfo)),
                     new ExpandItem("操作日志查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.LOG_INFO,typeof(InfoSearchMgr.OprLogsInfo)),
                     new ExpandItem("报警信息查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.ALARM_INFO,typeof(InfoSearchMgr.AlarmInfo)),

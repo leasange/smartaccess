@@ -37,13 +37,13 @@
             this.btnLogin = new DevComponents.DotNetBar.ButtonX();
             this.btnLogout = new DevComponents.DotNetBar.ButtonX();
             this.btnICMS = new DevComponents.DotNetBar.ButtonX();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.styleManager = new DevComponents.DotNetBar.StyleManager(this.components);
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
             this.lbDogTips = new DevComponents.DotNetBar.LabelX();
             this.timerDogCheck = new System.Windows.Forms.Timer(this.components);
             this.cbRememberUser = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.cbRememberPwd = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.lbVersion = new DevComponents.DotNetBar.LabelX();
             this.SuspendLayout();
             // 
             // labelX1
@@ -142,19 +142,6 @@
             this.btnICMS.Text = "数据库配置";
             this.btnICMS.Click += new System.EventHandler(this.btnICMS_Click);
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(388, 307);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(121, 20);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "显示软件注册信息";
-            // 
             // styleManager
             // 
             this.styleManager.ManagerColorTint = System.Drawing.Color.Black;
@@ -228,6 +215,21 @@
             this.cbRememberPwd.TabIndex = 7;
             this.cbRememberPwd.Text = "记住密码";
             // 
+            // lbVersion
+            // 
+            this.lbVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbVersion.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.lbVersion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbVersion.ForeColor = System.Drawing.Color.LightGray;
+            this.lbVersion.Location = new System.Drawing.Point(395, 306);
+            this.lbVersion.Name = "lbVersion";
+            this.lbVersion.Size = new System.Drawing.Size(114, 18);
+            this.lbVersion.TabIndex = 8;
+            this.lbVersion.Text = "版本:v1.1.3.314";
+            // 
             // FrmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -235,12 +237,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.BackgroundImage = global::SmartAccess.Properties.Resources.loginbk;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(521, 345);
+            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.cbRememberPwd);
             this.Controls.Add(this.cbRememberUser);
             this.Controls.Add(this.lbDogTips);
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnICMS);
             this.Controls.Add(this.btnLogout);
@@ -274,12 +276,12 @@
         private DevComponents.DotNetBar.ButtonX btnLogin;
         private DevComponents.DotNetBar.ButtonX btnLogout;
         private DevComponents.DotNetBar.ButtonX btnICMS;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private DevComponents.DotNetBar.StyleManager styleManager;
         private DevComponents.DotNetBar.ButtonX btnClose;
         private DevComponents.DotNetBar.LabelX lbDogTips;
         private System.Windows.Forms.Timer timerDogCheck;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbRememberUser;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbRememberPwd;
+        private DevComponents.DotNetBar.LabelX lbVersion;
     }
 }

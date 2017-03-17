@@ -12,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -31,8 +32,7 @@ namespace SmartAccess
         {
             InitializeComponent();
             Login = this;
-           // styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
-            //_isEnableDog = SunCreate.Common.ConfigHelper.GetConfigBool("DogEnable");
+            this.lbVersion.Text = "版本：v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
             cbRememberUser.Checked = SunCreate.Common.ConfigHelper.GetConfigBool("RememberUser");
             if (cbRememberUser.Checked)

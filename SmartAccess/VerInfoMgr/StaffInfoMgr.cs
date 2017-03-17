@@ -772,28 +772,23 @@ namespace SmartAccess.VerInfoMgr
         //读卡
         private void biReadCard_Click(object sender, EventArgs e)
         {
-            using (ICardIssueDevice issDevice = new MF800ACardIssueDevice())
+            try
             {
-                CardIssueConfig config = SysConfig.GetCardIssueConfig();
-                try
+                string num;
+                string wgNum;
+                string errorMsg;
+                if (!CardIssueDeviceHelper.ReadCard(out num, out wgNum, out errorMsg))
                 {
-                    issDevice.OpenCom(config.comPort, config.comBuad);
-                    string num = issDevice.ReadCardX();
-                    issDevice.Close();
-                    if (string.IsNullOrWhiteSpace(num))
-                    {
-                        WinInfoHelper.ShowInfoWindow(this, "未有读到卡！");
-                        return;
-                    }
-                    DoSearch(true, false, true, num);
+                    WinInfoHelper.ShowInfoWindow(this, "读取卡号失败：" + errorMsg);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    log.Error("读卡错误：" + ex.Message);
-                    WinInfoHelper.ShowInfoWindow(this, "读卡异常：" + ex.Message);
-                }
+                DoSearch(true, false, true, num);
             }
-
+            catch (Exception ex)
+            {
+                log.Error("读卡错误：" + ex.Message);
+                WinInfoHelper.ShowInfoWindow(this, "读卡异常：" + ex.Message);
+            }
         }
 
         private void biChangeCard_Click(object sender, EventArgs e)
