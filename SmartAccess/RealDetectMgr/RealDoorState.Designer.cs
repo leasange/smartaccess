@@ -30,25 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RealDoorState));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
-            this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
-            this.biStop = new DevComponents.DotNetBar.ButtonItem();
-            this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
-            this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
-            this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
             this.tbFilterItem = new DevComponents.DotNetBar.TextBoxItem();
-            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.smallImageList = new System.Windows.Forms.ImageList(this.components);
             this.metroTileItem1 = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.cmsDoorState = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiDoorStateCfg = new System.Windows.Forms.ToolStripMenuItem();
-            this.picBox = new System.Windows.Forms.PictureBox();
+            this.tsmiRemoteOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.lbAction = new DevComponents.DotNetBar.LabelX();
             this.lbDoorName = new DevComponents.DotNetBar.LabelX();
@@ -61,19 +54,26 @@
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.panelDown = new DevComponents.DotNetBar.PanelEx();
+            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.listDoors = new System.Windows.Forms.ListView();
+            this.picBox = new System.Windows.Forms.PictureBox();
+            this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
+            this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
+            this.biStop = new DevComponents.DotNetBar.ButtonItem();
+            this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
+            this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
+            this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
+            this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
+            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.dgvRealLog = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
-            this.listDoors = new System.Windows.Forms.ListView();
-            this.tsmiRemoteOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.panelEx1.SuspendLayout();
             this.panelDown.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,76 +102,20 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
-            // biSelectAll
-            // 
-            this.biSelectAll.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSelectAll.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSelectAll.Name = "biSelectAll";
-            this.biSelectAll.Text = "全选";
-            this.biSelectAll.Click += new System.EventHandler(this.biSelectAll_Click);
-            // 
-            // biRealDetect
-            // 
-            this.biRealDetect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRealDetect.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biRealDetect.Name = "biRealDetect";
-            this.biRealDetect.Text = "实时监控";
-            this.biRealDetect.Click += new System.EventHandler(this.biRealDetect_Click);
-            // 
-            // biStop
-            // 
-            this.biStop.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biStop.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biStop.Name = "biStop";
-            this.biStop.Text = "停止";
-            this.biStop.Click += new System.EventHandler(this.biStop_Click);
-            // 
-            // biDetectCtrlr
-            // 
-            this.biDetectCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDetectCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biDetectCtrlr.Name = "biDetectCtrlr";
-            this.biDetectCtrlr.Text = "检测控制器";
-            this.biDetectCtrlr.Click += new System.EventHandler(this.biDetectCtrlr_Click);
-            // 
-            // biAdjustTime
-            // 
-            this.biAdjustTime.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAdjustTime.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biAdjustTime.Name = "biAdjustTime";
-            this.biAdjustTime.Text = "校准时间";
-            this.biAdjustTime.Click += new System.EventHandler(this.biAdjustTime_Click);
-            // 
-            // biClearInfo
-            // 
-            this.biClearInfo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biClearInfo.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biClearInfo.Name = "biClearInfo";
-            this.biClearInfo.Text = "清空信息";
-            this.biClearInfo.Click += new System.EventHandler(this.biClearInfo_Click);
-            // 
             // tbFilterItem
             // 
             this.tbFilterItem.Name = "tbFilterItem";
             this.tbFilterItem.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbFilterItem.WatermarkText = "输入查找关键字";
             // 
-            // biSearch
-            // 
-            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSearch.Name = "biSearch";
-            this.biSearch.Text = "查找";
-            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
-            // 
             // smallImageList
             // 
             this.smallImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("smallImageList.ImageStream")));
             this.smallImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.smallImageList.Images.SetKeyName(0, "door_close.png");
+            this.smallImageList.Images.SetKeyName(0, "door_close.jpg");
             this.smallImageList.Images.SetKeyName(1, "room_open.png");
             this.smallImageList.Images.SetKeyName(2, "door_dump.png");
-            this.smallImageList.Images.SetKeyName(3, "door_disable.png");
+            this.smallImageList.Images.SetKeyName(3, "door_disable.jpg");
             // 
             // metroTileItem1
             // 
@@ -198,17 +142,12 @@
             this.tsmiDoorStateCfg.Text = "设置门禁状态";
             this.tsmiDoorStateCfg.Click += new System.EventHandler(this.tsmiDoorStateCfg_Click);
             // 
-            // picBox
+            // tsmiRemoteOpen
             // 
-            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Location = new System.Drawing.Point(128, 51);
-            this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(119, 127);
-            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBox.TabIndex = 8;
-            this.picBox.TabStop = false;
+            this.tsmiRemoteOpen.Name = "tsmiRemoteOpen";
+            this.tsmiRemoteOpen.Size = new System.Drawing.Size(148, 22);
+            this.tsmiRemoteOpen.Text = "远程开门";
+            this.tsmiRemoteOpen.Click += new System.EventHandler(this.tsmiRemoteOpen_Click);
             // 
             // panelEx1
             // 
@@ -398,76 +337,6 @@
             this.panelDown.TabIndex = 11;
             this.panelDown.Text = "panelEx2";
             // 
-            // dgvRealLog
-            // 
-            this.dgvRealLog.AllowUserToAddRows = false;
-            this.dgvRealLog.AllowUserToDeleteRows = false;
-            this.dgvRealLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvRealLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRealLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRealLog.EnableHeadersVisualStyles = false;
-            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
-            this.dgvRealLog.Location = new System.Drawing.Point(0, 0);
-            this.dgvRealLog.Name = "dgvRealLog";
-            this.dgvRealLog.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvRealLog.RowTemplate.Height = 23;
-            this.dgvRealLog.Size = new System.Drawing.Size(696, 181);
-            this.dgvRealLog.TabIndex = 11;
-            this.dgvRealLog.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRealLog_CellContentClick);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.FillWeight = 193.5371F;
-            this.Column1.HeaderText = "时间";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.FillWeight = 76.14214F;
-            this.Column2.HeaderText = "门禁";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.FillWeight = 30.32081F;
-            this.Column3.HeaderText = "描述";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
             // expandableSplitter1
             // 
             this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
@@ -519,12 +388,57 @@
             this.listDoors.TabIndex = 13;
             this.listDoors.UseCompatibleStateImageBehavior = false;
             // 
-            // tsmiRemoteOpen
+            // picBox
             // 
-            this.tsmiRemoteOpen.Name = "tsmiRemoteOpen";
-            this.tsmiRemoteOpen.Size = new System.Drawing.Size(148, 22);
-            this.tsmiRemoteOpen.Text = "远程开门";
-            this.tsmiRemoteOpen.Click += new System.EventHandler(this.tsmiRemoteOpen_Click);
+            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox.Location = new System.Drawing.Point(128, 51);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(119, 127);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox.TabIndex = 8;
+            this.picBox.TabStop = false;
+            // 
+            // biSelectAll
+            // 
+            this.biSelectAll.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSelectAll.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSelectAll.Name = "biSelectAll";
+            this.biSelectAll.Text = "全选";
+            this.biSelectAll.Click += new System.EventHandler(this.biSelectAll_Click);
+            // 
+            // biRealDetect
+            // 
+            this.biRealDetect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRealDetect.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biRealDetect.Name = "biRealDetect";
+            this.biRealDetect.Text = "实时监控";
+            this.biRealDetect.Click += new System.EventHandler(this.biRealDetect_Click);
+            // 
+            // biStop
+            // 
+            this.biStop.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biStop.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biStop.Name = "biStop";
+            this.biStop.Text = "停止";
+            this.biStop.Click += new System.EventHandler(this.biStop_Click);
+            // 
+            // biDetectCtrlr
+            // 
+            this.biDetectCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDetectCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDetectCtrlr.Name = "biDetectCtrlr";
+            this.biDetectCtrlr.Text = "检测控制器";
+            this.biDetectCtrlr.Click += new System.EventHandler(this.biDetectCtrlr_Click);
+            // 
+            // biAdjustTime
+            // 
+            this.biAdjustTime.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAdjustTime.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAdjustTime.Name = "biAdjustTime";
+            this.biAdjustTime.Text = "校准时间";
+            this.biAdjustTime.Click += new System.EventHandler(this.biAdjustTime_Click);
             // 
             // biRemoteOpen
             // 
@@ -533,6 +447,92 @@
             this.biRemoteOpen.Name = "biRemoteOpen";
             this.biRemoteOpen.Text = "远程开门";
             this.biRemoteOpen.Click += new System.EventHandler(this.biRemoteOpen_Click);
+            // 
+            // biClearInfo
+            // 
+            this.biClearInfo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClearInfo.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biClearInfo.Name = "biClearInfo";
+            this.biClearInfo.Text = "清空信息";
+            this.biClearInfo.Click += new System.EventHandler(this.biClearInfo_Click);
+            // 
+            // biSearch
+            // 
+            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSearch.Name = "biSearch";
+            this.biSearch.Text = "查找";
+            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
+            // 
+            // dgvRealLog
+            // 
+            this.dgvRealLog.AllowUserToAddRows = false;
+            this.dgvRealLog.AllowUserToDeleteRows = false;
+            this.dgvRealLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvRealLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRealLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRealLog.EnableHeadersVisualStyles = false;
+            this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvRealLog.Location = new System.Drawing.Point(0, 0);
+            this.dgvRealLog.Name = "dgvRealLog";
+            this.dgvRealLog.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvRealLog.RowTemplate.Height = 23;
+            this.dgvRealLog.Size = new System.Drawing.Size(696, 181);
+            this.dgvRealLog.TabIndex = 11;
+            this.dgvRealLog.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRealLog_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.FillWeight = 193.5371F;
+            this.Column1.HeaderText = "时间";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.FillWeight = 76.14214F;
+            this.Column2.HeaderText = "门禁";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.FillWeight = 30.32081F;
+            this.Column3.HeaderText = "描述";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // RealDoorState
             // 
@@ -547,10 +547,10 @@
             this.Load += new System.EventHandler(this.RealDoorState_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.cmsDoorState.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.panelEx1.ResumeLayout(false);
             this.panelEx1.PerformLayout();
             this.panelDown.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).EndInit();
             this.ResumeLayout(false);
 

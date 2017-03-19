@@ -58,6 +58,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DEPT_USER_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DEPT_USER.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_LOG_INFO.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_MAP_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_RECORDCAP_IMAGE.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ROLE_FUN.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ROLE_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_STAFF_CARD_EX.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DEPT_USER_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DEPT_USER.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_LOG_INFO.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_MAP_DOOR.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_RECORDCAP_IMAGE.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ROLE_FUN.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ROLE_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_STAFF_CARD_EX.cs" />
@@ -150,6 +156,7 @@
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO.cs" />
@@ -161,6 +168,7 @@
     <Compile Include="SqlServerDb\Model\SMT_DATADICTIONARY_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DEPT_USER_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DEPT_USER.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_LOG_INFO.cs" />
@@ -170,6 +178,7 @@
     <Compile Include="SqlServerDb\Model\SMT_MAP_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ORG_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ORG_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_RECORDCAP_IMAGE.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ROLE_FUN.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ROLE_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ROLE_INFO.cs" />

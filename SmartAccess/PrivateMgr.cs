@@ -59,7 +59,7 @@ namespace SmartAccess
             }
         }
     }
-     public enum SYS_FUN_POINT
+    public enum SYS_FUN_POINT
     {
         VER_INFO_MGR,//	证件信息管理
         MODEL_INFO_MGR,//	模板设定管理
@@ -82,7 +82,7 @@ namespace SmartAccess
         CTRLR_INFO,//	控制器管理
         REAL_MAP,//	实时地图显示
         REAL_ACCESS_STATE,//	实时状态显示
-         REAL_ALARM_DETECT,//报警实时监控
+        REAL_ALARM_DETECT,//报警实时监控
         CTRLR_TASK,//	控制定时任务
         ALARM_CONNECT_SETTING,//报警联动设定
         MAP_CONFIG,//	地图编辑配置
@@ -95,5 +95,6 @@ namespace SmartAccess
         USER_PRIVATE_CONFIG,//	用户权限管理
         ATTENDANCE_INFO,//考勤管理
         ATTENDANCE_SETTING,//考勤设置
+        DOOR_CAMERA_SETTING,//门禁摄像头设置
     }
 }

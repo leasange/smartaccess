@@ -158,7 +158,19 @@
     <Compile Include="ConfigMgr\AttenSetting.Designer.cs">
       <DependentUpon>AttenSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\DoorCameraSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\DoorCameraSetting.Designer.cs">
+      <DependentUpon>DoorCameraSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\DoorRectangle.cs" />
+    <Compile Include="ConfigMgr\FrmAddCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmAddCamera.Designer.cs">
+      <DependentUpon>FrmAddCamera.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmAlarmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -584,6 +596,12 @@
     <EmbeddedResource Include="ConfigMgr\AttenSetting.resx">
       <DependentUpon>AttenSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\DoorCameraSetting.resx">
+      <DependentUpon>DoorCameraSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmAddCamera.resx">
+      <DependentUpon>FrmAddCamera.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmAlarmSetting.resx">
       <DependentUpon>FrmAlarmSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -965,6 +983,10 @@
     <None Include="Resources\证件管理.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\door_disable.jpg" />
+    <None Include="Resources\door_close.jpg" />
+    <None Include="Resources\room_open.png" />
+    <None Include="Resources\door_dump.png" />
     <EmbeddedResource Include="Common\Database\smartaccess_before.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_update.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_data.sql" />
@@ -983,8 +1005,6 @@
     <Content Include="logo1.ico" />
     <None Include="Resources\house1818.png" />
     <None Include="Resources\door1818.png" />
-    <None Include="Resources\room_open.png" />
-    <None Include="Resources\door_dump.png" />
     <None Include="Resources\door_close.png" />
     <None Include="Resources\示例证件.jpg" />
     <None Include="Resources\loginbk.png" />

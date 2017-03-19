@@ -262,8 +262,14 @@
   <data name="示例证件" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\示例证件.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="house1818" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house1818.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="door_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\door_close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\door_close.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="door_disable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\door_disable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="door_dump" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\door_dump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -273,8 +279,5 @@
   </data>
   <data name="door1818" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\door1818.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="house1818" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\house1818.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
