@@ -46,6 +46,7 @@
             this.cbCapType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.btnTestCap = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iiCapPort)).BeginInit();
             this.SuspendLayout();
@@ -298,6 +299,18 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnTestCap
+            // 
+            this.btnTestCap.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnTestCap.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnTestCap.Location = new System.Drawing.Point(310, 221);
+            this.btnTestCap.Name = "btnTestCap";
+            this.btnTestCap.Size = new System.Drawing.Size(83, 23);
+            this.btnTestCap.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnTestCap.TabIndex = 10;
+            this.btnTestCap.Text = "测试截图";
+            this.btnTestCap.Click += new System.EventHandler(this.btnTestCap_Click);
+            // 
             // FrmAddCamera
             // 
             this.AcceptButton = this.btnOk;
@@ -305,6 +318,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(393, 296);
+            this.Controls.Add(this.btnTestCap);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cbCapType);
@@ -360,5 +374,6 @@
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbCapType;
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
+        private DevComponents.DotNetBar.ButtonX btnTestCap;
     }
 }

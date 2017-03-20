@@ -11,6 +11,7 @@ using SmartAccess.Common.Datas;
 using DevComponents.AdvTree;
 using System.IO;
 using SmartAccess.VerInfoMgr;
+using Li.Camera;
 
 namespace SmartAccess.InfoSearchMgr
 {

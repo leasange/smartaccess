@@ -574,7 +574,6 @@
     <Compile Include="VerInfoMgr\VerCodeInfo.Designer.cs">
       <DependentUpon>VerCodeInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="VerInfoMgr\WebImageReader.cs" />
     <EmbeddedResource Include="Common\WinInfo\CtrlWaiting.resx">
       <DependentUpon>CtrlWaiting.cs</DependentUpon>
     </EmbeddedResource>
@@ -854,6 +853,10 @@
     <ProjectReference Include="..\Li.Access.Core\Li.Access.Core.csproj">
       <Project>{f0b4a7a3-ef20-45ef-8794-beac15c9eb22}</Project>
       <Name>Li.Access.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Li.Camera\Li.Camera.csproj">
+      <Project>{61a45dca-a250-46d7-ba44-d594b48f5e67}</Project>
+      <Name>Li.Camera</Name>
     </ProjectReference>
     <ProjectReference Include="..\Li.Controls\Li.Controls.csproj">
       <Project>{3D529AA3-FF22-4E41-9924-0B0777D640B6}</Project>

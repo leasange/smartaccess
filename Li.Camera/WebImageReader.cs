@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace SmartAccess.VerInfoMgr
+namespace Li.Camera
 {
     /// <summary>
     /// 读取Web图片

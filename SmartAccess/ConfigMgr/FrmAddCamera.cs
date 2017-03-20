@@ -1,4 +1,5 @@
-﻿using SmartAccess.Common;
+﻿using Li.Camera;
+using SmartAccess.Common;
 using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
@@ -83,6 +84,32 @@ namespace SmartAccess.ConfigMgr
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void btnTestCap_Click(object sender, EventArgs e)
+        {
+            if (tbIp.Text.Trim() == "")
+            {
+                WinInfoHelper.ShowInfoWindow(this, "IP不能为空！");
+                return;
+            }
+            IPCamera ipcamera = new IPCamera();
+            ipcamera.IP = tbIp.Text.Trim();
+            ipcamera.Port = iiPort.Value;
+            ipcamera.User = tbUser.Text.Trim();
+            ipcamera.Password = tbPwd.Text;
+            CameraModel model= CameraModel.None;
+            Enum.TryParse<CameraModel>((string)cbModel.SelectedItem, out model);
+            ipcamera.Model = model;
+            ipcamera.CapturePort = iiCapPort.Value;
+            CapType captype = CapType.Onvif;
+            Enum.TryParse<CapType>((string)cbCapType.SelectedItem, out captype);
+            ipcamera.CapType = captype;
+            IIPCamera engine= ipcamera.GetEngine();
+            if (engine != null)
+            {
+                Image image = engine.CaptureImage();
+            }
         }
 
     }

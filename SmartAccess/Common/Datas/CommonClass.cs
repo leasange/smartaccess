@@ -303,16 +303,4 @@ namespace SmartAccess.Common.Datas
         }
     }
 
-    //摄像头型号
-    public enum CameraModel
-    {
-        None,//未知
-        Haikang,//海康
-        Dahua,//大华
-    }
-    //抓拍方式
-    public enum CapType
-    {
-        Onvif,//Onvif
-    }
 }
