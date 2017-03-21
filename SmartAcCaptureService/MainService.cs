@@ -30,7 +30,7 @@ namespace SmartAcCaptureService
             }
             catch (Exception ex)
             {
-                log.Error("记录读取服务启动异常", ex);
+                log.Error("抓拍服务启动异常", ex);
                 throw;
             }
         }

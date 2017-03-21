@@ -54,6 +54,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new Li.Controls.DataGridViewLinkLabelColumn();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
@@ -394,7 +395,8 @@
             this.Column5,
             this.Column6,
             this.Column7,
-            this.Column8});
+            this.Column8,
+            this.Column9});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -460,6 +462,15 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "抓拍照片";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column9.SplitLinkSymbol = ",";
+            // 
             // AccessInOutRecordInfos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -505,5 +516,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private Li.Controls.DataGridViewLinkLabelColumn Column9;
     }
 }

@@ -162,7 +162,7 @@ namespace SmartAccess.InfoSearchMgr
             string strSqlBase = "select DP.*,OI.ORG_NAME from (";
             strSqlBase += " select RR.*,SI.REAL_NAME,SI.STAFF_NO,SI.ORG_ID from ";
             strSqlBase += "	( ";
-            strSqlBase += "	select CR.*,DI.DOOR_NAME from SMT_CARD_RECORDS CR left join SMT_DOOR_INFO DI on CR.DOOR_ID=DI.ID ";
+            strSqlBase += "	select CR.*,DI.DOOR_NAME,SSS.HAS_CAMERA from SMT_CARD_RECORDS CR left join SMT_DOOR_INFO DI on CR.DOOR_ID=DI.ID left join (SELECT distinct(DOOR_ID),1 as HAS_CAMERA FROM SMT_DOOR_CAMERA SDC WHERE SDC.ENABLE_CAP=1) SSS on SSS.DOOR_ID=CR.DOOR_ID";
             strSqlBase += " ) RR ";
             strSqlBase += " left join SMT_STAFF_INFO SI on RR.STAFF_ID=SI.ID ";
             strSqlBase += " ) DP left join SMT_ORG_INFO OI on DP.ORG_ID=OI.ID ";
@@ -247,7 +247,7 @@ namespace SmartAccess.InfoSearchMgr
         private void DoShowGrid(DataTable dt)
         {
             this.dgvData.Rows.Clear();
-            if (dt==null)
+            if (dt == null)
             {
                 return;
             }
@@ -256,18 +256,20 @@ namespace SmartAccess.InfoSearchMgr
                 DataGridViewRow dgvr = new DataGridViewRow();
                 bool enter = item["IS_ENTER"] == null ? true : (bool)item["IS_ENTER"];
                 bool allow = item["IS_ALLOW"] == null ? true : (bool)item["IS_ALLOW"];
-
+                bool hascamera = item["HAS_CAMERA"] == null ? false : true;
                 dgvr.CreateCells(
                     dgvData,
                     item["STAFF_NO"],
                     item["REAL_NAME"],
                     item["ORG_NAME"],
                     item["DOOR_NAME"],
-                    enter?"进门":"出门",
+                    enter ? "进门" : "出门",
                     item["RECORD_DATE"],
-                    allow?"正常":"禁止",
-                    item["RECORD_DESC"]
+                    allow ? "正常" : "禁止",
+                    item["RECORD_DESC"],
+                    hascamera ? "查看" : "无"
                     );
+                dgvr.Tag = item;
                 this.dgvData.Rows.Add(dgvr);
             }
         }

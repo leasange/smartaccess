@@ -12,6 +12,11 @@ namespace Li.Access.Core
     /// </summary>
     public class AccessWatchService:IDisposable
     {
+        private int _scanInterval = 300;
+        public AccessWatchService(int interval = 300)
+        {
+            _scanInterval = interval;
+        }
         private List<AccessWatchThread> _controllerThreads = new List<AccessWatchThread>();
         public List<AccessWatchThread> ControllerThreads
         {
@@ -34,7 +39,7 @@ namespace Li.Access.Core
                     var ctrlthread = _controllerThreads.Find(m => m.Controller.sn == ctrlr.sn);
                     if (ctrlthread == null)
                     {
-                        ctrlthread = new AccessWatchThread();
+                        ctrlthread = new AccessWatchThread(_scanInterval);
                         ctrlthread.Tags.Add(tag);
                         ctrlthread.Controller = ctrlr;
                         _controllerThreads.Add(ctrlthread);
@@ -112,6 +117,19 @@ namespace Li.Access.Core
                         ctrlthread.Stop();
                     }
                 }
+            }
+        }
+
+        public List<string> GetControllerSNs()
+        {
+            lock (_controllerThreads)
+            {
+                List<string> sns = new List<string>();
+                foreach (var item in _controllerThreads)
+                {
+                    sns.Add(item.Controller.sn);
+                }
+                return sns;
             }
         }
 
@@ -205,6 +223,7 @@ namespace Li.Access.Core
         private Thread _threadRead = null;
         private Controller _controler = null;
         private bool _connected = true;
+        private int _scanInterval = 300;
         public Controller Controller
         {
             get { return _controler; }
@@ -213,6 +232,12 @@ namespace Li.Access.Core
                 _controler = value;
             }
         }
+
+        public AccessWatchThread(int scanInterval = 300)
+        {
+            _scanInterval = scanInterval;
+        }
+
         public void Start()
         {
             if (_threadRead==null)
@@ -266,7 +291,7 @@ namespace Li.Access.Core
                         }
                         DoCallBack(false, null);
                     }
-                    Thread.Sleep(300);
+                    Thread.Sleep(_scanInterval);
                 }
             }
             catch (Exception)

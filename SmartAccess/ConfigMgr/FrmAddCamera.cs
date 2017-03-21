@@ -93,24 +93,49 @@ namespace SmartAccess.ConfigMgr
                 WinInfoHelper.ShowInfoWindow(this, "IP不能为空！");
                 return;
             }
+            if (picBox.Image!=null)
+            {
+                picBox.Image.Dispose();
+                picBox.Image = null;
+            }
             IPCamera ipcamera = new IPCamera();
             ipcamera.IP = tbIp.Text.Trim();
             ipcamera.Port = iiPort.Value;
             ipcamera.User = tbUser.Text.Trim();
             ipcamera.Password = tbPwd.Text;
-            CameraModel model= CameraModel.None;
+            CameraModel model = CameraModel.None;
             Enum.TryParse<CameraModel>((string)cbModel.SelectedItem, out model);
             ipcamera.Model = model;
             ipcamera.CapturePort = iiCapPort.Value;
             CapType captype = CapType.Onvif;
             Enum.TryParse<CapType>((string)cbCapType.SelectedItem, out captype);
             ipcamera.CapType = captype;
-            IIPCamera engine= ipcamera.GetEngine();
+            IIPCamera engine = ipcamera.GetEngine();
             if (engine != null)
             {
-                Image image = engine.CaptureImage();
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    try
+                    {
+                        Image image = engine.CaptureImage();
+                        if (image == null)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "截图失败！");
+                            return;
+                        }
+                        this.Invoke(new Action(() =>
+                        {
+                            picBox.Image = image;
+                        }));
+                    }
+                    catch (System.Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "截图失败！"+ex.Message);
+                        log.Error("截图失败：", ex);
+                    }
+                });
+                waiting.Show(this);
             }
         }
-
     }
 }

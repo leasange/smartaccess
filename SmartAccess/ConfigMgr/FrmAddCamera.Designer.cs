@@ -47,8 +47,10 @@
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnTestCap = new DevComponents.DotNetBar.ButtonX();
+            this.picBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iiCapPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
             // labelX1
@@ -303,7 +305,7 @@
             // 
             this.btnTestCap.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnTestCap.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnTestCap.Location = new System.Drawing.Point(310, 221);
+            this.btnTestCap.Location = new System.Drawing.Point(298, 261);
             this.btnTestCap.Name = "btnTestCap";
             this.btnTestCap.Size = new System.Drawing.Size(83, 23);
             this.btnTestCap.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -311,13 +313,24 @@
             this.btnTestCap.Text = "测试截图";
             this.btnTestCap.Click += new System.EventHandler(this.btnTestCap_Click);
             // 
+            // picBox
+            // 
+            this.picBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.picBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picBox.Location = new System.Drawing.Point(310, 13);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(217, 231);
+            this.picBox.TabIndex = 11;
+            this.picBox.TabStop = false;
+            // 
             // FrmAddCamera
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(393, 296);
+            this.ClientSize = new System.Drawing.Size(538, 296);
+            this.Controls.Add(this.picBox);
             this.Controls.Add(this.btnTestCap);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -349,6 +362,7 @@
             this.Load += new System.EventHandler(this.FrmAddCamera_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iiCapPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,5 +389,6 @@
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
         private DevComponents.DotNetBar.ButtonX btnTestCap;
+        private System.Windows.Forms.PictureBox picBox;
     }
 }
