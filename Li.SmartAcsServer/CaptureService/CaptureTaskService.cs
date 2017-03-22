@@ -217,9 +217,9 @@ namespace Li.SmartAcsServer.CaptureService
                         }
                         else
                         {
-                            camstr = dco.camera.GetHashCode().ToString();
+                            camstr = "camera_null_ip";
                         }
-                        string filePath = dt.ToString("yyyy\\MM\\dd\\" + camstr);
+                        string filePath = dt.ToString(camstr+"\\yyyy\\MM\\dd");
                         string fullPath = Path.Combine(ImageFolder, filePath);
                         if (!Directory.Exists(fullPath))
                         {

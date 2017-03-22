@@ -15,9 +15,13 @@ namespace Li.Camera
     public class WebImageReader
     {
         public delegate void ReadImageCallBack(Image image,Exception ex);
-        public static Image ReadImage(string url)
+        public static Image ReadImage(string url,string user=null,string pwd=null)
         {
             WebRequest req = WebRequest.Create(url);
+            if (!string.IsNullOrWhiteSpace(user)||!string.IsNullOrEmpty(pwd))
+            {
+                req.Credentials = new NetworkCredential(user,pwd);
+            }
             var resp = req.GetResponse();
             var stream = resp.GetResponseStream();
             MemoryStream ms=new MemoryStream();
@@ -39,13 +43,13 @@ namespace Li.Camera
             }
             return null;
         }
-        public static void ReadImageAsync(string url, ReadImageCallBack callback)
+        public static void ReadImageAsync(string url, ReadImageCallBack callback, string user = null, string pwd = null)
         {
             ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                 {
                     try
                     {
-                        Image image = ReadImage(url);
+                        Image image = ReadImage(url, user,pwd);
                         callback(image,null);
                     }
                     catch (Exception ex)

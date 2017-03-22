@@ -80,7 +80,7 @@ namespace SmartAccess.ConfigMgr
                 camera.CAMERA_IP,
                 camera.CAMERA_PORT,
                 camera.CAMERA_USER,
-                camera.CAMERA_PWD,
+                "******",
                 camera.CAMERA_CAP_PORT,
                 camera.CAMERA_CAP_TYPE,
                 "删除"

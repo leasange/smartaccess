@@ -129,6 +129,7 @@
             this.iiPort.BackgroundStyle.Class = "DateTimeInputBackground";
             this.iiPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.iiPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
             this.iiPort.Location = new System.Drawing.Point(120, 69);
             this.iiPort.MaxValue = 65535;
             this.iiPort.MinValue = 0;
@@ -213,6 +214,7 @@
             this.iiCapPort.BackgroundStyle.Class = "DateTimeInputBackground";
             this.iiCapPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.iiCapPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiCapPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
             this.iiCapPort.Location = new System.Drawing.Point(120, 221);
             this.iiCapPort.MaxValue = 65535;
             this.iiCapPort.MinValue = 0;
@@ -316,10 +318,10 @@
             // picBox
             // 
             this.picBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.picBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.picBox.Location = new System.Drawing.Point(310, 13);
             this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(217, 231);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBox.TabIndex = 11;
             this.picBox.TabStop = false;
             // 
@@ -350,7 +352,6 @@
             this.Controls.Add(this.labelX3);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.labelX1);
-            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;

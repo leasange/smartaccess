@@ -32,7 +32,7 @@ namespace Li.Camera.EngineCore
             if (ret==onvif_sdk.ONVIF_RET_OK)
             {
                 onvif_sdk.HTTP_URL url = (onvif_sdk.HTTP_URL)Marshal.PtrToStructure(ptr, typeof(onvif_sdk.HTTP_URL));
-                image = WebImageReader.ReadImage(url.url);
+                image = WebImageReader.ReadImage(url.url, loginInfo.user, loginInfo.password);
             }
             else
             {
