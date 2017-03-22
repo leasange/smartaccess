@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAcCaptureService", "Sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Li.Camera", "Li.Camera\Li.Camera.csproj", "{61A45DCA-A250-46D7-BA44-D594B48F5E67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCapServiceConfig", "SmartCaptureServiceConfig\SmartCapServiceConfig.csproj", "{ACD3790C-E7E0-403B-A5CA-84246B7931AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{61A45DCA-A250-46D7-BA44-D594B48F5E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61A45DCA-A250-46D7-BA44-D594B48F5E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61A45DCA-A250-46D7-BA44-D594B48F5E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD3790C-E7E0-403B-A5CA-84246B7931AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD3790C-E7E0-403B-A5CA-84246B7931AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD3790C-E7E0-403B-A5CA-84246B7931AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD3790C-E7E0-403B-A5CA-84246B7931AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,5 +123,6 @@ Global
 		{7BF27748-B5CE-4D86-957C-4DAF1B628431} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
 		{19DEA712-F219-4550-91F1-A1AB97F49F03} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
 		{1A3DEE1B-5657-4163-974A-4E1CDE7A078D} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
+		{ACD3790C-E7E0-403B-A5CA-84246B7931AA} = {854804DF-33BC-4EFA-9A9A-22505B5CB573}
 	EndGlobalSection
 EndGlobal

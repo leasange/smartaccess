@@ -34,6 +34,7 @@ namespace Li.SmartAcsServer.CaptureService
         private List<DoorCameraObject> doorCameraObjects =  new List<DoorCameraObject>();
         public static string ImageFolder = "D:\\Images";
         private System.Timers.Timer timerLoad = new System.Timers.Timer();
+        private System.Timers.Timer timerCheckStorage = new System.Timers.Timer();
         private AccessWatchService watchService = null;
         protected CaptureTaskService()
         {
@@ -49,12 +50,85 @@ namespace Li.SmartAcsServer.CaptureService
                 {
                     Directory.CreateDirectory(ImageFolder);
                 }
+                timerCheckStorage.Interval = 600000;
+                timerCheckStorage.Elapsed += timerCheckStorage_Elapsed;
+                timerCheckStorage.Start();
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        DoCheckDisk();
+                    }));
             }
             catch (Exception ex)
             {
                 log.Error("创建目录异常：", ex);
             }
 
+        }
+        private List<string> GetFiles(string folder)
+        {
+            List<string> strs = new List<string>();
+            strs.AddRange(Directory.GetFiles(folder));
+            string[] dirs = Directory.GetDirectories(folder);
+            foreach (var item in dirs)
+            {
+                strs.AddRange(GetFiles(item));
+            }
+            return strs;
+        }
+
+        private void DoCheckDisk()
+        {
+            timerCheckStorage.Stop();
+            try
+            {
+                string str = Directory.GetDirectoryRoot(ImageFolder);
+                DriveInfo di = new DriveInfo(str);
+                long freeSpace = di.TotalFreeSpace / (1024 * 1024 * 1024);
+                if (freeSpace < 1)
+                {
+                    long size = (long)((1.5 - freeSpace) * 1024 * 1024 * 1024);
+                    while (size>0)
+                    {
+                        DataTable dt = Maticsoft.DBUtility.DbHelperSQL.Query("SELECT TOP 20 ID,CAP_RELATIVE_URL FROM SMT_RECORDCAP_IMAGE ORDER BY CAP_TIME").Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            foreach (DataRow item in dt.Rows)
+                            {
+                                try
+                                {
+                                    string url = Convert.ToString(item["CAP_RELATIVE_URL"]);
+                                    url = Path.Combine(ImageFolder, url);
+                                    FileInfo fi = new FileInfo(url);
+                                    size -= fi.Length;
+                                    fi.Delete();
+                                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_RECORDCAP_IMAGE where ID=" + item["ID"]);
+                                }
+                                catch (Exception)
+                                {
+
+                                }
+                            }
+                            if (dt.Rows.Count < 20 || size < 1000)
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            timerCheckStorage.Start();
+        }
+
+        private void timerCheckStorage_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            DoCheckDisk();
         }
 
         /// <summary>
