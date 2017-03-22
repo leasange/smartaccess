@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace Li.Camera
+namespace Li.Controls
 {
     /// <summary>
     /// 读取Web图片
@@ -54,14 +54,7 @@ namespace Li.Camera
                     }
                     catch (Exception ex)
                     {
-                        try
-                        {
-                            callback(null, ex);
-                        }
-                        catch (Exception)
-                        {
-                             
-                        }
+                        callback(null, ex);
                     }
                 }));
         }

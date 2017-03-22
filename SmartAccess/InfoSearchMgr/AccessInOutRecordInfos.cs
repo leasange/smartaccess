@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
 using SmartAccess.Common.Datas;
 using DevComponents.AdvTree;
+using System.IO;
 
 namespace SmartAccess.InfoSearchMgr
 {
@@ -316,7 +317,7 @@ namespace SmartAccess.InfoSearchMgr
         {
             if (e.RowIndex>=0&&e.ColumnIndex>=0)
             {
-                if(dgvData.Columns[e.ColumnIndex].Name=="Col_ViewPic")
+                if (dgvData.Columns[e.ColumnIndex].Name == "Col_ViewPic")
                 {
                     DataRow row = (DataRow)dgvData.Rows[e.RowIndex].Tag;
                     bool hascamera = row["HAS_CAMERA"] == null ? false : true;
@@ -324,6 +325,47 @@ namespace SmartAccess.InfoSearchMgr
                     {
                         return;
                     }
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        try
+                        {
+                            string sn = Convert.ToString(row["CTRLR_SN"]);
+                            decimal recordIndex = (decimal)row["RECORD_INDEX"];
+                            DateTime recordDate = (DateTime)row["RECORD_DATE"];
+                            Maticsoft.BLL.SMT_RECORDCAP_IMAGE capBll = new Maticsoft.BLL.SMT_RECORDCAP_IMAGE();
+                            var capImages = capBll.GetModelList("CTRL_SN='" + sn + "' and RECORD_INDEX=" + recordIndex + " and RECORD_TIME='" + recordDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+                            if (capImages.Count==0)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "未查询到照片！");
+                                return;
+                            }
+                            Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                            string url = "";
+                            var dicModel = dicBll.GetModel("CAMERA_INFO", "IMAGE_SERVER");
+                            if (dicModel != null)
+                            {
+                                url = dicModel.DATA_VALUE;
+                            }
+                            List<string> strs = new List<string>();
+                            foreach (var item in capImages)
+                            {
+                                string str = Path.Combine(url, item.CAP_RELATIVE_URL);
+                                strs.Add(str);
+                            }
+                            this.Invoke(new Action(() =>
+                            {
+                                picView.SetImages(strs.ToArray());
+                                picView.Visible = true;
+                            }));
+                        }
+                        catch (System.Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "查看失败：" + ex.Message);
+                            log.Error("查看照片异常：", ex);
+                        }
+                    });
+                    waiting.Show(this);
+
                 }
             }
         }

@@ -13,7 +13,6 @@ namespace Li.Controls
 {
     public partial class ImageEditor : UserControl
     {
-        private EditorState _editorState = EditorState.None;
         private static int _staW = 3;
         private static int _staH = 4;
         private Bitmap _baseImage = null;
@@ -48,6 +47,12 @@ namespace Li.Controls
                 else if (_baseImage != value)
                 {
                     _baseImage = (Bitmap)value.Clone();
+
+                    Bitmap bitmap = new Bitmap(value.Width, value.Height);
+                    Graphics g = Graphics.FromImage(bitmap);
+                    g.DrawImage(value, 0, 0, value.Width, value.Height);
+                    g.Dispose();
+                    _baseImage = bitmap;
                     UpdateResultImage();
                 }
             }
@@ -479,6 +484,32 @@ namespace Li.Controls
             }
             FlipImageFilter filter = new FlipImageFilter(false);
             AddFilter(filter);
+        }
+
+        private void biSave_Click(object sender, EventArgs e)
+        {
+            if (_resultImage==null)
+            {
+                return;
+            }
+            if (saveFileDialog.ShowDialog(this)==DialogResult.OK)
+            {
+                try
+                {
+                    string fileName = saveFileDialog.FileName;
+
+                    Bitmap bitmap = new Bitmap(_resultImage.Width, _resultImage.Height);
+                    Graphics g = Graphics.FromImage(bitmap);
+                    g.DrawImage(_resultImage, 0, 0, _resultImage.Width, _resultImage.Height);
+                    g.Dispose();
+                    bitmap.Save(fileName);
+                    bitmap.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("保存失败：" + ex.Message);
+                }
+            }
         }
     }
 }

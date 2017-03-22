@@ -37,6 +37,7 @@
             this.lbImageState = new System.Windows.Forms.Label();
             this.barProccess = new DevComponents.DotNetBar.Bar();
             this.biOpen = new DevComponents.DotNetBar.ButtonItem();
+            this.biSave = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
             this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
             this.cbClipItem = new DevComponents.DotNetBar.ComboBoxItem();
@@ -48,11 +49,6 @@
             this.tbClipWidth = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
             this.tbClipHeight = new DevComponents.DotNetBar.TextBoxItem();
-            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
-            this.biCancel = new DevComponents.DotNetBar.ButtonItem();
-            this.plImageBack = new System.Windows.Forms.Panel();
-            this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
-            this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
             this.biClip = new DevComponents.DotNetBar.ButtonItem();
             this.biZoom = new DevComponents.DotNetBar.ButtonItem();
             this.biRotate = new DevComponents.DotNetBar.ButtonItem();
@@ -61,6 +57,12 @@
             this.biRotate180 = new DevComponents.DotNetBar.ButtonItem();
             this.biFlipVertical = new DevComponents.DotNetBar.ButtonItem();
             this.biFlipHorizintal = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
+            this.biCancel = new DevComponents.DotNetBar.ButtonItem();
+            this.plImageBack = new System.Windows.Forms.Panel();
+            this.pictureBox = new Li.Controls.ImageEditors.PicturePanel();
+            this.openImageDlg = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.plState.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barProccess)).BeginInit();
             this.plImageBack.SuspendLayout();
@@ -166,6 +168,7 @@
             this.barProccess.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.barProccess.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.biOpen,
+            this.biSave,
             this.labelItem5,
             this.labelItem3,
             this.cbClipItem,
@@ -194,6 +197,14 @@
             this.biOpen.Name = "biOpen";
             this.biOpen.Text = "打开";
             this.biOpen.Click += new System.EventHandler(this.biOpen_Click);
+            // 
+            // biSave
+            // 
+            this.biSave.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSave.ImageFixedSize = new System.Drawing.Size(15, 15);
+            this.biSave.Name = "biSave";
+            this.biSave.Text = "保存";
+            this.biSave.Click += new System.EventHandler(this.biSave_Click);
             // 
             // labelItem5
             // 
@@ -257,46 +268,6 @@
             this.tbClipHeight.Text = "4";
             this.tbClipHeight.TextBoxWidth = 32;
             this.tbClipHeight.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
-            // labelItem4
-            // 
-            this.labelItem4.Name = "labelItem4";
-            this.labelItem4.Text = "|";
-            // 
-            // biCancel
-            // 
-            this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCancel.Image = global::Li.Controls.Properties.Resources.cancelproccess;
-            this.biCancel.ImageFixedSize = new System.Drawing.Size(15, 15);
-            this.biCancel.Name = "biCancel";
-            this.biCancel.Text = "撤销";
-            this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
-            // 
-            // plImageBack
-            // 
-            this.plImageBack.AutoScroll = true;
-            this.plImageBack.BackColor = System.Drawing.Color.Beige;
-            this.plImageBack.Controls.Add(this.pictureBox);
-            this.plImageBack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plImageBack.Location = new System.Drawing.Point(0, 28);
-            this.plImageBack.Name = "plImageBack";
-            this.plImageBack.Size = new System.Drawing.Size(648, 315);
-            this.plImageBack.TabIndex = 5;
-            // 
-            // openImageDlg
-            // 
-            this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
-            this.openImageDlg.Title = "打开图片文件";
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.Color.White;
-            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox.Image = null;
-            this.pictureBox.Location = new System.Drawing.Point(62, 51);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(235, 158);
-            this.pictureBox.TabIndex = 0;
             // 
             // biClip
             // 
@@ -377,6 +348,52 @@
             this.biFlipHorizintal.Tooltip = "水平翻转";
             this.biFlipHorizintal.Click += new System.EventHandler(this.biFlipHorizintal_Click);
             // 
+            // labelItem4
+            // 
+            this.labelItem4.Name = "labelItem4";
+            this.labelItem4.Text = "|";
+            // 
+            // biCancel
+            // 
+            this.biCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCancel.Image = global::Li.Controls.Properties.Resources.cancelproccess;
+            this.biCancel.ImageFixedSize = new System.Drawing.Size(15, 15);
+            this.biCancel.Name = "biCancel";
+            this.biCancel.Text = "撤销";
+            this.biCancel.Click += new System.EventHandler(this.biCancel_Click);
+            // 
+            // plImageBack
+            // 
+            this.plImageBack.AutoScroll = true;
+            this.plImageBack.BackColor = System.Drawing.Color.Beige;
+            this.plImageBack.Controls.Add(this.pictureBox);
+            this.plImageBack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plImageBack.Location = new System.Drawing.Point(0, 28);
+            this.plImageBack.Name = "plImageBack";
+            this.plImageBack.Size = new System.Drawing.Size(648, 315);
+            this.plImageBack.TabIndex = 5;
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BackColor = System.Drawing.Color.White;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox.Image = null;
+            this.pictureBox.Location = new System.Drawing.Point(62, 51);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(235, 158);
+            this.pictureBox.TabIndex = 0;
+            // 
+            // openImageDlg
+            // 
+            this.openImageDlg.Filter = "图片文件|*.jpg;*jpeg;*.bmp;*.png;*.gif；*.tiff";
+            this.openImageDlg.Title = "打开图片文件";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "jpg";
+            this.saveFileDialog.Filter = "jpg图片|*.jpg|png图片|*.png|bmp图片|*.bmp";
+            this.saveFileDialog.Title = "保存图片";
+            // 
             // ImageEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -431,5 +448,7 @@
         private DevComponents.DotNetBar.ButtonItem biRotate180;
         private DevComponents.DotNetBar.ButtonItem biFlipVertical;
         private DevComponents.DotNetBar.ButtonItem biFlipHorizintal;
+        private DevComponents.DotNetBar.ButtonItem biSave;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
