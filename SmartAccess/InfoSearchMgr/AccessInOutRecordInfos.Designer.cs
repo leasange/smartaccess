@@ -54,7 +54,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.Col_ViewPic = new Li.Controls.DataGridViewLinkLabelColumn();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
@@ -396,7 +396,7 @@
             this.Column6,
             this.Column7,
             this.Column8,
-            this.Column9});
+            this.Col_ViewPic});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -413,6 +413,7 @@
             this.dgvData.RowTemplate.Height = 23;
             this.dgvData.Size = new System.Drawing.Size(991, 354);
             this.dgvData.TabIndex = 0;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
             // 
             // Column1
             // 
@@ -462,14 +463,14 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
-            // Column9
+            // Col_ViewPic
             // 
-            this.Column9.HeaderText = "抓拍照片";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column9.SplitLinkSymbol = ",";
+            this.Col_ViewPic.HeaderText = "抓拍照片";
+            this.Col_ViewPic.Name = "Col_ViewPic";
+            this.Col_ViewPic.ReadOnly = true;
+            this.Col_ViewPic.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_ViewPic.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_ViewPic.SplitLinkSymbol = ",";
             // 
             // AccessInOutRecordInfos
             // 
@@ -516,6 +517,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private Li.Controls.DataGridViewLinkLabelColumn Column9;
+        private Li.Controls.DataGridViewLinkLabelColumn Col_ViewPic;
     }
 }

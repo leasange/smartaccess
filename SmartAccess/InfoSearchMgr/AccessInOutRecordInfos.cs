@@ -311,5 +311,21 @@ namespace SmartAccess.InfoSearchMgr
              });
             waiting.Show(this);
         }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0&&e.ColumnIndex>=0)
+            {
+                if(dgvData.Columns[e.ColumnIndex].Name=="Col_ViewPic")
+                {
+                    DataRow row = (DataRow)dgvData.Rows[e.RowIndex].Tag;
+                    bool hascamera = row["HAS_CAMERA"] == null ? false : true;
+                    if (!hascamera)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
