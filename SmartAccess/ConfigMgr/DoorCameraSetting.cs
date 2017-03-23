@@ -163,6 +163,11 @@ namespace SmartAccess.ConfigMgr
         private void biAddDoorCamera_Click(object sender, EventArgs e)
         {
             var node = this.doorTree.Tree.SelectedNode;
+            if (node==null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
             if (node.Tag is Maticsoft.Model.SMT_DOOR_INFO)
             {
                 Maticsoft.Model.SMT_DOOR_INFO door = (Maticsoft.Model.SMT_DOOR_INFO)node.Tag;
