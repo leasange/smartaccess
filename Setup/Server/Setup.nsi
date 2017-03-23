@@ -9,7 +9,7 @@
 !define PRODUCT_EXE "SmartAcsService.exe" ;应用程序exe名称
 !define PRODUCT_CONFIG_EXE "SmartServiceConfig.exe" ;//配置程序
 !define PRODUCT_CONFIG_EXE_NAME "门禁服务数据库配置程序";配置程序名称
-!define PRODUCT_VERSION "1.1.2.0104"  ;版本号
+!define PRODUCT_VERSION "1.1.3.0323"  ;版本号
 !define PRODUCT_PUBLISHER "北京航英科技有限公司, Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称

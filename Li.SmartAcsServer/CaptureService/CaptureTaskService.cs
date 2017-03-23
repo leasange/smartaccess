@@ -87,6 +87,7 @@ namespace Li.SmartAcsServer.CaptureService
                 if (freeSpace < 1)
                 {
                     long size = (long)((1.5 - freeSpace) * 1024 * 1024 * 1024);
+                    DateTime start = DateTime.Now;
                     while (size>0)
                     {
                         DataTable dt = Maticsoft.DBUtility.DbHelperSQL.Query("SELECT TOP 20 ID,CAP_RELATIVE_URL FROM SMT_RECORDCAP_IMAGE ORDER BY CAP_TIME").Tables[0];
@@ -98,14 +99,17 @@ namespace Li.SmartAcsServer.CaptureService
                                 {
                                     string url = Convert.ToString(item["CAP_RELATIVE_URL"]);
                                     url = Path.Combine(ImageFolder, url);
-                                    FileInfo fi = new FileInfo(url);
-                                    size -= fi.Length;
-                                    fi.Delete();
+                                    if (File.Exists(url))
+                                    {
+                                        FileInfo fi = new FileInfo(url);
+                                        size -= fi.Length;
+                                        fi.Delete();
+                                    }
                                     Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_RECORDCAP_IMAGE where ID=" + item["ID"]);
                                 }
-                                catch (Exception)
+                                catch (Exception ex)
                                 {
-
+                                    log.Error("删除图片异常：" + ex.Message);
                                 }
                             }
                             if (dt.Rows.Count < 20 || size < 1000)
@@ -115,6 +119,11 @@ namespace Li.SmartAcsServer.CaptureService
                         }
                         else
                         {
+                            break;
+                        }
+                        if ((DateTime.Now-start).TotalMinutes>30)
+                        {
+                            log.Error("删除多余图片超时!");
                             break;
                         }
                     }
@@ -173,6 +182,10 @@ namespace Li.SmartAcsServer.CaptureService
             if (timerLoad!=null)
             {
                 timerLoad.Dispose();
+            }
+            if (timerCheckStorage!=null)
+            {
+                timerCheckStorage.Dispose();
             }
         }
 

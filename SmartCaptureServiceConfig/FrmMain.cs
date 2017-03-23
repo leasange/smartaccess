@@ -94,6 +94,11 @@ namespace SmartServiceConfig
                         }
                     }
                 }
+
+                int scanInterval = ConfigHelper.GetConfigInt("ScanInterval");
+                nScanRate.Value = scanInterval;
+                string folder = ConfigHelper.GetConfigString("ImageFolder");
+                tbPath.Text = folder;
             }
             catch (Exception ex)
             {
@@ -170,6 +175,8 @@ namespace SmartServiceConfig
                 	
                 }
                 bool ret = ConfigHelper.SetConfigValue("SqlServerConnectString", connStr);
+                ConfigHelper.SetConfigValue("ScanInterval", nScanRate.Value.ToString());
+                ConfigHelper.SetConfigValue("ImageFolder", tbPath.Text.Trim());
                 if (ret)
                 {
                     try
@@ -216,6 +223,15 @@ namespace SmartServiceConfig
         {
             tbUser.Enabled = cboVer.SelectedIndex == 1;
             tbPwd.Enabled = cboVer.SelectedIndex == 1;
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog.SelectedPath = tbPath.Text;
+            if (folderBrowserDialog.ShowDialog(this)==DialogResult.OK)
+            {
+                tbPath.Text = folderBrowserDialog.SelectedPath;
+            }
         }
     }
 }
