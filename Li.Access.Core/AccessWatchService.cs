@@ -224,6 +224,7 @@ namespace Li.Access.Core
         private Controller _controler = null;
         private bool _connected = true;
         private int _scanInterval = 300;
+        private DateTime? _lastDate = null;
         public Controller Controller
         {
             get { return _controler; }
@@ -333,10 +334,21 @@ namespace Li.Access.Core
                         if (_connected&&!connected)//门禁断开
                         {
                             _connected = connected;
-                           // lastState = state;
+                            if (_lastDate!=null)
+                            {
+                                DateTime dt = DateTime.Now;
+                                if((dt-(DateTime)_lastDate).TotalMinutes>10)
+                                {
+                                    _lastDate = dt;
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                            }
                             foreach (var item in CallBacks)
                             {
-                                item.Value.BeginInvoke(_controler, connected, state,false,false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, state, false, false, null, null);
                             }
                         }
                         else if (!_connected&&connected)//连接上

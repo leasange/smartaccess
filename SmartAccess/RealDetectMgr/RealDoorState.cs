@@ -162,18 +162,19 @@ namespace SmartAccess.RealDetectMgr
                                 if (doorstate)
                                 {
                                     row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME + (state.isEnterDoor ? "-进门" : "-出门"), string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
+                                    dgvRealLog.Rows.Insert(0, row);
+                                    row.Tag = new object[] { sinfo, state };
+                                    ShowStaffInfo(row, row.Tag as object[]);
+                                    while (dgvRealLog.Rows.Count > 2000)
+                                    {
+                                        dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
+                                    }
                                 }
                                 //else
                                 //{
                                    // row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME + (state.isEnterDoor ? "-进门" : "-出门"), string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：当前状态=>{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
                                // }
-                                dgvRealLog.Rows.Insert(0, row);
-                                row.Tag = new object[] { sinfo ,state};
-                                ShowStaffInfo(row, row.Tag as object[]);
-                                while (dgvRealLog.Rows.Count>2000)
-                                {
-                                    dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
-                                }
+
                             }
                             
                         }

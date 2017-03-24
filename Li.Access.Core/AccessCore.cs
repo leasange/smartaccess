@@ -124,6 +124,10 @@ namespace Li.Access.Core
                 {
                     item.WaitOne(15000);
                 }
+                if (dic.Count==0)
+                {
+                    throw new Exception("未读取到数据");
+                }
                 return dic;
             }
             else
@@ -154,8 +158,11 @@ namespace Li.Access.Core
             catch (Exception ex)
             {
                 log.Error("读取异常或者结束：", ex);
+                if (dic.Count==0)
+                {
+                    throw ex;
+                }
             }
-
             return dic;
         }
 

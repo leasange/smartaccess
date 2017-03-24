@@ -228,7 +228,7 @@ namespace Li.Access.Core.WGAccesses
             {
                 return packets[0].GetRecordIndex();
             }
-            return 0;
+            return -1;
         }
 
         private bool isBeginReadRecord = false;
@@ -244,6 +244,11 @@ namespace Li.Access.Core.WGAccesses
             currentController = controller;
             DoBindPort();
             currentReadedRecord = GetControllerReadedIndex(controller);
+            Console.WriteLine("当前记录号：" + currentReadedRecord);
+            if (currentReadedRecord==-1)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -264,14 +269,11 @@ namespace Li.Access.Core.WGAccesses
                 if (state.recordType != RecordType.NoRecord)
                 {
                     currentReadedRecord = index;
+                    SetControllerReadedIndex(currentController, currentReadedRecord);
+                    Console.WriteLine("当前记录号：" + currentReadedRecord);
                     if (state.recordType == RecordType.CoveredRecord)
                     {
-                        SetControllerReadedIndex(currentController, currentReadedRecord);
                         state = ReadNextRecord();
-                    }
-                    else if (state.recordType != RecordType.NoRecord)
-                    {
-                        SetControllerReadedIndex(currentController, currentReadedRecord);
                     }
                 }
             }

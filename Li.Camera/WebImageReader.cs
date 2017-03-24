@@ -17,29 +17,38 @@ namespace Li.Camera
         public delegate void ReadImageCallBack(Image image,Exception ex);
         public static Image ReadImage(string url,string user=null,string pwd=null)
         {
-            WebRequest req = WebRequest.Create(url);
+            WebClient webclient = new WebClient();
+            //WebRequest req = WebRequest.Create(url);
             if (!string.IsNullOrWhiteSpace(user)||!string.IsNullOrEmpty(pwd))
             {
-                req.Credentials = new NetworkCredential(user,pwd);
+                webclient.Credentials = new NetworkCredential(user, pwd);
             }
-            var resp = req.GetResponse();
-            var stream = resp.GetResponseStream();
-            MemoryStream ms=new MemoryStream();
-            byte[] bts=new byte[1024];
-            while (true)
-            {
-                int count = stream.Read(bts, 0, 1024);
-                if (count > 0)
-                {
-                    ms.Write(bts, 0, count);
-                }
-                else break;
-            }
+            var bts= webclient.DownloadData(url);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(bts, 0, bts.Length);
+            /* var resp = req.GetResponse();
+             var stream = resp.GetResponseStream();
+             MemoryStream ms=new MemoryStream();
+             byte[] bts=new byte[1024];
+             while (true)
+             {
+                 int count = stream.Read(bts, 0, 1024);
+                 if (count > 0)
+                 {
+                     ms.Write(bts, 0, count);
+                 }
+                 else break;
+             }*/
             if (ms.Length>0)
             {
                 Image image = Image.FromStream(ms);
+                Bitmap bitmap = new Bitmap(image.Width, image.Height);
+                Graphics g= Graphics.FromImage(bitmap);
+                g.DrawImage(image, 0, 0, image.Width, image.Height);
                 ms.Dispose();
-                return image;
+                g.Dispose();
+                image.Dispose();
+                return bitmap;
             }
             return null;
         }

@@ -306,7 +306,7 @@ namespace Li.SmartAcsServer.CaptureService
                         {
                             camstr = "camera_null_ip";
                         }
-                        string filePath = dt.ToString(camstr+"\\yyyy\\MM\\dd");
+                        string filePath = camstr + "\\" + dt.Year + "\\" + dt.Month + "\\" + dt.Day;
                         string fullPath = Path.Combine(ImageFolder, filePath);
                         if (!Directory.Exists(fullPath))
                         {
@@ -316,7 +316,7 @@ namespace Li.SmartAcsServer.CaptureService
                         string pathName = Path.Combine(filePath, dt.ToString("yyyyMMddHHmmss_fff") + ".jpg");
                         fullPath = Path.Combine(ImageFolder, pathName);
                         image.Save(fullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-
+                        image.Dispose();
                         Maticsoft.BLL.SMT_RECORDCAP_IMAGE sriBll = new Maticsoft.BLL.SMT_RECORDCAP_IMAGE();
                         Maticsoft.Model.SMT_RECORDCAP_IMAGE sriModel = new Maticsoft.Model.SMT_RECORDCAP_IMAGE();
 
