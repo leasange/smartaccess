@@ -133,11 +133,11 @@ namespace SmartAccess.RealDetectMgr
                             door.OPEN_STATE = 2;
                             DoorDataHelper.UpdateDoorSync(door);
                             item.ImageIndex = connected ? 0 : 2;
-                            DataGridViewRow row = new DataGridViewRow();
+                            /*DataGridViewRow row = new DataGridViewRow();
                             row.Tag = ctrlr;
                             row.CreateCells(dgvRealLog, DateTime.Now, door.DOOR_NAME, string.Format("控制器：IP={0},SN={1} {2}！", ctrlr.ip, ctrlr.sn, connected ? "连接成功" : "无法连接"));
                             row.DefaultCellStyle.BackColor = Color.Yellow;
-                            dgvRealLog.Rows.Insert(0, row);
+                            dgvRealLog.Rows.Insert(0, row);*/
                         }
                         else if ((byte)door.CTRL_DOOR_INDEX == state.doorNum)
                         {
