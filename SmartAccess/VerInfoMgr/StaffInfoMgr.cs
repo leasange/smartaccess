@@ -1394,7 +1394,12 @@ namespace SmartAccess.VerInfoMgr
                                         cardInfo.CARD_NO = cardNo.Trim();
                                         cardInfo.CARD_TYPE = 0;
                                         cardInfo.CARD_DESC = cardNo.Trim();
-                                        cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(cardNo.Trim());
+                                        var  config = SysConfig.GetCardIssueConfig();
+                                        cardInfo.CARD_WG_NO = cardInfo.CARD_NO;
+                                        if (config.cardIssueModel == CardIssueModel.HY_EM800A)
+                                        {
+                                            cardInfo.CARD_WG_NO = DataHelper.ToWGAccessCardNo(cardNo.Trim());
+                                        }
                                         cardInfo.ID = cardbll.Add(cardInfo);
                                         cards.Add(cardInfo);
                                     }

@@ -109,7 +109,7 @@ namespace SmartAccess.Common.Datas
                                 {
                                     foreach (var card in staffCards)
                                     {
-                                        bool ret = access.DeleteAuthority(ctrlr, card.CARD_NO);
+                                        bool ret = access.DeleteAuthority(ctrlr, card.CARD_WG_NO);
                                         precent += step;
                                         if (!ret)
                                         {
@@ -269,7 +269,7 @@ namespace SmartAccess.Common.Datas
                             {
                                 foreach (var card in staffCards)
                                 {
-                                    bool ret = access.DeleteAuthority(ctrlr, card.CARD_NO);
+                                    bool ret = access.DeleteAuthority(ctrlr, card.CARD_WG_NO);
                                     if (!ret)
                                     {
                                         FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)percent,true);

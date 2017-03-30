@@ -324,7 +324,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0x52);
             packet.SetDevSn(controller.sn);
-            hexCardNum = DataHelper.ToWGAccessCardNo(hexCardNum);
+            //hexCardNum = DataHelper.ToWGAccessCardNo(hexCardNum);
             packet.SetCardNum(hexCardNum);
             DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
