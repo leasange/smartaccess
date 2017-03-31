@@ -44,5 +44,8 @@ namespace Li.Camera.EngineCore
         }
         [DllImport(dll_path, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public extern static int onvif_get_snapshot_media_urls(LOGIN_INFO login, IntPtr buffer, int bufferCount, ref int outCount);
+
+        [DllImport(dll_path, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        public extern static string onvif_get_error_msg(int errorCode);
     }
 }

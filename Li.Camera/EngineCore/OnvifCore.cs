@@ -32,15 +32,19 @@ namespace Li.Camera.EngineCore
             {
                 int outCount = 0;
                 int ret = onvif_sdk.onvif_get_snapshot_media_urls(loginInfo, ptr, 1, ref outCount);
-                if (ret == onvif_sdk.ONVIF_RET_OK)
+                if (ret == onvif_sdk.ONVIF_RET_OK && outCount>0)
                 {
                     onvif_sdk.HTTP_URL url = (onvif_sdk.HTTP_URL)Marshal.PtrToStructure(ptr, typeof(onvif_sdk.HTTP_URL));
                     log.Info(_ipcamera.IP + " Onvif截图地址为：" + url.url);
                     image = WebImageReader.ReadImage(url.url, loginInfo.user, loginInfo.password);
                 }
+                else if (ret == onvif_sdk.ONVIF_RET_OK)
+                {
+                    
+                }
                 else
                 {
-                    throw new Exception("截图失败，错误码：" + ret);
+                    throw new Exception("截图失败，错误码："+ret+" 信息："+ onvif_sdk.onvif_get_error_msg(ret));
                 }
             }
             finally
