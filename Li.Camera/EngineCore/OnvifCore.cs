@@ -8,6 +8,7 @@ namespace Li.Camera.EngineCore
 {
     public class OnvifCore : IIPCamera
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(OnvifCore));
         private IPCamera _ipcamera;
         public OnvifCore(IPCamera ipcamera)
         {
@@ -27,16 +28,24 @@ namespace Li.Camera.EngineCore
             loginInfo.password = _ipcamera.Password;
 
             IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(onvif_sdk.HTTP_URL)));
-            int outCount = 0;
-            int ret = onvif_sdk.onvif_get_snapshot_media_urls(loginInfo, ptr, 1, ref outCount);
-            if (ret==onvif_sdk.ONVIF_RET_OK)
+            try
             {
-                onvif_sdk.HTTP_URL url = (onvif_sdk.HTTP_URL)Marshal.PtrToStructure(ptr, typeof(onvif_sdk.HTTP_URL));
-                image = WebImageReader.ReadImage(url.url, loginInfo.user, loginInfo.password);
+                int outCount = 0;
+                int ret = onvif_sdk.onvif_get_snapshot_media_urls(loginInfo, ptr, 1, ref outCount);
+                if (ret == onvif_sdk.ONVIF_RET_OK)
+                {
+                    onvif_sdk.HTTP_URL url = (onvif_sdk.HTTP_URL)Marshal.PtrToStructure(ptr, typeof(onvif_sdk.HTTP_URL));
+                    log.Info(_ipcamera.IP + " Onvif截图地址为：" + url.url);
+                    image = WebImageReader.ReadImage(url.url, loginInfo.user, loginInfo.password);
+                }
+                else
+                {
+                    throw new Exception("截图失败，错误码：" + ret);
+                }
             }
-            else
+            finally
             {
-                throw new Exception("截图失败，错误码：" + ret);
+                Marshal.FreeHGlobal(ptr);
             }
             return image;
         }
