@@ -72,21 +72,32 @@ namespace SmartAccess.ConfigMgr
                 frmAddCamera.CAMERA = null;
             }
         }
-        private void AddToGridCamera(Maticsoft.Model.SMT_CAMERA_INFO camera)
+        private void AddToGridCamera(Maticsoft.Model.SMT_CAMERA_INFO camera,DataGridViewRow row=null)
         {
-            DataGridViewRow dgvr = new DataGridViewRow();
-            dgvr.CreateCells(dgvCamera,
-                camera.CAMERA_NAME,
+            DataGridViewRow dgvr = null;
+            if (row==null)
+            {
+                dgvr = new DataGridViewRow();
+                dgvr.CreateCells(dgvCamera);
+            }
+            else
+            {
+                dgvr = row;
+            }
+            dgvr.SetValues(camera.CAMERA_NAME,
                 camera.CAMERA_IP,
                 camera.CAMERA_PORT,
                 camera.CAMERA_USER,
                 "******",
                 camera.CAMERA_CAP_PORT,
                 camera.CAMERA_CAP_TYPE,
-                "删除"
-                );
+                "修改",
+                "删除");
             dgvr.Tag = camera;
-            dgvCamera.Rows.Add(dgvr);
+            if (row==null)
+            {
+                dgvCamera.Rows.Add(dgvr);
+            }
         }
         private class DoorCamera
         {
@@ -155,6 +166,16 @@ namespace SmartAccess.ConfigMgr
                             }
                         });
                         waiting.Show(this);
+                    }
+                }
+                else if (dgvCamera.Columns[e.ColumnIndex].Name == "Col_Modify")
+                {
+                    Maticsoft.Model.SMT_CAMERA_INFO camera = (Maticsoft.Model.SMT_CAMERA_INFO)dgvCamera.Rows[e.RowIndex].Tag;
+                    FrmAddCamera frmAddCamera = new FrmAddCamera();
+                    frmAddCamera.CAMERA = camera;
+                    if (frmAddCamera.ShowDialog(this) == DialogResult.OK)
+                    {
+                        AddToGridCamera(frmAddCamera.CAMERA, dgvCamera.Rows[e.RowIndex]);
                     }
                 }
             }

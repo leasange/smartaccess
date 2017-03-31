@@ -28,11 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAddCamera = new DevComponents.DotNetBar.ButtonItem();
             this.dgvCamera = new Li.Controls.DataGridViewEx();
+            this.bar2 = new DevComponents.DotNetBar.Bar();
+            this.cbEnableCap = new DevComponents.DotNetBar.CheckBoxItem();
+            this.biAddDoorCamera = new DevComponents.DotNetBar.ButtonItem();
+            this.bar3 = new DevComponents.DotNetBar.Bar();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.tbPicUrl = new DevComponents.DotNetBar.TextBoxItem();
+            this.biSave = new DevComponents.DotNetBar.ButtonItem();
+            this.dgvDoorCamera = new Li.Controls.DataGridViewEx();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn();
+            this.Col_DCDetele = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,20 +53,8 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Modify = new Li.Controls.DataGridViewLinkLabelColumn();
             this.Col_Delete = new Li.Controls.DataGridViewLinkLabelColumn();
-            this.bar2 = new DevComponents.DotNetBar.Bar();
-            this.biAddDoorCamera = new DevComponents.DotNetBar.ButtonItem();
-            this.bar3 = new DevComponents.DotNetBar.Bar();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
-            this.tbPicUrl = new DevComponents.DotNetBar.TextBoxItem();
-            this.biSave = new DevComponents.DotNetBar.ButtonItem();
-            this.dgvDoorCamera = new Li.Controls.DataGridViewEx();
-            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
-            this.cbEnableCap = new DevComponents.DotNetBar.CheckBoxItem();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn();
-            this.Col_DCDetele = new Li.Controls.DataGridViewLinkLabelColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCamera)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
@@ -99,15 +100,16 @@
             this.Column5,
             this.Column6,
             this.Column7,
+            this.Col_Modify,
             this.Col_Delete});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCamera.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCamera.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCamera.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvCamera.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvCamera.Location = new System.Drawing.Point(249, 29);
@@ -119,56 +121,6 @@
             this.dgvCamera.Size = new System.Drawing.Size(772, 252);
             this.dgvCamera.TabIndex = 6;
             this.dgvCamera.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCamera_CellContentClick);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "摄像头名称";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "摄像头IP";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "摄像头端口";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "摄像头用户名";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "摄像头密码";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "摄像头抓拍端口";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "摄像头抓拍方式";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Col_Delete
-            // 
-            this.Col_Delete.HeaderText = "删除";
-            this.Col_Delete.Name = "Col_Delete";
-            this.Col_Delete.ReadOnly = true;
-            this.Col_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_Delete.SplitLinkSymbol = ",";
             // 
             // bar2
             // 
@@ -186,6 +138,13 @@
             this.bar2.TabIndex = 7;
             this.bar2.TabStop = false;
             this.bar2.Text = "bar2";
+            // 
+            // cbEnableCap
+            // 
+            this.cbEnableCap.Checked = true;
+            this.cbEnableCap.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEnableCap.Name = "cbEnableCap";
+            this.cbEnableCap.Text = "启用抓拍";
             // 
             // biAddDoorCamera
             // 
@@ -243,14 +202,14 @@
             this.Column10,
             this.Column11,
             this.Col_DCDetele});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDoorCamera.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDoorCamera.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDoorCamera.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDoorCamera.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvDoorCamera.Location = new System.Drawing.Point(249, 310);
@@ -261,25 +220,6 @@
             this.dgvDoorCamera.TabIndex = 10;
             this.dgvDoorCamera.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDoorCamera_CellClick);
             this.dgvDoorCamera.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDoorCamera_CellContentClick);
-            // 
-            // doorTree
-            // 
-            this.doorTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.doorTree.CheckBoxVisible = false;
-            this.doorTree.Dock = System.Windows.Forms.DockStyle.Left;
-            this.doorTree.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.doorTree.Location = new System.Drawing.Point(0, 0);
-            this.doorTree.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.doorTree.Name = "doorTree";
-            this.doorTree.Size = new System.Drawing.Size(249, 574);
-            this.doorTree.TabIndex = 1;
-            // 
-            // cbEnableCap
-            // 
-            this.cbEnableCap.Checked = true;
-            this.cbEnableCap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEnableCap.Name = "cbEnableCap";
-            this.cbEnableCap.Text = "启用抓拍";
             // 
             // Column9
             // 
@@ -310,6 +250,77 @@
             this.Col_DCDetele.Name = "Col_DCDetele";
             this.Col_DCDetele.ReadOnly = true;
             this.Col_DCDetele.SplitLinkSymbol = ",";
+            // 
+            // doorTree
+            // 
+            this.doorTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.doorTree.CheckBoxVisible = false;
+            this.doorTree.Dock = System.Windows.Forms.DockStyle.Left;
+            this.doorTree.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.doorTree.Location = new System.Drawing.Point(0, 0);
+            this.doorTree.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.doorTree.Name = "doorTree";
+            this.doorTree.Size = new System.Drawing.Size(249, 574);
+            this.doorTree.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "摄像头名称";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "摄像头IP";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "摄像头端口";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "摄像头用户名";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "摄像头密码";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "摄像头抓拍端口";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "摄像头抓拍方式";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Col_Modify
+            // 
+            this.Col_Modify.HeaderText = "修改";
+            this.Col_Modify.Name = "Col_Modify";
+            this.Col_Modify.ReadOnly = true;
+            this.Col_Modify.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Modify.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_Modify.SplitLinkSymbol = ",";
+            // 
+            // Col_Delete
+            // 
+            this.Col_Delete.HeaderText = "删除";
+            this.Col_Delete.Name = "Col_Delete";
+            this.Col_Delete.ReadOnly = true;
+            this.Col_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Delete.SplitLinkSymbol = ",";
             // 
             // DoorCameraSetting
             // 
@@ -348,6 +359,11 @@
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private DevComponents.DotNetBar.TextBoxItem tbPicUrl;
         private DevComponents.DotNetBar.ButtonItem biSave;
+        private DevComponents.DotNetBar.CheckBoxItem cbEnableCap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn Column11;
+        private Li.Controls.DataGridViewLinkLabelColumn Col_DCDetele;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -355,11 +371,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private Li.Controls.DataGridViewLinkLabelColumn Col_Modify;
         private Li.Controls.DataGridViewLinkLabelColumn Col_Delete;
-        private DevComponents.DotNetBar.CheckBoxItem cbEnableCap;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private DevComponents.DotNetBar.Controls.DataGridViewCheckBoxXColumn Column11;
-        private Li.Controls.DataGridViewLinkLabelColumn Col_DCDetele;
     }
 }

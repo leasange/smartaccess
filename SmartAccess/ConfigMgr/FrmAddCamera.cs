@@ -36,6 +36,42 @@ namespace SmartAccess.ConfigMgr
                 cbCapType.Items.Add(item);
             }
             cbCapType.SelectedIndex = 0;
+
+            if (CAMERA != null)
+            {
+                tbCameraName.Text = CAMERA.CAMERA_NAME;
+                tbIp.Text = CAMERA.CAMERA_IP;
+                try
+                {
+                    iiPort.Value = (int)CAMERA.CAMERA_PORT;
+                }
+                catch (Exception)
+                {
+
+                }
+
+                tbUser.Text = CAMERA.CAMERA_USER;
+                tbPwd.Text = CAMERA.CAMERA_PWD;
+                try
+                {
+                    cbModel.SelectedItem = CAMERA.CAMERA_MODEL;
+                }
+                catch (Exception)
+                {
+
+                }
+
+                cbCapType.SelectedItem = CAMERA.CAMERA_CAP_TYPE;
+                try
+                {
+                    iiCapPort.Value = (int)CAMERA.CAMERA_CAP_PORT;
+                }
+                catch (System.Exception ex)
+                {
+
+                }
+            }
+
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -44,8 +80,11 @@ namespace SmartAccess.ConfigMgr
                 WinInfoHelper.ShowInfoWindow(this, "IP不能为空！");
                 return;
             }
-
-            CAMERA = new Maticsoft.Model.SMT_CAMERA_INFO();
+            if (CAMERA==null)
+            {
+                CAMERA = new Maticsoft.Model.SMT_CAMERA_INFO();
+                CAMERA.ID = -1;
+            }
             CAMERA.CAMERA_NAME = tbCameraName.Text.Trim();
             CAMERA.CAMERA_IP = tbIp.Text.Trim();
             CAMERA.CAMERA_PORT = iiPort.Value;
@@ -60,8 +99,15 @@ namespace SmartAccess.ConfigMgr
                 try
                 {
                     Maticsoft.BLL.SMT_CAMERA_INFO cameraBll = new Maticsoft.BLL.SMT_CAMERA_INFO();
-                    CAMERA.ID = -1;
-                    CAMERA.ID = cameraBll.Add(CAMERA);
+                    if (CAMERA.ID==-1)
+                    {
+                        CAMERA.ID = cameraBll.Add(CAMERA);
+                    }
+                    else
+                    {
+                        cameraBll.Update(CAMERA);
+                    }
+                    
                     SmtLog.Info("配置", "配置摄像头：" + CAMERA.CAMERA_NAME + ",IP=" + CAMERA.CAMERA_IP);
                     this.BeginInvoke(new Action(() =>
                     {
