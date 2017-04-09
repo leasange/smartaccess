@@ -41,10 +41,6 @@
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.cboTreeArea = new DevComponents.DotNetBar.Controls.ComboTree();
             this.tabControl1 = new DevComponents.DotNetBar.TabControl();
-            this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
-            this.cbCtrlrEnable = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.ipCtrlr = new DevComponents.Editors.IpAddressInput();
-            this.tabItemBase = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
             this.doorReaderAttriGroup = new SmartAccess.ControlDevMgr.DoorReaderAttriGroup();
             this.doorNameAttriGroup = new SmartAccess.ControlDevMgr.DoorNameAttriGroup();
@@ -53,15 +49,20 @@
             this.labelX18 = new DevComponents.DotNetBar.LabelX();
             this.labelX11 = new DevComponents.DotNetBar.LabelX();
             this.tabItemDoor = new DevComponents.DotNetBar.TabItem(this.components);
+            this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
+            this.cbCtrlrEnable = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.ipCtrlr = new DevComponents.Editors.IpAddressInput();
+            this.tabItemBase = new DevComponents.DotNetBar.TabItem(this.components);
             this.btnOkAndUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
+            this.cbIsElevator = new DevComponents.DotNetBar.Controls.CheckBoxX();
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabControlPanel2.SuspendLayout();
             this.tabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ipCtrlr)).BeginInit();
-            this.tabControlPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelX1
@@ -224,8 +225,8 @@
             // 
             this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(217)))), ((int)(((byte)(247)))));
             this.tabControl1.CanReorderTabs = true;
-            this.tabControl1.Controls.Add(this.tabControlPanel2);
             this.tabControl1.Controls.Add(this.tabControlPanel1);
+            this.tabControl1.Controls.Add(this.tabControlPanel2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -237,75 +238,6 @@
             this.tabControl1.Tabs.Add(this.tabItemBase);
             this.tabControl1.Tabs.Add(this.tabItemDoor);
             this.tabControl1.Text = "tabControl1";
-            // 
-            // tabControlPanel1
-            // 
-            this.tabControlPanel1.Controls.Add(this.cbCtrlrEnable);
-            this.tabControlPanel1.Controls.Add(this.ipCtrlr);
-            this.tabControlPanel1.Controls.Add(this.tbCtrlName);
-            this.tabControlPanel1.Controls.Add(this.cboTreeArea);
-            this.tabControlPanel1.Controls.Add(this.labelX1);
-            this.tabControlPanel1.Controls.Add(this.iiPort);
-            this.tabControlPanel1.Controls.Add(this.labelX2);
-            this.tabControlPanel1.Controls.Add(this.tbDesc);
-            this.tabControlPanel1.Controls.Add(this.labelX3);
-            this.tabControlPanel1.Controls.Add(this.labelX4);
-            this.tabControlPanel1.Controls.Add(this.tbCtrlrSn);
-            this.tabControlPanel1.Controls.Add(this.labelX5);
-            this.tabControlPanel1.Controls.Add(this.labelX6);
-            this.tabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlPanel1.Location = new System.Drawing.Point(0, 28);
-            this.tabControlPanel1.Name = "tabControlPanel1";
-            this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
-            this.tabControlPanel1.Size = new System.Drawing.Size(612, 355);
-            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
-            this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
-            this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
-            this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
-            | DevComponents.DotNetBar.eBorderSide.Bottom)));
-            this.tabControlPanel1.Style.GradientAngle = 90;
-            this.tabControlPanel1.TabIndex = 1;
-            this.tabControlPanel1.TabItem = this.tabItemBase;
-            // 
-            // cbCtrlrEnable
-            // 
-            this.cbCtrlrEnable.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.cbCtrlrEnable.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbCtrlrEnable.Checked = true;
-            this.cbCtrlrEnable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCtrlrEnable.CheckValue = "Y";
-            this.cbCtrlrEnable.Location = new System.Drawing.Point(316, 44);
-            this.cbCtrlrEnable.Name = "cbCtrlrEnable";
-            this.cbCtrlrEnable.Size = new System.Drawing.Size(100, 23);
-            this.cbCtrlrEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbCtrlrEnable.TabIndex = 2;
-            this.cbCtrlrEnable.Text = "启用";
-            // 
-            // ipCtrlr
-            // 
-            this.ipCtrlr.AutoOverwrite = true;
-            // 
-            // 
-            // 
-            this.ipCtrlr.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.ipCtrlr.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ipCtrlr.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.ipCtrlr.ButtonFreeText.Visible = true;
-            this.ipCtrlr.Location = new System.Drawing.Point(135, 73);
-            this.ipCtrlr.Name = "ipCtrlr";
-            this.ipCtrlr.Size = new System.Drawing.Size(170, 23);
-            this.ipCtrlr.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipCtrlr.TabIndex = 3;
-            // 
-            // tabItemBase
-            // 
-            this.tabItemBase.AttachedControl = this.tabControlPanel1;
-            this.tabItemBase.Name = "tabItemBase";
-            this.tabItemBase.Text = "基本属性";
             // 
             // tabControlPanel2
             // 
@@ -416,6 +348,77 @@
             this.tabItemDoor.Name = "tabItemDoor";
             this.tabItemDoor.Text = "控制器门属性";
             // 
+            // tabControlPanel1
+            // 
+            this.tabControlPanel1.Controls.Add(this.cbIsElevator);
+            this.tabControlPanel1.Controls.Add(this.cbCtrlrEnable);
+            this.tabControlPanel1.Controls.Add(this.ipCtrlr);
+            this.tabControlPanel1.Controls.Add(this.tbCtrlName);
+            this.tabControlPanel1.Controls.Add(this.cboTreeArea);
+            this.tabControlPanel1.Controls.Add(this.labelX1);
+            this.tabControlPanel1.Controls.Add(this.iiPort);
+            this.tabControlPanel1.Controls.Add(this.labelX2);
+            this.tabControlPanel1.Controls.Add(this.tbDesc);
+            this.tabControlPanel1.Controls.Add(this.labelX3);
+            this.tabControlPanel1.Controls.Add(this.labelX4);
+            this.tabControlPanel1.Controls.Add(this.tbCtrlrSn);
+            this.tabControlPanel1.Controls.Add(this.labelX5);
+            this.tabControlPanel1.Controls.Add(this.labelX6);
+            this.tabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPanel1.Location = new System.Drawing.Point(0, 28);
+            this.tabControlPanel1.Name = "tabControlPanel1";
+            this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.tabControlPanel1.Size = new System.Drawing.Size(612, 355);
+            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
+            this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
+            this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
+            this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
+            | DevComponents.DotNetBar.eBorderSide.Bottom)));
+            this.tabControlPanel1.Style.GradientAngle = 90;
+            this.tabControlPanel1.TabIndex = 1;
+            this.tabControlPanel1.TabItem = this.tabItemBase;
+            // 
+            // cbCtrlrEnable
+            // 
+            this.cbCtrlrEnable.AutoSize = true;
+            this.cbCtrlrEnable.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbCtrlrEnable.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbCtrlrEnable.Checked = true;
+            this.cbCtrlrEnable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCtrlrEnable.CheckValue = "Y";
+            this.cbCtrlrEnable.Location = new System.Drawing.Point(316, 44);
+            this.cbCtrlrEnable.Name = "cbCtrlrEnable";
+            this.cbCtrlrEnable.Size = new System.Drawing.Size(51, 20);
+            this.cbCtrlrEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbCtrlrEnable.TabIndex = 2;
+            this.cbCtrlrEnable.Text = "启用";
+            // 
+            // ipCtrlr
+            // 
+            this.ipCtrlr.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipCtrlr.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipCtrlr.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipCtrlr.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipCtrlr.ButtonFreeText.Visible = true;
+            this.ipCtrlr.Location = new System.Drawing.Point(135, 73);
+            this.ipCtrlr.Name = "ipCtrlr";
+            this.ipCtrlr.Size = new System.Drawing.Size(170, 23);
+            this.ipCtrlr.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipCtrlr.TabIndex = 3;
+            // 
+            // tabItemBase
+            // 
+            this.tabItemBase.AttachedControl = this.tabControlPanel1;
+            this.tabItemBase.Name = "tabItemBase";
+            this.tabItemBase.Text = "基本属性";
+            // 
             // btnOkAndUpload
             // 
             this.btnOkAndUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -456,6 +459,23 @@
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // cbIsElevator
+            // 
+            this.cbIsElevator.AutoSize = true;
+            this.cbIsElevator.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbIsElevator.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbIsElevator.Location = new System.Drawing.Point(386, 44);
+            this.cbIsElevator.Name = "cbIsElevator";
+            this.cbIsElevator.Size = new System.Drawing.Size(88, 20);
+            this.cbIsElevator.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbIsElevator.TabIndex = 7;
+            this.cbIsElevator.Text = "电梯控制器";
+            this.cbIsElevator.Visible = false;
+            this.cbIsElevator.CheckedChanged += new System.EventHandler(this.cbIsElevator_CheckedChanged);
+            // 
             // FrmAddOrModifyCtrlr
             // 
             this.AcceptButton = this.btnOkAndUpload;
@@ -481,9 +501,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.iiPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabControlPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ipCtrlr)).EndInit();
             this.tabControlPanel2.ResumeLayout(false);
+            this.tabControlPanel1.ResumeLayout(false);
+            this.tabControlPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ipCtrlr)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -517,5 +538,6 @@
         private DoorReaderAttriGroup doorReaderAttriGroup;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbCtrlrEnable;
         private DevComponents.DotNetBar.ButtonX btnOk;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbIsElevator;
     }
 }

@@ -64,7 +64,15 @@ namespace SmartAccess.ControlDevMgr
                     {
                         ControllerDoorType type = ControllerDoorType.TwoDoorsTwoDirections;
                         Enum.TryParse<ControllerDoorType>(_ctrlr.CTRLR_TYPE.ToString(), out type);
-                        SetAccessExAttribute(type);
+                        if (type== ControllerDoorType.Elevator)
+                        {
+                            cbIsElevator.Checked = true;
+                            cbIsElevator.Visible = true;
+                        }
+                        else
+                        {
+                            SetAccessExAttribute(type);
+                        }
                     }
                 }
                 else if (_lastType==null)
@@ -138,6 +146,17 @@ namespace SmartAccess.ControlDevMgr
         {
             if ((tbCtrlrSn.Text.Trim().Length > 0) && (_ctrlr == null || _ctrlr.CTRLR_MODEL == "WGACCESS"))
             {
+                string sn = tbCtrlrSn.Text.Trim();
+                if (sn[0] == '1')
+                {
+                    cbIsElevator.Visible = true;
+                }
+                else
+                {
+                    cbIsElevator.Visible = false;
+                    cbIsElevator.Checked = false;
+                }
+                tabItemDoor.Visible = !cbIsElevator.Checked;
                 SetWGAccessExAttribute();
             }
         }
@@ -148,7 +167,14 @@ namespace SmartAccess.ControlDevMgr
             {
                 if (sn[0] == '1')
                 {
-                    SetAccessExAttribute(ControllerDoorType.OneDoorTwoDirections);
+                    if (cbIsElevator.Checked)
+                    {
+                        SetAccessExAttribute(ControllerDoorType.Elevator);
+                    }
+                    else
+                    {
+                        SetAccessExAttribute(ControllerDoorType.OneDoorTwoDirections);
+                    }
                 }
                 else if (sn[0] == '2')
                 {
@@ -197,6 +223,11 @@ namespace SmartAccess.ControlDevMgr
                         this.tabItemDoor.Text = "【四门单向控制器】属性";
                         doorCount = 4;
                         directionCount = 1;
+                    }
+                    break;
+                case ControllerDoorType.Elevator:
+                    {
+                        return;
                     }
                     break;
                 default:
@@ -376,56 +407,59 @@ namespace SmartAccess.ControlDevMgr
                             ctrlInfo.ID = ctrlBll.Add(ctrlInfo);
                             _ctrlr = ctrlInfo;
                         }
-                        Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
 
-                        foreach (var item in doors)
+                        if (_lastType != ControllerDoorType.Elevator)//非电梯控制器
                         {
-                            var edoors = doorBll.GetModelList("CTRL_ID=" + ctrlInfo.ID + " and " + " CTRL_DOOR_INDEX=" + item.CTRL_DOOR_INDEX);
-                            if (edoors.Count > 0)
-                            {
-                                item.ID = edoors[0].ID;
-                                doorBll.Update(item);
-                            }
-                            else
-                            {
-                                item.CTRL_ID = ctrlInfo.ID;
-                                item.ID = doorBll.Add(item);
-                            }
-                        }
-                        _ctrlr.DOOR_INFOS = doors;
+                            Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
 
-                        if (upload)
-                        {
-                            string errMsg = null;
-                            if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors,true))
+                            foreach (var item in doors)
                             {
-                                if (errMsg != "")
+                                var edoors = doorBll.GetModelList("CTRL_ID=" + ctrlInfo.ID + " and " + " CTRL_DOOR_INDEX=" + item.CTRL_DOOR_INDEX);
+                                if (edoors.Count > 0)
+                                {
+                                    item.ID = edoors[0].ID;
+                                    doorBll.Update(item);
+                                }
+                                else
+                                {
+                                    item.CTRL_ID = ctrlInfo.ID;
+                                    item.ID = doorBll.Add(item);
+                                }
+                            }
+                            _ctrlr.DOOR_INFOS = doors;
+
+                            if (upload)
+                            {
+                                string errMsg = null;
+                                if (UploadPrivate.UploadByCtrlr(_ctrlr, out errMsg, doors, true))
+                                {
+                                    if (errMsg != "")
+                                    {
+                                        WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
+                                        return;
+                                    }
+                                }
+                                else
                                 {
                                     WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
                                     return;
                                 }
-                            }
-                            else
-                            {
-                                WinInfoHelper.ShowInfoWindow(this, "设置控制器" + (_ctrlr.IS_ENABLE ? "启用" : "禁用") + "异常：" + errMsg);
-                                return;
-                            }
-                            Controller c = ControllerHelper.ToController(_ctrlr);
-                            //设置门控制方式
-                            foreach (var item in doors)
-                            {
-                                using (IAccessCore access = new WGAccess())
+                                Controller c = ControllerHelper.ToController(_ctrlr);
+                                //设置门控制方式
+                                foreach (var item in doors)
                                 {
-                                    bool ret = access.SetDoorControlStyle(c, (int)item.CTRL_DOOR_INDEX, (DoorControlStyle)item.CTRL_STYLE, item.CTRL_DELAY_TIME);
-                                    if (!ret)
+                                    using (IAccessCore access = new WGAccess())
                                     {
-                                        WinInfoHelper.ShowInfoWindow(this, "上传门控制方式失败！");
-                                        return;
+                                        bool ret = access.SetDoorControlStyle(c, (int)item.CTRL_DOOR_INDEX, (DoorControlStyle)item.CTRL_STYLE, item.CTRL_DELAY_TIME);
+                                        if (!ret)
+                                        {
+                                            WinInfoHelper.ShowInfoWindow(this, "上传门控制方式失败！");
+                                            return;
+                                        }
                                     }
                                 }
                             }
                         }
-
                         this.Invoke(new Action(() =>
                         {
                             this.DialogResult = DialogResult.OK;
@@ -461,6 +495,19 @@ namespace SmartAccess.ControlDevMgr
         private void btnOkAndUpload_Click(object sender, EventArgs e)
         {
             DoSave(true);
+        }
+
+        private void cbIsElevator_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIsElevator.Checked)
+            {
+                tabItemDoor.Visible = false;
+            }
+            else
+            {
+                tabItemDoor.Visible = true;
+            }
+            SetWGAccessExAttribute();
         }
     }
 }
