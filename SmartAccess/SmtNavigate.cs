@@ -101,7 +101,8 @@ namespace SmartAccess
                     new ExpandItem("系统使用说明", Properties.Resources.dkq_2525, SYS_FUN_POINT.SYS_README_CONFIG, typeof(OpenHelperClass)),
                     new ExpandItem("用户权限管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.USER_PRIVATE_CONFIG, typeof(SmartAccess.ConfigMgr.UserManager)),
                     new ExpandItem("考勤上班设置", Properties.Resources.dkq_2525, SYS_FUN_POINT.ATTENDANCE_SETTING, typeof(SmartAccess.ConfigMgr.AttenSetting)),
-                    new ExpandItem("门禁相机设置", Properties.Resources.dkq_2525, SYS_FUN_POINT.DOOR_CAMERA_SETTING, typeof(SmartAccess.ConfigMgr.DoorCameraSetting))
+                    new ExpandItem("门禁相机设置", Properties.Resources.dkq_2525, SYS_FUN_POINT.DOOR_CAMERA_SETTING, typeof(SmartAccess.ConfigMgr.DoorCameraSetting)),
+                    new ExpandItem("人脸黑名单管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.FACE_BLACK_LIST, typeof(SmartAccess.ConfigMgr.FaceBlackListMgr)),
              });
             MenuItems.Add(configMgr);
 // 

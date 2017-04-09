@@ -243,6 +243,7 @@ namespace Li.Access.Core
         OneDoorTwoDirections,//单门双向
         TwoDoorsTwoDirections,//双门双向
         FourDoorsOneDirection,//四门单向
+        Elevator,//电梯控制器
     }
     /// <summary>
     /// 记录类型
