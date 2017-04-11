@@ -273,12 +273,6 @@
     <Compile Include="ConfigMgr\UserManager.Designer.cs">
       <DependentUpon>UserManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlDevMgr\ControlAreaMgr.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ControlDevMgr\ControlAreaMgr.Designer.cs">
-      <DependentUpon>ControlAreaMgr.cs</DependentUpon>
-    </Compile>
     <Compile Include="ControlDevMgr\ControllerMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -657,9 +651,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlDevMgr\ControlAreaMgr.resx">
-      <DependentUpon>ControlAreaMgr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControllerMgr.resx">
       <DependentUpon>ControllerMgr.cs</DependentUpon>

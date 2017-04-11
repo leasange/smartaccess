@@ -56,6 +56,7 @@ namespace SmartAccess.Common.Datas
             {
                 var item = doors[i];
                 Node doorNode = new Node("<font color='blue'>" + item.DOOR_NAME + "</font>");
+                doorNode.Image = Properties.Resources.door1818;
                 doorNode.Tag = item;
                 nodes.Insert(0, doorNode);
             }

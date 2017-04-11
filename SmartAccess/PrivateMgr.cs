@@ -80,6 +80,7 @@ namespace SmartAccess
         ALARM_INFO,
         ACCESS_RECORD_STA,//	门禁出入统计
         CTRLR_INFO,//	控制器管理
+        ELEVATOR_DOOR_MGR,//电梯门管理
         REAL_MAP,//	实时地图显示
         REAL_ACCESS_STATE,//	实时状态显示
         REAL_ALARM_DETECT,//报警实时监控
