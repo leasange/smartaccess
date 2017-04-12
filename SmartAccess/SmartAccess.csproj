@@ -201,6 +201,12 @@
     <Compile Include="ConfigMgr\FrmEditMap.Designer.cs">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\FrmEditorFaceBackList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\FrmEditorFaceBackList.Designer.cs">
+      <DependentUpon>FrmEditorFaceBackList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\FrmEditorUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -615,6 +621,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmEditMap.resx">
       <DependentUpon>FrmEditMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\FrmEditorFaceBackList.resx">
+      <DependentUpon>FrmEditorFaceBackList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\FrmEditorUser.resx">
       <DependentUpon>FrmEditorUser.cs</DependentUpon>
