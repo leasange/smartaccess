@@ -116,7 +116,7 @@ namespace SmartAccess.ControlDevMgr
                     this.Invoke(new Action(() =>
                     {
                         cbDoorIndex.Items.Clear();
-                        for (int i = 1; i <= 32; i++)
+                        for (int i = 1; i <= 40; i++)
                         {
                             if (!indexs.Contains(i))
                             {

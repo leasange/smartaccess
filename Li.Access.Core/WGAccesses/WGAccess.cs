@@ -309,7 +309,15 @@ namespace Li.Access.Core.WGAccesses
            // hexCardNum = DataHelper.ToWGAccessCardNo(hexCardNum);
             packet.SetCardNum(hexCardNum);
             packet.SetAuthoriTimeTime(startTime,endTime);
-            packet.SetAuthoriDoors(doorNumAuthorities);
+            if (controller.doorType== ControllerDoorType.Elevator)
+            {
+                packet.SetAuthoriElevator(doorNumAuthorities);
+            }
+            else
+            {
+                packet.SetAuthoriDoors(doorNumAuthorities);
+            }
+
             packet.SetAuthoriPassword(password);
 
             DoSend(packet, controller.ip, controller.port);
@@ -820,7 +828,36 @@ namespace Li.Access.Core.WGAccesses
                 }
             }
         }
+        public void SetAuthoriElevator(Dictionary<int, int> doorNumAuthorities)
+        {
+            if (doorNumAuthorities.Count==0)
+            {
+                return;
+            }
+            data[12] = (byte)doorNumAuthorities.Values.First();//1号门时间段 20
 
+            List<int> keys = doorNumAuthorities.Keys.ToList();
+
+            for (int i = 0; i < 3; i++)//21,22,23
+            {
+                var floors = keys.FindAll(m => m >= i * 8 + 1 && m <= (i + 1) * 8);
+                foreach (var item in floors)
+                {
+                    int floor = item - 8 * i - 1;
+                    data[13 + i] |= (byte)(0x01 << floor);
+                }
+            }
+
+            for (int i = 0; i < 2; i++)//29,30
+            {
+                var floors = keys.FindAll(m => m >= (i+3) * 8 + 1 && m <= (i + 4) * 8);
+                foreach (var item in floors)
+                {
+                    int floor = item - 8 * (i+3) - 1;
+                    data[21 + i] |= (byte)(0x01 << floor);
+                }
+            }
+        }
         public void SetAuthoriPassword(int password)
         {
             if (password==0||password>999999||password<0)
