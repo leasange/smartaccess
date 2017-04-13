@@ -39,7 +39,12 @@ namespace Li.Controls
             {
                 Image image = Image.FromStream(ms);
                 ms.Dispose();
-                return image;
+                Bitmap bitmap = new Bitmap(image.Width, image.Height);
+                Graphics g = Graphics.FromImage(bitmap);
+                g.DrawImage(image, 0, 0, image.Width, image.Height);
+                g.Dispose();
+                image.Dispose();
+                return bitmap;
             }
             return null;
         }

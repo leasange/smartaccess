@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.textBoxX1 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.comboBoxEx1 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.cbSex = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.comboItem3 = new DevComponents.Editors.ComboItem();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
-            this.comboItem3 = new DevComponents.Editors.ComboItem();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.picBox = new System.Windows.Forms.PictureBox();
-            this.textBoxX2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbPicPath = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnView = new DevComponents.DotNetBar.ButtonX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.tbDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,17 +59,17 @@
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "姓名";
             // 
-            // textBoxX1
+            // tbName
             // 
             // 
             // 
             // 
-            this.textBoxX1.Border.Class = "TextBoxBorder";
-            this.textBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX1.Location = new System.Drawing.Point(59, 12);
-            this.textBoxX1.Name = "textBoxX1";
-            this.textBoxX1.Size = new System.Drawing.Size(172, 23);
-            this.textBoxX1.TabIndex = 0;
+            this.tbName.Border.Class = "TextBoxBorder";
+            this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbName.Location = new System.Drawing.Point(59, 12);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(172, 23);
+            this.tbName.TabIndex = 0;
             // 
             // labelX2
             // 
@@ -82,22 +83,26 @@
             this.labelX2.TabIndex = 0;
             this.labelX2.Text = "性别";
             // 
-            // comboBoxEx1
+            // cbSex
             // 
-            this.comboBoxEx1.DisplayMember = "Text";
-            this.comboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxEx1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEx1.FormattingEnabled = true;
-            this.comboBoxEx1.ItemHeight = 17;
-            this.comboBoxEx1.Items.AddRange(new object[] {
+            this.cbSex.DisplayMember = "Text";
+            this.cbSex.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSex.FormattingEnabled = true;
+            this.cbSex.ItemHeight = 17;
+            this.cbSex.Items.AddRange(new object[] {
             this.comboItem3,
             this.comboItem1,
             this.comboItem2});
-            this.comboBoxEx1.Location = new System.Drawing.Point(59, 41);
-            this.comboBoxEx1.Name = "comboBoxEx1";
-            this.comboBoxEx1.Size = new System.Drawing.Size(172, 23);
-            this.comboBoxEx1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.comboBoxEx1.TabIndex = 1;
+            this.cbSex.Location = new System.Drawing.Point(59, 41);
+            this.cbSex.Name = "cbSex";
+            this.cbSex.Size = new System.Drawing.Size(172, 23);
+            this.cbSex.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbSex.TabIndex = 1;
+            // 
+            // comboItem3
+            // 
+            this.comboItem3.Text = "未知";
             // 
             // comboItem1
             // 
@@ -106,10 +111,6 @@
             // comboItem2
             // 
             this.comboItem2.Text = "女";
-            // 
-            // comboItem3
-            // 
-            this.comboItem3.Text = "未知";
             // 
             // labelX3
             // 
@@ -133,18 +134,18 @@
             this.picBox.TabIndex = 3;
             this.picBox.TabStop = false;
             // 
-            // textBoxX2
+            // tbPicPath
             // 
             // 
             // 
             // 
-            this.textBoxX2.Border.Class = "TextBoxBorder";
-            this.textBoxX2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX2.Location = new System.Drawing.Point(59, 67);
-            this.textBoxX2.Name = "textBoxX2";
-            this.textBoxX2.ReadOnly = true;
-            this.textBoxX2.Size = new System.Drawing.Size(172, 23);
-            this.textBoxX2.TabIndex = 1;
+            this.tbPicPath.Border.Class = "TextBoxBorder";
+            this.tbPicPath.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbPicPath.Location = new System.Drawing.Point(59, 67);
+            this.tbPicPath.Name = "tbPicPath";
+            this.tbPicPath.ReadOnly = true;
+            this.tbPicPath.Size = new System.Drawing.Size(172, 23);
+            this.tbPicPath.TabIndex = 1;
             // 
             // btnView
             // 
@@ -157,6 +158,7 @@
             this.btnView.TabIndex = 2;
             this.btnView.Text = "...";
             this.btnView.Tooltip = "浏览";
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // labelX4
             // 
@@ -195,6 +197,7 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
@@ -208,24 +211,29 @@
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "取消";
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "jpg";
+            this.openFileDialog.Filter = "图片文件|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            // 
             // FrmEditorFaceBackList
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(261, 329);
+            this.ClientSize = new System.Drawing.Size(263, 324);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.tbDesc);
             this.Controls.Add(this.labelX4);
             this.Controls.Add(this.btnView);
             this.Controls.Add(this.picBox);
-            this.Controls.Add(this.comboBoxEx1);
+            this.Controls.Add(this.cbSex);
             this.Controls.Add(this.labelX3);
             this.Controls.Add(this.labelX2);
-            this.Controls.Add(this.textBoxX2);
-            this.Controls.Add(this.textBoxX1);
+            this.Controls.Add(this.tbPicPath);
+            this.Controls.Add(this.tbName);
             this.Controls.Add(this.labelX1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -237,6 +245,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加/修改人脸黑名单";
+            this.Load += new System.EventHandler(this.FrmEditorFaceBackList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -245,19 +254,20 @@
         #endregion
 
         private DevComponents.DotNetBar.LabelX labelX1;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX1;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbName;
         private DevComponents.DotNetBar.LabelX labelX2;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxEx1;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbSex;
         private DevComponents.Editors.ComboItem comboItem3;
         private DevComponents.Editors.ComboItem comboItem1;
         private DevComponents.Editors.ComboItem comboItem2;
         private DevComponents.DotNetBar.LabelX labelX3;
         private System.Windows.Forms.PictureBox picBox;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX2;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbPicPath;
         private DevComponents.DotNetBar.ButtonX btnView;
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.Controls.TextBoxX tbDesc;
         private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.ButtonX btnCancel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

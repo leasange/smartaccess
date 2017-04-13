@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 0);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("22222", 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FaceBlackListMgr));
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biAdd = new DevComponents.DotNetBar.ButtonItem();
@@ -40,7 +40,7 @@
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.tbSex = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.textBoxX2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbDesc = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.tbName = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -88,6 +88,7 @@
             this.biModify.Name = "biModify";
             this.biModify.Text = "修改";
             this.biModify.Tooltip = " 修改选择";
+            this.biModify.Click += new System.EventHandler(this.biModify_Click);
             // 
             // biDelete
             // 
@@ -97,6 +98,7 @@
             this.biDelete.Name = "biDelete";
             this.biDelete.Text = "删除";
             this.biDelete.Tooltip = "添加人脸黑名单";
+            this.biDelete.Click += new System.EventHandler(this.biDelete_Click);
             // 
             // panelEx1
             // 
@@ -105,7 +107,7 @@
             this.panelEx1.Controls.Add(this.labelX4);
             this.panelEx1.Controls.Add(this.picBox);
             this.panelEx1.Controls.Add(this.tbSex);
-            this.panelEx1.Controls.Add(this.textBoxX2);
+            this.panelEx1.Controls.Add(this.tbDesc);
             this.panelEx1.Controls.Add(this.labelX3);
             this.panelEx1.Controls.Add(this.labelX2);
             this.panelEx1.Controls.Add(this.tbName);
@@ -161,21 +163,21 @@
             this.tbSex.Size = new System.Drawing.Size(156, 23);
             this.tbSex.TabIndex = 5;
             // 
-            // textBoxX2
+            // tbDesc
             // 
             // 
             // 
             // 
-            this.textBoxX2.Border.Class = "TextBoxBorder";
-            this.textBoxX2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX2.Location = new System.Drawing.Point(57, 70);
-            this.textBoxX2.MaxLength = 250;
-            this.textBoxX2.Multiline = true;
-            this.textBoxX2.Name = "textBoxX2";
-            this.textBoxX2.ReadOnly = true;
-            this.textBoxX2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxX2.Size = new System.Drawing.Size(156, 141);
-            this.textBoxX2.TabIndex = 4;
+            this.tbDesc.Border.Class = "TextBoxBorder";
+            this.tbDesc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDesc.Location = new System.Drawing.Point(57, 70);
+            this.tbDesc.MaxLength = 250;
+            this.tbDesc.Multiline = true;
+            this.tbDesc.Name = "tbDesc";
+            this.tbDesc.ReadOnly = true;
+            this.tbDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbDesc.Size = new System.Drawing.Size(156, 141);
+            this.tbDesc.TabIndex = 4;
             // 
             // labelX3
             // 
@@ -235,8 +237,8 @@
             this.listFaces.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listFaces.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listFaces.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+            listViewItem3,
+            listViewItem4});
             this.listFaces.LargeImageList = this.imageList;
             this.listFaces.Location = new System.Drawing.Point(0, 46);
             this.listFaces.Name = "listFaces";
@@ -244,6 +246,7 @@
             this.listFaces.Size = new System.Drawing.Size(570, 413);
             this.listFaces.TabIndex = 20;
             this.listFaces.UseCompatibleStateImageBehavior = false;
+            this.listFaces.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listFaces_ItemSelectionChanged);
             // 
             // imageList
             // 
@@ -280,7 +283,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbName;
         private DevComponents.DotNetBar.LabelX labelX2;
         private DevComponents.DotNetBar.LabelX labelX3;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX2;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbDesc;
         private DevComponents.DotNetBar.ButtonItem biModify;
         private DevComponents.DotNetBar.Controls.TextBoxX tbSex;
         private System.Windows.Forms.PictureBox picBox;
