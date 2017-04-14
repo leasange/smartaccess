@@ -356,7 +356,7 @@ namespace SmartAccess.VerInfoMgr
         {
             Init();
         }
-
+        private static decimal? lastTempId = null;
         private void LoadModels()
         {
             ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
@@ -400,6 +400,13 @@ namespace SmartAccess.VerInfoMgr
                                 if (_staffInfo!=null&&_staffInfo.STAFF_NO_TEMPLET!=null)
                                 {
                                     if (item.ID==_staffInfo.STAFF_NO_TEMPLET)
+                                    {
+                                        cboVerTypeStyle.SelectedItem = cbi;
+                                    }
+                                }
+                                else if (lastTempId != null && _staffInfo==null)
+                                {
+                                    if (item.ID==lastTempId)
                                     {
                                         cboVerTypeStyle.SelectedItem = cbi;
                                     }
@@ -907,6 +914,7 @@ namespace SmartAccess.VerInfoMgr
                 ComboItem item = (ComboItem)cboVerTypeStyle.SelectedItem;
                 Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
                 tbVerNo.VerTextFormat = verModel.VER_FORMAT;
+                lastTempId = verModel.ID;
             }
         }
 

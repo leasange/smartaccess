@@ -1584,5 +1584,13 @@ namespace SmartAccess.VerInfoMgr
 
         }
 
+        private void tbName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode== Keys.Enter)
+            {
+                biDoSearch_Click(null, null);
+            }
+        }
+
     }
 }

@@ -657,6 +657,7 @@
             // 
             this.tbName.Name = "tbName";
             this.tbName.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            this.tbName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
             // labelItem2
             // 
@@ -668,6 +669,7 @@
             // 
             this.tbDeptName.Name = "tbDeptName";
             this.tbDeptName.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            this.tbDeptName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
             // labelItem5
             // 
@@ -679,6 +681,7 @@
             // 
             this.tbStaffNo.Name = "tbStaffNo";
             this.tbStaffNo.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            this.tbStaffNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
             // labelItem6
             // 
@@ -690,6 +693,7 @@
             // 
             this.tbJob.Name = "tbJob";
             this.tbJob.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            this.tbJob.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
             // labelItem7
             // 
