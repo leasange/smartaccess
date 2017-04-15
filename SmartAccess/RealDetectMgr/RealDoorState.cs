@@ -153,7 +153,11 @@ namespace SmartAccess.RealDetectMgr
                                 string actionname = AccessHelper.GetRecordReasonString(state.reasonNo);
                                 if (!doorLock)
                                 {
-                                    actionname += "(门锁关)";
+                                    actionname += "，锁状态：关";
+                                }
+                                else
+                                {
+                                    actionname += "，锁状态：开";
                                 }
                                 if (doorstate)
                                 {

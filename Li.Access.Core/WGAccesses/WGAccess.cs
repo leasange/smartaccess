@@ -558,7 +558,7 @@ namespace Li.Access.Core.WGAccesses
         {
             WGPacket packet = new WGPacket(0x8E);
             packet.SetDevSn(controller.sn);
-            packet.data[0] = record ? (byte)0 : (byte)1;
+            packet.data[0] = record ? (byte)1 : (byte)0;
             DoSend(packet, controller.ip, controller.port);
             List<WGPacket> packets = WGRecievePacketAddClose(1);
             if (packets.Count == 1)

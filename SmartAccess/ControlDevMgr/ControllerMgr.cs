@@ -504,11 +504,6 @@ namespace SmartAccess.ControlDevMgr
             waiting.Show(this);
         }
 
-        private void tsmiCtrlIPPrivate_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void biModifyArea_Click(object sender, EventArgs e)
         {
             Maticsoft.Model.SMT_CONTROLLER_ZONE area = GetSelectArea();
@@ -526,6 +521,54 @@ namespace SmartAccess.ControlDevMgr
                 Maticsoft.Model.SMT_CONTROLLER_ZONE update = areaEditor.Area;
                 AreaDataHelper.UpdateNode(advTreeArea.SelectedNode, update);
             }
+        }
+
+        private void tsmiRecordButton_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = GetSelectRow();
+            if (row == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未有选择控制器！");
+                return;
+            }
+            Maticsoft.Model.SMT_CONTROLLER_INFO ctrlInfo = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    IAccessCore access = new WGAccess();
+                    var c = ControllerHelper.ToController(ctrlInfo);
+                    bool ret = access.SetRecordButtonRecords(c, !ctrlInfo.ENABLE_BUTTON_RECORD);
+                    if (!ret)
+                    {
+                         WinInfoHelper.ShowInfoWindow(this, "设置按钮记录状态失败！");
+                    }
+                    else
+                    {
+                        Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
+                        ctrlInfo.ENABLE_BUTTON_RECORD = !ctrlInfo.ENABLE_BUTTON_RECORD;
+                        ctrlBll.Update(ctrlInfo);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    log.Error("设置按钮记录状态异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "设置按钮记录状态异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void cmsCtrl_Opened(object sender, EventArgs e)
+        {
+            DataGridViewRow row = GetSelectRow();
+            if (row == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "未有选择控制器！");
+                return;
+            }
+            Maticsoft.Model.SMT_CONTROLLER_INFO ctrlInfo = (Maticsoft.Model.SMT_CONTROLLER_INFO)row.Tag;
+            tsmiRecordButton.Checked = ctrlInfo.ENABLE_BUTTON_RECORD;
         }
     }
 }

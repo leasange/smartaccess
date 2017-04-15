@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/23 15:31:37   N/A    初版
+* V0.01  2017/4/15 20:13:03   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -43,6 +43,7 @@ namespace Maticsoft.Model
 		private decimal? _org_id;
 		private string _ctrlr_model;
 		private bool _is_enable;
+		private bool _enable_button_record;
 		/// <summary>
 		/// 控制器ID
 		/// </summary>
@@ -179,6 +180,14 @@ namespace Maticsoft.Model
 		{
 			set{ _is_enable=value;}
 			get{return _is_enable;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool ENABLE_BUTTON_RECORD
+		{
+			set{ _enable_button_record=value;}
+			get{return _enable_button_record;}
 		}
 		#endregion Model
 

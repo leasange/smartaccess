@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/7/23 15:31:37   N/A    初版
+* V0.01  2017/4/15 20:13:03   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -55,9 +55,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_CONTROLLER_INFO(");
-			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE)");
+			strSql.Append("SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE,ENABLE_BUTTON_RECORD)");
 			strSql.Append(" values (");
-			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID,@CTRLR_MODEL,@IS_ENABLE)");
+			strSql.Append("@SN_NO,@NAME,@IP,@PORT,@MASK,@GATEWAY,@MAC,@CTRLR_TYPE,@DRIVER_VERSION,@DRIVER_DATE,@CTRLR_DESC,@AREA_ID,@ORDER_VALUE,@ORG_ID,@CTRLR_MODEL,@IS_ENABLE,@ENABLE_BUTTON_RECORD)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@SN_NO", SqlDbType.VarChar,100),
@@ -75,7 +75,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ORDER_VALUE", SqlDbType.Int,4),
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20),
-					new SqlParameter("@IS_ENABLE", SqlDbType.Bit,1)};
+					new SqlParameter("@IS_ENABLE", SqlDbType.Bit,1),
+					new SqlParameter("@ENABLE_BUTTON_RECORD", SqlDbType.Bit,1)};
 			parameters[0].Value = model.SN_NO;
 			parameters[1].Value = model.NAME;
 			parameters[2].Value = model.IP;
@@ -92,6 +93,7 @@ namespace Maticsoft.DAL
 			parameters[13].Value = model.ORG_ID;
 			parameters[14].Value = model.CTRLR_MODEL;
 			parameters[15].Value = model.IS_ENABLE;
+			parameters[16].Value = model.ENABLE_BUTTON_RECORD;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -124,7 +126,8 @@ namespace Maticsoft.DAL
 			strSql.Append("ORDER_VALUE=@ORDER_VALUE,");
 			strSql.Append("ORG_ID=@ORG_ID,");
 			strSql.Append("CTRLR_MODEL=@CTRLR_MODEL,");
-			strSql.Append("IS_ENABLE=@IS_ENABLE");
+			strSql.Append("IS_ENABLE=@IS_ENABLE,");
+			strSql.Append("ENABLE_BUTTON_RECORD=@ENABLE_BUTTON_RECORD");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@NAME", SqlDbType.NVarChar,200),
@@ -142,6 +145,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@CTRLR_MODEL", SqlDbType.VarChar,20),
 					new SqlParameter("@IS_ENABLE", SqlDbType.Bit,1),
+					new SqlParameter("@ENABLE_BUTTON_RECORD", SqlDbType.Bit,1),
 					new SqlParameter("@ID", SqlDbType.Decimal,9),
 					new SqlParameter("@SN_NO", SqlDbType.VarChar,100)};
 			parameters[0].Value = model.NAME;
@@ -159,8 +163,9 @@ namespace Maticsoft.DAL
 			parameters[12].Value = model.ORG_ID;
 			parameters[13].Value = model.CTRLR_MODEL;
 			parameters[14].Value = model.IS_ENABLE;
-			parameters[15].Value = model.ID;
-			parameters[16].Value = model.SN_NO;
+			parameters[15].Value = model.ENABLE_BUTTON_RECORD;
+			parameters[16].Value = model.ID;
+			parameters[17].Value = model.SN_NO;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -249,7 +254,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE from SMT_CONTROLLER_INFO ");
+			strSql.Append("select  top 1 ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE,ENABLE_BUTTON_RECORD from SMT_CONTROLLER_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -352,6 +357,17 @@ namespace Maticsoft.DAL
 						model.IS_ENABLE=false;
 					}
 				}
+				if(row["ENABLE_BUTTON_RECORD"]!=null && row["ENABLE_BUTTON_RECORD"].ToString()!="")
+				{
+					if((row["ENABLE_BUTTON_RECORD"].ToString()=="1")||(row["ENABLE_BUTTON_RECORD"].ToString().ToLower()=="true"))
+					{
+						model.ENABLE_BUTTON_RECORD=true;
+					}
+					else
+					{
+						model.ENABLE_BUTTON_RECORD=false;
+					}
+				}
 			}
 			return model;
 		}
@@ -362,7 +378,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE ");
+			strSql.Append("select ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE,ENABLE_BUTTON_RECORD ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -382,7 +398,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE ");
+			strSql.Append(" ID,SN_NO,NAME,IP,PORT,MASK,GATEWAY,MAC,CTRLR_TYPE,DRIVER_VERSION,DRIVER_DATE,CTRLR_DESC,AREA_ID,ORDER_VALUE,ORG_ID,CTRLR_MODEL,IS_ENABLE,ENABLE_BUTTON_RECORD ");
 			strSql.Append(" FROM SMT_CONTROLLER_INFO ");
 			if(strWhere.Trim()!="")
 			{

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.biAddRootArea = new DevComponents.DotNetBar.ButtonItem();
@@ -66,7 +66,7 @@
             this.Col_SC = new System.Windows.Forms.DataGridViewLinkColumn();
             this.cmsCtrl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiResetRecord = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCtrlIPPrivate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRecordButton = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -296,14 +296,14 @@
             this.dgvCtrlr.AllowUserToAddRows = false;
             this.dgvCtrlr.AllowUserToDeleteRows = false;
             this.dgvCtrlr.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCtrlr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCtrlr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCtrlr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -316,28 +316,28 @@
             this.Column9,
             this.Col_XG,
             this.Col_SC});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCtrlr.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvCtrlr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCtrlr.EnableHeadersVisualStyles = false;
-            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvCtrlr.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvCtrlr.Location = new System.Drawing.Point(0, 29);
             this.dgvCtrlr.Name = "dgvCtrlr";
             this.dgvCtrlr.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCtrlr.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCtrlr.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvCtrlr.RowTemplate.Height = 23;
             this.dgvCtrlr.Size = new System.Drawing.Size(826, 428);
             this.dgvCtrlr.TabIndex = 3;
@@ -426,23 +426,24 @@
             // 
             this.cmsCtrl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiResetRecord,
-            this.tsmiCtrlIPPrivate});
+            this.tsmiRecordButton});
             this.cmsCtrl.Name = "cmsCtrl";
-            this.cmsCtrl.Size = new System.Drawing.Size(172, 48);
+            this.cmsCtrl.Size = new System.Drawing.Size(161, 70);
+            this.cmsCtrl.Opened += new System.EventHandler(this.cmsCtrl_Opened);
             // 
             // tsmiResetRecord
             // 
             this.tsmiResetRecord.Name = "tsmiResetRecord";
-            this.tsmiResetRecord.Size = new System.Drawing.Size(171, 22);
+            this.tsmiResetRecord.Size = new System.Drawing.Size(160, 22);
             this.tsmiResetRecord.Text = "恢复已提取记录";
             this.tsmiResetRecord.Click += new System.EventHandler(this.tsmiResetRecord_Click);
             // 
-            // tsmiCtrlIPPrivate
+            // tsmiRecordButton
             // 
-            this.tsmiCtrlIPPrivate.Name = "tsmiCtrlIPPrivate";
-            this.tsmiCtrlIPPrivate.Size = new System.Drawing.Size(171, 22);
-            this.tsmiCtrlIPPrivate.Text = "控制器IP访问约束";
-            this.tsmiCtrlIPPrivate.Click += new System.EventHandler(this.tsmiCtrlIPPrivate_Click);
+            this.tsmiRecordButton.Name = "tsmiRecordButton";
+            this.tsmiRecordButton.Size = new System.Drawing.Size(160, 22);
+            this.tsmiRecordButton.Text = "记录按钮操作";
+            this.tsmiRecordButton.Click += new System.EventHandler(this.tsmiRecordButton_Click);
             // 
             // ControllerMgr
             // 
@@ -501,6 +502,6 @@
         private System.Windows.Forms.DataGridViewLinkColumn Col_SC;
         private System.Windows.Forms.ContextMenuStrip cmsCtrl;
         private System.Windows.Forms.ToolStripMenuItem tsmiResetRecord;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCtrlIPPrivate;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRecordButton;
     }
 }
