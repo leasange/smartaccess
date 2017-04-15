@@ -21,6 +21,7 @@ namespace SmartAccess.InfoSearchMgr
         public ImsPeopleRecordInfos()
         {
             InitializeComponent();
+            dtpStart.Value = DateTime.Now.Date;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -116,14 +117,26 @@ namespace SmartAccess.InfoSearchMgr
             foreach (DataRow item in query.Rows)
             {
                 DataRow dr = dt.NewRow();
+                string throughForward = "进门";
+                if (item["ThroughForward"] != null)
+                {
+                    int tf = (byte)item["ThroughForward"];
+                    throughForward = tf == 1 ? "进门" : "出门";
+                }
+                string throughResult = "禁止通过";
+                if (item["ThroughResult"] != null)
+                {
+                    int tr = (byte)item["ThroughResult"];
+                    throughResult = tr == 1 ? "允许通过" : "禁止通过";
+                }
 
                 dr[0] = item["STAFF_NO"];
                 dr[1] = item["REAL_NAME"];
                 dr[2] = item["ORG_NAME"];
                 dr[3] = item["AccessChannel"];
-                dr[4] = item["ThroughForward"];
+                dr[4] = throughForward;
                 dr[5] = item["ThroughTime"];
-                dr[6] = item["ThroughResult"];
+                dr[6] = throughResult;
                 dr[7] = item["CapturePic"];
                 dr[8] = item["OriginPic"];
                 dr[9] = item["CompareResult"];
@@ -143,15 +156,29 @@ namespace SmartAccess.InfoSearchMgr
             foreach (DataRow item in dt.Rows)
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
+
+                string throughForward = "进门";
+                if (item["ThroughForward"] != null)
+                {
+                    int tf = (byte)item["ThroughForward"];
+                    throughForward = tf == 1 ? "进门" : "出门";
+                }
+                string throughResult = "禁止通过";
+                if (item["ThroughResult"] != null)
+                {
+                    int tr = (byte)item["ThroughResult"];
+                    throughResult = tr == 1 ? "允许通过" : "禁止通过";
+                }
+
                 dgvr.CreateCells(
                     dgvData,
                     item["STAFF_NO"],
                     item["REAL_NAME"],
                     item["ORG_NAME"],
                     item["AccessChannel"],
-                    item["ThroughForward"],
+                    throughForward,
                     item["ThroughTime"],
-                    item["ThroughResult"],
+                    throughResult,
                     item["CapturePic"],
                     item["OriginPic"],
                     item["CompareResult"],

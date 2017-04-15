@@ -21,6 +21,7 @@ namespace SmartAccess.InfoSearchMgr
         public ImsVehichleRecordInfos()
         {
             InitializeComponent();
+            dtpStart.Value = DateTime.Now.Date;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -112,17 +113,30 @@ namespace SmartAccess.InfoSearchMgr
             dt.Columns.Add("库内照片");
             dt.Columns.Add("比对结果");
             dt.Columns.Add("相似度");
+            
             foreach (DataRow item in query.Rows)
             {
+                string throughForward = "进门";
+                if (item["ThroughForward"] != null)
+                {
+                    int tf = (byte)item["ThroughForward"];
+                    throughForward = tf == 1 ? "进门" : "出门";
+                }
+                string throughResult = "禁止通过";
+                if (item["ThroughResult"]!=null)
+                {
+                    int tr = (byte)item["ThroughResult"];
+                    throughResult = tr == 1 ? "允许通过" : "禁止通过";
+                }
                 DataRow dr = dt.NewRow();
 
                 dr[0] = item["PlateNo"];
                 dr[1] = item["Name"];
                 dr[2] = item["Depart"];
                 dr[3] = item["AccessChannel"];
-                dr[4] = item["ThroughForward"];
+                dr[4] = throughForward;
                 dr[5] = item["ThroughTime"];
-                dr[6] = item["ThroughResult"];
+                dr[6] = throughResult;
                 dr[7] = item["CapturePic"];
                 dt.Rows.Add(dr);
             }
@@ -139,15 +153,28 @@ namespace SmartAccess.InfoSearchMgr
             foreach (DataRow item in dt.Rows)
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
+                string throughForward = "进门";
+                if (item["ThroughForward"] != null)
+                {
+                    int tf = (byte)item["ThroughForward"];
+                    throughForward = tf == 1 ? "进门" : "出门";
+                }
+                string throughResult = "禁止通过";
+                if (item["ThroughResult"] != null)
+                {
+                    int tr = (byte)item["ThroughResult"];
+                    throughResult = tr == 1 ? "允许通过" : "禁止通过";
+                }
+
                 dgvr.CreateCells(
                     dgvData,
                     item["PlateNo"],
                     item["Name"],
                     item["Depart"],
                     item["AccessChannel"],
-                    item["ThroughForward"],
+                    throughForward,
                     item["ThroughTime"],
-                    item["ThroughResult"],
+                    throughResult,
                     item["CapturePic"]
                     );
                 dgvr.Tag = item;
