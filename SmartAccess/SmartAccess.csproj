@@ -378,6 +378,12 @@
     <Compile Include="InfoBatchMgr\StaffInfosInput.Designer.cs">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoSearchMgr\ImsVehicleRecordInfos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\ImsVehicleRecordInfos.Designer.cs">
+      <DependentUpon>ImsVehicleRecordInfos.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoSearchMgr\ImsPeopleRecordInfos.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -708,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoBatchMgr\StaffInfosInput.resx">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\ImsVehicleRecordInfos.resx">
+      <DependentUpon>ImsVehicleRecordInfos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\ImsPeopleRecordInfos.resx">
       <DependentUpon>ImsPeopleRecordInfos.cs</DependentUpon>

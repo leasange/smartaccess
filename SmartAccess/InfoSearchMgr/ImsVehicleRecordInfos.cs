@@ -15,10 +15,10 @@ using Li.Camera;
 
 namespace SmartAccess.InfoSearchMgr
 {
-    public partial class ImsPeopleRecordInfos : UserControl
+    public partial class ImsVehichleRecordInfos : UserControl
     {
-        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(ImsPeopleRecordInfos));
-        public ImsPeopleRecordInfos()
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(ImsVehichleRecordInfos));
+        public ImsVehichleRecordInfos()
         {
             InitializeComponent();
         }
@@ -30,18 +30,17 @@ namespace SmartAccess.InfoSearchMgr
                 WinInfoHelper.ShowInfoWindow(this, "开始时间大于结束时间！");
                 return;
             }
-            string staffNo = tbStaffNo.Text.Trim();//证件号
+            string vehicleNo = tbVehicleNo.Text.Trim();//证件号
             string staffName = tbName.Text.Trim();//姓名
-            string strWhere = "ThroughTime>='" + dtpStart.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and ThroughTime<='" + dtpEnd.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            string strWhere = "ThroughTime>='" + dtpStart.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and ThroughTime<='" + dtpEnd.Value.ToString("yyyy-MM-dd HH:mm:ss")+"'";
 
-
-            if (!string.IsNullOrWhiteSpace(staffNo))
+            if (!string.IsNullOrWhiteSpace(vehicleNo))
             {
-                strWhere += " and STAFF_NO like '%" + staffNo + "%' ";
+                strWhere += " and PlateNo like '%" + vehicleNo + "%' ";
             }
             if (!string.IsNullOrWhiteSpace(staffName))
             {
-                strWhere += " and REAL_NAME like '%" + staffName + "%' ";
+                strWhere += " and Name like '%" + staffName + "%' ";
             }
 
             pageDataGridView.Reset();
@@ -53,7 +52,7 @@ namespace SmartAccess.InfoSearchMgr
         private void DoSearch(bool searchCount = false)
         {
             string strWhere = pageDataGridView.SqlWhere;//WHERE REAL_NAME like '%唐%' and CER_NO like '%11%'
-            string strSqlBase = "SELECT ROW_NUMBER() over (order by ThroughTime desc) as RN,* FROM(SELECT RCDS2.*,SSOI.ORG_ID,SSOI.ORG_NAME,SSOI.REAL_NAME,SSOI.STAFF_NO FROM (SELECT RCDS.*,SSC.STAFF_ID FROM (select IPR.*,SCI.ID as CARD_ID from IMS_PEOPLE_RECORD IPR LEFT JOIN SMT_CARD_INFO SCI ON IPR.CardNo=SCI.CARD_NO where IPR.ThroughTime>='" + dtpStart.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and IPR.ThroughTime<'" + dtpEnd.Value.ToString("yyyy-MM-dd HH:mm:ss") + "') RCDS LEFT JOIN SMT_STAFF_CARD SSC ON RCDS.CARD_ID=SSC.CARD_ID) RCDS2 LEFT JOIN (SELECT SSI.*,SOI.ORG_NAME FROM SMT_STAFF_INFO SSI LEFT JOIN SMT_ORG_INFO SOI ON SSI.ORG_ID=SOI.ID) SSOI ON RCDS2.STAFF_ID=SSOI.ID) T where " + strWhere;
+            string strSqlBase = "select ROW_NUMBER() over  (order by ThroughTime desc) as RN, * from IMS_VEHICLE_RECORD vir where "  + strWhere;
             string strSql = "SELECT TOP " + pageDataGridView.PageControl.RecordsPerPage + " * FROM(" + strSqlBase + ") A WHERE RN>=" + pageDataGridView.PageControl.StartIndex;
             sqlAll = strSqlBase;
             dgvData.Rows.Clear();
@@ -117,17 +116,14 @@ namespace SmartAccess.InfoSearchMgr
             {
                 DataRow dr = dt.NewRow();
 
-                dr[0] = item["STAFF_NO"];
-                dr[1] = item["REAL_NAME"];
-                dr[2] = item["ORG_NAME"];
+                dr[0] = item["PlateNo"];
+                dr[1] = item["Name"];
+                dr[2] = item["Depart"];
                 dr[3] = item["AccessChannel"];
                 dr[4] = item["ThroughForward"];
                 dr[5] = item["ThroughTime"];
                 dr[6] = item["ThroughResult"];
                 dr[7] = item["CapturePic"];
-                dr[8] = item["OriginPic"];
-                dr[9] = item["CompareResult"];
-                dr[10] = item["Similarity"];
                 dt.Rows.Add(dr);
             }
             return dt;
@@ -145,17 +141,14 @@ namespace SmartAccess.InfoSearchMgr
                 DataGridViewRow dgvr = new DataGridViewRow();
                 dgvr.CreateCells(
                     dgvData,
-                    item["STAFF_NO"],
-                    item["REAL_NAME"],
-                    item["ORG_NAME"],
+                    item["PlateNo"],
+                    item["Name"],
+                    item["Depart"],
                     item["AccessChannel"],
                     item["ThroughForward"],
                     item["ThroughTime"],
                     item["ThroughResult"],
-                    item["CapturePic"],
-                    item["OriginPic"],
-                    item["CompareResult"],
-                    item["Similarity"]
+                    item["CapturePic"]
                     );
                 dgvr.Tag = item;
                 this.dgvData.Rows.Add(dgvr);
@@ -169,7 +162,7 @@ namespace SmartAccess.InfoSearchMgr
 
         private void pageDataGridView_PageControl_ExportCurrent(object sender, Li.Controls.PageEventArgs args)
         {
-            Li.Controls.Excel.ExportHelper.ExportEx(dgvData, "查验记录_" + pageDataGridView.PageControl.CurrentPage + ".xls", "查验记录");
+            Li.Controls.Excel.ExportHelper.ExportEx(dgvData, "过车记录_" + pageDataGridView.PageControl.CurrentPage + ".xls", "过车记录");
         }
 
         private void pageDataGridView_PageControl_ExportAll(object sender, Li.Controls.PageEventArgs args)
@@ -188,7 +181,7 @@ namespace SmartAccess.InfoSearchMgr
                      dt = ToDataTable(dt);
                      this.Invoke(new Action(() =>
                          {
-                             Li.Controls.Excel.ExportHelper.ExportEx(dt, "查验记录_" + dtpStart.Value.ToString("yyyyMMdd") + dtpEnd.Value.ToString("yyyyMMdd") + ".xls", "查验记录");
+                             Li.Controls.Excel.ExportHelper.ExportEx(dt, "过车记录_" + dtpStart.Value.ToString("yyyyMMdd") + dtpEnd.Value.ToString("yyyyMMdd") + ".xls", "查验记录");
                          }));
                  }
                  catch (Exception ex)
@@ -221,7 +214,7 @@ namespace SmartAccess.InfoSearchMgr
             {
                 string pic = "";
                 string name = dgvData.Columns[e.ColumnIndex].Name;
-                if (name == "Col_CapPic" || name == "Col_OrigPic")
+                if (name == "Col_CapPic")
                 {
                     object obj = dgvData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                     pic = obj == null ? null : (string)obj;
