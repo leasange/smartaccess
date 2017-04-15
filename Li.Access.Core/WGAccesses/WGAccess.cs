@@ -552,6 +552,21 @@ namespace Li.Access.Core.WGAccesses
             }
             return false;
         }
+
+
+        public bool SetRecordButtonRecords(Controller controller, bool record)
+        {
+            WGPacket packet = new WGPacket(0x8E);
+            packet.SetDevSn(controller.sn);
+            packet.data[0] = record ? (byte)0 : (byte)1;
+            DoSend(packet, controller.ip, controller.port);
+            List<WGPacket> packets = WGRecievePacketAddClose(1);
+            if (packets.Count == 1)
+            {
+                return packets[0].data[0] == 1;
+            }
+            return false;
+        }
     }
     /// <summary>
     /// WG请求包

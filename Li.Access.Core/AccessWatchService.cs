@@ -311,7 +311,7 @@ namespace Li.Access.Core
                     lastState = state;
                     foreach (var item in CallBacks)
                     {
-                        item.Value.BeginInvoke(_controler, connected, lastState, false,false, null, null);
+                        item.Value.BeginInvoke(_controler, connected, lastState, false, false, null, null);
                     }
                 }
                 else
@@ -326,18 +326,18 @@ namespace Li.Access.Core
                         _connected = connected;//连接上
                         foreach (var item in CallBacks)
                         {
-                            item.Value.BeginInvoke(_controler, connected, lastState, false,false, null, null);
+                            item.Value.BeginInvoke(_controler, connected, lastState, false, false, null, null);
                         }
                     }
                     else
                     {
-                        if (_connected&&!connected)//门禁断开
+                        if (_connected && !connected)//门禁断开
                         {
                             _connected = connected;
-                            if (_lastDate!=null)
+                            if (_lastDate != null)
                             {
                                 DateTime dt = DateTime.Now;
-                                if((dt-(DateTime)_lastDate).TotalMinutes>10)
+                                if ((dt - (DateTime)_lastDate).TotalMinutes > 10)
                                 {
                                     _lastDate = dt;
                                 }
@@ -348,82 +348,56 @@ namespace Li.Access.Core
                             }
                             foreach (var item in CallBacks)
                             {
-                                item.Value.BeginInvoke(_controler, connected, state, false, false, null, null);
+                                item.Value.BeginInvoke(_controler, connected, null, false, false, null, null);
                             }
                         }
-                        else if (!_connected&&connected)//连接上
+                        else if (connected)//重新连接上或下一次读取
                         {
                             _connected = connected;
-                            if (lastState.lastRecordIndex==state.lastRecordIndex)//同一条记录
+                            if (lastState.lastRecordIndex == state.lastRecordIndex)//同一条记录
                             {
-                                for (int i = 0; i < 8; i++)
+                                try
                                 {
-                                    if(lastState.relayState[i]!=state.relayState[i])
+                                    for (int i = 0; i < 8; i++)
                                     {
-                                        lastState = state;
-                                        lastState.doorNum = (byte)(i + 1);
+                                        if (lastState.relayState[i] != state.relayState[i])
+                                        {
+                                            lastState = state;
+                                            lastState.doorNum = (byte)(i + 1);
+                                            foreach (var item in CallBacks)
+                                            {
+                                                item.Value.BeginInvoke(_controler, connected, state, false, true, null, null);
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    if (lastState.isOpenDoorOfLock1 != state.isOpenDoorOfLock1
+                                        || lastState.isOpenDoorOfLock2 != state.isOpenDoorOfLock2
+                                        || lastState.isOpenDoorOfLock3 != state.isOpenDoorOfLock3
+                                        || lastState.isOpenDoorOfLock4 != state.isOpenDoorOfLock4)
+                                    {//门锁发生改变
                                         foreach (var item in CallBacks)
                                         {
-                                            item.Value.BeginInvoke(_controler, connected, lastState, false,true, null, null);
+                                            item.Value.BeginInvoke(_controler, connected, state, true, false, null, null);
                                         }
-                                        break;
                                     }
-                                }
-                                if (lastState.isOpenDoorOfLock1!=state.isOpenDoorOfLock1
-                                    || lastState.isOpenDoorOfLock2 != state.isOpenDoorOfLock2
-                                    || lastState.isOpenDoorOfLock3 != state.isOpenDoorOfLock3
-                                    || lastState.isOpenDoorOfLock4 != state.isOpenDoorOfLock4)
-                                {//门锁发生改变
+
                                     foreach (var item in CallBacks)
                                     {
-                                        item.Value.BeginInvoke(_controler, connected, lastState, true, false, null, null);
+                                        item.Value.BeginInvoke(_controler, connected, state, false, false, null, null);
                                     }
                                 }
-                                lastState = state;
-                                foreach (var item in CallBacks)
+                                finally
                                 {
-                                    item.Value.BeginInvoke(_controler, connected, lastState, false, false, null, null);
+                                    lastState = state;
                                 }
                             }
-                            else
+                            else//不同记录
                             {
                                 lastState = state;
-                                foreach (var item in CallBacks)
-                                {
-                                    item.Value.BeginInvoke(_controler, connected, lastState, true,false, null, null);
-                                }
-                            }
-                        }
-                        else if (lastState.lastRecordIndex != state.lastRecordIndex)
-                        {
-                            lastState = state;
-                            foreach (var item in CallBacks)
-                            {
-                                item.Value.BeginInvoke(_controler, connected, lastState, true,false, null, null);
-                            }
-                        }
-                        else
-                        {
-                            if (lastState.isOpenDoorOfLock1 != state.isOpenDoorOfLock1
-                                    || lastState.isOpenDoorOfLock2 != state.isOpenDoorOfLock2
-                                    || lastState.isOpenDoorOfLock3 != state.isOpenDoorOfLock3
-                                    || lastState.isOpenDoorOfLock4 != state.isOpenDoorOfLock4)
-                            {//门锁发生改变
                                 foreach (var item in CallBacks)
                                 {
                                     item.Value.BeginInvoke(_controler, connected, lastState, true, false, null, null);
-                                }
-                            }
-                            for (int i = 0; i < 8; i++)
-                            {
-                                if (lastState.relayState[i] != state.relayState[i])
-                                {
-                                    lastState = state;
-                                    lastState.doorNum = (byte)(i + 1);
-                                    foreach (var item in CallBacks)
-                                    {
-                                        item.Value.BeginInvoke(_controler, connected, lastState, false,true, null, null);
-                                    }
                                 }
                             }
                         }

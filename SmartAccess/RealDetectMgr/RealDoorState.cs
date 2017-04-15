@@ -150,14 +150,10 @@ namespace SmartAccess.RealDetectMgr
                             }
                             else
                             {
-                                string actionname = "";
-                                if (doorLock)
+                                string actionname = AccessHelper.GetRecordReasonString(state.reasonNo);
+                                if (!doorLock)
                                 {
-                                    actionname = AccessHelper.GetRecordReasonString(state.reasonNo);
-                                }
-                                else
-                                {
-                                    actionname = "门禁关门";
+                                    actionname += "(门锁关)";
                                 }
                                 if (doorstate)
                                 {

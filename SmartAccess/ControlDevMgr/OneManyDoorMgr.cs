@@ -246,6 +246,10 @@ namespace SmartAccess.ControlDevMgr
                     {
                         return;
                     }
+                    if (dgvData.Rows.Count==0)
+                    {
+                        return;
+                    }
                     DataGridViewRow row = dgvData.Rows[e.RowIndex];
                     var door = (Maticsoft.Model.SMT_DOOR_INFO)row.Tag;
                     CtrlWaiting waiting = new CtrlWaiting(() =>

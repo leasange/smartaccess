@@ -190,6 +190,14 @@ namespace Li.Access.Core
         /// <param name="setting">联动端口设置</param>
         /// <returns>成功与否</returns>
         bool SetAlarmConnectPortSetting(Controller controller, AlarmConnectPortSetting setting);
+
+        /// <summary>
+        /// 设置是否记录门磁
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="record">true 记录，false 不记录</param>
+        /// <returns>成功与否</returns>
+        bool SetRecordButtonRecords(Controller controller, bool record);
     }
     /// <summary>
     /// 时间段参数

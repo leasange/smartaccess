@@ -67,7 +67,7 @@ namespace Maticsoft.BLL
                         }
                         if (dt.Rows[n]["CARD_WG_NO"] != null)
                         {
-                            model.CARD_WG_NO = dt.Rows[n]["CARD_NO"].ToString();
+                            model.CARD_WG_NO = dt.Rows[n]["CARD_WG_NO"].ToString();
                         }
                         
                         modelList.Add(model);
