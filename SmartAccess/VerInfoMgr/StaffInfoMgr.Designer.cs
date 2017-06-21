@@ -48,7 +48,6 @@
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.panelImage = new System.Windows.Forms.Panel();
             this.btnCloseImage = new DevComponents.DotNetBar.ButtonX();
             this.picImage = new System.Windows.Forms.PictureBox();
@@ -91,6 +90,7 @@
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -231,6 +231,7 @@
             this.biExportPhoto.Image = global::SmartAccess.Properties.Resources.导出;
             this.biExportPhoto.Name = "biExportPhoto";
             this.biExportPhoto.Text = "导出照片";
+            this.biExportPhoto.Tooltip = "照片名称格式：“人名_编号.png”";
             this.biExportPhoto.Click += new System.EventHandler(this.biExportPhoto_Click);
             // 
             // biImportPic
@@ -239,7 +240,7 @@
             this.biImportPic.Image = global::SmartAccess.Properties.Resources.导入;
             this.biImportPic.Name = "biImportPic";
             this.biImportPic.Text = "导入照片";
-            this.biImportPic.Tooltip = "导选择导入照片目录，照片名称以姓名命名";
+            this.biImportPic.Tooltip = "导选择导入照片目录，照片名称格式：“人名_编号”或“人名”";
             this.biImportPic.Click += new System.EventHandler(this.biImportPic_Click);
             // 
             // biImport
@@ -248,6 +249,7 @@
             this.biImport.Image = global::SmartAccess.Properties.Resources.导入;
             this.biImport.Name = "biImport";
             this.biImport.Text = "导入人员";
+            this.biImport.Tooltip = "请将照片放于“人员照片”目录中，以“姓名_编号”或“姓名”命名，格式不限";
             this.biImport.Click += new System.EventHandler(this.biImport_Click);
             // 
             // biDownloadModel
@@ -279,14 +281,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1172, 480);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 291);
-            this.deptTree.TabIndex = 0;
             // 
             // panelImage
             // 
@@ -734,6 +728,14 @@
             // 
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
+            // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 291);
+            this.deptTree.TabIndex = 0;
             // 
             // StaffInfoMgr
             // 

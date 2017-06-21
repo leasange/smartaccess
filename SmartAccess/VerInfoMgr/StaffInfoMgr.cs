@@ -274,7 +274,7 @@ namespace SmartAccess.VerInfoMgr
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
-                    item.ORG_NAME,
+                    item.ORG_NAME+"["+item.ORG_CODE+"]",
                     cards.TrimEnd(';'),
                     count,
                     state,
@@ -897,7 +897,12 @@ namespace SmartAccess.VerInfoMgr
                         {
                             using (Image image = Image.FromStream(ms))
                             {
-                                string file= Path.Combine(folderBrowser.SelectedPath, item.REAL_NAME + "[" + item.STAFF_NO + "].png");
+                                string filename = item.REAL_NAME   + ".png";
+                                if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
+                                {
+                                    filename=item.REAL_NAME + "_" + item.STAFF_NO + ".png";
+                                }
+                                string file = Path.Combine(folderBrowser.SelectedPath, filename);
                                 image.Save(file, System.Drawing.Imaging.ImageFormat.Png);
                             }
                         }
@@ -1053,6 +1058,7 @@ namespace SmartAccess.VerInfoMgr
         private DataTable CreateStaffTable()
         {
             DataTable dt = new DataTable();
+            dt.Columns.Add("部门编码");
             dt.Columns.Add("部门名称");
             dt.Columns.Add("证件编号");
             dt.Columns.Add("姓名");
@@ -1087,10 +1093,10 @@ namespace SmartAccess.VerInfoMgr
             foreach (var item in staffs)
             {
                 DataRow dr = dt.NewRow();
-                
-                dr[0] = item.ORG_NAME;
-                dr[1] = item.STAFF_NO;
-                dr[2] = item.REAL_NAME;
+                dr["部门编码"] = item.ORG_CODE;
+                dr["部门名称"] = item.ORG_NAME;
+                dr["证件编号"] = item.STAFF_NO;
+                dr["姓名"] = item.REAL_NAME;
                 int isex = item.SEX == null ? 0 : (int)item.SEX;
                 string sex = "未知";
                 if (isex==1)
@@ -1101,10 +1107,10 @@ namespace SmartAccess.VerInfoMgr
                 {
                     sex = "女";
                 }
-                dr[3] = sex;
-                dr[4] = item.JOB;
-                dr[5] = item.BIRTHDAY;
-                dr[6] = item.POLITICS;
+                dr["性别"] = sex;
+                dr["职务"] = item.JOB;
+                dr["出生日期"] = item.BIRTHDAY;
+                dr["政治面貌"] = item.POLITICS;
                 int married = item.MARRIED == null ? 0 : (int)item.MARRIED;
                 string mm = "未知";
                 if (married == 1)
@@ -1115,32 +1121,32 @@ namespace SmartAccess.VerInfoMgr
                 {
                     mm = "未婚";
                 }
-                dr[7] = mm;
-                dr[8] = item.SKIIL_LEVEL;
-                dr[9] = item.CER_NAME;
-                dr[10] = item.CER_NO;
-                dr[11] = item.TELE_PHONE;
-                dr[12] = item.CELL_PHONE;
-                dr[13] = item.NATIVE;
-                dr[14] = item.NATION;
-                dr[15] = item.RELIGION;
-                dr[16] = item.EDUCATIONAL;
-                dr[17] = item.EMAIL;
-                dr[18] = item.VALID_STARTTIME;
-                dr[19] = item.VALID_ENDTIME;
-                dr[20] = item.ENTRY_TIME;
-                dr[21] = item.ABORT_TIME;
-                dr[22] = item.ADDRESS;
-                dr[23] = item.REG_TIME;
-                dr[24] = item.IS_FORBIDDEN ? "已挂失" : "正常";
+                dr["婚姻状态"] = mm;
+                dr["技术等级"] = item.SKIIL_LEVEL;
+                dr["有效证件名称"] = item.CER_NAME;
+                dr["有效证件号码"] = item.CER_NO;
+                dr["办公电话"] = item.TELE_PHONE;
+                dr["手机"] = item.CELL_PHONE;
+                dr["籍贯"] = item.NATIVE;
+                dr["民族"] = item.NATION;
+                dr["宗教"] = item.RELIGION;
+                dr["学历"] = item.EDUCATIONAL;
+                dr["邮箱"] = item.EMAIL;
+                dr["有效开始时间"] = item.VALID_STARTTIME;
+                dr["有效结束时间"] = item.VALID_ENDTIME;
+                dr["入职时间"] = item.ENTRY_TIME;
+                dr["离职时间"] = item.ABORT_TIME;
+                dr["通信地址"] = item.ADDRESS;
+                dr["注册时间"] = item.REG_TIME;
+                dr["挂失状态"] = item.IS_FORBIDDEN ? "已挂失" : "正常";
                 var cards = item.CARDS;
                 if (cards.Count==0)
                 {
-                    dr[25] = "";
+                    dr["卡号"] = "";
                 }
                 else
                 {
-                    dr[25] = cards[0].CARD_NO;
+                    dr["卡号"] = cards[0].CARD_NO;
                 }
                 dt.Rows.Add(dr);
             }
@@ -1163,6 +1169,17 @@ namespace SmartAccess.VerInfoMgr
                 {
                     SmtLog.InfoFormat("人员", "导出人员信息，个数：{0},目录：{1},结果：{2}", dt.Rows.Count, sfd.FileName, ret ? "成功" : "失败");
                 }
+                else
+                {
+                    string staffphoto = Path.Combine(Path.GetDirectoryName(sfd.FileName), "人员照片");
+                    if (!Directory.Exists(staffphoto))
+                    {
+                        Directory.CreateDirectory(staffphoto);
+                    }
+                    StreamWriter sw= File.CreateText(Path.Combine(staffphoto, "照片名称说明.txt"));
+                    sw.Write("在进行人员导入时，所有人员照片存储于当前目录“人员照片”中，照片名称格式为“姓名_编号”或“姓名”，格式可为bmp,jpg,png。\r\n注意:如果照片只以“姓名”命名，重名会有冲突问题！");
+                    sw.Close();
+                }
                 if (ret)
                 {
                     try
@@ -1181,8 +1198,13 @@ namespace SmartAccess.VerInfoMgr
                                 {
                                     MemoryStream ms = new MemoryStream(item.PHOTO);
                                     Image image = Image.FromStream(ms);
-                                    string file = Path.Combine(path, item.REAL_NAME + ".jpg");
-                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    string filename = item.REAL_NAME + ".png";
+                                    if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
+                                    {
+                                        filename = item.REAL_NAME + "_" + item.STAFF_NO + ".png";
+                                    }
+                                    string file = Path.Combine(path, filename);
+                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Png);
                                     image.Dispose();
                                     ms.Dispose();
                                 }
@@ -1207,7 +1229,7 @@ namespace SmartAccess.VerInfoMgr
                     }
                     else
                     {
-                        MessageBox.Show("导出模板结束,照片导入时请放置导出目录的“人员照片”下，以人员姓名命名。");
+                        MessageBox.Show("导出模板结束,照片导入时请放置导出目录的“人员照片”下，以“姓名_编号”或“姓名”命名。");
                     }
                 }
                 else
@@ -1252,7 +1274,7 @@ namespace SmartAccess.VerInfoMgr
                     FrmDetailInfo.Show(false);
                     FrmDetailInfo.AddOneMsg("开始导入...");
                     int count = 0;
-                    ImportHelper2.Import(ofd.FileName, 2, 1, 26, new ImportDataHandle((target,iserror,row,error) =>
+                    ImportHelper2.Import(ofd.FileName, 2, 1, 27, new ImportDataHandle((target,iserror,row,error) =>
                     {
                         if (iserror)
                         {
@@ -1296,8 +1318,22 @@ namespace SmartAccess.VerInfoMgr
                             }
                             staffInfo.NATION = GetNotNullString(dr["民族"]);
                             staffInfo.NATIVE = GetNotNullString(dr["籍贯"]);
-                            string orgName = GetNotNullString(dr["部门名称"]);
-                            var dept = depts.Find(m => m.ORG_NAME == orgName);
+                          
+                            string orgCode = GetNotNullString(dr["部门编码"]);
+                            Maticsoft.Model.SMT_ORG_INFO dept = null;
+                            if (!string.IsNullOrWhiteSpace(orgCode))
+                            {
+                                dept = depts.Find(m => m.ORG_CODE == orgCode);
+                            }
+                            else
+                            {
+                                string orgName = GetNotNullString(dr["部门名称"]);
+                                if (!string.IsNullOrWhiteSpace(orgName))
+                                {
+                                    dept = depts.Find(m => m.ORG_NAME == orgName);
+                                }
+                            }
+
                             if (dept != null)
                             {
                                 staffInfo.ORG_ID = dept.ID;
@@ -1308,31 +1344,43 @@ namespace SmartAccess.VerInfoMgr
                             }
                             try
                             {
+                                string realname = dr["姓名"]+"";
+                                string staffno = dr["证件编号"] + "";
+
                                 string path = Path.Combine(Path.GetDirectoryName(ofd.FileName), "人员照片", dr["姓名"]+"");
                                 string[] ends = new string[] {".jpg",".png",".jpeg",".bmp" };
                                 string temp = null ;
                                 foreach (var item in ends)
                                 {
-                                    string t = path + item;
+                                    string t = path+"_"+staffno + item;
                                     if (File.Exists(t))
                                     {
                                         temp = t;
                                         break;
                                     }
+                                    else
+                                    {
+                                        t = path + item;
+                                        if (File.Exists(t))
+                                        {
+                                            temp = t;
+                                            break;
+                                        }
+                                    }
                                 }
                                 if (temp!=null)
                                 {
-                                    Image image = Image.FromFile(path);
+                                    Image image = Image.FromFile(temp);
                                     MemoryStream ms = new MemoryStream();
                                     Image newImage = CommonClass.Get2InchPhoto(image);
                                     if (newImage != null)
                                     {
-                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                                         newImage.Dispose();
                                     }
                                     else
                                     {
-                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                                     }
                                     image.Dispose();
                                     staffInfo.PHOTO = ms.GetBuffer();
@@ -1508,6 +1556,7 @@ namespace SmartAccess.VerInfoMgr
 
                     CtrlWaiting waiting = new CtrlWaiting(() =>
                     {
+                        FrmDetailInfo.Show(false);
                         foreach (var file in files)
                         {
                             try
@@ -1529,30 +1578,39 @@ namespace SmartAccess.VerInfoMgr
                                 Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
                                 string str= Path.GetFileName(file);
                                 int index= str.LastIndexOf('.');
-                                str= str.Substring(0,index);
-                                index= str.LastIndexOf('[');
+                                str = str.Substring(0, index);
+                                string realname = str;
+                                string staffno = null;
+                                index= str.IndexOf('_');
                                 if (index>=0)
 	                            {
-                                    str= str.Substring(0,index);
+                                    realname = str.Substring(0, index);
+                                    staffno = str.Substring(index + 1);
 	                            }
-                                var models = staffBll.GetModelList("REAL_NAME='" + str + "' and IS_DELETE = 0");
+                                string strWhere = "REAL_NAME='" + realname + "' and IS_DELETE = 0";
+                                if (!string.IsNullOrWhiteSpace(staffno))
+                                {
+                                    strWhere = "STAFF_NO='" + staffno + "' and IS_DELETE = 0";
+                                }
+                                var models = staffBll.GetModelList(strWhere);
                                 if (models.Count>0)
                                 {
                                     models[0].PHOTO = bts;
                                     staffBll.Update(models[0]);
+                                    FrmDetailInfo.AddOneMsg("导入人员照片为“" + str + "”成功.", isRed: false);
                                 }
                                 else
                                 {
-                                    WinInfoHelper.ShowInfoWindow(this, "不存在姓名为" + str + "人员！");
+                                    FrmDetailInfo.AddOneMsg("不存在“姓名_编号”为“" + str + "”人员！", isRed: true);
                                 }
                             }
                             catch (Exception ex)
                             {
-                                WinInfoHelper.ShowInfoWindow(this, "导入照片" + file + "异常：" + ex.Message);
+                                FrmDetailInfo.AddOneMsg("导入照片" + file + "异常：" + ex.Message, isRed: true);
                                 log.Error("导入照片" + file + "异常：" + ex.Message,ex);
                             }
                         }
-                        WinInfoHelper.ShowInfoWindow(this, "导入照片结束！");
+                        FrmDetailInfo.AddOneMsg("导入照片结束！");
                         this.BeginInvoke(new Action(() =>
                             {
                                 DoSearch(false, _byDeptTree, false, null, _orgId);
