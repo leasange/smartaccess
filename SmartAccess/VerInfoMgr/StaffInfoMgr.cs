@@ -1352,20 +1352,21 @@ namespace SmartAccess.VerInfoMgr
                                 string temp = null ;
                                 foreach (var item in ends)
                                 {
-                                    string t = path+"_"+staffno + item;
-                                    if (File.Exists(t))
+                                    List<string> ts = new List<string>();
+                                    ts.Add(path + "_" + staffno + item);
+                                    ts.Add(path  + staffno + item);
+                                    ts.Add(path  + item);
+                                    foreach (var t in ts)
                                     {
-                                        temp = t;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        t = path + item;
                                         if (File.Exists(t))
                                         {
                                             temp = t;
                                             break;
                                         }
+                                    }
+                                    if (temp!=null)
+                                    {
+                                        break;
                                     }
                                 }
                                 if (temp!=null)
@@ -1576,6 +1577,7 @@ namespace SmartAccess.VerInfoMgr
                                 image.Dispose();
                                 byte[] bts = ms.GetBuffer();
                                 Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+
                                 string str= Path.GetFileName(file);
                                 int index= str.LastIndexOf('.');
                                 str = str.Substring(0, index);
@@ -1587,12 +1589,26 @@ namespace SmartAccess.VerInfoMgr
                                     realname = str.Substring(0, index);
                                     staffno = str.Substring(index + 1);
 	                            }
-                                string strWhere = "REAL_NAME='" + realname + "' and IS_DELETE = 0";
+                                string strWhere1 = "(REAL_NAME='" + realname + "' or REAL_NAME+STAFF_NO='" + str + "') and IS_DELETE = 0";
+                                string strWhere2 = null;
                                 if (!string.IsNullOrWhiteSpace(staffno))
                                 {
-                                    strWhere = "STAFF_NO='" + staffno + "' and IS_DELETE = 0";
+                                    strWhere2 = "STAFF_NO='" + staffno + "' and IS_DELETE = 0";
                                 }
-                                var models = staffBll.GetModelList(strWhere);
+                                List<Maticsoft.Model.SMT_STAFF_INFO> models = null;
+                                if (strWhere2!=null)
+                                {
+                                    models = staffBll.GetModelList(strWhere2);
+                                    if (models.Count==0)
+                                    {
+                                         models = staffBll.GetModelList(strWhere1);
+                                    }
+                                }
+                                else
+                                {
+                                    models = staffBll.GetModelList(strWhere1);
+                                }
+                              
                                 if (models.Count>0)
                                 {
                                     models[0].PHOTO = bts;
