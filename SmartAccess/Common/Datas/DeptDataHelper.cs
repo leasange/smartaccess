@@ -148,7 +148,10 @@ namespace SmartAccess.Common.Datas
             Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
 
             dept.ID = bll.Add(dept);
-            _depts.Add(dept);
+            if (_depts!=null)
+            {
+               _depts.Add(dept);
+            }
             return dept.ID;
         }
 
