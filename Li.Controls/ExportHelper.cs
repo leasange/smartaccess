@@ -390,10 +390,32 @@ namespace Li.Controls.Excel
                                 string str = cell.ToString();
                                 switch (cell.CellType)
                                 {
+                                    case CellType.Blank: //空数据类型处理
+                                        {
+                                            str = "";
+                                        }
+                                        break;
                                     case CellType.Formula:
                                         {
                                             cell = formula.EvaluateInCell(cell);
                                             str = cell.ToString();
+                                        }
+                                        break;
+                                    case CellType.String:
+                                        {
+                                            str = cell.StringCellValue;
+                                        }
+                                        break;
+                                    case CellType.Numeric: //数字类型    
+                                        {
+                                            if (DateUtil.IsValidExcelDate(cell.NumericCellValue))
+                                            {
+                                                str = cell.DateCellValue.ToString("yyyy-MM-dd HH:mm:ss");
+                                            }
+                                            else
+                                            {
+                                                str = cell.NumericCellValue.ToString();
+                                            }
                                         }
                                         break;
                                     default:
