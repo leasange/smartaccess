@@ -7,7 +7,7 @@
 !define COMPANY_NAME "SmartProducts"  ;公司名称
 !define PRODUCT_ALIAS_NAME "智能卡综合管理系统(${PRODUCT_SERIES})" ;//应用系统别名
 !define PRODUCT_EXE "SmartAccess.exe" ;应用程序exe名称
-!define PRODUCT_VERSION "1.1.3.0623"  ;版本号
+!define PRODUCT_VERSION "1.1.4.0623"  ;版本号
 !define PRODUCT_PUBLISHER "北京航英科技有限公司, Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称
