@@ -118,5 +118,10 @@ namespace SmartAccess.VerInfoMgr
             deptAdvTree.Nodes.Clear();
             LoadTree();
         }
+
+        private void tbFilter_TextChanged(object sender, EventArgs e)
+        {
+            CommonClass.FilterTree(deptAdvTree, tbFilter.Text.Trim());
+        }
     }
 }

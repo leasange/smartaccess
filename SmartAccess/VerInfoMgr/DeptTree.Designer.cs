@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.cmsDept = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
+            this.tbFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.deptAdvTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -43,11 +48,76 @@
             this.node11 = new DevComponents.AdvTree.Node();
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
-            this.cmsDept = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).BeginInit();
             this.cmsDept.SuspendLayout();
+            this.panelEx1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).BeginInit();
             this.SuspendLayout();
+            // 
+            // cmsDept
+            // 
+            this.cmsDept.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiRefresh});
+            this.cmsDept.Name = "cmsDept";
+            this.cmsDept.Size = new System.Drawing.Size(101, 26);
+            // 
+            // tsmiRefresh
+            // 
+            this.tsmiRefresh.Name = "tsmiRefresh";
+            this.tsmiRefresh.Size = new System.Drawing.Size(100, 22);
+            this.tsmiRefresh.Text = "刷新";
+            this.tsmiRefresh.Click += new System.EventHandler(this.tsmiRefresh_Click);
+            // 
+            // panelEx1
+            // 
+            this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
+            this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.tbFilter);
+            this.panelEx1.Controls.Add(this.labelX1);
+            this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEx1.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panelEx1.Location = new System.Drawing.Point(0, 0);
+            this.panelEx1.Name = "panelEx1";
+            this.panelEx1.Size = new System.Drawing.Size(235, 27);
+            this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
+            this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.panelEx1.Style.GradientAngle = 90;
+            this.panelEx1.TabIndex = 6;
+            // 
+            // tbFilter
+            // 
+            this.tbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.tbFilter.Border.Class = "TextBoxBorder";
+            this.tbFilter.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbFilter.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbFilter.Location = new System.Drawing.Point(32, 2);
+            this.tbFilter.Name = "tbFilter";
+            this.tbFilter.Size = new System.Drawing.Size(200, 23);
+            this.tbFilter.TabIndex = 2;
+            this.tbFilter.WatermarkText = "输入关键字或拼音首字符";
+            this.tbFilter.TextChanged += new System.EventHandler(this.tbFilter_TextChanged);
+            // 
+            // labelX1
+            // 
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX1.Location = new System.Drawing.Point(0, 0);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(38, 27);
+            this.labelX1.TabIndex = 1;
+            this.labelX1.Text = "过滤";
             // 
             // deptAdvTree
             // 
@@ -63,7 +133,7 @@
             this.deptAdvTree.ContextMenuStrip = this.cmsDept;
             this.deptAdvTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deptAdvTree.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.deptAdvTree.Location = new System.Drawing.Point(0, 0);
+            this.deptAdvTree.Location = new System.Drawing.Point(0, 27);
             this.deptAdvTree.Name = "deptAdvTree";
             this.deptAdvTree.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
             this.node1});
@@ -71,9 +141,9 @@
             this.deptAdvTree.NodeStyle = this.elementStyle1;
             this.deptAdvTree.PathSeparator = ";";
             this.deptAdvTree.SelectionPerCell = true;
-            this.deptAdvTree.Size = new System.Drawing.Size(235, 443);
+            this.deptAdvTree.Size = new System.Drawing.Size(235, 416);
             this.deptAdvTree.Styles.Add(this.elementStyle1);
-            this.deptAdvTree.TabIndex = 5;
+            this.deptAdvTree.TabIndex = 7;
             this.deptAdvTree.Text = "advTreeEx1";
             // 
             // node1
@@ -171,36 +241,30 @@
             this.elementStyle1.Name = "elementStyle1";
             this.elementStyle1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
-            // cmsDept
-            // 
-            this.cmsDept.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiRefresh});
-            this.cmsDept.Name = "cmsDept";
-            this.cmsDept.Size = new System.Drawing.Size(153, 48);
-            // 
-            // tsmiRefresh
-            // 
-            this.tsmiRefresh.Name = "tsmiRefresh";
-            this.tsmiRefresh.Size = new System.Drawing.Size(152, 22);
-            this.tsmiRefresh.Text = "刷新";
-            this.tsmiRefresh.Click += new System.EventHandler(this.tsmiRefresh_Click);
-            // 
             // DeptTree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.deptAdvTree);
+            this.Controls.Add(this.panelEx1);
+            this.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "DeptTree";
             this.Size = new System.Drawing.Size(235, 443);
             this.Load += new System.EventHandler(this.DeptTree_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).EndInit();
             this.cmsDept.ResumeLayout(false);
+            this.panelEx1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.deptAdvTree)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.ContextMenuStrip cmsDept;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRefresh;
+        private DevComponents.DotNetBar.PanelEx panelEx1;
+        private DevComponents.DotNetBar.Controls.TextBoxX tbFilter;
+        private DevComponents.DotNetBar.LabelX labelX1;
         private Li.Controls.AdvTreeEx deptAdvTree;
         private DevComponents.AdvTree.Node node1;
         private DevComponents.AdvTree.Node node2;
@@ -215,7 +279,5 @@
         private DevComponents.AdvTree.Node node11;
         private DevComponents.AdvTree.NodeConnector nodeConnector1;
         private DevComponents.DotNetBar.ElementStyle elementStyle1;
-        private System.Windows.Forms.ContextMenuStrip cmsDept;
-        private System.Windows.Forms.ToolStripMenuItem tsmiRefresh;
     }
 }
