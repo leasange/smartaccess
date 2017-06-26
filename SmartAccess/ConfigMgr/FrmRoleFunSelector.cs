@@ -20,6 +20,8 @@ namespace SmartAccess.ConfigMgr
         {
             InitializeComponent();
             _roleInfo = role;
+            deptTree.Tree.CheckBoxVisible = true;
+            doorTree.Tree.CheckBoxVisible = true;
         }
 
         private void FrmRoleFunSelector_Load(object sender, EventArgs e)
