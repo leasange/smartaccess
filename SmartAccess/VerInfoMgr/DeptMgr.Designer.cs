@@ -33,27 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiAddSubDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCobine = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
-            this.dgvUsers = new Li.Controls.DataGridViewEx();
-            this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.tbDeptNo = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX6 = new DevComponents.DotNetBar.LabelX();
-            this.btnAddPrivate = new DevComponents.DotNetBar.ButtonX();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new Li.Controls.DataGridViewLinkLabelColumn();
             this.biRefreshDept = new DevComponents.DotNetBar.ButtonItem();
             this.biAddDept = new DevComponents.DotNetBar.ButtonItem();
             this.biAddSubDept = new DevComponents.DotNetBar.ButtonItem();
@@ -66,7 +45,28 @@
             this.biDownloadDeptModel = new DevComponents.DotNetBar.ButtonItem();
             this.biInput = new DevComponents.DotNetBar.ButtonItem();
             this.biOutput = new DevComponents.DotNetBar.ButtonItem();
+            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiAddSubDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCobine = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
             this.btnDeleteSelected = new DevComponents.DotNetBar.ButtonX();
+            this.btnAddPrivate = new DevComponents.DotNetBar.ButtonX();
+            this.dgvUsers = new Li.Controls.DataGridViewEx();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
+            this.tbDeptNo = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
+            this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.ctxMenu.SuspendLayout();
@@ -98,6 +98,106 @@
             this.bar1.TabIndex = 2;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biRefreshDept
+            // 
+            this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefreshDept.Image = global::SmartAccess.Properties.Resources.刷新;
+            this.biRefreshDept.Name = "biRefreshDept";
+            this.biRefreshDept.Text = "刷新";
+            this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
+            // 
+            // biAddDept
+            // 
+            this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddDept.Image = global::SmartAccess.Properties.Resources.增加部门;
+            this.biAddDept.Name = "biAddDept";
+            this.biAddDept.Text = "添加根级或同级部门";
+            this.biAddDept.Tooltip = "添加根级或同级部门";
+            this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
+            // 
+            // biAddSubDept
+            // 
+            this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddSubDept.Image = global::SmartAccess.Properties.Resources.添加下级部门;
+            this.biAddSubDept.Name = "biAddSubDept";
+            this.biAddSubDept.Text = "添加下级部门";
+            this.biAddSubDept.Tooltip = "添加下级部门";
+            this.biAddSubDept.Click += new System.EventHandler(this.biAddSubDept_Click);
+            // 
+            // biModifyDept
+            // 
+            this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModifyDept.Image = global::SmartAccess.Properties.Resources.修改部门;
+            this.biModifyDept.Name = "biModifyDept";
+            this.biModifyDept.Text = "修改部门";
+            this.biModifyDept.Tooltip = "修改选择部门";
+            this.biModifyDept.Click += new System.EventHandler(this.biModifyDept_Click);
+            // 
+            // biDeleteDept
+            // 
+            this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteDept.Image = global::SmartAccess.Properties.Resources.删除;
+            this.biDeleteDept.Name = "biDeleteDept";
+            this.biDeleteDept.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biDeleteCurrent,
+            this.biDeleteAllDept});
+            this.biDeleteDept.Text = "删除部门";
+            this.biDeleteDept.Tooltip = "删除选择部门";
+            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click_1);
+            // 
+            // biDeleteCurrent
+            // 
+            this.biDeleteCurrent.Name = "biDeleteCurrent";
+            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
+            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
+            // 
+            // biDeleteAllDept
+            // 
+            this.biDeleteAllDept.Name = "biDeleteAllDept";
+            this.biDeleteAllDept.Text = "批量删除部门(包括下级)";
+            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
+            // 
+            // biMoveDept
+            // 
+            this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biMoveDept.Image = global::SmartAccess.Properties.Resources.移动部门;
+            this.biMoveDept.Name = "biMoveDept";
+            this.biMoveDept.Text = "移动部门";
+            this.biMoveDept.Click += new System.EventHandler(this.biMoveDept_Click);
+            // 
+            // biCombine
+            // 
+            this.biCombine.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCombine.Image = global::SmartAccess.Properties.Resources.添加下级部门;
+            this.biCombine.Name = "biCombine";
+            this.biCombine.Text = "合并部门";
+            this.biCombine.Tooltip = "合并部门";
+            this.biCombine.Click += new System.EventHandler(this.biCombine_Click);
+            // 
+            // biDownloadDeptModel
+            // 
+            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDownloadDeptModel.Image = global::SmartAccess.Properties.Resources.模板下载;
+            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
+            this.biDownloadDeptModel.Text = "模板下载";
+            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
+            // 
+            // biInput
+            // 
+            this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
+            this.biInput.Name = "biInput";
+            this.biInput.Text = "导入部门";
+            this.biInput.Click += new System.EventHandler(this.biInput_Click);
+            // 
+            // biOutput
+            // 
+            this.biOutput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOutput.Image = global::SmartAccess.Properties.Resources.导出;
+            this.biOutput.Name = "biOutput";
+            this.biOutput.Text = "导出所有部门";
+            this.biOutput.Click += new System.EventHandler(this.biOutput_Click);
             // 
             // ctxMenu
             // 
@@ -181,6 +281,30 @@
             this.panelEx2.Style.GradientAngle = 90;
             this.panelEx2.TabIndex = 7;
             // 
+            // btnDeleteSelected
+            // 
+            this.btnDeleteSelected.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnDeleteSelected.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnDeleteSelected.Location = new System.Drawing.Point(192, 88);
+            this.btnDeleteSelected.Name = "btnDeleteSelected";
+            this.btnDeleteSelected.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteSelected.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnDeleteSelected.TabIndex = 4;
+            this.btnDeleteSelected.Text = "删除选择";
+            this.btnDeleteSelected.Click += new System.EventHandler(this.btnDeleteSelected_Click);
+            // 
+            // btnAddPrivate
+            // 
+            this.btnAddPrivate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAddPrivate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnAddPrivate.Location = new System.Drawing.Point(111, 88);
+            this.btnAddPrivate.Name = "btnAddPrivate";
+            this.btnAddPrivate.Size = new System.Drawing.Size(75, 23);
+            this.btnAddPrivate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAddPrivate.TabIndex = 3;
+            this.btnAddPrivate.Text = "添加/修改";
+            this.btnAddPrivate.Click += new System.EventHandler(this.btnAddPrivate_Click);
+            // 
             // dgvUsers
             // 
             this.dgvUsers.AllowUserToAddRows = false;
@@ -229,6 +353,31 @@
             this.dgvUsers.Size = new System.Drawing.Size(740, 326);
             this.dgvUsers.TabIndex = 2;
             this.dgvUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellContentClick);
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "用户名";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "姓名";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "所属部门";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "操作";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.SplitLinkSymbol = ",";
             // 
             // tbDeptName
             // 
@@ -327,155 +476,6 @@
             this.labelX6.Size = new System.Drawing.Size(71, 23);
             this.labelX6.TabIndex = 0;
             this.labelX6.Text = "选定部门";
-            // 
-            // btnAddPrivate
-            // 
-            this.btnAddPrivate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnAddPrivate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnAddPrivate.Location = new System.Drawing.Point(111, 88);
-            this.btnAddPrivate.Name = "btnAddPrivate";
-            this.btnAddPrivate.Size = new System.Drawing.Size(75, 23);
-            this.btnAddPrivate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnAddPrivate.TabIndex = 3;
-            this.btnAddPrivate.Text = "添加/修改";
-            this.btnAddPrivate.Click += new System.EventHandler(this.btnAddPrivate_Click);
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "用户名";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "姓名";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "所属部门";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "操作";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.SplitLinkSymbol = ",";
-            // 
-            // biRefreshDept
-            // 
-            this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefreshDept.Image = global::SmartAccess.Properties.Resources.刷新;
-            this.biRefreshDept.Name = "biRefreshDept";
-            this.biRefreshDept.Text = "刷新";
-            this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
-            // 
-            // biAddDept
-            // 
-            this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddDept.Image = global::SmartAccess.Properties.Resources.增加部门;
-            this.biAddDept.Name = "biAddDept";
-            this.biAddDept.Text = "添加根级或同级部门";
-            this.biAddDept.Tooltip = "添加根级或同级部门";
-            this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
-            // 
-            // biAddSubDept
-            // 
-            this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubDept.Image = global::SmartAccess.Properties.Resources.添加下级部门;
-            this.biAddSubDept.Name = "biAddSubDept";
-            this.biAddSubDept.Text = "添加下级部门";
-            this.biAddSubDept.Tooltip = "添加下级部门";
-            this.biAddSubDept.Click += new System.EventHandler(this.biAddSubDept_Click);
-            // 
-            // biModifyDept
-            // 
-            this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyDept.Image = global::SmartAccess.Properties.Resources.修改部门;
-            this.biModifyDept.Name = "biModifyDept";
-            this.biModifyDept.Text = "修改部门";
-            this.biModifyDept.Tooltip = "修改选择部门";
-            this.biModifyDept.Click += new System.EventHandler(this.biModifyDept_Click);
-            // 
-            // biDeleteDept
-            // 
-            this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteDept.Image = global::SmartAccess.Properties.Resources.删除;
-            this.biDeleteDept.Name = "biDeleteDept";
-            this.biDeleteDept.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biDeleteCurrent,
-            this.biDeleteAllDept});
-            this.biDeleteDept.Text = "删除部门";
-            this.biDeleteDept.Tooltip = "删除选择部门";
-            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click_1);
-            // 
-            // biDeleteCurrent
-            // 
-            this.biDeleteCurrent.Name = "biDeleteCurrent";
-            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
-            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
-            // 
-            // biDeleteAllDept
-            // 
-            this.biDeleteAllDept.Name = "biDeleteAllDept";
-            this.biDeleteAllDept.Text = "删除部门(包括下级)";
-            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
-            // 
-            // biMoveDept
-            // 
-            this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biMoveDept.Image = global::SmartAccess.Properties.Resources.移动部门;
-            this.biMoveDept.Name = "biMoveDept";
-            this.biMoveDept.Text = "移动部门";
-            this.biMoveDept.Click += new System.EventHandler(this.biMoveDept_Click);
-            // 
-            // biCombine
-            // 
-            this.biCombine.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCombine.Image = global::SmartAccess.Properties.Resources.添加下级部门;
-            this.biCombine.Name = "biCombine";
-            this.biCombine.Text = "合并部门";
-            this.biCombine.Tooltip = "合并部门";
-            this.biCombine.Click += new System.EventHandler(this.biCombine_Click);
-            // 
-            // biDownloadDeptModel
-            // 
-            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDownloadDeptModel.Image = global::SmartAccess.Properties.Resources.模板下载;
-            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
-            this.biDownloadDeptModel.Text = "模板下载";
-            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
-            // 
-            // biInput
-            // 
-            this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
-            this.biInput.Name = "biInput";
-            this.biInput.Text = "导入部门";
-            this.biInput.Click += new System.EventHandler(this.biInput_Click);
-            // 
-            // biOutput
-            // 
-            this.biOutput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOutput.Image = global::SmartAccess.Properties.Resources.导出;
-            this.biOutput.Name = "biOutput";
-            this.biOutput.Text = "导出所有部门";
-            this.biOutput.Click += new System.EventHandler(this.biOutput_Click);
-            // 
-            // btnDeleteSelected
-            // 
-            this.btnDeleteSelected.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDeleteSelected.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDeleteSelected.Location = new System.Drawing.Point(192, 88);
-            this.btnDeleteSelected.Name = "btnDeleteSelected";
-            this.btnDeleteSelected.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteSelected.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnDeleteSelected.TabIndex = 4;
-            this.btnDeleteSelected.Text = "删除选择";
-            this.btnDeleteSelected.Click += new System.EventHandler(this.btnDeleteSelected_Click);
             // 
             // deptTree
             // 

@@ -408,7 +408,7 @@ namespace Li.Controls.Excel
                                         break;
                                     case CellType.Numeric: //数字类型    
                                         {
-                                            if (DateUtil.IsValidExcelDate(cell.NumericCellValue))
+                                            if (HSSFDateUtil.IsCellDateFormatted(cell))
                                             {
                                                 str = cell.DateCellValue.ToString("yyyy-MM-dd HH:mm:ss");
                                             }

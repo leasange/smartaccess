@@ -22,6 +22,7 @@ namespace SmartAccess.VerInfoMgr
         {
             InitializeComponent();
             this.deptTree.Tree.NodeMouseUp += deptTree_NodeMouseUp;
+            this.deptTree.Tree.MultiSelect = true;
         }
         protected override void OnHandleDestroyed(EventArgs e)
         {
@@ -46,11 +47,27 @@ namespace SmartAccess.VerInfoMgr
         }
         private Maticsoft.Model.SMT_ORG_INFO GetSelectOrg()
         {
-            if (this.deptTree.Tree.SelectedNode != null)
+            if (this.deptTree.Tree.SelectedNodes.Count>0)
             {
-                return this.deptTree.Tree.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                return this.deptTree.Tree.SelectedNodes[0].Tag as Maticsoft.Model.SMT_ORG_INFO;
             }
             else return null;
+        }
+        private List<Maticsoft.Model.SMT_ORG_INFO> GetSelectOrgs()
+        {
+            List<Maticsoft.Model.SMT_ORG_INFO> lists = new List<Maticsoft.Model.SMT_ORG_INFO>();
+            if (this.deptTree.Tree.SelectedNodes.Count > 0)
+            {
+                foreach (DevComponents.AdvTree.Node item in this.deptTree.Tree.SelectedNodes)
+                {
+                    var a = item.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                    if (a!=null)
+                    {
+                        lists.Add(a);
+                    }
+                }
+            }
+            return lists;
         }
         private void biAddDept_Click(object sender, EventArgs e)
         {
@@ -128,11 +145,17 @@ namespace SmartAccess.VerInfoMgr
         private List<Maticsoft.Model.SMT_ORG_INFO> GetSelectWithSubDepts()
         {
             List<Maticsoft.Model.SMT_ORG_INFO> depts = new List<Maticsoft.Model.SMT_ORG_INFO>();
-            if (this.deptTree.Tree.SelectedNode != null && this.deptTree.Tree.SelectedNode.Tag is Maticsoft.Model.SMT_ORG_INFO)
+
+            foreach (DevComponents.AdvTree.Node item in this.deptTree.Tree.SelectedNodes)
             {
-                depts.Add((Maticsoft.Model.SMT_ORG_INFO)this.deptTree.Tree.SelectedNode.Tag);
-                GetSubDepts(this.deptTree.Tree.SelectedNode, ref depts);
+                var dept = item.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                if (dept!=null)
+                {
+                    depts.Add(dept);
+                }
+                GetSubDepts(item, ref depts);
             }
+
             return depts;
         }
         private void GetSubDepts(DevComponents.AdvTree.Node node, ref List<Maticsoft.Model.SMT_ORG_INFO> depts)
@@ -146,8 +169,8 @@ namespace SmartAccess.VerInfoMgr
 
         private void biDeleteDept_Click(object sender, EventArgs e)
         {
-            Maticsoft.Model.SMT_ORG_INFO orgInfo = GetSelectOrg();
-            if (orgInfo == null)
+           var orgInfos = GetSelectOrgs();
+           if (orgInfos.Count==0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择一个节点！");
                 return;
@@ -164,7 +187,15 @@ namespace SmartAccess.VerInfoMgr
                         	DeptDataHelper.DeleteDepts(depts);
                             this.Invoke(new Action(() =>
                                 {
-                                    this.deptTree.Tree.SelectedNode.Remove();
+                                    List<DevComponents.AdvTree.Node> nodes = new List<DevComponents.AdvTree.Node>();
+                                    foreach (DevComponents.AdvTree.Node item in this.deptTree.Tree.SelectedNodes)
+                                    {
+                                        nodes.Add(item);
+                                    }
+                                    foreach (var item in nodes)
+                                    {
+                                        item.Remove();
+                                    }
                                 }));
                         }
                         catch (System.Exception ex)
@@ -403,8 +434,8 @@ namespace SmartAccess.VerInfoMgr
 
         private void biDeleteCurrent_Click(object sender, EventArgs e)
         {
-            Maticsoft.Model.SMT_ORG_INFO orgInfo = GetSelectOrg();
-            if (orgInfo == null)
+            var orgInfo = GetSelectOrg();
+            if (orgInfo==null)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择一个节点！");
                 return;

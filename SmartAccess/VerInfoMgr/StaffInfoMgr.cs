@@ -271,10 +271,19 @@ namespace SmartAccess.VerInfoMgr
                 }
                 string pic = item.PHOTO != null && item.PHOTO.Length > 0 ? "照片" : "无";
 
+                string orgname = "";
+                if (!string.IsNullOrWhiteSpace(item.ORG_NAME))
+                {
+                    orgname += item.ORG_NAME;
+                }
+                if (!string.IsNullOrWhiteSpace(item.ORG_CODE))
+                {
+                    orgname += "[" + item.ORG_CODE + "]";
+                }
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
-                    item.ORG_NAME+"["+item.ORG_CODE+"]",
+                    orgname,
                     cards.TrimEnd(';'),
                     count,
                     state,
