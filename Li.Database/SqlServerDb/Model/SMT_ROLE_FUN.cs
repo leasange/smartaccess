@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/10/9 19:59:50   N/A    初版
+* V0.01  2017/6/27 23:55:46   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -28,6 +28,7 @@ namespace Maticsoft.Model
 		#region Model
 		private decimal _role_id;
 		private decimal _fun_id;
+		private int _role_type=1;
 		/// <summary>
 		/// 用户ID
 		/// </summary>
@@ -43,6 +44,14 @@ namespace Maticsoft.Model
 		{
 			set{ _fun_id=value;}
 			get{return _fun_id;}
+		}
+		/// <summary>
+		/// 权限类型,1 菜单功能，2 部门，3 门
+		/// </summary>
+		public int ROLE_TYPE
+		{
+			set{ _role_type=value;}
+			get{return _role_type;}
 		}
 		#endregion Model
 

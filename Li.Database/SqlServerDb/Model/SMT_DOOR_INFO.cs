@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/15 15:10:51   N/A    初版
+* V0.01  2017/6/27 23:55:36   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -39,6 +39,7 @@ namespace Maticsoft.Model
 		private bool _is_attendance1;
 		private bool _is_attendance2;
 		private int _open_state=0;
+		private bool _is_allow_visitor= true;
 		/// <summary>
 		/// 门ID
 		/// </summary>
@@ -142,6 +143,14 @@ namespace Maticsoft.Model
 		{
 			set{ _open_state=value;}
 			get{return _open_state;}
+		}
+		/// <summary>
+		/// 是否允许访客接入,默认 true
+		/// </summary>
+		public bool IS_ALLOW_VISITOR
+		{
+			set{ _is_allow_visitor=value;}
+			get{return _is_allow_visitor;}
 		}
 		#endregion Model
 

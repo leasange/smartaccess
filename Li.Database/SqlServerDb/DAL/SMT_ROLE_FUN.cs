@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/10/9 19:59:50   N/A    初版
+* V0.01  2017/6/27 23:55:46   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,18 +31,28 @@ namespace Maticsoft.DAL
 		#region  BasicMethod
 
 		/// <summary>
+		/// 得到最大ID
+		/// </summary>
+		public int GetMaxId()
+		{
+		return DbHelperSQL.GetMaxID("ROLE_TYPE", "SMT_ROLE_FUN"); 
+		}
+
+		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(decimal ROLE_ID,decimal FUN_ID)
+		public bool Exists(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from SMT_ROLE_FUN");
-			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID ");
+			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID and ROLE_TYPE=@ROLE_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ROLE_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = ROLE_ID;
 			parameters[1].Value = FUN_ID;
+			parameters[2].Value = ROLE_TYPE;
 
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
@@ -55,14 +65,16 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_ROLE_FUN(");
-			strSql.Append("ROLE_ID,FUN_ID)");
+			strSql.Append("ROLE_ID,FUN_ID,ROLE_TYPE)");
 			strSql.Append(" values (");
-			strSql.Append("@ROLE_ID,@FUN_ID)");
+			strSql.Append("@ROLE_ID,@FUN_ID,@ROLE_TYPE)");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9)};
+					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ROLE_TYPE", SqlDbType.TinyInt,1)};
 			parameters[0].Value = model.ROLE_ID;
 			parameters[1].Value = model.FUN_ID;
+			parameters[2].Value = model.ROLE_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -83,13 +95,16 @@ namespace Maticsoft.DAL
 			strSql.Append("update SMT_ROLE_FUN set ");
 #warning 系统发现缺少更新的字段，请手工确认如此更新是否正确！ 
 			strSql.Append("ROLE_ID=@ROLE_ID,");
-			strSql.Append("FUN_ID=@FUN_ID");
-			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID ");
+			strSql.Append("FUN_ID=@FUN_ID,");
+			strSql.Append("ROLE_TYPE=@ROLE_TYPE");
+			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID and ROLE_TYPE=@ROLE_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9)};
+					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ROLE_TYPE", SqlDbType.TinyInt,1)};
 			parameters[0].Value = model.ROLE_ID;
 			parameters[1].Value = model.FUN_ID;
+			parameters[2].Value = model.ROLE_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -105,17 +120,19 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(decimal ROLE_ID,decimal FUN_ID)
+		public bool Delete(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from SMT_ROLE_FUN ");
-			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID ");
+			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID and ROLE_TYPE=@ROLE_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ROLE_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = ROLE_ID;
 			parameters[1].Value = FUN_ID;
+			parameters[2].Value = ROLE_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -132,17 +149,19 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_ROLE_FUN GetModel(decimal ROLE_ID,decimal FUN_ID)
+		public Maticsoft.Model.SMT_ROLE_FUN GetModel(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ROLE_ID,FUN_ID from SMT_ROLE_FUN ");
-			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID ");
+			strSql.Append("select  top 1 ROLE_ID,FUN_ID,ROLE_TYPE from SMT_ROLE_FUN ");
+			strSql.Append(" where ROLE_ID=@ROLE_ID and FUN_ID=@FUN_ID and ROLE_TYPE=@ROLE_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ROLE_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@FUN_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@ROLE_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = ROLE_ID;
 			parameters[1].Value = FUN_ID;
+			parameters[2].Value = ROLE_TYPE;
 
 			Maticsoft.Model.SMT_ROLE_FUN model=new Maticsoft.Model.SMT_ROLE_FUN();
 			DataSet ds=DbHelperSQL.Query(strSql.ToString(),parameters);
@@ -173,6 +192,10 @@ namespace Maticsoft.DAL
 				{
 					model.FUN_ID=decimal.Parse(row["FUN_ID"].ToString());
 				}
+				if(row["ROLE_TYPE"]!=null && row["ROLE_TYPE"].ToString()!="")
+				{
+					model.ROLE_TYPE=int.Parse(row["ROLE_TYPE"].ToString());
+				}
 			}
 			return model;
 		}
@@ -183,7 +206,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ROLE_ID,FUN_ID ");
+			strSql.Append("select ROLE_ID,FUN_ID,ROLE_TYPE ");
 			strSql.Append(" FROM SMT_ROLE_FUN ");
 			if(strWhere.Trim()!="")
 			{
@@ -203,7 +226,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ROLE_ID,FUN_ID ");
+			strSql.Append(" ROLE_ID,FUN_ID,ROLE_TYPE ");
 			strSql.Append(" FROM SMT_ROLE_FUN ");
 			if(strWhere.Trim()!="")
 			{
@@ -248,7 +271,7 @@ namespace Maticsoft.DAL
 			}
 			else
 			{
-				strSql.Append("order by T.FUN_ID desc");
+				strSql.Append("order by T.ROLE_TYPE desc");
 			}
 			strSql.Append(")AS Row, T.*  from SMT_ROLE_FUN T ");
 			if (!string.IsNullOrEmpty(strWhere.Trim()))
@@ -276,7 +299,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
 			parameters[0].Value = "SMT_ROLE_FUN";
-			parameters[1].Value = "FUN_ID";
+			parameters[1].Value = "ROLE_TYPE";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;
 			parameters[4].Value = 0;

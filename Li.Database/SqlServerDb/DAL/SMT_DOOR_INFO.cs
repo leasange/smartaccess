@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/15 15:10:51   N/A    初版
+* V0.01  2017/6/27 23:55:36   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -54,9 +54,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_DOOR_INFO(");
-			strSql.Append("DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE)");
+			strSql.Append("DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE,IS_ALLOW_VISITOR)");
 			strSql.Append(" values (");
-			strSql.Append("@DOOR_NAME,@CTRL_ID,@CTRL_DOOR_INDEX,@DOOR_DESC,@CTRL_STYLE,@CTRL_DELAY_TIME,@IS_ENABLE,@IS_ENTER1,@IS_ENTER2,@IS_ATTENDANCE1,@IS_ATTENDANCE2,@OPEN_STATE)");
+			strSql.Append("@DOOR_NAME,@CTRL_ID,@CTRL_DOOR_INDEX,@DOOR_DESC,@CTRL_STYLE,@CTRL_DELAY_TIME,@IS_ENABLE,@IS_ENTER1,@IS_ENTER2,@IS_ATTENDANCE1,@IS_ATTENDANCE2,@OPEN_STATE,@IS_ALLOW_VISITOR)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@DOOR_NAME", SqlDbType.NVarChar,200),
@@ -70,7 +70,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@IS_ENTER2", SqlDbType.Bit,1),
 					new SqlParameter("@IS_ATTENDANCE1", SqlDbType.Bit,1),
 					new SqlParameter("@IS_ATTENDANCE2", SqlDbType.Bit,1),
-					new SqlParameter("@OPEN_STATE", SqlDbType.TinyInt,1)};
+					new SqlParameter("@OPEN_STATE", SqlDbType.TinyInt,1),
+					new SqlParameter("@IS_ALLOW_VISITOR", SqlDbType.Bit,1)};
 			parameters[0].Value = model.DOOR_NAME;
 			parameters[1].Value = model.CTRL_ID;
 			parameters[2].Value = model.CTRL_DOOR_INDEX;
@@ -83,6 +84,7 @@ namespace Maticsoft.DAL
 			parameters[9].Value = model.IS_ATTENDANCE1;
 			parameters[10].Value = model.IS_ATTENDANCE2;
 			parameters[11].Value = model.OPEN_STATE;
+			parameters[12].Value = model.IS_ALLOW_VISITOR;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -112,7 +114,8 @@ namespace Maticsoft.DAL
 			strSql.Append("IS_ENTER2=@IS_ENTER2,");
 			strSql.Append("IS_ATTENDANCE1=@IS_ATTENDANCE1,");
 			strSql.Append("IS_ATTENDANCE2=@IS_ATTENDANCE2,");
-			strSql.Append("OPEN_STATE=@OPEN_STATE");
+			strSql.Append("OPEN_STATE=@OPEN_STATE,");
+			strSql.Append("IS_ALLOW_VISITOR=@IS_ALLOW_VISITOR");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@DOOR_NAME", SqlDbType.NVarChar,200),
@@ -127,6 +130,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@IS_ATTENDANCE1", SqlDbType.Bit,1),
 					new SqlParameter("@IS_ATTENDANCE2", SqlDbType.Bit,1),
 					new SqlParameter("@OPEN_STATE", SqlDbType.TinyInt,1),
+					new SqlParameter("@IS_ALLOW_VISITOR", SqlDbType.Bit,1),
 					new SqlParameter("@ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.DOOR_NAME;
 			parameters[1].Value = model.CTRL_ID;
@@ -140,7 +144,8 @@ namespace Maticsoft.DAL
 			parameters[9].Value = model.IS_ATTENDANCE1;
 			parameters[10].Value = model.IS_ATTENDANCE2;
 			parameters[11].Value = model.OPEN_STATE;
-			parameters[12].Value = model.ID;
+			parameters[12].Value = model.IS_ALLOW_VISITOR;
+			parameters[13].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -204,7 +209,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE from SMT_DOOR_INFO ");
+			strSql.Append("select  top 1 ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE,IS_ALLOW_VISITOR from SMT_DOOR_INFO ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -319,6 +324,17 @@ namespace Maticsoft.DAL
 				{
 					model.OPEN_STATE=int.Parse(row["OPEN_STATE"].ToString());
 				}
+				if(row["IS_ALLOW_VISITOR"]!=null && row["IS_ALLOW_VISITOR"].ToString()!="")
+				{
+					if((row["IS_ALLOW_VISITOR"].ToString()=="1")||(row["IS_ALLOW_VISITOR"].ToString().ToLower()=="true"))
+					{
+						model.IS_ALLOW_VISITOR=true;
+					}
+					else
+					{
+						model.IS_ALLOW_VISITOR=false;
+					}
+				}
 			}
 			return model;
 		}
@@ -329,7 +345,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE ");
+			strSql.Append("select ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE,IS_ALLOW_VISITOR ");
 			strSql.Append(" FROM SMT_DOOR_INFO ");
 			if(strWhere.Trim()!="")
 			{
@@ -349,7 +365,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE ");
+			strSql.Append(" ID,DOOR_NAME,CTRL_ID,CTRL_DOOR_INDEX,DOOR_DESC,CTRL_STYLE,CTRL_DELAY_TIME,IS_ENABLE,IS_ENTER1,IS_ENTER2,IS_ATTENDANCE1,IS_ATTENDANCE2,OPEN_STATE,IS_ALLOW_VISITOR ");
 			strSql.Append(" FROM SMT_DOOR_INFO ");
 			if(strWhere.Trim()!="")
 			{

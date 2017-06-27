@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/10/9 19:59:50   N/A    初版
+* V0.01  2017/6/27 23:55:46   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -30,12 +30,21 @@ namespace Maticsoft.BLL
 		public SMT_ROLE_FUN()
 		{}
 		#region  BasicMethod
+
+		/// <summary>
+		/// 得到最大ID
+		/// </summary>
+		public int GetMaxId()
+		{
+			return dal.GetMaxId();
+		}
+
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(decimal ROLE_ID,decimal FUN_ID)
+		public bool Exists(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
-			return dal.Exists(ROLE_ID,FUN_ID);
+			return dal.Exists(ROLE_ID,FUN_ID,ROLE_TYPE);
 		}
 
 		/// <summary>
@@ -57,34 +66,34 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(decimal ROLE_ID,decimal FUN_ID)
+		public bool Delete(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			
-			return dal.Delete(ROLE_ID,FUN_ID);
+			return dal.Delete(ROLE_ID,FUN_ID,ROLE_TYPE);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_ROLE_FUN GetModel(decimal ROLE_ID,decimal FUN_ID)
+		public Maticsoft.Model.SMT_ROLE_FUN GetModel(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			
-			return dal.GetModel(ROLE_ID,FUN_ID);
+			return dal.GetModel(ROLE_ID,FUN_ID,ROLE_TYPE);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public Maticsoft.Model.SMT_ROLE_FUN GetModelByCache(decimal ROLE_ID,decimal FUN_ID)
+		public Maticsoft.Model.SMT_ROLE_FUN GetModelByCache(decimal ROLE_ID,decimal FUN_ID,int ROLE_TYPE)
 		{
 			
-			string CacheKey = "SMT_ROLE_FUNModel-" + ROLE_ID+FUN_ID;
+			string CacheKey = "SMT_ROLE_FUNModel-" + ROLE_ID+FUN_ID+ROLE_TYPE;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
 				try
 				{
-					objModel = dal.GetModel(ROLE_ID,FUN_ID);
+					objModel = dal.GetModel(ROLE_ID,FUN_ID,ROLE_TYPE);
 					if (objModel != null)
 					{
 						int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");

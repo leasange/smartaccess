@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/8/1 23:35:04   N/A    初版
+* V0.01  2017/6/27 23:55:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -27,15 +27,15 @@ namespace Maticsoft.Model
 		{}
 		#region Model
 		private decimal _id;
-		private decimal? _org_id=-1;
-		private decimal? _staff_no_templet=-1;
+		private decimal? _org_id;
+		private decimal? _staff_no_templet;
 		private string _staff_no;
 		private string _real_name;
-		private int? _sex=-1;
+		private int? _sex;
 		private string _job;
-        private DateTime? _birthday = DateTime.Now;
+		private DateTime? _birthday;
 		private string _politics;
-		private int? _married=-1;
+		private int? _married;
 		private string _skiil_level;
 		private string _cer_name;
 		private string _cer_no;
@@ -48,21 +48,21 @@ namespace Maticsoft.Model
 		private string _email;
 		private DateTime _valid_starttime;
 		private DateTime _valid_endtime;
-		private DateTime? _entry_time=DateTime.Now;
-        private DateTime? _abort_time = DateTime.Now;
+		private DateTime? _entry_time;
+		private DateTime? _abort_time;
 		private string _address;
 		private byte[] _photo;
 		private byte[] _cer_photo_front;
 		private byte[] _cer_photo_back;
-		private decimal? _print_templet_id=-1;
+		private decimal? _print_templet_id;
 		private bool _is_forbidden;
 		private bool _is_delete;
 		private DateTime _reg_time;
-        private DateTime? _del_time = DateTime.Now;
-        private DateTime? _forbidden_time = DateTime.Now;
-        private DateTime? _enable_time = DateTime.Now;
-        private DateTime? _modify_time = DateTime.Now;
-
+		private DateTime? _del_time;
+		private DateTime? _forbidden_time;
+		private DateTime? _enable_time;
+		private DateTime? _modify_time;
+		private string _staff_type;
 		/// <summary>
 		/// 职员ID
 		/// </summary>
@@ -343,14 +343,22 @@ namespace Maticsoft.Model
 			set{ _enable_time=value;}
 			get{return _enable_time;}
 		}
-        /// <summary>
-        /// 最后一次修改时间
-        /// </summary>
-        public DateTime? MODIFY_TIME
-        {
-            get { return _modify_time; }
-            set { _modify_time = value; }
-        }
+		/// <summary>
+		/// 最后一次修改时间
+		/// </summary>
+		public DateTime? MODIFY_TIME
+		{
+			set{ _modify_time=value;}
+			get{return _modify_time;}
+		}
+		/// <summary>
+		/// 职员类别，类别可查看数据字典表类型为：DATA_TYPE=“STAFF_TYPE” 的 DATA_KEY，显示名称为：DATA_NAME
+		/// </summary>
+		public string STAFF_TYPE
+		{
+			set{ _staff_type=value;}
+			get{return _staff_type;}
+		}
 		#endregion Model
 
 	}
