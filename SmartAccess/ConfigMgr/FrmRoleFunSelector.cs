@@ -19,6 +19,7 @@ namespace SmartAccess.ConfigMgr
         public FrmRoleFunSelector(Maticsoft.Model.SMT_ROLE_INFO role)
         {
             InitializeComponent();
+            superTabControl1.SelectedTab = superTabItem1;
             _roleInfo = role;
             deptTree.Tree.CheckBoxVisible = true;
             doorTree.Tree.CheckBoxVisible = true;
