@@ -29,8 +29,8 @@ namespace SmartAccess
             else
             {
                 Maticsoft.BLL.SMT_ROLE_FUN rbll = new Maticsoft.BLL.SMT_ROLE_FUN();
-                var rolefuns = rbll.GetModelList("ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID);
-                if (rolefuns.Count==0)
+                var rolefuns = rbll.GetModelList("ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + " and (ROLE_TYPE=1 or ROLE_TYPE is null)");//获取菜单功能
+                if (rolefuns.Count == 0)
                 {
                     WinInfoHelper.ShowInfoWindow(null, "当前用户没有权限！");
                     return;
@@ -42,7 +42,7 @@ namespace SmartAccess
                 }
                 str = str.TrimEnd(',');
                 Maticsoft.BLL.SMT_FUN_MENUPOINT bll = new Maticsoft.BLL.SMT_FUN_MENUPOINT();
-                var list = bll.GetModelList("ID IN ("+str+")");
+                var list = bll.GetModelList("ID IN (" + str + ")");
                 CreateFunPoint(list);
             }
         }
@@ -58,6 +58,7 @@ namespace SmartAccess
                 }
             }
         }
+
     }
     public enum SYS_FUN_POINT
     {

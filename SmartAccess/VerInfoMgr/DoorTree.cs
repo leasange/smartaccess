@@ -35,6 +35,15 @@ namespace SmartAccess.VerInfoMgr
         }
         private event EventHandler _loadEnded= null;
         private bool _isloaded = false;
+
+        public bool IsLoaded
+        {
+            get
+            {
+                return _isloaded;
+            }
+        }
+
         public event EventHandler LoadEnded
         {
             add

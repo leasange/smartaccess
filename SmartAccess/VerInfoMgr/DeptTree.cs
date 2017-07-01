@@ -14,17 +14,27 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class DeptTree : UserControl
     {
+        private bool _isLoaded = false;
         private decimal _visibleId = -1;
+        public event EventHandler TreeLoaded = null;
         public AdvTreeEx Tree
         {
             get {
                 return this.deptAdvTree;
             }
         }
+        public bool IsLoaded
+        {
+            get
+            {
+                return _isLoaded;
+            }
+        }
         public DeptTree()
         {
             InitializeComponent();
             deptAdvTree.PathSeparator = "/";
+
         }
 
         private void DeptTree_Load(object sender, EventArgs e)
@@ -52,6 +62,7 @@ namespace SmartAccess.VerInfoMgr
                         {
                             item.Expand();
                         }
+                        _isLoaded = true;
                         if (_visibleId >= 0)
                         {
                             var node = FindNode(_visibleId);
@@ -66,6 +77,12 @@ namespace SmartAccess.VerInfoMgr
                                 }
                             }
                         }
+
+                        if (TreeLoaded!=null)
+                        {
+                            TreeLoaded.BeginInvoke(this, new EventArgs(), null,null);
+                        }
+
                     }
                     catch (Exception ex)
                     {

@@ -35,20 +35,20 @@
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
-            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
+            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
+            this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
             ((System.ComponentModel.ISupportInitialize)(this.advPrivate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
-            this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
+            this.superTabControlPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // advPrivate
@@ -142,9 +142,9 @@
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Controls.Add(this.superTabControlPanel2);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Location = new System.Drawing.Point(5, 6);
             this.superTabControl1.Name = "superTabControl1";
             this.superTabControl1.ReorderTabsEnabled = true;
@@ -158,23 +158,6 @@
             this.superTabItem2,
             this.superTabItem3});
             this.superTabControl1.Text = "superTabControl1";
-            // 
-            // superTabControlPanel3
-            // 
-            this.superTabControlPanel3.Controls.Add(this.doorTree);
-            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 28);
-            this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(902, 446);
-            this.superTabControlPanel3.TabIndex = 0;
-            this.superTabControlPanel3.TabItem = this.superTabItem3;
-            // 
-            // superTabItem3
-            // 
-            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem3.GlobalItem = false;
-            this.superTabItem3.Name = "superTabItem3";
-            this.superTabItem3.Text = "门权限";
             // 
             // superTabControlPanel2
             // 
@@ -210,14 +193,22 @@
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "菜单权限";
             // 
-            // doorTree
+            // superTabControlPanel3
             // 
-            this.doorTree.CheckBoxVisible = false;
-            this.doorTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.doorTree.Location = new System.Drawing.Point(0, 0);
-            this.doorTree.Name = "doorTree";
-            this.doorTree.Size = new System.Drawing.Size(902, 446);
-            this.doorTree.TabIndex = 0;
+            this.superTabControlPanel3.Controls.Add(this.doorTree);
+            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 28);
+            this.superTabControlPanel3.Name = "superTabControlPanel3";
+            this.superTabControlPanel3.Size = new System.Drawing.Size(902, 446);
+            this.superTabControlPanel3.TabIndex = 0;
+            this.superTabControlPanel3.TabItem = this.superTabItem3;
+            // 
+            // superTabItem3
+            // 
+            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
+            this.superTabItem3.GlobalItem = false;
+            this.superTabItem3.Name = "superTabItem3";
+            this.superTabItem3.Text = "门权限";
             // 
             // deptTree
             // 
@@ -227,6 +218,15 @@
             this.deptTree.Name = "deptTree";
             this.deptTree.Size = new System.Drawing.Size(902, 446);
             this.deptTree.TabIndex = 0;
+            // 
+            // doorTree
+            // 
+            this.doorTree.CheckBoxVisible = false;
+            this.doorTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.doorTree.Location = new System.Drawing.Point(0, 0);
+            this.doorTree.Name = "doorTree";
+            this.doorTree.Size = new System.Drawing.Size(902, 446);
+            this.doorTree.TabIndex = 0;
             // 
             // FrmRoleFunSelector
             // 
@@ -250,9 +250,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.advPrivate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
-            this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
+            this.superTabControlPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

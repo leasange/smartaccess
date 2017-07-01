@@ -22,7 +22,31 @@ namespace SmartAccess.ConfigMgr
             superTabControl1.SelectedTab = superTabItem1;
             _roleInfo = role;
             deptTree.Tree.CheckBoxVisible = true;
+            deptTree.TreeLoaded += deptTree_TreeLoaded;
             doorTree.Tree.CheckBoxVisible = true;
+            doorTree.LoadEnded += doorTree_LoadEnded;
+        }
+
+        void doorTree_LoadEnded(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() =>
+                          {
+                              if (_roleInfo != null && _roleInfo.ROLE_FUNS != null)
+                              {
+                                  DoSelectDoorFuns();
+                              }
+                          }));
+        }
+
+        private void deptTree_TreeLoaded(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() =>
+                            {
+                                if (_roleInfo != null && _roleInfo.ROLE_FUNS != null)
+                                {
+                                    DoSelectDeptFuns();
+                                }
+                            }));
         }
 
         private void FrmRoleFunSelector_Load(object sender, EventArgs e)
@@ -43,7 +67,23 @@ namespace SmartAccess.ConfigMgr
                            advPrivate.Nodes.Clear();
                            advPrivate.Nodes.AddRange(nodes.ToArray());
                            advPrivate.ExpandAll();
-                           DoSelectFuns();
+                           if (_roleInfo.ROLE_FUNS.Count == 0)
+                           {
+                               return;
+                           }
+
+                           DoSelectMenuFuns();
+
+                           if (deptTree.IsLoaded)
+                           {
+                                DoSelectDeptFuns();
+                           }
+
+                           if (doorTree.IsLoaded)
+                           {
+                                DoSelectDoorFuns();
+                           }
+
                        }));
                    }
                    catch (Exception ex)
@@ -55,37 +95,128 @@ namespace SmartAccess.ConfigMgr
                waiting.Show(this,300);
             }
         }
-        //执行选择
-        private void DoSelectFuns()
+        //执行菜单选择
+        private void DoSelectMenuFuns()
         {
-            if (_roleInfo.ROLE_FUNS.Count == 0)
-            {
-                return;
-            }
+            List<Maticsoft.Model.SMT_ROLE_FUN> funs = _roleInfo.ROLE_FUNS.FindAll(m => m.ROLE_TYPE == 1);
             foreach (Node item in advPrivate.Nodes)
             {
-                DoChecked(item);
+                DoCheckedMenu(item, funs);
             }
         }
-        private void  DoChecked(Node node)
+
+        //执行菜单选择
+        private void DoCheckedMenu(Node node, List<Maticsoft.Model.SMT_ROLE_FUN> funs)
         {
-            Maticsoft.Model.SMT_FUN_MENUPOINT fun = (Maticsoft.Model.SMT_FUN_MENUPOINT)node.Tag;
-            if (_roleInfo.ROLE_FUNS.Exists(m => m.FUN_ID == fun.ID))
+            Maticsoft.Model.SMT_FUN_MENUPOINT fun = node.Tag as Maticsoft.Model.SMT_FUN_MENUPOINT;
+            if (fun==null)
             {
                 if (node.Nodes.Count > 0)
                 {
-                    node.CheckState = CheckState.Indeterminate;
                     foreach (Node item in node.Nodes)
                     {
-                        DoChecked(item);
+                        DoCheckedMenu(item, funs);
                     }
                 }
-                else
+            }
+            else
+            {
+                if (funs.Exists(m => m.FUN_ID == fun.ID))
                 {
-                    node.Checked = true;
+                    if (node.Nodes.Count > 0)
+                    {
+                        node.CheckState = CheckState.Indeterminate;
+                        foreach (Node item in node.Nodes)
+                        {
+                            DoCheckedMenu(item, funs);
+                        }
+                    }
+                    else
+                    {
+                        node.Checked = true;
+                    }
                 }
             }
         }
+
+        //执行部门选择
+        private void DoSelectDeptFuns()
+        {
+            List<Maticsoft.Model.SMT_ROLE_FUN> funs = _roleInfo.ROLE_FUNS.FindAll(m => m.ROLE_TYPE == 2);
+            foreach (Node item in deptTree.Tree.Nodes)
+            {
+                DoCheckedDept(item, funs);
+            }
+        }
+        private void DoCheckedDept(Node node, List<Maticsoft.Model.SMT_ROLE_FUN> funs)
+        {
+            Maticsoft.Model.SMT_ORG_INFO fun = node.Tag as Maticsoft.Model.SMT_ORG_INFO;
+            if (fun == null)
+            {
+                if (node.Nodes.Count > 0)
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedDept(item, funs);
+                    }
+                }
+            }
+            else
+            {
+                if (funs.Exists(m => m.FUN_ID == fun.ID))
+                {
+                    node.Checked = true;
+                    node.EnsureVisible();
+                }
+                else
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedDept(item, funs);
+                    }
+                }
+            }
+        }
+
+        //执行门禁选择
+        private void DoSelectDoorFuns()
+        {
+            List<Maticsoft.Model.SMT_ROLE_FUN> funs = _roleInfo.ROLE_FUNS.FindAll(m => m.ROLE_TYPE == 3);
+            foreach (Node item in doorTree.Tree.Nodes)
+            {
+                DoCheckedDoor(item, funs);
+            }
+        }
+        private void DoCheckedDoor(Node node, List<Maticsoft.Model.SMT_ROLE_FUN> funs)
+        {
+            Maticsoft.Model.SMT_DOOR_INFO fun = node.Tag as Maticsoft.Model.SMT_DOOR_INFO;
+            if (fun == null)
+            {
+                if (node.Nodes.Count > 0)
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedDoor(item, funs);
+                    }
+                }
+            }
+            else
+            {
+                if (funs.Exists(m => m.FUN_ID == fun.ID))
+                {
+                    node.Checked = true;
+                    node.EnsureVisible();
+                }
+                else
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedDoor(item, funs);
+                    }
+                }
+            }
+        }
+
         public List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_FUN_MENUPOINT> funs)
         {
             List<DevComponents.AdvTree.Node> tree = new List<DevComponents.AdvTree.Node>();
@@ -151,20 +282,42 @@ namespace SmartAccess.ConfigMgr
             }
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+
+        private List<T> GetSelectModels<T>(Li.Controls.AdvTreeEx tree,params CheckState[] states)
         {
-            List<Node> selectNodes = advPrivate.GetNodeList(new List<CheckState>() { CheckState.Indeterminate, CheckState.Checked }, typeof(Maticsoft.Model.SMT_FUN_MENUPOINT));
-            List<Maticsoft.Model.SMT_FUN_MENUPOINT> funs = new List<Maticsoft.Model.SMT_FUN_MENUPOINT>();
+            List<Node> selectNodes = tree.GetNodeList(states.ToList(), typeof(T));
+            List<T> funs = new List<T>();
             foreach (Node item in selectNodes)
             {
-                funs.Add((Maticsoft.Model.SMT_FUN_MENUPOINT)item.Tag);
+                funs.Add((T)item.Tag);
             }
+            return funs;
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            //读取菜单权限
+            List<Maticsoft.Model.SMT_FUN_MENUPOINT> funs = GetSelectModels<Maticsoft.Model.SMT_FUN_MENUPOINT>(advPrivate, CheckState.Indeterminate, CheckState.Checked);
+            
+            //读取部门菜单
+            List<Maticsoft.Model.SMT_ORG_INFO> orgs = null;
+            if (deptTree.IsLoaded)
+            {
+                orgs = GetSelectModels<Maticsoft.Model.SMT_ORG_INFO>(deptTree.Tree,CheckState.Checked);
+            }
+            //读取门参数
+            List<Maticsoft.Model.SMT_DOOR_INFO> doors = null;
+            if (doorTree.IsLoaded)
+            {
+                doors = GetSelectModels<Maticsoft.Model.SMT_DOOR_INFO>(doorTree.Tree, CheckState.Checked);
+            }
+
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
                 {
                     Maticsoft.BLL.SMT_ROLE_FUN rolefunBll = new Maticsoft.BLL.SMT_ROLE_FUN();
-                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID);
+                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID+" and (ROLE_TYPE=1 or ROLE_TYPE is not null)");
                     
                     if (funs.Count > 0)
                     {
@@ -173,10 +326,42 @@ namespace SmartAccess.ConfigMgr
                             Maticsoft.Model.SMT_ROLE_FUN rf = new Maticsoft.Model.SMT_ROLE_FUN();
                             rf.ROLE_ID = _roleInfo.ID;
                             rf.FUN_ID = item.ID;
+                            rf.ROLE_TYPE = 1;
                             rolefunBll.Add(rf);
                         }
                     }
-                    SmtLog.InfoFormat("用户", "更新角色：{0}权限，个数：{1}.", _roleInfo.ROLE_NAME, funs.Count);
+                    SmtLog.InfoFormat("用户", "更新角色：{0}菜单权限，个数：{1}.", _roleInfo.ROLE_NAME, funs.Count);
+
+                    if (orgs!=null)
+                    {
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID + " and ROLE_TYPE=2");
+                        foreach (var item in orgs)
+                        {
+                            Maticsoft.Model.SMT_ROLE_FUN rf = new Maticsoft.Model.SMT_ROLE_FUN();
+                            rf.ROLE_ID = _roleInfo.ID;
+                            rf.FUN_ID = item.ID;
+                            rf.ROLE_TYPE = 2;
+                            rolefunBll.Add(rf);
+                        }
+                        SmtLog.InfoFormat("用户", "更新角色：{0}部门权限，个数：{1}.", _roleInfo.ROLE_NAME, orgs.Count);
+                    }
+                   
+
+                    if (doors != null)
+                    {
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID + " and ROLE_TYPE=3");
+                        foreach (var item in doors)
+                        {
+                            Maticsoft.Model.SMT_ROLE_FUN rf = new Maticsoft.Model.SMT_ROLE_FUN();
+                            rf.ROLE_ID = _roleInfo.ID;
+                            rf.FUN_ID = item.ID;
+                            rf.ROLE_TYPE = 3;
+                            rolefunBll.Add(rf);
+                        }
+                        SmtLog.InfoFormat("用户", "更新角色：{0}门禁权限，个数：{1}.", _roleInfo.ROLE_NAME, doors.Count);
+                    }
+                 
+
                     this.Invoke(new Action(() =>
                     {
                         this.DialogResult = DialogResult.OK;

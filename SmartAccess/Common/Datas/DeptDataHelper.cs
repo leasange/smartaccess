@@ -13,16 +13,53 @@ namespace SmartAccess.Common.Datas
     {
         private static List<Maticsoft.Model.SMT_ORG_INFO> _depts = null;
         private static log4net.ILog log = log4net.LogManager.GetLogger(typeof(AreaDataHelper));
+
+        private static List<Maticsoft.Model.SMT_ORG_INFO> _allDepts = null;
+
+        public static List<Maticsoft.Model.SMT_ORG_INFO> AllDepts
+        {
+            get
+            {
+                if (_allDepts == null)
+                {
+                    Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
+                    _allDepts = bll.GetModelList("1=1 order by ORDER_VALUE");
+                }
+                return _allDepts;
+            }
+        }
         /// <summary>
-        /// 强制刷新区域
+        /// 强制刷新部门
         /// </summary>
         public static void UpdateDepts()
         {
             try
             {
                 _depts = null;
+                _allDepts = null;
                 Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
-                _depts = bll.GetModelList("1=1 order by ORDER_VALUE");
+
+                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG) || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.DEPT_MGR))
+                {
+                    log.Debug("管理员加载部门...");
+                    _depts = bll.GetModelList("1=1 order by ORDER_VALUE");
+                    if (_allDepts == null)
+                    {
+                        _allDepts = new List<Maticsoft.Model.SMT_ORG_INFO>();
+                    }
+                    _allDepts.Clear();
+                    _allDepts.AddRange(_depts);
+                }
+                else
+                {
+                    log.Debug("普通用户加载部门...");
+                    _allDepts = bll.GetModelList("1=1 order by ORDER_VALUE");
+
+                    Maticsoft.BLL.SMT_ROLE_FUN rbll = new Maticsoft.BLL.SMT_ROLE_FUN();
+                    var funs = rbll.GetModelList("ROLE_TYPE=2 and ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID);// _depts = bll.GetModelList("id in (select RF.FUN_ID from SMT_ROLE_FUN RF where RF.ROLE_TYPE=2 and RF.ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")  order by ORDER_VALUE");
+                    _depts = _allDepts.FindAll(m => funs.Exists(n => n.FUN_ID == m.ID));
+                }
+
             }
             catch (Exception ex)
             {
@@ -96,7 +133,7 @@ namespace SmartAccess.Common.Datas
             }
         }
 
-        public static List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_ORG_INFO> depts)
+        public static List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_ORG_INFO> depts,List<Maticsoft.Model.SMT_ORG_INFO>  allDepts=null)
         {
             List<DevComponents.AdvTree.Node> tree = new List<DevComponents.AdvTree.Node>();
             if (depts == null || depts.Count == 0)
@@ -152,6 +189,10 @@ namespace SmartAccess.Common.Datas
             {
                _depts.Add(dept);
             }
+            if (_allDepts!=null)
+            {
+                _allDepts.Add(dept);
+            }
             return dept.ID;
         }
 
@@ -177,6 +218,7 @@ namespace SmartAccess.Common.Datas
             ids = ids.TrimEnd(',');
             bll.DeleteList(ids);
             _depts = null;
+            _allDepts = null;
         }
 
 
