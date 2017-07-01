@@ -17,6 +17,7 @@ namespace SmartAccess
 {
     public partial class FrmDataBaseConfig : DevComponents.DotNetBar.Office2007Form
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmDataBaseConfig));
         public FrmDataBaseConfig()
         {
             InitializeComponent();
@@ -308,6 +309,7 @@ namespace SmartAccess
                             }
                             catch (SqlException ex)
                             {
+                               // log.Error("SQL:" + sql, ex);
                                 if (ex.ErrorCode==-2146232060)//已存在对象屏蔽
                                 {
                                     continue;
@@ -317,9 +319,9 @@ namespace SmartAccess
                                     throw ex;
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                
+                              //  log.Error("SQL:" + sql, ex);
                                 throw;
                             }
                            
