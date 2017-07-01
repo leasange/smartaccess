@@ -36,6 +36,7 @@
             this.cbType2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.cbType3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.iiTime = new DevComponents.Editors.IntegerInput();
+            this.cbIsAllowVisitor = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iiTime)).BeginInit();
             this.SuspendLayout();
@@ -171,10 +172,26 @@
             this.iiTime.TabIndex = 1;
             this.iiTime.Value = 3;
             // 
+            // cbIsAllowVisitor
+            // 
+            // 
+            // 
+            // 
+            this.cbIsAllowVisitor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbIsAllowVisitor.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cbIsAllowVisitor.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbIsAllowVisitor.Location = new System.Drawing.Point(508, 0);
+            this.cbIsAllowVisitor.Name = "cbIsAllowVisitor";
+            this.cbIsAllowVisitor.Size = new System.Drawing.Size(79, 25);
+            this.cbIsAllowVisitor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbIsAllowVisitor.TabIndex = 10;
+            this.cbIsAllowVisitor.Text = "访客接入";
+            // 
             // DoorNameAttri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbIsAllowVisitor);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.cbEnable);
             this.Controls.Add(this.tbDoorName);
@@ -197,5 +214,6 @@
         private DevComponents.DotNetBar.Controls.CheckBoxX cbType1;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbType2;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbType3;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbIsAllowVisitor;
     }
 }

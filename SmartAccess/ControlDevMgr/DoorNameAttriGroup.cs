@@ -57,5 +57,6 @@ namespace SmartAccess.ControlDevMgr
         public bool doorEnable=true;
         public int doorCtrlType = 0;//0,1,2
         public int doorSecond = 3;
+        public bool visitor = true;
     }
 }

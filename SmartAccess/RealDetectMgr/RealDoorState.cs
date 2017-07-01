@@ -746,5 +746,10 @@ namespace SmartAccess.RealDetectMgr
         {
             DoRemoteOpen();
         }
+
+        private void biSetting_Click(object sender, EventArgs e)
+        {
+            tsmiDoorStateCfg_Click(sender, e);
+        }
     }
 }

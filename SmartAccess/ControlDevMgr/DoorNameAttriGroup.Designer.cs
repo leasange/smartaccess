@@ -53,7 +53,7 @@
             this.doorNameAttri6.Location = new System.Drawing.Point(0, 120);
             this.doorNameAttri6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri6.Name = "doorNameAttri6";
-            this.doorNameAttri6.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri6.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri6.TabIndex = 5;
             // 
             // doorNameAttri5
@@ -67,7 +67,7 @@
             this.doorNameAttri5.Location = new System.Drawing.Point(0, 96);
             this.doorNameAttri5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri5.Name = "doorNameAttri5";
-            this.doorNameAttri5.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri5.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri5.TabIndex = 4;
             // 
             // doorNameAttri4
@@ -81,7 +81,7 @@
             this.doorNameAttri4.Location = new System.Drawing.Point(0, 72);
             this.doorNameAttri4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri4.Name = "doorNameAttri4";
-            this.doorNameAttri4.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri4.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri4.TabIndex = 3;
             // 
             // doorNameAttri3
@@ -95,7 +95,7 @@
             this.doorNameAttri3.Location = new System.Drawing.Point(0, 48);
             this.doorNameAttri3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri3.Name = "doorNameAttri3";
-            this.doorNameAttri3.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri3.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri3.TabIndex = 2;
             // 
             // doorNameAttri2
@@ -109,7 +109,7 @@
             this.doorNameAttri2.Location = new System.Drawing.Point(0, 24);
             this.doorNameAttri2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri2.Name = "doorNameAttri2";
-            this.doorNameAttri2.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri2.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri2.TabIndex = 1;
             // 
             // doorNameAttri1
@@ -123,7 +123,7 @@
             this.doorNameAttri1.Location = new System.Drawing.Point(0, 0);
             this.doorNameAttri1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorNameAttri1.Name = "doorNameAttri1";
-            this.doorNameAttri1.Size = new System.Drawing.Size(537, 24);
+            this.doorNameAttri1.Size = new System.Drawing.Size(595, 24);
             this.doorNameAttri1.TabIndex = 0;
             // 
             // DoorNameAttriGroup
@@ -138,7 +138,7 @@
             this.Controls.Add(this.doorNameAttri2);
             this.Controls.Add(this.doorNameAttri1);
             this.Name = "DoorNameAttriGroup";
-            this.Size = new System.Drawing.Size(537, 154);
+            this.Size = new System.Drawing.Size(595, 154);
             this.ResumeLayout(false);
 
         }

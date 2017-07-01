@@ -20,7 +20,8 @@ namespace SmartAccess.ControlDevMgr
                      doorNo = _doorNo,
                      doorName = this.tbDoorName.Text.Trim(),
                      doorEnable = cbEnable.Checked,
-                     doorSecond = iiTime.Value
+                     doorSecond = iiTime.Value,
+                     visitor=cbIsAllowVisitor.Checked
                  };
                 if (cbType1.Checked)
                 {
@@ -54,6 +55,7 @@ namespace SmartAccess.ControlDevMgr
                     cbType3.Checked = true;
                 }
                 iiTime.Value = value.doorSecond;
+                cbIsAllowVisitor.Checked = value.visitor;
             }
         }
 

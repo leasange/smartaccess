@@ -258,6 +258,7 @@ namespace SmartAccess.ControlDevMgr
                             data.doorCtrlType = doorInfo.CTRL_STYLE;
                             data.doorEnable = doorInfo.IS_ENABLE;
                             data.doorSecond = doorInfo.CTRL_DELAY_TIME;
+                            data.visitor = doorInfo.IS_ALLOW_VISITOR;
                         }
                     }
                 }
@@ -352,6 +353,7 @@ namespace SmartAccess.ControlDevMgr
                     door.CTRL_DELAY_TIME = item.doorSecond;
                     door.CTRL_DOOR_INDEX = item.doorNo;
                     door.CTRL_STYLE = item.doorCtrlType;
+                    door.IS_ALLOW_VISITOR = item.visitor;
                     if (_ctrlr != null)
                     {
                         var old = _ctrlr.DOOR_INFOS.Find(m => m.CTRL_DOOR_INDEX == item.doorNo);
