@@ -31,6 +31,10 @@ namespace SmartAccess.RealDetectMgr
 
         private void FrmDoorStateCfg_Load(object sender, EventArgs e)
         {
+            if (_doors == null || _doors.Count == 0)
+            {
+                return;
+            }
             iDelayTime.Value = _doors[0].CTRL_DELAY_TIME;
             switch (_doors[0].CTRL_STYLE)
             {
@@ -38,6 +42,10 @@ namespace SmartAccess.RealDetectMgr
                 case 1: rbAlwaysOpen.Checked = true; break;
                 case 2: rbAlwaysClose.Checked = true; break;
                 default: rbOnline.Checked = true; break;
+            }
+            foreach (var item in _doors)
+            {
+                cbIsAllowVisitor.Checked = cbIsAllowVisitor.Checked && item.IS_ALLOW_VISITOR;
             }
         }
 
@@ -60,10 +68,29 @@ namespace SmartAccess.RealDetectMgr
         private void btnApplyState_Click(object sender, EventArgs e)
         {
             List<decimal> ids = GetCtrlIds();
+            bool isAllowVisitor=cbIsAllowVisitor.Checked;
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
                 {
+                    List<decimal> visitorIds = new List<decimal>();
+                    foreach (var item in _doors)
+                    {
+                        if (item.IS_ALLOW_VISITOR!=isAllowVisitor)
+                        {
+                            visitorIds.Add(item.ID);
+                        }
+                    }
+                    if (visitorIds.Count>0)
+                    {
+                        Maticsoft.DBUtility.DbHelperSQL.Query("update SMT_DOOR_INFO set IS_ALLOW_VISITOR=" + (isAllowVisitor ? 1 : 0) + " where ID in (" + string.Join(",", visitorIds.ToArray()) + ")");
+                        WinInfoHelper.ShowInfoWindow(this.Parent, "更新访客状态正常！");
+                        foreach (var item in _doors)
+                        {
+                            item.IS_ALLOW_VISITOR = isAllowVisitor;
+                        }
+                    }
+
                     Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBLL = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
                     var ctrls = ctrlBLL.GetModelList("ID in (" + string.Join(",", ids) + ")");
                     DoorControlStyle style = DoorControlStyle.Online;

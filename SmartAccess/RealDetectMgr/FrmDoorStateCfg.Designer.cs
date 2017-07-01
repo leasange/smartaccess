@@ -37,6 +37,7 @@
             this.btnApplyState = new DevComponents.DotNetBar.ButtonX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
+            this.cbIsAllowVisitor = new DevComponents.DotNetBar.Controls.CheckBoxX();
             ((System.ComponentModel.ISupportInitialize)(this.iDelayTime)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +79,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(12, 96);
+            this.labelX2.Location = new System.Drawing.Point(12, 86);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(96, 23);
             this.labelX2.TabIndex = 0;
@@ -93,7 +94,7 @@
             this.rbOnline.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.rbOnline.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
             this.rbOnline.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbOnline.Location = new System.Drawing.Point(114, 99);
+            this.rbOnline.Location = new System.Drawing.Point(114, 86);
             this.rbOnline.Name = "rbOnline";
             this.rbOnline.Size = new System.Drawing.Size(51, 20);
             this.rbOnline.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -109,7 +110,7 @@
             this.rbAlwaysOpen.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.rbAlwaysOpen.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
             this.rbAlwaysOpen.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbAlwaysOpen.Location = new System.Drawing.Point(171, 99);
+            this.rbAlwaysOpen.Location = new System.Drawing.Point(171, 86);
             this.rbAlwaysOpen.Name = "rbAlwaysOpen";
             this.rbAlwaysOpen.Size = new System.Drawing.Size(51, 20);
             this.rbAlwaysOpen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -125,7 +126,7 @@
             this.rbAlwaysClose.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.rbAlwaysClose.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
             this.rbAlwaysClose.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbAlwaysClose.Location = new System.Drawing.Point(228, 99);
+            this.rbAlwaysClose.Location = new System.Drawing.Point(228, 86);
             this.rbAlwaysClose.Name = "rbAlwaysClose";
             this.rbAlwaysClose.Size = new System.Drawing.Size(51, 20);
             this.rbAlwaysClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -137,9 +138,9 @@
             this.btnApplyState.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnApplyState.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnApplyState.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnApplyState.Location = new System.Drawing.Point(114, 147);
+            this.btnApplyState.Location = new System.Drawing.Point(64, 162);
             this.btnApplyState.Name = "btnApplyState";
-            this.btnApplyState.Size = new System.Drawing.Size(76, 23);
+            this.btnApplyState.Size = new System.Drawing.Size(76, 29);
             this.btnApplyState.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnApplyState.TabIndex = 4;
             this.btnApplyState.Text = "确定";
@@ -165,19 +166,37 @@
             this.btnClose.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.Location = new System.Drawing.Point(196, 147);
+            this.btnClose.Location = new System.Drawing.Point(146, 162);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(76, 23);
+            this.btnClose.Size = new System.Drawing.Size(76, 29);
             this.btnClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "关闭";
+            // 
+            // cbIsAllowVisitor
+            // 
+            // 
+            // 
+            // 
+            this.cbIsAllowVisitor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbIsAllowVisitor.Checked = true;
+            this.cbIsAllowVisitor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbIsAllowVisitor.CheckValue = "Y";
+            this.cbIsAllowVisitor.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbIsAllowVisitor.Location = new System.Drawing.Point(114, 118);
+            this.cbIsAllowVisitor.Name = "cbIsAllowVisitor";
+            this.cbIsAllowVisitor.Size = new System.Drawing.Size(145, 23);
+            this.cbIsAllowVisitor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbIsAllowVisitor.TabIndex = 6;
+            this.cbIsAllowVisitor.Text = "是否允许访客接入";
             // 
             // FrmDoorStateCfg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(308, 182);
+            this.ClientSize = new System.Drawing.Size(285, 203);
+            this.Controls.Add(this.cbIsAllowVisitor);
             this.Controls.Add(this.labelX3);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnApplyState);
@@ -213,5 +232,6 @@
         private DevComponents.DotNetBar.ButtonX btnApplyState;
         private DevComponents.DotNetBar.LabelX labelX3;
         private DevComponents.DotNetBar.ButtonX btnClose;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbIsAllowVisitor;
     }
 }

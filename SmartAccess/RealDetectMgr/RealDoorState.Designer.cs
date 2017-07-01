@@ -30,13 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RealDoorState));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
+            this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
+            this.biStop = new DevComponents.DotNetBar.ButtonItem();
+            this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
+            this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
+            this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
+            this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
             this.tbFilterItem = new DevComponents.DotNetBar.TextBoxItem();
+            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
             this.smallImageList = new System.Windows.Forms.ImageList(this.components);
             this.metroTileItem1 = new DevComponents.DotNetBar.Metro.MetroTileItem();
             this.cmsDoorState = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -53,27 +61,19 @@
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.panelDown = new DevComponents.DotNetBar.PanelEx();
-            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
-            this.listDoors = new System.Windows.Forms.ListView();
             this.picBox = new System.Windows.Forms.PictureBox();
-            this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
-            this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
-            this.biStop = new DevComponents.DotNetBar.ButtonItem();
-            this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
-            this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
-            this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
-            this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
-            this.biSearch = new DevComponents.DotNetBar.ButtonItem();
+            this.panelDown = new DevComponents.DotNetBar.PanelEx();
             this.dgvRealLog = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.listDoors = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
             this.panelEx1.SuspendLayout();
-            this.panelDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
+            this.panelDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,11 +102,75 @@
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
             // 
+            // biSelectAll
+            // 
+            this.biSelectAll.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSelectAll.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSelectAll.Name = "biSelectAll";
+            this.biSelectAll.Text = "全选";
+            this.biSelectAll.Click += new System.EventHandler(this.biSelectAll_Click);
+            // 
+            // biRealDetect
+            // 
+            this.biRealDetect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRealDetect.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biRealDetect.Name = "biRealDetect";
+            this.biRealDetect.Text = "实时监控";
+            this.biRealDetect.Click += new System.EventHandler(this.biRealDetect_Click);
+            // 
+            // biStop
+            // 
+            this.biStop.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biStop.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biStop.Name = "biStop";
+            this.biStop.Text = "停止";
+            this.biStop.Click += new System.EventHandler(this.biStop_Click);
+            // 
+            // biDetectCtrlr
+            // 
+            this.biDetectCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDetectCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biDetectCtrlr.Name = "biDetectCtrlr";
+            this.biDetectCtrlr.Text = "检测控制器";
+            this.biDetectCtrlr.Click += new System.EventHandler(this.biDetectCtrlr_Click);
+            // 
+            // biAdjustTime
+            // 
+            this.biAdjustTime.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAdjustTime.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biAdjustTime.Name = "biAdjustTime";
+            this.biAdjustTime.Text = "校准时间";
+            this.biAdjustTime.Click += new System.EventHandler(this.biAdjustTime_Click);
+            // 
+            // biRemoteOpen
+            // 
+            this.biRemoteOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRemoteOpen.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biRemoteOpen.Name = "biRemoteOpen";
+            this.biRemoteOpen.Text = "远程开门";
+            this.biRemoteOpen.Click += new System.EventHandler(this.biRemoteOpen_Click);
+            // 
+            // biClearInfo
+            // 
+            this.biClearInfo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClearInfo.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biClearInfo.Name = "biClearInfo";
+            this.biClearInfo.Text = "清空信息";
+            this.biClearInfo.Click += new System.EventHandler(this.biClearInfo_Click);
+            // 
             // tbFilterItem
             // 
             this.tbFilterItem.Name = "tbFilterItem";
             this.tbFilterItem.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbFilterItem.WatermarkText = "输入查找关键字";
+            // 
+            // biSearch
+            // 
+            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSearch.Name = "biSearch";
+            this.biSearch.Text = "查找";
+            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
             // 
             // smallImageList
             // 
@@ -133,19 +197,19 @@
             this.tsmiDoorStateCfg,
             this.tsmiRemoteOpen});
             this.cmsDoorState.Name = "cmsDoorState";
-            this.cmsDoorState.Size = new System.Drawing.Size(149, 48);
+            this.cmsDoorState.Size = new System.Drawing.Size(153, 70);
             // 
             // tsmiDoorStateCfg
             // 
             this.tsmiDoorStateCfg.Name = "tsmiDoorStateCfg";
-            this.tsmiDoorStateCfg.Size = new System.Drawing.Size(148, 22);
-            this.tsmiDoorStateCfg.Text = "设置门禁状态";
+            this.tsmiDoorStateCfg.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDoorStateCfg.Text = "门禁设置";
             this.tsmiDoorStateCfg.Click += new System.EventHandler(this.tsmiDoorStateCfg_Click);
             // 
             // tsmiRemoteOpen
             // 
             this.tsmiRemoteOpen.Name = "tsmiRemoteOpen";
-            this.tsmiRemoteOpen.Size = new System.Drawing.Size(148, 22);
+            this.tsmiRemoteOpen.Size = new System.Drawing.Size(152, 22);
             this.tsmiRemoteOpen.Text = "远程开门";
             this.tsmiRemoteOpen.Click += new System.EventHandler(this.tsmiRemoteOpen_Click);
             // 
@@ -317,6 +381,18 @@
             this.labelX1.TabIndex = 9;
             this.labelX1.Text = "姓名:";
             // 
+            // picBox
+            // 
+            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox.Location = new System.Drawing.Point(128, 51);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(119, 127);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox.TabIndex = 8;
+            this.picBox.TabStop = false;
+            // 
             // panelDown
             // 
             this.panelDown.CanvasColor = System.Drawing.SystemColors.Control;
@@ -336,133 +412,6 @@
             this.panelDown.Style.GradientAngle = 90;
             this.panelDown.TabIndex = 11;
             this.panelDown.Text = "panelEx2";
-            // 
-            // expandableSplitter1
-            // 
-            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
-            this.expandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.expandableSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.expandableSplitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.expandableSplitter1.ExpandableControl = this.panelDown;
-            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
-            this.expandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.expandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(61)))));
-            this.expandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
-            this.expandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
-            this.expandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
-            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
-            this.expandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.expandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
-            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
-            this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.expandableSplitter1.Location = new System.Drawing.Point(0, 211);
-            this.expandableSplitter1.Name = "expandableSplitter1";
-            this.expandableSplitter1.Size = new System.Drawing.Size(955, 6);
-            this.expandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
-            this.expandableSplitter1.TabIndex = 12;
-            this.expandableSplitter1.TabStop = false;
-            // 
-            // listDoors
-            // 
-            this.listDoors.ContextMenuStrip = this.cmsDoorState;
-            this.listDoors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
-            this.listDoors.LargeImageList = this.smallImageList;
-            this.listDoors.Location = new System.Drawing.Point(0, 28);
-            this.listDoors.Name = "listDoors";
-            this.listDoors.ShowItemToolTips = true;
-            this.listDoors.Size = new System.Drawing.Size(955, 183);
-            this.listDoors.TabIndex = 13;
-            this.listDoors.UseCompatibleStateImageBehavior = false;
-            // 
-            // picBox
-            // 
-            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Location = new System.Drawing.Point(128, 51);
-            this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(119, 127);
-            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBox.TabIndex = 8;
-            this.picBox.TabStop = false;
-            // 
-            // biSelectAll
-            // 
-            this.biSelectAll.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSelectAll.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSelectAll.Name = "biSelectAll";
-            this.biSelectAll.Text = "全选";
-            this.biSelectAll.Click += new System.EventHandler(this.biSelectAll_Click);
-            // 
-            // biRealDetect
-            // 
-            this.biRealDetect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRealDetect.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biRealDetect.Name = "biRealDetect";
-            this.biRealDetect.Text = "实时监控";
-            this.biRealDetect.Click += new System.EventHandler(this.biRealDetect_Click);
-            // 
-            // biStop
-            // 
-            this.biStop.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biStop.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biStop.Name = "biStop";
-            this.biStop.Text = "停止";
-            this.biStop.Click += new System.EventHandler(this.biStop_Click);
-            // 
-            // biDetectCtrlr
-            // 
-            this.biDetectCtrlr.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDetectCtrlr.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biDetectCtrlr.Name = "biDetectCtrlr";
-            this.biDetectCtrlr.Text = "检测控制器";
-            this.biDetectCtrlr.Click += new System.EventHandler(this.biDetectCtrlr_Click);
-            // 
-            // biAdjustTime
-            // 
-            this.biAdjustTime.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAdjustTime.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biAdjustTime.Name = "biAdjustTime";
-            this.biAdjustTime.Text = "校准时间";
-            this.biAdjustTime.Click += new System.EventHandler(this.biAdjustTime_Click);
-            // 
-            // biRemoteOpen
-            // 
-            this.biRemoteOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRemoteOpen.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biRemoteOpen.Name = "biRemoteOpen";
-            this.biRemoteOpen.Text = "远程开门";
-            this.biRemoteOpen.Click += new System.EventHandler(this.biRemoteOpen_Click);
-            // 
-            // biClearInfo
-            // 
-            this.biClearInfo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biClearInfo.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biClearInfo.Name = "biClearInfo";
-            this.biClearInfo.Text = "清空信息";
-            this.biClearInfo.Click += new System.EventHandler(this.biClearInfo_Click);
-            // 
-            // biSearch
-            // 
-            this.biSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSearch.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSearch.Name = "biSearch";
-            this.biSearch.Text = "查找";
-            this.biSearch.Click += new System.EventHandler(this.biSearch_Click);
             // 
             // dgvRealLog
             // 
@@ -534,6 +483,57 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
+            // expandableSplitter1
+            // 
+            this.expandableSplitter1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.expandableSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.expandableSplitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.expandableSplitter1.ExpandableControl = this.panelDown;
+            this.expandableSplitter1.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter1.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter1.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(61)))));
+            this.expandableSplitter1.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
+            this.expandableSplitter1.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
+            this.expandableSplitter1.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
+            this.expandableSplitter1.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter1.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter1.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter1.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter1.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter1.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter1.Location = new System.Drawing.Point(0, 211);
+            this.expandableSplitter1.Name = "expandableSplitter1";
+            this.expandableSplitter1.Size = new System.Drawing.Size(955, 6);
+            this.expandableSplitter1.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
+            this.expandableSplitter1.TabIndex = 12;
+            this.expandableSplitter1.TabStop = false;
+            // 
+            // listDoors
+            // 
+            this.listDoors.ContextMenuStrip = this.cmsDoorState;
+            this.listDoors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.listDoors.LargeImageList = this.smallImageList;
+            this.listDoors.Location = new System.Drawing.Point(0, 28);
+            this.listDoors.Name = "listDoors";
+            this.listDoors.ShowItemToolTips = true;
+            this.listDoors.Size = new System.Drawing.Size(955, 183);
+            this.listDoors.TabIndex = 13;
+            this.listDoors.UseCompatibleStateImageBehavior = false;
+            // 
             // RealDoorState
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -549,8 +549,8 @@
             this.cmsDoorState.ResumeLayout(false);
             this.panelEx1.ResumeLayout(false);
             this.panelEx1.PerformLayout();
-            this.panelDown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
+            this.panelDown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).EndInit();
             this.ResumeLayout(false);
 
