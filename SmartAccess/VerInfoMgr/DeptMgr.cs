@@ -84,7 +84,7 @@ namespace SmartAccess.VerInfoMgr
             FrmAddOrModifyDept frmDept = new FrmAddOrModifyDept(parId);
             if (frmDept.ShowDialog(this) == DialogResult.OK)
             {
-                var node = DeptDataHelper.CreateNode(frmDept.OrgInfo);
+                var node = DeptDataHelper.CreateNode(frmDept.OrgInfo,null);
                 if (this.deptTree.Tree.SelectedNode == null || this.deptTree.Tree.SelectedNode.Parent == null)
                 {
                     this.deptTree.Tree.Nodes.Add(node);
@@ -109,7 +109,7 @@ namespace SmartAccess.VerInfoMgr
                 FrmAddOrModifyDept frmDept = new FrmAddOrModifyDept(orgInfo.ID);
                 if (frmDept.ShowDialog(this) == DialogResult.OK)
                 {
-                    var node = DeptDataHelper.CreateNode(frmDept.OrgInfo);
+                    var node = DeptDataHelper.CreateNode(frmDept.OrgInfo,null);
                     if (this.deptTree.Tree.SelectedNode == null)
                     {
                         this.deptTree.Tree.Nodes.Add(node);

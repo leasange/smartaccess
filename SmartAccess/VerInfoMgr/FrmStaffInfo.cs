@@ -794,6 +794,10 @@ namespace SmartAccess.VerInfoMgr
             report.Load(ms);
             string deptName = "";
             string deptNo = "";
+            string upDeptName = "";
+            string upupDeptName = "";
+            string topDeptName = "";
+            decimal deptId=-1;
             if (cbTreeDept.SelectedNode != null)
             {
                 Maticsoft.Model.SMT_ORG_INFO org = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
@@ -801,13 +805,30 @@ namespace SmartAccess.VerInfoMgr
                 {
                     deptName = org.ORG_NAME;
                     deptNo = org.ORG_CODE;
+                    deptId=org.ID;
                 }
                 else if (_staffInfo != null)
                 {
+                    deptId=_staffInfo.ORG_ID!=null?(decimal)_staffInfo.ORG_ID:-1;
                     deptName = _staffInfo.ORG_NAME;
                     deptNo = _staffInfo.ORG_CODE;
                 }
             }
+
+            if (deptId>=0)
+            {
+                var list= DeptDataHelper.FindAllParent(deptId);
+                if (list.Count>0)
+                {
+                    upDeptName = list[0].ORG_NAME;
+                    if (list.Count>1)
+                    {
+                        upupDeptName = list[1].ORG_NAME;
+                    }
+                    topDeptName = list[list.Count - 1].ORG_NAME;
+                }
+            }
+
             string sex = "未知";
             if (cbSex.SelectedIndex==1)
             {
@@ -852,7 +873,10 @@ namespace SmartAccess.VerInfoMgr
                 dtTimeOut.Value.Date,
                 tbAddress.Text.Trim(),
                 picPhoto.Image,
-                _staffInfo != null ? _staffInfo.REG_TIME : DateTime.Now
+                _staffInfo != null ? _staffInfo.REG_TIME : DateTime.Now,
+                upDeptName,
+                upupDeptName,
+                topDeptName
                 );
             report.RegisterData(dt, dt.TableName);
             //ModelMgr.VerModelMgr.BindingDataSet(_report);

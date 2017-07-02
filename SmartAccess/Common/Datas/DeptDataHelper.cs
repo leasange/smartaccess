@@ -16,18 +16,35 @@ namespace SmartAccess.Common.Datas
 
         private static List<Maticsoft.Model.SMT_ORG_INFO> _allDepts = null;
 
-        public static List<Maticsoft.Model.SMT_ORG_INFO> AllDepts
+
+        public static List<Maticsoft.Model.SMT_ORG_INFO> FindAllParent(decimal orgId)
         {
-            get
+            var list = new List<Maticsoft.Model.SMT_ORG_INFO>();
+            if (_allDepts==null||_allDepts.Count==0)
             {
-                if (_allDepts == null)
-                {
-                    Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
-                    _allDepts = bll.GetModelList("1=1 order by ORDER_VALUE");
-                }
-                return _allDepts;
+                return list;
             }
+            var org = _allDepts.Find(m => m.ID == orgId);
+            if (org==null)
+            {
+                return list;
+            }
+            var t = org;
+            do
+            {
+
+                var par = _allDepts.Find(m => m.ID == t.PAR_ID);
+                if (par != null && !list.Contains(par))
+                {
+                    list.Add(par);
+                    t = par;
+                }
+                else break;
+
+            } while (true);
+            return list;
         }
+
         /// <summary>
         /// 强制刷新部门
         /// </summary>
@@ -107,12 +124,22 @@ namespace SmartAccess.Common.Datas
         /// </summary>
         /// <param name="dept">区域</param>
         /// <returns>节点</returns>
-        public static DevComponents.AdvTree.Node CreateNode(Maticsoft.Model.SMT_ORG_INFO dept)
+        public static DevComponents.AdvTree.Node CreateNode(Maticsoft.Model.SMT_ORG_INFO dept, List<Maticsoft.Model.SMT_ORG_INFO> parDepts)
         {
             DevComponents.AdvTree.Node node = new DevComponents.AdvTree.Node(dept.ORG_NAME + " [" + dept.ORG_CODE + "]");
             node.Tag = dept;
             node.Image = Properties.Resources.添加下级部门;
             node.Tooltip = dept.ORG_NAME + " [" + dept.ORG_CODE+"]";
+            if (parDepts!=null&&parDepts.Count > 0)
+            {
+                if (parDepts.Contains(dept))
+                {
+                    node.Text = "<i><font color=\"#444444\">" + node.Text + "</font></i>";
+                    node.Tooltip = "<font color=\"red\">" + node.Tooltip + " 【不可选节点】</font>";
+                    node.DataKey = "0";
+                }
+            }
+
             return node;
         }
         /// <summary>
@@ -120,61 +147,93 @@ namespace SmartAccess.Common.Datas
         /// </summary>
         /// <param name="root">当前节点</param>
         /// <param name="depts">区域列表</param>
-        private static void GetSubTree(DevComponents.AdvTree.Node root,List<Maticsoft.Model.SMT_ORG_INFO> depts)
+        private static void GetSubTree(DevComponents.AdvTree.Node root, List<Maticsoft.Model.SMT_ORG_INFO> depts, List<Maticsoft.Model.SMT_ORG_INFO> parDepts)
         {
             Maticsoft.Model.SMT_ORG_INFO rootarea = (Maticsoft.Model.SMT_ORG_INFO)root.Tag;
             List<Maticsoft.Model.SMT_ORG_INFO> subAreas= depts.FindAll(m => m.PAR_ID == rootarea.ID);
             subAreas.ForEach(m => depts.Remove(m));
             foreach (var item in subAreas)
             {
-                DevComponents.AdvTree.Node node= CreateNode(item);
-                GetSubTree(node, depts);
+                DevComponents.AdvTree.Node node = CreateNode(item, parDepts);
+                GetSubTree(node, depts, parDepts);
                 root.Nodes.Add(node);
             }
         }
 
-        public static List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_ORG_INFO> depts,List<Maticsoft.Model.SMT_ORG_INFO>  allDepts=null)
+        public static List<DevComponents.AdvTree.Node> ToTree(List<Maticsoft.Model.SMT_ORG_INFO> depts)
         {
+            var allDepts = _allDepts;
             List<DevComponents.AdvTree.Node> tree = new List<DevComponents.AdvTree.Node>();
             if (depts == null || depts.Count == 0)
             {
                 return tree;
             }
-            else
+
+            var treedepts = depts.ToList();
+
+            List<Maticsoft.Model.SMT_ORG_INFO> parDepts = new List<Maticsoft.Model.SMT_ORG_INFO>();
+            if (allDepts != null && depts.Count < allDepts.Count)
             {
-                List<Maticsoft.Model.SMT_ORG_INFO> remvs = new List<Maticsoft.Model.SMT_ORG_INFO>();
-                //寻找根节点
-                for (int i = 0; i < depts.Count; i++)
+                List<Maticsoft.Model.SMT_ORG_INFO> tempAll = allDepts.ToList();
+                foreach (var item in depts)
                 {
-                    decimal? dec = depts[i].PAR_ID;
-                    if (dec == null)
+                    var t = item;
+                    do
                     {
-                        tree.Add(CreateNode(depts[i]));
-                        remvs.Add(depts[i]);
-                    }
-                    if (depts.Exists(m =>
+                        var parDept = tempAll.Find(m => m.ID == t.PAR_ID);
+                        if (parDept != null)
+                        {
+                            if (!treedepts.Contains(parDept))
+                            {
+                                parDepts.Add(parDept);
+                                tempAll.Remove(parDept);
+                            }
+                            else break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        t = parDept;
+                    } while (true);
+                  
+                }
+            }
+
+            treedepts.AddRange(parDepts);
+
+            List<Maticsoft.Model.SMT_ORG_INFO> remvs = new List<Maticsoft.Model.SMT_ORG_INFO>();
+            //寻找根节点
+            for (int i = 0; i < treedepts.Count; i++)
+            {
+                decimal dec = treedepts[i].PAR_ID;
+                /*if (dec == null)
+                {
+                    tree.Add(CreateNode(treedepts[i]));
+                    remvs.Add(treedepts[i]);
+                }*/
+                if (treedepts.Exists(m =>
+                {
+                    if (m == treedepts[i])
                     {
-                        if (m == depts[i])
-                        {
-                            return false;
-                        }
-                        if (m.ID == (decimal)dec)
-                        {
-                            return true;
-                        }
                         return false;
-                    }))
-                    {
-                        continue;
                     }
-                    tree.Add(CreateNode(depts[i]));
-                    remvs.Add(depts[i]);
-                }
-                remvs.ForEach(m => depts.Remove(m));
-                foreach (var root in tree)
+                    if (m.ID == (decimal)dec)
+                    {
+                        return true;
+                    }
+                    return false;
+                }))
                 {
-                    GetSubTree(root, depts);
+                    continue;
                 }
+                tree.Add(CreateNode(treedepts[i], parDepts));
+                remvs.Add(treedepts[i]);
+            }
+            remvs.ForEach(m => treedepts.Remove(m));
+            foreach (var root in tree)
+            {
+                GetSubTree(root, treedepts, parDepts);
             }
             return tree;
         }

@@ -160,11 +160,11 @@ namespace SmartAccess.ModelMgr
                             bll.Update(model);
                         }
                         IsChanged = true;
-                        WinInfoHelper.ShowInfoWindow(this, "保存成功！");
+                        WinInfoHelper.ShowInfoWindow(null, "保存成功！");
                     }
                     catch (System.Exception ex)
                     {
-                        WinInfoHelper.ShowInfoWindow(this, "保存异常：" + ex.Message);
+                        WinInfoHelper.ShowInfoWindow(null, "保存异常：" + ex.Message);
                         log.Error("保存模板异常：", ex);
                     }
                 });

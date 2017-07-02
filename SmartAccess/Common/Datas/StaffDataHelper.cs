@@ -38,6 +38,10 @@ namespace SmartAccess.Common.Datas
             dt.Columns.Add("联系地址", typeof(string));
             dt.Columns.Add("照片", typeof(Image));
             dt.Columns.Add("注册时间", typeof(DateTime));
+
+            dt.Columns.Add("上级部门", typeof(string));
+            dt.Columns.Add("上上级部门", typeof(string));
+            dt.Columns.Add("跟级部门(公司)名称", typeof(string));
             return dt;
         }
         private static DataRow CreateReportTableRow
@@ -68,7 +72,10 @@ namespace SmartAccess.Common.Datas
              DateTime aborttime,
              string address,
              Image photo,
-             DateTime regtime
+             DateTime regtime,
+             string upDept,
+             string upupDept,
+             string topDeptName
             )
         {
             DataRow row = table.NewRow();
@@ -98,6 +105,9 @@ namespace SmartAccess.Common.Datas
             row[23] = address;
             row[24] = photo;
             row[25] = regtime;
+            row[26] = upDept;
+            row[27] = upupDept;
+            row[28] = topDeptName;
             return row;
         }
         /// <summary>
@@ -108,7 +118,7 @@ namespace SmartAccess.Common.Datas
         {
             DataTable dt = CreateReportTable();
             DataRow dr = CreateReportTableRow(dt,
-                 "财务部",
+                 "系统软件室",
                  "A090901",
                  "2373802",
                  "张小美",
@@ -133,7 +143,7 @@ namespace SmartAccess.Common.Datas
                  DateTime.Now.Date,
                  "北京市XXX区XXX街道100号",
                  Properties.Resources.示例证件,
-                 DateTime.Now.Date);
+                 DateTime.Now.Date,"技术中心",null,"XX公司");
             dt.Rows.Add(dr);
             return dt;
         }
@@ -163,7 +173,11 @@ namespace SmartAccess.Common.Datas
              DateTime aborttime,
              string address,
              Image photo,
-             DateTime regtime)
+             DateTime regtime,
+             string upDept,
+             string upupDept,
+             string topDeptName
+            )
         {
             DataTable dt = CreateReportTable();
             DataRow dr = CreateReportTableRow(dt,
@@ -192,7 +206,10 @@ namespace SmartAccess.Common.Datas
                aborttime,
                address,
               photo,
-               regtime);
+               regtime,
+               upDept,
+               upupDept,
+               topDeptName);
             dt.Rows.Add(dr);
             return dt;
         }
