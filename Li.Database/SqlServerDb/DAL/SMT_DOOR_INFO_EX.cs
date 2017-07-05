@@ -39,7 +39,7 @@ namespace Maticsoft.DAL
 
             if (strWhere.Trim() != "")
             {
-                strSql.Append(") where " + strWhere);
+                strSql.Append(") TT where " + strWhere);
             }
             return DbHelperSQL.Query(strSql.ToString());
         }

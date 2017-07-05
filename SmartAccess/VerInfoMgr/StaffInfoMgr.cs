@@ -32,6 +32,10 @@ namespace SmartAccess.VerInfoMgr
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 Node deptNode = e.Node;
+                if (deptNode.DataKey=="0")
+                {
+                    return;
+                }
                 decimal orgId = -1;
                 if (deptNode != null)
                 {

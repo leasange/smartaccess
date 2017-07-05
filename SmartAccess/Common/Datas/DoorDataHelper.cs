@@ -19,7 +19,21 @@ namespace SmartAccess.Common.Datas
         public static List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors()
         {
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
-            return doorBll.GetModelListWithArea("");
+            if (UserInfoHelper.UserInfo.USER_NAME == "admin" ||
+                PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG))
+            {
+                return doorBll.GetModelListWithArea("");
+            }
+            else
+            {
+                if (UserInfoHelper.UserInfo.ROLE_ID == null)
+                {
+                    return new List<Maticsoft.Model.SMT_DOOR_INFO>();
+                }
+                string strWhere = "ID IN (SELECT FUN_ID FROM SMT_ROLE_FUN WHERE ROLE_TYPE=3 and ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
+                return doorBll.GetModelListWithArea(strWhere);
+            }
+
         }
         public static List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors(string ctrlId)
         {
