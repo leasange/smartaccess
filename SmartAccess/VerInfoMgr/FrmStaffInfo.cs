@@ -333,6 +333,21 @@ namespace SmartAccess.VerInfoMgr
                 tbVerNo.Focus();
                 return false;
             }
+            if (!UserInfoHelper.IsManager)
+            {
+                if (cbTreeDept.SelectedNode == null)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "部门必须选择！");
+                    cbTreeDept.Focus();
+                    return false;
+                }
+                if (cbTreeDept.SelectedNode.DataKey=="0")
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "不可选部门，请选择授权的部门！");
+                    cbTreeDept.Focus();
+                    return false;
+                }
+            }
             return true;
         }
 
