@@ -138,6 +138,10 @@ namespace SmartAccess.Common.Datas
                     node.Tooltip = "<font color=\"red\">" + node.Tooltip + " 【不可选节点】</font>";
                     node.DataKey = "0";
                 }
+                else
+                {
+                    node.DataKey = "1";
+                }
             }
 
             return node;

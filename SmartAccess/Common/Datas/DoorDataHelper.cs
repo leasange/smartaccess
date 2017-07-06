@@ -10,6 +10,9 @@ namespace SmartAccess.Common.Datas
     public class DoorDataHelper
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(typeof(DoorDataHelper));
+
+        public static List<Maticsoft.Model.SMT_DOOR_INFO> LastDoors = null;
+
         public static List<Node> ToTree(List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas,List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             var nodes = AreaDataHelper.ToTree(areas);
@@ -22,7 +25,8 @@ namespace SmartAccess.Common.Datas
             if (UserInfoHelper.UserInfo.USER_NAME == "admin" ||
                 PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG))
             {
-                return doorBll.GetModelListWithArea("");
+                LastDoors = doorBll.GetModelListWithArea("");
+                return LastDoors;
             }
             else
             {
@@ -31,7 +35,8 @@ namespace SmartAccess.Common.Datas
                     return new List<Maticsoft.Model.SMT_DOOR_INFO>();
                 }
                 string strWhere = "ID IN (SELECT FUN_ID FROM SMT_ROLE_FUN WHERE ROLE_TYPE=3 and ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
-                return doorBll.GetModelListWithArea(strWhere);
+                LastDoors= doorBll.GetModelListWithArea(strWhere);
+                return LastDoors;
             }
 
         }

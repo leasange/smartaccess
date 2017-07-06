@@ -18,5 +18,23 @@ namespace SmartAccess.Common.Datas
                 return -1;
             }
         }
+
+
+        public static bool IsManager
+        {
+            get
+            {
+                if (UserInfoHelper.UserInfo==null)
+                {
+                    return false;
+                }
+                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG) || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.DEPT_MGR))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
     }
 }

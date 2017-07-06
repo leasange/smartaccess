@@ -53,7 +53,7 @@ namespace SmartAccess.VerInfoMgr
         {
             List<decimal> decs = new List<decimal>();
             Maticsoft.Model.SMT_ORG_INFO orgInfo = orgNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
-            if (orgInfo!=null)
+            if (orgInfo != null && orgNode.DataKey !="0")
             {
                 decs.Add(orgInfo.ID);
             }
@@ -142,6 +142,13 @@ namespace SmartAccess.VerInfoMgr
                         if (orgId != -1)
                         {
                             strWhere += " and ORG_ID in (" + string.Join(",", _selectOrgIds.ToArray()) + ")";
+                        }
+                        else
+                        {
+                            if (!UserInfoHelper.IsManager)
+                            {
+                                strWhere += " and ORG_ID in (select RF.FUN_ID from SMT_ROLE_FUN RF where RF.ROLE_TYPE=2 and RF.ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
+                            }
                         }
                     }
                     if (cbIsForbbiden.Checked)

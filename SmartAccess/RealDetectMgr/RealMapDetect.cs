@@ -53,6 +53,18 @@ namespace SmartAccess.RealDetectMgr
                         }
                         modelTree.ExpandAll();
                     }));
+                    try
+                    {
+                        if (DoorDataHelper.LastDoors == null)
+                        {
+                            DoorDataHelper.GetDoors();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error("初始化门禁异常：", ex);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -136,7 +148,17 @@ namespace SmartAccess.RealDetectMgr
                 {
                     continue;
                 }
-                doors.Add(item.DOOR);
+
+                if(DoorDataHelper.LastDoors!=null)
+                {
+                    if(DoorDataHelper.LastDoors.Exists(m=>m.ID==item.DOOR.ID))
+                    {
+                        doors.Add(item.DOOR);
+                    }
+                }
+                else{
+                     doors.Add(item.DOOR);
+                }
             }
             return doors;
         }

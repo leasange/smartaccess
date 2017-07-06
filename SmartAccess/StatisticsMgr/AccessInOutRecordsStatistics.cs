@@ -28,6 +28,7 @@ namespace SmartAccess.StatisticsMgr
         private void Init()
         {
             dtpStart.Value = DateTime.Now.Date;
+            dtpEnd.Value = DateTime.Now.Date;
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 var doors = DoorDataHelper.GetDoors();
@@ -72,19 +73,22 @@ namespace SmartAccess.StatisticsMgr
                 return;
             }
             string doorIds = "";
-            if (cboDoorTree.SelectedNode != cboDoorTree.Nodes[0])//跟节点
+            var doors = GetSelectDoors();
+            if (doors.Count > 0)
             {
-                var doors = GetSelectDoors();
-                if (doors.Count>0)
-	            {
-                    foreach (var item in doors)
-	                {
-                        doorIds+=item.ID+",";
-                    }
-                    doorIds=doorIds.TrimEnd(',');
-	            }
+                foreach (var item in doors)
+                {
+                    doorIds += item.ID + ",";
+                }
+                doorIds = doorIds.TrimEnd(',');
             }
-            string doorName = "所有门禁";
+
+            string doorName = "所授权门禁";
+            if (UserInfoHelper.IsManager)
+            {
+                doorName = "所有门禁";
+            }
+
             if (cboDoorTree.SelectedNode.Tag is Maticsoft.Model.SMT_CONTROLLER_ZONE)
             {
                 doorName = ((Maticsoft.Model.SMT_CONTROLLER_ZONE)cboDoorTree.SelectedNode.Tag).ZONE_NAME;
@@ -96,11 +100,14 @@ namespace SmartAccess.StatisticsMgr
            
             string str = string.Format("select T1.DOOR_NAME,T2.DOOR_ID,T2.RECORD_DATE from SMT_DOOR_INFO T1,SMT_CARD_RECORDS T2 where T1.ID =T2.DOOR_ID and T1.ID in ({0})", doorIds);
            
-            if (string.IsNullOrWhiteSpace(doorIds))
+          /*  if (string.IsNullOrWhiteSpace(doorIds))
             {
                 str = "select T1.DOOR_NAME,T2.DOOR_ID,T2.RECORD_DATE from SMT_DOOR_INFO T1,SMT_CARD_RECORDS T2 where T1.ID =T2.DOOR_ID";
-                doorName="所有门禁";
-            }
+                if (!UserInfoHelper.IsManager)
+                {
+                    doorName = "所授权门禁";
+                }
+            }*/
             str += string.Format(" and T2.RECORD_DATE>='{0}' and T2.RECORD_DATE<'{1}' order by T2.RECORD_DATE", dtpStart.Value.ToString("yyyy-MM-01 00:00:00"), dtpEnd.Value.Date.AddMonths(1).ToString("yyyy-MM-01 00:00:00"));
             dgvData.Rows.Clear();
             CtrlWaiting waiting = new CtrlWaiting(() =>
@@ -395,11 +402,7 @@ namespace SmartAccess.StatisticsMgr
             List<Maticsoft.Model.SMT_DOOR_INFO> list = new List<Maticsoft.Model.SMT_DOOR_INFO>();
             if (cboDoorTree.SelectedNode == null)
             {
-                return list;
-            }
-            if (cboDoorTree.SelectedNode.Tag==null)
-            {
-                return list;
+                cboDoorTree.SelectedNode = cboDoorTree.Nodes[0];
             }
             list.AddRange(GetSelectDoors(cboDoorTree.SelectedNode));
             return list;

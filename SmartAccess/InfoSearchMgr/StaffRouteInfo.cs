@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SmartAccess.Common.WinInfo;
+using SmartAccess.Common.Datas;
 
 namespace SmartAccess.InfoSearchMgr
 {
@@ -62,7 +63,14 @@ namespace SmartAccess.InfoSearchMgr
             strSqlBase += "	select CR.*,DI.DOOR_NAME from SMT_CARD_RECORDS CR left join SMT_DOOR_INFO DI on CR.DOOR_ID=DI.ID ";
             strSqlBase += " ) RR ";
             strSqlBase += " left join SMT_STAFF_INFO SI on RR.STAFF_ID=SI.ID ";
-            strSqlBase += " ) DP left join SMT_ORG_INFO OI on DP.ORG_ID=OI.ID ";
+
+            if (UserInfoHelper.IsManager)
+            {
+                strSqlBase += " ) DP left join SMT_ORG_INFO OI on DP.ORG_ID=OI.ID ";
+            }
+            else strSqlBase += " ) DP left join SMT_ORG_INFO OI on DP.ORG_ID=OI.ID and OI.ID in ( select RF.FUN_ID from SMT_ROLE_FUN RF where RF.ROLE_TYPE=2 and RF.ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ") ";
+
+
             string strSql = "select  ROW_NUMBER() over (order by RECORD_DATE desc) as RN,* from (" + strSqlBase + " ) ttt where " + pageDataGridView.SqlWhere;
             strSql = "select top " + pageDataGridView.PageControl.RecordsPerPage + " * from ( " + strSql;
             strSql += ") A where RN >= " + pageDataGridView.PageControl.StartIndex + "";

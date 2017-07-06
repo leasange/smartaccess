@@ -78,7 +78,10 @@ namespace SmartAccess.InfoSearchMgr
             string staffName = tbName.Text.Trim();//姓名
             string deptIds = "";//部门ID列表
             string doorIds = "";//门列表
-
+            if (cboDoorTree.SelectedNode == null)
+            {
+                cboDoorTree.SelectedNode = cboDoorTree.Nodes[0];
+            }
             if (cboDoorTree.SelectedNode != null && cboDoorTree.SelectedNode.Tag != null)
             {
                 var doors = GetSelectNodes<Maticsoft.Model.SMT_DOOR_INFO>(cboDoorTree.SelectedNode);
@@ -93,9 +96,19 @@ namespace SmartAccess.InfoSearchMgr
                     return;
                 }
             }
+
             if (cboDeptTree.SelectedNode!=null&&cboDeptTree.SelectedNode.Tag != null)
             {
                 var orgs = GetSelectNodes<Maticsoft.Model.SMT_ORG_INFO>(cboDeptTree.SelectedNode);
+                foreach (var item in orgs)
+                {
+                    deptIds += item.ID + ",";
+                }
+                deptIds = deptIds.TrimEnd(',');
+            }
+            else if(!UserInfoHelper.IsManager)
+            {
+                var orgs = GetSelectNodes<Maticsoft.Model.SMT_ORG_INFO>(cboDeptTree.Nodes);
                 foreach (var item in orgs)
                 {
                     deptIds += item.ID + ",";
@@ -156,6 +169,17 @@ namespace SmartAccess.InfoSearchMgr
             }
             return ts;
         }
+
+        private List<T> GetSelectNodes<T>(NodeCollection selecteds)
+        {
+            List<T> ts = new List<T>();
+            foreach (Node selected in selecteds)
+            {
+               ts.AddRange(GetSelectNodes<T>(selected));
+            }
+            return ts;
+        }
+
 
         private string sqlAll = "";
         private void DoSearch(bool searchCount = false)
