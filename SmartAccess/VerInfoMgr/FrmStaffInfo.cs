@@ -145,6 +145,15 @@ namespace SmartAccess.VerInfoMgr
                 {
                     log.Error("无此证件模板：" + _staffInfo.PRINT_TEMPLET_ID + ",ex=" + ex.Message);
                 }
+
+                if (cbStaffType.SelectedItem==null)
+                {
+                    _staffInfo.STAFF_TYPE = "";
+                }
+                else
+                {
+                    _staffInfo.STAFF_TYPE = Convert.ToString(((ComboItem)cbStaffType.SelectedItem).Tag);
+                }
                 if (picPhoto.Image != null)
                 {
                     MemoryStream ms = new MemoryStream();
@@ -453,8 +462,6 @@ namespace SmartAccess.VerInfoMgr
             {
                 LoadDeptsTree();
             }
-
-
             if (_staffInfo == null)
             {
                 this.Text = "添加人员";
@@ -562,6 +569,40 @@ namespace SmartAccess.VerInfoMgr
                 SetPicImage(picPhoto, _staffInfo.PHOTO);
                 lbPhotoTip.Visible = picPhoto.Image == null;
             }
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                    var staffTypes = dicBll.GetModelList("DATA_TYPE='STAFF_TYPE'");
+                    if (staffTypes.Count>0)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            foreach (var item in staffTypes)
+                            {
+                                ComboItem ci = new ComboItem(item.DATA_NAME);
+                                ci.Tag = item.DATA_KEY;
+                                cbStaffType.Items.Add(ci);
+                                if (_staffInfo!=null)
+                                {
+                                    if (_staffInfo.STAFF_TYPE == item.DATA_KEY)
+                                    {
+                                        cbStaffType.SelectedItem = ci;
+                                    }
+                                }
+                            }
+                        }));
+                    }
+                }
+                catch (System.Exception ex)
+                {
+
+                }
+
+            }));
+
         }
         private void SetPicImage(PictureBox picBox, byte[] bts)
         {
