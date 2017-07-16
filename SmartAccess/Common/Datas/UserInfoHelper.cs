@@ -28,7 +28,7 @@ namespace SmartAccess.Common.Datas
                 {
                     return false;
                 }
-                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG) || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.DEPT_MGR))
+                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG))
                 {
                     return true;
                 }

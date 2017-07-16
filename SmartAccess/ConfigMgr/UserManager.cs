@@ -88,7 +88,7 @@ namespace SmartAccess.ConfigMgr
             DataGridViewRow row = new DataGridViewRow();
             if (user.USER_NAME=="admin")
             {
-                user.ROLE_NAME = "超级管理员";
+                user.ROLE_NAME = "超级账户[内置]";
             }
             else
             {

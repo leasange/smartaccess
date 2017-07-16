@@ -56,7 +56,7 @@ namespace SmartAccess.Common.Datas
                 _allDepts = null;
                 Maticsoft.BLL.SMT_ORG_INFO bll = new Maticsoft.BLL.SMT_ORG_INFO();
 
-                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG) || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.DEPT_MGR))
+                if (UserInfoHelper.UserInfo.USER_NAME == "admin" || PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG))
                 {
                     log.Debug("管理员加载部门...");
                     _depts = bll.GetModelList("1=1 order by ORDER_VALUE");

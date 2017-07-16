@@ -38,7 +38,7 @@ namespace SmartAccess.VerInfoMgr
             Maticsoft.Model.SMT_ORG_INFO info = e.Node.Tag as Maticsoft.Model.SMT_ORG_INFO;
             if (info!=null)
             {
-                tbSelectDeptPath.Text = e.Node.FullPath;
+                tbSelectDeptPath.Text = e.Node.FullPath.Replace("<i><font color=\"#444444\">", "").Replace("</font></i>", "");
                 tbSelectDeptPath.Tag = info;
                 tbDeptNo.Text = info.ORG_CODE;
                 tbDeptName.Text = info.ORG_NAME;

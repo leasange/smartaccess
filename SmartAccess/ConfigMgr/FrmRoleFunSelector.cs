@@ -231,6 +231,8 @@ namespace SmartAccess.ConfigMgr
                 for (int i = 0; i < funs.Count; i++)
                 {
                     decimal? dec = funs[i].PAR_ID;
+                  
+
                     if (dec == null)
                     {
                         tree.Add(CreateNode(funs[i]));
@@ -276,6 +278,14 @@ namespace SmartAccess.ConfigMgr
             subAreas.ForEach(m => funs.Remove(m));
             foreach (var item in subAreas)
             {
+                SYS_FUN_POINT point;
+                if (Enum.TryParse<SYS_FUN_POINT>(item.FUN_CODE, out point))
+                {
+                    if (point == SYS_FUN_POINT.USER_PRIVATE_CONFIG)
+                    {
+                        continue;
+                    }
+                }
                 DevComponents.AdvTree.Node node = CreateNode(item);
                 GetSubTree(node, funs);
                 root.Nodes.Add(node);
@@ -317,7 +327,7 @@ namespace SmartAccess.ConfigMgr
                 try
                 {
                     Maticsoft.BLL.SMT_ROLE_FUN rolefunBll = new Maticsoft.BLL.SMT_ROLE_FUN();
-                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID+" and (ROLE_TYPE=1 or ROLE_TYPE is not null)");
+                    Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID+" and (ROLE_TYPE=1 or ROLE_TYPE is null)");
                     
                     if (funs.Count > 0)
                     {

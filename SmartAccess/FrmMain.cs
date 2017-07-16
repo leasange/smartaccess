@@ -495,6 +495,7 @@ namespace SmartAccess
                     FrmLogin.Login.Visible = true;
                     FrmLogin.Login.WindowState = FormWindowState.Normal;
                     FrmLogin.Login.BringToFront();
+                    FrmLogin.Login.Refresh();
                 }
                 catch (Exception ex)
                 {
