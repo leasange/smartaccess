@@ -555,6 +555,12 @@
     <Compile Include="VerInfoMgr\FrmPrivateCopy.Designer.cs">
       <DependentUpon>FrmPrivateCopy.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmRolesSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmRolesSelector.Designer.cs">
+      <DependentUpon>FrmRolesSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmSelectedUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -811,6 +817,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmPrivateCopy.resx">
       <DependentUpon>FrmPrivateCopy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmRolesSelector.resx">
+      <DependentUpon>FrmRolesSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmSelectedUser.resx">
       <DependentUpon>FrmSelectedUser.cs</DependentUpon>

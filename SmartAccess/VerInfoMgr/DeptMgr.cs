@@ -42,9 +42,11 @@ namespace SmartAccess.VerInfoMgr
                 tbSelectDeptPath.Tag = info;
                 tbDeptNo.Text = info.ORG_CODE;
                 tbDeptName.Text = info.ORG_NAME;
+                ShowRoles(info.ID);
                 ShowUsers(info.ID, info.ORG_NAME);
             }
         }
+
         private Maticsoft.Model.SMT_ORG_INFO GetSelectOrg()
         {
             if (this.deptTree.Tree.SelectedNodes.Count>0)
@@ -500,6 +502,41 @@ namespace SmartAccess.VerInfoMgr
             });
             waiting.Show(this);
         }
+
+        private void ShowRoles(decimal orgId)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                Maticsoft.BLL.SMT_ROLE_INFO roleBll = new Maticsoft.BLL.SMT_ROLE_INFO();
+                var roles= roleBll.GetModelList("ID IN (SELECT RF.ROLE_ID FROM SMT_ROLE_FUN RF WHERE RF.FUN_ID=" + orgId + " and RF.ROLE_TYPE=2)");
+                this.Invoke(new Action(() =>
+                {
+                    DoShowRolesToGrid(roles);
+                }));
+            });
+            waiting.Show(this);
+        }
+
+        private void DoShowRolesToGrid(List<Maticsoft.Model.SMT_ROLE_INFO> roles)
+        {
+            dgvRoleInfos.Rows.Clear();
+            if (dgvRoleInfos == null || roles.Count == 0)
+            {
+                return;
+            }
+            foreach (var item in roles)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(dgvRoleInfos,
+                    item.ROLE_NAME,
+                    item.ROLE_DESC,
+                    "删除"
+                    );
+                row.Tag = item;
+                dgvRoleInfos.Rows.Add(row);
+            }
+        }
+
         private void DoShowUsersToGrid(List<Maticsoft.Model.SMT_DEPT_USER> dus,string orgName)
         {
             dgvUsers.Rows.Clear();
@@ -619,6 +656,60 @@ namespace SmartAccess.VerInfoMgr
             if (e.RowIndex>=0&&e.ColumnIndex==3)
             {
                 DeletePrivateUsers(new List<DataGridViewRow>() {dgvUsers.Rows[e.RowIndex] });
+            }
+        }
+
+        private void btnSelectRole_Click(object sender, EventArgs e)
+        {
+            var orgInfo = GetSelectOrg();
+            if (orgInfo == null)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择一个节点！");
+                return;
+            }
+            List<decimal> ids = new List<decimal>();
+            foreach (DataGridViewRow row in dgvRoleInfos.Rows)
+            {
+                Maticsoft.Model.SMT_ROLE_INFO role = (Maticsoft.Model.SMT_ROLE_INFO)row.Tag;
+                ids.Add(role.ID);
+            }
+            FrmRolesSelector s = new FrmRolesSelector(ids,orgInfo.ID);
+            if (s.ShowDialog(this) == DialogResult.OK)
+            {
+                DoShowRolesToGrid(s.SelectRoles);
+            }
+        }
+
+        private void dgvRoleInfos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0&&e.ColumnIndex>=0)
+            {
+                if (dgvRoleInfos.Columns[e.ColumnIndex].Name=="ColDelete")
+                {
+                    if (MessageBox.Show("确定删除选择角色？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        var orgInfo = GetSelectOrg();
+                        Maticsoft.Model.SMT_ROLE_INFO role = (Maticsoft.Model.SMT_ROLE_INFO)dgvRoleInfos.Rows[e.RowIndex].Tag;
+
+                        CtrlWaiting waiting = new CtrlWaiting(() =>
+                        {
+                            try
+                            {
+                                Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN  where FUN_ID=" + orgInfo.ID + " and ROLE_TYPE=2 and ROLE_ID=" + role.ID);
+                                this.Invoke(new Action(() =>
+                                {
+                                    dgvRoleInfos.Rows.RemoveAt(e.RowIndex);
+                                }));
+                            }
+                            catch (System.Exception ex)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "删除角色异常：" + ex.Message);
+                                log.Error("删除角色异常", ex);
+                            }
+                        });
+                        waiting.Show(this);
+                    }
+                }
             }
         }
     }
