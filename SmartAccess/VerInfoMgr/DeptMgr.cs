@@ -51,9 +51,16 @@ namespace SmartAccess.VerInfoMgr
         {
             if (this.deptTree.Tree.SelectedNodes.Count>0)
             {
-                return this.deptTree.Tree.SelectedNodes[0].Tag as Maticsoft.Model.SMT_ORG_INFO;
+                DevComponents.AdvTree.Node node = this.deptTree.Tree.SelectedNodes[0];
+                if (node.Tag is Maticsoft.Model.SMT_ORG_INFO)
+                {
+                    if (node.DataKey == "1")
+                    {
+                        return this.deptTree.Tree.SelectedNodes[0].Tag as Maticsoft.Model.SMT_ORG_INFO;
+                    }
+                }
             }
-            else return null;
+            return null;
         }
         private List<Maticsoft.Model.SMT_ORG_INFO> GetSelectOrgs()
         {
@@ -664,7 +671,7 @@ namespace SmartAccess.VerInfoMgr
             var orgInfo = GetSelectOrg();
             if (orgInfo == null)
             {
-                WinInfoHelper.ShowInfoWindow(this, "请选择一个节点！");
+                WinInfoHelper.ShowInfoWindow(this, "请选择一个授权的节点！");
                 return;
             }
             List<decimal> ids = new List<decimal>();

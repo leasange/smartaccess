@@ -130,6 +130,7 @@ namespace SmartAccess.Common.Datas
             node.Tag = dept;
             node.Image = Properties.Resources.添加下级部门;
             node.Tooltip = dept.ORG_NAME + " [" + dept.ORG_CODE+"]";
+            node.DataKey = "1";
             if (parDepts!=null&&parDepts.Count > 0)
             {
                 if (parDepts.Contains(dept))
