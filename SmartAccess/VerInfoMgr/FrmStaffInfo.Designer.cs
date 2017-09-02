@@ -95,13 +95,14 @@
             this.btnClose = new DevComponents.DotNetBar.ButtonX();
             this.previewControl = new FastReport.Preview.PreviewControl();
             this.btnShow = new DevComponents.DotNetBar.ButtonX();
-            this.tbVerNo = new Li.Controls.VerTextBox();
             this.btnSelectPic = new DevComponents.DotNetBar.ButtonX();
             this.btnPrint = new DevComponents.DotNetBar.ButtonX();
             this.btnSetCard = new DevComponents.DotNetBar.ButtonX();
             this.btnEditor = new DevComponents.DotNetBar.ButtonX();
             this.labelX24 = new DevComponents.DotNetBar.LabelX();
             this.cbStaffType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.btnAutoCreate = new DevComponents.DotNetBar.ButtonX();
+            this.tbVerNo = new Li.Controls.VerTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -1142,22 +1143,6 @@
             this.btnShow.Text = "刷新显示";
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // tbVerNo
-            // 
-            // 
-            // 
-            // 
-            this.tbVerNo.BackgroundStyle.Class = "TextBoxBorder";
-            this.tbVerNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbVerNo.ButtonClear.Visible = true;
-            this.tbVerNo.Location = new System.Drawing.Point(93, 114);
-            this.tbVerNo.Name = "tbVerNo";
-            this.tbVerNo.Size = new System.Drawing.Size(211, 20);
-            this.tbVerNo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.tbVerNo.TabIndex = 30;
-            this.tbVerNo.Text = "";
-            this.tbVerNo.VerTextFormat = null;
-            // 
             // btnSelectPic
             // 
             this.btnSelectPic.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -1217,11 +1202,12 @@
             // 
             this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX24.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX24.ForeColor = System.Drawing.Color.Red;
             this.labelX24.Location = new System.Drawing.Point(12, 191);
             this.labelX24.Name = "labelX24";
             this.labelX24.Size = new System.Drawing.Size(75, 23);
             this.labelX24.TabIndex = 0;
-            this.labelX24.Text = "人员类别";
+            this.labelX24.Text = "*人员类别";
             this.labelX24.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // cbStaffType
@@ -1237,11 +1223,43 @@
             this.cbStaffType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbStaffType.TabIndex = 4;
             // 
+            // btnAutoCreate
+            // 
+            this.btnAutoCreate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAutoCreate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnAutoCreate.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAutoCreate.Location = new System.Drawing.Point(307, 115);
+            this.btnAutoCreate.Name = "btnAutoCreate";
+            this.btnAutoCreate.Size = new System.Drawing.Size(44, 19);
+            this.btnAutoCreate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAutoCreate.TabIndex = 33;
+            this.btnAutoCreate.Text = "生成";
+            this.btnAutoCreate.Visible = false;
+            this.btnAutoCreate.Click += new System.EventHandler(this.btnAutoCreate_Click);
+            // 
+            // tbVerNo
+            // 
+            // 
+            // 
+            // 
+            this.tbVerNo.BackgroundStyle.Class = "TextBoxBorder";
+            this.tbVerNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbVerNo.ButtonClear.Visible = true;
+            this.tbVerNo.IsShowDefault = true;
+            this.tbVerNo.Location = new System.Drawing.Point(93, 114);
+            this.tbVerNo.Name = "tbVerNo";
+            this.tbVerNo.Size = new System.Drawing.Size(211, 20);
+            this.tbVerNo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.tbVerNo.TabIndex = 30;
+            this.tbVerNo.Text = "";
+            this.tbVerNo.VerTextFormat = null;
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 637);
+            this.Controls.Add(this.btnAutoCreate);
             this.Controls.Add(this.btnSetCard);
             this.Controls.Add(this.btnEditor);
             this.Controls.Add(this.btnSelectPic);
@@ -1405,5 +1423,6 @@
         private DevComponents.DotNetBar.ButtonX btnEditor;
         private DevComponents.DotNetBar.LabelX labelX24;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbStaffType;
+        private DevComponents.DotNetBar.ButtonX btnAutoCreate;
     }
 }

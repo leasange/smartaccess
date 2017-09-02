@@ -36,6 +36,7 @@
             this.biDeleteStaff = new DevComponents.DotNetBar.ButtonItem();
             this.biReadCard = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteCard = new DevComponents.DotNetBar.ButtonItem();
+            this.biPublishCard = new DevComponents.DotNetBar.ButtonItem();
             this.biChangeCard = new DevComponents.DotNetBar.ButtonItem();
             this.biForbbiden = new DevComponents.DotNetBar.ButtonItem();
             this.biUnForbbiden = new DevComponents.DotNetBar.ButtonItem();
@@ -48,7 +49,6 @@
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.panelImage = new System.Windows.Forms.Panel();
             this.btnCloseImage = new DevComponents.DotNetBar.ButtonX();
             this.picImage = new System.Windows.Forms.PictureBox();
@@ -91,6 +91,7 @@
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +118,7 @@
             this.biDeleteStaff,
             this.biReadCard,
             this.biDeleteCard,
+            this.biPublishCard,
             this.biChangeCard,
             this.biForbbiden,
             this.biUnForbbiden,
@@ -130,7 +132,7 @@
             this.biDownloadModel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(1172, 29);
+            this.bar1.Size = new System.Drawing.Size(1208, 29);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 0;
@@ -169,12 +171,20 @@
             this.biDeleteCard.Text = "销卡";
             this.biDeleteCard.Click += new System.EventHandler(this.biDeleteCard_Click);
             // 
+            // biPublishCard
+            // 
+            this.biPublishCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biPublishCard.Image = global::SmartAccess.Properties.Resources.换卡;
+            this.biPublishCard.Name = "biPublishCard";
+            this.biPublishCard.Text = "发卡";
+            this.biPublishCard.Click += new System.EventHandler(this.biPublishCard_Click);
+            // 
             // biChangeCard
             // 
             this.biChangeCard.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biChangeCard.Image = global::SmartAccess.Properties.Resources.换卡;
             this.biChangeCard.Name = "biChangeCard";
-            this.biChangeCard.Text = "换卡/发卡";
+            this.biChangeCard.Text = "换卡";
             this.biChangeCard.Click += new System.EventHandler(this.biChangeCard_Click);
             // 
             // biForbbiden
@@ -278,17 +288,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.bar3);
             this.splitContainer1.Panel2.Controls.Add(this.bar2);
-            this.splitContainer1.Size = new System.Drawing.Size(1172, 480);
+            this.splitContainer1.Size = new System.Drawing.Size(1208, 480);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 291);
-            this.deptTree.TabIndex = 0;
             // 
             // panelImage
             // 
@@ -336,7 +338,7 @@
             this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
             this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(940, 393);
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(976, 393);
             this.pageDataGridView.DataGridPanel.TabIndex = 1;
             this.pageDataGridView.DataGridView = this.dgvStaffs;
             this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -351,13 +353,13 @@
             this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 393);
             this.pageDataGridView.PageControl.Name = "PageControl";
             this.pageDataGridView.PageControl.RecordsPerPage = 100;
-            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(940, 32);
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(976, 32);
             this.pageDataGridView.PageControl.TabIndex = 0;
             this.pageDataGridView.PageControl.TotalRecords = 0;
             this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
             this.pageDataGridView.PageControl.ExportCurrent += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportCurrent);
             this.pageDataGridView.PageControl.ExportAll += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_ExportAll);
-            this.pageDataGridView.Size = new System.Drawing.Size(940, 425);
+            this.pageDataGridView.Size = new System.Drawing.Size(976, 425);
             this.pageDataGridView.SqlWhere = null;
             this.pageDataGridView.TabIndex = 3;
             // 
@@ -411,7 +413,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStaffs.RowTemplate.Height = 23;
-            this.dgvStaffs.Size = new System.Drawing.Size(940, 393);
+            this.dgvStaffs.Size = new System.Drawing.Size(976, 393);
             this.dgvStaffs.TabIndex = 0;
             this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
             // 
@@ -529,7 +531,7 @@
             this.cbHasNoDoor});
             this.bar3.Location = new System.Drawing.Point(0, 29);
             this.bar3.Name = "bar3";
-            this.bar3.Size = new System.Drawing.Size(940, 26);
+            this.bar3.Size = new System.Drawing.Size(976, 26);
             this.bar3.Stretch = true;
             this.bar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar3.TabIndex = 2;
@@ -593,7 +595,7 @@
             this.biClear});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.Name = "bar2";
-            this.bar2.Size = new System.Drawing.Size(940, 29);
+            this.bar2.Size = new System.Drawing.Size(976, 29);
             this.bar2.Stretch = true;
             this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar2.TabIndex = 1;
@@ -737,6 +739,15 @@
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
             // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 291);
+            this.deptTree.TabIndex = 0;
+            // 
             // StaffInfoMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -744,7 +755,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.bar1);
             this.Name = "StaffInfoMgr";
-            this.Size = new System.Drawing.Size(1172, 509);
+            this.Size = new System.Drawing.Size(1208, 509);
             this.Load += new System.EventHandler(this.StaffInfoMgr_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -771,7 +782,7 @@
         private DevComponents.DotNetBar.ButtonItem biReadCard;
         private DevComponents.DotNetBar.ButtonItem biDeleteStaff;
         private DevComponents.DotNetBar.ButtonItem biDeleteCard;
-        private DevComponents.DotNetBar.ButtonItem biChangeCard;
+        private DevComponents.DotNetBar.ButtonItem biPublishCard;
         private DevComponents.DotNetBar.ButtonItem biForbbiden;
         private DevComponents.DotNetBar.ButtonItem biUnForbbiden;
         private DevComponents.DotNetBar.ButtonItem biExportPhoto;
@@ -826,5 +837,6 @@
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.Panel panelImage;
         private DevComponents.DotNetBar.ButtonX btnCloseImage;
+        private DevComponents.DotNetBar.ButtonItem biChangeCard;
     }
 }

@@ -29,38 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiAddSubDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCobine = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
-            this.btnDeleteSelected = new DevComponents.DotNetBar.ButtonX();
-            this.btnAddPrivate = new DevComponents.DotNetBar.ButtonX();
-            this.dgvUsers = new Li.Controls.DataGridViewEx();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new Li.Controls.DataGridViewLinkLabelColumn();
-            this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.tbDeptNo = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX6 = new DevComponents.DotNetBar.LabelX();
-            this.dgvRoleInfos = new Li.Controls.DataGridViewEx();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.btnSelectRole = new DevComponents.DotNetBar.ButtonX();
             this.biRefreshDept = new DevComponents.DotNetBar.ButtonItem();
             this.biAddDept = new DevComponents.DotNetBar.ButtonItem();
             this.biAddSubDept = new DevComponents.DotNetBar.ButtonItem();
@@ -73,15 +48,39 @@
             this.biDownloadDeptModel = new DevComponents.DotNetBar.ButtonItem();
             this.biInput = new DevComponents.DotNetBar.ButtonItem();
             this.biOutput = new DevComponents.DotNetBar.ButtonItem();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
+            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiAddSubDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiModifyDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMoveDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCobine = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteCurrent = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
+            this.btnSelectRole = new DevComponents.DotNetBar.ButtonX();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.btnDeleteSelected = new DevComponents.DotNetBar.ButtonX();
+            this.btnAddPrivate = new DevComponents.DotNetBar.ButtonX();
+            this.tbDeptName = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.labelX4 = new DevComponents.DotNetBar.LabelX();
+            this.tbDeptNo = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
+            this.tbSelectDeptPath = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
+            this.dgvRoleInfos = new Li.Controls.DataGridViewEx();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColDelete = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.dgvUsers = new Li.Controls.DataGridViewEx();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.ctxMenu.SuspendLayout();
             this.panelEx2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoleInfos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // bar1
@@ -108,6 +107,106 @@
             this.bar1.TabIndex = 2;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // biRefreshDept
+            // 
+            this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biRefreshDept.Image = global::SmartAccess.Properties.Resources.刷新;
+            this.biRefreshDept.Name = "biRefreshDept";
+            this.biRefreshDept.Text = "刷新";
+            this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
+            // 
+            // biAddDept
+            // 
+            this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddDept.Image = global::SmartAccess.Properties.Resources.增加部门;
+            this.biAddDept.Name = "biAddDept";
+            this.biAddDept.Text = "添加根级或同级部门";
+            this.biAddDept.Tooltip = "添加根级或同级部门";
+            this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
+            // 
+            // biAddSubDept
+            // 
+            this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddSubDept.Image = global::SmartAccess.Properties.Resources.添加下级部门;
+            this.biAddSubDept.Name = "biAddSubDept";
+            this.biAddSubDept.Text = "添加下级部门";
+            this.biAddSubDept.Tooltip = "添加下级部门";
+            this.biAddSubDept.Click += new System.EventHandler(this.biAddSubDept_Click);
+            // 
+            // biModifyDept
+            // 
+            this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biModifyDept.Image = global::SmartAccess.Properties.Resources.修改部门;
+            this.biModifyDept.Name = "biModifyDept";
+            this.biModifyDept.Text = "修改部门";
+            this.biModifyDept.Tooltip = "修改选择部门";
+            this.biModifyDept.Click += new System.EventHandler(this.biModifyDept_Click);
+            // 
+            // biDeleteDept
+            // 
+            this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDeleteDept.Image = global::SmartAccess.Properties.Resources.删除;
+            this.biDeleteDept.Name = "biDeleteDept";
+            this.biDeleteDept.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biDeleteCurrent,
+            this.biDeleteAllDept});
+            this.biDeleteDept.Text = "删除部门";
+            this.biDeleteDept.Tooltip = "删除选择部门";
+            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click_1);
+            // 
+            // biDeleteCurrent
+            // 
+            this.biDeleteCurrent.Name = "biDeleteCurrent";
+            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
+            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
+            // 
+            // biDeleteAllDept
+            // 
+            this.biDeleteAllDept.Name = "biDeleteAllDept";
+            this.biDeleteAllDept.Text = "批量删除部门(包括下级)";
+            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
+            // 
+            // biMoveDept
+            // 
+            this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biMoveDept.Image = global::SmartAccess.Properties.Resources.移动部门;
+            this.biMoveDept.Name = "biMoveDept";
+            this.biMoveDept.Text = "移动部门";
+            this.biMoveDept.Click += new System.EventHandler(this.biMoveDept_Click);
+            // 
+            // biCombine
+            // 
+            this.biCombine.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCombine.Image = global::SmartAccess.Properties.Resources.添加下级部门;
+            this.biCombine.Name = "biCombine";
+            this.biCombine.Text = "合并部门";
+            this.biCombine.Tooltip = "合并部门";
+            this.biCombine.Click += new System.EventHandler(this.biCombine_Click);
+            // 
+            // biDownloadDeptModel
+            // 
+            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDownloadDeptModel.Image = global::SmartAccess.Properties.Resources.模板下载;
+            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
+            this.biDownloadDeptModel.Text = "模板下载";
+            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
+            // 
+            // biInput
+            // 
+            this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
+            this.biInput.Name = "biInput";
+            this.biInput.Text = "导入部门";
+            this.biInput.Click += new System.EventHandler(this.biInput_Click);
+            // 
+            // biOutput
+            // 
+            this.biOutput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOutput.Image = global::SmartAccess.Properties.Resources.导出;
+            this.biOutput.Name = "biOutput";
+            this.biOutput.Text = "导出所有部门";
+            this.biOutput.Click += new System.EventHandler(this.biOutput_Click);
             // 
             // ctxMenu
             // 
@@ -194,6 +293,32 @@
             this.panelEx2.Style.GradientAngle = 90;
             this.panelEx2.TabIndex = 7;
             // 
+            // btnSelectRole
+            // 
+            this.btnSelectRole.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSelectRole.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSelectRole.Location = new System.Drawing.Point(94, 86);
+            this.btnSelectRole.Name = "btnSelectRole";
+            this.btnSelectRole.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectRole.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSelectRole.TabIndex = 7;
+            this.btnSelectRole.Text = "选择";
+            this.btnSelectRole.Click += new System.EventHandler(this.btnSelectRole_Click);
+            // 
+            // labelX2
+            // 
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX2.Location = new System.Drawing.Point(20, 86);
+            this.labelX2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(85, 23);
+            this.labelX2.TabIndex = 6;
+            this.labelX2.Text = "所属角色";
+            // 
             // btnDeleteSelected
             // 
             this.btnDeleteSelected.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -204,6 +329,7 @@
             this.btnDeleteSelected.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnDeleteSelected.TabIndex = 4;
             this.btnDeleteSelected.Text = "删除选择";
+            this.btnDeleteSelected.Visible = false;
             this.btnDeleteSelected.Click += new System.EventHandler(this.btnDeleteSelected_Click);
             // 
             // btnAddPrivate
@@ -216,81 +342,8 @@
             this.btnAddPrivate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAddPrivate.TabIndex = 3;
             this.btnAddPrivate.Text = "添加/修改";
+            this.btnAddPrivate.Visible = false;
             this.btnAddPrivate.Click += new System.EventHandler(this.btnAddPrivate_Click);
-            // 
-            // dgvUsers
-            // 
-            this.dgvUsers.AllowUserToAddRows = false;
-            this.dgvUsers.AllowUserToDeleteRows = false;
-            this.dgvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column3,
-            this.Column1,
-            this.Column2,
-            this.Column4});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvUsers.EnableHeadersVisualStyles = false;
-            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
-            this.dgvUsers.Location = new System.Drawing.Point(20, 358);
-            this.dgvUsers.Name = "dgvUsers";
-            this.dgvUsers.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvUsers.RowTemplate.Height = 23;
-            this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.Size = new System.Drawing.Size(740, 85);
-            this.dgvUsers.TabIndex = 2;
-            this.dgvUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellContentClick);
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "用户名";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "姓名";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "所属部门";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "操作";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.SplitLinkSymbol = ",";
             // 
             // tbDeptName
             // 
@@ -435,143 +488,8 @@
             this.dgvRoleInfos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRoleInfos.Size = new System.Drawing.Size(740, 214);
             this.dgvRoleInfos.TabIndex = 5;
+            this.dgvRoleInfos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoleInfos_CellClick);
             this.dgvRoleInfos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoleInfos_CellContentClick);
-            // 
-            // labelX2
-            // 
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(20, 86);
-            this.labelX2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(85, 23);
-            this.labelX2.TabIndex = 6;
-            this.labelX2.Text = "所属角色";
-            // 
-            // btnSelectRole
-            // 
-            this.btnSelectRole.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSelectRole.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSelectRole.Location = new System.Drawing.Point(94, 86);
-            this.btnSelectRole.Name = "btnSelectRole";
-            this.btnSelectRole.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectRole.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSelectRole.TabIndex = 7;
-            this.btnSelectRole.Text = "选择";
-            this.btnSelectRole.Click += new System.EventHandler(this.btnSelectRole_Click);
-            // 
-            // biRefreshDept
-            // 
-            this.biRefreshDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biRefreshDept.Image = global::SmartAccess.Properties.Resources.刷新;
-            this.biRefreshDept.Name = "biRefreshDept";
-            this.biRefreshDept.Text = "刷新";
-            this.biRefreshDept.Click += new System.EventHandler(this.biRefreshDept_Click);
-            // 
-            // biAddDept
-            // 
-            this.biAddDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddDept.Image = global::SmartAccess.Properties.Resources.增加部门;
-            this.biAddDept.Name = "biAddDept";
-            this.biAddDept.Text = "添加根级或同级部门";
-            this.biAddDept.Tooltip = "添加根级或同级部门";
-            this.biAddDept.Click += new System.EventHandler(this.biAddDept_Click);
-            // 
-            // biAddSubDept
-            // 
-            this.biAddSubDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddSubDept.Image = global::SmartAccess.Properties.Resources.添加下级部门;
-            this.biAddSubDept.Name = "biAddSubDept";
-            this.biAddSubDept.Text = "添加下级部门";
-            this.biAddSubDept.Tooltip = "添加下级部门";
-            this.biAddSubDept.Click += new System.EventHandler(this.biAddSubDept_Click);
-            // 
-            // biModifyDept
-            // 
-            this.biModifyDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biModifyDept.Image = global::SmartAccess.Properties.Resources.修改部门;
-            this.biModifyDept.Name = "biModifyDept";
-            this.biModifyDept.Text = "修改部门";
-            this.biModifyDept.Tooltip = "修改选择部门";
-            this.biModifyDept.Click += new System.EventHandler(this.biModifyDept_Click);
-            // 
-            // biDeleteDept
-            // 
-            this.biDeleteDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDeleteDept.Image = global::SmartAccess.Properties.Resources.删除;
-            this.biDeleteDept.Name = "biDeleteDept";
-            this.biDeleteDept.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biDeleteCurrent,
-            this.biDeleteAllDept});
-            this.biDeleteDept.Text = "删除部门";
-            this.biDeleteDept.Tooltip = "删除选择部门";
-            this.biDeleteDept.Click += new System.EventHandler(this.biDeleteDept_Click_1);
-            // 
-            // biDeleteCurrent
-            // 
-            this.biDeleteCurrent.Name = "biDeleteCurrent";
-            this.biDeleteCurrent.Text = "删除部门(不包括下级)";
-            this.biDeleteCurrent.Click += new System.EventHandler(this.biDeleteCurrent_Click);
-            // 
-            // biDeleteAllDept
-            // 
-            this.biDeleteAllDept.Name = "biDeleteAllDept";
-            this.biDeleteAllDept.Text = "批量删除部门(包括下级)";
-            this.biDeleteAllDept.Click += new System.EventHandler(this.biDeleteDept_Click);
-            // 
-            // biMoveDept
-            // 
-            this.biMoveDept.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biMoveDept.Image = global::SmartAccess.Properties.Resources.移动部门;
-            this.biMoveDept.Name = "biMoveDept";
-            this.biMoveDept.Text = "移动部门";
-            this.biMoveDept.Click += new System.EventHandler(this.biMoveDept_Click);
-            // 
-            // biCombine
-            // 
-            this.biCombine.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCombine.Image = global::SmartAccess.Properties.Resources.添加下级部门;
-            this.biCombine.Name = "biCombine";
-            this.biCombine.Text = "合并部门";
-            this.biCombine.Tooltip = "合并部门";
-            this.biCombine.Click += new System.EventHandler(this.biCombine_Click);
-            // 
-            // biDownloadDeptModel
-            // 
-            this.biDownloadDeptModel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDownloadDeptModel.Image = global::SmartAccess.Properties.Resources.模板下载;
-            this.biDownloadDeptModel.Name = "biDownloadDeptModel";
-            this.biDownloadDeptModel.Text = "模板下载";
-            this.biDownloadDeptModel.Click += new System.EventHandler(this.biDownloadDeptModel_Click);
-            // 
-            // biInput
-            // 
-            this.biInput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biInput.Image = global::SmartAccess.Properties.Resources.导入;
-            this.biInput.Name = "biInput";
-            this.biInput.Text = "导入部门";
-            this.biInput.Click += new System.EventHandler(this.biInput_Click);
-            // 
-            // biOutput
-            // 
-            this.biOutput.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOutput.Image = global::SmartAccess.Properties.Resources.导出;
-            this.biOutput.Name = "biOutput";
-            this.biOutput.Text = "导出所有部门";
-            this.biOutput.Click += new System.EventHandler(this.biOutput_Click);
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Left;
-            this.deptTree.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.deptTree.Location = new System.Drawing.Point(0, 29);
-            this.deptTree.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(249, 446);
-            this.deptTree.TabIndex = 6;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -592,6 +510,82 @@
             this.ColDelete.ReadOnly = true;
             this.ColDelete.SplitLinkSymbol = ",";
             // 
+            // dgvUsers
+            // 
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column3,
+            this.Column1,
+            this.Column2});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvUsers.EnableHeadersVisualStyles = false;
+            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvUsers.Location = new System.Drawing.Point(20, 358);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvUsers.RowTemplate.Height = 23;
+            this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvUsers.Size = new System.Drawing.Size(740, 85);
+            this.dgvUsers.TabIndex = 2;
+            this.dgvUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellContentClick);
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "用户名";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "姓名";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "所属部门";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Left;
+            this.deptTree.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.deptTree.Location = new System.Drawing.Point(0, 29);
+            this.deptTree.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(249, 446);
+            this.deptTree.TabIndex = 6;
+            // 
             // DeptMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -606,8 +600,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.ctxMenu.ResumeLayout(false);
             this.panelEx2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoleInfos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -645,10 +639,6 @@
         private DevComponents.DotNetBar.ButtonItem biDeleteCurrent;
         private DevComponents.DotNetBar.ButtonItem biDeleteAllDept;
         private DevComponents.DotNetBar.ButtonX btnAddPrivate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private Li.Controls.DataGridViewLinkLabelColumn Column4;
         private DevComponents.DotNetBar.ButtonX btnDeleteSelected;
         private Li.Controls.DataGridViewEx dgvRoleInfos;
         private DevComponents.DotNetBar.LabelX labelX2;
@@ -656,6 +646,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private Li.Controls.DataGridViewLinkLabelColumn ColDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
 
     }
 }

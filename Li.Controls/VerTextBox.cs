@@ -14,6 +14,19 @@ namespace Li.Controls
     {
         private string _verTextFormat = null;
         private string _defaultText = "";
+        private bool _isShowDefault = false;
+        public bool IsShowDefault
+        {
+            get { return _isShowDefault; }
+            set
+            { 
+                _isShowDefault = value;
+                if (_isShowDefault)
+                {
+                    this.Text = _defaultText;
+                }
+            }
+        }
         public string DefaultText
         {
             get { return _defaultText; }
@@ -90,8 +103,13 @@ namespace Li.Controls
                     {
                         this.Text = def;
                     }
+                    _defaultText = def;
+                    if (_isShowDefault)
+                    {
+                        this.Text = _defaultText;
+                    }
                     this.Mask = mask;
-                    _defaultText = def; 
+
                 }
             }
         }

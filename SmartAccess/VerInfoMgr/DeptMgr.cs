@@ -557,13 +557,33 @@ namespace SmartAccess.VerInfoMgr
                 row.CreateCells(dgvUsers,
                     item.USER_INFO.USER_NAME,
                     item.USER_INFO.REAL_NAME,
-                    orgName,
-                    "删除"
+                    orgName
                     );
                 row.Tag = item;
                 dgvUsers.Rows.Add(row);
             }
         }
+
+         private void DoShowUsersToGrid2(List<Maticsoft.Model.SMT_USER_INFO> users)
+        {
+            dgvUsers.Rows.Clear();
+            if (users == null || users.Count == 0)
+            {
+                return;
+            }
+            foreach (var item in users)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(dgvUsers,
+                    item.USER_NAME,
+                    item.REAL_NAME,
+                    item.DEPT_NAME
+                    );
+                row.Tag = item;
+                dgvUsers.Rows.Add(row);
+            }
+        }
+
 
         private void btnAddPrivate_Click(object sender, EventArgs e)
         {
@@ -716,6 +736,35 @@ namespace SmartAccess.VerInfoMgr
                         });
                         waiting.Show(this);
                     }
+                }
+            }
+        }
+
+        private void dgvRoleInfos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (dgvRoleInfos.Columns[e.ColumnIndex].Name != "ColDelete")
+                {
+                    Maticsoft.Model.SMT_ROLE_INFO role = (Maticsoft.Model.SMT_ROLE_INFO)dgvRoleInfos.Rows[e.RowIndex].Tag;
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        try
+                        {
+                            Maticsoft.BLL.SMT_USER_INFO userBll = new Maticsoft.BLL.SMT_USER_INFO();
+                            var list = userBll.GetModelListByPageEx("ROLE_ID=" + role.ID + " and IS_DELETE=0 and IS_ENABLE=1", "USER_NAME", 0, 100);
+                            this.Invoke(new Action(() =>
+                            {
+                                DoShowUsersToGrid2(list);
+                            }));
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "加载权限操作人错误：" + ex.Message);
+                            log.Error("加载权限操作人错误：", ex);
+                        }
+                    });
+                    waiting.Show(dgvRoleInfos);
                 }
             }
         }

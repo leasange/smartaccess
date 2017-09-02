@@ -592,6 +592,20 @@ namespace SmartAccess.VerInfoMgr
                                         cbStaffType.SelectedItem = ci;
                                     }
                                 }
+                                else
+                                {
+                                    if (item.DATA_NAME=="内部员工")
+                                    {
+                                        cbStaffType.SelectedItem = ci;
+                                    }
+                                }
+                                if (cbStaffType.SelectedIndex==-1)
+                                {
+                                    if (cbStaffType.Items.Count>0)
+                                    {
+                                        cbStaffType.SelectedIndex = 0;
+                                    }
+                                }
                             }
                         }));
                     }
@@ -995,6 +1009,8 @@ namespace SmartAccess.VerInfoMgr
                 Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
                 tbVerNo.VerTextFormat = verModel.VER_FORMAT;
                 lastTempId = verModel.ID;
+
+                DoCreateNo();
             }
         }
 
@@ -1016,6 +1032,121 @@ namespace SmartAccess.VerInfoMgr
                 picPhoto.Image = bitmap;
                 HasChanged = true;
             }
+        }
+
+        private void DoCreateNo()
+        {
+            if (cboVerTypeStyle.SelectedItem != null && cboVerTypeStyle.SelectedIndex > 0)
+            {
+                var fmt = (Maticsoft.Model.SMT_VER_FORMAT)(((ComboItem)(cboVerTypeStyle.SelectedItem)).Tag);
+
+                string str = fmt.VER_FORMAT;
+                int index = -1;
+                for (int i = str.Length - 3; i >= 0; i -= 3)
+                {
+                    string temp = str.Substring(i, 3);
+                    if (temp == "[0]" || temp == "[n]" || temp == "[N]")
+                    {
+                        index = i;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (index == -1)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "请选择尾部为数字类型的编码格式！");
+                    return;
+                }
+
+                int cnt = (str.Length - index) / 3;
+
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    try
+                    {
+                        var dt = Maticsoft.DBUtility.DbHelperSQL.Query("select STAFF_NO from SMT_STAFF_INFO where STAFF_NO_TEMPLET=" + fmt.ID).Tables[0];
+                        List<string> nos = new List<string>();
+                        List<decimal> decs = new List<decimal>();
+                        foreach (DataRow r in dt.Rows)
+                        {
+                            if (r[0] == null)
+                            {
+                                continue;
+                            }
+                            string s = Convert.ToString(r[0]);
+                            if (string.IsNullOrWhiteSpace(str))
+                            {
+                                continue;
+                            }
+                            decimal result;
+                            if (decimal.TryParse(s.Substring(s.Length - cnt), out result))
+                            {
+                                nos.Add(s);
+                                decs.Add(result);
+                            }
+                        }
+                        decimal d = -1;
+                        if (decs.Count == 0)
+                        {
+                            return;
+                            d = 1;
+                        }
+                        else
+                        {
+                            decimal min = decs.Min();
+                            decimal max = decs.Max();
+
+                            for (decimal i = min + 1; i < max; i++)
+                            {
+                                if (!decs.Contains(i))
+                                {
+                                    d = i;
+                                    break;
+                                }
+                            }
+                            if (d == -1)
+                            {
+                                d = max + 1;
+                            }
+                        }
+                        string ss = "";
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            ss += "0";
+                        }
+                        var nums = d.ToString(ss);
+                        //var nums=  string.Format("{0:D"+cnt+"}", d);
+                        string tno = nums;
+                        if (nos.Count > 0)
+                        {
+                            tno = nos[0].Substring(0, nos[0].Length - cnt) + nums;
+                        }
+                        this.Invoke(new Action(() =>
+                        {
+                            tbVerNo.Text = tno;
+                        }));
+                    }
+                    catch (System.Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "生成编号异常：" + ex.Message);
+                    }
+
+                });
+                waiting.Show(this);
+
+            }
+            else
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择尾部为数字类型的编码格式！");
+                return;
+            }
+        }
+
+        private void btnAutoCreate_Click(object sender, EventArgs e)
+        {
+            DoCreateNo();
         }
     }
 }
