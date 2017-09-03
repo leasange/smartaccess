@@ -688,12 +688,17 @@ namespace SmartAccess.VerInfoMgr
 
                     if (!isonlypublish)//换卡，先删除所有卡片
                     {
-                        string errMsg;
-                        bool ret = InternalDeleteCard(staffInfo, out errMsg);
-                        if (!ret)
-                        {
-                            WinInfoHelper.ShowInfoWindow(this, "删除授权的卡片异常：" + errMsg);
-                        }
+                        System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback((o) =>
+                            {
+                                string errMsg;
+                                bool ret = InternalDeleteCard(staffInfo, out errMsg);
+                                if (!ret)
+                                {
+                                    WinInfoHelper.ShowInfoWindow(this, "删除授权的卡片异常：" + errMsg);
+                                }
+                                FrmDetailInfo.Close();
+                            }));
+                        System.Threading.Thread.Sleep(200);
                     }
                     string num;
                     string wgNum;
