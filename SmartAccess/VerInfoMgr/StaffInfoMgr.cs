@@ -1146,6 +1146,7 @@ namespace SmartAccess.VerInfoMgr
             DataTable dt = new DataTable();
             dt.Columns.Add("部门编码");
             dt.Columns.Add("部门名称");
+            dt.Columns.Add("编码格式");
             dt.Columns.Add("证件编号");
             dt.Columns.Add("姓名");
             dt.Columns.Add("性别");
@@ -1177,12 +1178,21 @@ namespace SmartAccess.VerInfoMgr
         private void DoExport(List<Maticsoft.Model.SMT_STAFF_INFO> staffs,bool ismodel=false)
         {
             DataTable dt = CreateStaffTable();
-
+            Maticsoft.BLL.SMT_VER_FORMAT formatbll = new Maticsoft.BLL.SMT_VER_FORMAT();
+            var list= formatbll.GetModelList("");
             foreach (var item in staffs)
             {
                 DataRow dr = dt.NewRow();
                 dr["部门编码"] = item.ORG_CODE;
                 dr["部门名称"] = item.ORG_NAME;
+                if (item.STAFF_NO_TEMPLET!=null)
+                {
+                   var format= list.Find(m => m.ID == (decimal)item.STAFF_NO_TEMPLET);
+                   if (format!=null)
+                   {
+                       dr["编码格式"] = format.VER_NAME;
+                   }
+                }
                 dr["证件编号"] = item.STAFF_NO;
                 dr["姓名"] = item.REAL_NAME;
                 int isex = item.SEX == null ? 0 : (int)item.SEX;
@@ -1377,7 +1387,9 @@ namespace SmartAccess.VerInfoMgr
                     FrmDetailInfo.Show(false);
                     FrmDetailInfo.AddOneMsg("开始导入...");
                     int count = 0;
-                    ImportHelper2.Import(ofd.FileName, 2, 1, 28, new ImportDataHandle((target,iserror,row,error) =>
+                    Maticsoft.BLL.SMT_VER_FORMAT formatbll = new Maticsoft.BLL.SMT_VER_FORMAT();
+                    var list = formatbll.GetModelList("");
+                    ImportHelper2.Import(ofd.FileName, 2, 1, 29, new ImportDataHandle((target,iserror,row,error) =>
                     {
                         if (iserror)
                         {
@@ -1528,6 +1540,17 @@ namespace SmartAccess.VerInfoMgr
                                 staffInfo.SEX = 2;
                             else staffInfo.SEX = 0;
                             staffInfo.SKIIL_LEVEL = GetNotNullString(dr["技术等级"]);
+                            
+                            var str11 = GetNotNullString(dr["编码格式"]);
+                            if (!string.IsNullOrWhiteSpace(str11))
+                            {
+                                var format = list.Find(m => m.VER_NAME == str11);
+                                if (format != null)
+                                {
+                                    staffInfo.STAFF_NO_TEMPLET = format.ID;
+                                }
+                            }
+
                             staffInfo.STAFF_NO = GetNotNullString(dr["证件编号"]);
                             staffInfo.TELE_PHONE = GetNotNullString(dr["办公电话"]);
                             staffInfo.VALID_ENDTIME = GetDateTime(dr["有效结束时间"], DateTime.MaxValue);
@@ -1552,18 +1575,27 @@ namespace SmartAccess.VerInfoMgr
                             staffInfo.ID = staffBll.Add(staffInfo);
 
                             string cardNos = GetNotNullString(dr["卡号"]);
+                            log.Info("卡号为：" + cardNos);
                             if (!string.IsNullOrWhiteSpace(cardNos))
                             {
                                 try
                                 {
                                     Maticsoft.BLL.SMT_CARD_INFO cardbll = new Maticsoft.BLL.SMT_CARD_INFO();
                                     cardNos = cardNos.TrimEnd(' ', ',');
-                                    var cards = cardbll.GetModelList("CARD_NO in (" + cardNos + "'");
                                     string[] nos = cardNos.Split(',');
+                                    string str = "";
                                     foreach (var no in nos)
                                     {
+                                        str += "'" + no + "',";
+                                    }
+                                    var cards = cardbll.GetModelList("CARD_NO in (" + str.TrimEnd(',') + ")");
+                                    
+                                    foreach (var no in nos)
+                                    {
+                                        log.InfoFormat("导入卡号：{0}", no);
                                         if (!cards.Exists(m=>m.CARD_NO==no))
                                         {
+                                            log.InfoFormat("导入卡号1：{0}", no);
                                             Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
                                             cardInfo.CARD_NO = no;
                                             cardInfo.CARD_TYPE = 0;
