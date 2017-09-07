@@ -81,7 +81,25 @@ namespace SmartAccess.VerInfoMgr
                     try
                     {
                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                        var staffInfos = staffBll.GetModelList("ORG_ID=" + orgInfo.ID + " and IS_DELETE=0  and ID !=" + _staffInfo.ID);
+                        string strWhere = "ORG_ID=" + orgInfo.ID;
+                        if (orgInfo.ID==-1)
+                        {
+                            strWhere += " or ORG_ID is null";
+                        }
+                        var staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0  and ID !=" + _staffInfo.ID);
+
+                        if (orgInfo.ID != -1)
+                        {
+                            Maticsoft.BLL.SMT_ORG_INFO orgBll = new Maticsoft.BLL.SMT_ORG_INFO();
+                            var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
+                            foreach (var org in orgS)
+                            {
+                                var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0  and ID !=" + _staffInfo.ID);
+                                staffInfos.AddRange(subInfos);
+                            }
+                        }
+                      
+
                         this.Invoke(new Action(() =>
                         {
                             DoShowInfos(staffInfos);
@@ -134,6 +152,10 @@ namespace SmartAccess.VerInfoMgr
                 dgvrs.Add(dgvStaffs.Rows[0]);
                 dgvStaffs.Rows.RemoveAt(0);
             }
+            if (dgvrs.Count==0)
+            {
+                return;
+            }
             dgvSelected.Rows.AddRange(dgvrs.ToArray());
         }
 
@@ -180,6 +202,10 @@ namespace SmartAccess.VerInfoMgr
             {
                 dgvrs.Add(dgvSelected.Rows[0]);
                 dgvSelected.Rows.RemoveAt(0);
+            }
+            if (dgvrs.Count==0)
+            {
+                return;
             }
             dgvStaffs.Rows.AddRange(dgvrs.ToArray());
         }

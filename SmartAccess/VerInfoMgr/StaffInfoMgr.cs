@@ -613,13 +613,13 @@ namespace SmartAccess.VerInfoMgr
             });
             ctrlwaiting.Show(this);
         }
-        private bool InternalDeleteCard(Maticsoft.Model.SMT_STAFF_INFO staffInfo, out string errMsg)
+        private bool InternalDeleteCard(Maticsoft.Model.SMT_STAFF_INFO staffInfo, out string errMsg, bool isShowDetail=true)
         {
             Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
             staffInfo.DELETE_CARD = true;
             try
             {
-                bool ret = UploadPrivate.Upload(staffInfo, out errMsg);
+                bool ret = UploadPrivate.Upload(staffInfo, out errMsg, isShowDetail:isShowDetail);
                 if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                 {
                     staffInfo.DELETE_CARD = false;
@@ -691,7 +691,7 @@ namespace SmartAccess.VerInfoMgr
                         System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback((o) =>
                             {
                                 string errMsg;
-                                bool ret = InternalDeleteCard(staffInfo, out errMsg);
+                                bool ret = InternalDeleteCard(staffInfo, out errMsg,false);
                                 if (!ret)
                                 {
                                     WinInfoHelper.ShowInfoWindow(this, "删除授权的卡片异常：" + errMsg);
@@ -983,13 +983,13 @@ namespace SmartAccess.VerInfoMgr
                         {
                             using (Image image = Image.FromStream(ms))
                             {
-                                string filename = item.REAL_NAME   + ".png";
+                                string filename = item.REAL_NAME + ".jpg";
                                 if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
                                 {
-                                    filename=item.REAL_NAME + "_" + item.STAFF_NO + ".png";
+                                    filename=item.REAL_NAME + "_" + item.STAFF_NO + ".jpg";
                                 }
                                 string file = Path.Combine(folderBrowser.SelectedPath, filename);
-                                image.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                                image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
                             }
                         }
                     }
@@ -1311,13 +1311,13 @@ namespace SmartAccess.VerInfoMgr
                                 {
                                     MemoryStream ms = new MemoryStream(item.PHOTO);
                                     Image image = Image.FromStream(ms);
-                                    string filename = item.REAL_NAME + ".png";
+                                    string filename = item.REAL_NAME + ".jpg";
                                     if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
                                     {
-                                        filename = item.REAL_NAME + "_" + item.STAFF_NO + ".png";
+                                        filename = item.REAL_NAME + "_" + item.STAFF_NO + ".jpg";
                                     }
                                     string file = Path.Combine(path, filename);
-                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     image.Dispose();
                                     ms.Dispose();
                                 }
@@ -1509,12 +1509,12 @@ namespace SmartAccess.VerInfoMgr
                                     Image newImage = CommonClass.Get2InchPhoto(image);
                                     if (newImage != null)
                                     {
-                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                                         newImage.Dispose();
                                     }
                                     else
                                     {
-                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
                                     image.Dispose();
                                     staffInfo.PHOTO = ms.GetBuffer();
@@ -1728,12 +1728,12 @@ namespace SmartAccess.VerInfoMgr
                                 Image newImage = CommonClass.Get2InchPhoto(image);
                                 if (newImage != null)
                                 {
-                                    newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                    newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     newImage.Dispose();
                                 }
                                 else
                                 {
-                                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                                 }
                                 image.Dispose();
                                 byte[] bts = ms.GetBuffer();

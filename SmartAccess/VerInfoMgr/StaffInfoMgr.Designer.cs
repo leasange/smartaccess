@@ -49,6 +49,7 @@
             this.biImport = new DevComponents.DotNetBar.ButtonItem();
             this.biDownloadModel = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             this.panelImage = new System.Windows.Forms.Panel();
             this.btnCloseImage = new DevComponents.DotNetBar.ButtonX();
             this.picImage = new System.Windows.Forms.PictureBox();
@@ -91,7 +92,6 @@
             this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
             this.saveImageDlg = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.deptTree = new SmartAccess.VerInfoMgr.DeptTree();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -291,6 +291,15 @@
             this.splitContainer1.Size = new System.Drawing.Size(1208, 480);
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // deptTree
+            // 
+            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deptTree.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.deptTree.Location = new System.Drawing.Point(0, 0);
+            this.deptTree.Name = "deptTree";
+            this.deptTree.Size = new System.Drawing.Size(228, 291);
+            this.deptTree.TabIndex = 0;
             // 
             // panelImage
             // 
@@ -738,15 +747,6 @@
             // 
             this.saveImageDlg.DefaultExt = "png";
             this.saveImageDlg.Filter = "图片文件(*.png)|*.png";
-            // 
-            // deptTree
-            // 
-            this.deptTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.deptTree.Font = new System.Drawing.Font("楷体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.deptTree.Location = new System.Drawing.Point(0, 0);
-            this.deptTree.Name = "deptTree";
-            this.deptTree.Size = new System.Drawing.Size(228, 291);
-            this.deptTree.TabIndex = 0;
             // 
             // StaffInfoMgr
             // 

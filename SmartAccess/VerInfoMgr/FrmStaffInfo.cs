@@ -365,7 +365,7 @@ namespace SmartAccess.VerInfoMgr
             if (picBox.Image != null)
             {
                 MemoryStream ms = new MemoryStream();
-                picBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                picBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return ms.GetBuffer();
             }
             return null;

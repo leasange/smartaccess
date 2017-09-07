@@ -32,10 +32,15 @@
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biOpenLocalPic = new DevComponents.DotNetBar.ButtonItem();
             this.biSave = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
+            this.cboScanner = new DevComponents.DotNetBar.ComboBoxItem();
+            this.biScan = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.cboCameraList = new DevComponents.DotNetBar.ComboBoxItem();
             this.biOpenCamera = new DevComponents.DotNetBar.ButtonItem();
             this.biCaptureVideo = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
             this.biEditor = new DevComponents.DotNetBar.ButtonItem();
             this.panelVideo = new System.Windows.Forms.Panel();
             this.cameraControl = new Camera_NET.CameraControl();
@@ -50,11 +55,6 @@
             this.picBox2 = new System.Windows.Forms.PictureBox();
             this.picBox1 = new System.Windows.Forms.PictureBox();
             this.picImage = new System.Windows.Forms.PictureBox();
-            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
-            this.cboScanner = new DevComponents.DotNetBar.ComboBoxItem();
-            this.biScan = new DevComponents.DotNetBar.ButtonItem();
-            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
-            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.panelVideo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox5)).BeginInit();
@@ -106,6 +106,29 @@
             this.biSave.Text = "保存图片至本地";
             this.biSave.Click += new System.EventHandler(this.biSave_Click);
             // 
+            // labelItem2
+            // 
+            this.labelItem2.Name = "labelItem2";
+            this.labelItem2.Text = "扫描仪:";
+            // 
+            // cboScanner
+            // 
+            this.cboScanner.ComboWidth = 150;
+            this.cboScanner.DropDownHeight = 120;
+            this.cboScanner.ItemHeight = 17;
+            this.cboScanner.Name = "cboScanner";
+            // 
+            // biScan
+            // 
+            this.biScan.Name = "biScan";
+            this.biScan.Text = "扫描";
+            this.biScan.Click += new System.EventHandler(this.biScan_Click);
+            // 
+            // labelItem3
+            // 
+            this.labelItem3.Name = "labelItem3";
+            this.labelItem3.Text = "|";
+            // 
             // labelItem1
             // 
             this.labelItem1.Name = "labelItem1";
@@ -129,6 +152,11 @@
             this.biCaptureVideo.Name = "biCaptureVideo";
             this.biCaptureVideo.Text = "拍照";
             this.biCaptureVideo.Click += new System.EventHandler(this.biCaptureVideo_Click);
+            // 
+            // labelItem4
+            // 
+            this.labelItem4.Name = "labelItem4";
+            this.labelItem4.Text = "|";
             // 
             // biEditor
             // 
@@ -164,8 +192,8 @@
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.DefaultExt = "png";
-            this.saveFileDialog.Filter = "图片文件(*.png)|*.png";
+            this.saveFileDialog.DefaultExt = "jpg";
+            this.saveFileDialog.Filter = "JPG(*.jpg)|*.jpg|PNG(*.png)|*.png";
             // 
             // openFileDialog
             // 
@@ -268,34 +296,6 @@
             this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picImage.TabIndex = 1;
             this.picImage.TabStop = false;
-            // 
-            // labelItem2
-            // 
-            this.labelItem2.Name = "labelItem2";
-            this.labelItem2.Text = "扫描仪:";
-            // 
-            // cboScanner
-            // 
-            this.cboScanner.ComboWidth = 150;
-            this.cboScanner.DropDownHeight = 120;
-            this.cboScanner.ItemHeight = 17;
-            this.cboScanner.Name = "cboScanner";
-            // 
-            // biScan
-            // 
-            this.biScan.Name = "biScan";
-            this.biScan.Text = "扫描";
-            this.biScan.Click += new System.EventHandler(this.biScan_Click);
-            // 
-            // labelItem3
-            // 
-            this.labelItem3.Name = "labelItem3";
-            this.labelItem3.Text = "|";
-            // 
-            // labelItem4
-            // 
-            this.labelItem4.Name = "labelItem4";
-            this.labelItem4.Text = "|";
             // 
             // FrmGetPicture
             // 

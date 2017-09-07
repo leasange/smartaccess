@@ -271,7 +271,15 @@ namespace SmartAccess.VerInfoMgr
             {
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    picImage.Image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    if (saveFileDialog.FileName.EndsWith(".jpg",StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        picImage.Image.Save(saveFileDialog.FileName,System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    else
+                    {
+                        picImage.Image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    
                 }
             }
             catch (Exception ex)

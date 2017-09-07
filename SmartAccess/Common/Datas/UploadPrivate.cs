@@ -24,9 +24,17 @@ namespace SmartAccess.Common.Datas
             List<Maticsoft.Model.SMT_STAFF_DOOR> staffDoors = null,
             List<Maticsoft.Model.SMT_STAFF_CARD> staffCards = null,
             List<Maticsoft.Model.SMT_DOOR_INFO> allDoors = null,
-            List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrlrs=null)
+            List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrlrs=null,bool isShowDetail=true)
         {
-            FrmDetailInfo.Show();
+            if (isShowDetail)
+            {
+                FrmDetailInfo.Show();
+            }
+            else
+            {
+                FrmDetailInfo.Close();
+            }
+        
             FrmDetailInfo.AddOneMsg(string.Format("开始上传“{0}”权限...",staffInfo.REAL_NAME));
             errMsg = "";
             if (staffCards == null)

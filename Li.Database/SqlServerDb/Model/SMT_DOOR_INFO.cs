@@ -39,7 +39,7 @@ namespace Maticsoft.Model
 		private bool _is_attendance1;
 		private bool _is_attendance2;
 		private int _open_state=0;
-		private bool _is_allow_visitor= true;
+		private bool _is_allow_visitor= false;
 		/// <summary>
 		/// 门ID
 		/// </summary>
@@ -145,7 +145,7 @@ namespace Maticsoft.Model
 			get{return _open_state;}
 		}
 		/// <summary>
-		/// 是否允许访客接入,默认 true
+		/// 是否允许访客接入,默认 false
 		/// </summary>
 		public bool IS_ALLOW_VISITOR
 		{
