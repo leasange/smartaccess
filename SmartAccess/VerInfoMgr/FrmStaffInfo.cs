@@ -179,7 +179,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     try
                     {
-                        List<Maticsoft.Model.SMT_STAFF_INFO> staffList = saffInfoBll.GetModelList("REAL_NAME='" + _staffInfo.REAL_NAME + "' and IS_DELETE=0");
+                        /*List<Maticsoft.Model.SMT_STAFF_INFO> staffList = saffInfoBll.GetModelList("REAL_NAME='" + _staffInfo.REAL_NAME + "' and IS_DELETE=0");
                         if (staffList.Count > 0)
                         {
                             if (_staffInfo.ID == -1)
@@ -195,12 +195,12 @@ namespace SmartAccess.VerInfoMgr
                                     return;
                                 }
                             }
-                        }
+                        }*/
                         if (_staffInfo.ID == -1)
                         {
-                            if (Maticsoft.DBUtility.DbHelperSQL.Exists("select COUNT(*) from SMT_STAFF_INFO t where t.STAFF_NO='" + _staffInfo.STAFF_NO + "'"))
+                            if (Maticsoft.DBUtility.DbHelperSQL.Exists("select COUNT(*) from SMT_STAFF_INFO t where t.STAFF_NO='" + _staffInfo.STAFF_NO + "' and IS_DELETE=0"))
                             {
-                                WinInfoHelper.ShowInfoWindow(this, "编号为"+_staffInfo.STAFF_NO+"已存在！");
+                                WinInfoHelper.ShowInfoWindow(this, "编号为" + _staffInfo.STAFF_NO + "的员工已存在！");
                                 return;
                             }
                             _staffInfo.ID = saffInfoBll.Add(_staffInfo);
@@ -512,6 +512,7 @@ namespace SmartAccess.VerInfoMgr
                 else
                 {
                     this.Text = "修改人员信息：" + _staffInfo.REAL_NAME;
+                    btnAutoCreate.Visible = true;
                 }
                 tbStaffName.Text = _staffInfo.REAL_NAME;
                 try
@@ -1009,7 +1010,10 @@ namespace SmartAccess.VerInfoMgr
                 Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
                 tbVerNo.VerTextFormat = verModel.VER_FORMAT;
                 lastTempId = verModel.ID;
-
+                if (_staffInfo!=null||_staffInfo.ID!=-1)
+                {
+                    return;
+                }
                 DoCreateNo();
             }
         }
