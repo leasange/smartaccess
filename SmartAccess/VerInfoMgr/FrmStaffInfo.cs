@@ -49,6 +49,7 @@ namespace SmartAccess.VerInfoMgr
         {
             _staffInfo = null;
             _cardInfos.Clear();
+            
             this.Text = "添加人员";
             Init(false);
         }
@@ -450,13 +451,15 @@ namespace SmartAccess.VerInfoMgr
                         }
                         catch (Exception ex)
                         {
-                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常：" + ex.Message);
+                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常0：" + ex.Message);
+                            log.Error("加载信息异常0：", ex);
                         }
                     }));
                 }
                 catch (Exception exx)
                 {
-
+                    WinInfoHelper.ShowInfoWindow(this, "加载信息异常1：" + exx.Message);
+                    log.Error("加载信息异常1：", exx);
                 }
             }));
         }
@@ -467,9 +470,9 @@ namespace SmartAccess.VerInfoMgr
             dtValidTimeEnd.Value = new DateTime(DateTime.Now.Year, 12, 31);
             dtTimeIn.ValueObject = null;
             dtTimeOut.ValueObject = null;
-            LoadModels();
             if (loadDept)
             {
+                LoadModels();
                 LoadDeptsTree();
             }
             if (_staffInfo == null)
@@ -581,53 +584,57 @@ namespace SmartAccess.VerInfoMgr
                 lbPhotoTip.Visible = picPhoto.Image == null;
             }
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+            if (loadDept)
             {
-                try
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                 {
-                    Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
-                    var staffTypes = dicBll.GetModelList("DATA_TYPE='STAFF_TYPE'");
-                    if (staffTypes.Count>0)
+                    try
                     {
-                        this.Invoke(new Action(() =>
+                        Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                        var staffTypes = dicBll.GetModelList("DATA_TYPE='STAFF_TYPE'");
+                        if (staffTypes.Count > 0)
                         {
-                            foreach (var item in staffTypes)
+                            this.Invoke(new Action(() =>
                             {
-                                ComboItem ci = new ComboItem(item.DATA_NAME);
-                                ci.Tag = item.DATA_KEY;
-                                cbStaffType.Items.Add(ci);
-                                if (_staffInfo!=null)
+                                cbStaffType.Items.Clear();
+                                foreach (var item in staffTypes)
                                 {
-                                    if (_staffInfo.STAFF_TYPE == item.DATA_KEY)
+                                    ComboItem ci = new ComboItem(item.DATA_NAME);
+                                    ci.Tag = item.DATA_KEY;
+                                    cbStaffType.Items.Add(ci);
+                                    if (_staffInfo != null)
                                     {
-                                        cbStaffType.SelectedItem = ci;
+                                        if (_staffInfo.STAFF_TYPE == item.DATA_KEY)
+                                        {
+                                            cbStaffType.SelectedItem = ci;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (item.DATA_NAME == "内部员工")
+                                        {
+                                            cbStaffType.SelectedItem = ci;
+                                        }
+                                    }
+                                    if (cbStaffType.SelectedIndex == -1)
+                                    {
+                                        if (cbStaffType.Items.Count > 0)
+                                        {
+                                            cbStaffType.SelectedIndex = 0;
+                                        }
                                     }
                                 }
-                                else
-                                {
-                                    if (item.DATA_NAME=="内部员工")
-                                    {
-                                        cbStaffType.SelectedItem = ci;
-                                    }
-                                }
-                                if (cbStaffType.SelectedIndex==-1)
-                                {
-                                    if (cbStaffType.Items.Count>0)
-                                    {
-                                        cbStaffType.SelectedIndex = 0;
-                                    }
-                                }
-                            }
-                        }));
+                            }));
+                        }
                     }
-                }
-                catch (System.Exception ex)
-                {
+                    catch (System.Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "加载员工类型异常：" + ex.Message);
+                        log.Error("加载员工类型异常：", ex);
+                    }
 
-                }
-
-            }));
-
+                }));
+            }
         }
         private void SetPicImage(PictureBox picBox, byte[] bts)
         {
@@ -680,12 +687,14 @@ namespace SmartAccess.VerInfoMgr
                             catch (Exception ex)
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "加载部门异常：" + ex.Message);
+                                log.Error("加载部门异常：", ex);
                             }
                         }));
                     }
                     catch (Exception exx)
                     {
-                         
+                        WinInfoHelper.ShowInfoWindow(this, "加载部门异常1：" + exx.Message);
+                        log.Error("加载部门异常1：", exx);
                     }
                 }));
         }
