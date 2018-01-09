@@ -1089,21 +1089,30 @@ namespace SmartAccess.VerInfoMgr
                                 continue;
                             }
                             string s = Convert.ToString(r[0]);
-                            if (string.IsNullOrWhiteSpace(str))
+                            if (string.IsNullOrWhiteSpace(s))
                             {
                                 continue;
                             }
                             decimal result;
-                            if (decimal.TryParse(s.Substring(s.Length - cnt), out result))
+                            try
                             {
-                                nos.Add(s);
-                                decs.Add(result);
+                                string strnum = s.Substring(s.Length - cnt);
+                                if (decimal.TryParse(strnum, out result))
+                                {
+                                    nos.Add(s);
+                                    decs.Add(result);
+                                }
                             }
+                            catch (Exception ex)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "系统存在编号错误：编号为 " + s+"，请修正此人员编号错误。");
+                                log.Error("系统存在编号错误：编号为 " + s, ex);
+                            }
+
                         }
                         decimal d = -1;
-                        if (decs.Count == 0)
+                        if (decs.Count == 0)//无合肥有效数据
                         {
-                            return;
                             d = 1;
                         }
                         else
@@ -1136,6 +1145,10 @@ namespace SmartAccess.VerInfoMgr
                         {
                             tno = nos[0].Substring(0, nos[0].Length - cnt) + nums;
                         }
+                        else
+                        {
+                            tno = tbVerNo.DefaultText;
+                        }
                         this.Invoke(new Action(() =>
                         {
                             tbVerNo.Text = tno;
@@ -1144,6 +1157,7 @@ namespace SmartAccess.VerInfoMgr
                     catch (System.Exception ex)
                     {
                         WinInfoHelper.ShowInfoWindow(this, "生成编号异常：" + ex.Message);
+                        log.Error("生成编号异常：", ex);
                     }
 
                 });
