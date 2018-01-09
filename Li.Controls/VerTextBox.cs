@@ -104,10 +104,11 @@ namespace Li.Controls
                         this.Text = def;
                     }
                     _defaultText = def;
+                    /*
                     if (_isShowDefault)
                     {
                         this.Text = _defaultText;
-                    }
+                    }*/
                     this.Mask = mask;
 
                 }

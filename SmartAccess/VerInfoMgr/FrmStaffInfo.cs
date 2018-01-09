@@ -196,13 +196,23 @@ namespace SmartAccess.VerInfoMgr
                                 }
                             }
                         }*/
+                        string strWhere = "";
+                        if (_staffInfo.ID==-1)
+                        {
+                            strWhere = "STAFF_NO='" + _staffInfo.STAFF_NO + "' and IS_DELETE=0";
+                        }
+                        else
+                        {
+                            strWhere = "STAFF_NO='" + _staffInfo.STAFF_NO + "' and IS_DELETE=0 and ID !="+_staffInfo.ID;
+                        }
+                        if (Maticsoft.DBUtility.DbHelperSQL.Exists("select COUNT(*) from SMT_STAFF_INFO t where " + strWhere))
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "编号为" + _staffInfo.STAFF_NO + "的员工已存在！");
+                            return;
+                        }
+
                         if (_staffInfo.ID == -1)
                         {
-                            if (Maticsoft.DBUtility.DbHelperSQL.Exists("select COUNT(*) from SMT_STAFF_INFO t where t.STAFF_NO='" + _staffInfo.STAFF_NO + "' and IS_DELETE=0"))
-                            {
-                                WinInfoHelper.ShowInfoWindow(this, "编号为" + _staffInfo.STAFF_NO + "的员工已存在！");
-                                return;
-                            }
                             _staffInfo.ID = saffInfoBll.Add(_staffInfo);
                         }
                         else
@@ -1010,11 +1020,10 @@ namespace SmartAccess.VerInfoMgr
                 Maticsoft.Model.SMT_VER_FORMAT verModel = (Maticsoft.Model.SMT_VER_FORMAT)item.Tag;
                 tbVerNo.VerTextFormat = verModel.VER_FORMAT;
                 lastTempId = verModel.ID;
-                if (_staffInfo!=null||_staffInfo.ID!=-1)
+                if (_staffInfo==null||_staffInfo.ID==-1)
                 {
-                    return;
+                    DoCreateNo();
                 }
-                DoCreateNo();
             }
         }
 
