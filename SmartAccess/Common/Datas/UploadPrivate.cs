@@ -3,6 +3,7 @@ using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,10 @@ namespace SmartAccess.Common.Datas
     /// </summary>
     public class UploadPrivate
     {
+        static UploadPrivate()
+        {
+            ThreadPool.SetMaxThreads(100, 100);
+        }
         public static bool Upload(
             Maticsoft.Model.SMT_STAFF_INFO staffInfo,
             out string errMsg,//上传日志
@@ -61,6 +66,11 @@ namespace SmartAccess.Common.Datas
 		        cds+=item.CARD_NO+"；";
 	        }
             FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权卡：{1}",staffInfo.REAL_NAME,cds.TrimEnd('；')));
+            if (FrmDetailInfo.IsClosed() && isShowDetail)
+            {
+                errMsg = "中断上传！";
+                return false;
+            }
             if (allDoors == null)
             {
                 allDoors = GetUploadAllDoors();
@@ -78,6 +88,11 @@ namespace SmartAccess.Common.Datas
               //  return false;
             }
             FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权门禁数：{1}", staffInfo.REAL_NAME, allDoors.Count));
+            if (FrmDetailInfo.IsClosed() && isShowDetail)
+            {
+                errMsg = "中断上传！";
+                return false;
+            }
             if (ctrlrs == null)
             {
                 ctrlrs = GetUploadCtrlr();
@@ -86,13 +101,6 @@ namespace SmartAccess.Common.Datas
             {
                 FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”上传时，未查到任何可用的控制器,上传结束！", staffInfo.REAL_NAME), 100,true);
                 return true;
-                //if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
-                //{
-                //    return true;
-                //}
-               // errMsg = "上传失败，当前没有任何可用控制器！";
-                //WinInfo.WinInfoHelper.ShowInfoWindow(null, "上传失败，当前没有任何可用控制器！");
-                //return false;
             }
             FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权控制器数：{1}", staffInfo.REAL_NAME, ctrlrs.Count));
 
@@ -117,6 +125,11 @@ namespace SmartAccess.Common.Datas
                                 {
                                     foreach (var card in staffCards)
                                     {
+                                        if (FrmDetailInfo.IsClosed() && isShowDetail)
+                                        {
+                                            msg = "中断上传！";
+                                            return;
+                                        }
                                         bool ret = access.DeleteAuthority(ctrlr, card.CARD_WG_NO);
                                         precent += step;
                                         if (!ret)
@@ -213,6 +226,11 @@ namespace SmartAccess.Common.Datas
                                 {
                                     foreach (var card in staffCards)
                                     {
+                                        if (FrmDetailInfo.IsClosed() && isShowDetail)
+                                        {
+                                            amsg = "中断上传！";
+                                            return;
+                                        }
                                         bool ret = access.AddOrModifyAuthority(c, card.CARD_WG_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME, doorNumAuthorities);
                                         if (!ret)
                                         {
@@ -255,7 +273,7 @@ namespace SmartAccess.Common.Datas
            
             foreach (var item in aeventlist)
             {
-                item.WaitOne(30000);
+                item.WaitOne(60000);
             }
             errMsg += amsg;
             List<ManualResetEvent> deventlist = new List<ManualResetEvent>();
@@ -277,6 +295,11 @@ namespace SmartAccess.Common.Datas
                             {
                                 foreach (var card in staffCards)
                                 {
+                                    if (FrmDetailInfo.IsClosed() && isShowDetail)
+                                    {
+                                        dmsg = "中断上传！";
+                                        return;
+                                    }
                                     bool ret = access.DeleteAuthority(ctrlr, card.CARD_WG_NO);
                                     if (!ret)
                                     {
@@ -305,29 +328,30 @@ namespace SmartAccess.Common.Datas
             }
             foreach (var item in deventlist)
             {
-                item.WaitOne(30000);
+                item.WaitOne(60000);
             }
             errMsg += dmsg;
             errMsg = errMsg.Trim('\r', '\n');
             FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限结束。",staffInfo.REAL_NAME),100);
             return true;
         }
-        public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr,out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors=null,bool isOnlyCall=false)
+        //根据控制器上传权限
+        public static bool UploadByCtrlr(Maticsoft.Model.SMT_CONTROLLER_INFO ctrlr, out string errMsg, List<Maticsoft.Model.SMT_DOOR_INFO> ctrlDoors = null, bool isOnlyCall = false)
         {
             if (isOnlyCall)
             {
                 FrmDetailInfo.Show(false);
             }
-            errMsg="";
+            errMsg = "";
             Controller cc = ControllerHelper.ToController(ctrlr);
             using (IAccessCore access = new WGAccess())
             {
-                FrmDetailInfo.AddOneMsg(string.Format("清除控制器“{0}”的权限...",ctrlr.NAME));
+                FrmDetailInfo.AddOneMsg(string.Format("清除控制器“{0}”的权限...", ctrlr.NAME));
                 bool ret = access.ClearAuthority(cc);
                 if (!ret)
                 {
                     errMsg = "清除控制器的权限异常！";
-                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器的“{0}”的权限失败！", ctrlr.NAME),isRed:true);
+                    FrmDetailInfo.AddOneMsg(string.Format("清除控制器的“{0}”的权限失败！", ctrlr.NAME), isRed: true);
                     return false;
                 }
                 else
@@ -340,19 +364,28 @@ namespace SmartAccess.Common.Datas
                     return ret;
                 }
             }
-
+            if (FrmDetailInfo.IsClosed())
+            {
+                errMsg = "控制器：" + cc.ip + "上传中断！";
+                return false;
+            }
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
-            if (ctrlDoors==null)
+            if (ctrlDoors == null)
             {
                 ctrlDoors = doorBll.GetModelList("CTRL_ID=" + ctrlr.ID);
             }
             if (ctrlDoors.Count == 0)
             {
                 errMsg = "控制器门为空！";
-                FrmDetailInfo.AddOneMsg(string.Format("警告：控制器“{0}”没有门禁，结束该控制器权限上传。", ctrlr.NAME),isRed:true);
+                FrmDetailInfo.AddOneMsg(string.Format("警告：控制器“{0}”没有门禁，结束该控制器权限上传。", ctrlr.NAME), isRed: true);
                 return true;
             }
-            FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁个数为：{1}。", ctrlr.NAME,ctrlDoors.Count));
+            FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁个数为：{1}。", ctrlr.NAME, ctrlDoors.Count));
+            if (FrmDetailInfo.IsClosed())
+            {
+                errMsg = "控制器：" + cc.ip + "上传中断！";
+                return false;
+            }
             string str = "";
             foreach (var item in ctrlDoors)
             {
@@ -361,9 +394,9 @@ namespace SmartAccess.Common.Datas
             str = str.TrimEnd(',');
             Maticsoft.BLL.SMT_STAFF_DOOR staffDoorBLL = new Maticsoft.BLL.SMT_STAFF_DOOR();
             var staffDoors = staffDoorBLL.GetModelList("DOOR_ID in (" + str + ")");
-            if (staffDoors.Count==0)
+            if (staffDoors.Count == 0)
             {
-               // errMsg = "无授权门禁！";
+                // errMsg = "无授权门禁！";
                 FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有人员授权，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
@@ -373,23 +406,20 @@ namespace SmartAccess.Common.Datas
                 str += item.STAFF_ID + ",";
             }
             str = str.TrimEnd(',');
+            if (FrmDetailInfo.IsClosed())
+            {
+                errMsg = "控制器：" + cc.ip + "上传中断！";
+                return false;
+            }
             Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
             var staffs = sbll.GetModelList("ID in (" + str + ")");
 
-            if (staffs.Count==0)
+            if (staffs.Count == 0)
             {
                 //errMsg = "无授权人员！";
                 FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有人员授权，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
-            /*
-            Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
-            var scards = scBll.GetModelList("STAFF_ID in (" + str + ")");
-            if (scards.Count==0)
-            {
-                return true;
-            }
-             */
             str = "";
             foreach (var item in staffs)
             {
@@ -397,57 +427,68 @@ namespace SmartAccess.Common.Datas
             }
             str = str.TrimEnd(',');
 
+            if (FrmDetailInfo.IsClosed())
+            {
+                errMsg = "控制器：" + cc.ip + "上传中断！";
+                return false;
+            }
             Maticsoft.BLL.SMT_CARD_INFO cBll = new Maticsoft.BLL.SMT_CARD_INFO();
             var cards = cBll.GetModelListByStaffIds(str);
 
-            if (cards.Count==0)
+            if (cards.Count == 0)
             {
                 errMsg = "无授权卡片！";
                 FrmDetailInfo.AddOneMsg(string.Format("控制器“{0}”的门禁，没有授权的卡，结束该控制器权限上传。", ctrlr.NAME));
                 return true;
             }
 
-           // Controller cc = ControllerHelper.ToController(ctrlr);
-            using (IAccessCore access=new WGAccess())
+            FrmDetailInfo.AddOneMsg("开始上传控制器：" + cc.ip + "的权限...");
+            using (IAccessCore access = new WGAccess())
             {
                 foreach (var item in cards)
                 {
-                    var staff= staffs.Find(m=>m.ID==item.STAFF_ID);
-                    if (staff==null)
-	                {
+                    if (FrmDetailInfo.IsClosed())
+                    {
+                        errMsg = "控制器：" + cc.ip + "上传中断！";
+                        return false;
+                    }
+                    var staff = staffs.Find(m => m.ID == item.STAFF_ID);
+                    if (staff == null)
+                    {
                         continue;
-	                }
-                    FrmDetailInfo.AddOneMsg(string.Format("开始上传，控制器“{0}”的人员“{1}”,卡号“{2}”权限...", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
-                    var doors= staffDoors.FindAll(m=>m.STAFF_ID==staff.ID);
+                    }
+                    // FrmDetailInfo.AddOneMsg(string.Format("开始上传，控制器“{0}”的人员“{1}”,卡号“{2}”权限...", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
+                    var doors = staffDoors.FindAll(m => m.STAFF_ID == item.STAFF_ID);
                     Dictionary<int, int> aus = new Dictionary<int, int>();
                     foreach (var d in doors)
-	                {
-                        var di= ctrlDoors.Find(m=>m.ID==d.DOOR_ID);
-                        if (di==null)
-	                    {
-		                     continue;
-	                    }
+                    {
+                        var di = ctrlDoors.Find(m => m.ID == d.DOOR_ID);
+                        if (di == null)
+                        {
+                            continue;
+                        }
                         int num = 0;
                         if (di.IS_ENABLE)
                         {
                             num = d.TIME_NUM;
                         }
                         aus.Add((int)di.CTRL_DOOR_INDEX, num);
-	                }
-                    bool ret = access.AddOrModifyAuthority(cc, item.CARD_WG_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
+                    }
+                    bool ret = false;
+                    ret = access.AddOrModifyAuthority(cc, item.CARD_WG_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
                     if (!ret)
                     {
                         errMsg = "添加权限中断异常！卡号：" + item.CARD_NO;
-                        FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限异常，上传该控制器权限中断！", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO),isRed:true);
+                        FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限异常，上传该控制器权限中断！", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO), isRed: true);
                         return false;
                     }
-                    else
-                    {
-                        FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限成功。", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
-                    }
+                    // else
+                    //{
+                    //FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限成功。", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO));
+                    //}
                 }
-                FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的权限结束。", ctrlr.NAME));
             }
+            FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的权限结束。", ctrlr.NAME));
             return true;
         }
 
@@ -542,32 +583,32 @@ namespace SmartAccess.Common.Datas
                 ManualResetEvent reset = new ManualResetEvent(false);
                 events.Add(reset);
                 ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                {
+                    try
                     {
-                        try
+                        percent += step;
+                        string tmsg = "";
+                        UploadByCtrlr(item, out tmsg);
+                        if (tmsg != "")
                         {
-                            percent += step;
-                            string tmsg = "";
-                            UploadByCtrlr(item, out tmsg);
-                            if (tmsg != "")
-                            {
-                                outMsg += "\r\n" + tmsg;
-                            }
-                            FrmDetailInfo.AddOneMsg(string.Format("上传指定控制器“{0}”的权限结束.", item.NAME),(int)percent);
+                            outMsg += "\r\n" + tmsg;
                         }
-                        catch (Exception ex)
-                        {
-                            outMsg += "\r\n" + ex.Message;
-                            FrmDetailInfo.AddOneMsg(string.Format("上传指定控制器“{0}”的权限异常，异常信息：{1}", item.NAME,ex.Message), (int)percent,true);
-                        }
-                        finally
-                        {
-                            reset.Set();
-                        }
-                    }));
+                        FrmDetailInfo.AddOneMsg(null, (int)percent);
+                    }
+                    catch (Exception ex)
+                    {
+                        outMsg += "\r\n" + ex.Message;
+                        FrmDetailInfo.AddOneMsg(string.Format("上传指定控制器“{0}”的权限异常，异常信息：{1}", item.NAME, ex.Message), (int)percent, true);
+                    }
+                    finally
+                    {
+                        reset.Set();
+                    }
+                }));
             }
             foreach (var item in events)
             {
-                item.WaitOne(60000);
+                item.WaitOne();
             }
             errMsg = outMsg;
             FrmDetailInfo.AddOneMsg(string.Format("上传所有权限结束！"),100);

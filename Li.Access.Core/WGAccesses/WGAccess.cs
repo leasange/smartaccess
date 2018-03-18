@@ -363,6 +363,7 @@ namespace Li.Access.Core.WGAccesses
 
         public bool ClearAuthority(Controller controller)
         {
+            return true;
             WGPacket packet = new WGPacket(0x54);
             packet.SetDevSn(controller.sn);
             packet.SetClearTag();

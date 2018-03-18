@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +12,16 @@ namespace SmartAccess.Common.WinInfo
 {
     public partial class FrmDetailInfo : DevComponents.DotNetBar.Office2007Form
     {
+        public class MsgClass
+        {
+            public DateTime dateTime;
+            public string msg;
+            public int progress;
+            public bool isRed;
+        }
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmDetailInfo));
         private static FrmDetailInfo _instance = null;
+        private ConcurrentQueue<MsgClass> _currentMsgs = new ConcurrentQueue<MsgClass>();
 
         public static void Show(bool progress = true)
         {
@@ -33,7 +43,24 @@ namespace SmartAccess.Common.WinInfo
                     }
                     _instance.Clear();
                     _instance.SetProgressVisible(progress);
+                    _instance.FormClosed += _instance_FormClosed;
                 }));
+        }
+        public static bool IsClosed()
+        {
+            if (_instance==null)
+            {
+                return true;
+            }
+            return _instance.IsDisposed || (!_instance.Visible);
+        }
+        static void _instance_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _instance.FormClosed -= _instance_FormClosed;
+            if (e.CloseReason== CloseReason.UserClosing)
+            {
+                
+            }
         }
         public static void Close()
         {
@@ -80,34 +107,58 @@ namespace SmartAccess.Common.WinInfo
         }
         public void AddMsg(string msg, int progress = -1, bool isRed = false)
         {
-            lock (this)
+            string text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " => " + msg + "\r\n";
+            _currentMsgs.Enqueue(new MsgClass()
             {
-                this.Invoke(new Action(() =>
+                 msg=msg,
+                 progress=progress,
+                 isRed=isRed,
+                 dateTime=DateTime.Now
+            });
+        }
+
+        private void DoAddMsg()
+        {
+            if (_currentMsgs.Count<=0)
+            {
+                return;
+            }
+            MsgClass msgClass;
+            int progress = -1;
+            while (_currentMsgs.TryDequeue(out msgClass))
+            {
+                if (msgClass.progress>=0)
+                {
+                    progress = msgClass.progress;
+                }
+                if (string.IsNullOrWhiteSpace(msgClass.msg))
+                {
+                    continue;
+                }
+                string text = msgClass.dateTime.ToString("yyyy-MM-dd HH:mm:ss") + " => " + msgClass.msg + "\r\n";
+                this.tbMsg.AppendText(text);
+                if (msgClass.isRed)
+                {
+                    string str = text.TrimEnd('\r', '\n');
+                    int index = this.tbMsg.TextLength - str.Length - 1;
+                    if (index < 0)
                     {
-                        string text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " => " + msg + "\r\n";
-                        this.tbMsg.AppendText(text);
-                        if (isRed)
-                        {
-                            string str = text.TrimEnd('\r', '\n');
-                            int index = this.tbMsg.TextLength - str.Length-1;
-                            if (index<0)
-                            {
-                                index = 0;
-                            }
-                            this.tbMsg.Select(index, str.Length);
-                            this.tbMsg.SelectionColor = Color.Red;
-                            this.tbMsg.SelectionLength = 0;
-                        }
-                        this.tbMsg.ScrollToCaret();
-                        if (progress>=0)
-	                    {
-                            this.progressBar.Value = progress >= 100 ? 100 : progress;
-                            this.progressBar.Text = "当前进度：" + this.progressBar.Value + "%";
-	                    }
-                    }));
+                        index = 0;
+                    }
+                    this.tbMsg.Select(index, str.Length);
+                    this.tbMsg.SelectionColor = Color.Red;
+                    this.tbMsg.SelectionLength = 0;
+                    log.Error(text);
+                }
+            }
+            this.tbMsg.ScrollToCaret();
+            if (progress >= 0)
+            {
+                this.progressBar.Value = progress >= 100 ? 100 : progress;
+                this.progressBar.Text = "当前进度：" + this.progressBar.Value + "%";
             }
         }
-        
+
         public void SetProgress(int progress = -1)
         {
             lock (this)
@@ -127,5 +178,11 @@ namespace SmartAccess.Common.WinInfo
         {
             tbMsg.Copy();
         }
+
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+            DoAddMsg();
+        }
     }
+
 }

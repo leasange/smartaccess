@@ -33,6 +33,7 @@
             this.tbMsg = new DevComponents.DotNetBar.Controls.RichTextBoxEx();
             this.cmsStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.cmsStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,9 +78,15 @@
             // tsmiCopy
             // 
             this.tsmiCopy.Name = "tsmiCopy";
-            this.tsmiCopy.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCopy.Size = new System.Drawing.Size(100, 22);
             this.tsmiCopy.Text = "复制";
             this.tsmiCopy.Click += new System.EventHandler(this.tsmiCopy_Click);
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Enabled = true;
+            this.timerRefresh.Interval = 1000;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
             // FrmDetailInfo
             // 
@@ -106,5 +113,6 @@
         private DevComponents.DotNetBar.Controls.RichTextBoxEx tbMsg;
         private System.Windows.Forms.ContextMenuStrip cmsStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+        private System.Windows.Forms.Timer timerRefresh;
     }
 }

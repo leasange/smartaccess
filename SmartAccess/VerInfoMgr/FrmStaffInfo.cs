@@ -423,7 +423,14 @@ namespace SmartAccess.VerInfoMgr
                                     cboVeMoBan.SelectedItem = ci;
                                 }
                             }
-
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常-模板信息：" + ex.Message);
+                            log.Error("加载信息异常0：", ex);
+                        }
+                        try
+                        {
                             cboVerTypeStyle.Items.Clear();
                             cboVerTypeStyle.Items.Add(new ComboItem("--无--"));
                             cboVerTypeStyle.SelectedIndex = 0;
@@ -432,26 +439,25 @@ namespace SmartAccess.VerInfoMgr
                                 ComboItem cbi = new ComboItem(item.VER_NAME);
                                 cbi.Tag = item;
                                 cboVerTypeStyle.Items.Add(cbi);
-                                if (_staffInfo!=null&&_staffInfo.STAFF_NO_TEMPLET!=null)
+                                if (_staffInfo != null && _staffInfo.STAFF_NO_TEMPLET != null)
                                 {
-                                    if (item.ID==_staffInfo.STAFF_NO_TEMPLET)
+                                    if (item.ID == _staffInfo.STAFF_NO_TEMPLET)
                                     {
                                         cboVerTypeStyle.SelectedItem = cbi;
                                     }
                                 }
-                                else if (lastTempId != null && _staffInfo==null)
+                                else if (lastTempId != null && _staffInfo == null)
                                 {
-                                    if (item.ID==lastTempId)
+                                    if (item.ID == lastTempId)
                                     {
                                         cboVerTypeStyle.SelectedItem = cbi;
                                     }
                                 }
                             }
-
                         }
                         catch (Exception ex)
                         {
-                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常0：" + ex.Message);
+                            WinInfoHelper.ShowInfoWindow(this, "加载信息异常-编码格式信息：" + ex.Message);
                             log.Error("加载信息异常0：", ex);
                         }
                     }));
