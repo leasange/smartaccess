@@ -31,36 +31,36 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsmiNowTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslStateUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsmiServerIp = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.smtNavigate = new SmartAccess.SmtNavigate();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.biSystem = new DevComponents.DotNetBar.ButtonItem();
+            this.biSelectStyle = new DevComponents.DotNetBar.ButtonItem();
+            this.biLogout = new DevComponents.DotNetBar.ButtonItem();
+            this.biExitSys = new DevComponents.DotNetBar.ButtonItem();
             this.superTabControl = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.panelWelCome = new DevComponents.DotNetBar.PanelEx();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.panelHeader = new DevComponents.DotNetBar.PanelEx();
             this.lbTitle = new DevComponents.DotNetBar.LabelX();
-            this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.biSystem = new DevComponents.DotNetBar.ButtonItem();
-            this.biSelectStyle = new DevComponents.DotNetBar.ButtonItem();
-            this.biLogout = new DevComponents.DotNetBar.ButtonItem();
-            this.biExitSys = new DevComponents.DotNetBar.ButtonItem();
-            this.tsmiNowTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
-            this.tsmiServerIp = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.smtNavigate = new SmartAccess.SmtNavigate();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).BeginInit();
             this.superTabControl.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
             this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -80,13 +80,21 @@
             this.statusStrip.TabIndex = 3;
             this.statusStrip.Text = "statusStrip";
             // 
-            // toolStripStatusLabel1
+            // tsmiNowTime
             // 
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.Yellow;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
-            this.toolStripStatusLabel1.Text = "用户:";
+            this.tsmiNowTime.ForeColor = System.Drawing.Color.White;
+            this.tsmiNowTime.Name = "tsmiNowTime";
+            this.tsmiNowTime.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tsmiNowTime.Size = new System.Drawing.Size(126, 17);
+            this.tsmiNowTime.Text = "00:00:00 0000-00-00";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Yellow;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(35, 17);
+            this.toolStripStatusLabel3.Text = "时间:";
             // 
             // tsslStateUser
             // 
@@ -95,6 +103,30 @@
             this.tsslStateUser.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tsslStateUser.Size = new System.Drawing.Size(44, 17);
             this.tsslStateUser.Text = "admin";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.Yellow;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
+            this.toolStripStatusLabel1.Text = "用户:";
+            // 
+            // tsmiServerIp
+            // 
+            this.tsmiServerIp.ForeColor = System.Drawing.Color.White;
+            this.tsmiServerIp.Name = "tsmiServerIp";
+            this.tsmiServerIp.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tsmiServerIp.Size = new System.Drawing.Size(45, 17);
+            this.tsmiServerIp.Text = "0.0.0.0";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.Yellow;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(47, 17);
+            this.toolStripStatusLabel4.Text = "服务器:";
             // 
             // splitContainer
             // 
@@ -114,6 +146,59 @@
             this.splitContainer.Size = new System.Drawing.Size(1014, 653);
             this.splitContainer.SplitterDistance = 246;
             this.splitContainer.TabIndex = 4;
+            // 
+            // smtNavigate
+            // 
+            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smtNavigate.Location = new System.Drawing.Point(0, 26);
+            this.smtNavigate.Name = "smtNavigate";
+            this.smtNavigate.Size = new System.Drawing.Size(246, 627);
+            this.smtNavigate.TabIndex = 2;
+            // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.bar1.BarType = DevComponents.DotNetBar.eBarType.MenuBar;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biSystem});
+            this.bar1.Location = new System.Drawing.Point(0, 0);
+            this.bar1.Name = "bar1";
+            this.bar1.RoundCorners = false;
+            this.bar1.Size = new System.Drawing.Size(246, 26);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 1;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            // 
+            // biSystem
+            // 
+            this.biSystem.Name = "biSystem";
+            this.biSystem.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.biSelectStyle,
+            this.biLogout,
+            this.biExitSys});
+            this.biSystem.SubItemsExpandWidth = 18;
+            this.biSystem.Text = "系统";
+            // 
+            // biSelectStyle
+            // 
+            this.biSelectStyle.Name = "biSelectStyle";
+            this.biSelectStyle.Text = "选择样式";
+            // 
+            // biLogout
+            // 
+            this.biLogout.Name = "biLogout";
+            this.biLogout.Text = "注销系统";
+            this.biLogout.Click += new System.EventHandler(this.biLogout_Click);
+            // 
+            // biExitSys
+            // 
+            this.biExitSys.Name = "biExitSys";
+            this.biExitSys.Text = "退出系统(&Q)";
+            this.biExitSys.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // superTabControl
             // 
@@ -220,96 +305,11 @@
             this.lbTitle.TabIndex = 0;
             this.lbTitle.Text = "智能卡综合管理系统，你的好管家！";
             // 
-            // bar1
-            // 
-            this.bar1.AntiAlias = true;
-            this.bar1.BarType = DevComponents.DotNetBar.eBarType.MenuBar;
-            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biSystem});
-            this.bar1.Location = new System.Drawing.Point(0, 0);
-            this.bar1.Name = "bar1";
-            this.bar1.RoundCorners = false;
-            this.bar1.Size = new System.Drawing.Size(246, 26);
-            this.bar1.Stretch = true;
-            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar1.TabIndex = 1;
-            this.bar1.TabStop = false;
-            this.bar1.Text = "bar1";
-            // 
-            // biSystem
-            // 
-            this.biSystem.Name = "biSystem";
-            this.biSystem.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.biSelectStyle,
-            this.biLogout,
-            this.biExitSys});
-            this.biSystem.SubItemsExpandWidth = 18;
-            this.biSystem.Text = "系统";
-            // 
-            // biSelectStyle
-            // 
-            this.biSelectStyle.Name = "biSelectStyle";
-            this.biSelectStyle.Text = "选择样式";
-            // 
-            // biLogout
-            // 
-            this.biLogout.Name = "biLogout";
-            this.biLogout.Text = "注销系统";
-            this.biLogout.Click += new System.EventHandler(this.biLogout_Click);
-            // 
-            // biExitSys
-            // 
-            this.biExitSys.Name = "biExitSys";
-            this.biExitSys.Text = "退出系统(&Q)";
-            this.biExitSys.Click += new System.EventHandler(this.tsmiExit_Click);
-            // 
-            // tsmiNowTime
-            // 
-            this.tsmiNowTime.ForeColor = System.Drawing.Color.White;
-            this.tsmiNowTime.Name = "tsmiNowTime";
-            this.tsmiNowTime.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tsmiNowTime.Size = new System.Drawing.Size(126, 17);
-            this.tsmiNowTime.Text = "00:00:00 0000-00-00";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Yellow;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(35, 17);
-            this.toolStripStatusLabel3.Text = "时间:";
-            // 
             // timerClock
             // 
             this.timerClock.Enabled = true;
             this.timerClock.Interval = 1000;
             this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
-            // 
-            // tsmiServerIp
-            // 
-            this.tsmiServerIp.ForeColor = System.Drawing.Color.White;
-            this.tsmiServerIp.Name = "tsmiServerIp";
-            this.tsmiServerIp.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tsmiServerIp.Size = new System.Drawing.Size(45, 17);
-            this.tsmiServerIp.Text = "0.0.0.0";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.Yellow;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(47, 17);
-            this.toolStripStatusLabel4.Text = "服务器:";
-            // 
-            // smtNavigate
-            // 
-            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.smtNavigate.Location = new System.Drawing.Point(0, 26);
-            this.smtNavigate.Name = "smtNavigate";
-            this.smtNavigate.Size = new System.Drawing.Size(246, 627);
-            this.smtNavigate.TabIndex = 2;
             // 
             // FrmMain
             // 
@@ -333,12 +333,12 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl)).EndInit();
             this.superTabControl.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

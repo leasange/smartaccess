@@ -838,6 +838,15 @@ namespace SmartAccess.VerInfoMgr
                 picPhoto.Image.Dispose();
                 picPhoto.Image = null;
             }
+            if (_report!=null)
+            {
+                _report.Clear();
+                _report.Preview = null;
+                previewControl.Clear();
+                _report.Dispose();
+                _report = null;
+            }
+            GC.Collect();
         }
 
         private void picPhoto_DoubleClick(object sender, EventArgs e)
@@ -876,6 +885,7 @@ namespace SmartAccess.VerInfoMgr
 
         private bool LoadReportData(FastReport.Report report)
         {
+            report.Clear();
             ComboItem item = cboVeMoBan.SelectedItem as ComboItem;
             if (item == null)
             {
@@ -989,6 +999,8 @@ namespace SmartAccess.VerInfoMgr
                     _report = new FastReport.Report();
                     _report.Preview = previewControl;
                 }
+                _report.Clear();
+                previewControl.Clear();
                 if (LoadReportData(_report))
                 {
                     _report.Prepare();
@@ -1016,6 +1028,8 @@ namespace SmartAccess.VerInfoMgr
                 report.Prepare();
                 report.ShowPrepared();
             }
+            report.Clear();
+            report.Dispose();
         }
 
         private void biPrint_Click(object sender, EventArgs e)

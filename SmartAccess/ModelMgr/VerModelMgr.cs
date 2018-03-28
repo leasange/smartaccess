@@ -75,6 +75,12 @@ namespace SmartAccess.ModelMgr
             _report.Preview = previewControl;
             InitTree();
         }
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            _report.Clear();
+            _report.Dispose();
+            base.OnHandleDestroyed(e);
+        }
         //初始化树
         private void InitTree()
         {
@@ -171,6 +177,7 @@ namespace SmartAccess.ModelMgr
                 {
                     var dt = StaffDataHelper.GetTestReportDataTable();
                     FileInfo fi = (FileInfo)e.Node.Tag;
+                    _report.Clear();
                     _report.Load(fi.FullName);
                     _report.RegisterData(dt, dt.TableName);
                     _report.AutoFillDataSet = true;
@@ -188,6 +195,7 @@ namespace SmartAccess.ModelMgr
         {
             try
             {
+                _report.Clear();
                 byte[] content = model.VERM_CONTENT;
                 MemoryStream ms = new MemoryStream(content);
                 _report.Load(ms);

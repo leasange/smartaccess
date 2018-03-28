@@ -206,6 +206,15 @@ namespace SmartAccess.ModelMgr
             {
                 e.Cancel = true;
             }
+            if (!e.Cancel)
+            {
+                if (designerControl.Report != null)
+                {
+                    designerControl.Report.Clear();
+                    designerControl.Report.Dispose();
+                    designerControl.Report = null;
+                }
+            }
         }
     }
 }
