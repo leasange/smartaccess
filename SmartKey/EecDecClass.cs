@@ -68,15 +68,18 @@ namespace SmartKey
 
             DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
             int i = cryptoProvider.KeySize;
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateEncryptor(byKey, byIV), CryptoStreamMode.Write);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateEncryptor(byKey, byIV), CryptoStreamMode.Write);
 
-            StreamWriter sw = new StreamWriter(cst);
-            sw.Write(data);
-            sw.Flush();
-            cst.FlushFinalBlock();
-            sw.Flush();
-            return Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
+                StreamWriter sw = new StreamWriter(cst);
+                sw.Write(data);
+                sw.Flush();
+                cst.FlushFinalBlock();
+                sw.Flush();
+                return Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
+            }
+
         }
 
         /// <summary>
@@ -102,10 +105,12 @@ namespace SmartKey
             }
 
             DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
-            MemoryStream ms = new MemoryStream(byEnc);
-            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateDecryptor(byKey, byIV), CryptoStreamMode.Read);
-            StreamReader sr = new StreamReader(cst);
-            return sr.ReadToEnd();
+            using (MemoryStream ms = new MemoryStream(byEnc))
+            {
+                CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateDecryptor(byKey, byIV), CryptoStreamMode.Read);
+                StreamReader sr = new StreamReader(cst);
+                return sr.ReadToEnd();
+            }
         }
         #endregion
 

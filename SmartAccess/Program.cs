@@ -20,7 +20,7 @@ namespace SmartAccess
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // Application.ThreadException += Application_ThreadException;
+            Application.ThreadException += Application_ThreadException;
             Application.Run(new FrmLogin());
            // Application.Run(new SmartAccess.VerInfoMgr.FrmGetPicture());
             
@@ -31,7 +31,7 @@ namespace SmartAccess
             if (e.Exception!=null)
             {
                 log.Error("未捕获异常", e.Exception);
-                throw e.Exception;
+               // throw e.Exception;
             }
         }
     }

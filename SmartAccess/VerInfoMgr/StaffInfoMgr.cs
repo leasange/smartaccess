@@ -339,15 +339,16 @@ namespace SmartAccess.VerInfoMgr
                         {
                             try
                             {
-                                MemoryStream ms = new MemoryStream(staffInfo.PHOTO);
-                                Image image = Image.FromStream(ms);
-                                if (picImage.Image != null)
+                                using (MemoryStream ms = new MemoryStream(staffInfo.PHOTO))
                                 {
-                                    picImage.Image.Dispose();
-                                    picImage.Image = null;
+                                    Image image = Image.FromStream(ms);
+                                    if (picImage.Image != null)
+                                    {
+                                        picImage.Image.Dispose();
+                                        picImage.Image = null;
+                                    }
+                                    picImage.Image = image;
                                 }
-                                picImage.Image = image;
-                                ms.Dispose();
                                 panelImage.Visible = true;
                                 panelImage.BringToFront();
                             }
@@ -385,8 +386,19 @@ namespace SmartAccess.VerInfoMgr
                     Maticsoft.Model.SMT_STAFF_INFO staffInfo = dgvStaffs.Rows[e.RowIndex].Tag as Maticsoft.Model.SMT_STAFF_INFO;
                     if (staffInfo != null)
                     {
-                        FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo, true);
-                        frmStaffInfo.ShowDialog(this);
+                       // do
+                       // {
+                            FrmStaffInfo frmStaffInfo = new FrmStaffInfo(staffInfo, true);
+                       //     Timer t = new Timer();
+                       //     t.Tick += (o, s) =>
+                       //         {
+                       //             frmStaffInfo.Close();
+                       //             t.Dispose();
+                       //         };
+                       //     t.Interval = 5000;
+                       //     t.Start();
+                            frmStaffInfo.ShowDialog(this);
+                       //  } while (true);
                     }
                 }
                 else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SQ")
@@ -1309,17 +1321,18 @@ namespace SmartAccess.VerInfoMgr
                             {
                                 try
                                 {
-                                    MemoryStream ms = new MemoryStream(item.PHOTO);
-                                    Image image = Image.FromStream(ms);
-                                    string filename = item.REAL_NAME + ".jpg";
-                                    if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
+                                    using (MemoryStream ms = new MemoryStream(item.PHOTO))
                                     {
-                                        filename = item.REAL_NAME + "_" + item.STAFF_NO + ".jpg";
+                                        Image image = Image.FromStream(ms);
+                                        string filename = item.REAL_NAME + ".jpg";
+                                        if (!string.IsNullOrWhiteSpace(item.STAFF_NO))
+                                        {
+                                            filename = item.REAL_NAME + "_" + item.STAFF_NO + ".jpg";
+                                        }
+                                        string file = Path.Combine(path, filename);
+                                        image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        image.Dispose();
                                     }
-                                    string file = Path.Combine(path, filename);
-                                    image.Save(file, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                    image.Dispose();
-                                    ms.Dispose();
                                 }
                                 catch (Exception ex)
                                 {
@@ -1505,19 +1518,21 @@ namespace SmartAccess.VerInfoMgr
                                 if (temp!=null)
                                 {
                                     Image image = Image.FromFile(temp);
-                                    MemoryStream ms = new MemoryStream();
-                                    Image newImage = CommonClass.Get2InchPhoto(image);
-                                    if (newImage != null)
+                                    using (MemoryStream ms = new MemoryStream())
                                     {
-                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                        newImage.Dispose();
+                                        Image newImage = CommonClass.Get2InchPhoto(image);
+                                        if (newImage != null)
+                                        {
+                                            newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                            newImage.Dispose();
+                                        }
+                                        else
+                                        {
+                                            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        }
+                                        image.Dispose();
+                                        staffInfo.PHOTO = ms.GetBuffer();
                                     }
-                                    else
-                                    {
-                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                    }
-                                    image.Dispose();
-                                    staffInfo.PHOTO = ms.GetBuffer();
                                 }
                                 else
                                 {
@@ -1724,67 +1739,69 @@ namespace SmartAccess.VerInfoMgr
                             try
                             {
                                 Image image = Image.FromFile(file);
-                                MemoryStream ms = new MemoryStream();
-                                Image newImage = CommonClass.Get2InchPhoto(image);
-                                if (newImage != null)
+                                using (MemoryStream ms = new MemoryStream())
                                 {
-                                    newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                    newImage.Dispose();
-                                }
-                                else
-                                {
-                                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                }
-                                image.Dispose();
-                                byte[] bts = ms.GetBuffer();
-                                Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-
-                                string str= Path.GetFileName(file);
-                                int index= str.LastIndexOf('.');
-                                str = str.Substring(0, index);
-                                string realname = str;
-                                string staffno = null;
-                                index= str.IndexOf('_');
-                                if (index>=0)
-	                            {
-                                    realname = str.Substring(0, index);
-                                    staffno = str.Substring(index + 1);
-	                            }
-                                string strWhere1 = "(REAL_NAME='" + realname + "' or REAL_NAME+STAFF_NO='" + str + "') and IS_DELETE = 0";
-                                string strWhere2 = null;
-                                if (!string.IsNullOrWhiteSpace(staffno))
-                                {
-                                    strWhere2 = "STAFF_NO='" + staffno + "' and IS_DELETE = 0";
-                                }
-                                List<Maticsoft.Model.SMT_STAFF_INFO> models = null;
-                                if (strWhere2!=null)
-                                {
-                                    models = staffBll.GetModelList(strWhere2);
-                                    if (models.Count==0)
+                                    Image newImage = CommonClass.Get2InchPhoto(image);
+                                    if (newImage != null)
                                     {
-                                         models = staffBll.GetModelList(strWhere1);
+                                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        newImage.Dispose();
                                     }
-                                }
-                                else
-                                {
-                                    models = staffBll.GetModelList(strWhere1);
-                                }
-                              
-                                if (models.Count>0)
-                                {
-                                    models[0].PHOTO = bts;
-                                    staffBll.Update(models[0]);
-                                    FrmDetailInfo.AddOneMsg("导入人员照片为“" + str + "”成功.", isRed: false);
-                                }
-                                else
-                                {
-                                    FrmDetailInfo.AddOneMsg("不存在“姓名_编号”为“" + str + "”人员！", isRed: true);
+                                    else
+                                    {
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    image.Dispose();
+                                    byte[] bts = ms.GetBuffer();
+                                    Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+
+                                    string str = Path.GetFileName(file);
+                                    int index = str.LastIndexOf('.');
+                                    str = str.Substring(0, index);
+                                    string realname = str;
+                                    string staffno = null;
+                                    index = str.IndexOf('_');
+                                    if (index >= 0)
+                                    {
+                                        realname = str.Substring(0, index);
+                                        staffno = str.Substring(index + 1);
+                                    }
+                                    string strWhere1 = "(REAL_NAME='" + realname + "' or REAL_NAME+STAFF_NO='" + str + "') and IS_DELETE = 0";
+                                    string strWhere2 = null;
+                                    if (!string.IsNullOrWhiteSpace(staffno))
+                                    {
+                                        strWhere2 = "STAFF_NO='" + staffno + "' and IS_DELETE = 0";
+                                    }
+                                    List<Maticsoft.Model.SMT_STAFF_INFO> models = null;
+                                    if (strWhere2 != null)
+                                    {
+                                        models = staffBll.GetModelList(strWhere2);
+                                        if (models.Count == 0)
+                                        {
+                                            models = staffBll.GetModelList(strWhere1);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        models = staffBll.GetModelList(strWhere1);
+                                    }
+
+                                    if (models.Count > 0)
+                                    {
+                                        models[0].PHOTO = bts;
+                                        staffBll.Update(models[0]);
+                                        FrmDetailInfo.AddOneMsg("导入人员照片为“" + str + "”成功.", isRed: false);
+                                    }
+                                    else
+                                    {
+                                        FrmDetailInfo.AddOneMsg("不存在“姓名_编号”为“" + str + "”人员！", isRed: true);
+                                    }
                                 }
                             }
                             catch (Exception ex)
                             {
                                 FrmDetailInfo.AddOneMsg("导入照片" + file + "异常：" + ex.Message, isRed: true);
-                                log.Error("导入照片" + file + "异常：" + ex.Message,ex);
+                                log.Error("导入照片" + file + "异常：" + ex.Message, ex);
                             }
                         }
                         FrmDetailInfo.AddOneMsg("导入照片结束！");

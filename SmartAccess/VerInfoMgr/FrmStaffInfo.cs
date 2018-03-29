@@ -168,9 +168,9 @@ namespace SmartAccess.VerInfoMgr
                     {
                         picPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
-                    _staffInfo.PHOTO = ms.GetBuffer();
+                    _staffInfo.PHOTO = (byte[])ms.GetBuffer().Clone();
+                    ms.Dispose();
                 }
-               // _staffInfo.PHOTO = GetPicImage(picPhoto);
                 _staffInfo.CER_PHOTO_FRONT = null;
                 _staffInfo.CER_PHOTO_BACK = null;
                 _staffInfo.MODIFY_TIME = DateTime.Now;
@@ -377,7 +377,9 @@ namespace SmartAccess.VerInfoMgr
             {
                 MemoryStream ms = new MemoryStream();
                 picBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                return ms.GetBuffer();
+                var bts= (byte[])ms.GetBuffer().Clone();
+                ms.Dispose();
+                return bts;
             }
             return null;
         }
@@ -648,12 +650,19 @@ namespace SmartAccess.VerInfoMgr
             {
                 MemoryStream ms = new MemoryStream(bts);
                 Image image = Image.FromStream(ms);
+                Bitmap bitmap = new Bitmap(image.Width,image.Height);
+                Graphics g=Graphics.FromImage(bitmap);
+                g.DrawImage(image, 0, 0);
+                g.Dispose();
+                image.Dispose();
+                ms.Dispose();
                 if (picBox.Image != null)
                 {
                     picBox.Image.Dispose();
                     picBox.Image = null;
                 }
-                picBox.Image = image;
+                picBox.Image = bitmap;
+               
             }
         }
         private void LoadDeptsTree()
@@ -833,6 +842,14 @@ namespace SmartAccess.VerInfoMgr
 
         private void FrmStaffInfo_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _memoryReport.Close();
+            _memoryReport.Dispose();
+            _memoryReport = null;
+
+            this.cbTreeDept.Nodes.Clear();
+            this.cboVeMoBan.Items.Clear();
+            _staffInfo = null;
+
             if ( picPhoto.Image!=null)
             {
                 picPhoto.Image.Dispose();
@@ -842,10 +859,15 @@ namespace SmartAccess.VerInfoMgr
             {
                 _report.Clear();
                 _report.Preview = null;
-                previewControl.Clear();
                 _report.Dispose();
                 _report = null;
             }
+
+            previewControl.Clear();
+            this.Controls.Remove(this.previewControl);
+            this.previewControl.Dispose();
+            this.previewControl = null;
+
             GC.Collect();
         }
 
@@ -882,7 +904,7 @@ namespace SmartAccess.VerInfoMgr
         {
             ShowSimplePreview();
         }
-
+        private MemoryStream _memoryReport = new MemoryStream();
         private bool LoadReportData(FastReport.Report report)
         {
             report.Clear();
@@ -896,97 +918,107 @@ namespace SmartAccess.VerInfoMgr
             {
                 return false;
             }
-            MemoryStream ms = new MemoryStream(model.VERM_CONTENT);
-            report.Load(ms);
-            string deptName = "";
-            string deptNo = "";
-            string upDeptName = "";
-            string upupDeptName = "";
-            string topDeptName = "";
-            decimal deptId=-1;
-            if (cbTreeDept.SelectedNode != null)
+            //MemoryStream ms = new MemoryStream();
+            try
             {
-                Maticsoft.Model.SMT_ORG_INFO org = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
-                if (org != null)
+                _memoryReport.SetLength(0);
+                _memoryReport.Write(model.VERM_CONTENT, 0, model.VERM_CONTENT.Length);
+                _memoryReport.Seek(0, SeekOrigin.Begin);
+                //_memoryReport = new MemoryStream(model.VERM_CONTENT);
+                report.Load(_memoryReport);
+                string deptName = "";
+                string deptNo = "";
+                string upDeptName = "";
+                string upupDeptName = "";
+                string topDeptName = "";
+                decimal deptId = -1;
+                if (cbTreeDept.SelectedNode != null)
                 {
-                    deptName = org.ORG_NAME;
-                    deptNo = org.ORG_CODE;
-                    deptId=org.ID;
-                }
-                else if (_staffInfo != null)
-                {
-                    deptId=_staffInfo.ORG_ID!=null?(decimal)_staffInfo.ORG_ID:-1;
-                    deptName = _staffInfo.ORG_NAME;
-                    deptNo = _staffInfo.ORG_CODE;
-                }
-            }
-
-            if (deptId>=0)
-            {
-                var list= DeptDataHelper.FindAllParent(deptId);
-                if (list.Count>0)
-                {
-                    upDeptName = list[0].ORG_NAME;
-                    if (list.Count>1)
+                    Maticsoft.Model.SMT_ORG_INFO org = cbTreeDept.SelectedNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+                    if (org != null)
                     {
-                        upupDeptName = list[1].ORG_NAME;
+                        deptName = org.ORG_NAME;
+                        deptNo = org.ORG_CODE;
+                        deptId = org.ID;
                     }
-                    topDeptName = list[list.Count - 1].ORG_NAME;
+                    else if (_staffInfo != null)
+                    {
+                        deptId = _staffInfo.ORG_ID != null ? (decimal)_staffInfo.ORG_ID : -1;
+                        deptName = _staffInfo.ORG_NAME;
+                        deptNo = _staffInfo.ORG_CODE;
+                    }
                 }
-            }
 
-            string sex = "未知";
-            if (cbSex.SelectedIndex==1)
-            {
-                sex = "男";
+                if (deptId >= 0)
+                {
+                    var list = DeptDataHelper.FindAllParent(deptId);
+                    if (list.Count > 0)
+                    {
+                        upDeptName = list[0].ORG_NAME;
+                        if (list.Count > 1)
+                        {
+                            upupDeptName = list[1].ORG_NAME;
+                        }
+                        topDeptName = list[list.Count - 1].ORG_NAME;
+                    }
+                }
+
+                string sex = "未知";
+                if (cbSex.SelectedIndex == 1)
+                {
+                    sex = "男";
+                }
+                else if (cbSex.SelectedIndex == 2)
+                {
+                    sex = "女";
+                }
+                string marry = "未知";
+                if (cbMarry.SelectedIndex == 1)
+                {
+                    marry = "已婚";
+                }
+                else if (cbMarry.SelectedIndex == 2)
+                {
+                    marry = "未婚";
+                }
+                var dt = StaffDataHelper.GetReportDataTable(
+                    deptName,
+                    deptNo,
+                    tbVerNo.Text.Trim(),
+                    tbStaffName.Text.Trim(),
+                    sex,
+                    tbJob.Text.Trim(),
+                    dtBirthday.Value.Date,
+                    tbPublic.Text.Trim(),
+                    marry,
+                    tbSkillLevel.Text.Trim(),
+                    tbPrivateVerName.Text.Trim(),
+                    tbPrivateVerNo.Text.Trim(),
+                    tbTelphone.Text.Trim(),
+                    tbCellPhone.Text.Trim(),
+                    tbJiGuan.Text.Trim(),
+                    tbMinZu.Text.Trim(),
+                    tbZonJiao.Text.Trim(),
+                    tbXueLi.Text.Trim(),
+                    tbEmail.Text.Trim(),
+                    dtValidTimeStart.Value.Date,
+                    dtValidTimeEnd.Value.Date.Add(new TimeSpan(23, 59, 59)),
+                    dtTimeIn.Value.Date,
+                    dtTimeOut.Value.Date,
+                    tbAddress.Text.Trim(),
+                    picPhoto.Image,
+                    _staffInfo != null ? _staffInfo.REG_TIME : DateTime.Now,
+                    upDeptName,
+                    upupDeptName,
+                    topDeptName
+                    );
+                report.RegisterData(dt, dt.TableName);
             }
-            else if (cbSex.SelectedIndex==2)
+            catch (Exception ex)
             {
-                sex = "女";
+                log.Error("load report", ex);
             }
-            string marry = "未知";
-            if (cbMarry.SelectedIndex == 1)
-            {
-                marry = "已婚";
-            }
-            else if (cbMarry.SelectedIndex == 2)
-            {
-                marry = "未婚";
-            }
-            var dt = StaffDataHelper.GetReportDataTable(
-                deptName,
-                deptNo,
-                tbVerNo.Text.Trim(),
-                tbStaffName.Text.Trim(),
-                sex,
-                tbJob.Text.Trim(),
-                dtBirthday.Value.Date,
-                tbPublic.Text.Trim(),
-                marry,
-                tbSkillLevel.Text.Trim(),
-                tbPrivateVerName.Text.Trim(),
-                tbPrivateVerNo.Text.Trim(),
-                tbTelphone.Text.Trim(),
-                tbCellPhone.Text.Trim(),
-                tbJiGuan.Text.Trim(),
-                tbMinZu.Text.Trim(),
-                tbZonJiao.Text.Trim(),
-                tbXueLi.Text.Trim(),
-                tbEmail.Text.Trim(),
-                dtValidTimeStart.Value.Date,
-                dtValidTimeEnd.Value.Date.Add(new TimeSpan(23, 59, 59)),
-                dtTimeIn.Value.Date,
-                dtTimeOut.Value.Date,
-                tbAddress.Text.Trim(),
-                picPhoto.Image,
-                _staffInfo != null ? _staffInfo.REG_TIME : DateTime.Now,
-                upDeptName,
-                upupDeptName,
-                topDeptName
-                );
-            report.RegisterData(dt, dt.TableName);
-            //ModelMgr.VerModelMgr.BindingDataSet(_report);
-            ms.Dispose();
+           // ms.Dispose();
             return true;
         }
 
@@ -1034,11 +1066,15 @@ namespace SmartAccess.VerInfoMgr
 
         private void biPrint_Click(object sender, EventArgs e)
         {
-            ShowSimplePreview();
-            this.BeginInvoke(new Action(() =>
+            //ShowSimplePreview();
+            if (_report!=null)
+            {
+                this.BeginInvoke(new Action(() =>
                 {
                     previewControl.Print();
                 }));
+            }
+
         }
 
         private void cboVerTypeStyle_SelectedIndexChanged(object sender, EventArgs e)

@@ -15,31 +15,37 @@ namespace SmartAccess.Common.WinInfo
         private float _time = 0;
         public static void ShowInfo(IWin32Window owner, string text, float timeCloseSecond = 3.5f)
         {
-            Control ctrl = owner as Control;
-            if (ctrl == null)
+            try
             {
-                Form main = Application.OpenForms[0];
-                foreach (var item in Application.OpenForms)
-                {
-                    FrmMain form = item as FrmMain;
-                    if (form!=null)
-                    {
-                        main=form;
-                        break;
-                    }
-                }
-                ctrl = main;
-            }
-            ctrl.Invoke(new Action(() =>
-            {
-                FrmInfo frmInfo = new FrmInfo(text, timeCloseSecond);
+                Control ctrl = owner as Control;
                 if (ctrl == null)
                 {
-                    frmInfo.Show();
+                    Form main = Application.OpenForms[0];
+                    foreach (var item in Application.OpenForms)
+                    {
+                        FrmMain form = item as FrmMain;
+                        if (form != null)
+                        {
+                            main = form;
+                            break;
+                        }
+                    }
+                    ctrl = main;
                 }
-                else frmInfo.Show(ctrl);
-                frmInfo.Refresh();
-            }));
+                ctrl.Invoke(new Action(() =>
+                {
+                    FrmInfo frmInfo = new FrmInfo(text, timeCloseSecond);
+                    if (ctrl == null)
+                    {
+                        frmInfo.Show();
+                    }
+                    else frmInfo.Show(ctrl);
+                    frmInfo.Refresh();
+                }));
+            }
+            catch (Exception ex)
+            {
+            }
         }
         protected override CreateParams CreateParams
         {
