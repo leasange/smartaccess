@@ -1039,6 +1039,13 @@ namespace SmartAccess.VerInfoMgr
                     _report.ShowPrepared();
                 }
             }
+            catch (OutOfMemoryException ex)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "预览证件异常：" + ex.Message);
+                log.Error("预览证件异常：", ex);
+                MessageBox.Show("软件发生不可恢复异常，需要重启，请确定后重启！");
+                Application.Restart();
+            }
             catch (Exception ex)
             {
                 WinInfoHelper.ShowInfoWindow(this, "预览证件异常：" + ex.Message);

@@ -32,6 +32,11 @@ namespace SmartAccess
             {
                 log.Error("未捕获异常", e.Exception);
                // throw e.Exception;
+                if (e.Exception is OutOfMemoryException)
+                {
+                    MessageBox.Show("软件发生不可恢复异常，需要重启，请确定后重启！");
+                    Application.Restart();
+                }
             }
         }
     }
