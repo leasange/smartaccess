@@ -653,7 +653,10 @@ namespace SmartAccess.VerInfoMgr
                     picBox.Image.Dispose();
                     picBox.Image = null;
                 }
-                picBox.Image = image;
+                MemoryStream msnew = new MemoryStream();
+                image.Save(msnew, System.Drawing.Imaging.ImageFormat.Jpeg);
+                picBox.Image = Image.FromStream(msnew);
+                image.Dispose();
             }
         }
         private void LoadDeptsTree()

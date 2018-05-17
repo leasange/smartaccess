@@ -30,16 +30,23 @@ namespace SmartAccess.Common.WinInfo
                 }
                 ctrl = main;
             }
-            ctrl.Invoke(new Action(() =>
+            try
             {
-                FrmInfo frmInfo = new FrmInfo(text, timeCloseSecond);
-                if (ctrl == null)
+                ctrl.Invoke(new Action(() =>
                 {
-                    frmInfo.Show();
-                }
-                else frmInfo.Show(ctrl);
-                frmInfo.Refresh();
-            }));
+                    FrmInfo frmInfo = new FrmInfo(text, timeCloseSecond);
+                    if (ctrl == null)
+                    {
+                        frmInfo.Show();
+                    }
+                    else frmInfo.Show(ctrl);
+                    frmInfo.Refresh();
+                }));
+            }
+            catch (Exception)
+            {
+  
+            }
         }
         protected override CreateParams CreateParams
         {
