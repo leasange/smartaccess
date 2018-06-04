@@ -32,6 +32,8 @@
             this.timerWheel = new System.Windows.Forms.Timer(this.components);
             this.cmsFullMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiFullMap = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDoorStateCfg = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRemoteOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsFullMap.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,16 +45,33 @@
             // cmsFullMap
             // 
             this.cmsFullMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFullMap});
+            this.tsmiFullMap,
+            this.tsmiDoorStateCfg,
+            this.tsmiRemoteOpen});
             this.cmsFullMap.Name = "cmsFullMap";
-            this.cmsFullMap.Size = new System.Drawing.Size(125, 26);
+            this.cmsFullMap.Size = new System.Drawing.Size(153, 92);
+            this.cmsFullMap.Opened += new System.EventHandler(this.cmsFullMap_Opened);
             // 
             // tsmiFullMap
             // 
             this.tsmiFullMap.Name = "tsmiFullMap";
-            this.tsmiFullMap.Size = new System.Drawing.Size(124, 22);
+            this.tsmiFullMap.Size = new System.Drawing.Size(152, 22);
             this.tsmiFullMap.Text = "全图显示";
             this.tsmiFullMap.Click += new System.EventHandler(this.tsmiFullMap_Click);
+            // 
+            // tsmiDoorStateCfg
+            // 
+            this.tsmiDoorStateCfg.Name = "tsmiDoorStateCfg";
+            this.tsmiDoorStateCfg.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDoorStateCfg.Text = "设置门禁";
+            this.tsmiDoorStateCfg.Click += new System.EventHandler(this.tsmiDoorStateCfg_Click);
+            // 
+            // tsmiRemoteOpen
+            // 
+            this.tsmiRemoteOpen.Name = "tsmiRemoteOpen";
+            this.tsmiRemoteOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiRemoteOpen.Text = "远程开门";
+            this.tsmiRemoteOpen.Click += new System.EventHandler(this.tsmiRemoteOpen_Click);
             // 
             // MapCtrl
             // 
@@ -78,5 +97,7 @@
         private System.Windows.Forms.Timer timerWheel;
         private System.Windows.Forms.ContextMenuStrip cmsFullMap;
         private System.Windows.Forms.ToolStripMenuItem tsmiFullMap;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDoorStateCfg;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemoteOpen;
     }
 }

@@ -17,6 +17,12 @@ namespace SmartAccess.ConfigMgr
         private double _ratioY = 0;
         private double _ratioWidth = 0;
         private double _ratioHeight = 0;
+        private Maticsoft.Model.SMT_DOOR_INFO _door;
+        public Maticsoft.Model.SMT_DOOR_INFO Door
+        {
+            get { return _door; }
+            set { _door = value; }
+        }
         public decimal Id
         {
             get { return id; }

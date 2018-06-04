@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
+using SmartAccess.RealDetectMgr;
+using SmartAccess.Common.WinInfo;
+using SmartAccess.Common.Datas;
 
 namespace SmartAccess.ConfigMgr
 {
@@ -118,6 +121,7 @@ namespace SmartAccess.ConfigMgr
                     dr.RatioY = (double)item.LOCATION_Y;
                     dr.RatioWidth = (double)item.WIDTH;
                     dr.RatioHeight = (double)item.HEIGHT;
+                    dr.Door = item.DOOR;
                     if (item.DOOR!=null)
                     {
                         dr.IsOnline = item.DOOR.OPEN_STATE != 2;
@@ -576,6 +580,100 @@ namespace SmartAccess.ConfigMgr
         private void tsmiFullMap_Click(object sender, EventArgs e)
         {
             FullExtent();
+        }
+        private DoorRectangle _rightClick = null;
+        private string GetDoorText(Maticsoft.Model.SMT_DOOR_INFO door, bool isdetect = false)
+        {
+            string text = door.DOOR_NAME;
+            if (!door.IS_ENABLE)
+            {
+                text += "(禁用)";
+            }
+            else
+            {
+                if (door.CTRL_STYLE == 1)
+                {
+                    text += "(常开)";
+                }
+                else if (door.CTRL_STYLE == 2)
+                {
+                    text += "(常关)";
+                }
+                else if (isdetect)
+                {
+                    text += "(监控中)";
+                }
+            }
+            return text;
+        }
+        private void tsmiDoorStateCfg_Click(object sender, EventArgs e)
+        {
+            if (_rightClick==null||_rightClick.Door==null)
+            {
+                return;
+            }
+            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { _rightClick.Door };
+
+            FrmDoorStateCfg cfg = new FrmDoorStateCfg(doors, null);
+            cfg.ShowDialog(this);
+            if (cfg.IsChanged)
+            {
+                Maticsoft.Model.SMT_DOOR_INFO door = _rightClick.Door;
+                _rightClick.DoorName = GetDoorText(door);
+                int index = door.OPEN_STATE;
+               // if (index < 0 || index > 2)
+               // {
+               //     index = 0;
+               // }
+                if (door.CTRL_STYLE == 1)
+                {
+                    _rightClick.IsOpen = true;
+                 //   index = 1;
+                }
+               // if (!door.IS_ENABLE)
+               // {
+               //     index = 3;
+               // }
+                this.Invalidate();
+            }
+        }
+
+        private void tsmiRemoteOpen_Click(object sender, EventArgs e)
+        {
+            if (_rightClick == null || _rightClick.Door == null)
+            {
+                return;
+            }
+            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { _rightClick.Door };
+            if (doors.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                UploadPrivate.RemoteOpenDoors(doors);
+            });
+            waiting.Show(this);
+        }
+
+        private void cmsFullMap_Opened(object sender, EventArgs e)
+        {
+            _rightClick = null;
+            Point m= this.PointToClient(Cursor.Position);
+            foreach (var item in this._doors)
+            {
+                if (item != null&&item.Door!=null)
+                {
+                    var rect = item.GetRect(_mapRect);
+                    if (rect.Contains(m))
+                    {
+                        _rightClick = item;
+                        break;
+                    }
+                }
+            }
+            tsmiDoorStateCfg.Visible = tsmiRemoteOpen.Visible = _rightClick != null;
         }
     }
 }

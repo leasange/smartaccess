@@ -13,6 +13,7 @@ using SmartAccess.Common.Datas;
 using DevComponents.DotNetBar;
 using Li.Access.Core;
 using System.Threading;
+using System.IO;
 
 namespace SmartAccess.RealDetectMgr
 {
@@ -342,10 +343,7 @@ namespace SmartAccess.RealDetectMgr
                     {
                         try
                         {
-                            this.Invoke(new Action(() =>
-                            {
-                                AddWatchData(ctrlr, connected, state, doorstate,relaystate);
-                            }));
+                            AddWatchData(ctrlr, connected, state, doorstate, relaystate);
                         }
                         catch (Exception)
                         {
@@ -358,60 +356,205 @@ namespace SmartAccess.RealDetectMgr
                 }
             }
         }
-        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate,bool relaystate)
+        private List<Maticsoft.Model.SMT_CARD_INFO> _cards = null;
+        private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate, bool relaystate)
         {
-            foreach (MapCtrl item in _detectedMaps)
+            string cardNo = null;
+            if (state != null)
             {
-                var doors = GetDoors(item);
-                foreach (var door in doors)
+                if (_cards == null)
                 {
-                    if ((decimal)door.CTRL_ID != ctrlr.id)
-                    {
-                        continue;
-                    }
-                    var doorRect = item.GetDoor(door.ID);
-                    if (doorRect == null)
-                    {
-                        continue;
-                    }
-                    doorRect.IsOnline = connected;
-                    if (state != null)
-                    {
-                        int doorIndex = (int)door.CTRL_DOOR_INDEX;
-                        switch (doorIndex)
-                        {
-                            case 1:
-                                doorRect.IsOpen = state.isOpenDoorOfLock1;
-                                door.OPEN_STATE = state.isOpenDoorOfLock1 ? 1 : 0;
-                                break;
-                            case 2:
-                                doorRect.IsOpen = state.isOpenDoorOfLock2;
-                                door.OPEN_STATE = state.isOpenDoorOfLock2 ? 1 : 0;
-                                break;
-                            case 3:
-                                doorRect.IsOpen = state.isOpenDoorOfLock3;
-                                door.OPEN_STATE = state.isOpenDoorOfLock3 ? 1 : 0;
-                                break;
-                            case 4:
-                                doorRect.IsOpen = state.isOpenDoorOfLock4;
-                                door.OPEN_STATE = state.isOpenDoorOfLock4 ? 1 : 0;
-                                break;
-                            default:
-                                break;
-                        }
-                        DoorDataHelper.UpdateDoorSync(door);
-                    }
-                    else if (!connected)
-                    {
-                        door.OPEN_STATE = 2;
-                        DoorDataHelper.UpdateDoorSync(door);
-                    }
-                  
+                    Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
+                    _cards = cardBll.GetModelList("");
                 }
-                item.Invalidate();
+                cardNo = state.cardOrNoNumber;
+                var card = _cards.Find(m => m.CARD_WG_NO == state.cardOrNoNumber);
+                if (card != null)
+                {
+                    cardNo = card.CARD_NO;
+                }
+                else
+                {
+                    Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
+                    var c = cardBll.GetModelList("CARD_WG_NO='" + state.cardOrNoNumber + "'");
+                    if (c.Count > 0)
+                    {
+                        _cards.Add(c[0]);
+                        cardNo = c[0].CARD_NO;
+                    }
+                }
             }
-        }
+            string staffname = "未知";
+            string orgname = "未知";
+            Maticsoft.Model.SMT_STAFF_INFO sinfo = null;
+            if (cardNo != null)
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_STAFF_INFO siBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                    var ds = siBll.GetListByCardNum(cardNo);
+                    var list = siBll.DataTableToListWithDept(ds.Tables[0]);
+                    if (list.Count > 0)
+                    {
+                        staffname = list[0].REAL_NAME;
+                        orgname = list[0].ORG_NAME;
+                        sinfo = list[0];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error("读取职员异常：", ex);
+                }
 
+            }
+            this.Invoke(new Action(() =>
+            {
+                foreach (MapCtrl item in _detectedMaps)
+                {
+                    var doors = GetDoors(item);
+                    foreach (var door in doors)
+                    {
+                        if ((decimal)door.CTRL_ID != ctrlr.id)
+                        {
+                            continue;
+                        }
+                        var doorRect = item.GetDoor(door.ID);
+                        if (doorRect == null)
+                        {
+                            continue;
+                        }
+                        doorRect.IsOnline = connected;
+
+                        int doorIndex = (int)door.CTRL_DOOR_INDEX;
+                        bool doorLock = false;
+                        if (state != null)
+                        {
+                            //更新状态
+                            switch (doorIndex)
+                            {
+                                case 1:
+                                    doorLock = state.isOpenDoorOfLock1;
+                                    break;
+                                case 2:
+                                    doorLock = state.isOpenDoorOfLock2;
+                                    break;
+                                case 3:
+                                    doorLock = state.isOpenDoorOfLock3;
+                                    break;
+                                case 4:
+                                    doorLock = state.isOpenDoorOfLock4;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            //更新状态
+                            doorRect.IsOpen = doorLock;
+                            door.OPEN_STATE = doorLock ? 1 : 0;
+                            DoorDataHelper.UpdateDoorSync(door);
+                        }
+                        if ((!connected || state == null) && !doorstate)
+                        {
+                            door.OPEN_STATE = 2;
+                            doorRect.IsOnline = false;
+                            DoorDataHelper.UpdateDoorSync(door);
+                            //item.ImageIndex = connected ? 0 : 2;
+                            /*DataGridViewRow row = new DataGridViewRow();
+                            row.Tag = ctrlr;
+                            row.CreateCells(dgvRealLog, DateTime.Now, door.DOOR_NAME, string.Format("控制器：IP={0},SN={1} {2}！", ctrlr.ip, ctrlr.sn, connected ? "连接成功" : "无法连接"));
+                            row.DefaultCellStyle.BackColor = Color.Yellow;
+                            dgvRealLog.Rows.Insert(0, row);*/
+                        }
+                        else if ((byte)door.CTRL_DOOR_INDEX == state.doorNum)
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            row.Tag = state;
+                            if (!relaystate)
+                            {
+                                string actionname = AccessHelper.GetRecordReasonString(state.reasonNo);
+                                if (!doorLock)
+                                {
+                                    actionname += "，锁状态：关";
+                                }
+                                else
+                                {
+                                    actionname += "，锁状态：开";
+                                }
+                                if (doorstate)
+                                {
+                                    row.CreateCells(dgvRealLog, state.recordTime, door.DOOR_NAME + (state.isEnterDoor ? "-进门" : "-出门"), string.Format("人员:{0}，部门:{1},门禁:{2},卡号：{3},动作：{4}", staffname, orgname, door.DOOR_NAME, cardNo, actionname));
+                                    dgvRealLog.Rows.Insert(0, row);
+                                    row.Tag = new object[] { sinfo, state };
+                                    ShowStaffInfo(row, row.Tag as object[]);
+                                    while (dgvRealLog.Rows.Count > 2000)
+                                    {
+                                        dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    item.Invalidate();
+                }
+            }));
+        }
+        private void ShowStaffInfo(DataGridViewRow row, object[] infos)
+        {
+            if (infos == null)
+            {
+                return;
+            }
+            try
+            {
+                if (picBox.Image != null)
+                {
+                    picBox.Image.Dispose();
+                    picBox.Image = null;
+                }
+                Maticsoft.Model.SMT_STAFF_INFO sinfo = infos[0] as Maticsoft.Model.SMT_STAFF_INFO;
+                ControllerState state = infos[1] as ControllerState;
+                if (sinfo.PHOTO != null && sinfo.PHOTO.Length > 0)
+                {
+                    MemoryStream ms = new MemoryStream(sinfo.PHOTO);
+                    Image bitmap = Image.FromStream(ms);
+                    picBox.Image = bitmap;
+                }
+                if (sinfo != null)
+                {
+                    lbStaffName.Text = sinfo.REAL_NAME;
+                    lbDeptName.Text = sinfo.ORG_NAME;
+                }
+                else
+                {
+                    lbStaffName.Text = "----";
+                    lbDeptName.Text = "----";
+                }
+                if (state != null)
+                {
+                    lbTime.Text = state.recordTime.ToString("yyyy-MM-dd HH:mm:ss ddd");
+                    if (row.Cells[1].Value != null)
+                    {
+                        lbDoorName.Text = (string)row.Cells[1].Value;
+                    }
+                    else
+                    {
+                        lbDoorName.Text = "----";
+                    }
+                    lbAction.Text = AccessHelper.GetRecordReasonString(state.reasonNo).Replace(":", "\r\n");
+                }
+                else
+                {
+                    lbTime.Text = ((DateTime)row.Cells[0].Value).ToString("yyyy-MM-dd HH:mm:ss ddd");
+                    lbDoorName.Text = "----";
+                    lbAction.Text = "----";
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("显示信息异常：", ex);
+            }
+
+        }
         private void biStopCurrMap_Click(object sender, EventArgs e)
         {
             if (stcMaps.SelectedTab == null)
