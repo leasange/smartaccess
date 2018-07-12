@@ -551,6 +551,12 @@
     <Compile Include="VerInfoMgr\FrmMoveDept.Designer.cs">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmBatchModify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmBatchModify.Designer.cs">
+      <DependentUpon>FrmBatchModify.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmPrivateCopy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -816,6 +822,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmMoveDept.resx">
       <DependentUpon>FrmMoveDept.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmBatchModify.resx">
+      <DependentUpon>FrmBatchModify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmPrivateCopy.resx">
       <DependentUpon>FrmPrivateCopy.cs</DependentUpon>

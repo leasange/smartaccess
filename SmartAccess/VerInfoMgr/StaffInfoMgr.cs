@@ -1844,6 +1844,12 @@ namespace SmartAccess.VerInfoMgr
             }
         }
 
+        private void biBatchModify_Click(object sender, EventArgs e)
+        {
+            FrmBatchModify frmBatchModify = new FrmBatchModify();
+            frmBatchModify.ShowDialog(this);
+        }
+
 
     }
 }

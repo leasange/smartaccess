@@ -11,17 +11,12 @@ using System.Windows.Forms;
 
 namespace SmartAccess.VerInfoMgr
 {
-    public partial class FrmPrivateCopy : DevComponents.DotNetBar.Office2007Form
+    public partial class FrmBatchModify : DevComponents.DotNetBar.Office2007Form
     {
-        private Maticsoft.Model.SMT_STAFF_INFO _staffInfo = null;
-        private List<Maticsoft.Model.SMT_STAFF_DOOR> _staffDoors = null;
-        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmPrivateCopy));
-        public FrmPrivateCopy(Maticsoft.Model.SMT_STAFF_INFO staffInfo,List<Maticsoft.Model.SMT_STAFF_DOOR> doors)
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmBatchModify));
+        public FrmBatchModify()
         {
             InitializeComponent();
-            _staffInfo = staffInfo;
-            _staffDoors = doors;
-            this.Text = "当前被复制权限人员：" + _staffInfo.REAL_NAME;
         }
 
         private void FrmPrivateCopy_Load(object sender, EventArgs e)
@@ -86,7 +81,7 @@ namespace SmartAccess.VerInfoMgr
                         {
                             strWhere += " or ORG_ID is null";
                         }
-                        var staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0  and ID !=" + _staffInfo.ID);
+                        var staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0");
 
                         if (orgInfo.ID != -1)
                         {
@@ -94,7 +89,7 @@ namespace SmartAccess.VerInfoMgr
                             var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
                             foreach (var org in orgS)
                             {
-                                var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0  and ID !=" + _staffInfo.ID);
+                                var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0");
                                 staffInfos.AddRange(subInfos);
                             }
                         }
@@ -137,7 +132,9 @@ namespace SmartAccess.VerInfoMgr
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
-                    item.REAL_NAME
+                    item.REAL_NAME,
+                    item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
+                    item.IS_FORBIDDEN?"禁用":"正常"
                     );
                 row.Tag = item;
                 dgvStaffs.Rows.Add(row);
@@ -223,9 +220,42 @@ namespace SmartAccess.VerInfoMgr
         {
             if (dgvSelected.Rows.Count==0)
             {
-                WinInfoHelper.ShowInfoWindow(this, "请至少选一个待复制的人员！");
+                WinInfoHelper.ShowInfoWindow(this, "请至少选一个人员！");
                 return;
             }
+            if (cbIsValidValid.Checked &&
+                (
+                (dtValidStart.LockUpdateChecked && dtValidStart.IsEmpty) ||
+                (dtValidEnd.LockUpdateChecked && dtValidEnd.IsEmpty)
+                )
+                )
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请设置选择有效的开始或结束时间！");
+                return;
+            }
+            bool isvaliddatechanged = false;
+            if (cbIsValidValid.Checked &&
+                (
+                (dtValidStart.LockUpdateChecked&&!dtValidStart.IsEmpty)||(dtValidEnd.LockUpdateChecked&&!dtValidEnd.IsEmpty)
+                )
+                )
+            {
+                isvaliddatechanged = true;
+            }
+            if (isvaliddatechanged)
+            {
+                if (cbIsValidValid.Checked && dtValidStart.LockUpdateChecked && dtValidEnd.LockUpdateChecked && dtValidStart.Value > dtValidEnd.Value)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "结束时间不能小于开始时间！");
+                    return;
+                }
+            }
+            if (!isvaliddatechanged&&!cbisForbidden.Checked)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择要修改的信息！");
+                return;
+            }
+            
             List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
             foreach (DataGridViewRow item in dgvSelected.Rows)
             {
@@ -233,37 +263,27 @@ namespace SmartAccess.VerInfoMgr
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
-                Maticsoft.BLL.SMT_STAFF_DOOR sdbll = new Maticsoft.BLL.SMT_STAFF_DOOR();
+                Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
                 try
                 {
                     foreach (var item in staffInfos)
                     {
-                        var olddoors = sdbll.GetModelList("STAFF_ID=" + item.ID);
-                        var notexist = olddoors.FindAll(m =>
+                        if (isvaliddatechanged)
                         {
-                            return !_staffDoors.Exists(n => n.DOOR_ID == m.DOOR_ID);
-                        });
-                        foreach (var old in notexist)
-                        {
-                            sdbll.Delete(old.STAFF_ID, old.DOOR_ID);
-                            olddoors.Remove(old);
-                        }
-                        notexist = _staffDoors.FindAll(m =>
-                        {
-                            return !olddoors.Exists(n => n.DOOR_ID == m.DOOR_ID);
-                        });
-                        foreach (var newdoor in notexist)
-                        {
-                            sdbll.Add(new Maticsoft.Model.SMT_STAFF_DOOR()
+                            if (dtValidStart.LockUpdateChecked&&!dtValidStart.IsEmpty)
                             {
-                                ADD_TIME = DateTime.Now,
-                                IS_UPLOAD = false,
-                                STAFF_ID = item.ID,
-                                UPLOAD_TIME = DateTime.Now,
-                                DOOR_ID = newdoor.DOOR_ID,
-                                TIME_NUM = newdoor.TIME_NUM
-                            });
+                                item.VALID_STARTTIME = dtValidStart.Value.Date;
+                            }
+                            if (dtValidEnd.LockUpdateChecked && !dtValidEnd.IsEmpty)
+                            {
+                                item.VALID_ENDTIME = dtValidEnd.Value.Date + new TimeSpan(23, 59, 59);
+                            }
                         }
+                        if (cbisForbidden.Checked)
+                        {
+                            item.IS_FORBIDDEN = !cbNormal.Checked;
+                        }
+                        staffBll.Update(item);
                     }
                 }
                 catch (Exception ex)
@@ -293,6 +313,16 @@ namespace SmartAccess.VerInfoMgr
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void cbIsValidValid_CheckedChanged(object sender, EventArgs e)
+        {
+            plValidate.Enabled = cbIsValidValid.Checked;
+        }
+
+        private void cbisForbidden_CheckedChanged(object sender, EventArgs e)
+        {
+            plForbidden.Enabled = cbisForbidden.Checked;
         }
     }
 }
