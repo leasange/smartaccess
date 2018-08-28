@@ -361,7 +361,22 @@ namespace Li.Access.Core.FaceDevice
             }
             return false;
         }
-        
+
+        public bool AddFaces(params Maticsoft.Model.BST.staff_update[] updates)
+        {
+            Maticsoft.DBUtility.DbHelperMySQL.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=bst_facedb;Uid=" + _dbName + ";Pwd=" + _dbPwd + ";CharSet=UTF8;";
+            Maticsoft.BLL.BST.staff_update bll = new Maticsoft.BLL.BST.staff_update();
+            List<string> ids = new List<string>();
+            foreach (var item in updates)
+            {
+                bll.Add(item);
+                ids.Add(item.id);
+            }
+
+            string ret = doSendCmd("//@UP@//");
+            return true;
+
+        }
 
         public void Dispose()
         {
