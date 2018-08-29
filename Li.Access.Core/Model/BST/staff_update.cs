@@ -38,6 +38,13 @@ namespace Maticsoft.Model.BST
 		private string _data_keepon3;
 		private string _data_keepon4;
 		private string _data_keepon5;
+
+        private bool _update_result=false;
+        public bool Update_Result
+        {
+            get { return _update_result; }
+            set { _update_result = value; }
+        }
 		/// <summary>
 		/// 
 		/// </summary>

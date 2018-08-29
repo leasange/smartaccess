@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -266,7 +267,7 @@ namespace Li.Access.Core.FaceDevice
             }
         }
 
-        private string doSendCmd(string cmd)
+        private string doSendCmd(string cmd,bool checkStart=true)
         {
             if (OpenCtrl())
             {
@@ -281,9 +282,13 @@ namespace Li.Access.Core.FaceDevice
                     }
                     else
                     {
-                        if (_cmdReadString.StartsWith(cmd))
+                        if (checkStart&&_cmdReadString.StartsWith(cmd))
                         {
                             return _cmdReadString.Substring(cmd.Length).Trim(' ','\r','\n');
+                        }
+                        else if (!checkStart)
+                        {
+                            return _cmdReadString.Trim(' ', '\r', '\n');
                         }
                         else
                         {
@@ -362,20 +367,72 @@ namespace Li.Access.Core.FaceDevice
             return false;
         }
 
-        public bool AddFaces(params Maticsoft.Model.BST.staff_update[] updates)
+        public bool AddOrModifyFaces(out string errorMsg,params Maticsoft.Model.BST.staff_update[] updates)
         {
+            errorMsg = null;
             Maticsoft.DBUtility.DbHelperMySQL.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=bst_facedb;Uid=" + _dbName + ";Pwd=" + _dbPwd + ";CharSet=UTF8;";
             Maticsoft.BLL.BST.staff_update bll = new Maticsoft.BLL.BST.staff_update();
+            
             List<string> ids = new List<string>();
             foreach (var item in updates)
             {
-                bll.Add(item);
-                ids.Add(item.id);
+                try
+                {
+                    bll.Add(item);
+                    ids.Add(item.id);
+                }
+                catch (Exception ex)
+                {
+                    errorMsg += "发生错误：" + ex.Message + ";姓名：" + item.name+"\r\n";
+                    if (ids.Count==0)
+	                {
+                        throw ex;
+	                }
+                }
+            }
+            if (ids.Count==0)
+            {
+                return false;
             }
 
-            string ret = doSendCmd("//@UP@//");
-            return true;
+            Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
+            dataBll.DeleteList(string.Join(",", ids.ToArray()));
 
+            string ret = doSendCmd("//@UP@//",false);
+            string[] retts = ret.Split(new string[] { "<<@" },StringSplitOptions.RemoveEmptyEntries);
+            Dictionary<string, bool> retDic = new Dictionary<string, bool>();
+            foreach (var item in retts)
+            {
+                if (item.StartsWith("OK_OK") && item.EndsWith("OK_OK@>>"))
+                {
+                    string id = item.Substring(5, item.Length - 13);
+                    retDic.Add(id, true);
+                }
+                else if (item.StartsWith("ER_RO") && item.EndsWith("ER_RO@>>"))
+                {
+                    string id = item.Substring(5, item.Length - 13);
+                    retDic.Add(id, false);
+                }
+            }
+            for (int i = 0; i < updates.Length; i++)
+            {
+                if (retDic.ContainsKey(updates[i].id))
+                {
+                    updates[i].Update_Result = retDic[updates[i].id];
+                }
+                else
+                {
+                    updates[i].Update_Result = false;
+                }
+            }
+            return true;
+        }
+
+        public bool DeleteFaces(List<string> ids)
+        {
+            Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
+            dataBll.DeleteList(string.Join(",", ids.ToArray()));
+            return true;
         }
 
         public void Dispose()
