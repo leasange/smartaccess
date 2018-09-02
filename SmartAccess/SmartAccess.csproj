@@ -111,6 +111,7 @@
     <Compile Include="Common\Datas\AreaDataHelper.cs" />
     <Compile Include="Common\Datas\ControllerHelper.cs" />
     <Compile Include="Common\Datas\DoorDataHelper.cs" />
+    <Compile Include="Common\Datas\FaceRecgHelper.cs" />
     <Compile Include="Common\Datas\StaffDataHelper.cs" />
     <Compile Include="Common\Datas\TimeScaleHelper.cs" />
     <Compile Include="Common\Datas\UploadPrivate.cs" />
@@ -281,6 +282,12 @@
     <Compile Include="ConfigMgr\UserManager.Designer.cs">
       <DependentUpon>UserManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlDevMgr\FaceDeviceMgr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\FaceDeviceMgr.Designer.cs">
+      <DependentUpon>FaceDeviceMgr.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlDevMgr\ControllerMgr.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -316,6 +323,12 @@
     </Compile>
     <Compile Include="ControlDevMgr\FrmAddOrModifyCtrlr.Designer.cs">
       <DependentUpon>FrmAddOrModifyCtrlr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlDevMgr\FrmAddOrModifyFaceDev.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlDevMgr\FrmAddOrModifyFaceDev.Designer.cs">
+      <DependentUpon>FrmAddOrModifyFaceDev.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlDevMgr\FrmControlAreaEditor.cs">
       <SubType>Form</SubType>
@@ -681,6 +694,9 @@
     <EmbeddedResource Include="ConfigMgr\UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\FaceDeviceMgr.resx">
+      <DependentUpon>FaceDeviceMgr.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\ControllerMgr.resx">
       <DependentUpon>ControllerMgr.cs</DependentUpon>
     </EmbeddedResource>
@@ -698,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmAddOrModifyCtrlr.resx">
       <DependentUpon>FrmAddOrModifyCtrlr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDevMgr\FrmAddOrModifyFaceDev.resx">
+      <DependentUpon>FrmAddOrModifyFaceDev.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlDevMgr\FrmControlAreaEditor.resx">
       <DependentUpon>FrmControlAreaEditor.cs</DependentUpon>

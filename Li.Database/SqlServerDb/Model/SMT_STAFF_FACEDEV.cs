@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/8/30 23:25:24   N/A    初版
+* V0.01  2018/9/2 15:10:17   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -33,6 +33,7 @@ namespace Maticsoft.Model
 		private DateTime _add_time;
 		private DateTime _start_valid_time;
 		private DateTime _end_valid_time;
+		private string _staff_dev_id;
 		/// <summary>
 		/// 员工ID
 		/// </summary>
@@ -88,6 +89,14 @@ namespace Maticsoft.Model
 		{
 			set{ _end_valid_time=value;}
 			get{return _end_valid_time;}
+		}
+		/// <summary>
+		/// 上传设备中编号
+		/// </summary>
+		public string STAFF_DEV_ID
+		{
+			set{ _staff_dev_id=value;}
+			get{return _staff_dev_id;}
 		}
 		#endregion Model
 

@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/8/30 23:25:14   N/A    初版
+* V0.01  2018/9/2 20:58:10   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -54,9 +54,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_FACERECG_DEVICE(");
-			strSql.Append("FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,ORG_ID,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_NAME,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2)");
+			strSql.Append("FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_NAME,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,AREA_ID,FACEDEV_IS_ENABLE,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2)");
 			strSql.Append(" values (");
-			strSql.Append("@FACEDEV_SN,@FACEDEV_NAME,@FACEDEV_IP,@FACEDEV_CTRL_PORT,@FACEDEV_USER,@FACEDEV_PWD,@FACEDEV_DB_PORT,@FACEDEV_DB_USER,@FACEDEV_DB_PWD,@ORG_ID,@FACEDEV_HEART_PORT,@FACEDEV_MODE,@FVIDEO_NAME,@FVIDEO_RTSP,@FVIDEO_RTSP2,@FVIDEO_RTSP3,@FVIDEO_RTSP_COUNT,@FVIDEO_FACE_LEVEL,@FVIDEO_RIO_X,@FVIDEO_RIO_Y,@FVIDEO_RIO_H,@FVIDEO_RIO_W,@FVIDEO_SINGLE,@FVIDEO_TITLE1,@FVIDEO_TITLE2)");
+			strSql.Append("@FACEDEV_SN,@FACEDEV_NAME,@FACEDEV_IP,@FACEDEV_CTRL_PORT,@FACEDEV_USER,@FACEDEV_PWD,@FACEDEV_DB_NAME,@FACEDEV_DB_PORT,@FACEDEV_DB_USER,@FACEDEV_DB_PWD,@AREA_ID,@FACEDEV_IS_ENABLE,@FACEDEV_HEART_PORT,@FACEDEV_MODE,@FVIDEO_RTSP,@FVIDEO_RTSP2,@FVIDEO_RTSP3,@FVIDEO_RTSP_COUNT,@FVIDEO_FACE_LEVEL,@FVIDEO_RIO_X,@FVIDEO_RIO_Y,@FVIDEO_RIO_H,@FVIDEO_RIO_W,@FVIDEO_SINGLE,@FVIDEO_TITLE1,@FVIDEO_TITLE2)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
 					new SqlParameter("@FACEDEV_SN", SqlDbType.NVarChar,20),
@@ -65,13 +65,14 @@ namespace Maticsoft.DAL
 					new SqlParameter("@FACEDEV_CTRL_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_USER", SqlDbType.NVarChar,20),
 					new SqlParameter("@FACEDEV_PWD", SqlDbType.NVarChar,128),
+					new SqlParameter("@FACEDEV_DB_NAME", SqlDbType.VarChar,50),
 					new SqlParameter("@FACEDEV_DB_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_DB_USER", SqlDbType.NVarChar,20),
 					new SqlParameter("@FACEDEV_DB_PWD", SqlDbType.NVarChar,128),
-					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@AREA_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@FACEDEV_IS_ENABLE", SqlDbType.Bit,1),
 					new SqlParameter("@FACEDEV_HEART_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_MODE", SqlDbType.NVarChar,20),
-					new SqlParameter("@FVIDEO_NAME", SqlDbType.Decimal,9),
 					new SqlParameter("@FVIDEO_RTSP", SqlDbType.NVarChar,300),
 					new SqlParameter("@FVIDEO_RTSP2", SqlDbType.NVarChar,300),
 					new SqlParameter("@FVIDEO_RTSP3", SqlDbType.NVarChar,300),
@@ -90,25 +91,26 @@ namespace Maticsoft.DAL
 			parameters[3].Value = model.FACEDEV_CTRL_PORT;
 			parameters[4].Value = model.FACEDEV_USER;
 			parameters[5].Value = model.FACEDEV_PWD;
-			parameters[6].Value = model.FACEDEV_DB_PORT;
-			parameters[7].Value = model.FACEDEV_DB_USER;
-			parameters[8].Value = model.FACEDEV_DB_PWD;
-			parameters[9].Value = model.ORG_ID;
-			parameters[10].Value = model.FACEDEV_HEART_PORT;
-			parameters[11].Value = model.FACEDEV_MODE;
-			parameters[12].Value = model.FVIDEO_NAME;
-			parameters[13].Value = model.FVIDEO_RTSP;
-			parameters[14].Value = model.FVIDEO_RTSP2;
-			parameters[15].Value = model.FVIDEO_RTSP3;
-			parameters[16].Value = model.FVIDEO_RTSP_COUNT;
-			parameters[17].Value = model.FVIDEO_FACE_LEVEL;
-			parameters[18].Value = model.FVIDEO_RIO_X;
-			parameters[19].Value = model.FVIDEO_RIO_Y;
-			parameters[20].Value = model.FVIDEO_RIO_H;
-			parameters[21].Value = model.FVIDEO_RIO_W;
-			parameters[22].Value = model.FVIDEO_SINGLE;
-			parameters[23].Value = model.FVIDEO_TITLE1;
-			parameters[24].Value = model.FVIDEO_TITLE2;
+			parameters[6].Value = model.FACEDEV_DB_NAME;
+			parameters[7].Value = model.FACEDEV_DB_PORT;
+			parameters[8].Value = model.FACEDEV_DB_USER;
+			parameters[9].Value = model.FACEDEV_DB_PWD;
+			parameters[10].Value = model.AREA_ID;
+			parameters[11].Value = model.FACEDEV_IS_ENABLE;
+			parameters[12].Value = model.FACEDEV_HEART_PORT;
+			parameters[13].Value = model.FACEDEV_MODE;
+			parameters[14].Value = model.FVIDEO_RTSP;
+			parameters[15].Value = model.FVIDEO_RTSP2;
+			parameters[16].Value = model.FVIDEO_RTSP3;
+			parameters[17].Value = model.FVIDEO_RTSP_COUNT;
+			parameters[18].Value = model.FVIDEO_FACE_LEVEL;
+			parameters[19].Value = model.FVIDEO_RIO_X;
+			parameters[20].Value = model.FVIDEO_RIO_Y;
+			parameters[21].Value = model.FVIDEO_RIO_H;
+			parameters[22].Value = model.FVIDEO_RIO_W;
+			parameters[23].Value = model.FVIDEO_SINGLE;
+			parameters[24].Value = model.FVIDEO_TITLE1;
+			parameters[25].Value = model.FVIDEO_TITLE2;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -133,13 +135,14 @@ namespace Maticsoft.DAL
 			strSql.Append("FACEDEV_CTRL_PORT=@FACEDEV_CTRL_PORT,");
 			strSql.Append("FACEDEV_USER=@FACEDEV_USER,");
 			strSql.Append("FACEDEV_PWD=@FACEDEV_PWD,");
+			strSql.Append("FACEDEV_DB_NAME=@FACEDEV_DB_NAME,");
 			strSql.Append("FACEDEV_DB_PORT=@FACEDEV_DB_PORT,");
 			strSql.Append("FACEDEV_DB_USER=@FACEDEV_DB_USER,");
 			strSql.Append("FACEDEV_DB_PWD=@FACEDEV_DB_PWD,");
-			strSql.Append("ORG_ID=@ORG_ID,");
+			strSql.Append("AREA_ID=@AREA_ID,");
+			strSql.Append("FACEDEV_IS_ENABLE=@FACEDEV_IS_ENABLE,");
 			strSql.Append("FACEDEV_HEART_PORT=@FACEDEV_HEART_PORT,");
 			strSql.Append("FACEDEV_MODE=@FACEDEV_MODE,");
-			strSql.Append("FVIDEO_NAME=@FVIDEO_NAME,");
 			strSql.Append("FVIDEO_RTSP=@FVIDEO_RTSP,");
 			strSql.Append("FVIDEO_RTSP2=@FVIDEO_RTSP2,");
 			strSql.Append("FVIDEO_RTSP3=@FVIDEO_RTSP3,");
@@ -160,13 +163,14 @@ namespace Maticsoft.DAL
 					new SqlParameter("@FACEDEV_CTRL_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_USER", SqlDbType.NVarChar,20),
 					new SqlParameter("@FACEDEV_PWD", SqlDbType.NVarChar,128),
+					new SqlParameter("@FACEDEV_DB_NAME", SqlDbType.VarChar,50),
 					new SqlParameter("@FACEDEV_DB_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_DB_USER", SqlDbType.NVarChar,20),
 					new SqlParameter("@FACEDEV_DB_PWD", SqlDbType.NVarChar,128),
-					new SqlParameter("@ORG_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@AREA_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@FACEDEV_IS_ENABLE", SqlDbType.Bit,1),
 					new SqlParameter("@FACEDEV_HEART_PORT", SqlDbType.Int,4),
 					new SqlParameter("@FACEDEV_MODE", SqlDbType.NVarChar,20),
-					new SqlParameter("@FVIDEO_NAME", SqlDbType.Decimal,9),
 					new SqlParameter("@FVIDEO_RTSP", SqlDbType.NVarChar,300),
 					new SqlParameter("@FVIDEO_RTSP2", SqlDbType.NVarChar,300),
 					new SqlParameter("@FVIDEO_RTSP3", SqlDbType.NVarChar,300),
@@ -186,26 +190,27 @@ namespace Maticsoft.DAL
 			parameters[3].Value = model.FACEDEV_CTRL_PORT;
 			parameters[4].Value = model.FACEDEV_USER;
 			parameters[5].Value = model.FACEDEV_PWD;
-			parameters[6].Value = model.FACEDEV_DB_PORT;
-			parameters[7].Value = model.FACEDEV_DB_USER;
-			parameters[8].Value = model.FACEDEV_DB_PWD;
-			parameters[9].Value = model.ORG_ID;
-			parameters[10].Value = model.FACEDEV_HEART_PORT;
-			parameters[11].Value = model.FACEDEV_MODE;
-			parameters[12].Value = model.FVIDEO_NAME;
-			parameters[13].Value = model.FVIDEO_RTSP;
-			parameters[14].Value = model.FVIDEO_RTSP2;
-			parameters[15].Value = model.FVIDEO_RTSP3;
-			parameters[16].Value = model.FVIDEO_RTSP_COUNT;
-			parameters[17].Value = model.FVIDEO_FACE_LEVEL;
-			parameters[18].Value = model.FVIDEO_RIO_X;
-			parameters[19].Value = model.FVIDEO_RIO_Y;
-			parameters[20].Value = model.FVIDEO_RIO_H;
-			parameters[21].Value = model.FVIDEO_RIO_W;
-			parameters[22].Value = model.FVIDEO_SINGLE;
-			parameters[23].Value = model.FVIDEO_TITLE1;
-			parameters[24].Value = model.FVIDEO_TITLE2;
-			parameters[25].Value = model.ID;
+			parameters[6].Value = model.FACEDEV_DB_NAME;
+			parameters[7].Value = model.FACEDEV_DB_PORT;
+			parameters[8].Value = model.FACEDEV_DB_USER;
+			parameters[9].Value = model.FACEDEV_DB_PWD;
+			parameters[10].Value = model.AREA_ID;
+			parameters[11].Value = model.FACEDEV_IS_ENABLE;
+			parameters[12].Value = model.FACEDEV_HEART_PORT;
+			parameters[13].Value = model.FACEDEV_MODE;
+			parameters[14].Value = model.FVIDEO_RTSP;
+			parameters[15].Value = model.FVIDEO_RTSP2;
+			parameters[16].Value = model.FVIDEO_RTSP3;
+			parameters[17].Value = model.FVIDEO_RTSP_COUNT;
+			parameters[18].Value = model.FVIDEO_FACE_LEVEL;
+			parameters[19].Value = model.FVIDEO_RIO_X;
+			parameters[20].Value = model.FVIDEO_RIO_Y;
+			parameters[21].Value = model.FVIDEO_RIO_H;
+			parameters[22].Value = model.FVIDEO_RIO_W;
+			parameters[23].Value = model.FVIDEO_SINGLE;
+			parameters[24].Value = model.FVIDEO_TITLE1;
+			parameters[25].Value = model.FVIDEO_TITLE2;
+			parameters[26].Value = model.ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -269,7 +274,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,ORG_ID,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_NAME,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 from SMT_FACERECG_DEVICE ");
+			strSql.Append("select  top 1 ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_NAME,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,AREA_ID,FACEDEV_IS_ENABLE,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 from SMT_FACERECG_DEVICE ");
 			strSql.Append(" where ID=@ID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Decimal)
@@ -325,6 +330,10 @@ namespace Maticsoft.DAL
 				{
 					model.FACEDEV_PWD=row["FACEDEV_PWD"].ToString();
 				}
+				if(row["FACEDEV_DB_NAME"]!=null)
+				{
+					model.FACEDEV_DB_NAME=row["FACEDEV_DB_NAME"].ToString();
+				}
 				if(row["FACEDEV_DB_PORT"]!=null && row["FACEDEV_DB_PORT"].ToString()!="")
 				{
 					model.FACEDEV_DB_PORT=int.Parse(row["FACEDEV_DB_PORT"].ToString());
@@ -337,9 +346,20 @@ namespace Maticsoft.DAL
 				{
 					model.FACEDEV_DB_PWD=row["FACEDEV_DB_PWD"].ToString();
 				}
-				if(row["ORG_ID"]!=null && row["ORG_ID"].ToString()!="")
+				if(row["AREA_ID"]!=null && row["AREA_ID"].ToString()!="")
 				{
-					model.ORG_ID=decimal.Parse(row["ORG_ID"].ToString());
+					model.AREA_ID=decimal.Parse(row["AREA_ID"].ToString());
+				}
+				if(row["FACEDEV_IS_ENABLE"]!=null && row["FACEDEV_IS_ENABLE"].ToString()!="")
+				{
+					if((row["FACEDEV_IS_ENABLE"].ToString()=="1")||(row["FACEDEV_IS_ENABLE"].ToString().ToLower()=="true"))
+					{
+						model.FACEDEV_IS_ENABLE=true;
+					}
+					else
+					{
+						model.FACEDEV_IS_ENABLE=false;
+					}
 				}
 				if(row["FACEDEV_HEART_PORT"]!=null && row["FACEDEV_HEART_PORT"].ToString()!="")
 				{
@@ -348,10 +368,6 @@ namespace Maticsoft.DAL
 				if(row["FACEDEV_MODE"]!=null)
 				{
 					model.FACEDEV_MODE=row["FACEDEV_MODE"].ToString();
-				}
-				if(row["FVIDEO_NAME"]!=null && row["FVIDEO_NAME"].ToString()!="")
-				{
-					model.FVIDEO_NAME=decimal.Parse(row["FVIDEO_NAME"].ToString());
 				}
 				if(row["FVIDEO_RTSP"]!=null)
 				{
@@ -411,7 +427,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,ORG_ID,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_NAME,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 ");
+			strSql.Append("select ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_NAME,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,AREA_ID,FACEDEV_IS_ENABLE,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 ");
 			strSql.Append(" FROM SMT_FACERECG_DEVICE ");
 			if(strWhere.Trim()!="")
 			{
@@ -431,7 +447,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,ORG_ID,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_NAME,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 ");
+			strSql.Append(" ID,FACEDEV_SN,FACEDEV_NAME,FACEDEV_IP,FACEDEV_CTRL_PORT,FACEDEV_USER,FACEDEV_PWD,FACEDEV_DB_NAME,FACEDEV_DB_PORT,FACEDEV_DB_USER,FACEDEV_DB_PWD,AREA_ID,FACEDEV_IS_ENABLE,FACEDEV_HEART_PORT,FACEDEV_MODE,FVIDEO_RTSP,FVIDEO_RTSP2,FVIDEO_RTSP3,FVIDEO_RTSP_COUNT,FVIDEO_FACE_LEVEL,FVIDEO_RIO_X,FVIDEO_RIO_Y,FVIDEO_RIO_H,FVIDEO_RIO_W,FVIDEO_SINGLE,FVIDEO_TITLE1,FVIDEO_TITLE2 ");
 			strSql.Append(" FROM SMT_FACERECG_DEVICE ");
 			if(strWhere.Trim()!="")
 			{

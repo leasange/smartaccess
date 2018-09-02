@@ -67,6 +67,7 @@ namespace SmartAccess
                 {
                      new ExpandItem("控制器管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.CTRLR_INFO,typeof(ControlDevMgr.ControllerMgr)),
                      new ExpandItem("梯门管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.ELEVATOR_DOOR_MGR,typeof(ControlDevMgr.OneManyDoorMgr)),
+                     new ExpandItem("人脸识别设备", Properties.Resources.dkq_2525, SYS_FUN_POINT.FACERECG_DEV_INFO,typeof(ControlDevMgr.FaceDeviceMgr)),
                     // new ExpandItem("控制访问约束", Properties.Resources.dkq_2525, SYS_FUN_POINT., ItemClicked)
                 });
             MenuItems.Add(ctrlMgr);

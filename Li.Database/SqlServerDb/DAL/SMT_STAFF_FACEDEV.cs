@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/8/30 23:25:24   N/A    初版
+* V0.01  2018/9/2 15:10:17   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -55,9 +55,9 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_STAFF_FACEDEV(");
-			strSql.Append("STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME)");
+			strSql.Append("STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME,STAFF_DEV_ID)");
 			strSql.Append(" values (");
-			strSql.Append("@STAFF_ID,@FACEDEV_ID,@IS_UPLOAD,@UPLOAD_TIME,@ADD_TIME,@START_VALID_TIME,@END_VALID_TIME)");
+			strSql.Append("@STAFF_ID,@FACEDEV_ID,@IS_UPLOAD,@UPLOAD_TIME,@ADD_TIME,@START_VALID_TIME,@END_VALID_TIME,@STAFF_DEV_ID)");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@FACEDEV_ID", SqlDbType.Decimal,9),
@@ -65,7 +65,8 @@ namespace Maticsoft.DAL
 					new SqlParameter("@UPLOAD_TIME", SqlDbType.DateTime),
 					new SqlParameter("@ADD_TIME", SqlDbType.DateTime),
 					new SqlParameter("@START_VALID_TIME", SqlDbType.DateTime),
-					new SqlParameter("@END_VALID_TIME", SqlDbType.DateTime)};
+					new SqlParameter("@END_VALID_TIME", SqlDbType.DateTime),
+					new SqlParameter("@STAFF_DEV_ID", SqlDbType.VarChar,50)};
 			parameters[0].Value = model.STAFF_ID;
 			parameters[1].Value = model.FACEDEV_ID;
 			parameters[2].Value = model.IS_UPLOAD;
@@ -73,6 +74,7 @@ namespace Maticsoft.DAL
 			parameters[4].Value = model.ADD_TIME;
 			parameters[5].Value = model.START_VALID_TIME;
 			parameters[6].Value = model.END_VALID_TIME;
+			parameters[7].Value = model.STAFF_DEV_ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -95,7 +97,8 @@ namespace Maticsoft.DAL
 			strSql.Append("UPLOAD_TIME=@UPLOAD_TIME,");
 			strSql.Append("ADD_TIME=@ADD_TIME,");
 			strSql.Append("START_VALID_TIME=@START_VALID_TIME,");
-			strSql.Append("END_VALID_TIME=@END_VALID_TIME");
+			strSql.Append("END_VALID_TIME=@END_VALID_TIME,");
+			strSql.Append("STAFF_DEV_ID=@STAFF_DEV_ID");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and FACEDEV_ID=@FACEDEV_ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@IS_UPLOAD", SqlDbType.Bit,1),
@@ -103,6 +106,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@ADD_TIME", SqlDbType.DateTime),
 					new SqlParameter("@START_VALID_TIME", SqlDbType.DateTime),
 					new SqlParameter("@END_VALID_TIME", SqlDbType.DateTime),
+					new SqlParameter("@STAFF_DEV_ID", SqlDbType.VarChar,50),
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@FACEDEV_ID", SqlDbType.Decimal,9)};
 			parameters[0].Value = model.IS_UPLOAD;
@@ -110,8 +114,9 @@ namespace Maticsoft.DAL
 			parameters[2].Value = model.ADD_TIME;
 			parameters[3].Value = model.START_VALID_TIME;
 			parameters[4].Value = model.END_VALID_TIME;
-			parameters[5].Value = model.STAFF_ID;
-			parameters[6].Value = model.FACEDEV_ID;
+			parameters[5].Value = model.STAFF_DEV_ID;
+			parameters[6].Value = model.STAFF_ID;
+			parameters[7].Value = model.FACEDEV_ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -158,7 +163,7 @@ namespace Maticsoft.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME from SMT_STAFF_FACEDEV ");
+			strSql.Append("select  top 1 STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME,STAFF_DEV_ID from SMT_STAFF_FACEDEV ");
 			strSql.Append(" where STAFF_ID=@STAFF_ID and FACEDEV_ID=@FACEDEV_ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@STAFF_ID", SqlDbType.Decimal,9),
@@ -222,6 +227,10 @@ namespace Maticsoft.DAL
 				{
 					model.END_VALID_TIME=DateTime.Parse(row["END_VALID_TIME"].ToString());
 				}
+				if(row["STAFF_DEV_ID"]!=null)
+				{
+					model.STAFF_DEV_ID=row["STAFF_DEV_ID"].ToString();
+				}
 			}
 			return model;
 		}
@@ -232,7 +241,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME ");
+			strSql.Append("select STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME,STAFF_DEV_ID ");
 			strSql.Append(" FROM SMT_STAFF_FACEDEV ");
 			if(strWhere.Trim()!="")
 			{
@@ -252,7 +261,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME ");
+			strSql.Append(" STAFF_ID,FACEDEV_ID,IS_UPLOAD,UPLOAD_TIME,ADD_TIME,START_VALID_TIME,END_VALID_TIME,STAFF_DEV_ID ");
 			strSql.Append(" FROM SMT_STAFF_FACEDEV ");
 			if(strWhere.Trim()!="")
 			{

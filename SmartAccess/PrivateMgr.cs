@@ -100,5 +100,6 @@ namespace SmartAccess
         ATTENDANCE_SETTING,//考勤设置
         DOOR_CAMERA_SETTING,//门禁摄像头设置
         FACE_BLACK_LIST,//人脸黑名单
+        FACERECG_DEV_INFO,//人脸识别设备
     }
 }

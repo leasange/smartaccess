@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/8/30 23:25:14   N/A    初版
+* V0.01  2018/9/2 20:58:09   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -33,13 +33,14 @@ namespace Maticsoft.Model
 		private int _facedev_ctrl_port;
 		private string _facedev_user;
 		private string _facedev_pwd;
+		private string _facedev_db_name;
 		private int _facedev_db_port;
 		private string _facedev_db_user;
 		private string _facedev_db_pwd;
-		private decimal _org_id;
+		private decimal _area_id;
+		private bool _facedev_is_enable;
 		private int _facedev_heart_port;
 		private string _facedev_mode;
-		private decimal? _fvideo_name;
 		private string _fvideo_rtsp;
 		private string _fvideo_rtsp2;
 		private string _fvideo_rtsp3;
@@ -109,6 +110,14 @@ namespace Maticsoft.Model
 			get{return _facedev_pwd;}
 		}
 		/// <summary>
+		/// 数据库名称
+		/// </summary>
+		public string FACEDEV_DB_NAME
+		{
+			set{ _facedev_db_name=value;}
+			get{return _facedev_db_name;}
+		}
+		/// <summary>
 		/// 数据库端口
 		/// </summary>
 		public int FACEDEV_DB_PORT
@@ -133,12 +142,20 @@ namespace Maticsoft.Model
 			get{return _facedev_db_pwd;}
 		}
 		/// <summary>
-		/// 所属组织ID
+		/// 所属区域ID
 		/// </summary>
-		public decimal ORG_ID
+		public decimal AREA_ID
 		{
-			set{ _org_id=value;}
-			get{return _org_id;}
+			set{ _area_id=value;}
+			get{return _area_id;}
+		}
+		/// <summary>
+		/// 启用状态
+		/// </summary>
+		public bool FACEDEV_IS_ENABLE
+		{
+			set{ _facedev_is_enable=value;}
+			get{return _facedev_is_enable;}
 		}
 		/// <summary>
 		/// 心跳端口
@@ -155,14 +172,6 @@ namespace Maticsoft.Model
 		{
 			set{ _facedev_mode=value;}
 			get{return _facedev_mode;}
-		}
-		/// <summary>
-		/// 人脸识别设备ID
-		/// </summary>
-		public decimal? FVIDEO_NAME
-		{
-			set{ _fvideo_name=value;}
-			get{return _fvideo_name;}
 		}
 		/// <summary>
 		/// 是否已上传

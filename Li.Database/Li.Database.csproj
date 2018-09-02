@@ -71,6 +71,7 @@
     <Compile Include="SqlServerDb\BLL\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_DOOR_INFO.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_FACERECG_DEVICE_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FACERECG_DEVICE.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FACE_RECORD.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_FUN_MENUPOINT.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="SqlServerDb\DAL\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_DOOR_INFO.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_FACERECG_DEVICE_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FACERECG_DEVICE.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FACE_RECORD.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_FUN_MENUPOINT.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="SqlServerDb\Model\SMT_DEPT_USER.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_CAMERA.cs" />
     <Compile Include="SqlServerDb\Model\SMT_DOOR_INFO.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_FACERECG_DEVICE_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FACERECG_DEVICE.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FACE_RECORD.cs" />
     <Compile Include="SqlServerDb\Model\SMT_FUN_MENUPOINT.cs" />
