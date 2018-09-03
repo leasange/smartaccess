@@ -262,6 +262,7 @@
             // 
             // ipDevIp
             // 
+            this.ipDevIp.AllowEmptyState = false;
             this.ipDevIp.AutoOverwrite = true;
             // 
             // 
@@ -315,7 +316,7 @@
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(115, 23);
             this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "*人脸设备名称：";
+            this.labelX1.Text = "人脸设备名称：";
             this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // iiDevHeartPort
@@ -532,6 +533,7 @@
             this.btnReadVideoConfig.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnReadVideoConfig.TabIndex = 0;
             this.btnReadVideoConfig.Text = "从设备读取";
+            this.btnReadVideoConfig.Click += new System.EventHandler(this.btnReadVideoConfig_Click);
             // 
             // tbDevTitle2
             // 
@@ -976,6 +978,7 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 0;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnOkAndUpload
             // 
@@ -988,6 +991,7 @@
             this.btnOkAndUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOkAndUpload.TabIndex = 1;
             this.btnOkAndUpload.Text = "确定并上传";
+            this.btnOkAndUpload.Click += new System.EventHandler(this.btnOkAndUpload_Click);
             // 
             // FrmAddOrModifyFaceDev
             // 
@@ -1004,6 +1008,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加或修改人脸设备信息";
+            this.Load += new System.EventHandler(this.FrmAddOrModifyFaceDev_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabControlPanel1.ResumeLayout(false);

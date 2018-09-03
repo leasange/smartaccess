@@ -59,10 +59,12 @@
     <Compile Include="AccessCore.cs" />
     <Compile Include="BJTWHCardIssue\MF800ACardIssueDevice.cs" />
     <Compile Include="BLL\BST\staff_card.cs" />
+    <Compile Include="BLL\BST\staff_data_ex.cs" />
     <Compile Include="BLL\BST\staff_data.cs" />
     <Compile Include="BLL\BST\staff_log.cs" />
     <Compile Include="BLL\BST\staff_update.cs" />
     <Compile Include="DAL\BST\staff_card.cs" />
+    <Compile Include="DAL\BST\staff_data_ex.cs" />
     <Compile Include="DAL\BST\staff_data.cs" />
     <Compile Include="DAL\BST\staff_log.cs" />
     <Compile Include="DAL\BST\staff_update.cs" />

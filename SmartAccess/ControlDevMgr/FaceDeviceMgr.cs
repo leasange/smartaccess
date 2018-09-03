@@ -363,12 +363,12 @@ namespace SmartAccess.ControlDevMgr
                         if (dr==DialogResult.Yes)
                         {
                             BSTFaceRecg c = FaceRecgHelper.ToFaceController(dev);
-                            
+                            c.ClearFaces();
                         }
                         Maticsoft.BLL.SMT_FACERECG_DEVICE ctrlBll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
                         ctrlBll.Delete(dev.ID);
                         //置门关联控制器为空
-                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("update SMT_DOOR_INFO set CTRL_ID=-1,CTRL_DOOR_INDEX=0 where CTRL_ID=" + dev.ID);
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_STAFF_FACEDEV where FACEDEV_ID=" + dev.ID);
                         SmtLog.Info("设备", "人脸识别设备删除：" + dev.FACEDEV_IP + "," + dev.FACEDEV_NAME);
                         this.Invoke(new Action(() =>
                             {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Li.Access.Core.FaceDevice
 {
-    public class BSTVideoBase
+    public abstract class BSTVideoBase
     {
         public string Face_LEVEL;//“0.80”,					//分数阈值（0~1）
         public string HostIP;// : “192.168.9.70”,				//设备IP地址
