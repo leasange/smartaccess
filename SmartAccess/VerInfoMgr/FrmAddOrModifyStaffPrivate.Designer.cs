@@ -50,6 +50,7 @@
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.cbTimeNum = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.LabelX5 = new DevComponents.DotNetBar.LabelX();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectDoor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
@@ -199,7 +200,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSelectDoor.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSelectDoor.EnableHeadersVisualStyles = false;
-            this.dgvSelectDoor.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvSelectDoor.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvSelectDoor.Location = new System.Drawing.Point(441, 39);
             this.dgvSelectDoor.Name = "dgvSelectDoor";
             this.dgvSelectDoor.ReadOnly = true;
@@ -234,6 +235,7 @@
             // doorTree
             // 
             this.doorTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.doorTree.CheckBoxVisible = false;
             this.doorTree.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.doorTree.Location = new System.Drawing.Point(21, 40);
             this.doorTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -397,6 +399,19 @@
             this.LabelX5.TabIndex = 5;
             this.LabelX5.Text = "时间段：";
             // 
+            // labelX6
+            // 
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX6.Location = new System.Drawing.Point(393, 443);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(196, 23);
+            this.labelX6.TabIndex = 29;
+            this.labelX6.Text = "（注：有效时间在人员有效期内）";
+            // 
             // FrmAddOrModifyStaffPrivate
             // 
             this.AcceptButton = this.btnOkUpload;
@@ -421,6 +436,7 @@
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.labelX1);
             this.Controls.Add(this.doorTree);
+            this.Controls.Add(this.labelX6);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -460,6 +476,7 @@
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbTimeNum;
         private DevComponents.DotNetBar.LabelX LabelX5;
+        private DevComponents.DotNetBar.LabelX labelX6;
 
     }
 }
