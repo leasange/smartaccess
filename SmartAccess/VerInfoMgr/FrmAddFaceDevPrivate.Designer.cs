@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSelected = new Li.Controls.DataGridViewEx();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,7 +48,7 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.cbTreeDept = new DevComponents.DotNetBar.Controls.ComboTree();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.lbSelectDevices = new DevComponents.DotNetBar.LabelX();
             this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.dtpStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
@@ -76,14 +76,14 @@
             this.dgvSelected.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
             this.Column4});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSelected.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSelected.DefaultCellStyle = dataGridViewCellStyle19;
             this.dgvSelected.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvSelected.Location = new System.Drawing.Point(6, 53);
             this.dgvSelected.Name = "dgvSelected";
@@ -130,14 +130,14 @@
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle20;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(6, 53);
             this.dgvStaffs.Name = "dgvStaffs";
@@ -159,6 +159,7 @@
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "关闭";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOkUpload
             // 
@@ -171,6 +172,7 @@
             this.btnOkUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOkUpload.TabIndex = 18;
             this.btnOkUpload.Text = "确定并上传";
+            this.btnOkUpload.Click += new System.EventHandler(this.btnOkUpload_Click);
             // 
             // btnOk
             // 
@@ -183,6 +185,7 @@
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 19;
             this.btnOk.Text = "确定";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnUnSelect
             // 
@@ -196,6 +199,7 @@
             this.btnUnSelect.TabIndex = 13;
             this.btnUnSelect.Text = "<";
             this.btnUnSelect.Tooltip = "移除选择";
+            this.btnUnSelect.Click += new System.EventHandler(this.btnUnSelect_Click);
             // 
             // btnSelect
             // 
@@ -209,6 +213,7 @@
             this.btnSelect.TabIndex = 14;
             this.btnSelect.Text = ">";
             this.btnSelect.Tooltip = "选择";
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // btnAllUnSelect
             // 
@@ -222,6 +227,7 @@
             this.btnAllUnSelect.TabIndex = 15;
             this.btnAllUnSelect.Text = "<<";
             this.btnAllUnSelect.Tooltip = "全部移除选择";
+            this.btnAllUnSelect.Click += new System.EventHandler(this.btnAllUnSelect_Click);
             // 
             // btnAllSelect
             // 
@@ -235,6 +241,7 @@
             this.btnAllSelect.TabIndex = 16;
             this.btnAllSelect.Text = ">>";
             this.btnAllSelect.Tooltip = "全部选择";
+            this.btnAllSelect.Click += new System.EventHandler(this.btnAllSelect_Click);
             // 
             // groupBox1
             // 
@@ -277,6 +284,7 @@
             this.cbTreeDept.Size = new System.Drawing.Size(232, 23);
             this.cbTreeDept.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbTreeDept.TabIndex = 0;
+            this.cbTreeDept.SelectionChanged += new DevComponents.AdvTree.AdvTreeNodeEventHandler(this.cbTreeDept_SelectionChanged);
             // 
             // labelX2
             // 
@@ -292,20 +300,20 @@
             this.labelX2.TabIndex = 22;
             this.labelX2.Text = "当前授权人脸设备：";
             // 
-            // labelX3
+            // lbSelectDevices
             // 
             // 
             // 
             // 
-            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelX3.Location = new System.Drawing.Point(124, 12);
-            this.labelX3.Name = "labelX3";
-            this.labelX3.Size = new System.Drawing.Size(631, 36);
-            this.labelX3.TabIndex = 23;
-            this.labelX3.Text = "设备1，设备2";
-            this.labelX3.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.lbSelectDevices.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbSelectDevices.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbSelectDevices.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbSelectDevices.Location = new System.Drawing.Point(124, 12);
+            this.lbSelectDevices.Name = "lbSelectDevices";
+            this.lbSelectDevices.Size = new System.Drawing.Size(631, 36);
+            this.lbSelectDevices.TabIndex = 23;
+            this.lbSelectDevices.Text = "设备1，设备2";
+            this.lbSelectDevices.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
             // dtpEnd
             // 
@@ -464,7 +472,7 @@
             this.Controls.Add(this.dtpStart);
             this.Controls.Add(this.labelX4);
             this.Controls.Add(this.labelX5);
-            this.Controls.Add(this.labelX3);
+            this.Controls.Add(this.lbSelectDevices);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
@@ -484,6 +492,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "人脸权限添加";
+            this.Load += new System.EventHandler(this.FrmAddFaceDevPrivate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelected)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
@@ -514,7 +523,7 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.Controls.ComboTree cbTreeDept;
         private DevComponents.DotNetBar.LabelX labelX2;
-        private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.DotNetBar.LabelX lbSelectDevices;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpEnd;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpStart;
         private DevComponents.DotNetBar.LabelX labelX4;

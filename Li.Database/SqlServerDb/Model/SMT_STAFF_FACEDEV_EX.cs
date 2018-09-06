@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* staff_data.cs
+* SMT_STAFF_FACEDEV.cs
 *
 * 功 能： N/A
-* 类 名： staff_data
+* 类 名： SMT_STAFF_FACEDEV
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/8/22 22:46:32   N/A    初版
+* V0.01  2018/9/2 15:10:17   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -15,32 +15,15 @@
 *└──────────────────────────────────┘
 */
 using System;
-using System.Data;
-using System.Collections.Generic;
-using Maticsoft.Common;
-using Maticsoft.Model.BST;
-namespace Maticsoft.BLL.BST
+namespace Maticsoft.Model
 {
 	/// <summary>
-	/// staff_data
+	/// 员工人脸识别设备权限表
 	/// </summary>
-	public partial class staff_data
+	public partial class SMT_STAFF_FACEDEV
 	{
-		#region  ExtensionMethod
-        public List<string> GetAllIds(string strWhere)
-        {
-            return dal.GetAllIds(strWhere);
-        }
-        public bool DeleteAll(string strWhere)
-        {
-            return dal.DeleteAll(strWhere);
-        }
-
-        public bool UpdateEx(Maticsoft.Model.BST.staff_data model)
-        {
-            return dal.UpdateEx(model);
-        }
-		#endregion  ExtensionMethod
+        public SMT_STAFF_INFO STAFF_INFO { get; set; }
+        public SMT_FACERECG_DEVICE FACERECG_DEVICE { get; set; }
 	}
 }
 

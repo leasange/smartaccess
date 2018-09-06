@@ -444,11 +444,45 @@ namespace Li.Access.Core.FaceDevice
             return true;
         }
 
+        public bool ModifyTextInfo(out string errorMsg, params Maticsoft.Model.BST.staff_data[] datas)
+        {
+            errorMsg = null;
+            SetDbConnectStr();
+            Maticsoft.BLL.BST.staff_data bll = new Maticsoft.BLL.BST.staff_data();
+            foreach (var data in datas)
+            {
+                try
+                {
+                    bll.UpdateEx(data);
+                    doSendCmd("//@BST_02@//" + data.id, checkStart: false);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("发生错误：" + ex.Message + ";姓名：" + data.name+" EX:"+ex.Message,ex);
+                }
+            }
+            return true;
+        }
+
         public bool DeleteFaces(List<string> ids)
         {
             Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
             SetDbConnectStr();
-            dataBll.DeleteList(string.Join(",", ids.ToArray()));
+            int start = 0;
+            int count = 20;
+            while (true)
+            {
+                if (start+count>ids.Count)
+                {
+                    count = ids.Count - start;
+                }
+                dataBll.DeleteList(string.Join(",", ids.GetRange(start,count).ToArray()));
+                start += count;
+                if (start>=ids.Count)
+                {
+                    break;
+                }
+            }
             foreach (var item in ids)
             {
                 doSendCmd("//@BST_01@//",item,false);

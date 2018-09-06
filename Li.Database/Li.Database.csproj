@@ -196,6 +196,7 @@
     <Compile Include="SqlServerDb\Model\SMT_STAFF_CARD_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_CARD.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_DOOR.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_STAFF_FACEDEV_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_FACEDEV.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_STAFF_INFO.cs" />

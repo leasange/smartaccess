@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.advTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
@@ -40,6 +40,7 @@
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.tbFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,28 +52,30 @@
             this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             this.bar2 = new DevComponents.DotNetBar.Bar();
-            this.dtpValidTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.biAddPrivate = new DevComponents.DotNetBar.ButtonItem();
+            this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
+            this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.tbName = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
             this.tbDeptName = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
             this.tbStaffNo = new DevComponents.DotNetBar.TextBoxItem();
+            this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
+            this.biClear = new DevComponents.DotNetBar.ButtonItem();
+            this.dtpValidTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.tbJob = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem6 = new DevComponents.DotNetBar.LabelItem();
-            this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
-            this.biClear = new DevComponents.DotNetBar.ButtonItem();
-            this.biAddPrivate = new DevComponents.DotNetBar.ButtonItem();
-            this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
-            this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advTree)).BeginInit();
             this.panelEx1.SuspendLayout();
+            this.pageDataGridView.DataGridPanel.SuspendLayout();
+            this.pageDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).BeginInit();
@@ -91,10 +94,10 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dgvStaffs);
+            this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.bar2);
             this.splitContainer1.Size = new System.Drawing.Size(931, 385);
-            this.splitContainer1.SplitterDistance = 172;
+            this.splitContainer1.SplitterDistance = 179;
             this.splitContainer1.TabIndex = 0;
             // 
             // advTree
@@ -107,7 +110,7 @@
             // 
             this.advTree.BackgroundStyle.Class = "TreeBorderKey";
             this.advTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.advTree.CheckBoxVisible = false;
+            this.advTree.CheckBoxVisible = true;
             this.advTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.advTree.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.advTree.Location = new System.Drawing.Point(0, 25);
@@ -119,13 +122,15 @@
             this.advTree.NodeStyle = this.elementStyle1;
             this.advTree.PathSeparator = ";";
             this.advTree.SelectionPerCell = true;
-            this.advTree.Size = new System.Drawing.Size(172, 360);
+            this.advTree.Size = new System.Drawing.Size(179, 360);
             this.advTree.Styles.Add(this.elementStyle1);
             this.advTree.TabIndex = 5;
             this.advTree.Text = "advTreeEx1";
+            this.advTree.AfterCheck += new DevComponents.AdvTree.AdvTreeCellEventHandler(this.advTree_AfterCheck);
             // 
             // node1
             // 
+            this.node1.CheckBoxVisible = true;
             this.node1.Expanded = true;
             this.node1.Name = "node1";
             this.node1.Nodes.AddRange(new DevComponents.AdvTree.Node[] {
@@ -134,6 +139,7 @@
             // 
             // node2
             // 
+            this.node2.CheckBoxVisible = true;
             this.node2.Expanded = true;
             this.node2.Name = "node2";
             this.node2.Text = "人脸设备";
@@ -157,7 +163,7 @@
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEx1.Location = new System.Drawing.Point(0, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(172, 25);
+            this.panelEx1.Size = new System.Drawing.Size(179, 25);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -180,7 +186,7 @@
             this.tbFilter.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbFilter.Location = new System.Drawing.Point(44, 1);
             this.tbFilter.Name = "tbFilter";
-            this.tbFilter.Size = new System.Drawing.Size(125, 23);
+            this.tbFilter.Size = new System.Drawing.Size(132, 23);
             this.tbFilter.TabIndex = 2;
             this.tbFilter.WatermarkText = "输入关键字或拼音首字符";
             this.tbFilter.TextChanged += new System.EventHandler(this.tbFilter_TextChanged);
@@ -199,19 +205,52 @@
             this.labelX1.TabIndex = 1;
             this.labelX1.Text = "过滤";
             // 
+            // pageDataGridView
+            // 
+            this.pageDataGridView.BackColor = System.Drawing.Color.GhostWhite;
+            // 
+            // pageDataGridView.DataGridPanel
+            // 
+            this.pageDataGridView.DataGridPanel.Controls.Add(this.dgvStaffs);
+            this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
+            this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(748, 324);
+            this.pageDataGridView.DataGridPanel.TabIndex = 1;
+            this.pageDataGridView.DataGridView = this.dgvStaffs;
+            this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pageDataGridView.Location = new System.Drawing.Point(0, 29);
+            this.pageDataGridView.Name = "pageDataGridView";
+            // 
+            // pageDataGridView.PageControl
+            // 
+            this.pageDataGridView.PageControl.CurrentPage = 1;
+            this.pageDataGridView.PageControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pageDataGridView.PageControl.ExportButtonVisible = false;
+            this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 324);
+            this.pageDataGridView.PageControl.Name = "PageControl";
+            this.pageDataGridView.PageControl.RecordsPerPage = 30;
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(748, 32);
+            this.pageDataGridView.PageControl.TabIndex = 0;
+            this.pageDataGridView.PageControl.TotalRecords = 0;
+            this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
+            this.pageDataGridView.Size = new System.Drawing.Size(748, 356);
+            this.pageDataGridView.SqlWhere = null;
+            this.pageDataGridView.TabIndex = 4;
+            // 
             // dgvStaffs
             // 
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -222,30 +261,30 @@
             this.Col_DELETE,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
-            this.dgvStaffs.Location = new System.Drawing.Point(0, 29);
+            this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStaffs.RowTemplate.Height = 23;
-            this.dgvStaffs.Size = new System.Drawing.Size(755, 356);
+            this.dgvStaffs.Size = new System.Drawing.Size(748, 324);
             this.dgvStaffs.TabIndex = 3;
             // 
             // Column1
@@ -337,12 +376,81 @@
             this.biClear});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.Name = "bar2";
-            this.bar2.Size = new System.Drawing.Size(755, 29);
+            this.bar2.Size = new System.Drawing.Size(748, 29);
             this.bar2.Stretch = true;
             this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar2.TabIndex = 2;
             this.bar2.TabStop = false;
             this.bar2.Text = "bar2";
+            // 
+            // biAddPrivate
+            // 
+            this.biAddPrivate.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biAddPrivate.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biAddPrivate.Name = "biAddPrivate";
+            this.biAddPrivate.Text = "添加权限";
+            this.biAddPrivate.Click += new System.EventHandler(this.biAddPrivate_Click);
+            // 
+            // biUploadSelect
+            // 
+            this.biUploadSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biUploadSelect.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biUploadSelect.Name = "biUploadSelect";
+            this.biUploadSelect.Text = "上传选择权限";
+            // 
+            // biOneKeyUpload
+            // 
+            this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biOneKeyUpload.Name = "biOneKeyUpload";
+            this.biOneKeyUpload.Text = "上传所有权限";
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.ForeColor = System.Drawing.Color.Black;
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.Text = "姓名";
+            // 
+            // tbName
+            // 
+            this.tbName.Name = "tbName";
+            this.tbName.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // labelItem2
+            // 
+            this.labelItem2.ForeColor = System.Drawing.Color.Black;
+            this.labelItem2.Name = "labelItem2";
+            this.labelItem2.Text = "部门";
+            // 
+            // tbDeptName
+            // 
+            this.tbDeptName.Name = "tbDeptName";
+            this.tbDeptName.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // labelItem5
+            // 
+            this.labelItem5.ForeColor = System.Drawing.Color.Black;
+            this.labelItem5.Name = "labelItem5";
+            this.labelItem5.Text = "证件号";
+            // 
+            // tbStaffNo
+            // 
+            this.tbStaffNo.Name = "tbStaffNo";
+            this.tbStaffNo.WatermarkColor = System.Drawing.SystemColors.GrayText;
+            // 
+            // biDoSearch
+            // 
+            this.biDoSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biDoSearch.Image = global::SmartAccess.Properties.Resources.查询;
+            this.biDoSearch.Name = "biDoSearch";
+            this.biDoSearch.Text = "查询";
+            // 
+            // biClear
+            // 
+            this.biClear.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biClear.Image = global::SmartAccess.Properties.Resources.删除;
+            this.biClear.Name = "biClear";
+            this.biClear.Text = "清空";
             // 
             // dtpValidTime
             // 
@@ -393,39 +501,6 @@
             this.dtpValidTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtpValidTime.TabIndex = 2;
             // 
-            // labelItem1
-            // 
-            this.labelItem1.ForeColor = System.Drawing.Color.Black;
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "姓名";
-            // 
-            // tbName
-            // 
-            this.tbName.Name = "tbName";
-            this.tbName.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
-            // labelItem2
-            // 
-            this.labelItem2.ForeColor = System.Drawing.Color.Black;
-            this.labelItem2.Name = "labelItem2";
-            this.labelItem2.Text = "部门";
-            // 
-            // tbDeptName
-            // 
-            this.tbDeptName.Name = "tbDeptName";
-            this.tbDeptName.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
-            // labelItem5
-            // 
-            this.labelItem5.ForeColor = System.Drawing.Color.Black;
-            this.labelItem5.Name = "labelItem5";
-            this.labelItem5.Text = "证件号";
-            // 
-            // tbStaffNo
-            // 
-            this.tbStaffNo.Name = "tbStaffNo";
-            this.tbStaffNo.WatermarkColor = System.Drawing.SystemColors.GrayText;
-            // 
             // controlContainerItem1
             // 
             this.controlContainerItem1.AllowItemResize = false;
@@ -450,42 +525,6 @@
             this.labelItem6.Name = "labelItem6";
             this.labelItem6.Text = "职务";
             // 
-            // biDoSearch
-            // 
-            this.biDoSearch.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biDoSearch.Image = global::SmartAccess.Properties.Resources.查询;
-            this.biDoSearch.Name = "biDoSearch";
-            this.biDoSearch.Text = "查询";
-            // 
-            // biClear
-            // 
-            this.biClear.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biClear.Image = global::SmartAccess.Properties.Resources.删除;
-            this.biClear.Name = "biClear";
-            this.biClear.Text = "清空";
-            // 
-            // biAddPrivate
-            // 
-            this.biAddPrivate.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biAddPrivate.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biAddPrivate.Name = "biAddPrivate";
-            this.biAddPrivate.Text = "添加权限";
-            this.biAddPrivate.Click += new System.EventHandler(this.biAddPrivate_Click);
-            // 
-            // biUploadSelect
-            // 
-            this.biUploadSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biUploadSelect.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biUploadSelect.Name = "biUploadSelect";
-            this.biUploadSelect.Text = "上传选择权限";
-            // 
-            // biOneKeyUpload
-            // 
-            this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biOneKeyUpload.Name = "biOneKeyUpload";
-            this.biOneKeyUpload.Text = "上传所有权限";
-            // 
             // FaceDevPriMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -500,6 +539,8 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advTree)).EndInit();
             this.panelEx1.ResumeLayout(false);
+            this.pageDataGridView.DataGridPanel.ResumeLayout(false);
+            this.pageDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).EndInit();
@@ -545,5 +586,6 @@
         private DevComponents.DotNetBar.ButtonItem biUploadSelect;
         private DevComponents.DotNetBar.ButtonItem biOneKeyUpload;
         private DevComponents.DotNetBar.ButtonItem biAddPrivate;
+        private Li.Controls.PageDataGridView pageDataGridView;
     }
 }

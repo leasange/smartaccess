@@ -259,6 +259,17 @@ namespace Li.Controls
             }
             return nodes;
         }
+        public List<T> GetTypeList<T>(params CheckState[] checkStates)
+        {
+            List<DevComponents.AdvTree.Node> nodes = GetNodeList(checkStates.ToList(), typeof(T));
+            List<T> list = new List<T>();
+            foreach (DevComponents.AdvTree.Node node in nodes)
+            {
+                T obj = (T)node.Tag;
+                list.Add(obj);
+            }
+            return list;
+        }
         /// <summary>
         /// 根据类型T，获取节点Tag对象列表
         /// </summary>

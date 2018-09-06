@@ -1143,5 +1143,42 @@ namespace SmartAccess.Common.Datas
             }
             return ctrlIds;
         }
+
+        public static bool UploadFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels, List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels, out string errMsg)
+        {
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg("开始上传人脸权限...");
+            if (addmodels.Count > 0)
+            {
+                FrmDetailInfo.AddOneMsg("开始添加或更新人脸"+addmodels.Count+"个...");
+                var g = addmodels.GroupBy(m => m.FACEDEV_ID);
+                foreach (var item in g)
+                {
+                    var models = item.ToList();
+                    var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE);
+                    List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
+                    foreach (var model in models)
+                    {
+                       Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+                       update.id = model.STAFF_DEV_ID;
+                       update.authority = "B";
+                       update.image = model.STAFF_INFO.PHOTO;
+                       update.name = model.STAFF_INFO.REAL_NAME;
+                       update.data_keepon1 = model.STAFF_INFO.CER_NO;
+                       update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
+                       update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                    }
+                    bool ret = faceCtrler.AddOrModifyFaces(out errMsg, updates.ToArray());
+                    if (!ret||!string.IsNullOrWhiteSpace(errMsg))
+                    {
+                        FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
+                    }
+                    if (!ret)
+                    {
+                        FrmDetailInfo.AddOneMsg("设备："+models[0].FACERECG_DEVICE.FACEDEV_NAME+",发生错误中断",isRed:true);
+                    }
+                }
+            }
+        }
     }
 }

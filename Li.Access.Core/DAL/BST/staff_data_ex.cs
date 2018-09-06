@@ -66,6 +66,63 @@ namespace Maticsoft.DAL.BST
                 return false;
             }
         }
+
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool UpdateEx(Maticsoft.Model.BST.staff_data model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update staff_data set ");
+            strSql.Append("name=@name,");
+            //strSql.Append("info=@info,");
+            //strSql.Append("image=@image,");
+            //strSql.Append("authority=@authority,");
+            strSql.Append("date_begin=@date_begin,");
+            strSql.Append("date_end=@date_end,");
+            strSql.Append("data_keepon1=@data_keepon1,");
+            strSql.Append("data_keepon2=@data_keepon2,");
+            strSql.Append("data_keepon3=@data_keepon3,");
+            strSql.Append("data_keepon4=@data_keepon4,");
+            strSql.Append("data_keepon5=@data_keepon5");
+            strSql.Append(" where id=@id ");
+            MySqlParameter[] parameters = {
+					new MySqlParameter("@name", MySqlDbType.VarChar,45),
+					//new MySqlParameter("@info", MySqlDbType.VarBinary),
+					//new MySqlParameter("@image", MySqlDbType.MediumBlob),
+					//new MySqlParameter("@authority", MySqlDbType.VarChar,1),
+					new MySqlParameter("@date_begin", MySqlDbType.VarChar,45),
+					new MySqlParameter("@date_end", MySqlDbType.VarChar,45),
+					new MySqlParameter("@data_keepon1", MySqlDbType.VarChar,45),
+					new MySqlParameter("@data_keepon2", MySqlDbType.VarChar,45),
+					new MySqlParameter("@data_keepon3", MySqlDbType.VarChar,45),
+					new MySqlParameter("@data_keepon4", MySqlDbType.VarChar,45),
+					new MySqlParameter("@data_keepon5", MySqlDbType.VarChar,45),
+					new MySqlParameter("@id", MySqlDbType.VarChar,60)};
+            parameters[0].Value = model.name;
+            //parameters[1].Value = model.info;
+            //parameters[2].Value = model.image;
+            //parameters[3].Value = model.authority;
+            parameters[4].Value = model.date_begin;
+            parameters[5].Value = model.date_end;
+            parameters[6].Value = model.data_keepon1;
+            parameters[7].Value = model.data_keepon2;
+            parameters[8].Value = model.data_keepon3;
+            parameters[9].Value = model.data_keepon4;
+            parameters[10].Value = model.data_keepon5;
+            parameters[11].Value = model.id;
+
+            int rows = DbHelperMySQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 		#endregion  ExtensionMethod
 	}
 }

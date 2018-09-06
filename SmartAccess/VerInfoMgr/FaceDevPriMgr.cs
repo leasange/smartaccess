@@ -16,6 +16,7 @@ namespace SmartAccess.VerInfoMgr
     {
         private List<Maticsoft.Model.SMT_FACERECG_DEVICE> _faceDevices = null;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FaceDevPriMgr));
+        private List<Maticsoft.Model.SMT_FACERECG_DEVICE> _selectDevices=null;
         public FaceDevPriMgr()
         {
             InitializeComponent();
@@ -97,9 +98,38 @@ namespace SmartAccess.VerInfoMgr
 
         private void biAddPrivate_Click(object sender, EventArgs e)
         {
-            FrmAddFaceDevPrivate frmAddFaceDevPrivate = new FrmAddFaceDevPrivate();
+            if (_selectDevices==null||_selectDevices.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请至少选择一个人脸设备！");
+                return;
+            }
+            FrmAddFaceDevPrivate frmAddFaceDevPrivate = new FrmAddFaceDevPrivate(_selectDevices);
             frmAddFaceDevPrivate.ShowDialog(this);
         }
 
+        private void advTree_AfterCheck(object sender, AdvTreeCellEventArgs e)
+        {
+            _selectDevices = advTree.GetTypeList<Maticsoft.Model.SMT_FACERECG_DEVICE>(CheckState.Checked);
+        }
+
+        private void DoSearch(string staffname,string staffno,string staffdept)
+        {
+            string selectdeviceIds = null;
+            if (_selectDevices!=null&&_selectDevices.Count>0)
+            {
+                foreach (var item in _selectDevices)
+                {
+                    selectdeviceIds += item.ID + ",";
+                }
+                selectdeviceIds = selectdeviceIds.TrimEnd(',');
+            }
+
+            
+        }
+
+        private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
+        {
+
+        }
     }
 }
