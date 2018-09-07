@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace SmartAccess.Common.Datas
 {
-    
+
     /// <summary>
     /// 上传权限
     /// </summary>
@@ -29,7 +29,7 @@ namespace SmartAccess.Common.Datas
             List<Maticsoft.Model.SMT_STAFF_DOOR> staffDoors = null,
             List<Maticsoft.Model.SMT_STAFF_CARD> staffCards = null,
             List<Maticsoft.Model.SMT_DOOR_INFO> allDoors = null,
-            List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrlrs=null,bool isShowDetail=true)
+            List<Maticsoft.Model.SMT_CONTROLLER_INFO> ctrlrs = null, bool isShowDetail = true)
         {
             if (isShowDetail)
             {
@@ -39,33 +39,33 @@ namespace SmartAccess.Common.Datas
             {
                 FrmDetailInfo.Close();
             }
-        
-            FrmDetailInfo.AddOneMsg(string.Format("开始上传“{0}”权限...",staffInfo.REAL_NAME));
+
+            FrmDetailInfo.AddOneMsg(string.Format("开始上传“{0}”权限...", staffInfo.REAL_NAME));
             errMsg = "";
             if (staffCards == null)
             {
                 Maticsoft.BLL.SMT_STAFF_CARD scBll = new Maticsoft.BLL.SMT_STAFF_CARD();
                 staffCards = scBll.GetModelListWithCardNo("STAFF_ID=" + staffInfo.ID);
             }
-            
+
             if (staffCards.Count == 0)
             {
-                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”没有授权的卡,上传结束！",staffInfo.REAL_NAME),progress:100);
+                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”没有授权的卡,上传结束！", staffInfo.REAL_NAME), progress: 100);
                 return true;
                 //if (staffInfo.IS_DELETE||staffInfo.IS_FORBIDDEN||staffInfo.DELETE_CARD)
                 //{
                 //    return true;
                 //}
-               // errMsg = "上传失败，该人员没有授权的卡片！";
-               // WinInfo.WinInfoHelper.ShowInfoWindow(null,"“"+staffInfo.REAL_NAME+ "”权限上传失败，该人员没有授权的卡片！");
+                // errMsg = "上传失败，该人员没有授权的卡片！";
+                // WinInfo.WinInfoHelper.ShowInfoWindow(null,"“"+staffInfo.REAL_NAME+ "”权限上传失败，该人员没有授权的卡片！");
                 //return false;
             }
-            string cds="";
+            string cds = "";
             foreach (var item in staffCards)
-	        {
-		        cds+=item.CARD_NO+"；";
-	        }
-            FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权卡：{1}",staffInfo.REAL_NAME,cds.TrimEnd('；')));
+            {
+                cds += item.CARD_NO + "；";
+            }
+            FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权卡：{1}", staffInfo.REAL_NAME, cds.TrimEnd('；')));
             if (FrmDetailInfo.IsClosed() && isShowDetail)
             {
                 errMsg = "中断上传！";
@@ -79,13 +79,13 @@ namespace SmartAccess.Common.Datas
             {
                 FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”没有授权的门禁,上传结束！", staffInfo.REAL_NAME), 100, true);
                 return true;
-               // if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
-              //  {
-              //      return true;
-              //  }
-              //  errMsg = "上传失败，当前没有任何门！";
-               // WinInfo.WinInfoHelper.ShowInfoWindow(null, "“" + staffInfo.REAL_NAME + "”权限上传失败，当前没有任何可用门禁！");
-              //  return false;
+                // if (staffInfo.IS_DELETE || staffInfo.IS_FORBIDDEN || staffInfo.DELETE_CARD)
+                //  {
+                //      return true;
+                //  }
+                //  errMsg = "上传失败，当前没有任何门！";
+                // WinInfo.WinInfoHelper.ShowInfoWindow(null, "“" + staffInfo.REAL_NAME + "”权限上传失败，当前没有任何可用门禁！");
+                //  return false;
             }
             FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权门禁数：{1}", staffInfo.REAL_NAME, allDoors.Count));
             if (FrmDetailInfo.IsClosed() && isShowDetail)
@@ -97,9 +97,9 @@ namespace SmartAccess.Common.Datas
             {
                 ctrlrs = GetUploadCtrlr();
             }
-            if (ctrlrs.Count==0)
+            if (ctrlrs.Count == 0)
             {
-                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”上传时，未查到任何可用的控制器,上传结束！", staffInfo.REAL_NAME), 100,true);
+                FrmDetailInfo.AddOneMsg(string.Format("警告：人员“{0}”上传时，未查到任何可用的控制器,上传结束！", staffInfo.REAL_NAME), 100, true);
                 return true;
             }
             FrmDetailInfo.AddOneMsg(string.Format("获取到“{0}”授权控制器数：{1}", staffInfo.REAL_NAME, ctrlrs.Count));
@@ -161,7 +161,7 @@ namespace SmartAccess.Common.Datas
                     item.WaitOne(30000);
                 }
                 errMsg += msg;
-                FrmDetailInfo.AddOneMsg(string.Format("执行“{0}”的权限删除结束。",staffInfo.REAL_NAME), 100);
+                FrmDetailInfo.AddOneMsg(string.Format("执行“{0}”的权限删除结束。", staffInfo.REAL_NAME), 100);
                 return true;
             }
 
@@ -187,25 +187,25 @@ namespace SmartAccess.Common.Datas
             foreach (var item in priGroup)
             {
                 var doors = item.ToList();
-                decimal ctrlId=(decimal)doors[0].CTRL_ID;
+                decimal ctrlId = (decimal)doors[0].CTRL_ID;
                 priCtrlIds.Add(ctrlId);
                 var ctrl = ctrlrs.Find(m => m.ID == ctrlId);
-                if (ctrl==null)//未找到控制器
+                if (ctrl == null)//未找到控制器
                 {
-                    FrmDetailInfo.AddOneMsg(string.Format("警告：未找到“{0}”控制器：ID={1}", staffInfo.REAL_NAME, ctrlId),-1,true);
+                    FrmDetailInfo.AddOneMsg(string.Format("警告：未找到“{0}”控制器：ID={1}", staffInfo.REAL_NAME, ctrlId), -1, true);
                     //errMsg += "\r\n控制器无效：CTRL_ID=" + ctrlId;
                     continue;
                 }
                 Dictionary<int, int> doorNumAuthorities = new Dictionary<int, int>();
                 foreach (var d in doors)
                 {
-                    if (d.CTRL_DOOR_INDEX!=null&&d.CTRL_DOOR_INDEX>=0)
+                    if (d.CTRL_DOOR_INDEX != null && d.CTRL_DOOR_INDEX >= 0)
                     {
                         int num = 0;
                         if (d.IS_ENABLE)
                         {
                             var staffDoor = staffDoors.Find(m => m.DOOR_ID == d.ID);
-                            if (staffDoor!=null)
+                            if (staffDoor != null)
                             {
                                 num = staffDoor.TIME_NUM;
                             }
@@ -214,7 +214,7 @@ namespace SmartAccess.Common.Datas
                     }
                 }
                 percent += stp;
-                if (doorNumAuthorities.Count>0)
+                if (doorNumAuthorities.Count > 0)
                 {
                     Controller c = ControllerHelper.ToController(ctrl);
                     ManualResetEvent reset = new ManualResetEvent(false);
@@ -234,8 +234,8 @@ namespace SmartAccess.Common.Datas
                                         bool ret = access.AddOrModifyAuthority(c, card.CARD_WG_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME, doorNumAuthorities);
                                         if (!ret)
                                         {
-                                         //   amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
-                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent,true);
+                                            //   amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent, true);
                                         }
                                         else
                                         {
@@ -258,9 +258,9 @@ namespace SmartAccess.Common.Datas
                             }
                             catch (Exception ex)
                             {
-                               // amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME + ";异常信息：" + ex.Message;
-                                FrmDetailInfo.AddOneMsg(string.Format("设置“{0}”的权限发生异常：控制器：{1}，异常信息：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, ex.Message), (int)percent,true);
-                               
+                                // amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME + ";异常信息：" + ex.Message;
+                                FrmDetailInfo.AddOneMsg(string.Format("设置“{0}”的权限发生异常：控制器：{1}，异常信息：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, ex.Message), (int)percent, true);
+
                             }
                             finally
                             {
@@ -270,7 +270,7 @@ namespace SmartAccess.Common.Datas
                     aeventlist.Add(reset);
                 }
             }
-           
+
             foreach (var item in aeventlist)
             {
                 item.WaitOne(60000);
@@ -280,7 +280,7 @@ namespace SmartAccess.Common.Datas
             string dmsg = "";
             foreach (var item in ctrlrs)//删除未授权的权限
             {
-                if (priCtrlIds.Exists(m=>m==item.ID))
+                if (priCtrlIds.Exists(m => m == item.ID))
                 {
                     continue;
                 }
@@ -303,8 +303,8 @@ namespace SmartAccess.Common.Datas
                                     bool ret = access.DeleteAuthority(ctrlr, card.CARD_WG_NO);
                                     if (!ret)
                                     {
-                                        FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)percent,true);
-                                       // dmsg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
+                                        FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, item.NAME, card.CARD_NO), (int)percent, true);
+                                        // dmsg += "\r\n删除控制器的权限失败，控制器名称：" + item.NAME;
                                     }
                                     else
                                     {
@@ -316,13 +316,13 @@ namespace SmartAccess.Common.Datas
                         }
                         catch (Exception ex)
                         {
-                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限发生异常：控制器：{1} ，异常信息：{2}。", staffInfo.REAL_NAME, item.NAME,ex.Message), (int)percent);
+                            FrmDetailInfo.AddOneMsg(string.Format("删除“{0}”的权限发生异常：控制器：{1} ，异常信息：{2}。", staffInfo.REAL_NAME, item.NAME, ex.Message), (int)percent);
                         }
                         finally
                         {
                             reset.Set();
                         }
-                    
+
                     }));
                 deventlist.Add(reset);
             }
@@ -332,7 +332,7 @@ namespace SmartAccess.Common.Datas
             }
             errMsg += dmsg;
             errMsg = errMsg.Trim('\r', '\n');
-            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限结束。",staffInfo.REAL_NAME),100);
+            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限结束。", staffInfo.REAL_NAME), 100);
             return true;
         }
         //根据控制器上传权限
@@ -508,15 +508,15 @@ namespace SmartAccess.Common.Datas
         /// 通过卡号删除权限
         /// </summary>
         /// <param name="cardNum">卡号</param>
-        public static bool DeletePrivateByCardNum(string cardNum,out string errMsg,List<Maticsoft.Model.SMT_STAFF_CARD> cards=null)
+        public static bool DeletePrivateByCardNum(string cardNum, out string errMsg, List<Maticsoft.Model.SMT_STAFF_CARD> cards = null)
         {
             errMsg = "";
-            if (cards==null)
+            if (cards == null)
             {
                 Maticsoft.BLL.SMT_STAFF_CARD sbll = new Maticsoft.BLL.SMT_STAFF_CARD();//权限
                 cards = sbll.GetModelListByCardNo(cardNum);
             }
-            if (cards.Count==0)
+            if (cards.Count == 0)
             {
                 return true;
             }
@@ -531,13 +531,13 @@ namespace SmartAccess.Common.Datas
             try
             {
                 var ctrls = GetUploadCtrlr();
-                if (ctrls.Count==0)
+                if (ctrls.Count == 0)
                 {
                     errMsg = "没有可用控制器！";
                     return false;
                 }
                 var doors = GetUploadAllDoors();
-                if (doors.Count==0)
+                if (doors.Count == 0)
                 {
                     errMsg = "没有可用门禁！";
                     return false;
@@ -572,7 +572,7 @@ namespace SmartAccess.Common.Datas
             if (ctrls.Count == 0)
             {
                 errMsg = "没有可用控制器！";
-                FrmDetailInfo.AddOneMsg("没有可用的控制器，上传结束！",100);
+                FrmDetailInfo.AddOneMsg("没有可用的控制器，上传结束！", 100);
                 return false;
             }
             List<ManualResetEvent> events = new List<ManualResetEvent>();
@@ -611,7 +611,7 @@ namespace SmartAccess.Common.Datas
                 item.WaitOne();
             }
             errMsg = outMsg;
-            FrmDetailInfo.AddOneMsg(string.Format("上传所有权限结束！"),100);
+            FrmDetailInfo.AddOneMsg(string.Format("上传所有权限结束！"), 100);
             return true;
         }
 
@@ -620,15 +620,15 @@ namespace SmartAccess.Common.Datas
         public static void UploadTimeTasks(List<Maticsoft.Model.SMT_CTRLR_TASK> tasks)
         {
             FrmDetailInfo.Show(false);
-            FrmDetailInfo.AddOneMsg(string.Format("开始上传定时任务,任务数目：{0} ....",tasks.Count));
+            FrmDetailInfo.AddOneMsg(string.Format("开始上传定时任务,任务数目：{0} ....", tasks.Count));
             var ctrls = ControllerHelper.GetList("1=1");
             if (ctrls.Count == 0)
             {
-                FrmDetailInfo.AddOneMsg("没有获取到控制器,上传结束！",isRed:true);
+                FrmDetailInfo.AddOneMsg("没有获取到控制器,上传结束！", isRed: true);
                 return;
             }
             var doors = GetUploadAllDoors();
-            if (doors.Count==0)
+            if (doors.Count == 0)
             {
                 FrmDetailInfo.AddOneMsg("没有获取到控制器，上传结束！", isRed: true);
                 return;
@@ -638,7 +638,7 @@ namespace SmartAccess.Common.Datas
             foreach (var item in tasks)
             {
                 IEnumerable<System.Linq.IGrouping<decimal, Maticsoft.Model.SMT_DOOR_INFO>> group = groupDoors;//所有门禁
-                if (item.DOOR_ID!="-1")
+                if (item.DOOR_ID != "-1")
                 {
                     var doorIds = item.DOOR_ID.Split(',');
                     List<decimal> ids = new List<decimal>();
@@ -669,12 +669,12 @@ namespace SmartAccess.Common.Datas
                     }
                     if (c == null)
                     {
-                        var ctrl=ctrls.Find(m=>m.ID==list[0].CTRL_ID);
-                        if (ctrl==null)
-	                    {
-                             FrmDetailInfo.AddOneMsg(string.Format("没有获取到控制器：ID={0}",list[0].CTRL_ID), isRed: true);
-                             continue;
-	                    }
+                        var ctrl = ctrls.Find(m => m.ID == list[0].CTRL_ID);
+                        if (ctrl == null)
+                        {
+                            FrmDetailInfo.AddOneMsg(string.Format("没有获取到控制器：ID={0}", list[0].CTRL_ID), isRed: true);
+                            continue;
+                        }
                         c = ControllerHelper.ToController(ctrl);
                         vtasks = new List<TimeTask>();
                         ctasks.Add(c, vtasks);
@@ -695,10 +695,10 @@ namespace SmartAccess.Common.Datas
                     tt.weekDaysEnable[4] = item.FRI_STATE;
                     tt.weekDaysEnable[5] = item.SAT_STATE;
                     tt.weekDaysEnable[6] = item.SUN_STATE;
-                    
+
                     foreach (var dr in list)//遍历门
                     {
-                        if (dr.CTRL_DOOR_INDEX==null)
+                        if (dr.CTRL_DOOR_INDEX == null)
                         {
                             continue;
                         }
@@ -899,7 +899,7 @@ namespace SmartAccess.Common.Datas
                                     listpwd.Add(thpwd.SUPER_PWD);
                                 }
                                 FrmDetailInfo.AddOneMsg("开始上传控制器：" + item.NAME + ",IP:" + item.IP + "门号：" + d.CTRL_DOOR_INDEX + " 密码上传数目：" + listpwd.Count);
-                                bool ret= access.SetSuperPwds(c, (int)d.CTRL_DOOR_INDEX, listpwd);
+                                bool ret = access.SetSuperPwds(c, (int)d.CTRL_DOOR_INDEX, listpwd);
                                 if (!ret)
                                 {
                                     FrmDetailInfo.AddOneMsg("控制器：" + item.NAME + ",IP:" + item.IP + "门号：" + d.CTRL_DOOR_INDEX + " 密码上传失败！", isRed: true);
@@ -910,7 +910,7 @@ namespace SmartAccess.Common.Datas
                                 }
                             }
                         }
-                         
+
                     }
                     catch (Exception ex)
                     {
@@ -929,7 +929,7 @@ namespace SmartAccess.Common.Datas
             FrmDetailInfo.AddOneMsg("上传结束！");
         }
 
-        public static void UploadAlarmSetting(List<Maticsoft.Model.SMT_ALARM_SETTING> settings=null)
+        public static void UploadAlarmSetting(List<Maticsoft.Model.SMT_ALARM_SETTING> settings = null)
         {
             FrmDetailInfo.Show(false);
             FrmDetailInfo.AddOneMsg("开始上传报警设置...");
@@ -947,7 +947,7 @@ namespace SmartAccess.Common.Datas
                     return;
                 }
                 Maticsoft.BLL.SMT_CONTROLLER_INFO ctrlBll = new Maticsoft.BLL.SMT_CONTROLLER_INFO();
-                
+
                 foreach (var item in settings)
                 {
                     if (item.CONTROLLER_INFO == null)
@@ -959,18 +959,18 @@ namespace SmartAccess.Common.Datas
                 List<ManualResetEvent> evts = new List<ManualResetEvent>();
                 foreach (var item in settings)
                 {
-                    if (item.CONTROLLER_INFO==null)
+                    if (item.CONTROLLER_INFO == null)
                     {
                         FrmDetailInfo.AddOneMsg("报警设置所属控制器ID=" + item.CTRL_ID + ",不存在！", isRed: true);
                         continue;
                     }
-                                    Maticsoft.BLL.SMT_DOOR_INFO doorBll=new Maticsoft.BLL.SMT_DOOR_INFO();
-                    var doors= doorBll.GetModelList("CTRL_ID="+item.CTRL_ID);
-                    if (doors.Count==0)
-	{
-		 FrmDetailInfo.AddOneMsg("报警设置所属控制器 " + item.CONTROLLER_INFO.NAME + ",不存在对应门禁", isRed: true);
+                    Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
+                    var doors = doorBll.GetModelList("CTRL_ID=" + item.CTRL_ID);
+                    if (doors.Count == 0)
+                    {
+                        FrmDetailInfo.AddOneMsg("报警设置所属控制器 " + item.CONTROLLER_INFO.NAME + ",不存在对应门禁", isRed: true);
                         continue;
-	}
+                    }
                     ManualResetEvent evt = new ManualResetEvent(false);
                     evts.Add(evt);
                     ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
@@ -995,26 +995,26 @@ namespace SmartAccess.Common.Datas
                                     bool ret = access.SetAlarmParamsSetting(c, ast);
                                     if (!ret)
                                     {
-                                        FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置失败！",isRed:true);
+                                        FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置失败！", isRed: true);
                                     }
                                     else
                                     {
                                         FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置成功.开始上传报警触发设置...");
                                         Maticsoft.BLL.SMT_ALARM_CONNECT acBll = new Maticsoft.BLL.SMT_ALARM_CONNECT();
-                                        List<Maticsoft.Model.SMT_ALARM_CONNECT> asModels= acBll.GetModelList("CTRL_ID=" + item.CTRL_ID);
+                                        List<Maticsoft.Model.SMT_ALARM_CONNECT> asModels = acBll.GetModelList("CTRL_ID=" + item.CTRL_ID);
                                         for (int i = 0; i < 4; i++)
                                         {
                                             var model = asModels.Find(m => m.OUT_PORT == i + 1);
                                             AlarmConnectPortSetting cps = new AlarmConnectPortSetting();
-                                            if (model==null)
+                                            if (model == null)
                                             {
                                                 model = new Maticsoft.Model.SMT_ALARM_CONNECT();
                                                 model.DOOR_ID = -1;
                                                 model.OUT_PORT = i + 1;
                                                 continue;
                                             }
-                                            var door=doors.Find(m=>m.ID==model.DOOR_ID);
-                                            cps.ActionDoorIndex = door == null || door.CTRL_DOOR_INDEX==null ? 0 : (int)door.CTRL_DOOR_INDEX;
+                                            var door = doors.Find(m => m.ID == model.DOOR_ID);
+                                            cps.ActionDoorIndex = door == null || door.CTRL_DOOR_INDEX == null ? 0 : (int)door.CTRL_DOOR_INDEX;
                                             cps.ConnectItem = (AlarmConnectItem)model.ENB_CONNECT_ITEM;
                                             cps.DoorRelayActionEvent = model.ENB_RELAY_EVENT;
                                             cps.FireEvent = model.ENB_FIRE_EVENT;
@@ -1025,10 +1025,10 @@ namespace SmartAccess.Common.Datas
                                             cps.IConnectPort = model.OUT_PORT;
                                             cps.InvalidCardEvent = model.ENB_INVALID_CARD_EVENT;
                                             cps.UnClosedTimeEvent = model.ENB_UNCLOSED_EVENT;
-                                            ret= access.SetAlarmConnectPortSetting(c, cps);
+                                            ret = access.SetAlarmConnectPortSetting(c, cps);
                                             if (!ret)
                                             {
-                                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警触发端口 " + cps .IConnectPort+ " 事件设置失败！", isRed: true);
+                                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警触发端口 " + cps.IConnectPort + " 事件设置失败！", isRed: true);
                                             }
                                             else
                                             {
@@ -1040,24 +1040,24 @@ namespace SmartAccess.Common.Datas
                             }
                             catch (Exception ex)
                             {
-                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置异常失败："+ex.Message, isRed: true);
+                                FrmDetailInfo.AddOneMsg("上传控制器 " + item.CONTROLLER_INFO.NAME + " 报警设置异常失败：" + ex.Message, isRed: true);
                             }
                             finally
                             {
                                 evt.Set();
                             }
-                            
+
                         }));
                 }
 
                 foreach (var evt in evts)
                 {
                     evt.WaitOne(50000);
-                }  
+                }
             }
             catch (Exception ex)
             {
-                FrmDetailInfo.AddOneMsg("上传异常结束："+ex.Message,isRed:true);
+                FrmDetailInfo.AddOneMsg("上传异常结束：" + ex.Message, isRed: true);
                 return;
             }
             FrmDetailInfo.AddOneMsg("上传结束!");
@@ -1146,39 +1146,108 @@ namespace SmartAccess.Common.Datas
 
         public static bool UploadFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels, List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels, out string errMsg)
         {
+            errMsg = null;
             FrmDetailInfo.Show(false);
             FrmDetailInfo.AddOneMsg("开始上传人脸权限...");
             if (addmodels.Count > 0)
             {
-                FrmDetailInfo.AddOneMsg("开始添加或更新人脸"+addmodels.Count+"个...");
+                FrmDetailInfo.AddOneMsg("开始添加或更新人脸" + addmodels.Count + "个...");
                 var g = addmodels.GroupBy(m => m.FACEDEV_ID);
                 foreach (var item in g)
                 {
                     var models = item.ToList();
-                    var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE);
-                    List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
-                    foreach (var model in models)
+                    using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                     {
-                       Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
-                       update.id = model.STAFF_DEV_ID;
-                       update.authority = "B";
-                       update.image = model.STAFF_INFO.PHOTO;
-                       update.name = model.STAFF_INFO.REAL_NAME;
-                       update.data_keepon1 = model.STAFF_INFO.CER_NO;
-                       update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                       update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
-                    }
-                    bool ret = faceCtrler.AddOrModifyFaces(out errMsg, updates.ToArray());
-                    if (!ret||!string.IsNullOrWhiteSpace(errMsg))
-                    {
-                        FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
-                    }
-                    if (!ret)
-                    {
-                        FrmDetailInfo.AddOneMsg("设备："+models[0].FACERECG_DEVICE.FACEDEV_NAME+",发生错误中断",isRed:true);
+                        List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
+                        foreach (var model in models)
+                        {
+                            if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
+                            {
+                                FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,无需更新", isRed: true);
+                                continue;
+                            }
+                            Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+                            update.id = model.STAFF_DEV_ID;
+                            update.authority = "B";
+                            update.image = model.STAFF_INFO.PHOTO;
+                            update.name = model.STAFF_INFO.REAL_NAME;
+                            update.data_keepon1 = model.STAFF_INFO.CER_NO;
+                            update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
+                            update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                            update.data_keepon4 = "";
+                            update.data_keepon5 = "";
+                            DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
+                            if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                            {
+                                dtStart = model.START_VALID_TIME.Date;
+                            }
+                            DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
+                            if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                            {
+                                dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                            }
+                            update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
+                            update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        bool ret = faceCtrler.AddOrModifyFaces(out errMsg, updates.ToArray());
+                        if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                        {
+                            FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
+                        }
+                        if (!ret)
+                        {
+                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误", isRed: true);
+                        }
                     }
                 }
             }
+            if (updatemodels.Count > 0)
+            {
+                FrmDetailInfo.AddOneMsg("开始更新人脸" + updatemodels.Count + "个...");
+                var g = updatemodels.GroupBy(m => m.FACEDEV_ID);
+                foreach (var item in g)
+                {
+                    var models = item.ToList();
+                    using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
+                    {
+                        List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
+                        foreach (var model in models)
+                        {
+                            Maticsoft.Model.BST.staff_update data = new Maticsoft.Model.BST.staff_update();
+                            data.id = model.STAFF_DEV_ID;
+                            data.name = model.STAFF_INFO.REAL_NAME;
+                            data.data_keepon1 = model.STAFF_INFO.CER_NO;
+                            data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
+                            data.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                            data.data_keepon4 = "";
+                            data.data_keepon5 = "";
+                            DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
+                            if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                            {
+                                dtStart = model.START_VALID_TIME.Date;
+                            }
+                            DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
+                            if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                            {
+                                dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                            }
+                            data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
+                            data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        bool ret = faceCtrler.ModifyTextInfo(out errMsg, datas.ToArray());
+                        if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                        {
+                            FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
+                        }
+                        if (!ret)
+                        {
+                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",更新发生错误", isRed: true);
+                        }
+                    }
+                }
+            }
+            FrmDetailInfo.AddOneMsg("设置结束！");
+            return true;
         }
     }
 }

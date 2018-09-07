@@ -333,6 +333,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 this.Invoke(new Action(() =>
                 {
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }));
             });
