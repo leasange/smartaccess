@@ -36,7 +36,7 @@ namespace Maticsoft.DAL.BST
             {
                 strSql.Append("where " + strWhere);
             }
-            DataSet ds = DbHelperMySQL.Query(strSql.ToString());
+            DataSet ds = DbHelperMySQLP.Query(strSql.ToString());
             List<string> list = new List<string>();
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -56,7 +56,7 @@ namespace Maticsoft.DAL.BST
             {
                 strSql.Append("where " + strWhere);
             }
-            int rows = DbHelperMySQL.ExecuteSql(strSql.ToString());
+            int rows = DbHelperMySQLP.ExecuteSql(strSql.ToString());
             if (rows > 0)
             {
                 return true;
@@ -112,7 +112,7 @@ namespace Maticsoft.DAL.BST
             parameters[10].Value = model.data_keepon5;
             parameters[11].Value = model.id;
 
-            int rows = DbHelperMySQL.ExecuteSql(strSql.ToString(), parameters);
+            int rows = DbHelperMySQLP.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
             {
                 return true;

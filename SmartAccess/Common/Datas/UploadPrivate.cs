@@ -1153,98 +1153,150 @@ namespace SmartAccess.Common.Datas
             {
                 FrmDetailInfo.AddOneMsg("开始添加或更新人脸" + addmodels.Count + "个...");
                 var g = addmodels.GroupBy(m => m.FACEDEV_ID);
+                int count = g.Count();
+                List<ManualResetEvent> resets = new List<ManualResetEvent>();
+                string tempMsgs = "";
                 foreach (var item in g)
                 {
-                    var models = item.ToList();
-                    using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
+                    ManualResetEvent reset = new ManualResetEvent(false);
+                    resets.Add(reset);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                     {
-                        List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
-                        foreach (var model in models)
-                        {
-                            if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
+                            var models = item.ToList();
+                            try
                             {
-                                FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,无需更新", isRed: true);
-                                continue;
+                                using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
+                                {
+                                    List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
+                                    foreach (var model in models)
+                                    {
+                                        if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
+                                        {
+                                            FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,无需更新", isRed: true);
+                                            continue;
+                                        }
+                                        Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+                                        update.id = model.STAFF_DEV_ID;
+                                        update.authority = "B";
+                                        update.image = model.STAFF_INFO.PHOTO;
+                                        update.name = model.STAFF_INFO.REAL_NAME;
+                                        update.data_keepon1 = model.STAFF_INFO.CER_NO;
+                                        update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
+                                        update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                                        update.data_keepon4 = "";
+                                        update.data_keepon5 = "";
+                                        DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
+                                        if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                                        {
+                                            dtStart = model.START_VALID_TIME.Date;
+                                        }
+                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
+                                        if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                                        {
+                                            dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                                        }
+                                        update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
+                                        update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    }
+                                    string tempMsg = "";
+                                    bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, updates.ToArray());
+                                    tempMsgs += tempMsg+";";
+                                    if (!ret || !string.IsNullOrWhiteSpace(tempMsg))
+                                    {
+                                        FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
+                                    }
+                                    if (!ret)
+                                    {
+                                        FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误", isRed: true);
+                                    }
+                                }
                             }
-                            Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
-                            update.id = model.STAFF_DEV_ID;
-                            update.authority = "B";
-                            update.image = model.STAFF_INFO.PHOTO;
-                            update.name = model.STAFF_INFO.REAL_NAME;
-                            update.data_keepon1 = model.STAFF_INFO.CER_NO;
-                            update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                            update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
-                            update.data_keepon4 = "";
-                            update.data_keepon5 = "";
-                            DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                            if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                            catch (Exception ex)
                             {
-                                dtStart = model.START_VALID_TIME.Date;
+                                FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误:"+ex.Message, isRed: true);
                             }
-                            DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
-                            if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                            finally
                             {
-                                dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                                reset.Set();
                             }
-                            update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
-                            update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
-                        }
-                        bool ret = faceCtrler.AddOrModifyFaces(out errMsg, updates.ToArray());
-                        if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                        {
-                            FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
-                        }
-                        if (!ret)
-                        {
-                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误", isRed: true);
-                        }
-                    }
+                        }));
                 }
+                foreach (var item in resets)
+                {
+                    item.WaitOne();
+                }
+                errMsg += tempMsgs;
             }
             if (updatemodels.Count > 0)
             {
                 FrmDetailInfo.AddOneMsg("开始更新人脸" + updatemodels.Count + "个...");
                 var g = updatemodels.GroupBy(m => m.FACEDEV_ID);
+                int count = g.Count();
+                List<ManualResetEvent> resets = new List<ManualResetEvent>();
+                string tempMsgs = "";
                 foreach (var item in g)
                 {
-                    var models = item.ToList();
-                    using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
-                    {
-                        List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
-                        foreach (var model in models)
+                    ManualResetEvent reset = new ManualResetEvent(false);
+                    resets.Add(reset);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                         {
-                            Maticsoft.Model.BST.staff_update data = new Maticsoft.Model.BST.staff_update();
-                            data.id = model.STAFF_DEV_ID;
-                            data.name = model.STAFF_INFO.REAL_NAME;
-                            data.data_keepon1 = model.STAFF_INFO.CER_NO;
-                            data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                            data.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
-                            data.data_keepon4 = "";
-                            data.data_keepon5 = "";
-                            DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                            if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                            try
                             {
-                                dtStart = model.START_VALID_TIME.Date;
+                                var models = item.ToList();
+                                using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
+                                {
+                                    List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
+                                    foreach (var model in models)
+                                    {
+                                        Maticsoft.Model.BST.staff_update data = new Maticsoft.Model.BST.staff_update();
+                                        data.id = model.STAFF_DEV_ID;
+                                        data.name = model.STAFF_INFO.REAL_NAME;
+                                        data.data_keepon1 = model.STAFF_INFO.CER_NO;
+                                        data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
+                                        data.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                                        data.data_keepon4 = "";
+                                        data.data_keepon5 = "";
+                                        DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
+                                        if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                                        {
+                                            dtStart = model.START_VALID_TIME.Date;
+                                        }
+                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
+                                        if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                                        {
+                                            dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                                        }
+                                        data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
+                                        data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    }
+                                    string tempMsg = "";
+                                    bool ret = faceCtrler.ModifyTextInfo(out tempMsg, datas.ToArray());
+                                    tempMsgs += tempMsg+";";
+                                    if (!ret || !string.IsNullOrWhiteSpace(tempMsg))
+                                    {
+                                        FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
+                                    }
+                                    if (!ret)
+                                    {
+                                        FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",更新发生错误", isRed: true);
+                                    }
+                                }
                             }
-                            DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
-                            if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                            catch (Exception ex)
                             {
-                                dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+
                             }
-                            data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
-                            data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
-                        }
-                        bool ret = faceCtrler.ModifyTextInfo(out errMsg, datas.ToArray());
-                        if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                        {
-                            FrmDetailInfo.AddOneMsg(errMsg, isRed: true);
-                        }
-                        if (!ret)
-                        {
-                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",更新发生错误", isRed: true);
-                        }
-                    }
+                            finally
+                            {
+                                reset.Set();
+                            }
+                        }));
                 }
+                foreach (var item in resets)
+                {
+                    item.WaitOne();
+                }
+                errMsg += tempMsgs;
             }
             FrmDetailInfo.AddOneMsg("设置结束！");
             return true;

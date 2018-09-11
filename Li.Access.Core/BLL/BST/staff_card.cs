@@ -26,7 +26,7 @@ namespace Maticsoft.BLL.BST
 	/// </summary>
 	public partial class staff_card
 	{
-		private readonly Maticsoft.DAL.BST.staff_card dal=new Maticsoft.DAL.BST.staff_card();
+		public Maticsoft.DAL.BST.staff_card dal=new Maticsoft.DAL.BST.staff_card();
 		public staff_card()
 		{}
 		#region  BasicMethod

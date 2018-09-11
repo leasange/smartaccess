@@ -93,7 +93,7 @@ namespace SmartAccess.ControlDevMgr
                         {
                             item.Expand();
                         }
-                        if (_dev != null && _dev.AREA_ID != null && _dev.AREA_ID >= 0)
+                        if (_dev != null  && _dev.AREA_ID >= 0)
                         {
                             DevComponents.AdvTree.Node node = FindNode((decimal)_dev.AREA_ID);
                             if (node != null)

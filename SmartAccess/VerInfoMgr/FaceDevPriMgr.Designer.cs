@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.advTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
@@ -42,15 +42,6 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_Pic = new Li.Controls.DataGridViewLinkLabelColumn();
-            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             this.bar2 = new DevComponents.DotNetBar.Bar();
             this.biAddPrivate = new DevComponents.DotNetBar.ButtonItem();
             this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
@@ -68,6 +59,16 @@
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.tbJob = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem6 = new DevComponents.DotNetBar.LabelItem();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Pic = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SQ = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -243,119 +244,50 @@
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
+            this.Column4,
             this.Column6,
             this.Column8,
             this.Col_Pic,
             this.Col_DELETE,
             this.Col_SQ,
             this.Col_SC});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(748, 324);
             this.dgvStaffs.TabIndex = 3;
-            // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 47.90625F;
-            this.Column1.HeaderText = "证件编号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 47.90625F;
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.FillWeight = 47.90625F;
-            this.Column3.HeaderText = "部门";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.FillWeight = 47.90625F;
-            this.Column6.HeaderText = "状态";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column8
-            // 
-            this.Column8.FillWeight = 47.90625F;
-            this.Column8.HeaderText = "有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Col_Pic
-            // 
-            this.Col_Pic.FillWeight = 24.42989F;
-            this.Col_Pic.HeaderText = "照片";
-            this.Col_Pic.Name = "Col_Pic";
-            this.Col_Pic.ReadOnly = true;
-            this.Col_Pic.SplitLinkSymbol = ",";
-            // 
-            // Col_DELETE
-            // 
-            this.Col_DELETE.FillWeight = 24.42989F;
-            this.Col_DELETE.HeaderText = "删除";
-            this.Col_DELETE.Name = "Col_DELETE";
-            this.Col_DELETE.ReadOnly = true;
-            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Col_SQ
-            // 
-            this.Col_SQ.FillWeight = 24.42989F;
-            this.Col_SQ.HeaderText = "授权";
-            this.Col_SQ.Name = "Col_SQ";
-            this.Col_SQ.ReadOnly = true;
-            this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Col_SC
-            // 
-            this.Col_SC.FillWeight = 24.42989F;
-            this.Col_SC.HeaderText = "上传";
-            this.Col_SC.Name = "Col_SC";
-            this.Col_SC.ReadOnly = true;
-            this.Col_SC.SplitLinkSymbol = ",";
             // 
             // bar2
             // 
@@ -444,6 +376,7 @@
             this.biDoSearch.Image = global::SmartAccess.Properties.Resources.查询;
             this.biDoSearch.Name = "biDoSearch";
             this.biDoSearch.Text = "查询";
+            this.biDoSearch.Click += new System.EventHandler(this.biDoSearch_Click);
             // 
             // biClear
             // 
@@ -451,6 +384,7 @@
             this.biClear.Image = global::SmartAccess.Properties.Resources.删除;
             this.biClear.Name = "biClear";
             this.biClear.Text = "清空";
+            this.biClear.Click += new System.EventHandler(this.biClear_Click);
             // 
             // dtpValidTime
             // 
@@ -525,6 +459,82 @@
             this.labelItem6.Name = "labelItem6";
             this.labelItem6.Text = "职务";
             // 
+            // Column1
+            // 
+            this.Column1.FillWeight = 47.90625F;
+            this.Column1.HeaderText = "证件编号";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.FillWeight = 47.90625F;
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.FillWeight = 47.90625F;
+            this.Column3.HeaderText = "部门";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "人脸设备";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.FillWeight = 47.90625F;
+            this.Column6.HeaderText = "状态";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Column8
+            // 
+            this.Column8.FillWeight = 47.90625F;
+            this.Column8.HeaderText = "有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Col_Pic
+            // 
+            this.Col_Pic.FillWeight = 24.42989F;
+            this.Col_Pic.HeaderText = "照片";
+            this.Col_Pic.Name = "Col_Pic";
+            this.Col_Pic.ReadOnly = true;
+            this.Col_Pic.SplitLinkSymbol = ",";
+            // 
+            // Col_DELETE
+            // 
+            this.Col_DELETE.FillWeight = 24.42989F;
+            this.Col_DELETE.HeaderText = "删除";
+            this.Col_DELETE.Name = "Col_DELETE";
+            this.Col_DELETE.ReadOnly = true;
+            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Col_SQ
+            // 
+            this.Col_SQ.FillWeight = 24.42989F;
+            this.Col_SQ.HeaderText = "授权";
+            this.Col_SQ.Name = "Col_SQ";
+            this.Col_SQ.ReadOnly = true;
+            this.Col_SQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_SQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Col_SC
+            // 
+            this.Col_SC.FillWeight = 24.42989F;
+            this.Col_SC.HeaderText = "上传";
+            this.Col_SC.Name = "Col_SC";
+            this.Col_SC.ReadOnly = true;
+            this.Col_SC.SplitLinkSymbol = ",";
+            // 
             // FaceDevPriMgr
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -570,15 +580,6 @@
         private DevComponents.DotNetBar.ButtonItem biDoSearch;
         private DevComponents.DotNetBar.ButtonItem biClear;
         private Li.Controls.DataGridViewEx dgvStaffs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private Li.Controls.DataGridViewLinkLabelColumn Col_Pic;
-        private System.Windows.Forms.DataGridViewLinkColumn Col_DELETE;
-        private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
-        private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpValidTime;
         private DevComponents.DotNetBar.LabelItem labelItem7;
         private DevComponents.DotNetBar.TextBoxItem tbJob;
@@ -587,5 +588,15 @@
         private DevComponents.DotNetBar.ButtonItem biOneKeyUpload;
         private DevComponents.DotNetBar.ButtonItem biAddPrivate;
         private Li.Controls.PageDataGridView pageDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private Li.Controls.DataGridViewLinkLabelColumn Col_Pic;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_DELETE;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_SQ;
+        private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
     }
 }

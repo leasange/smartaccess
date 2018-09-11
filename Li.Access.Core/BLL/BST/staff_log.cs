@@ -26,7 +26,7 @@ namespace Maticsoft.BLL.BST
 	/// </summary>
 	public partial class staff_log
 	{
-		private readonly Maticsoft.DAL.BST.staff_log dal=new Maticsoft.DAL.BST.staff_log();
+        public Maticsoft.DAL.BST.staff_log dal = new Maticsoft.DAL.BST.staff_log();
 		public staff_log()
 		{}
 		#region  BasicMethod

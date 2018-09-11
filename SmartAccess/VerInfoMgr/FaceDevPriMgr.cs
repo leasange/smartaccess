@@ -64,6 +64,8 @@ namespace SmartAccess.VerInfoMgr
                         advTree.Nodes.AddRange(nodes.ToArray());
                         advTree.ExpandAll();
                     }));
+
+                    DoSearch(null, null, null);
                 }
                 catch (Exception ex)
                 {
@@ -104,12 +106,17 @@ namespace SmartAccess.VerInfoMgr
                 return;
             }
             FrmAddFaceDevPrivate frmAddFaceDevPrivate = new FrmAddFaceDevPrivate(_selectDevices);
-            frmAddFaceDevPrivate.ShowDialog(this);
+           DialogResult dr = frmAddFaceDevPrivate.ShowDialog(this);
+           if (dr== DialogResult.OK)
+           {
+               DoSearch(null, null, null);
+           }
         }
 
         private void advTree_AfterCheck(object sender, AdvTreeCellEventArgs e)
         {
             _selectDevices = advTree.GetTypeList<Maticsoft.Model.SMT_FACERECG_DEVICE>(CheckState.Checked);
+            DoSearch(null, null, null);
         }
 
         private void DoSearch(string staffname,string staffno,string staffdept)
@@ -123,13 +130,101 @@ namespace SmartAccess.VerInfoMgr
                 }
                 selectdeviceIds = selectdeviceIds.TrimEnd(',');
             }
+            string strWhere = "1=1";
+            if (!string.IsNullOrWhiteSpace(selectdeviceIds))
+            {
+                strWhere += " and FACEDEV_ID in (" + selectdeviceIds + ")";
+            }
+            if (!string.IsNullOrWhiteSpace(staffname))
+            {
+                strWhere += " and REAL_NAME like '%" + staffname + "%'";
+            }
+            if (!string.IsNullOrWhiteSpace(staffno))
+            {
+                strWhere += " and STAFF_NO='" + staffno + "'";
+            }
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                 strWhere += " and ORG_NAME like '%" + staffdept + "%'";
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                    int count = bll.GetRecordCountEx(strWhere);
+                    this.Invoke(new Action(() =>
+                    {
+                        pageDataGridView.PageControl.TotalRecords = count;
+                        pageDataGridView.PageControl.CurrentPage = 1;
+                        pageDataGridView.PageControl.Tag = strWhere;
+                        dgvStaffs.Rows.Clear();
+                    }));
+                    if (count > 0)
+                    {
+                        doSearch(strWhere, pageDataGridView.PageControl.StartIndex, pageDataGridView.PageControl.EndIndex);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error("查询授权记录异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "查询授权信息异常：" + ex.Message);
+                }
 
-            
+            });
+            waiting.Show(this);
+        }
+        private void doSearch(string strWhere, int startIndex, int endIndex)
+        {
+            Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+            var models = bll.GetModelListEx(strWhere, startIndex, endIndex);
+            this.Invoke(new Action(() =>
+            {
+                dgvStaffs.Rows.Clear();
+                foreach (var item in models)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    string strphone="无";
+                    if ( item.PHOTO==null|| item.PHOTO.Length==0 )
+	                {
+		                strphone="无";
+	                }else{
+                        strphone="照片";
+                    }
+                    row.CreateCells(dgvStaffs,
+                        item.STAFF_NO,
+                        item.REAL_NAME,
+                        item.ORG_NAME,
+                        item.FACEDEV_NAME,
+                        item.IS_FORBIDDEN?"已禁用":"正常",
+                        item.START_VALID_TIME.ToString("yyyy-MM-dd") + "-" + item.END_VALID_TIME.ToString("yyyy-MM-dd"),
+                        strphone,
+                        "删除",
+                        "授权",
+                        item.IS_UPLOAD ?"重上传":"上传");
+                    dgvStaffs.Rows.Add(row);
+                }
+            }));
         }
 
         private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
         {
+            if (pageDataGridView.PageControl.Tag!=null)
+            {
+                doSearch(pageDataGridView.PageControl.Tag.ToString(), args.StartIndex, args.EndIndex);
+            }
+        }
 
+        private void biDoSearch_Click(object sender, EventArgs e)
+        {
+            DoSearch(tbName.Text, tbStaffNo.Text, tbDeptName.Text);
+        }
+
+        private void biClear_Click(object sender, EventArgs e)
+        {
+            tbName.Text = "";
+            tbStaffNo.Text = "";
+            tbDeptName.Text = "";
         }
     }
 }

@@ -378,16 +378,15 @@ namespace Li.Access.Core.FaceDevice
             }
             return false;
         }
-        private void SetDbConnectStr()
+        private void SetDbConnectStr(LiMaticsoft.DBUtility.Extension.DbHelperMySQLP dbHelperMySQLP)
         {
-            Maticsoft.DBUtility.DbHelperMySQL.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd;
+            dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd;
         }
         public bool AddOrModifyFaces(out string errorMsg,params Maticsoft.Model.BST.staff_update[] updates)
         {
             errorMsg = null;
-            SetDbConnectStr();
             Maticsoft.BLL.BST.staff_update bll = new Maticsoft.BLL.BST.staff_update();
-            
+            SetDbConnectStr(bll.dal.DbHelperMySQLP);
             List<string> ids = new List<string>();
             foreach (var item in updates)
             {
@@ -447,8 +446,8 @@ namespace Li.Access.Core.FaceDevice
         public bool ModifyTextInfo(out string errorMsg, params Maticsoft.Model.BST.staff_data[] datas)
         {
             errorMsg = null;
-            SetDbConnectStr();
             Maticsoft.BLL.BST.staff_data bll = new Maticsoft.BLL.BST.staff_data();
+            SetDbConnectStr(bll.dal.DbHelperMySQLP);
             foreach (var data in datas)
             {
                 try
@@ -467,7 +466,7 @@ namespace Li.Access.Core.FaceDevice
         public bool DeleteFaces(List<string> ids)
         {
             Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
-            SetDbConnectStr();
+            SetDbConnectStr(dataBll.dal.DbHelperMySQLP);
             int start = 0;
             int count = 20;
             while (true)
@@ -493,7 +492,7 @@ namespace Li.Access.Core.FaceDevice
         public bool ClearFaces()
         {
             Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
-            SetDbConnectStr();
+            SetDbConnectStr(dataBll.dal.DbHelperMySQLP);
             var ids = dataBll.GetAllIds("");
             if (ids.Count>0)
             {

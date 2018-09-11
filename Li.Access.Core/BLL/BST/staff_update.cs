@@ -26,7 +26,7 @@ namespace Maticsoft.BLL.BST
 	/// </summary>
 	public partial class staff_update
 	{
-		private readonly Maticsoft.DAL.BST.staff_update dal=new Maticsoft.DAL.BST.staff_update();
+        public Maticsoft.DAL.BST.staff_update dal = new Maticsoft.DAL.BST.staff_update();
 		public staff_update()
 		{}
 		#region  BasicMethod

@@ -141,7 +141,8 @@ namespace SmartAccess.VerInfoMgr
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
-                    item.REAL_NAME
+                    item.REAL_NAME,
+                    item.ORG_NAME+"["+item.ORG_CODE+"]"
                     );
                 row.Tag = item;
                 dgvStaffs.Rows.Add(row);

@@ -98,7 +98,16 @@ namespace SmartAccess.VerInfoMgr
                                 staffInfos.AddRange(subInfos);
                             }
                         }
-                      
+                        var depts = DeptDataHelper.GetDepts(false);
+                        foreach (var item in staffInfos)
+                        {
+                            var dept = depts.Find(m => m.ID == item.ORG_ID);
+                            if (dept != null)
+                            {
+                                item.ORG_NAME = dept.ORG_NAME;
+                                item.ORG_CODE = dept.ORG_CODE;
+                            }
+                        }
 
                         this.Invoke(new Action(() =>
                         {
@@ -137,7 +146,8 @@ namespace SmartAccess.VerInfoMgr
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
-                    item.REAL_NAME
+                    item.REAL_NAME,
+                    item.ORG_NAME+"["+item.ORG_CODE+"]"
                     );
                 row.Tag = item;
                 dgvStaffs.Rows.Add(row);

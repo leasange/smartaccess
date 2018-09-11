@@ -22,6 +22,17 @@ namespace Maticsoft.Model
 	/// </summary>
 	public partial class SMT_STAFF_FACEDEV
 	{
+        public string REAL_NAME { get; set; }
+        public string STAFF_NO { get; set; }
+        public string STAFF_TYPE { get; set; }
+        public decimal ORG_ID { get; set; }
+        public string ORG_NAME { get; set; }
+
+        public byte[] PHOTO { get; set; }
+
+        public bool IS_FORBIDDEN { get; set; }
+
+        public string FACEDEV_NAME { get; set; }
         public SMT_STAFF_INFO STAFF_INFO { get; set; }
         public SMT_FACERECG_DEVICE FACERECG_DEVICE { get; set; }
 	}

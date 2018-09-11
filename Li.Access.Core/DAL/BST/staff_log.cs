@@ -25,7 +25,8 @@ namespace Maticsoft.DAL.BST
 	/// 数据访问类:staff_log
 	/// </summary>
 	public partial class staff_log
-	{
+    {
+        public LiMaticsoft.DBUtility.Extension.DbHelperMySQLP DbHelperMySQLP = new LiMaticsoft.DBUtility.Extension.DbHelperMySQLP();
 		public staff_log()
 		{}
 		#region  BasicMethod
@@ -42,7 +43,7 @@ namespace Maticsoft.DAL.BST
 					new MySqlParameter("@id", MySqlDbType.VarChar,100)			};
 			parameters[0].Value = id;
 
-			return DbHelperMySQL.Exists(strSql.ToString(),parameters);
+			return DbHelperMySQLP.Exists(strSql.ToString(),parameters);
 		}
 
 
@@ -80,7 +81,7 @@ namespace Maticsoft.DAL.BST
 			parameters[9].Value = model.data_keepon4;
 			parameters[10].Value = model.data_keepon5;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -132,7 +133,7 @@ namespace Maticsoft.DAL.BST
 			parameters[9].Value = model.data_keepon5;
 			parameters[10].Value = model.id;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -156,7 +157,7 @@ namespace Maticsoft.DAL.BST
 					new MySqlParameter("@id", MySqlDbType.VarChar,100)			};
 			parameters[0].Value = id;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -174,7 +175,7 @@ namespace Maticsoft.DAL.BST
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from staff_log ");
 			strSql.Append(" where id in ("+idlist + ")  ");
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString());
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString());
 			if (rows > 0)
 			{
 				return true;
@@ -200,7 +201,7 @@ namespace Maticsoft.DAL.BST
 			parameters[0].Value = id;
 
 			Maticsoft.Model.BST.staff_log model=new Maticsoft.Model.BST.staff_log();
-			DataSet ds=DbHelperMySQL.Query(strSql.ToString(),parameters);
+			DataSet ds=DbHelperMySQLP.Query(strSql.ToString(),parameters);
 			if(ds.Tables[0].Rows.Count>0)
 			{
 				return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -274,7 +275,7 @@ namespace Maticsoft.DAL.BST
 			{
 				strSql.Append(" where "+strWhere);
 			}
-			return DbHelperMySQL.Query(strSql.ToString());
+			return DbHelperMySQLP.Query(strSql.ToString());
 		}
 
 		/// <summary>
@@ -321,7 +322,7 @@ namespace Maticsoft.DAL.BST
 			}
 			strSql.Append(" ) TT");
 			strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
-			return DbHelperMySQL.Query(strSql.ToString());
+			return DbHelperMySQLP.Query(strSql.ToString());
 		}
 
 		/*

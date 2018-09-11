@@ -26,6 +26,7 @@ namespace Maticsoft.DAL.BST
 	/// </summary>
 	public partial class staff_card
 	{
+        public LiMaticsoft.DBUtility.Extension.DbHelperMySQLP DbHelperMySQLP = new LiMaticsoft.DBUtility.Extension.DbHelperMySQLP();
 		public staff_card()
 		{}
 		#region  BasicMethod
@@ -42,7 +43,7 @@ namespace Maticsoft.DAL.BST
 					new MySqlParameter("@id_card", MySqlDbType.VarChar,60)			};
 			parameters[0].Value = id_card;
 
-			return DbHelperMySQL.Exists(strSql.ToString(),parameters);
+			return DbHelperMySQLP.Exists(strSql.ToString(),parameters);
 		}
 
 
@@ -70,7 +71,7 @@ namespace Maticsoft.DAL.BST
 			parameters[4].Value = model.date_begin;
 			parameters[5].Value = model.date_end;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -107,7 +108,7 @@ namespace Maticsoft.DAL.BST
 			parameters[4].Value = model.date_end;
 			parameters[5].Value = model.id_card;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -131,7 +132,7 @@ namespace Maticsoft.DAL.BST
 					new MySqlParameter("@id_card", MySqlDbType.VarChar,60)			};
 			parameters[0].Value = id_card;
 
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
 			{
 				return true;
@@ -149,7 +150,7 @@ namespace Maticsoft.DAL.BST
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from staff_card ");
 			strSql.Append(" where id_card in ("+id_cardlist + ")  ");
-			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString());
+			int rows=DbHelperMySQLP.ExecuteSql(strSql.ToString());
 			if (rows > 0)
 			{
 				return true;
@@ -175,7 +176,7 @@ namespace Maticsoft.DAL.BST
 			parameters[0].Value = id_card;
 
 			Maticsoft.Model.BST.staff_card model=new Maticsoft.Model.BST.staff_card();
-			DataSet ds=DbHelperMySQL.Query(strSql.ToString(),parameters);
+			DataSet ds=DbHelperMySQLP.Query(strSql.ToString(),parameters);
 			if(ds.Tables[0].Rows.Count>0)
 			{
 				return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -235,7 +236,7 @@ namespace Maticsoft.DAL.BST
 			{
 				strSql.Append(" where "+strWhere);
 			}
-			return DbHelperMySQL.Query(strSql.ToString());
+			return DbHelperMySQLP.Query(strSql.ToString());
 		}
 
 		/// <summary>
@@ -282,7 +283,7 @@ namespace Maticsoft.DAL.BST
 			}
 			strSql.Append(" ) TT");
 			strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
-			return DbHelperMySQL.Query(strSql.ToString());
+			return DbHelperMySQLP.Query(strSql.ToString());
 		}
 
 		/*
