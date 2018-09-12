@@ -74,21 +74,22 @@ namespace SmartAccess.VerInfoMgr
                     try
                     {
                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                        string strWhere = "ORG_ID=" + orgInfo.ID;
+                        string strWhere ="";
+                        List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = null;
                         if (orgInfo.ID == -1)
                         {
-                            strWhere += " or ORG_ID is null";
+                            strWhere += "ORG_ID=-1 or ORG_ID is null";
+                            staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0");
                         }
-                        var staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0");
-                        if (orgInfo.ID != -1)
+                        else
                         {
-                            Maticsoft.BLL.SMT_ORG_INFO orgBll = new Maticsoft.BLL.SMT_ORG_INFO();
-                            var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
-                            foreach (var org in orgS)
-                            {
-                                var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0");
-                                staffInfos.AddRange(subInfos);
-                            }
+                           // Maticsoft.BLL.SMT_ORG_INFO orgBll = new Maticsoft.BLL.SMT_ORG_INFO();
+                           // var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
+                           // foreach (var org in orgS)
+                           // {
+                                //var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0");
+                            staffInfos = staffBll.GetModelListByParOrgId(orgInfo.ID);
+                          //  }
                         }
                         staffInfos.RemoveAll(m =>
                         {

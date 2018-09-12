@@ -26,6 +26,29 @@ namespace Maticsoft.BLL
 	/// </summary>
 	public partial class SMT_STAFF_INFO
 	{
+        public List<Maticsoft.Model.SMT_STAFF_INFO> GetModelListByParOrgId(decimal orgId)
+        {
+            var ds = dal.GetListByDept(orgId);
+            return DataTableToListByParOrgId(ds.Tables[0]);
+        }
+        public List<Maticsoft.Model.SMT_STAFF_INFO> DataTableToListByParOrgId(DataTable dt)
+        {
+            List<Maticsoft.Model.SMT_STAFF_INFO> modelList = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Maticsoft.Model.SMT_STAFF_INFO model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = dal.DataRowToModelByParOrgId(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
