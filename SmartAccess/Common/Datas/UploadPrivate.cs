@@ -23,6 +23,7 @@ namespace SmartAccess.Common.Datas
         {
             ThreadPool.SetMaxThreads(100, 100);
         }
+        private static log4net.ILog log = log4net.LogManager.GetLogger(typeof(UploadPrivate));
         public static bool Upload(
             Maticsoft.Model.SMT_STAFF_INFO staffInfo,
             out string errMsg,//上传日志
@@ -1149,7 +1150,7 @@ namespace SmartAccess.Common.Datas
             errMsg = null;
             FrmDetailInfo.Show(false);
             FrmDetailInfo.AddOneMsg("开始上传人脸权限...");
-            if (addmodels.Count > 0)
+            if (addmodels!=null&&addmodels.Count > 0)
             {
                 FrmDetailInfo.AddOneMsg("开始添加或更新人脸" + addmodels.Count + "个...");
                 var g = addmodels.GroupBy(m => m.FACEDEV_ID);
@@ -1165,22 +1166,54 @@ namespace SmartAccess.Common.Datas
                             var models = item.ToList();
                             try
                             {
+                                if (models[0].FACERECG_DEVICE == null)
+                                {
+                                    var devs = FaceRecgHelper.GetList("", false, false);
+                                    models[0].FACERECG_DEVICE = devs.Find(m => m.ID == models[0].FACEDEV_ID);
+                                }
+                                if (models[0].FACERECG_DEVICE==null)
+                                {
+                                    tempMsgs += "不存在人脸设备，设备可能已经删除！";
+                                    return;
+                                }
                                 using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                                 {
                                     List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
+                                    List<string> deleteprivates = new List<string>();
+                                    List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels=new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+                                    Maticsoft.BLL.SMT_STAFF_INFO sbll=new Maticsoft.BLL.SMT_STAFF_INFO();
                                     foreach (var model in models)
                                     {
+                                        if (model.STAFF_INFO==null)
+                                        {
+                                            model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
+                                        }
+                                        if (model.STAFF_INFO==null)
+                                        {
+                                            tempMsgs += "不存在人员ID：" + model.STAFF_ID;
+                                            continue;
+                                        }
+                                        if (model.STAFF_INFO.IS_DELETE||model.STAFF_INFO.IS_FORBIDDEN)
+                                        {
+                                            deleteprivates.Add(model.STAFF_DEV_ID);
+                                            delModels.Add(model);
+                                            continue;
+                                        }
                                         if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
                                         {
                                             FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,无需更新", isRed: true);
                                             continue;
                                         }
                                         Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+                                        if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
+                                        {
+                                            model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
+                                        }
                                         update.id = model.STAFF_DEV_ID;
                                         update.authority = "B";
                                         update.image = model.STAFF_INFO.PHOTO;
                                         update.name = model.STAFF_INFO.REAL_NAME;
-                                        update.data_keepon1 = model.STAFF_INFO.CER_NO;
+                                        update.data_keepon1 = model.STAFF_INFO.STAFF_NO;
                                         update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
                                         update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
                                         update.data_keepon4 = "";
@@ -1197,23 +1230,61 @@ namespace SmartAccess.Common.Datas
                                         }
                                         update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                        updates.Add(update);
                                     }
                                     string tempMsg = "";
+                                    FrmDetailInfo.AddOneMsg("开始添加或更新人脸信息,数目"+updates.Count+"个，请等待...");
                                     bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, updates.ToArray());
-                                    tempMsgs += tempMsg+";";
+                                  
                                     if (!ret || !string.IsNullOrWhiteSpace(tempMsg))
                                     {
+                                        tempMsgs += tempMsg + ";";
                                         FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
                                     }
                                     if (!ret)
                                     {
                                         FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误", isRed: true);
                                     }
+                                    else
+                                    {
+                                        int  failcount=0;
+                                        foreach (var ud in updates)
+                                        {
+                                            if (!ud.Update_Result)
+                                            {
+                                                failcount++;
+                                                FrmDetailInfo.AddOneMsg("“" + ud.name + "”权限上传：" + (ud.Update_Result ? "成功" : "失败"), isRed: !ud.Update_Result);
+                                            }
+                                        }
+                                        FrmDetailInfo.AddOneMsg("成功上传权限数目：" + (updates.Count - failcount));
+                                    }
+                                    if (deleteprivates.Count>0)
+                                    {
+                                        try
+                                        {
+                                            FrmDetailInfo.AddOneMsg("删除人脸信息,数目" + deleteprivates.Count + "个，请等待...");
+                                            ret = faceCtrler.DeleteFaces(deleteprivates,true);
+                                            if (ret)
+                                            {
+                                                Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                                foreach (var dm in delModels)
+                                                {
+                                                    bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除人员发生错误", isRed: true);
+                                        }
+                                     
+                                    }
                                 }
                             }
                             catch (Exception ex)
                             {
                                 FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误:"+ex.Message, isRed: true);
+                                log.Error("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误:" + ex.Message, ex);
                             }
                             finally
                             {
@@ -1227,7 +1298,7 @@ namespace SmartAccess.Common.Datas
                 }
                 errMsg += tempMsgs;
             }
-            if (updatemodels.Count > 0)
+            if (updatemodels!=null&&updatemodels.Count > 0)
             {
                 FrmDetailInfo.AddOneMsg("开始更新人脸" + updatemodels.Count + "个...");
                 var g = updatemodels.GroupBy(m => m.FACEDEV_ID);
@@ -1242,16 +1313,45 @@ namespace SmartAccess.Common.Datas
                         {
                             try
                             {
-                                var models = item.ToList();
+                                var models = item.ToList(); 
+                                if (models[0].FACERECG_DEVICE == null)
+                                {
+                                    var devs = FaceRecgHelper.GetList("", false, false);
+                                    models[0].FACERECG_DEVICE = devs.Find(m => m.ID == models[0].FACEDEV_ID);
+                                }
+                                if (models[0].FACERECG_DEVICE == null)
+                                {
+                                    tempMsgs += "不存在人脸设备，设备可能已经删除！";
+                                    return;
+                                }
+
                                 using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                                 {
                                     List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
+                                    Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                                    List<string> deleteprivates = new List<string>();
+                                    List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
                                     foreach (var model in models)
                                     {
-                                        Maticsoft.Model.BST.staff_update data = new Maticsoft.Model.BST.staff_update();
+                                        if (model.STAFF_INFO == null)
+                                        {
+                                            model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
+                                        }
+                                        if (model.STAFF_INFO == null)
+                                        {
+                                            tempMsgs += "不存在人员ID：" + model.STAFF_ID;
+                                            continue;
+                                        }
+                                        if (model.STAFF_INFO.IS_DELETE || model.STAFF_INFO.IS_FORBIDDEN)
+                                        {
+                                            deleteprivates.Add(model.STAFF_DEV_ID);
+                                            delModels.Add(model);
+                                            continue;
+                                        }
+                                        Maticsoft.Model.BST.staff_data data = new Maticsoft.Model.BST.staff_data();
                                         data.id = model.STAFF_DEV_ID;
                                         data.name = model.STAFF_INFO.REAL_NAME;
-                                        data.data_keepon1 = model.STAFF_INFO.CER_NO;
+                                        data.data_keepon1 = model.STAFF_INFO.STAFF_NO;
                                         data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
                                         data.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
                                         data.data_keepon4 = "";
@@ -1268,17 +1368,41 @@ namespace SmartAccess.Common.Datas
                                         }
                                         data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                        datas.Add(data);
                                     }
                                     string tempMsg = "";
+                                    FrmDetailInfo.AddOneMsg("开始更新人脸信息,数目" + datas.Count + "个，请等待...");
                                     bool ret = faceCtrler.ModifyTextInfo(out tempMsg, datas.ToArray());
-                                    tempMsgs += tempMsg+";";
+                                    
                                     if (!ret || !string.IsNullOrWhiteSpace(tempMsg))
                                     {
+                                        tempMsgs += tempMsg + ";";
                                         FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
                                     }
                                     if (!ret)
                                     {
                                         FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",更新发生错误", isRed: true);
+                                    }
+                                    if (deleteprivates.Count > 0)
+                                    {
+                                        try
+                                        {
+                                            FrmDetailInfo.AddOneMsg("开始删除人脸信息,数目" + deleteprivates.Count + "个，请等待...");
+                                            ret = faceCtrler.DeleteFaces(deleteprivates,true);
+                                            if (ret)
+                                            {
+                                                Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                                foreach (var dm in delModels)
+                                                {
+                                                    bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除人员发生错误", isRed: true);
+                                        }
+
                                     }
                                 }
                             }
@@ -1300,6 +1424,85 @@ namespace SmartAccess.Common.Datas
             }
             FrmDetailInfo.AddOneMsg("设置结束！");
             return true;
+        }
+        public static List<Maticsoft.Model.SMT_STAFF_FACEDEV> DeleteFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> deletemodels, out string errMsg)
+        {
+            List<Maticsoft.Model.SMT_STAFF_FACEDEV> sfds = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            errMsg = null;
+            FrmDetailInfo.Show(false);
+            FrmDetailInfo.AddOneMsg("开始删除人脸权限...");
+            if (deletemodels != null && deletemodels.Count > 0)
+            {
+                FrmDetailInfo.AddOneMsg("开始删除或删除人脸" + deletemodels.Count + "个...");
+                var g = deletemodels.GroupBy(m => m.FACEDEV_ID);
+                int count = g.Count();
+                List<ManualResetEvent> resets = new List<ManualResetEvent>();
+                string tempMsgs = "";
+                foreach (var item in g)
+                {
+                    ManualResetEvent reset = new ManualResetEvent(false);
+                    resets.Add(reset);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                    {
+                        var models = item.ToList();
+                        try
+                        {
+                            if (models[0].FACERECG_DEVICE == null)
+                            {
+                                var devs = FaceRecgHelper.GetList("", false, false);
+                                models[0].FACERECG_DEVICE = devs.Find(m => m.ID == models[0].FACEDEV_ID);
+                            }
+                            if (models[0].FACERECG_DEVICE == null)
+                            {
+                                tempMsgs += "不存在人脸设备，设备可能已经删除！";
+                                return;
+                            }
+
+                            using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
+                            {
+                                List<string> ids=new List<string>();
+                                foreach (var model in models)
+                                {
+                                    ids.Add(model.STAFF_DEV_ID);
+                                }
+                                string tempMsg = "";
+                                bool ret = faceCtrler.DeleteFaces(ids,true);
+                                if (!string.IsNullOrWhiteSpace(tempMsg))
+                                {
+                                    tempMsgs += tempMsg + ";";
+                                    FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
+                                }
+                                if (!ret)
+                                {
+                                    FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除发生错误", isRed: true);
+                                }
+                                else
+                                {
+                                    FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除权限成功!");
+                                    lock (sfds)
+                                    {
+                                        sfds.AddRange(models);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除发生错误:" + ex.Message, isRed: true);
+                        }
+                        finally
+                        {
+                            reset.Set();
+                        }
+                    }));
+                }
+                foreach (var item in resets)
+                {
+                    item.WaitOne();
+                }
+                errMsg += tempMsgs;
+            }
+            return sfds;
         }
     }
 }

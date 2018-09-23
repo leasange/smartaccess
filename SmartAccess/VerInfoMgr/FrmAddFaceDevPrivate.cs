@@ -17,6 +17,7 @@ namespace SmartAccess.VerInfoMgr
         private List<Maticsoft.Model.SMT_FACERECG_DEVICE> _selectDevices = null;
         private List<decimal> _selectDeviceIds = null;
         private List<decimal> _inprivateStaffIds = new List<decimal>();
+        private List<Maticsoft.Model.SMT_STAFF_INFO> _inprivateStaffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
         public FrmAddFaceDevPrivate(List<Maticsoft.Model.SMT_FACERECG_DEVICE> devices)
         {
             InitializeComponent();
@@ -48,6 +49,41 @@ namespace SmartAccess.VerInfoMgr
                             _inprivateStaffIds.Add(item.Key);
                         }
                     }
+                    if (_inprivateStaffIds.Count > 0)
+                    {
+                        Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                        _inprivateStaffInfos = staffBll.GetSimpleModelList("ID in (" + string.Join(",", _inprivateStaffIds.ToArray()) + ")");
+                        if (_inprivateStaffInfos.Count>0)
+                        {
+                            var depts = DeptDataHelper.GetDepts(false);
+                            foreach (var item in _inprivateStaffInfos)
+                            {
+                                var dept = depts.Find(m => m.ID == item.ORG_ID);
+                                if (dept != null)
+                                {
+                                    item.ORG_NAME = dept.ORG_NAME;
+                                    item.ORG_CODE = dept.ORG_CODE;
+                                }
+                            }
+                            this.Invoke(new Action(() =>
+                            {
+                                foreach (var item in _inprivateStaffInfos)
+                                {
+                                    DataGridViewRow row = new DataGridViewRow();
+                                    row.CreateCells(dgvStaffs,
+                                        item.STAFF_NO,
+                                        item.REAL_NAME,
+                                        item.ORG_NAME + "[" + item.ORG_CODE + "]"
+                                        );
+                                    row.Tag = item;
+                                    dgvSelected.Rows.Add(row);
+                                }
+                            	
+                            }));
+                        }
+                        
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -79,22 +115,16 @@ namespace SmartAccess.VerInfoMgr
                         if (orgInfo.ID == -1)
                         {
                             strWhere += "ORG_ID=-1 or ORG_ID is null";
-                            staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0");
+                            staffInfos = staffBll.GetSimpleModelList("(" + strWhere + ") and IS_DELETE=0");
                         }
                         else
                         {
-                           // Maticsoft.BLL.SMT_ORG_INFO orgBll = new Maticsoft.BLL.SMT_ORG_INFO();
-                           // var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
-                           // foreach (var org in orgS)
-                           // {
-                                //var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0");
                             staffInfos = staffBll.GetModelListByParOrgId(orgInfo.ID);
-                          //  }
                         }
-                        staffInfos.RemoveAll(m =>
+                        /*staffInfos.RemoveAll(m =>
                         {
                             return _inprivateStaffIds.Contains(m.ID);
-                        });
+                        });*/
                         var depts = DeptDataHelper.GetDepts(false);
                         foreach (var item in staffInfos)
                         {
@@ -195,11 +225,11 @@ namespace SmartAccess.VerInfoMgr
         private void btnAllSelect_Click(object sender, EventArgs e)
         {
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
-            while (dgvStaffs.Rows.Count > 0)
+            foreach (DataGridViewRow item in dgvStaffs.Rows)
             {
-                dgvrs.Add(dgvStaffs.Rows[0]);
-                dgvStaffs.Rows.RemoveAt(0);
+                dgvrs.Add(item);
             }
+            dgvStaffs.Rows.Clear();
             if (dgvrs.Count == 0)
             {
                 return;
@@ -246,11 +276,11 @@ namespace SmartAccess.VerInfoMgr
         private void btnAllUnSelect_Click(object sender, EventArgs e)
         {
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
-            while (dgvSelected.Rows.Count > 0)
+            foreach (DataGridViewRow row in dgvSelected.Rows)
             {
-                dgvrs.Add(dgvSelected.Rows[0]);
-                dgvSelected.Rows.RemoveAt(0);
+                dgvrs.Add(row);
             }
+            dgvSelected.Rows.Clear();
             if (dgvrs.Count == 0)
             {
                 return;
@@ -262,8 +292,11 @@ namespace SmartAccess.VerInfoMgr
         {
             if (dgvSelected.Rows.Count == 0)
             {
-                WinInfoHelper.ShowInfoWindow(this, "请至少选一个授权的人员！");
-                return;
+                if (_inprivateStaffInfos.Count==0)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "请至少选一个授权的人员！");
+                    return;
+                }
             }
             List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
             foreach (DataGridViewRow item in dgvSelected.Rows)

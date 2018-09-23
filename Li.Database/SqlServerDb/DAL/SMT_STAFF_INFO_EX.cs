@@ -120,7 +120,7 @@ namespace Maticsoft.DAL
 
             if (string.IsNullOrWhiteSpace(orderby))
             {
-                strSql.Append("ID");
+                strSql.Append("OI.ID");
             }
             else
             {
@@ -336,6 +336,82 @@ namespace Maticsoft.DAL
             }
             return model;
         }
+
+        public DataSet GetSimpleList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select ID,ORG_ID,STAFF_NO,REAL_NAME,VALID_STARTTIME,VALID_ENDTIME,IS_FORBIDDEN,IS_DELETE,STAFF_TYPE ");
+            strSql.Append(" FROM SMT_STAFF_INFO ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Maticsoft.Model.SMT_STAFF_INFO DataRowToSimpleModel(DataRow row)
+        {
+            Maticsoft.Model.SMT_STAFF_INFO model = new Maticsoft.Model.SMT_STAFF_INFO();
+            if (row != null)
+            {
+                if (row["ID"] != null && row["ID"].ToString() != "")
+                {
+                    model.ID = decimal.Parse(row["ID"].ToString());
+                }
+                if (row["ORG_ID"] != null && row["ORG_ID"].ToString() != "")
+                {
+                    model.ORG_ID = decimal.Parse(row["ORG_ID"].ToString());
+                }
+                if (row["STAFF_NO"] != null)
+                {
+                    model.STAFF_NO = row["STAFF_NO"].ToString();
+                }
+                if (row["REAL_NAME"] != null)
+                {
+                    model.REAL_NAME = row["REAL_NAME"].ToString();
+                }
+                if (row["VALID_STARTTIME"] != null && row["VALID_STARTTIME"].ToString() != "")
+                {
+                    model.VALID_STARTTIME = DateTime.Parse(row["VALID_STARTTIME"].ToString());
+                }
+                if (row["VALID_ENDTIME"] != null && row["VALID_ENDTIME"].ToString() != "")
+                {
+                    model.VALID_ENDTIME = DateTime.Parse(row["VALID_ENDTIME"].ToString());
+                }
+               
+                if (row["IS_FORBIDDEN"] != null && row["IS_FORBIDDEN"].ToString() != "")
+                {
+                    if ((row["IS_FORBIDDEN"].ToString() == "1") || (row["IS_FORBIDDEN"].ToString().ToLower() == "true"))
+                    {
+                        model.IS_FORBIDDEN = true;
+                    }
+                    else
+                    {
+                        model.IS_FORBIDDEN = false;
+                    }
+                }
+                if (row["IS_DELETE"] != null && row["IS_DELETE"].ToString() != "")
+                {
+                    if ((row["IS_DELETE"].ToString() == "1") || (row["IS_DELETE"].ToString().ToLower() == "true"))
+                    {
+                        model.IS_DELETE = true;
+                    }
+                    else
+                    {
+                        model.IS_DELETE = false;
+                    }
+                }
+                if (row["STAFF_TYPE"] != null)
+                {
+                    model.STAFF_TYPE = row["STAFF_TYPE"].ToString();
+                }
+            }
+            return model;
+        }
+
 	}
 }
 

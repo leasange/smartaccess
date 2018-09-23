@@ -297,13 +297,13 @@
             // 
             // 
             this.lbTitle.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbTitle.Font = new System.Drawing.Font("方正姚体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbTitle.Font = new System.Drawing.Font("方正姚体", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbTitle.ForeColor = System.Drawing.Color.DarkBlue;
             this.lbTitle.Location = new System.Drawing.Point(3, 5);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(591, 49);
+            this.lbTitle.Size = new System.Drawing.Size(592, 49);
             this.lbTitle.TabIndex = 0;
-            this.lbTitle.Text = "智能卡综合管理系统，你的好管家！";
+            this.lbTitle.Text = "智能卡综合管理系统，您的好管家！";
             // 
             // timerClock
             // 

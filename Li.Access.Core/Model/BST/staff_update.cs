@@ -27,17 +27,17 @@ namespace Maticsoft.Model.BST
 		{}
 		#region Model
 		private string _id;
-		private string _name;
-		private byte[] _info;
-        private byte[] _image;
-		private string _authority;
-		private string _date_begin;
-		private string _date_end;
-		private string _data_keepon1;
-		private string _data_keepon2;
-		private string _data_keepon3;
-		private string _data_keepon4;
-		private string _data_keepon5;
+		private string _name="";
+		private byte[] _info=new byte[0];
+        private byte[] _image = new byte[0];
+		private string _authority="";
+		private string _date_begin="";
+		private string _date_end="";
+		private string _data_keepon1="";
+		private string _data_keepon2="";
+		private string _data_keepon3="";
+		private string _data_keepon4="";
+		private string _data_keepon5="";
 
         private bool _update_result=false;
         public bool Update_Result

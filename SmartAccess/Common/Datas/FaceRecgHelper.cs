@@ -11,14 +11,21 @@ namespace SmartAccess.Common.Datas
     /// </summary>
     public class FaceRecgHelper
     {
-        public static List<Maticsoft.Model.SMT_FACERECG_DEVICE> GetList(string strWhere, bool withArea = false)
+        private static List<Maticsoft.Model.SMT_FACERECG_DEVICE> _devices = null;
+        public static List<Maticsoft.Model.SMT_FACERECG_DEVICE> GetList(string strWhere, bool withArea = false,bool bUpdate=true)
         {
+            if (!bUpdate&&_devices!=null&&_devices.Count>0)
+            {
+                return _devices.ToList();
+            }
+
             Maticsoft.BLL.SMT_FACERECG_DEVICE bll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
             if (withArea)
             {
-                return bll.GetModelListWithArea(strWhere);
+                _devices = bll.GetModelListWithArea(strWhere);
             }
-            return bll.GetModelList(strWhere);
+            _devices = bll.GetModelList(strWhere);
+            return _devices;
         }
 
         public static List<Maticsoft.Model.SMT_FACERECG_DEVICE> GetList(List<decimal> areaIds, bool withArea = false)

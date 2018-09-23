@@ -189,19 +189,20 @@ namespace SmartAccess.VerInfoMgr
 	                {
 		                strphone="无";
 	                }else{
-                        strphone="照片";
+                        strphone="有";
                     }
                     row.CreateCells(dgvStaffs,
+                        item.FACEDEV_NAME,
                         item.STAFF_NO,
                         item.REAL_NAME,
                         item.ORG_NAME,
-                        item.FACEDEV_NAME,
                         item.IS_FORBIDDEN?"已禁用":"正常",
                         item.START_VALID_TIME.ToString("yyyy-MM-dd") + "-" + item.END_VALID_TIME.ToString("yyyy-MM-dd"),
                         strphone,
                         "删除",
-                        "授权",
+                        //"授权",
                         item.IS_UPLOAD ?"重上传":"上传");
+                    row.Tag = item;
                     dgvStaffs.Rows.Add(row);
                 }
             }));
@@ -225,6 +226,156 @@ namespace SmartAccess.VerInfoMgr
             tbName.Text = "";
             tbStaffNo.Text = "";
             tbDeptName.Text = "";
+        }
+        private List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetSelectStaffs()
+        {
+            if (this.dgvStaffs.SelectedRows.Count==0)
+            {
+                return null;
+            }
+            List<Maticsoft.Model.SMT_STAFF_FACEDEV> list = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            foreach (DataGridViewRow row in this.dgvStaffs.SelectedRows)
+            {
+                Maticsoft.Model.SMT_STAFF_FACEDEV sfdModel = (Maticsoft.Model.SMT_STAFF_FACEDEV)row.Tag;
+                list.Add(sfdModel);
+            }
+
+            return list;
+        }
+        private void biUploadSelect_Click(object sender, EventArgs e)
+        {
+            var list = GetSelectStaffs();
+            if (list==null||list.Count==0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择至少选择一个授权人员！");
+                return;
+            }
+            DoUpload(list);
+        }
+
+        private void DoUpload( List<Maticsoft.Model.SMT_STAFF_FACEDEV>  list)
+        {
+            /*List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            foreach (var item in list)
+            {
+                if (item.IS_UPLOAD)
+                {
+                    updatemodels.Add(item);
+                }
+                else
+                {
+                    addmodels.Add(item);
+                }
+            }*/
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                string errMsg = "";
+                bool ret = UploadPrivate.UploadFace(list, null, out  errMsg);
+                if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "权限上传存在异常：" + errMsg);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void biOneKeyUpload_Click(object sender, EventArgs e)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                    var models = bll.GetModelListEx("", 1, -1);
+                    DoUpload(models);
+                }
+                catch (System.Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "上传发生异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void biDeleteSelect_Click(object sender, EventArgs e)
+        {
+            var list = GetSelectStaffs();
+            if (list == null || list.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "至少选择一个待删除的授权！");
+                return;
+            }
+            doDelete(list,true);
+        }
+
+        private void doDelete(List<Maticsoft.Model.SMT_STAFF_FACEDEV> list, bool research,params DataGridViewRow[] rows)
+        {
+            if (DialogResult.Cancel==MessageBox.Show("确定删除选择"+list.Count+"项的授权？","确认",MessageBoxButtons.OKCancel))
+            {
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                string errMsg = "";
+                try
+                {
+                    var sdfs = UploadPrivate.DeleteFace(list, out errMsg);
+                    if (sdfs != null && sdfs.Count > 0)
+                    {
+                        foreach (var item in sdfs)
+                        {
+                            Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                            bll.Delete(item.STAFF_ID, item.FACEDEV_ID);
+                        }
+                        if (research)
+                        {
+                            DoSearch(null, null, null);
+                        }
+                        else if (rows != null)
+                        {
+                            foreach (var item in rows)
+	                        {
+                                dgvStaffs.Rows.Remove(item);
+	                        }
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "删除存在异常：" + ex.Message + "," + errMsg);
+                }
+            });
+            waiting.Show(this);
+        }
+        private void dgvStaffs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow row=dgvStaffs.Rows[e.RowIndex];
+                Maticsoft.Model.SMT_STAFF_FACEDEV ffd = (Maticsoft.Model.SMT_STAFF_FACEDEV)row.Tag;
+                List<Maticsoft.Model.SMT_STAFF_FACEDEV> list = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>() { ffd };
+                if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_DELETE")
+                {
+                    doDelete(list, false, row);
+                }
+                //else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SQ")
+               // {
+
+                //}
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SC")
+                {
+                    DoUpload(list);
+                }
+            }
+        }
+
+        private void tbName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                biDoSearch_Click(null, null);
+            }
         }
     }
 }

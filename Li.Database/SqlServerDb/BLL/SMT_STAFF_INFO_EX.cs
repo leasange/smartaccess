@@ -31,6 +31,16 @@ namespace Maticsoft.BLL
             var ds = dal.GetListByDept(orgId);
             return DataTableToListByParOrgId(ds.Tables[0]);
         }
+        public Maticsoft.Model.SMT_STAFF_INFO GetModelWithDept(decimal id)
+        {
+            var ds = dal.GetListByPageWithDept("SI.ID=" + id, "", 1, 1);
+           var models = DataTableToListWithDept(ds.Tables[0]);
+           if (models.Count>0)
+           {
+               return models[0];
+           }
+           return null;
+        }
         public List<Maticsoft.Model.SMT_STAFF_INFO> DataTableToListByParOrgId(DataTable dt)
         {
             List<Maticsoft.Model.SMT_STAFF_INFO> modelList = new List<Maticsoft.Model.SMT_STAFF_INFO>();
@@ -115,6 +125,35 @@ namespace Maticsoft.BLL
             }
             return modelList;
         }
+
+        public List<Maticsoft.Model.SMT_STAFF_INFO> GetSimpleModelList(string strWhere)
+        {
+            DataSet ds = dal.GetSimpleList(strWhere);
+            return DataTableToSimpleList(ds.Tables[0]);
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Maticsoft.Model.SMT_STAFF_INFO> DataTableToSimpleList(DataTable dt)
+        {
+            List<Maticsoft.Model.SMT_STAFF_INFO> modelList = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Maticsoft.Model.SMT_STAFF_INFO model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = dal.DataRowToSimpleModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
+
 	}
 }
 

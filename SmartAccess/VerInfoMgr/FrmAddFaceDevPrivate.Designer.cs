@@ -31,8 +31,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvSelected = new Li.Controls.DataGridViewEx();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOkUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
@@ -50,12 +56,6 @@
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelected)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
@@ -68,6 +68,7 @@
             // 
             this.dgvSelected.AllowUserToAddRows = false;
             this.dgvSelected.AllowUserToDeleteRows = false;
+            this.dgvSelected.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvSelected.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSelected.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
@@ -90,6 +91,27 @@
             this.dgvSelected.Size = new System.Drawing.Size(294, 294);
             this.dgvSelected.TabIndex = 2;
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "证件号";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 69;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "姓名";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 57;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "部门";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 57;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvSelected);
@@ -99,12 +121,13 @@
             this.groupBox2.Size = new System.Drawing.Size(306, 361);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "已选择人员";
+            this.groupBox2.Text = "已授权或选择人员";
             // 
             // dgvStaffs
             // 
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
+            this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvStaffs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -126,6 +149,27 @@
             this.dgvStaffs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStaffs.Size = new System.Drawing.Size(304, 294);
             this.dgvStaffs.TabIndex = 2;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "证件号";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 69;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 57;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "部门";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 57;
             // 
             // btnCancel
             // 
@@ -234,7 +278,7 @@
             this.groupBox1.Size = new System.Drawing.Size(317, 361);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "待选择人员（已授权人员不显示）";
+            this.groupBox1.Text = "待选择人员（已选择或授权人员不显示）";
             // 
             // labelX1
             // 
@@ -272,11 +316,11 @@
             // 
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelX2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelX2.Location = new System.Drawing.Point(6, 9);
+            this.labelX2.Location = new System.Drawing.Point(6, 13);
             this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(124, 23);
+            this.labelX2.Size = new System.Drawing.Size(140, 18);
             this.labelX2.TabIndex = 22;
             this.labelX2.Text = "当前授权人脸设备：";
             // 
@@ -286,11 +330,11 @@
             // 
             // 
             this.lbSelectDevices.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbSelectDevices.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbSelectDevices.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSelectDevices.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbSelectDevices.Location = new System.Drawing.Point(124, 12);
+            this.lbSelectDevices.Location = new System.Drawing.Point(141, 12);
             this.lbSelectDevices.Name = "lbSelectDevices";
-            this.lbSelectDevices.Size = new System.Drawing.Size(631, 36);
+            this.lbSelectDevices.Size = new System.Drawing.Size(614, 36);
             this.lbSelectDevices.TabIndex = 23;
             this.lbSelectDevices.Text = "设备1，设备2";
             this.lbSelectDevices.TextLineAlignment = System.Drawing.StringAlignment.Near;
@@ -441,42 +485,6 @@
             this.labelX6.Size = new System.Drawing.Size(196, 23);
             this.labelX6.TabIndex = 28;
             this.labelX6.Text = "（注：有效时间在人员有效期内）";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "证件号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "部门";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "证件号";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "姓名";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "部门";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             // 
             // FrmAddFaceDevPrivate
             // 

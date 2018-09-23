@@ -155,17 +155,31 @@ namespace Li.Access.Core.FaceDevice
         #endregion
 
         private ManualResetEvent _cmdReadReset = null;
+        private int _lastCount = 0;
         private void CmdReadCallback(IAsyncResult ar)
         {
             try
             {
                  int count = _cmdNS.EndRead(ar);
-                 if (count>0)
+                 _lastCount += count;
+                 if (_cmdNS.DataAvailable)
                  {
-                     _cmdReadReset.Set();
-                     _cmdReadString = Encoding.UTF8.GetString(_cmdReadBuffer, 0, count);
+                     _cmdNS.BeginRead(_cmdReadBuffer, _lastCount, _cmdReadBuffer.Length - _lastCount, CmdReadCallback, null);
                  }
-                 _cmdNS.BeginRead(_cmdReadBuffer, 0, _cmdReadBuffer.Length, CmdReadCallback, null);
+                 else
+                 {
+                     if (_lastCount > 0)
+                     {
+                         _cmdReadString = Encoding.UTF8.GetString(_cmdReadBuffer, 0, _lastCount);
+                     }
+                     else
+                     {
+                         _cmdReadString = null;
+                     }
+                     _lastCount = 0;
+                     _cmdReadReset.Set();
+                     _cmdNS.BeginRead(_cmdReadBuffer, 0, _cmdReadBuffer.Length, CmdReadCallback, null);
+                 }
             }
             catch (Exception ex)
             {
@@ -180,14 +194,17 @@ namespace Li.Access.Core.FaceDevice
                 if (_cmdClient == null || !_cmdClient.Connected)
                 {
                     _cmdClient = new TcpClient(_ip, _port);
+                    _cmdClient.ReceiveBufferSize = 1024 * 1024 * 5;
+                    
                     _cmdNS = _cmdClient.GetStream();
                     _cmdSW = new StreamWriter(_cmdNS);
                     _cmdSW.AutoFlush = true;
                     if (_cmdReadBuffer==null)
                     {
-                        _cmdReadBuffer = new byte[2048];
+                        _cmdReadBuffer = new byte[1024*1024*4];
                         _cmdReadReset = new ManualResetEvent(false);
                     }
+                    
                     _cmdNS.BeginRead(_cmdReadBuffer, 0, _cmdReadBuffer.Length, CmdReadCallback, null);
                 }
             }
@@ -265,7 +282,7 @@ namespace Li.Access.Core.FaceDevice
             }
         }
 
-        private string doSendCmd(string cmd,string exstr=null,bool checkStart=true)
+        private string doSendCmd(string cmd,string exstr=null,bool checkStart=true,int waittime=3000)
         {
             try
             {
@@ -274,7 +291,7 @@ namespace Li.Access.Core.FaceDevice
                     byte[] buffer = new byte[2048];
                     _cmdReadReset.Reset();
                     _cmdSW.Write(cmd + exstr);
-                    if (_cmdReadReset.WaitOne(3000))
+                    if (_cmdReadReset.WaitOne(waittime))
                     {
                         if (string.IsNullOrWhiteSpace(_cmdReadString))
                         {
@@ -380,7 +397,7 @@ namespace Li.Access.Core.FaceDevice
         }
         private void SetDbConnectStr(LiMaticsoft.DBUtility.Extension.DbHelperMySQLP dbHelperMySQLP)
         {
-            dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd;
+            dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd + ";oldsyntax=true";
         }
         public bool AddOrModifyFaces(out string errorMsg,params Maticsoft.Model.BST.staff_update[] updates)
         {
@@ -392,7 +409,15 @@ namespace Li.Access.Core.FaceDevice
             {
                 try
                 {
-                    bll.Add(item);
+                    if (bll.Exists(item.id))
+                    {
+                        bll.Update(item);
+                    }
+                    else
+                    {
+                        bll.Add(item);
+                    }
+
                     ids.Add(item.id);
                 }
                 catch (Exception ex)
@@ -409,11 +434,14 @@ namespace Li.Access.Core.FaceDevice
                 return false;
             }
 
-            //Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
-            //dataBll.DeleteList(string.Join(",", ids.ToArray()));
-            DeleteFaces(ids);
-
-            string ret = doSendCmd("//@UP@//",checkStart:false);
+            DeleteFaces(ids,false);
+            int time = 1000 * updates.Length;
+            string ret = doSendCmd("//@UP@//", checkStart: false, waittime: time);
+            if (ret==null)
+            {
+                errorMsg = "上传，更新人脸失败或者上传太多超时！";
+                return false;
+            }
             string[] retts = ret.Split(new string[] { "<<@" },StringSplitOptions.RemoveEmptyEntries);
             Dictionary<string, bool> retDic = new Dictionary<string, bool>();
             foreach (var item in retts)
@@ -463,28 +491,50 @@ namespace Li.Access.Core.FaceDevice
             return true;
         }
 
-        public bool DeleteFaces(List<string> ids)
+        public bool DeleteFaces(List<string> ids,bool bExcmd)
         {
             Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
             SetDbConnectStr(dataBll.dal.DbHelperMySQLP);
+            List<string> exits = new List<string>();
+            foreach (var id in ids)
+            {
+                if (dataBll.Exists(id))
+                {
+                    exits.Add(id);
+                }
+            }
+            if (exits.Count==0)
+            {
+                return true;
+            }
             int start = 0;
             int count = 20;
             while (true)
             {
-                if (start+count>ids.Count)
+                if (start + count > exits.Count)
                 {
-                    count = ids.Count - start;
+                    count = exits.Count - start;
                 }
-                dataBll.DeleteList(string.Join(",", ids.GetRange(start,count).ToArray()));
+                var rids = exits.GetRange(start, count);
+                string temps = "";
+                foreach (var rid in rids)
+                {
+                    temps += "'" + rid + "',";
+                }
+                temps = temps.TrimEnd(',');
+                dataBll.DeleteList(temps);
                 start += count;
-                if (start>=ids.Count)
+                if (start >= exits.Count)
                 {
                     break;
                 }
             }
-            foreach (var item in ids)
+            if (bExcmd)
             {
-                doSendCmd("//@BST_01@//",item,false);
+                foreach (var item in exits)
+                {
+                    doSendCmd("//@BST_01@//", item, false,500);
+                }
             }
             return true;
         }

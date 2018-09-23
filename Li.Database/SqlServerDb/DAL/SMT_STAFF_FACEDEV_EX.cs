@@ -147,7 +147,15 @@ namespace Maticsoft.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            strSql.AppendFormat("	) TTT WHERE Row BETWEEN {0} and  {1} ",startIndex,endIndex);
+            if (endIndex<=0)
+            {
+                strSql.AppendFormat("	) TTT");
+            }
+            else
+            {
+                strSql.AppendFormat("	) TTT WHERE Row BETWEEN {0} and  {1} ", startIndex, endIndex);
+            }
+           
 
             return DbHelperSQL.Query(strSql.ToString());
         }

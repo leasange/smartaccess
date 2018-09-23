@@ -157,12 +157,12 @@ namespace SmartAccess.VerInfoMgr
         private void btnAllSelect_Click(object sender, EventArgs e)
         {
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
-            while (dgvStaffs.Rows.Count>0)
+            foreach (DataGridViewRow item in dgvStaffs.Rows)
             {
-                dgvrs.Add(dgvStaffs.Rows[0]);
-                dgvStaffs.Rows.RemoveAt(0);
+                dgvrs.Add(item);
             }
-            if (dgvrs.Count==0)
+            dgvStaffs.Rows.Clear();
+            if (dgvrs.Count == 0)
             {
                 return;
             }
@@ -208,12 +208,12 @@ namespace SmartAccess.VerInfoMgr
         private void btnAllUnSelect_Click(object sender, EventArgs e)
         {
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
-            while (dgvSelected.Rows.Count > 0)
+            foreach (DataGridViewRow row in dgvSelected.Rows)
             {
-                dgvrs.Add(dgvSelected.Rows[0]);
-                dgvSelected.Rows.RemoveAt(0);
+                dgvrs.Add(row);
             }
-            if (dgvrs.Count==0)
+            dgvSelected.Rows.Clear();
+            if (dgvrs.Count == 0)
             {
                 return;
             }
