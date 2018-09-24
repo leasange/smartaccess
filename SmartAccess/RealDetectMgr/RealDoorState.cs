@@ -12,6 +12,7 @@ using Li.Access.Core;
 using System.Threading;
 using System.IO;
 using Li.Access.Core.WGAccesses;
+using Li.Access.Core.FaceDevice;
 
 namespace SmartAccess.RealDetectMgr
 {
@@ -20,6 +21,7 @@ namespace SmartAccess.RealDetectMgr
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(RealDoorState));
         private List<Maticsoft.Model.SMT_CARD_INFO> _cards = new List<Maticsoft.Model.SMT_CARD_INFO>();
         private List<ListViewItem> _lastDetectDoorItems = new List<ListViewItem>();
+        private List<ListViewItem> _lastDetectFaceDevItems = new List<ListViewItem>();
         public RealDoorState()
         {
             InitializeComponent();
@@ -41,7 +43,62 @@ namespace SmartAccess.RealDetectMgr
             }
 
         }
+        private void FaceStateCallback(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        {
+            try
+            {
+                lock (this)
+                {
+                    AddFaceWatchData(dev, connected, log);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
 
+        private void AddFaceWatchData(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        {
+            this.Invoke(new Action(() =>
+            {
+                foreach (ListViewItem item in _lastDetectFaceDevItems)
+                {
+                    Maticsoft.Model.SMT_FACERECG_DEVICE fdev = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                    if (fdev.FACEDEV_IS_ENABLE&&fdev.ID==dev._id)
+                    {
+                        DateTime dt=DateTime.Now;
+                        string desc = "";
+                        if (log!=null)
+	                    {
+                            string time = log.id.Substring(0,"yyyy/MM/dd_HH:mm:ss".Length).Replace('_',' ');
+                            DateTime.TryParse(time,out dt);
+                            desc = "人脸识别通过：" + log.info;
+                        }
+                        else
+                        {
+                            desc = "人脸识别设备：" + (connected?"上线":"掉线");
+                        }
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.CreateCells(dgvRealLog, dt, fdev.FACEDEV_NAME + "(人脸)", desc);
+                        dgvRealLog.Rows.Insert(0, row);
+                        row.Tag = new object[] { fdev, log, dt };
+                        ShowFaceStaffInfo(fdev, log, dt);
+                        while (dgvRealLog.Rows.Count > 2000)
+                        {
+                            dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
+                        }
+                    }
+                }
+                foreach (DataGridViewRow item in dgvRealLog.SelectedRows)
+                {
+                    item.Selected = false;
+                }
+                if (dgvRealLog.Rows.Count > 0)
+                {
+                    dgvRealLog.Rows[0].Selected = true;
+                }
+            }));
+        }
         private void AddWatchData(Controller ctrlr, bool connected, ControllerState state, bool doorstate, bool relaystate)
         {
             string cardNo = null;
@@ -196,6 +253,11 @@ namespace SmartAccess.RealDetectMgr
             {
                 return;
             }
+            if (infos.Length>=3)
+            {
+                ShowFaceStaffInfo((Maticsoft.Model.SMT_FACERECG_DEVICE)infos[0], (Maticsoft.Model.BST.staff_log)infos[1], (DateTime)infos[2]);
+                return;
+            }
             try
             {
                 if (picBox.Image != null)
@@ -247,8 +309,42 @@ namespace SmartAccess.RealDetectMgr
             }
 
         }
+
+        private void ShowFaceStaffInfo(Maticsoft.Model.SMT_FACERECG_DEVICE dev,Maticsoft.Model.BST.staff_log slog,DateTime time)
+        {
+            if (slog == null)
+            {
+                return;
+            }
+            try
+            {
+                if (picBox.Image != null)
+                {
+                    picBox.Image.Dispose();
+                    picBox.Image = null;
+                }
+                if (slog.imagevideo != null && slog.imagevideo.Length > 0)
+                {
+                    MemoryStream ms = new MemoryStream(slog.imagevideo);
+                    Image bitmap = Image.FromStream(ms);
+                    picBox.Image = bitmap;
+                }
+                lbStaffName.Text = slog.name+"("+slog.data_keepon1+")";
+                lbDeptName.Text = slog.data_keepon2;
+                lbTime.Text = time.ToString();
+                lbDoorName.Text = dev.FACEDEV_NAME + "(人脸)";
+                lbAction.Text = "人脸识别通过";
+            }
+            catch (Exception ex)
+            {
+                log.Error("显示人脸信息异常：", ex);
+            }
+
+        }
+
         private void RealDoorState_Load(object sender, EventArgs e)
         {
+            tabControl.SelectedTab = tabItemDoor;
             InitDoors();
         }
 
@@ -271,6 +367,12 @@ namespace SmartAccess.RealDetectMgr
                     {
                         AddDoorsToView(doors);
                     }));
+
+                    var facedevs = FaceRecgHelper.GetList("");
+                    this.Invoke(new Action(() =>
+                    {
+                        AddFaceDevsToView(facedevs);
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -281,6 +383,7 @@ namespace SmartAccess.RealDetectMgr
             });
             waiting.Show(this,200);
         }
+
         private string GetDoorText(Maticsoft.Model.SMT_DOOR_INFO door,bool isdetect=false)
         {
             string text = door.DOOR_NAME;
@@ -305,6 +408,24 @@ namespace SmartAccess.RealDetectMgr
             }
             return text;
         }
+
+        private string GetDevText(Maticsoft.Model.SMT_FACERECG_DEVICE dev, bool isdetect = false)
+        {
+            string text = dev.FACEDEV_NAME;
+            if (!dev.FACEDEV_IS_ENABLE)
+            {
+                text += "(禁用)";
+            }
+            else
+            {
+                if (isdetect)
+                {
+                    text += "(监控中)";
+                }
+            }
+            return text;
+        }
+
         private void AddDoorsToView(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
         {
             listDoors.Items.Clear();
@@ -334,9 +455,29 @@ namespace SmartAccess.RealDetectMgr
             }
         }
 
+        private void AddFaceDevsToView(List<Maticsoft.Model.SMT_FACERECG_DEVICE> facedevs)
+        {
+            listViewFaceDev.Items.Clear();
+            if (facedevs == null || facedevs.Count == 0)
+            {
+                tabItemFaceDev.Visible = false;
+                return;
+            }
+            foreach (var item in facedevs)
+            {
+                ListViewItem lvi = new ListViewItem(item.FACEDEV_NAME, 4);
+                lvi.Tag = item;
+                lvi.ToolTipText = item.FACEDEV_NAME+"("+item.FACEDEV_IP+")";
+                listViewFaceDev.Items.Add(lvi);
+            }
+        }
         private void biSelectAll_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listDoors.Items)
+            {
+                item.Selected = true;
+            }
+            foreach (ListViewItem item in listViewFaceDev.Items)
             {
                 item.Selected = true;
             }
@@ -359,6 +500,25 @@ namespace SmartAccess.RealDetectMgr
                 }
             }
             return doors;
+        }
+
+        private List<Maticsoft.Model.SMT_FACERECG_DEVICE> GetSelectDevs()
+        {
+            List<Maticsoft.Model.SMT_FACERECG_DEVICE> devs = new List<Maticsoft.Model.SMT_FACERECG_DEVICE>();
+            if (listViewFaceDev.SelectedItems.Count == 0)
+            {
+                return devs;
+            }
+
+            foreach (ListViewItem item in listViewFaceDev.SelectedItems)
+            {
+                Maticsoft.Model.SMT_FACERECG_DEVICE d = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                if (d.FACEDEV_IS_ENABLE)
+                {
+                    devs.Add(d);
+                }
+            }
+            return devs;
         }
 
         private List<decimal> GetSelectCtrlIDs(List<Maticsoft.Model.SMT_DOOR_INFO> doors)
@@ -387,58 +547,103 @@ namespace SmartAccess.RealDetectMgr
         private void biRealDetect_Click(object sender, EventArgs e)
         {
             List<Maticsoft.Model.SMT_DOOR_INFO> doors = GetSelectDoors();
-            _lastDetectDoorItems.Clear();
-            foreach (ListViewItem item in listDoors.SelectedItems)
+            List<Maticsoft.Model.SMT_FACERECG_DEVICE> devs = GetSelectDevs();
+            #region 门禁
+            if (doors.Count==0&&devs.Count==0)
             {
-                Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
-                if (d.IS_ENABLE)
-                {
-                    _lastDetectDoorItems.Add(item);
-                }
-            }
-            if (doors.Count==0)
-            {
-                WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");
+                WinInfoHelper.ShowInfoWindow(this, "请选择设备！");
                 return;
             }
-            List<decimal> ctrIds = GetSelectCtrlIDs(doors);
-          
-            CtrlWaiting waiting = new CtrlWaiting(() =>
+            if (doors.Count>0)
             {
-                var models = GetSelectCtrls(ctrIds);
-                if (models.Count==0)
+                _lastDetectDoorItems.Clear();
+                foreach (ListViewItem item in listDoors.SelectedItems)
                 {
-                    WinInfoHelper.ShowInfoWindow(this,"未找到控制器！");
-                    return;
-                }
-                foreach (var item in models)
-	            {
-                    UploadPrivate.WatchService.AddController(ControllerHelper.ToController(item), ControllerStateCallBack, this.GetType().FullName);
-                }
-                this.Invoke(new Action(() =>
-                {
-                    biRealDetect.Text = "实时监控中...";
-                    biRealDetect.Enabled = false;
-                    foreach (var item in _lastDetectDoorItems)
+                    Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                    if (d.IS_ENABLE)
                     {
-                        Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
-                        item.Text = GetDoorText(d, true);
+                        _lastDetectDoorItems.Add(item);
                     }
-                }));
-            });
-            waiting.Show(this);
+                }
+                List<decimal> ctrIds = GetSelectCtrlIDs(doors);
+
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    var models = GetSelectCtrls(ctrIds);
+                    if (models.Count == 0)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "未找到控制器！");
+                        return;
+                    }
+                    foreach (var item in models)
+                    {
+                        UploadPrivate.WatchService.AddController(ControllerHelper.ToController(item), ControllerStateCallBack, this.GetType().FullName);
+                    }
+                    this.Invoke(new Action(() =>
+                    {
+                        biRealDetect.Text = "增加监控(实时监控中...)";
+                        foreach (var item in _lastDetectDoorItems)
+                        {
+                            Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
+                            item.Text = GetDoorText(d, true);
+                        }
+                    }));
+                });
+                waiting.Show(this);
+            }
+            #endregion
+
+            #region 人脸
+            if (devs.Count>0)
+            {
+                _lastDetectFaceDevItems.Clear();
+                foreach (ListViewItem item in listViewFaceDev.SelectedItems)
+                {
+                    Maticsoft.Model.SMT_FACERECG_DEVICE d = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                    if (d.FACEDEV_IS_ENABLE)
+                    {
+                        _lastDetectFaceDevItems.Add(item);
+                    }
+                }
+
+                CtrlWaiting waiting1 = new CtrlWaiting(() =>
+                {
+                    foreach (var item in devs)
+                    {
+                        UploadPrivate.FaceWatchService.AddController(new BSTDevice() { _id = item.ID, _ip = item.FACEDEV_IP, _dbName = item.FACEDEV_DB_NAME, _dbPort = item.FACEDEV_DB_PORT, _dbPwd = item.FACEDEV_DB_PWD, _dbUser = item.FACEDEV_DB_USER, _heartPort = item.FACEDEV_HEART_PORT, _port = item.FACEDEV_CTRL_PORT }, FaceStateCallback, this.GetType().FullName);
+                    }
+                    this.Invoke(new Action(() =>
+                    {
+                        biRealDetect.Text = "增加监控(实时监控中...)";
+                        foreach (var item in _lastDetectFaceDevItems)
+                        {
+                            Maticsoft.Model.SMT_FACERECG_DEVICE d = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                            item.Text = GetDevText(d, true);
+                        }
+                    }));
+                });
+                waiting1.Show(this);
+            }
+            #endregion
         }
 
         private void biStop_Click(object sender, EventArgs e)
         {
             UploadPrivate.WatchService.ClearControllers(this.GetType().FullName);
+            UploadPrivate.FaceWatchService.ClearControllers(this.GetType().FullName);
             foreach (var item in _lastDetectDoorItems)
             {
                 Maticsoft.Model.SMT_DOOR_INFO d = (Maticsoft.Model.SMT_DOOR_INFO)item.Tag;
                 item.Text = GetDoorText(d, false);
             }
+            foreach (var item in _lastDetectFaceDevItems)
+            {
+                Maticsoft.Model.SMT_FACERECG_DEVICE d = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                item.Text = GetDevText(d, false);
+            }
             biRealDetect.Text = "实时监控";
             _lastDetectDoorItems.Clear();
+            _lastDetectFaceDevItems.Clear();
             biRealDetect.Enabled = true;
         }
 
@@ -750,6 +955,14 @@ namespace SmartAccess.RealDetectMgr
         private void biSetting_Click(object sender, EventArgs e)
         {
             tsmiDoorStateCfg_Click(sender, e);
+        }
+
+        private void tabControl_SelectedTabChanged(object sender, DevComponents.DotNetBar.TabStripTabChangedEventArgs e)
+        {
+            biDetectCtrlr.Enabled = e.NewTab == tabItemDoor;
+            biAdjustTime.Enabled = e.NewTab == tabItemDoor;
+            biSetting.Enabled = e.NewTab == tabItemDoor;
+            biRemoteOpen.Enabled = e.NewTab == tabItemDoor;
         }
     }
 }

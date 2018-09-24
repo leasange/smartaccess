@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessCore.cs" />
+    <Compile Include="BstFaceWatchService.cs" />
     <Compile Include="BJTWHCardIssue\MF800ACardIssueDevice.cs" />
     <Compile Include="BLL\BST\staff_card.cs" />
     <Compile Include="BLL\BST\staff_data_ex.cs" />

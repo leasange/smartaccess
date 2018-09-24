@@ -42,6 +42,14 @@ namespace SmartAccess
                 });
             MenuItems.Add(modelMgr);
             */
+            ExpandItem realMgr = new ExpandItem("出入实时监控", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_DETECT_MGR);
+            realMgr.Items.AddRange(new ExpandItem[]
+                {   
+                    new ExpandItem("实时状态显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ACCESS_STATE, typeof(RealDetectMgr.RealDoorState)),
+                    new ExpandItem("实时地图显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_MAP, typeof(RealDetectMgr.RealMapDetect)),
+                    new ExpandItem("报警实时监控", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ALARM_DETECT, typeof(RealDetectMgr.AlarmRealDetect))
+                 });
+            MenuItems.Add(realMgr);
 
             ExpandItem infoSearchMgr = new ExpandItem("信息系统查询", Properties.Resources.dkq_2525, SYS_FUN_POINT.SEARCH_INFO_MGR);
             infoSearchMgr.Items.AddRange(new ExpandItem[]
@@ -74,15 +82,6 @@ namespace SmartAccess
                 });
             MenuItems.Add(ctrlMgr);
 
-            ExpandItem realMgr = new ExpandItem("实时监控管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_DETECT_MGR);
-            RealItem=new ExpandItem("报警实时监控", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ALARM_DETECT, typeof(RealDetectMgr.AlarmRealDetect));
-            realMgr.Items.AddRange(new ExpandItem[]
-                {
-                    new ExpandItem("实时地图显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_MAP, typeof(RealDetectMgr.RealMapDetect)),
-                    new ExpandItem("实时状态显示", Properties.Resources.dkq_2525, SYS_FUN_POINT.REAL_ACCESS_STATE, typeof(RealDetectMgr.RealDoorState)),
-                    RealItem
-                 });
-            MenuItems.Add(realMgr);
 
             ExpandItem ruleMgr = new ExpandItem("规则设定管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.RULE_INFO_MGR);
             ruleMgr.Items.AddRange(new ExpandItem[]

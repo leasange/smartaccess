@@ -617,7 +617,7 @@ namespace SmartAccess.Common.Datas
         }
 
         public static AccessWatchService WatchService = new AccessWatchService();
-
+        public static BstFaceWatchService FaceWatchService = new BstFaceWatchService();
         public static void UploadTimeTasks(List<Maticsoft.Model.SMT_CTRLR_TASK> tasks)
         {
             FrmDetailInfo.Show(false);
@@ -1178,6 +1178,18 @@ namespace SmartAccess.Common.Datas
                                 }
                                 using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                                 {
+                                    if (!models[0].FACERECG_DEVICE.FACEDEV_IS_ENABLE)
+                                    {
+                                        FrmDetailInfo.AddOneMsg("设备:"+models[0].FACERECG_DEVICE.AREA_NAME+" 被禁用状态,设备权限被清除...");
+                                        bool bret =faceCtrler.ClearFaces();
+                                        if (!bret)
+                                        {
+                                            tempMsgs += "设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败");
+                                        }
+                                        FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败") + "！", isRed: !bret);
+                                        return;
+                                    }
+
                                     List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
                                     List<string> deleteprivates = new List<string>();
                                     List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels=new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
@@ -1313,6 +1325,7 @@ namespace SmartAccess.Common.Datas
                         {
                             try
                             {
+
                                 var models = item.ToList(); 
                                 if (models[0].FACERECG_DEVICE == null)
                                 {
@@ -1327,6 +1340,18 @@ namespace SmartAccess.Common.Datas
 
                                 using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                                 {
+                                    if (!models[0].FACERECG_DEVICE.FACEDEV_IS_ENABLE)
+                                    {
+                                        FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 被禁用状态,设备权限被清除...");
+                                        bool bret = faceCtrler.ClearFaces();
+                                        if (!bret)
+                                        {
+                                            tempMsgs += "设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败");
+                                        }
+                                        FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败") + "！", isRed: !bret);
+                                        return;
+                                    }
+
                                     List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
                                     Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
                                     List<string> deleteprivates = new List<string>();
@@ -1460,6 +1485,25 @@ namespace SmartAccess.Common.Datas
 
                             using (var faceCtrler = FaceRecgHelper.ToFaceController(models[0].FACERECG_DEVICE))
                             {
+                                if (!models[0].FACERECG_DEVICE.FACEDEV_IS_ENABLE)
+                                {
+                                    FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 被禁用状态,设备权限被清除...");
+                                    bool bret = faceCtrler.ClearFaces();
+                                    if (!bret)
+                                    {
+                                        tempMsgs += "设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败");
+                                    }
+                                    FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败") + "！", isRed: !bret);
+                                    if (bret)
+                                    {
+                                        lock (sfds)
+                                        {
+                                            sfds.AddRange(models);
+                                        }
+                                    }
+                                    return;
+                                }
+
                                 List<string> ids=new List<string>();
                                 foreach (var model in models)
                                 {

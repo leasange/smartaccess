@@ -5,6 +5,18 @@ using System.Text;
 
 namespace Li.Access.Core.FaceDevice
 {
+    public class BSTDevice
+    {
+        public decimal _id;
+        public string _ip;
+        public int _port;
+        public int _heartPort;
+        public int _dbPort;
+        public string _dbName;
+        public string _dbUser;
+        public string _dbPwd;
+        public string _devName;
+    }
     public abstract class BSTVideoBase
     {
         public string Face_LEVEL;//“0.80”,					//分数阈值（0~1）

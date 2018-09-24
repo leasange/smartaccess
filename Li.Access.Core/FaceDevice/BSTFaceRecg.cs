@@ -9,6 +9,7 @@ using System.Threading;
 
 namespace Li.Access.Core.FaceDevice
 {
+    public delegate void FaceRealRecordHandle(BSTFaceRecg recg,Maticsoft.Model.BST.staff_log log);
     /// <summary>
     /// 博思廷人脸识别
     /// </summary>
@@ -27,11 +28,12 @@ namespace Li.Access.Core.FaceDevice
         private string _dbName;
         private string _dbUser;
         private string _dbPwd;
-        private bool _heartState = false;
-        public bool HeartState
+        private DateTime _heartStateTime = DateTime.Now;
+        private FaceRealRecordHandle _readRecordHandle;
+        public DateTime HeartStateTime
         {
-            get { return _heartState; }
-            set { _heartState = value; }
+            get { return _heartStateTime; }
+            set { _heartStateTime = value; }
         }
         private TcpClient _heartClient = null;
         private TcpClient _cmdClient = null;
@@ -89,6 +91,11 @@ namespace Li.Access.Core.FaceDevice
             }
         }
 
+        public void SetRealRecordCallback(FaceRealRecordHandle readRecordHandle)
+        {
+            this._readRecordHandle = readRecordHandle;
+        }
+
         private void sendHeartbeat()
         {
             try
@@ -98,10 +105,11 @@ namespace Li.Access.Core.FaceDevice
                     _heartSW.Write("<BST_02<<000000/BST_02>");
                 }
 
-                if (_timerSendHeartbeat != null)
+                if (_timerSendHeartbeat == null)
                 {
                     _timerSendHeartbeat = new System.Timers.Timer(8000);
                     _timerSendHeartbeat.Elapsed += _timerSendHeartbeat_Elapsed;
+                    _timerSendHeartbeat.Start();
                 }
             }
             catch (Exception ex)
@@ -113,6 +121,7 @@ namespace Li.Access.Core.FaceDevice
         {
             sendHeartbeat();
         }
+        private string _heartResultString = "";
         private void HeartbeatReadCallback(IAsyncResult ar)
         {
             try
@@ -123,10 +132,56 @@ namespace Li.Access.Core.FaceDevice
                     string str = Encoding.UTF8.GetString(_heartReadBuffer, 0, count);
                     if (str == "<BST_02<<000000/BST_02>")//心跳
                     {
-                        _heartState = true;
+                        _heartStateTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        _heartResultString += str;
                     }
                 }
-                _heartNS.BeginRead(_heartReadBuffer, 0, 2048, HeartbeatReadCallback, null);
+                if (!_heartNS.DataAvailable)
+                {//无数据可读
+                    if (_heartResultString!="")
+                    {
+                        try
+                        {
+                            if (_heartResultString.Contains("<BST_02<<000000/BST_02>"))
+                            {
+                                _heartStateTime = DateTime.Now;
+                                _heartResultString = _heartResultString.Replace("<BST_02<<000000/BST_02>", "");
+                            }
+                            if (!string.IsNullOrWhiteSpace(_heartResultString))
+                            {
+                                if (_heartResultString.StartsWith("<BST_01<<") && _heartResultString.Length > 106)
+                                {
+                                    int ind = _heartResultString.IndexOf("<ID/");
+                                    int idLen = int.Parse(_heartResultString.Substring(ind + 4, 2));
+                                    string logid = _heartResultString.Substring(106, idLen);
+                                    Maticsoft.BLL.BST.staff_log logBll = new Maticsoft.BLL.BST.staff_log();
+                                    SetDbConnectStr(logBll.dal.DbHelperMySQLP);
+                                    var model = logBll.GetModel(logid);
+                                    if (model != null)
+                                    {
+                                        if (_readRecordHandle != null)
+                                        {
+                                            _readRecordHandle.BeginInvoke(this, model, null, null);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("解析人脸实时状态数据异常：", ex);
+                        }
+                        finally
+                        {
+                            _heartResultString = "";
+                        }
+                       
+                    }
+                }
+                _heartNS.BeginRead(_heartReadBuffer, 0, _heartReadBuffer.Length, HeartbeatReadCallback, null);
             }
             catch (Exception ex)
             {
@@ -146,7 +201,7 @@ namespace Li.Access.Core.FaceDevice
                 sendHeartbeat();
                 if (_heartReadBuffer==null)
                 {
-                    _heartReadBuffer = new byte[2048];
+                    _heartReadBuffer = new byte[10240];
                 }
                 _heartNS.BeginRead(_heartReadBuffer, 0, _heartReadBuffer.Length, HeartbeatReadCallback, null);
 
@@ -189,7 +244,7 @@ namespace Li.Access.Core.FaceDevice
             catch (Exception ex)
             {
                 _heartClient = null;
-                log.Error("心跳连接异常：" + ex.Message);
+                log.Error("读取数据异常：" + ex.Message);
             }
         }
         public bool OpenCtrl()
@@ -552,10 +607,20 @@ namespace Li.Access.Core.FaceDevice
             if (ids.Count>0)
             {
                 dataBll.DeleteAll("");
-                foreach (var item in ids)
+                ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
                 {
-                    doSendCmd("//@BST_01@//",item, false);
-                }
+                    try
+                    {
+                        foreach (var item in ids)
+                        {
+                            doSendCmd("//@BST_01@//", item, false);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }));
+
             }
             return true;
         }

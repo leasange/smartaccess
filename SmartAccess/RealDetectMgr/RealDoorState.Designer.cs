@@ -33,14 +33,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("11111", 0);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("22222", 2);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("22222", 2);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("11111", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("22222", 2);
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
             this.biStop = new DevComponents.DotNetBar.ButtonItem();
             this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
             this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
+            this.biSetting = new DevComponents.DotNetBar.ButtonItem();
             this.biRemoteOpen = new DevComponents.DotNetBar.ButtonItem();
             this.biClearInfo = new DevComponents.DotNetBar.ButtonItem();
             this.tbFilterItem = new DevComponents.DotNetBar.TextBoxItem();
@@ -64,18 +67,27 @@
             this.picBox = new System.Windows.Forms.PictureBox();
             this.panelDown = new DevComponents.DotNetBar.PanelEx();
             this.dgvRealLog = new Li.Controls.DataGridViewEx();
+            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.listDoors = new System.Windows.Forms.ListView();
+            this.tabControl = new DevComponents.DotNetBar.TabControl();
+            this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
+            this.listViewFaceDev = new System.Windows.Forms.ListView();
+            this.tabItemFaceDev = new DevComponents.DotNetBar.TabItem(this.components);
+            this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
+            this.tabItemDoor = new DevComponents.DotNetBar.TabItem(this.components);
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
-            this.listDoors = new System.Windows.Forms.ListView();
-            this.biSetting = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.panelDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControl)).BeginInit();
+            this.tabControl.SuspendLayout();
+            this.tabControlPanel2.SuspendLayout();
+            this.tabControlPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bar1
@@ -144,6 +156,14 @@
             this.biAdjustTime.Text = "校准时间";
             this.biAdjustTime.Click += new System.EventHandler(this.biAdjustTime_Click);
             // 
+            // biSetting
+            // 
+            this.biSetting.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biSetting.Image = global::SmartAccess.Properties.Resources.editor;
+            this.biSetting.Name = "biSetting";
+            this.biSetting.Text = "设置门禁";
+            this.biSetting.Click += new System.EventHandler(this.biSetting_Click);
+            // 
             // biRemoteOpen
             // 
             this.biRemoteOpen.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
@@ -182,6 +202,7 @@
             this.smallImageList.Images.SetKeyName(1, "room_open.png");
             this.smallImageList.Images.SetKeyName(2, "door_dump.png");
             this.smallImageList.Images.SetKeyName(3, "door_disable.jpg");
+            this.smallImageList.Images.SetKeyName(4, "人脸识别设备.png");
             // 
             // metroTileItem1
             // 
@@ -231,9 +252,9 @@
             this.panelEx1.Controls.Add(this.labelX1);
             this.panelEx1.Controls.Add(this.picBox);
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelEx1.Location = new System.Drawing.Point(696, 0);
+            this.panelEx1.Location = new System.Drawing.Point(672, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(259, 181);
+            this.panelEx1.Size = new System.Drawing.Size(283, 181);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -307,7 +328,7 @@
             // 
             this.lbDeptName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbDeptName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbDeptName.Location = new System.Drawing.Point(159, 6);
+            this.lbDeptName.Location = new System.Drawing.Point(175, 6);
             this.lbDeptName.Name = "lbDeptName";
             this.lbDeptName.Size = new System.Drawing.Size(28, 20);
             this.lbDeptName.TabIndex = 9;
@@ -363,7 +384,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(128, 6);
+            this.labelX2.Location = new System.Drawing.Point(144, 6);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(35, 20);
             this.labelX2.TabIndex = 9;
@@ -388,9 +409,9 @@
             this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Location = new System.Drawing.Point(128, 51);
+            this.picBox.Location = new System.Drawing.Point(144, 32);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(119, 127);
+            this.picBox.Size = new System.Drawing.Size(127, 146);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBox.TabIndex = 8;
             this.picBox.TabStop = false;
@@ -456,34 +477,9 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvRealLog.RowTemplate.Height = 23;
-            this.dgvRealLog.Size = new System.Drawing.Size(696, 181);
+            this.dgvRealLog.Size = new System.Drawing.Size(672, 181);
             this.dgvRealLog.TabIndex = 11;
             this.dgvRealLog.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRealLog_CellContentClick);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.FillWeight = 193.5371F;
-            this.Column1.HeaderText = "时间";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.FillWeight = 76.14214F;
-            this.Column2.HeaderText = "门禁";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.FillWeight = 30.32081F;
-            this.Column3.HeaderText = "描述";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             // 
             // expandableSplitter1
             // 
@@ -526,29 +522,127 @@
             this.listDoors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listDoors.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listDoors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6});
             this.listDoors.LargeImageList = this.smallImageList;
-            this.listDoors.Location = new System.Drawing.Point(0, 28);
+            this.listDoors.Location = new System.Drawing.Point(1, 1);
             this.listDoors.Name = "listDoors";
             this.listDoors.ShowItemToolTips = true;
-            this.listDoors.Size = new System.Drawing.Size(955, 183);
+            this.listDoors.Size = new System.Drawing.Size(953, 155);
             this.listDoors.TabIndex = 13;
             this.listDoors.UseCompatibleStateImageBehavior = false;
             // 
-            // biSetting
+            // tabControl
             // 
-            this.biSetting.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biSetting.Image = global::SmartAccess.Properties.Resources.editor;
-            this.biSetting.Name = "biSetting";
-            this.biSetting.Text = "设置门禁";
-            this.biSetting.Click += new System.EventHandler(this.biSetting_Click);
+            this.tabControl.CanReorderTabs = true;
+            this.tabControl.Controls.Add(this.tabControlPanel2);
+            this.tabControl.Controls.Add(this.tabControlPanel1);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 28);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.tabControl.SelectedTabIndex = 1;
+            this.tabControl.Size = new System.Drawing.Size(955, 183);
+            this.tabControl.TabIndex = 14;
+            this.tabControl.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox;
+            this.tabControl.Tabs.Add(this.tabItemDoor);
+            this.tabControl.Tabs.Add(this.tabItemFaceDev);
+            this.tabControl.Text = "tabControl1";
+            this.tabControl.SelectedTabChanged += new DevComponents.DotNetBar.TabStrip.SelectedTabChangedEventHandler(this.tabControl_SelectedTabChanged);
+            // 
+            // tabControlPanel2
+            // 
+            this.tabControlPanel2.Controls.Add(this.listViewFaceDev);
+            this.tabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPanel2.Location = new System.Drawing.Point(0, 26);
+            this.tabControlPanel2.Name = "tabControlPanel2";
+            this.tabControlPanel2.Padding = new System.Windows.Forms.Padding(1);
+            this.tabControlPanel2.Size = new System.Drawing.Size(955, 157);
+            this.tabControlPanel2.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
+            this.tabControlPanel2.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
+            this.tabControlPanel2.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.tabControlPanel2.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
+            this.tabControlPanel2.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
+            | DevComponents.DotNetBar.eBorderSide.Bottom)));
+            this.tabControlPanel2.Style.GradientAngle = 90;
+            this.tabControlPanel2.TabIndex = 2;
+            this.tabControlPanel2.TabItem = this.tabItemFaceDev;
+            // 
+            // listViewFaceDev
+            // 
+            this.listViewFaceDev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewFaceDev.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listViewFaceDev.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.listViewFaceDev.LargeImageList = this.smallImageList;
+            this.listViewFaceDev.Location = new System.Drawing.Point(1, 1);
+            this.listViewFaceDev.Name = "listViewFaceDev";
+            this.listViewFaceDev.ShowItemToolTips = true;
+            this.listViewFaceDev.Size = new System.Drawing.Size(953, 155);
+            this.listViewFaceDev.TabIndex = 14;
+            this.listViewFaceDev.UseCompatibleStateImageBehavior = false;
+            // 
+            // tabItemFaceDev
+            // 
+            this.tabItemFaceDev.AttachedControl = this.tabControlPanel2;
+            this.tabItemFaceDev.Name = "tabItemFaceDev";
+            this.tabItemFaceDev.Text = "人脸识别设备";
+            // 
+            // tabControlPanel1
+            // 
+            this.tabControlPanel1.Controls.Add(this.listDoors);
+            this.tabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPanel1.Location = new System.Drawing.Point(0, 26);
+            this.tabControlPanel1.Name = "tabControlPanel1";
+            this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.tabControlPanel1.Size = new System.Drawing.Size(955, 157);
+            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
+            this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
+            this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
+            this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
+            | DevComponents.DotNetBar.eBorderSide.Bottom)));
+            this.tabControlPanel1.Style.GradientAngle = 90;
+            this.tabControlPanel1.TabIndex = 1;
+            this.tabControlPanel1.TabItem = this.tabItemDoor;
+            // 
+            // tabItemDoor
+            // 
+            this.tabItemDoor.AttachedControl = this.tabControlPanel1;
+            this.tabItemDoor.Name = "tabItemDoor";
+            this.tabItemDoor.Text = "门禁";
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.FillWeight = 193.5371F;
+            this.Column1.HeaderText = "时间";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.FillWeight = 76.14214F;
+            this.Column2.HeaderText = "门禁/人脸";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.FillWeight = 30.32081F;
+            this.Column3.HeaderText = "描述";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // RealDoorState
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.listDoors);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.expandableSplitter1);
             this.Controls.Add(this.panelDown);
             this.Controls.Add(this.bar1);
@@ -562,6 +656,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.panelDown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControl)).EndInit();
+            this.tabControl.ResumeLayout(false);
+            this.tabControlPanel2.ResumeLayout(false);
+            this.tabControlPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -590,9 +688,6 @@
         private DevComponents.DotNetBar.PanelEx panelDown;
         private DevComponents.DotNetBar.ExpandableSplitter expandableSplitter1;
         private Li.Controls.DataGridViewEx dgvRealLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.ListView listDoors;
         private DevComponents.DotNetBar.LabelX lbTime;
         private DevComponents.DotNetBar.LabelX labelX3;
@@ -603,5 +698,14 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiRemoteOpen;
         private DevComponents.DotNetBar.ButtonItem biRemoteOpen;
         private DevComponents.DotNetBar.ButtonItem biSetting;
+        private DevComponents.DotNetBar.TabControl tabControl;
+        private DevComponents.DotNetBar.TabControlPanel tabControlPanel1;
+        private DevComponents.DotNetBar.TabItem tabItemDoor;
+        private DevComponents.DotNetBar.TabControlPanel tabControlPanel2;
+        private DevComponents.DotNetBar.TabItem tabItemFaceDev;
+        private System.Windows.Forms.ListView listViewFaceDev;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

@@ -251,6 +251,10 @@ namespace SmartAccess.ControlDevMgr
                                     {
                                         WinInfoHelper.ShowInfoWindow(null, "上传视频设置失败！");
                                     }
+                                    else if (!devInfo.FACEDEV_IS_ENABLE)
+                                    {
+                                        faceRecg.ClearFaces();
+                                    }
                                 }
                             }
                             catch (Exception ex)

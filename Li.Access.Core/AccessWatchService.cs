@@ -49,10 +49,10 @@ namespace Li.Access.Core
                     }
                     else
                     {
-                        ctrlthread.Controller = ctrlr;
-                        ctrlthread.AddCallBack(tag, callback);
                         if (!ctrlthread.Tags.Contains(tag))
                         {
+                            ctrlthread.Controller = ctrlr;
+                            ctrlthread.AddCallBack(tag, callback);
                             ctrlthread.Tags.Add(tag);
                         }
                     }
