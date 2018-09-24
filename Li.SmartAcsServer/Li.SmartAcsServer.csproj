@@ -61,6 +61,7 @@
     <Compile Include="IAcsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AcsService.cs" />
+    <Compile Include="RecordsService\FaceRecordTaskService.cs" />
     <Compile Include="RecordsService\RecordTaskService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ namespace Li.SmartAcsServer
             //启动记录读取服务
             _serviceType = 0;
             RecordTaskService.Instance.Start(interval);
+            FaceRecordTaskService.Instance.Start(interval);
         }
         //启动抓拍服务
         public static void StartCaptureServices()

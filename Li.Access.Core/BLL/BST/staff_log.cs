@@ -162,6 +162,12 @@ namespace Maticsoft.BLL.BST
 		{
 			return dal.GetListByPage( strWhere,  orderby,  startIndex,  endIndex);
 		}
+
+        public void DeleteAll()
+        {
+            dal.DeleteAll();
+        }
+
 		/// <summary>
 		/// 分页获取数据列表
 		/// </summary>

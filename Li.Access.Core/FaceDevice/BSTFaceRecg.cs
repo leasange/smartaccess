@@ -16,6 +16,11 @@ namespace Li.Access.Core.FaceDevice
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(BSTFaceRecg));
         private string _ip;
+        public string Ip
+        {
+            get { return _ip; }
+            set { _ip = value; }
+        }
         private int _port;
         private int _heartPort;
         private int _dbPort;
@@ -553,6 +558,17 @@ namespace Li.Access.Core.FaceDevice
                 }
             }
             return true;
+        }
+        public List<Maticsoft.Model.BST.staff_log> ReadAllRecords()
+        {
+            Maticsoft.BLL.BST.staff_log logBll = new Maticsoft.BLL.BST.staff_log();
+            SetDbConnectStr(logBll.dal.DbHelperMySQLP);
+            var list = logBll.GetModelList("");
+            if (list.Count>0)
+            {
+                logBll.DeleteAll();
+            }
+            return list;
         }
 
         public void Dispose()

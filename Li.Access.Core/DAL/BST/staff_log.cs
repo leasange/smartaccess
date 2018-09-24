@@ -229,8 +229,14 @@ namespace Maticsoft.DAL.BST
 				{
 					model.name=row["name"].ToString();
 				}
-					//model.imagevideo=row["imagevideo"].ToString();
-					//model.imagesql=row["imagesql"].ToString();
+                if (row["imagesql"]!=null)
+                {
+                    model.imagesql = (byte[])row["imagesql"];
+                }
+                if (row["imagevideo"] != null)
+                {
+                    model.imagevideo = (byte[])row["imagevideo"];
+                }
 				if(row["info"]!=null)
 				{
 					model.info=row["info"].ToString();
@@ -354,6 +360,13 @@ namespace Maticsoft.DAL.BST
 		#region  ExtensionMethod
 
 		#endregion  ExtensionMethod
-	}
+
+        public void DeleteAll()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from staff_log");
+            DbHelperMySQLP.ExecuteSql(strSql.ToString());
+        }
+    }
 }
 

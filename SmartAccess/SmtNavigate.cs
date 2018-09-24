@@ -31,7 +31,7 @@ namespace SmartAccess
                     new ExpandItem("证件模板", Properties.Resources.dkq_2525, SYS_FUN_POINT.VER_MODEL,typeof(ModelMgr.VerModelMgr)),
                     new ExpandItem("部门管理", Properties.Resources.部门管理, SYS_FUN_POINT.DEPT_MGR,typeof(VerInfoMgr.DeptMgr)),
                     new ExpandItem("人员管理", Properties.Resources.人员信息, SYS_FUN_POINT.STAFF_MGR,typeof(VerInfoMgr.StaffInfoMgr)),
-                    new ExpandItem("人脸识别授权", Properties.Resources.人员信息, SYS_FUN_POINT.FACERECG_DEV_PRIVATE,typeof(VerInfoMgr.FaceDevPriMgr))
+                    new ExpandItem("人脸授权", Properties.Resources.人员信息, SYS_FUN_POINT.FACERECG_DEV_PRIVATE,typeof(VerInfoMgr.FaceDevPriMgr))
                 });
             MenuItems.Add(verMgr);
             /*
@@ -68,7 +68,7 @@ namespace SmartAccess
                 {
                      new ExpandItem("控制器管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.CTRLR_INFO,typeof(ControlDevMgr.ControllerMgr)),
                      new ExpandItem("梯门管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.ELEVATOR_DOOR_MGR,typeof(ControlDevMgr.OneManyDoorMgr)),
-                     new ExpandItem("人脸识别设备", Properties.Resources.人脸识别设备, SYS_FUN_POINT.FACERECG_DEV_INFO,typeof(ControlDevMgr.FaceDeviceMgr)),
+                     new ExpandItem("人脸设备管理", Properties.Resources.人脸识别设备, SYS_FUN_POINT.FACERECG_DEV_INFO,typeof(ControlDevMgr.FaceDeviceMgr)),
                     // new ExpandItem("控制访问约束", Properties.Resources.dkq_2525, SYS_FUN_POINT., ItemClicked)
                 });
             MenuItems.Add(ctrlMgr);

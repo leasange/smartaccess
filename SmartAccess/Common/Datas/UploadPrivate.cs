@@ -1216,7 +1216,7 @@ namespace SmartAccess.Common.Datas
                                         update.data_keepon1 = model.STAFF_INFO.STAFF_NO;
                                         update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
                                         update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
-                                        update.data_keepon4 = "";
+                                        update.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR"?"访客":"内部员工";
                                         update.data_keepon5 = "";
                                         DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
                                         if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
