@@ -102,5 +102,6 @@ namespace SmartAccess
         FACE_BLACK_LIST,//人脸黑名单
         FACERECG_DEV_INFO,//人脸识别设备
         FACERECG_DEV_PRIVATE,//人脸识别设备授权
+        FACERECG_RECORD,//人脸识别设备记录
     }
 }

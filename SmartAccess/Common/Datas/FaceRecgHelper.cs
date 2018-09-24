@@ -77,5 +77,52 @@ namespace SmartAccess.Common.Datas
             videoBase.HostIP = dev.FACEDEV_IP;
             return videoBase;
         }
+
+        public static List<DevComponents.AdvTree.Node> ToFaceTree(List<Maticsoft.Model.SMT_FACERECG_DEVICE> faceDevices, List<Maticsoft.Model.SMT_CONTROLLER_ZONE> areas)
+        {
+            var nodes = AreaDataHelper.ToTree(areas);
+            var faceDevs = faceDevices.ToList();
+            foreach (var item in nodes)
+            {
+                DoCreateAreaDevice(item, faceDevs);
+            }
+
+            for (int i = faceDevs.Count - 1; i >= 0; i--)
+            {
+                var item = faceDevs[i];
+                DevComponents.AdvTree.Node devNode = new DevComponents.AdvTree.Node("<font color='blue'>" + item.FACEDEV_NAME + "</font>");
+                devNode.Image = Properties.Resources.editor;
+                devNode.Tag = item;
+                nodes.Insert(0, devNode);
+            }
+            DevComponents.AdvTree.Node root = new DevComponents.AdvTree.Node("所有人脸识别设备");
+            root.Image = Properties.Resources.house1818;
+            root.Nodes.AddRange(nodes.ToArray());
+            nodes.Clear();
+            nodes.Add(root);
+            return nodes;
+        }
+
+        private static void DoCreateAreaDevice(DevComponents.AdvTree.Node areaNode, List<Maticsoft.Model.SMT_FACERECG_DEVICE> devs)
+        {
+            Maticsoft.Model.SMT_CONTROLLER_ZONE zone = areaNode.Tag as Maticsoft.Model.SMT_CONTROLLER_ZONE;
+            if (zone != null)
+            {
+                var fdev = devs.FindAll(m => m.AREA_ID == zone.ID);
+                for (int i = fdev.Count - 1; i >= 0; i--)
+                {
+                    var item = fdev[i];
+                    DevComponents.AdvTree.Node doorNode = new DevComponents.AdvTree.Node("<font color='blue'>" + item.FACEDEV_NAME + "</font>");
+                    doorNode.Tag = item;
+                    doorNode.Image = Properties.Resources.door1818;
+                    areaNode.Nodes.Insert(0, doorNode);
+                    devs.Remove(item);
+                }
+            }
+            foreach (DevComponents.AdvTree.Node item in areaNode.Nodes)
+            {
+                DoCreateAreaDevice(item, devs);
+            }
+        }
     }
 }

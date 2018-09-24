@@ -1,6 +1,6 @@
 ﻿namespace SmartAccess.InfoSearchMgr
 {
-    partial class AccessInOutRecordInfos
+    partial class FaceRecordInfos
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
-            this.cboDoorTree = new DevComponents.DotNetBar.Controls.ComboTree();
+            this.cboFaceTree = new DevComponents.DotNetBar.Controls.ComboTree();
             this.cboDeptTree = new DevComponents.DotNetBar.Controls.ComboTree();
             this.btnSearch = new DevComponents.DotNetBar.ButtonX();
             this.dtpEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -51,10 +51,9 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_ViewPic = new Li.Controls.DataGridViewLinkLabelColumn();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
@@ -68,7 +67,7 @@
             // 
             this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx1.Controls.Add(this.cboDoorTree);
+            this.panelEx1.Controls.Add(this.cboFaceTree);
             this.panelEx1.Controls.Add(this.cboDeptTree);
             this.panelEx1.Controls.Add(this.btnSearch);
             this.panelEx1.Controls.Add(this.dtpEnd);
@@ -95,21 +94,21 @@
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 0;
             // 
-            // cboDoorTree
+            // cboFaceTree
             // 
-            this.cboDoorTree.BackColor = System.Drawing.SystemColors.Window;
+            this.cboFaceTree.BackColor = System.Drawing.SystemColors.Window;
             // 
             // 
             // 
-            this.cboDoorTree.BackgroundStyle.Class = "TextBoxBorder";
-            this.cboDoorTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cboDoorTree.ButtonDropDown.Visible = true;
-            this.cboDoorTree.DropDownHeight = 200;
-            this.cboDoorTree.Location = new System.Drawing.Point(670, 13);
-            this.cboDoorTree.Name = "cboDoorTree";
-            this.cboDoorTree.Size = new System.Drawing.Size(177, 23);
-            this.cboDoorTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboDoorTree.TabIndex = 6;
+            this.cboFaceTree.BackgroundStyle.Class = "TextBoxBorder";
+            this.cboFaceTree.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cboFaceTree.ButtonDropDown.Visible = true;
+            this.cboFaceTree.DropDownHeight = 200;
+            this.cboFaceTree.Location = new System.Drawing.Point(713, 12);
+            this.cboFaceTree.Name = "cboFaceTree";
+            this.cboFaceTree.Size = new System.Drawing.Size(177, 23);
+            this.cboFaceTree.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboFaceTree.TabIndex = 6;
             // 
             // cboDeptTree
             // 
@@ -273,11 +272,11 @@
             // 
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(616, 12);
+            this.labelX4.Location = new System.Drawing.Point(643, 12);
             this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(48, 23);
+            this.labelX4.Size = new System.Drawing.Size(64, 23);
             this.labelX4.TabIndex = 0;
-            this.labelX4.Text = "位置";
+            this.labelX4.Text = "人脸设备";
             // 
             // labelX3
             // 
@@ -389,33 +388,32 @@
             this.dgvData.AllowUserToAddRows = false;
             this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5,
             this.Column6,
+            this.Column5,
             this.Column7,
-            this.Column8,
             this.Col_ViewPic});
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvData.Location = new System.Drawing.Point(0, 0);
@@ -450,29 +448,23 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "进入/出来";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
             // Column6
             // 
             this.Column6.HeaderText = "时间";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "识别值";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
             // Column7
             // 
             this.Column7.HeaderText = "通行结果";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "通行描述";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
             // 
             // Col_ViewPic
             // 
@@ -483,15 +475,15 @@
             this.Col_ViewPic.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Col_ViewPic.SplitLinkSymbol = ",";
             // 
-            // AccessInOutRecordInfos
+            // FaceRecordInfos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pageDataGridView);
             this.Controls.Add(this.panelEx1);
-            this.Name = "AccessInOutRecordInfos";
+            this.Name = "FaceRecordInfos";
             this.Size = new System.Drawing.Size(991, 454);
-            this.Load += new System.EventHandler(this.AccessInOutRecordInfos_Load);
+            this.Load += new System.EventHandler(this.FaceRecordInfos_Load);
             this.panelEx1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).EndInit();
@@ -519,16 +511,15 @@
         private DevComponents.DotNetBar.LabelX labelX6;
         private DevComponents.DotNetBar.ButtonX btnSearch;
         private DevComponents.DotNetBar.Controls.ComboTree cboDeptTree;
-        private DevComponents.DotNetBar.Controls.ComboTree cboDoorTree;
+        private DevComponents.DotNetBar.Controls.ComboTree cboFaceTree;
+        private Li.Controls.PicView picView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private Li.Controls.DataGridViewLinkLabelColumn Col_ViewPic;
-        private Li.Controls.PicView picView;
     }
 }
