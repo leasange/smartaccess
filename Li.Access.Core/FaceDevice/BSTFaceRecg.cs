@@ -228,6 +228,15 @@ namespace Li.Access.Core.FaceDevice
                  }
                  else
                  {
+                     if (_readNeedWait)
+                     {
+                         Thread.Sleep(500);
+                     }
+                     if (_cmdNS.DataAvailable)
+                     {
+                         _cmdNS.BeginRead(_cmdReadBuffer, _lastCount, _cmdReadBuffer.Length - _lastCount, CmdReadCallback, null);
+                         return;
+                     }
                      if (_lastCount > 0)
                      {
                          _cmdReadString = Encoding.UTF8.GetString(_cmdReadBuffer, 0, _lastCount);
@@ -341,8 +350,8 @@ namespace Li.Access.Core.FaceDevice
                 }
             }
         }
-
-        private string doSendCmd(string cmd,string exstr=null,bool checkStart=true,int waittime=3000)
+        private bool _readNeedWait = false;
+        private string doSendCmd(string cmd, string exstr = null, bool checkStart = true, int waittime = 3000, bool readNeedWait=false)
         {
             try
             {
@@ -350,6 +359,7 @@ namespace Li.Access.Core.FaceDevice
                 {
                     byte[] buffer = new byte[2048];
                     _cmdReadReset.Reset();
+                    _readNeedWait = readNeedWait;
                     _cmdSW.Write(cmd + exstr);
                     if (_cmdReadReset.WaitOne(waittime))
                     {
@@ -496,7 +506,8 @@ namespace Li.Access.Core.FaceDevice
 
             DeleteFaces(ids,false);
             int time = 1000 * updates.Length;
-            string ret = doSendCmd("//@UP@//", checkStart: false, waittime: time);
+            bool need = updates.Length > 1;
+            string ret = doSendCmd("//@UP@//", checkStart: false, waittime: time, readNeedWait: need);
             if (ret==null)
             {
                 errorMsg = "上传，更新人脸失败或者上传太多超时！";
