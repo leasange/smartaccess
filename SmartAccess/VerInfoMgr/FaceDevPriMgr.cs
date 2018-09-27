@@ -334,10 +334,21 @@ namespace SmartAccess.VerInfoMgr
                         }
                         else if (rows != null)
                         {
-                            foreach (var item in rows)
-	                        {
-                                dgvStaffs.Rows.Remove(item);
-	                        }
+                            this.Invoke(new Action(() =>
+                             {
+                                 try
+                                 {
+                                     foreach (var item in rows)
+                                     {
+                                         dgvStaffs.Rows.Remove(item);
+                                     }
+                                 }
+                                 catch (Exception)
+                                 {
+                                      
+                                 }
+
+                             }));
                         }
                     }
                 }

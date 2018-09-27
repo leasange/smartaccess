@@ -1196,10 +1196,7 @@ namespace SmartAccess.Common.Datas
                                     Maticsoft.BLL.SMT_STAFF_INFO sbll=new Maticsoft.BLL.SMT_STAFF_INFO();
                                     foreach (var model in models)
                                     {
-                                        if (model.STAFF_INFO==null)
-                                        {
-                                            model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
-                                        }
+                                        model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
                                         if (model.STAFF_INFO==null)
                                         {
                                             tempMsgs += "不存在人员ID：" + model.STAFF_ID;
@@ -1358,10 +1355,7 @@ namespace SmartAccess.Common.Datas
                                     List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
                                     foreach (var model in models)
                                     {
-                                        if (model.STAFF_INFO == null)
-                                        {
-                                            model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
-                                        }
+                                        model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
                                         if (model.STAFF_INFO == null)
                                         {
                                             tempMsgs += "不存在人员ID：" + model.STAFF_ID;
