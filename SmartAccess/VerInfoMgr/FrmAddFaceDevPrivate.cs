@@ -18,6 +18,7 @@ namespace SmartAccess.VerInfoMgr
         private List<decimal> _selectDeviceIds = null;
         private List<decimal> _inprivateStaffIds = new List<decimal>();
         private List<Maticsoft.Model.SMT_STAFF_INFO> _inprivateStaffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
+        private DateTime? _selectMaxDate = null;
         public FrmAddFaceDevPrivate(List<Maticsoft.Model.SMT_FACERECG_DEVICE> devices)
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace SmartAccess.VerInfoMgr
             }
             _selectDevices = devices;
             dtpStart.Value = DateTime.Now.Date;
-            dtpEnd.Value = dtpStart.Value.AddYears(50);
+            dtpEnd.Value = dtpStart.Value.AddYears(10);
         }
 
         private void DoLoadReadPrivates()
@@ -73,10 +74,27 @@ namespace SmartAccess.VerInfoMgr
                                     row.CreateCells(dgvStaffs,
                                         item.STAFF_NO,
                                         item.REAL_NAME,
-                                        item.ORG_NAME + "[" + item.ORG_CODE + "]"
+                                        item.ORG_NAME + "[" + item.ORG_CODE + "]",
+                                        item.VALID_ENDTIME.ToString("yyyy-MM-dd")
                                         );
                                     row.Tag = item;
                                     dgvSelected.Rows.Add(row);
+                                    if (_selectMaxDate == null)
+                                    {
+                                        _selectMaxDate = item.VALID_ENDTIME;
+                                    }
+                                    else
+                                    {
+                                        if (item.VALID_ENDTIME > _selectMaxDate)
+                                        {
+                                            _selectMaxDate = item.VALID_ENDTIME;
+                                        }
+                                    }
+                                   
+                                }
+                                if (_selectMaxDate != null)
+                                {
+                                    dtpEnd.Value = (DateTime)_selectMaxDate;
                                 }
                             	
                             }));
@@ -173,7 +191,8 @@ namespace SmartAccess.VerInfoMgr
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
-                    item.ORG_NAME+"["+item.ORG_CODE+"]"
+                    item.ORG_NAME+"["+item.ORG_CODE+"]",
+                    item.VALID_ENDTIME.ToString("yyyy-MM-dd")
                     );
                 row.Tag = item;
                 dgvStaffs.Rows.Add(row);
@@ -227,7 +246,23 @@ namespace SmartAccess.VerInfoMgr
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
             foreach (DataGridViewRow item in dgvStaffs.Rows)
             {
+                Maticsoft.Model.SMT_STAFF_INFO info = (Maticsoft.Model.SMT_STAFF_INFO)item.Tag;
+                if (_selectMaxDate == null)
+                {
+                    _selectMaxDate = info.VALID_ENDTIME;
+                }
+                else
+                {
+                    if (_selectMaxDate < info.VALID_ENDTIME)
+                    {
+                        _selectMaxDate = info.VALID_ENDTIME;
+                    }
+                }
                 dgvrs.Add(item);
+            }
+            if (_selectMaxDate != null)
+            {
+                dtpEnd.Value = (DateTime)_selectMaxDate;
             }
             dgvStaffs.Rows.Clear();
             if (dgvrs.Count == 0)
@@ -246,7 +281,23 @@ namespace SmartAccess.VerInfoMgr
             List<DataGridViewRow> dgvrs = new List<DataGridViewRow>();
             foreach (DataGridViewRow item in dgvStaffs.SelectedRows)
             {
+                Maticsoft.Model.SMT_STAFF_INFO info = (Maticsoft.Model.SMT_STAFF_INFO)item.Tag;
+                if (_selectMaxDate==null)
+                {
+                    _selectMaxDate = info.VALID_ENDTIME;
+                }
+                else
+                {
+                    if (_selectMaxDate<info.VALID_ENDTIME)
+                    {
+                        _selectMaxDate = info.VALID_ENDTIME;
+                    }
+                }
                 dgvrs.Add(item);
+            }
+            if (_selectMaxDate!=null)
+            {
+                dtpEnd.Value = (DateTime)_selectMaxDate;
             }
             foreach (var item in dgvrs)
             {
@@ -288,7 +339,7 @@ namespace SmartAccess.VerInfoMgr
             dgvStaffs.Rows.AddRange(dgvrs.ToArray());
         }
 
-        private void DoSave(bool isupload = false)
+        private void DoSave(bool isupload = false,bool isAllUpload=false)
         {
             if (dgvSelected.Rows.Count == 0)
             {
@@ -298,6 +349,7 @@ namespace SmartAccess.VerInfoMgr
                     return;
                 }
             }
+            var hasPrivates = _inprivateStaffInfos.ToList();
             List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = new List<Maticsoft.Model.SMT_STAFF_INFO>();
             foreach (DataGridViewRow item in dgvSelected.Rows)
             {
@@ -308,6 +360,7 @@ namespace SmartAccess.VerInfoMgr
                 Maticsoft.BLL.SMT_STAFF_FACEDEV sfbll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                 List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
                 List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+                List<Maticsoft.Model.SMT_STAFF_FACEDEV> deletemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
                 try
                 {
                     foreach (var staff in staffInfos)
@@ -319,19 +372,21 @@ namespace SmartAccess.VerInfoMgr
                            {
                                model = new Maticsoft.Model.SMT_STAFF_FACEDEV();
                                model.ADD_TIME = DateTime.Now;
-                               model.END_VALID_TIME = dtpEnd.Value;
+                               model.END_VALID_TIME = dtpEnd.Value.Date.AddDays(1);
                                model.FACEDEV_ID = dev.ID;
                                model.IS_UPLOAD = false;
                                model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
                                model.STAFF_ID = staff.ID;
-                               model.START_VALID_TIME = dtpStart.Value;
+                               model.START_VALID_TIME = dtpStart.Value.Date;
                                model.UPLOAD_TIME = DateTime.Now;
                                sfbll.Add(model);
                            }
                            else
                            {
-                               model.START_VALID_TIME = dtpStart.Value;
-                               model.END_VALID_TIME = dtpEnd.Value;
+                               hasPrivates.RemoveAll(m => m.ID == model.STAFF_ID);
+                               
+                               model.START_VALID_TIME = dtpStart.Value.Date;
+                               model.END_VALID_TIME = dtpEnd.Value.Date.AddDays(1);
                                if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
                                {
                                    model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
@@ -340,7 +395,7 @@ namespace SmartAccess.VerInfoMgr
                            }
                            model.STAFF_INFO = staff;
                            model.FACERECG_DEVICE = dev;
-                           if (model.IS_UPLOAD)
+                           if (model.IS_UPLOAD && isAllUpload)
                            {
                                updatemodels.Add(model);
                            }
@@ -350,12 +405,35 @@ namespace SmartAccess.VerInfoMgr
                            }
                         }
                     }
+                    foreach (var item in hasPrivates)
+                    {
+                        foreach (var dev in _selectDevices)
+                        {
+                            var model = sfbll.GetModel(item.ID, dev.ID);
+                            if (model!=null)
+                            {
+                                deletemodels.Add(model);
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
                     WinInfoHelper.ShowInfoWindow(this, "保存异常：" + ex.Message);
                     log.Error("保存异常：", ex);
                     return;
+                }
+                if (deletemodels.Count>0)
+                { 
+                    string errMsg = "";
+                    var delre = UploadPrivate.DeleteFace(deletemodels, out errMsg);
+                    if (delre!=null&&delre.Count>0)
+                    {
+                        foreach (var item in delre)
+                        {
+                            sfbll.Delete(item.STAFF_ID,item.FACEDEV_ID);
+                        }
+                    }
                 }
                 if (isupload)
                 {
@@ -389,6 +467,11 @@ namespace SmartAccess.VerInfoMgr
         private void btnOkUpload_Click(object sender, EventArgs e)
         {
             DoSave(true);
+        }
+
+        private void btnAllUpload_Click(object sender, EventArgs e)
+        {
+            DoSave(true,true);
         }
 
     }

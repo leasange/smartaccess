@@ -1474,6 +1474,10 @@ namespace SmartAccess.Common.Datas
                             if (models[0].FACERECG_DEVICE == null)
                             {
                                 tempMsgs += "不存在人脸设备，设备可能已经删除！";
+                                lock (sfds)
+                                {
+                                    sfds.AddRange(models);
+                                }
                                 return;
                             }
 
