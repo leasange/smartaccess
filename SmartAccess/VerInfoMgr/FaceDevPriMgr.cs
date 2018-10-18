@@ -184,21 +184,33 @@ namespace SmartAccess.VerInfoMgr
                 foreach (var item in models)
                 {
                     DataGridViewRow row = new DataGridViewRow();
-                    string strphone="无";
-                    if ( item.PHOTO==null|| item.PHOTO.Length==0 )
-	                {
-		                strphone="无";
-	                }else{
-                        strphone="有";
+                    string state = "";
+                    if (item.IS_FORBIDDEN)
+                    {
+                        state = "已禁用";
+                    }
+                    else if (item.IS_UPLOAD)
+                    {
+                        state = "已上传";
+                    }
+                    else
+                    {
+                        if (item.PHOTO == null || item.PHOTO.Length == 0)
+                        {
+                            state = "未上传（无照片）";
+                        }
+                        else
+                        {
+                            state = "未上传";
+                        }
                     }
                     row.CreateCells(dgvStaffs,
                         item.FACEDEV_NAME,
                         item.STAFF_NO,
                         item.REAL_NAME,
                         item.ORG_NAME,
-                        item.IS_FORBIDDEN?"已禁用":"正常",
+                        state,
                         item.START_VALID_TIME.ToString("yyyy-MM-dd") + "-" + item.END_VALID_TIME.ToString("yyyy-MM-dd"),
-                        strphone,
                         "删除",
                         //"授权",
                         item.IS_UPLOAD ?"重上传":"上传");

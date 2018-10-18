@@ -507,6 +507,10 @@ namespace Li.Access.Core.FaceDevice
             DeleteFaces(ids,false);
             int time = 1000 * updates.Length;
             bool need = updates.Length > 1;
+            if (!need)
+            {
+                time = 3000;
+            }
             string ret = doSendCmd("//@UP@//", checkStart: false, waittime: time, readNeedWait: need);
             if (ret==null)
             {

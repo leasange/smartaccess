@@ -339,7 +339,7 @@ namespace SmartAccess.VerInfoMgr
             dgvStaffs.Rows.AddRange(dgvrs.ToArray());
         }
 
-        private void DoSave(bool isupload = false,bool isAllUpload=false)
+        private void DoSave(bool isupload = false)
         {
             if (dgvSelected.Rows.Count == 0)
             {
@@ -395,11 +395,7 @@ namespace SmartAccess.VerInfoMgr
                            }
                            model.STAFF_INFO = staff;
                            model.FACERECG_DEVICE = dev;
-                           if (model.IS_UPLOAD && isAllUpload)
-                           {
-                               updatemodels.Add(model);
-                           }
-                           else
+                           if (!model.IS_UPLOAD)
                            {
                                addmodels.Add(model);
                            }
@@ -467,11 +463,6 @@ namespace SmartAccess.VerInfoMgr
         private void btnOkUpload_Click(object sender, EventArgs e)
         {
             DoSave(true);
-        }
-
-        private void btnAllUpload_Click(object sender, EventArgs e)
-        {
-            DoSave(true,true);
         }
 
     }

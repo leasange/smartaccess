@@ -1190,27 +1190,32 @@ namespace SmartAccess.Common.Datas
                                         return;
                                     }
 
-                                    List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
+                                   // List<Maticsoft.Model.BST.staff_update> updates = new List<Maticsoft.Model.BST.staff_update>();
                                     List<string> deleteprivates = new List<string>();
                                     List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels=new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
                                     Maticsoft.BLL.SMT_STAFF_INFO sbll=new Maticsoft.BLL.SMT_STAFF_INFO();
+                                    FrmDetailInfo.AddOneMsg("开始循环添加权限数目：" + models.Count + "个，请等待...");
+                                    Maticsoft.BLL.SMT_STAFF_FACEDEV ssfBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                                     foreach (var model in models)
                                     {
                                         model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
                                         if (model.STAFF_INFO==null)
                                         {
                                             tempMsgs += "不存在人员ID：" + model.STAFF_ID;
+                                            FrmDetailInfo.AddOneMsg("警告：不存在人员 ID=" + model.STAFF_ID+" 无需上传.",isRed:true);
+                                            ssfBll.Delete(model.STAFF_ID, model.FACEDEV_ID);
                                             continue;
                                         }
                                         if (model.STAFF_INFO.IS_DELETE||model.STAFF_INFO.IS_FORBIDDEN)
                                         {
                                             deleteprivates.Add(model.STAFF_DEV_ID);
                                             delModels.Add(model);
+                                            FrmDetailInfo.AddOneMsg("警告：不存在人员或者被禁用 ID=" + model.STAFF_ID + " 权限将被删除.", isRed: true);
                                             continue;
                                         }
                                         if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
                                         {
-                                            FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,无需更新", isRed: true);
+                                            FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,删除权限", isRed: true);
                                             continue;
                                         }
                                         Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
@@ -1235,44 +1240,45 @@ namespace SmartAccess.Common.Datas
                                         DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
                                         if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
                                         {
-                                            dtEnd = model.END_VALID_TIME.Date.AddDays(1);
+                                            dtEnd = model.END_VALID_TIME.Date;
                                         }
                                         update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
-                                        updates.Add(update);
-                                    }
-                                    string tempMsg = "";
-                                    FrmDetailInfo.AddOneMsg("开始添加或更新人脸信息,数目"+updates.Count+"个，请等待...");
-                                    bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, updates.ToArray());
-                                  
-                                    if (!ret || !string.IsNullOrWhiteSpace(tempMsg))
-                                    {
-                                        tempMsgs += tempMsg + ";";
-                                        FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
-                                    }
-                                    if (!ret)
-                                    {
-                                        FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",添加发生错误", isRed: true);
-                                    }
-                                    else
-                                    {
-                                        int  failcount=0;
-                                        foreach (var ud in updates)
+                                        string tempMsg = "";
+                                        update.Update_Result = false;
+                                        bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, update);
+                                        if (ret||update.Update_Result)
                                         {
-                                            if (!ud.Update_Result)
-                                            {
-                                                failcount++;
-                                                FrmDetailInfo.AddOneMsg("“" + ud.name + "”权限上传：" + (ud.Update_Result ? "成功" : "失败"), isRed: !ud.Update_Result);
-                                            }
+                                            model.IS_UPLOAD = true;
+                                            ssfBll.Update(model);
                                         }
-                                        FrmDetailInfo.AddOneMsg("成功上传权限数目：" + (updates.Count - failcount));
+                                        else
+                                        {
+                                            if ( model.IS_UPLOAD)
+                                            {
+                                                model.IS_UPLOAD = false;
+                                                ssfBll.Update(model);
+                                            }
+
+                                            if (string.IsNullOrWhiteSpace(tempMsg))
+                                            {
+                                                tempMsg = model.STAFF_INFO.REAL_NAME+" 权限上传异常";
+                                            }
+                                            else
+                                            {
+                                                tempMsg = model.STAFF_INFO.REAL_NAME + " 权限上传异常：" + tempMsg;
+                                            }
+
+                                            FrmDetailInfo.AddOneMsg(tempMsg,isRed:true);
+                                        }
                                     }
+                                    
                                     if (deleteprivates.Count>0)
                                     {
                                         try
                                         {
                                             FrmDetailInfo.AddOneMsg("删除人脸信息,数目" + deleteprivates.Count + "个，请等待...");
-                                            ret = faceCtrler.DeleteFaces(deleteprivates,true);
+                                            bool ret = faceCtrler.DeleteFaces(deleteprivates,true);
                                             if (ret)
                                             {
                                                 Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();

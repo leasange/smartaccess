@@ -31,11 +31,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvSelected = new Li.Controls.DataGridViewEx();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOkUpload = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
@@ -53,12 +58,6 @@
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAllUpload = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelected)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
@@ -94,6 +93,34 @@
             this.dgvSelected.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSelected.Size = new System.Drawing.Size(330, 294);
             this.dgvSelected.TabIndex = 2;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "证件号";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 69;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "姓名";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 57;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "部门";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 57;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "截止有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 93;
             // 
             // groupBox2
             // 
@@ -155,13 +182,20 @@
             this.Column5.ReadOnly = true;
             this.Column5.Width = 57;
             // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "截止有效期";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 93;
+            // 
             // btnCancel
             // 
             this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(581, 461);
+            this.btnCancel.Location = new System.Drawing.Point(494, 461);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(121, 36);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -174,12 +208,12 @@
             this.btnOkUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOkUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnOkUpload.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOkUpload.Location = new System.Drawing.Point(322, 461);
+            this.btnOkUpload.Location = new System.Drawing.Point(366, 461);
             this.btnOkUpload.Name = "btnOkUpload";
             this.btnOkUpload.Size = new System.Drawing.Size(121, 36);
             this.btnOkUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOkUpload.TabIndex = 18;
-            this.btnOkUpload.Text = "确定并增量上传";
+            this.btnOkUpload.Text = "确定并上传";
             this.btnOkUpload.Click += new System.EventHandler(this.btnOkUpload_Click);
             // 
             // btnOk
@@ -187,7 +221,7 @@
             this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnOk.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOk.Location = new System.Drawing.Point(195, 461);
+            this.btnOk.Location = new System.Drawing.Point(239, 461);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(121, 36);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -200,9 +234,9 @@
             this.btnUnSelect.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnUnSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnUnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnUnSelect.Location = new System.Drawing.Point(371, 242);
+            this.btnUnSelect.Location = new System.Drawing.Point(371, 244);
             this.btnUnSelect.Name = "btnUnSelect";
-            this.btnUnSelect.Size = new System.Drawing.Size(111, 35);
+            this.btnUnSelect.Size = new System.Drawing.Size(111, 30);
             this.btnUnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnUnSelect.TabIndex = 13;
             this.btnUnSelect.Text = "<";
@@ -216,7 +250,7 @@
             this.btnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnSelect.Location = new System.Drawing.Point(371, 185);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(111, 35);
+            this.btnSelect.Size = new System.Drawing.Size(111, 30);
             this.btnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSelect.TabIndex = 14;
             this.btnSelect.Text = ">";
@@ -230,7 +264,7 @@
             this.btnAllUnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnAllUnSelect.Location = new System.Drawing.Point(371, 282);
             this.btnAllUnSelect.Name = "btnAllUnSelect";
-            this.btnAllUnSelect.Size = new System.Drawing.Size(111, 35);
+            this.btnAllUnSelect.Size = new System.Drawing.Size(111, 30);
             this.btnAllUnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAllUnSelect.TabIndex = 15;
             this.btnAllUnSelect.Text = "<<";
@@ -244,7 +278,7 @@
             this.btnAllSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnAllSelect.Location = new System.Drawing.Point(371, 147);
             this.btnAllSelect.Name = "btnAllSelect";
-            this.btnAllSelect.Size = new System.Drawing.Size(111, 35);
+            this.btnAllSelect.Size = new System.Drawing.Size(111, 30);
             this.btnAllSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAllSelect.TabIndex = 16;
             this.btnAllSelect.Text = ">>";
@@ -470,54 +504,6 @@
             this.labelX6.TabIndex = 28;
             this.labelX6.Text = "（注：有效时间在人员有效期内）";
             // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "截止有效期";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 93;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "证件号";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 69;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "姓名";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 57;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "部门";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 57;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "截止有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 93;
-            // 
-            // btnAllUpload
-            // 
-            this.btnAllUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnAllUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnAllUpload.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnAllUpload.Location = new System.Drawing.Point(449, 461);
-            this.btnAllUpload.Name = "btnAllUpload";
-            this.btnAllUpload.Size = new System.Drawing.Size(121, 36);
-            this.btnAllUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnAllUpload.TabIndex = 18;
-            this.btnAllUpload.Text = "确定并全量上传";
-            this.btnAllUpload.Click += new System.EventHandler(this.btnAllUpload_Click);
-            // 
             // FrmAddFaceDevPrivate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -532,7 +518,6 @@
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnAllUpload);
             this.Controls.Add(this.btnOkUpload);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnUnSelect);
@@ -590,7 +575,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private DevComponents.DotNetBar.ButtonX btnAllUpload;
 
     }
 }
