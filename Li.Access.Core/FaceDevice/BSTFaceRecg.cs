@@ -514,7 +514,7 @@ namespace Li.Access.Core.FaceDevice
             string ret = doSendCmd("//@UP@//", checkStart: false, waittime: time, readNeedWait: need);
             if (ret==null)
             {
-                errorMsg = "上传，更新人脸失败或者上传太多超时！";
+                errorMsg = "上传，更新人脸失败或者上传超时！";
                 return false;
             }
             string[] retts = ret.Split(new string[] { "<<@" },StringSplitOptions.RemoveEmptyEntries);

@@ -239,33 +239,36 @@ namespace SmartAccess.VerInfoMgr
             tbStaffNo.Text = "";
             tbDeptName.Text = "";
         }
-        private List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetSelectStaffs()
+        private List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetSelectStaffs(out List<DataGridViewRow> rows)
         {
+            rows = null;
             if (this.dgvStaffs.SelectedRows.Count==0)
             {
                 return null;
             }
             List<Maticsoft.Model.SMT_STAFF_FACEDEV> list = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            rows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in this.dgvStaffs.SelectedRows)
             {
                 Maticsoft.Model.SMT_STAFF_FACEDEV sfdModel = (Maticsoft.Model.SMT_STAFF_FACEDEV)row.Tag;
                 list.Add(sfdModel);
+                rows.Add(row);
             }
-
             return list;
         }
         private void biUploadSelect_Click(object sender, EventArgs e)
         {
-            var list = GetSelectStaffs();
+            List<DataGridViewRow> rows;
+            var list = GetSelectStaffs(out rows);
             if (list==null||list.Count==0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择至少选择一个授权人员！");
                 return;
             }
-            DoUpload(list);
+            DoUpload(list, rows.ToArray());
         }
 
-        private void DoUpload( List<Maticsoft.Model.SMT_STAFF_FACEDEV>  list)
+        private void DoUpload( List<Maticsoft.Model.SMT_STAFF_FACEDEV>  list,params DataGridViewRow[] rows)
         {
             /*List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
             List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
@@ -287,6 +290,38 @@ namespace SmartAccess.VerInfoMgr
                 if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                 {
                     WinInfoHelper.ShowInfoWindow(this, "权限上传存在异常：" + errMsg);
+                }
+                if (rows != null && rows.Length > 0)
+                {
+                    this.Invoke(new Action(() =>
+                        {
+                            foreach (var row in rows)
+                            {
+                                Maticsoft.Model.SMT_STAFF_FACEDEV item = (Maticsoft.Model.SMT_STAFF_FACEDEV)row.Tag;
+                                string state = "";
+                                if (item.IS_FORBIDDEN)
+                                {
+                                    state = "已禁用";
+                                }
+                                else if (item.IS_UPLOAD)
+                                {
+                                    state = "已上传";
+                                }
+                                else
+                                {
+                                    if (item.PHOTO == null || item.PHOTO.Length == 0)
+                                    {
+                                        state = "未上传（无照片）";
+                                    }
+                                    else
+                                    {
+                                        state = "未上传";
+                                    }
+                                }
+                                row.Cells[4].Value = state;
+                                row.Cells[7].Value = item.IS_UPLOAD ? "重上传" : "上传";
+                            }
+                        }));
                 }
             });
             waiting.Show(this);
@@ -312,7 +347,8 @@ namespace SmartAccess.VerInfoMgr
 
         private void biDeleteSelect_Click(object sender, EventArgs e)
         {
-            var list = GetSelectStaffs();
+            List<DataGridViewRow> rows;
+            var list = GetSelectStaffs(out rows);
             if (list == null || list.Count == 0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "至少选择一个待删除的授权！");
@@ -388,7 +424,7 @@ namespace SmartAccess.VerInfoMgr
                 //}
                 else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SC")
                 {
-                    DoUpload(list);
+                    DoUpload(list,row);
                 }
             }
         }

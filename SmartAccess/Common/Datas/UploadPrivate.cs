@@ -1447,7 +1447,7 @@ namespace SmartAccess.Common.Datas
                 }
                 errMsg += tempMsgs;
             }
-            FrmDetailInfo.AddOneMsg("设置结束！");
+            FrmDetailInfo.AddOneMsg("上传结束！");
             return true;
         }
         public static List<Maticsoft.Model.SMT_STAFF_FACEDEV> DeleteFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> deletemodels, out string errMsg)
