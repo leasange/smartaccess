@@ -232,10 +232,22 @@ namespace SmartAccess.ControlDevMgr
                         Maticsoft.BLL.SMT_FACERECG_DEVICE bllDev = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
                         if (devInfo.ID == -1)
                         {
+                            var models = bllDev.GetModelList("FACEDEV_IP='" + devInfo.FACEDEV_IP + "'");
+                            if (models.Count>0)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "已存在IP为：" + devInfo.FACEDEV_IP + "的设备！");
+                                return;
+                            }
                             devInfo.ID = bllDev.Add(devInfo);
                         }
                         else
                         {
+                            var models = bllDev.GetModelList("FACEDEV_IP='" + devInfo.FACEDEV_IP + "' and ID != " + devInfo.ID);
+                            if (models.Count > 0)
+                            {
+                                WinInfoHelper.ShowInfoWindow(this, "已存在IP为：" + devInfo.FACEDEV_IP + "的设备！");
+                                return;
+                            }
                             bllDev.Update(devInfo);
                         }
                         _dev = devInfo;

@@ -372,7 +372,7 @@ namespace SmartAccess.VerInfoMgr
                            {
                                model = new Maticsoft.Model.SMT_STAFF_FACEDEV();
                                model.ADD_TIME = DateTime.Now;
-                               model.END_VALID_TIME = dtpEnd.Value.Date.AddDays(1);
+                               model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
                                model.FACEDEV_ID = dev.ID;
                                model.IS_UPLOAD = false;
                                model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
@@ -386,7 +386,7 @@ namespace SmartAccess.VerInfoMgr
                                hasPrivates.RemoveAll(m => m.ID == model.STAFF_ID);
                                
                                model.START_VALID_TIME = dtpStart.Value.Date;
-                               model.END_VALID_TIME = dtpEnd.Value.Date.AddDays(1);
+                               model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
                                if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
                                {
                                    model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");

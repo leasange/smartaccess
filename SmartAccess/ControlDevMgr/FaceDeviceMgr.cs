@@ -13,6 +13,7 @@ using SmartAccess.Common.WinInfo;
 using Li.Controls.Excel;
 using SmartAccess.Common;
 using Li.Access.Core.FaceDevice;
+using System.Threading;
 
 namespace SmartAccess.ControlDevMgr
 {
@@ -362,8 +363,19 @@ namespace SmartAccess.ControlDevMgr
                         }));
                         if (dr==DialogResult.Yes)
                         {
-                            BSTFaceRecg c = FaceRecgHelper.ToFaceController(dev);
-                            c.ClearFaces();
+                            ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                                {
+                                    try
+                                    {
+                                        BSTFaceRecg c = FaceRecgHelper.ToFaceController(dev);
+                                        c.ClearFaces();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        WinInfoHelper.ShowInfoWindow(this, "权限清除异常,可能设备离线或者不存在：" + ex.Message);
+                                    }
+                                }));
+                            Thread.Sleep(1000);
                         }
                         Maticsoft.BLL.SMT_FACERECG_DEVICE ctrlBll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
                         ctrlBll.Delete(dev.ID);

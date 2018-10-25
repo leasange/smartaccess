@@ -119,7 +119,7 @@ namespace SmartAccess.VerInfoMgr
             DoSearch(null, null, null);
         }
 
-        private void DoSearch(string staffname,string staffno,string staffdept)
+        private void DoSearch(string staffname,string staffno,string staffdept,bool bunUpload=false)
         {
             string selectdeviceIds = null;
             if (_selectDevices!=null&&_selectDevices.Count>0)
@@ -146,6 +146,10 @@ namespace SmartAccess.VerInfoMgr
             if (!string.IsNullOrWhiteSpace(staffdept))
             {
                  strWhere += " and ORG_NAME like '%" + staffdept + "%'";
+            }
+            if (bunUpload)
+            {
+                strWhere += " and IS_UPLOAD !=1";
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
@@ -185,9 +189,11 @@ namespace SmartAccess.VerInfoMgr
                 {
                     DataGridViewRow row = new DataGridViewRow();
                     string state = "";
+                    Color color = row.DefaultCellStyle.BackColor;
                     if (item.IS_FORBIDDEN)
                     {
                         state = "已禁用";
+                        color = Color.LightGray;
                     }
                     else if (item.IS_UPLOAD)
                     {
@@ -198,10 +204,12 @@ namespace SmartAccess.VerInfoMgr
                         if (item.PHOTO == null || item.PHOTO.Length == 0)
                         {
                             state = "未上传（无照片）";
+                            color = Color.FromArgb(0xEE, 0x00, 0x00);
                         }
                         else
                         {
                             state = "未上传";
+                            color = Color.FromArgb(0xEE, 0x40, 0x00);
                         }
                     }
                     row.CreateCells(dgvStaffs,
@@ -215,6 +223,7 @@ namespace SmartAccess.VerInfoMgr
                         //"授权",
                         item.IS_UPLOAD ?"重上传":"上传");
                     row.Tag = item;
+                    row.DefaultCellStyle.ForeColor = color;
                     dgvStaffs.Rows.Add(row);
                 }
             }));
@@ -230,7 +239,7 @@ namespace SmartAccess.VerInfoMgr
 
         private void biDoSearch_Click(object sender, EventArgs e)
         {
-            DoSearch(tbName.Text, tbStaffNo.Text, tbDeptName.Text);
+            DoSearch(tbName.Text, tbStaffNo.Text, tbDeptName.Text,cbUnUpload.Checked);
         }
 
         private void biClear_Click(object sender, EventArgs e)
@@ -238,6 +247,7 @@ namespace SmartAccess.VerInfoMgr
             tbName.Text = "";
             tbStaffNo.Text = "";
             tbDeptName.Text = "";
+            cbUnUpload.Checked = false;
         }
         private List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetSelectStaffs(out List<DataGridViewRow> rows)
         {
@@ -265,40 +275,61 @@ namespace SmartAccess.VerInfoMgr
                 WinInfoHelper.ShowInfoWindow(this, "请选择至少选择一个授权人员！");
                 return;
             }
-            DoUpload(list,false, rows.ToArray());
+            DoUpload(list,false, false,rows.ToArray());
         }
 
-        private void DoUpload( List<Maticsoft.Model.SMT_STAFF_FACEDEV>  list,bool bforce,params DataGridViewRow[] rows)
+        private void DoUpload( List<Maticsoft.Model.SMT_STAFF_FACEDEV>  list,bool bforce,bool bcancel,params DataGridViewRow[] rows)
         {
             List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
             List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+            List<Maticsoft.Model.SMT_STAFF_FACEDEV> deletemodels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
             foreach (var item in list)
             {
-                if (item.IS_UPLOAD)
+                if (bcancel && item.IS_UPLOAD)
                 {
-                    updatemodels.Add(item);
+                    deletemodels.Add(item);
                 }
                 else
                 {
-                    addmodels.Add(item);
+                    if (item.IS_UPLOAD)
+                    {
+                        updatemodels.Add(item);
+                    }
+                    else
+                    {
+                        addmodels.Add(item);
+                    }
                 }
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 string errMsg = "";
                 bool ret = false;
-                if (bforce)
+                List<Maticsoft.Model.SMT_STAFF_FACEDEV> dels = null;
+                if (bcancel&&deletemodels.Count>0)
                 {
-                    ret = UploadPrivate.UploadFace(list, null, out  errMsg);
+                   dels = UploadPrivate.DeleteFace(deletemodels, out errMsg);
+                   if (!string.IsNullOrWhiteSpace(errMsg))
+                   {
+                       WinInfoHelper.ShowInfoWindow(this, "权限删除存在异常：" + errMsg);
+                   }
                 }
                 else
                 {
-                    ret = UploadPrivate.UploadFace(addmodels, updatemodels, out  errMsg);
+                    if (bforce)
+                    {
+                        ret = UploadPrivate.UploadFace(list, null, out  errMsg);
+                    }
+                    else
+                    {
+                        ret = UploadPrivate.UploadFace(addmodels, updatemodels, out  errMsg);
+                    }
+                    if (!ret || !string.IsNullOrWhiteSpace(errMsg))
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "权限上传存在异常：" + errMsg);
+                    }
                 }
-                if (!ret || !string.IsNullOrWhiteSpace(errMsg))
-                {
-                    WinInfoHelper.ShowInfoWindow(this, "权限上传存在异常：" + errMsg);
-                }
+                
                 if (rows != null && rows.Length > 0)
                 {
                     this.Invoke(new Action(() =>
@@ -347,7 +378,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                     var models = bll.GetModelListEx("", 1, -1);
-                    DoUpload(models,false);
+                    DoUpload(models,false,false);
                 }
                 catch (System.Exception ex)
                 {
@@ -436,7 +467,7 @@ namespace SmartAccess.VerInfoMgr
                 //}
                 else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SC")
                 {
-                    DoUpload(list,true,row);
+                    DoUpload(list,true,false,row);
                 }
             }
         }
@@ -457,7 +488,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                     var models = bll.GetModelListEx("", 1, -1);
-                    DoUpload(models,true);
+                    DoUpload(models,true,false);
                 }
                 catch (System.Exception ex)
                 {
@@ -465,6 +496,18 @@ namespace SmartAccess.VerInfoMgr
                 }
             });
             waiting.Show(this);
+        }
+
+        private void biCancelUpload_Click(object sender, EventArgs e)
+        {
+            List<DataGridViewRow> rows;
+            var list = GetSelectStaffs(out rows);
+            if (list == null || list.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择至少选择一个授权人员！");
+                return;
+            }
+            DoUpload(list, false,true, rows.ToArray());
         }
     }
 }

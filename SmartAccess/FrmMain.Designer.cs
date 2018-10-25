@@ -144,7 +144,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.superTabControl);
             this.splitContainer.Size = new System.Drawing.Size(1014, 653);
-            this.splitContainer.SplitterDistance = 246;
+            this.splitContainer.SplitterDistance = 225;
             this.splitContainer.TabIndex = 4;
             // 
             // smtNavigate
@@ -152,7 +152,7 @@
             this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.smtNavigate.Location = new System.Drawing.Point(0, 26);
             this.smtNavigate.Name = "smtNavigate";
-            this.smtNavigate.Size = new System.Drawing.Size(246, 627);
+            this.smtNavigate.Size = new System.Drawing.Size(225, 627);
             this.smtNavigate.TabIndex = 2;
             // 
             // bar1
@@ -166,7 +166,7 @@
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
             this.bar1.RoundCorners = false;
-            this.bar1.Size = new System.Drawing.Size(246, 26);
+            this.bar1.Size = new System.Drawing.Size(225, 26);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 1;
@@ -225,7 +225,7 @@
             this.superTabControl.ReorderTabsEnabled = true;
             this.superTabControl.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.superTabControl.SelectedTabIndex = 0;
-            this.superTabControl.Size = new System.Drawing.Size(764, 653);
+            this.superTabControl.Size = new System.Drawing.Size(785, 653);
             this.superTabControl.TabIndex = 0;
             this.superTabControl.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabItem1});
@@ -237,7 +237,7 @@
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 39);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(764, 614);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(785, 614);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.superTabItem1;
             // 
@@ -249,7 +249,7 @@
             this.panelWelCome.Font = new System.Drawing.Font("微软雅黑", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panelWelCome.Location = new System.Drawing.Point(0, 0);
             this.panelWelCome.Name = "panelWelCome";
-            this.panelWelCome.Size = new System.Drawing.Size(764, 614);
+            this.panelWelCome.Size = new System.Drawing.Size(785, 614);
             this.panelWelCome.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelWelCome.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelWelCome.Style.BackgroundImage = global::SmartAccess.Properties.Resources.welcomeback;

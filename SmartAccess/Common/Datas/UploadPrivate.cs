@@ -1215,7 +1215,7 @@ namespace SmartAccess.Common.Datas
                                         }
                                         if (model.STAFF_INFO.PHOTO == null || model.STAFF_INFO.PHOTO.Length == 0)
                                         {
-                                            FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像,删除权限", isRed: true);
+                                            FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像", isRed: true);
                                             continue;
                                         }
                                         Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
@@ -1237,10 +1237,10 @@ namespace SmartAccess.Common.Datas
                                         {
                                             dtStart = model.START_VALID_TIME.Date;
                                         }
-                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
-                                        if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date+new TimeSpan(23,59,59);
+                                        if (model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59) < model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59))
                                         {
-                                            dtEnd = model.END_VALID_TIME.Date;
+                                            dtEnd = model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59);
                                         }
                                         update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1258,6 +1258,7 @@ namespace SmartAccess.Common.Datas
                                             {
                                                 model.IS_UPLOAD = false;
                                                 ssfBll.Update(model);
+                                                FrmDetailInfo.AddOneMsg("成功上传："+model.STAFF_INFO.REAL_NAME+" 权限.");
                                             }
 
                                             if (string.IsNullOrWhiteSpace(tempMsg))
@@ -1284,7 +1285,19 @@ namespace SmartAccess.Common.Datas
                                                 Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                                                 foreach (var dm in delModels)
                                                 {
-                                                    bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
+                                                    if (!dm.STAFF_INFO.IS_FORBIDDEN)
+                                                    {
+                                                        bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (dm.IS_UPLOAD)
+                                                        {
+                                                            dm.IS_UPLOAD = false;
+                                                            bll.Update(dm);
+                                                        }
+                                                    }
+                                                  
                                                 }
                                             }
                                         }
@@ -1482,6 +1495,15 @@ namespace SmartAccess.Common.Datas
                                 tempMsgs += "不存在人脸设备，设备可能已经删除！";
                                 lock (sfds)
                                 {
+                                    Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                    foreach (var sfd in models)
+                                    {
+                                        if (sfd.IS_UPLOAD)
+                                        {
+                                            sfd.IS_UPLOAD = false;
+                                            bll.Update(sfd);
+                                        }
+                                    }
                                     sfds.AddRange(models);
                                 }
                                 return;
@@ -1502,6 +1524,15 @@ namespace SmartAccess.Common.Datas
                                     {
                                         lock (sfds)
                                         {
+                                            Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                            foreach (var sfd in models)
+                                            {
+                                                if (sfd.IS_UPLOAD)
+                                                {
+                                                    sfd.IS_UPLOAD = false;
+                                                    bll.Update(sfd);
+                                                }
+                                            }
                                             sfds.AddRange(models);
                                         }
                                     }
@@ -1529,6 +1560,15 @@ namespace SmartAccess.Common.Datas
                                     FrmDetailInfo.AddOneMsg("设备：" + models[0].FACERECG_DEVICE.FACEDEV_NAME + ",删除权限成功!");
                                     lock (sfds)
                                     {
+                                        Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                        foreach (var sfd in models)
+                                        {
+                                            if (sfd.IS_UPLOAD)
+                                            {
+                                                sfd.IS_UPLOAD = false;
+                                                bll.Update(sfd);
+                                            }
+                                        }
                                         sfds.AddRange(models);
                                     }
                                 }
@@ -1550,6 +1590,7 @@ namespace SmartAccess.Common.Datas
                 }
                 errMsg += tempMsgs;
             }
+            FrmDetailInfo.AddOneMsg("删除结束！");
             return sfds;
         }
     }

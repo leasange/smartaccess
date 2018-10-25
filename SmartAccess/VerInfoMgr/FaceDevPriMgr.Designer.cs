@@ -42,19 +42,12 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             this.bar2 = new DevComponents.DotNetBar.Bar();
             this.biAddPrivate = new DevComponents.DotNetBar.ButtonItem();
             this.biDeleteSelect = new DevComponents.DotNetBar.ButtonItem();
             this.biUploadSelect = new DevComponents.DotNetBar.ButtonItem();
             this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
+            this.biForceUpload = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.tbName = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
@@ -68,7 +61,16 @@
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.tbJob = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem6 = new DevComponents.DotNetBar.LabelItem();
-            this.biForceUpload = new DevComponents.DotNetBar.ButtonItem();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
+            this.biCancelUpload = new DevComponents.DotNetBar.ButtonItem();
+            this.cbUnUpload = new DevComponents.DotNetBar.CheckBoxItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,7 +100,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.pageDataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.bar2);
             this.splitContainer1.Size = new System.Drawing.Size(1206, 385);
-            this.splitContainer1.SplitterDistance = 231;
+            this.splitContainer1.SplitterDistance = 178;
             this.splitContainer1.TabIndex = 0;
             // 
             // advTree
@@ -123,7 +125,7 @@
             this.advTree.NodeStyle = this.elementStyle1;
             this.advTree.PathSeparator = ";";
             this.advTree.SelectionPerCell = true;
-            this.advTree.Size = new System.Drawing.Size(231, 360);
+            this.advTree.Size = new System.Drawing.Size(178, 360);
             this.advTree.Styles.Add(this.elementStyle1);
             this.advTree.TabIndex = 5;
             this.advTree.Text = "advTreeEx1";
@@ -164,7 +166,7 @@
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEx1.Location = new System.Drawing.Point(0, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(231, 25);
+            this.panelEx1.Size = new System.Drawing.Size(178, 25);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -187,7 +189,7 @@
             this.tbFilter.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbFilter.Location = new System.Drawing.Point(44, 1);
             this.tbFilter.Name = "tbFilter";
-            this.tbFilter.Size = new System.Drawing.Size(184, 23);
+            this.tbFilter.Size = new System.Drawing.Size(131, 23);
             this.tbFilter.TabIndex = 2;
             this.tbFilter.WatermarkText = "输入关键字或拼音首字符";
             this.tbFilter.TextChanged += new System.EventHandler(this.tbFilter_TextChanged);
@@ -216,7 +218,7 @@
             this.pageDataGridView.DataGridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pageDataGridView.DataGridPanel.Location = new System.Drawing.Point(0, 0);
             this.pageDataGridView.DataGridPanel.Name = "DataGridPanel";
-            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(971, 324);
+            this.pageDataGridView.DataGridPanel.Size = new System.Drawing.Size(1024, 324);
             this.pageDataGridView.DataGridPanel.TabIndex = 1;
             this.pageDataGridView.DataGridView = this.dgvStaffs;
             this.pageDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -231,11 +233,11 @@
             this.pageDataGridView.PageControl.Location = new System.Drawing.Point(0, 324);
             this.pageDataGridView.PageControl.Name = "PageControl";
             this.pageDataGridView.PageControl.RecordsPerPage = 100;
-            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(971, 32);
+            this.pageDataGridView.PageControl.Size = new System.Drawing.Size(1024, 32);
             this.pageDataGridView.PageControl.TabIndex = 0;
             this.pageDataGridView.PageControl.TotalRecords = 0;
             this.pageDataGridView.PageControl.PageChanged += new Li.Controls.PageCtrl.PageEventHandle(this.pageDataGridView_PageControl_PageChanged);
-            this.pageDataGridView.Size = new System.Drawing.Size(971, 356);
+            this.pageDataGridView.Size = new System.Drawing.Size(1024, 356);
             this.pageDataGridView.SqlWhere = null;
             this.pageDataGridView.TabIndex = 4;
             // 
@@ -284,68 +286,9 @@
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvStaffs.RowTemplate.Height = 23;
-            this.dgvStaffs.Size = new System.Drawing.Size(971, 324);
+            this.dgvStaffs.Size = new System.Drawing.Size(1024, 324);
             this.dgvStaffs.TabIndex = 3;
             this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "人脸设备";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 47.90625F;
-            this.Column1.HeaderText = "证件编号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 47.90625F;
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.FillWeight = 47.90625F;
-            this.Column3.HeaderText = "部门";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.FillWeight = 47.90625F;
-            this.Column6.HeaderText = "状态";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column8
-            // 
-            this.Column8.FillWeight = 47.90625F;
-            this.Column8.HeaderText = "有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Col_DELETE
-            // 
-            this.Col_DELETE.FillWeight = 24.42989F;
-            this.Col_DELETE.HeaderText = "删除";
-            this.Col_DELETE.Name = "Col_DELETE";
-            this.Col_DELETE.ReadOnly = true;
-            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Col_SC
-            // 
-            this.Col_SC.FillWeight = 24.42989F;
-            this.Col_SC.HeaderText = "上传";
-            this.Col_SC.Name = "Col_SC";
-            this.Col_SC.ReadOnly = true;
-            this.Col_SC.SplitLinkSymbol = ",";
             // 
             // bar2
             // 
@@ -358,17 +301,19 @@
             this.biUploadSelect,
             this.biOneKeyUpload,
             this.biForceUpload,
+            this.biCancelUpload,
             this.labelItem1,
             this.tbName,
             this.labelItem2,
             this.tbDeptName,
             this.labelItem5,
             this.tbStaffNo,
+            this.cbUnUpload,
             this.biDoSearch,
             this.biClear});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.Name = "bar2";
-            this.bar2.Size = new System.Drawing.Size(971, 29);
+            this.bar2.Size = new System.Drawing.Size(1024, 29);
             this.bar2.Stretch = true;
             this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar2.TabIndex = 2;
@@ -388,7 +333,7 @@
             this.biDeleteSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biDeleteSelect.Image = global::SmartAccess.Properties.Resources.删除;
             this.biDeleteSelect.Name = "biDeleteSelect";
-            this.biDeleteSelect.Text = "删除选择权限";
+            this.biDeleteSelect.Text = "删除选择";
             this.biDeleteSelect.Click += new System.EventHandler(this.biDeleteSelect_Click);
             // 
             // biUploadSelect
@@ -396,7 +341,7 @@
             this.biUploadSelect.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biUploadSelect.Image = global::SmartAccess.Properties.Resources.一键上传;
             this.biUploadSelect.Name = "biUploadSelect";
-            this.biUploadSelect.Text = "上传选择权限";
+            this.biUploadSelect.Text = "上传选择";
             this.biUploadSelect.Click += new System.EventHandler(this.biUploadSelect_Click);
             // 
             // biOneKeyUpload
@@ -404,8 +349,16 @@
             this.biOneKeyUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
             this.biOneKeyUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
             this.biOneKeyUpload.Name = "biOneKeyUpload";
-            this.biOneKeyUpload.Text = "上传所有权限";
+            this.biOneKeyUpload.Text = "上传所有";
             this.biOneKeyUpload.Click += new System.EventHandler(this.biOneKeyUpload_Click);
+            // 
+            // biForceUpload
+            // 
+            this.biForceUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biForceUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
+            this.biForceUpload.Name = "biForceUpload";
+            this.biForceUpload.Text = "重上传所有";
+            this.biForceUpload.Click += new System.EventHandler(this.biForceUpload_Click);
             // 
             // labelItem1
             // 
@@ -416,6 +369,7 @@
             // tbName
             // 
             this.tbName.Name = "tbName";
+            this.tbName.TextBoxWidth = 50;
             this.tbName.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
@@ -428,6 +382,7 @@
             // tbDeptName
             // 
             this.tbDeptName.Name = "tbDeptName";
+            this.tbDeptName.TextBoxWidth = 55;
             this.tbDeptName.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbDeptName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
@@ -440,6 +395,7 @@
             // tbStaffNo
             // 
             this.tbStaffNo.Name = "tbStaffNo";
+            this.tbStaffNo.TextBoxWidth = 40;
             this.tbStaffNo.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbStaffNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
@@ -532,13 +488,78 @@
             this.labelItem6.Name = "labelItem6";
             this.labelItem6.Text = "职务";
             // 
-            // biForceUpload
+            // Column4
             // 
-            this.biForceUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biForceUpload.Image = global::SmartAccess.Properties.Resources.一键上传;
-            this.biForceUpload.Name = "biForceUpload";
-            this.biForceUpload.Text = "全量上传所有权限";
-            this.biForceUpload.Click += new System.EventHandler(this.biForceUpload_Click);
+            this.Column4.FillWeight = 10F;
+            this.Column4.HeaderText = "人脸设备";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.FillWeight = 7F;
+            this.Column1.HeaderText = "证件编号";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.FillWeight = 8F;
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.FillWeight = 8F;
+            this.Column3.HeaderText = "部门";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.FillWeight = 8F;
+            this.Column6.HeaderText = "状态";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Column8
+            // 
+            this.Column8.FillWeight = 15F;
+            this.Column8.HeaderText = "有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Col_DELETE
+            // 
+            this.Col_DELETE.FillWeight = 5.84535F;
+            this.Col_DELETE.HeaderText = "删除";
+            this.Col_DELETE.Name = "Col_DELETE";
+            this.Col_DELETE.ReadOnly = true;
+            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Col_SC
+            // 
+            this.Col_SC.FillWeight = 5.84535F;
+            this.Col_SC.HeaderText = "上传";
+            this.Col_SC.Name = "Col_SC";
+            this.Col_SC.ReadOnly = true;
+            this.Col_SC.SplitLinkSymbol = ",";
+            // 
+            // biCancelUpload
+            // 
+            this.biCancelUpload.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCancelUpload.Image = global::SmartAccess.Properties.Resources.销卡;
+            this.biCancelUpload.Name = "biCancelUpload";
+            this.biCancelUpload.Text = "取消上传";
+            this.biCancelUpload.Click += new System.EventHandler(this.biCancelUpload_Click);
+            // 
+            // cbUnUpload
+            // 
+            this.cbUnUpload.Name = "cbUnUpload";
+            this.cbUnUpload.Text = "未上传";
             // 
             // FaceDevPriMgr
             // 
@@ -594,6 +615,7 @@
         private DevComponents.DotNetBar.ButtonItem biAddPrivate;
         private Li.Controls.PageDataGridView pageDataGridView;
         private DevComponents.DotNetBar.ButtonItem biDeleteSelect;
+        private DevComponents.DotNetBar.ButtonItem biForceUpload;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -602,6 +624,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewLinkColumn Col_DELETE;
         private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
-        private DevComponents.DotNetBar.ButtonItem biForceUpload;
+        private DevComponents.DotNetBar.ButtonItem biCancelUpload;
+        private DevComponents.DotNetBar.CheckBoxItem cbUnUpload;
     }
 }

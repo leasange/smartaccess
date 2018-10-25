@@ -265,6 +265,11 @@ namespace SmartAccess.RealDetectMgr
                     picBox.Image.Dispose();
                     picBox.Image = null;
                 }
+                if (picBox2.Image != null)
+                {
+                    picBox2.Image.Dispose();
+                    picBox2.Image = null;
+                }
                 Maticsoft.Model.SMT_STAFF_INFO sinfo = infos[0] as Maticsoft.Model.SMT_STAFF_INFO;
                 ControllerState state = infos[1] as ControllerState;
                 if (sinfo.PHOTO != null && sinfo.PHOTO.Length > 0)
@@ -323,17 +328,31 @@ namespace SmartAccess.RealDetectMgr
                     picBox.Image.Dispose();
                     picBox.Image = null;
                 }
+                if (picBox2.Image != null)
+                {
+                    picBox2.Image.Dispose();
+                    picBox2.Image = null;
+                }
+                if (slog.imagesql!=null&&slog.imagesql.Length>0)
+                {
+                    MemoryStream ms = new MemoryStream(slog.imagesql);
+                    Image bitmap = Image.FromStream(ms);
+                    picBox.Image = bitmap;
+                }
                 if (slog.imagevideo != null && slog.imagevideo.Length > 0)
                 {
                     MemoryStream ms = new MemoryStream(slog.imagevideo);
                     Image bitmap = Image.FromStream(ms);
-                    picBox.Image = bitmap;
+                    picBox2.Image = bitmap;
                 }
                 lbStaffName.Text = slog.name+"("+slog.data_keepon1+")";
                 lbDeptName.Text = slog.data_keepon2;
                 lbTime.Text = time.ToString();
                 lbDoorName.Text = dev.FACEDEV_NAME + "(人脸)";
                 lbAction.Text = "人脸识别通过";
+                double res = 0.0;
+                double.TryParse(slog.info, out res);
+                lbLevel.Text = (res * 100).ToString(".00")+"%";
             }
             catch (Exception ex)
             {

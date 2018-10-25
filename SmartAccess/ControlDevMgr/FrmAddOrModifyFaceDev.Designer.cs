@@ -87,6 +87,11 @@
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnOkAndUpload = new DevComponents.DotNetBar.ButtonX();
+            this.labelX23 = new DevComponents.DotNetBar.LabelX();
+            this.labelX24 = new DevComponents.DotNetBar.LabelX();
+            this.labelX25 = new DevComponents.DotNetBar.LabelX();
+            this.labelX26 = new DevComponents.DotNetBar.LabelX();
+            this.labelX27 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabControlPanel1.SuspendLayout();
@@ -108,8 +113,8 @@
             // 
             this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(217)))), ((int)(((byte)(247)))));
             this.tabControl1.CanReorderTabs = true;
-            this.tabControl1.Controls.Add(this.tabControlPanel1);
             this.tabControl1.Controls.Add(this.tabControlPanel2);
+            this.tabControl1.Controls.Add(this.tabControlPanel1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -482,6 +487,10 @@
             // 
             // tabControlPanel2
             // 
+            this.tabControlPanel2.Controls.Add(this.labelX27);
+            this.tabControlPanel2.Controls.Add(this.labelX25);
+            this.tabControlPanel2.Controls.Add(this.labelX26);
+            this.tabControlPanel2.Controls.Add(this.labelX24);
             this.tabControlPanel2.Controls.Add(this.btnReadVideoConfig);
             this.tabControlPanel2.Controls.Add(this.tbDevTitle2);
             this.tabControlPanel2.Controls.Add(this.labelX22);
@@ -499,6 +508,7 @@
             this.tabControlPanel2.Controls.Add(this.labelX17);
             this.tabControlPanel2.Controls.Add(this.labelX16);
             this.tabControlPanel2.Controls.Add(this.diFaceLevel);
+            this.tabControlPanel2.Controls.Add(this.labelX23);
             this.tabControlPanel2.Controls.Add(this.labelX15);
             this.tabControlPanel2.Controls.Add(this.tbRtsp3);
             this.tabControlPanel2.Controls.Add(this.labelX14);
@@ -697,7 +707,7 @@
             this.diRIO_Y.BackgroundStyle.Class = "DateTimeInputBackground";
             this.diRIO_Y.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.diRIO_Y.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.diRIO_Y.Increment = 0.1D;
+            this.diRIO_Y.Increment = 0.01D;
             this.diRIO_Y.Location = new System.Drawing.Point(157, 186);
             this.diRIO_Y.MaxValue = 1D;
             this.diRIO_Y.MinValue = 0D;
@@ -715,8 +725,8 @@
             this.diRIO_H.BackgroundStyle.Class = "DateTimeInputBackground";
             this.diRIO_H.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.diRIO_H.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.diRIO_H.Increment = 0.1D;
-            this.diRIO_H.Location = new System.Drawing.Point(349, 186);
+            this.diRIO_H.Increment = 0.01D;
+            this.diRIO_H.Location = new System.Drawing.Point(407, 186);
             this.diRIO_H.MaxValue = 1D;
             this.diRIO_H.MinValue = 0D;
             this.diRIO_H.Name = "diRIO_H";
@@ -734,8 +744,8 @@
             this.diRIO_W.BackgroundStyle.Class = "DateTimeInputBackground";
             this.diRIO_W.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.diRIO_W.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.diRIO_W.Increment = 0.1D;
-            this.diRIO_W.Location = new System.Drawing.Point(349, 159);
+            this.diRIO_W.Increment = 0.01D;
+            this.diRIO_W.Location = new System.Drawing.Point(407, 159);
             this.diRIO_W.MaxValue = 1D;
             this.diRIO_W.MinValue = 0D;
             this.diRIO_W.Name = "diRIO_W";
@@ -753,7 +763,7 @@
             this.diRIO_X.BackgroundStyle.Class = "DateTimeInputBackground";
             this.diRIO_X.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.diRIO_X.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.diRIO_X.Increment = 0.1D;
+            this.diRIO_X.Increment = 0.01D;
             this.diRIO_X.Location = new System.Drawing.Point(157, 159);
             this.diRIO_X.MaxValue = 1D;
             this.diRIO_X.MinValue = 0D;
@@ -769,7 +779,7 @@
             // 
             // 
             this.labelX19.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX19.Location = new System.Drawing.Point(263, 186);
+            this.labelX19.Location = new System.Drawing.Point(321, 186);
             this.labelX19.Name = "labelX19";
             this.labelX19.Size = new System.Drawing.Size(80, 23);
             this.labelX19.TabIndex = 8;
@@ -797,7 +807,7 @@
             // 
             // 
             this.labelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX17.Location = new System.Drawing.Point(263, 159);
+            this.labelX17.Location = new System.Drawing.Point(321, 159);
             this.labelX17.Name = "labelX17";
             this.labelX17.Size = new System.Drawing.Size(80, 23);
             this.labelX17.TabIndex = 8;
@@ -827,7 +837,7 @@
             this.diFaceLevel.BackgroundStyle.Class = "DateTimeInputBackground";
             this.diFaceLevel.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.diFaceLevel.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.diFaceLevel.Increment = 0.1D;
+            this.diFaceLevel.Increment = 0.01D;
             this.diFaceLevel.Location = new System.Drawing.Point(157, 130);
             this.diFaceLevel.MaxValue = 1D;
             this.diFaceLevel.MinValue = 0D;
@@ -993,6 +1003,76 @@
             this.btnOkAndUpload.Text = "确定并上传";
             this.btnOkAndUpload.Click += new System.EventHandler(this.btnOkAndUpload_Click);
             // 
+            // labelX23
+            // 
+            this.labelX23.AutoSize = true;
+            this.labelX23.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX23.Location = new System.Drawing.Point(234, 133);
+            this.labelX23.Name = "labelX23";
+            this.labelX23.Size = new System.Drawing.Size(99, 18);
+            this.labelX23.TabIndex = 6;
+            this.labelX23.Text = "（标准值为0.8）";
+            // 
+            // labelX24
+            // 
+            this.labelX24.AutoSize = true;
+            this.labelX24.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX24.Location = new System.Drawing.Point(243, 164);
+            this.labelX24.Name = "labelX24";
+            this.labelX24.Size = new System.Drawing.Size(19, 16);
+            this.labelX24.TabIndex = 17;
+            this.labelX24.Text = "→";
+            // 
+            // labelX25
+            // 
+            this.labelX25.AutoSize = true;
+            this.labelX25.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX25.Location = new System.Drawing.Point(243, 192);
+            this.labelX25.Name = "labelX25";
+            this.labelX25.Size = new System.Drawing.Size(19, 16);
+            this.labelX25.TabIndex = 17;
+            this.labelX25.Text = "↓";
+            // 
+            // labelX26
+            // 
+            this.labelX26.AutoSize = true;
+            this.labelX26.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX26.Location = new System.Drawing.Point(493, 164);
+            this.labelX26.Name = "labelX26";
+            this.labelX26.Size = new System.Drawing.Size(19, 16);
+            this.labelX26.TabIndex = 17;
+            this.labelX26.Text = "←";
+            // 
+            // labelX27
+            // 
+            this.labelX27.AutoSize = true;
+            this.labelX27.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX27.Location = new System.Drawing.Point(493, 192);
+            this.labelX27.Name = "labelX27";
+            this.labelX27.Size = new System.Drawing.Size(19, 16);
+            this.labelX27.TabIndex = 17;
+            this.labelX27.Text = "↑";
+            // 
             // FrmAddOrModifyFaceDev
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1018,6 +1098,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iiDevCtrlPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iiDbPort)).EndInit();
             this.tabControlPanel2.ResumeLayout(false);
+            this.tabControlPanel2.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.diRIO_Y)).EndInit();
@@ -1089,5 +1170,10 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbDevTitle2;
         private DevComponents.DotNetBar.LabelX labelX22;
         private DevComponents.DotNetBar.ButtonX btnReadVideoConfig;
+        private DevComponents.DotNetBar.LabelX labelX23;
+        private DevComponents.DotNetBar.LabelX labelX25;
+        private DevComponents.DotNetBar.LabelX labelX24;
+        private DevComponents.DotNetBar.LabelX labelX27;
+        private DevComponents.DotNetBar.LabelX labelX26;
     }
 }
