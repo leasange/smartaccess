@@ -509,5 +509,15 @@ namespace SmartAccess.VerInfoMgr
             }
             DoUpload(list, false,true, rows.ToArray());
         }
+
+        private void biRegister_Click(object sender, EventArgs e)
+        {
+            FrmStaffInfo staffInfo = new FrmStaffInfo(true);
+            staffInfo.ShowDialog(this);
+            if (staffInfo.HasChanged)
+            {
+                DoSearch(null, null, null);
+            }
+        }
     }
 }

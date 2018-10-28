@@ -89,7 +89,7 @@
             this.btnAllSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnAllSelect.Location = new System.Drawing.Point(332, 112);
             this.btnAllSelect.Name = "btnAllSelect";
-            this.btnAllSelect.Size = new System.Drawing.Size(95, 22);
+            this.btnAllSelect.Size = new System.Drawing.Size(95, 31);
             this.btnAllSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAllSelect.TabIndex = 3;
             this.btnAllSelect.Text = ">>";
@@ -103,7 +103,7 @@
             this.btnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnSelect.Location = new System.Drawing.Point(332, 150);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(95, 22);
+            this.btnSelect.Size = new System.Drawing.Size(95, 31);
             this.btnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSelect.TabIndex = 3;
             this.btnSelect.Text = ">";
@@ -117,7 +117,7 @@
             this.btnAllUnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnAllUnSelect.Location = new System.Drawing.Point(332, 247);
             this.btnAllUnSelect.Name = "btnAllUnSelect";
-            this.btnAllUnSelect.Size = new System.Drawing.Size(95, 22);
+            this.btnAllUnSelect.Size = new System.Drawing.Size(95, 31);
             this.btnAllUnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAllUnSelect.TabIndex = 3;
             this.btnAllUnSelect.Text = "<<";
@@ -131,7 +131,7 @@
             this.btnUnSelect.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnUnSelect.Location = new System.Drawing.Point(332, 207);
             this.btnUnSelect.Name = "btnUnSelect";
-            this.btnUnSelect.Size = new System.Drawing.Size(95, 22);
+            this.btnUnSelect.Size = new System.Drawing.Size(95, 31);
             this.btnUnSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnUnSelect.TabIndex = 3;
             this.btnUnSelect.Text = "<";

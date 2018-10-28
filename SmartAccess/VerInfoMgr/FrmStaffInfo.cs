@@ -20,6 +20,7 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class FrmStaffInfo : DevComponents.DotNetBar.Office2007Form
     {
+        private bool _isFace = false;
         private Maticsoft.Model.SMT_STAFF_INFO _staffInfo = null;
         public Maticsoft.Model.SMT_STAFF_INFO StaffInfo
         {
@@ -32,6 +33,11 @@ namespace SmartAccess.VerInfoMgr
         public FrmStaffInfo()
         {
             InitializeComponent();
+        }
+        public FrmStaffInfo(bool isFace)
+        {
+            InitializeComponent();
+            _isFace = isFace;
         }
         public FrmStaffInfo(Maticsoft.Model.SMT_STAFF_INFO staffInfo,bool view=false)
         {
@@ -224,7 +230,10 @@ namespace SmartAccess.VerInfoMgr
                         {
                             this.Text = "修改人员：" + _staffInfo.REAL_NAME;
                         }));
-                        HasChanged = true;
+                        if (!_isFace)
+                        {
+                            HasChanged = true;
+                        }
                         bool bsetcardret = false;
                         if (setcard)
                         {
@@ -285,8 +294,19 @@ namespace SmartAccess.VerInfoMgr
                             {
                                 this.Invoke(new Action(() =>
                                 {
-                                    FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(_staffInfo);
-                                    frmStaffInfo.ShowDialog(this);
+                                    if (_isFace)
+                                    {
+                                        FrmAddModifyStaffFaceDevPrivate facePri = new FrmAddModifyStaffFaceDevPrivate(_staffInfo);
+                                        if (facePri.ShowDialog(this) == DialogResult.OK)
+                                        {
+                                            HasChanged = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        FrmAddOrModifyStaffPrivate frmStaffInfo = new FrmAddOrModifyStaffPrivate(_staffInfo);
+                                        frmStaffInfo.ShowDialog(this);
+                                    }                          
                                 }));
                             }
                         }
@@ -773,7 +793,10 @@ namespace SmartAccess.VerInfoMgr
                             WinInfoHelper.ShowInfoWindow(this, "卡片解绑异常：" + errMsg);
                             return false;
                         }
-                        HasChanged = true;
+                        if (!_isFace)
+                        {
+                            HasChanged = true;
+                        }
                         foreach (var item in cards)
                         {
                             sbll.Delete(item.STAFF_ID, item.CARD_ID);
@@ -833,7 +856,10 @@ namespace SmartAccess.VerInfoMgr
                         picPhoto.Image = null;
                     }
                     picPhoto.Image = (Image)frmGetPic.SelectImage.Clone();
-                    HasChanged = true;
+                    if (!_isFace)
+                    {
+                        HasChanged = true;
+                    }
                 }
             }
             lbPhotoTip.Visible = picPhoto.Image == null;
@@ -1115,7 +1141,10 @@ namespace SmartAccess.VerInfoMgr
                     bitmap = (Bitmap)frmEditor.ResultImage.Clone();
                 }
                 picPhoto.Image = bitmap;
-                HasChanged = true;
+                if (!_isFace)
+                {
+                    HasChanged = true;
+                }
             }
         }
 

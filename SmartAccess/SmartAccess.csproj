@@ -546,6 +546,12 @@
     <Compile Include="VerInfoMgr\FrmAddFaceDevPrivate.Designer.cs">
       <DependentUpon>FrmAddFaceDevPrivate.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FrmAddModifyStaffFaceDevPrivate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FrmAddModifyStaffFaceDevPrivate.Designer.cs">
+      <DependentUpon>FrmAddModifyStaffFaceDevPrivate.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmAddOrModifyDept.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -850,6 +856,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmAddFaceDevPrivate.resx">
       <DependentUpon>FrmAddFaceDevPrivate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FrmAddModifyStaffFaceDevPrivate.resx">
+      <DependentUpon>FrmAddModifyStaffFaceDevPrivate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmAddOrModifyDept.resx">
       <DependentUpon>FrmAddOrModifyDept.cs</DependentUpon>
