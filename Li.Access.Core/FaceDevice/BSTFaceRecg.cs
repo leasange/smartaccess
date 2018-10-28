@@ -639,16 +639,24 @@ namespace Li.Access.Core.FaceDevice
             }
             return true;
         }
-        public List<Maticsoft.Model.BST.staff_log> ReadAllRecords()
+        public List<Maticsoft.Model.BST.staff_log> ReadRecords(int limit=100)
         {
             Maticsoft.BLL.BST.staff_log logBll = new Maticsoft.BLL.BST.staff_log();
             SetDbConnectStr(logBll.dal.DbHelperMySQLP);
-            var list = logBll.GetModelList("");
-            if (list.Count>0)
-            {
-                logBll.DeleteAll();
-            }
+
+            var list = logBll.GetModelList("data_keepon5!='1' limit " + limit);
+
             return list;
+        }
+        public bool SetStateReaded(List<Maticsoft.Model.BST.staff_log> list)
+        {
+            Maticsoft.BLL.BST.staff_log logBll = new Maticsoft.BLL.BST.staff_log();
+            SetDbConnectStr(logBll.dal.DbHelperMySQLP);
+            if (list.Count > 0)
+            {
+                logBll.SetStateReaded(list);
+            }
+            return true;
         }
 
         public void Dispose()

@@ -306,9 +306,10 @@ namespace Li.SmartAcsServer.RecordsService
                 try
                 {
                     bst.InitConfig(_dev.FACEDEV_IP, _dev.FACEDEV_CTRL_PORT, _dev.FACEDEV_HEART_PORT, _dev.FACEDEV_DB_PORT, _dev.FACEDEV_DB_NAME, _dev.FACEDEV_DB_USER, _dev.FACEDEV_DB_PWD);
-                    var records = bst.ReadAllRecords();
+                    var records = bst.ReadRecords(100);
                     if (records.Count > 0)
                     {
+                        bst.SetStateReaded(records);
                         FaceRecordTaskService.Instance.SaveRecord(_dev.ID, records);
                     }
                 }

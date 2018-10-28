@@ -15,6 +15,7 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Collections.Generic;
 namespace Maticsoft.Model
 {
 	/// <summary>
@@ -35,6 +36,7 @@ namespace Maticsoft.Model
         public string FACEDEV_NAME { get; set; }
         public SMT_STAFF_INFO STAFF_INFO { get; set; }
         public SMT_FACERECG_DEVICE FACERECG_DEVICE { get; set; }
+        public List<Maticsoft.Model.SMT_STAFF_CARD> STAFF_CARD_WITHNUM { get; set; }
 	}
 }
 

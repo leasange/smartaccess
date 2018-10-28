@@ -1196,9 +1196,11 @@ namespace SmartAccess.Common.Datas
                                     Maticsoft.BLL.SMT_STAFF_INFO sbll=new Maticsoft.BLL.SMT_STAFF_INFO();
                                     FrmDetailInfo.AddOneMsg("开始循环添加权限数目：" + models.Count + "个，请等待...");
                                     Maticsoft.BLL.SMT_STAFF_FACEDEV ssfBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                                    Maticsoft.BLL.SMT_STAFF_CARD sscBll=new Maticsoft.BLL.SMT_STAFF_CARD();
                                     foreach (var model in models)
                                     {
                                         model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
+                                        
                                         if (model.STAFF_INFO==null)
                                         {
                                             tempMsgs += "不存在人员ID：" + model.STAFF_ID;
@@ -1223,13 +1225,17 @@ namespace SmartAccess.Common.Datas
                                         {
                                             model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
                                         }
+                                        model.STAFF_CARD_WITHNUM = sscBll.GetModelListWithCardNo("STAFF_ID=" + model.STAFF_ID);
                                         update.id = model.STAFF_DEV_ID;
                                         update.authority = "B";
                                         update.image = model.STAFF_INFO.PHOTO;
                                         update.name = model.STAFF_INFO.REAL_NAME;
-                                        update.data_keepon1 = model.STAFF_INFO.STAFF_NO;
+                                        if (model.STAFF_CARD_WITHNUM!=null&&model.STAFF_CARD_WITHNUM.Count>0)
+                                        {
+                                            update.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
+                                        }
                                         update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                                        update.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
+                                        update.data_keepon3 = model.STAFF_INFO.STAFF_NO;
                                         update.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR"?"访客":"内部员工";
                                         update.data_keepon5 = "";
                                         DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
@@ -1372,6 +1378,7 @@ namespace SmartAccess.Common.Datas
                                     Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
                                     List<string> deleteprivates = new List<string>();
                                     List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
+                                    Maticsoft.BLL.SMT_STAFF_CARD sscBll = new Maticsoft.BLL.SMT_STAFF_CARD();
                                     foreach (var model in models)
                                     {
                                         model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
@@ -1386,13 +1393,17 @@ namespace SmartAccess.Common.Datas
                                             delModels.Add(model);
                                             continue;
                                         }
+                                        model.STAFF_CARD_WITHNUM = sscBll.GetModelListWithCardNo("STAFF_ID=" + model.STAFF_ID);
                                         Maticsoft.Model.BST.staff_data data = new Maticsoft.Model.BST.staff_data();
                                         data.id = model.STAFF_DEV_ID;
                                         data.name = model.STAFF_INFO.REAL_NAME;
-                                        data.data_keepon1 = model.STAFF_INFO.STAFF_NO;
+                                        if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
+                                        {
+                                            data.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
+                                        }
                                         data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                                        data.data_keepon3 = model.STAFF_INFO.SKIIL_LEVEL;
-                                        data.data_keepon4 = "";
+                                        data.data_keepon3 = model.STAFF_INFO.STAFF_NO;
+                                        data.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
                                         data.data_keepon5 = "";
                                         DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
                                         if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)

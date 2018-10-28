@@ -54,6 +54,11 @@ namespace Maticsoft.BLL.BST
 			return dal.Update(model);
 		}
 
+        public bool SetStateReaded(List<Maticsoft.Model.BST.staff_log> models)
+        {
+            return dal.SetStateReaded(models);
+        }
+
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>

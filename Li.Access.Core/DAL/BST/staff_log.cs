@@ -367,6 +367,43 @@ namespace Maticsoft.DAL.BST
             strSql.Append("delete from staff_log");
             DbHelperMySQLP.ExecuteSql(strSql.ToString());
         }
+
+        public bool SetStateReaded(System.Collections.Generic.List<Model.BST.staff_log> models)
+        {
+            if (models.Count>0)
+            {
+                System.Collections.Generic.List<Model.BST.staff_log> temps = new System.Collections.Generic.List<Model.BST.staff_log>();
+                temps.AddRange(models);
+                int count = 100;
+                StringBuilder strSql = new StringBuilder();
+                while (temps.Count>0)
+                {
+                    strSql.Append("update staff_log set data_keepon5='1' where id in (");
+                    System.Collections.Generic.List<Model.BST.staff_log> subs = null;
+                    if (temps.Count>count)
+                    {
+                       subs = temps.GetRange(0, count);
+                       temps.RemoveRange(0, count);
+                    }
+                    else
+                    {
+                        subs = temps.GetRange(0, temps.Count) ;
+                        temps.RemoveRange(0, temps.Count);
+                    }
+                    string ids = "";
+                    foreach (var item in subs)
+                    {
+                        ids += "'"+item.id+"',";
+                    }
+                    ids = ids.TrimEnd(',');
+                    strSql.Append(ids + ")");
+                    DbHelperMySQLP.ExecuteSql(strSql.ToString());
+                    strSql.Clear();
+                }
+
+            }
+            return true;
+        }
     }
 }
 
