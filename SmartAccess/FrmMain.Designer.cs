@@ -301,9 +301,9 @@
             this.lbTitle.ForeColor = System.Drawing.Color.DarkBlue;
             this.lbTitle.Location = new System.Drawing.Point(3, 5);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(592, 49);
+            this.lbTitle.Size = new System.Drawing.Size(556, 49);
             this.lbTitle.TabIndex = 0;
-            this.lbTitle.Text = "智能卡综合管理系统，您的好管家！";
+            this.lbTitle.Text = "智能综合管理系统，您的好管家！";
             // 
             // timerClock
             // 
@@ -323,7 +323,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "智能卡综合管理系统";
+            this.Text = "智能综合管理系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
