@@ -281,7 +281,8 @@ namespace SmartAccess.VerInfoMgr
                         errMsg = "";
                         if (addPrivates.Count>0||updatePrivates.Count>0)
                         {
-                            bool ret = UploadPrivate.UploadFace(addPrivates, updatePrivates, out errMsg);
+                            SmartAccess.Common.Datas.UploadPrivate.CancelObject cancelObject = new UploadPrivate.CancelObject();
+                            bool ret = UploadPrivate.UploadFace(cancelObject, addPrivates, updatePrivates, out errMsg);
                             if (ret && errMsg != "")
                             {
                                 WinInfoHelper.ShowInfoWindow(this, "上传权限存在异常：" + errMsg);

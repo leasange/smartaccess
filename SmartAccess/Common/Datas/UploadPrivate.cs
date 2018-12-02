@@ -1144,10 +1144,14 @@ namespace SmartAccess.Common.Datas
             }
             return ctrlIds;
         }
-
-        public static bool UploadFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels, List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels, out string errMsg)
+        public class CancelObject
+        {
+            public bool cancel = false;
+        }
+        public static bool UploadFace(CancelObject cancel, List<Maticsoft.Model.SMT_STAFF_FACEDEV> addmodels, List<Maticsoft.Model.SMT_STAFF_FACEDEV> updatemodels, out string errMsg)
         {
             errMsg = null;
+            FrmDetailInfo.CancelObj = cancel;
             FrmDetailInfo.Show(false);
             FrmDetailInfo.AddOneMsg("开始上传人脸权限...");
             if (addmodels!=null&&addmodels.Count > 0)
@@ -1199,6 +1203,10 @@ namespace SmartAccess.Common.Datas
                                     Maticsoft.BLL.SMT_STAFF_CARD sscBll=new Maticsoft.BLL.SMT_STAFF_CARD();
                                     foreach (var model in models)
                                     {
+                                        if (cancel!=null&&cancel.cancel)
+                                        {
+                                            return;
+                                        }
                                         model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
                                         
                                         if (model.STAFF_INFO==null)
@@ -1239,15 +1247,15 @@ namespace SmartAccess.Common.Datas
                                         update.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR"?"访客":"内部员工";
                                         update.data_keepon5 = "";
                                         DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                                        if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                                        /*if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
                                         {
                                             dtStart = model.START_VALID_TIME.Date;
-                                        }
+                                        }*/
                                         DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date+new TimeSpan(23,59,59);
-                                        if (model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59) < model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59))
+                                        /*if (model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59) < model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59))
                                         {
                                             dtEnd = model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59);
-                                        }
+                                        }*/
                                         update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
                                         string tempMsg = "";
@@ -1291,6 +1299,10 @@ namespace SmartAccess.Common.Datas
                                                 Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                                                 foreach (var dm in delModels)
                                                 {
+                                                    if (cancel != null && cancel.cancel)
+                                                    {
+                                                        return;
+                                                    }
                                                     if (!dm.STAFF_INFO.IS_FORBIDDEN)
                                                     {
                                                         bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
@@ -1381,6 +1393,10 @@ namespace SmartAccess.Common.Datas
                                     Maticsoft.BLL.SMT_STAFF_CARD sscBll = new Maticsoft.BLL.SMT_STAFF_CARD();
                                     foreach (var model in models)
                                     {
+                                        if (cancel != null && cancel.cancel)
+                                        {
+                                            return;
+                                        }
                                         model.STAFF_INFO = sbll.GetModelWithDept(model.STAFF_ID);
                                         if (model.STAFF_INFO == null)
                                         {
@@ -1406,15 +1422,15 @@ namespace SmartAccess.Common.Datas
                                         data.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
                                         data.data_keepon5 = "";
                                         DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                                        if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
+                                        /*if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
                                         {
                                             dtStart = model.START_VALID_TIME.Date;
-                                        }
-                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date;
-                                        if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
+                                        }*/
+                                        DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59);
+                                        /*if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
                                         {
                                             dtEnd = model.END_VALID_TIME.Date.AddDays(1);
-                                        }
+                                        }*/
                                         data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                         data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
                                         datas.Add(data);
@@ -1443,6 +1459,10 @@ namespace SmartAccess.Common.Datas
                                                 Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                                                 foreach (var dm in delModels)
                                                 {
+                                                    if (cancel != null && cancel.cancel)
+                                                    {
+                                                        return;
+                                                    }
                                                     bll.Delete(dm.STAFF_ID, dm.FACEDEV_ID);
                                                 }
                                             }

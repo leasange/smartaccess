@@ -467,7 +467,7 @@ namespace Li.Access.Core.FaceDevice
         }
         private void SetDbConnectStr(LiMaticsoft.DBUtility.Extension.DbHelperMySQLP dbHelperMySQLP)
         {
-            dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd + ";oldsyntax=true";
+            dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd + ";oldsyntax=true;charset=utf8;";
         }
         public bool AddOrModifyFaces(out string errorMsg,params Maticsoft.Model.BST.staff_update[] updates)
         {
@@ -568,49 +568,63 @@ namespace Li.Access.Core.FaceDevice
 
         public bool DeleteFaces(List<string> ids,bool bExcmd)
         {
-            Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
-            SetDbConnectStr(dataBll.dal.DbHelperMySQLP);
-            List<string> exits = new List<string>();
-            foreach (var id in ids)
+            try
             {
-                if (dataBll.Exists(id))
+                Maticsoft.BLL.BST.staff_data dataBll = new Maticsoft.BLL.BST.staff_data();
+                SetDbConnectStr(dataBll.dal.DbHelperMySQLP);
+                List<string> exits = new List<string>();
+                foreach (var id in ids)
                 {
-                    exits.Add(id);
+                    if (dataBll.Exists(id))
+                    {
+                        exits.Add(id);
+                    }
                 }
-            }
-            if (exits.Count==0)
-            {
+                if (exits.Count == 0)
+                {
+                    return true;
+                }
+                int start = 0;
+                int count = 20;
+                while (true)
+                {
+                    if (start + count > exits.Count)
+                    {
+                        count = exits.Count - start;
+                    }
+                    var rids = exits.GetRange(start, count);
+                    string temps = "";
+                    foreach (var rid in rids)
+                    {
+                        temps += "'" + rid + "',";
+                    }
+                    temps = temps.TrimEnd(',');
+                    dataBll.DeleteList(temps);
+                    start += count;
+                    if (start >= exits.Count)
+                    {
+                        break;
+                    }
+                }
+                if (bExcmd)
+                {
+                    foreach (var item in exits)
+                    {
+                        doSendCmd("//@BST_01@//", item, false, 500);
+                    }
+                }
                 return true;
             }
-            int start = 0;
-            int count = 20;
-            while (true)
+            catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                if (start + count > exits.Count)
-                {
-                    count = exits.Count - start;
-                }
-                var rids = exits.GetRange(start, count);
-                string temps = "";
-                foreach (var rid in rids)
-                {
-                    temps += "'" + rid + "',";
-                }
-                temps = temps.TrimEnd(',');
-                dataBll.DeleteList(temps);
-                start += count;
-                if (start >= exits.Count)
-                {
-                    break;
-                }
+                log.Error("删除MySQL人脸数据库异常,默认删除成功：", ex);
             }
-            if (bExcmd)
+            catch (Exception ex)
             {
-                foreach (var item in exits)
-                {
-                    doSendCmd("//@BST_01@//", item, false,500);
-                }
+                log.Error("删除MySQL人脸数据库异常,删除失败：", ex);
+                return false;
             }
+            
             return true;
         }
 

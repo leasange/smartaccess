@@ -316,13 +316,14 @@ namespace SmartAccess.VerInfoMgr
                 }
                 else
                 {
+                    SmartAccess.Common.Datas.UploadPrivate.CancelObject cancelObject = new UploadPrivate.CancelObject(); 
                     if (bforce)
                     {
-                        ret = UploadPrivate.UploadFace(list, null, out  errMsg);
+                        ret = UploadPrivate.UploadFace(cancelObject, list, null, out  errMsg);
                     }
                     else
                     {
-                        ret = UploadPrivate.UploadFace(addmodels, updatemodels, out  errMsg);
+                        ret = UploadPrivate.UploadFace(cancelObject, addmodels, updatemodels, out  errMsg);
                     }
                     if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                     {

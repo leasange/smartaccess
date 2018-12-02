@@ -434,7 +434,8 @@ namespace SmartAccess.VerInfoMgr
                 if (isupload)
                 {
                     string errMsg = "";
-                    bool ret = UploadPrivate.UploadFace(addmodels,updatemodels,out  errMsg);
+                    SmartAccess.Common.Datas.UploadPrivate.CancelObject cancelObject = new UploadPrivate.CancelObject();
+                    bool ret = UploadPrivate.UploadFace(cancelObject, addmodels, updatemodels, out  errMsg);
                     if (!ret || !string.IsNullOrWhiteSpace(errMsg))
                     {
                         WinInfoHelper.ShowInfoWindow(this, "保存成功，部分权限上传异常：" + errMsg);

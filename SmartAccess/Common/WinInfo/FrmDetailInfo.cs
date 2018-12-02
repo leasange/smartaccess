@@ -23,6 +23,7 @@ namespace SmartAccess.Common.WinInfo
         private static FrmDetailInfo _instance = null;
         private ConcurrentQueue<MsgClass> _currentMsgs = new ConcurrentQueue<MsgClass>();
 
+        public static SmartAccess.Common.Datas.UploadPrivate.CancelObject CancelObj = null;
         public static void Show(bool progress = true)
         {
             Form frm = FrmMain.Instance;
@@ -57,9 +58,9 @@ namespace SmartAccess.Common.WinInfo
         static void _instance_FormClosed(object sender, FormClosedEventArgs e)
         {
             _instance.FormClosed -= _instance_FormClosed;
-            if (e.CloseReason== CloseReason.UserClosing)
+            if (CancelObj != null)
             {
-                
+                CancelObj.cancel = true;
             }
         }
         public static void Close()
