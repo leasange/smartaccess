@@ -272,10 +272,16 @@ namespace SmartAccess.InfoSearchMgr
             {
                 DataGridViewRow dgvr = new DataGridViewRow();
                 bool hascamera = (item["FREC_VIDEO_IMAGE"] == null || item["FREC_VIDEO_IMAGE"]==DBNull.Value) ? false : true;
+                string visitor = "内部人员";
+                if ( item["STAFF_TYPE"]=="VISITOR")
+                {
+                    visitor = "访客";
+                }
                 dgvr.CreateCells(
                     dgvData,
                     item["STAFF_NO"],
                     item["REAL_NAME"],
+                    visitor,
                     item["ORG_NAME"],
                     item["FACEDEV_NAME"],
                     item["FREC_TIME"],
