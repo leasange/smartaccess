@@ -192,7 +192,7 @@ namespace SmartAccess.InfoSearchMgr
             strSql = "select top " + pageDataGridView.PageControl.RecordsPerPage + " * from ( " + strSql;
             strSql += ") A where RN >= " + pageDataGridView.PageControl.StartIndex + "";
 
-            sqlAll = "select  * from (" + strSqlBase + " ) ttt where " + pageDataGridView.SqlWhere + " order by RECORD_DATE desc";
+            sqlAll = "select  * from (" + strSqlBase + " ) ttt where " + pageDataGridView.SqlWhere + " order by FREC_TIME desc";
 
             dgvData.Rows.Clear();
             CtrlWaiting waiting = new CtrlWaiting(() =>
@@ -242,20 +242,23 @@ namespace SmartAccess.InfoSearchMgr
             DataTable dt = new DataTable();
             dt.Columns.Add("证件号");
             dt.Columns.Add("人员姓名");
+            dt.Columns.Add("人员类型");
             dt.Columns.Add("部门");
             dt.Columns.Add("人脸设备");
-            dt.Columns.Add("通信时间");
+            dt.Columns.Add("通行时间");
+            dt.Columns.Add("识别值");
             dt.Columns.Add("通行结果");
             foreach (DataRow item in query.Rows)
             {
                 DataRow dr = dt.NewRow();
                 dr[0] = item["STAFF_NO"];
                 dr[1] = item["REAL_NAME"];
-                dr[2] = item["ORG_NAME"];
-                dr[3] = item["FACEDEV_NAME"];
-                dr[4] = item["FREC_TIME"];
-                dr[5] = item["FREC_FACE_LEVEL"];
-                dr[6] = "正常";
+                dr[2] = item["STAFF_TYPE"];
+                dr[3] = item["ORG_NAME"];
+                dr[4] = item["FACEDEV_NAME"];
+                dr[5] = item["FREC_TIME"];
+                dr[6] = item["FREC_FACE_LEVEL"];
+                dr[7] = "正常";
                 dt.Rows.Add(dr);
             }
             return dt;
@@ -273,7 +276,7 @@ namespace SmartAccess.InfoSearchMgr
                 DataGridViewRow dgvr = new DataGridViewRow();
                 bool hascamera = (item["FREC_VIDEO_IMAGE"] == null || item["FREC_VIDEO_IMAGE"]==DBNull.Value) ? false : true;
                 string visitor = "内部人员";
-                if ( item["STAFF_TYPE"]=="VISITOR")
+                if ( item["STAFF_TYPE"].ToString()=="VISITOR")
                 {
                     visitor = "访客";
                 }
