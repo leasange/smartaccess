@@ -51,6 +51,42 @@ namespace SmartAccess.VerInfoMgr
             _view = view;
         }
 
+        public FrmStaffInfo(Maticsoft.Model.SMT_STAFF_FACEDEV staffFaceDev)
+        {
+            InitializeComponent();
+            if (staffFaceDev != null)
+            {
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                 {
+                     Maticsoft.BLL.SMT_STAFF_INFO bll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                     _staffInfo = bll.GetModel(staffFaceDev.STAFF_ID);
+                     Maticsoft.BLL.SMT_STAFF_CARD scbll = new Maticsoft.BLL.SMT_STAFF_CARD();
+
+                     var scards = scbll.GetModelList("STAFF_ID=" + _staffInfo.ID);
+
+                     if (scards.Count > 0)
+                     {
+                         string cardids = "";
+                         foreach (var item in scards)
+                         {
+                             cardids += item.CARD_ID + ",";
+                         }
+                         Maticsoft.BLL.SMT_CARD_INFO cardBll = new Maticsoft.BLL.SMT_CARD_INFO();
+                         _staffInfo.CARDS = cardBll.GetModelList("ID in (" + cardids.TrimEnd(',') + ")");
+                     }
+                 });
+                waiting.ShowDialog(this);
+
+                if (_staffInfo.CARDS != null)
+                {
+                    _cardInfos.AddRange(_staffInfo.CARDS);
+                }
+                DoShowCardNum();
+                _view = false;
+                _isFace = true;
+            }
+        }
+
         private void biNew_Click(object sender, EventArgs e)
         {
             _staffInfo = null;
@@ -86,6 +122,7 @@ namespace SmartAccess.VerInfoMgr
                     if (info != null)
                     {
                         _staffInfo.ORG_ID = info.ID;
+                        _staffInfo.ORG_NAME = info.ORG_NAME;
                     }
                 }
 
@@ -874,7 +911,6 @@ namespace SmartAccess.VerInfoMgr
 
             this.cbTreeDept.Nodes.Clear();
             this.cboVeMoBan.Items.Clear();
-            _staffInfo = null;
 
             if ( picPhoto.Image!=null)
             {

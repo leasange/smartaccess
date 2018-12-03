@@ -71,6 +71,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Modify = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -265,6 +266,7 @@
             this.Column3,
             this.Column6,
             this.Column8,
+            this.Col_Modify,
             this.Col_DELETE,
             this.Col_SC});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -531,35 +533,35 @@
             // 
             // Column4
             // 
-            this.Column4.FillWeight = 10F;
+            this.Column4.FillWeight = 1F;
             this.Column4.HeaderText = "人脸设备";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
             // Column1
             // 
-            this.Column1.FillWeight = 7F;
+            this.Column1.FillWeight = 1F;
             this.Column1.HeaderText = "证件编号";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
-            this.Column2.FillWeight = 8F;
+            this.Column2.FillWeight = 1F;
             this.Column2.HeaderText = "姓名";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
             // Column3
             // 
-            this.Column3.FillWeight = 8F;
+            this.Column3.FillWeight = 2F;
             this.Column3.HeaderText = "部门";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
             // Column6
             // 
-            this.Column6.FillWeight = 8F;
+            this.Column6.FillWeight = 1F;
             this.Column6.HeaderText = "状态";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
@@ -567,15 +569,23 @@
             // 
             // Column8
             // 
-            this.Column8.FillWeight = 15F;
+            this.Column8.FillWeight = 1F;
             this.Column8.HeaderText = "有效期";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             this.Column8.Visible = false;
             // 
+            // Col_Modify
+            // 
+            this.Col_Modify.FillWeight = 0.8F;
+            this.Col_Modify.HeaderText = "修改";
+            this.Col_Modify.Name = "Col_Modify";
+            this.Col_Modify.ReadOnly = true;
+            this.Col_Modify.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // Col_DELETE
             // 
-            this.Col_DELETE.FillWeight = 5.84535F;
+            this.Col_DELETE.FillWeight = 0.8F;
             this.Col_DELETE.HeaderText = "删除";
             this.Col_DELETE.Name = "Col_DELETE";
             this.Col_DELETE.ReadOnly = true;
@@ -584,7 +594,7 @@
             // 
             // Col_SC
             // 
-            this.Col_SC.FillWeight = 5.84535F;
+            this.Col_SC.FillWeight = 0.8F;
             this.Col_SC.HeaderText = "上传";
             this.Col_SC.Name = "Col_SC";
             this.Col_SC.ReadOnly = true;
@@ -656,6 +666,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewLinkColumn Col_Modify;
         private System.Windows.Forms.DataGridViewLinkColumn Col_DELETE;
         private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
     }

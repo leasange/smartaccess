@@ -103,14 +103,14 @@ namespace Maticsoft.DAL.BST
             //parameters[1].Value = model.info;
             //parameters[2].Value = model.image;
             //parameters[3].Value = model.authority;
-            parameters[4].Value = model.date_begin;
-            parameters[5].Value = model.date_end;
-            parameters[6].Value = model.data_keepon1;
-            parameters[7].Value = model.data_keepon2;
-            parameters[8].Value = model.data_keepon3;
-            parameters[9].Value = model.data_keepon4;
-            parameters[10].Value = model.data_keepon5;
-            parameters[11].Value = model.id;
+            parameters[1].Value = model.date_begin;
+            parameters[2].Value = model.date_end;
+            parameters[3].Value = model.data_keepon1;
+            parameters[4].Value = model.data_keepon2;
+            parameters[5].Value = model.data_keepon3;
+            parameters[6].Value = model.data_keepon4;
+            parameters[7].Value = model.data_keepon5;
+            parameters[8].Value = model.id;
 
             int rows = DbHelperMySQLP.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)

@@ -219,8 +219,8 @@ namespace SmartAccess.VerInfoMgr
                         item.ORG_NAME,
                         state,
                         item.START_VALID_TIME.ToString("yyyy-MM-dd") + "-" + item.END_VALID_TIME.ToString("yyyy-MM-dd"),
+                        "修改",
                         "删除",
-                        //"授权",
                         item.IS_UPLOAD ?"重上传":"上传");
                     row.Tag = item;
                     row.DefaultCellStyle.ForeColor = color;
@@ -359,7 +359,7 @@ namespace SmartAccess.VerInfoMgr
                                     }
                                 }
                                 row.Cells[4].Value = state;
-                                row.Cells[7].Value = item.IS_UPLOAD ? "重上传" : "上传";
+                                row.Cells[8].Value = item.IS_UPLOAD ? "重上传" : "上传";
                             }
                         }));
                 }
@@ -462,10 +462,32 @@ namespace SmartAccess.VerInfoMgr
                 {
                     doDelete(list, false, row);
                 }
-                //else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SQ")
-               // {
-
-                //}
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_Modify")
+                {
+                    try
+                    {
+                        FrmStaffInfo staffInfo = new FrmStaffInfo(ffd);
+                        staffInfo.ShowDialog(this);
+                        row.Cells[1].Value = staffInfo.StaffInfo.STAFF_NO;
+                        row.Cells[2].Value = staffInfo.StaffInfo.REAL_NAME;
+                        row.Cells[3].Value = staffInfo.StaffInfo.ORG_NAME;
+                        
+                        string state = "";
+                        if (staffInfo.StaffInfo.PHOTO == null || staffInfo.StaffInfo.PHOTO.Length == 0)
+                        {
+                            state = "未上传（无照片）";
+                        }
+                        else
+                        {
+                            state = "未上传";
+                        }
+                        row.Cells[4].Value = state;
+                    }
+                    catch (Exception ex)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "修改发生异常:" + ex.Message);
+                    }
+                }
                 else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_SC")
                 {
                     DoUpload(list,true,false,row);
