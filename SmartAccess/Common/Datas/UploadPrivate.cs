@@ -1240,7 +1240,7 @@ namespace SmartAccess.Common.Datas
                                     update.name = model.STAFF_INFO.REAL_NAME;
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
-                                        update.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
+                                        update.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_NO;
                                     }
                                     update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
                                     update.data_keepon3 = model.STAFF_INFO.STAFF_NO;
@@ -1414,7 +1414,7 @@ namespace SmartAccess.Common.Datas
                                     data.name = model.STAFF_INFO.REAL_NAME;
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
-                                        data.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
+                                        data.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_NO;
                                     }
                                     data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
                                     data.data_keepon3 = model.STAFF_INFO.STAFF_NO;
