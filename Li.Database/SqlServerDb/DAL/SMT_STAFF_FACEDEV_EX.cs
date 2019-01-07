@@ -66,9 +66,9 @@ namespace Maticsoft.DAL
                 {
                     model.START_VALID_TIME = DateTime.Parse(row["START_VALID_TIME"].ToString());
                 }
-                if (row["END_VALID_TIME"] != null && row["END_VALID_TIME"].ToString() != "")
+                if (row["STAFF_VALID_ENDTIME"] != null && row["STAFF_VALID_ENDTIME"].ToString() != "")//"STAFF_VALID_ENDTIME"
                 {
-                    model.END_VALID_TIME = DateTime.Parse(row["END_VALID_TIME"].ToString());
+                    model.END_VALID_TIME = DateTime.Parse(row["STAFF_VALID_ENDTIME"].ToString());
                 }
                 if (row["STAFF_DEV_ID"] != null)
                 {
@@ -136,7 +136,7 @@ namespace Maticsoft.DAL
             strSql.Append("					SSF.*, SSI.REAL_NAME,SSI.PHOTO,SSI.IS_FORBIDDEN,SFD.FACEDEV_NAME, ");
             strSql.Append("					SSI.STAFF_NO, ");
             strSql.Append("					SSI.STAFF_TYPE, ");
-            strSql.Append("					SSI.ORG_ID ");
+            strSql.Append("					SSI.ORG_ID,SSI.VALID_ENDTIME as STAFF_VALID_ENDTIME ");
             strSql.Append("				FROM ");
             strSql.Append("					SMT_STAFF_FACEDEV SSF,SMT_STAFF_INFO SSI,SMT_FACERECG_DEVICE SFD ");
             strSql.Append("				WHERE SSF.STAFF_ID = SSI.ID AND SFD.ID = SSF.FACEDEV_ID  ");

@@ -218,7 +218,7 @@ namespace SmartAccess.VerInfoMgr
                         item.REAL_NAME,
                         item.ORG_NAME,
                         state,
-                        item.START_VALID_TIME.ToString("yyyy-MM-dd") + "-" + item.END_VALID_TIME.ToString("yyyy-MM-dd"),
+                        item.END_VALID_TIME.ToString("yyyy-MM-dd"),
                         "修改",
                         "删除",
                         item.IS_UPLOAD ?"重上传":"上传");
@@ -541,6 +541,24 @@ namespace SmartAccess.VerInfoMgr
             {
                 DoSearch(null, null, null);
             }
+        }
+
+        private void biCheckState_Click(object sender, EventArgs e)
+        {
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    UploadPrivate.CheckFaceState();
+                }
+                catch (Exception)
+                {}
+                finally
+                {
+                    DoSearch(null, null, null);
+                }
+            });
+            waiting.Show(this);
         }
     }
 }

@@ -236,11 +236,11 @@ namespace SmartAccess.Common.Datas
                                         if (!ret)
                                         {
                                             //   amsg += "\r\n设置控制器的权限失败，控制器名称：" + ctrl.NAME;
-                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限失败：控制器：{1}，卡号：{2} ！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent, true);
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限失败：控制器：{1}，卡号：{2} ,WG卡号：{3},有效时间：{4}~{5}！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO, card.CARD_WG_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME), (int)percent, true);
                                         }
                                         else
                                         {
-                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限成功：控制器：{1}，卡号：{2} 。", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO), (int)percent);
+                                            FrmDetailInfo.AddOneMsg(string.Format("上传“{0}”的权限成功：控制器：{1}，卡号：{2} ,WG卡号：{3},有效时间：{4}~{5}！", staffInfo.REAL_NAME, ctrl.NAME, card.CARD_NO, card.CARD_WG_NO, staffInfo.VALID_STARTTIME, staffInfo.VALID_ENDTIME), (int)percent);
                                             Maticsoft.BLL.SMT_STAFF_DOOR sdBll = new Maticsoft.BLL.SMT_STAFF_DOOR();
                                             var findscs = staffDoors.FindAll(m =>
                                             {
@@ -1261,7 +1261,7 @@ namespace SmartAccess.Common.Datas
                                     string tempMsg = "";
                                     update.Update_Result = false;
                                     bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, update);
-                                    if (ret || update.Update_Result)
+                                    if (update.Update_Result&&ret)
                                     {
                                         model.IS_UPLOAD = true;
                                         ssfBll.Update(model);
@@ -1506,6 +1506,86 @@ namespace SmartAccess.Common.Datas
             FrmDetailInfo.AddOneMsg("上传结束！");
             return true;
         }
+
+        //检测人脸设备状态
+        private static bool _isCheckedState = false;
+        public static void CheckFaceState()
+        {
+            if (_isCheckedState)
+            {
+                return;
+            }
+            _isCheckedState = true;
+            try
+            {
+                FrmDetailInfo.Show(false);
+                FrmDetailInfo.AddOneMsg("开始检测，请稍等...");
+                Maticsoft.BLL.SMT_STAFF_FACEDEV ssfBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                var sfds = ssfBll.GetModelList("");
+                if (sfds.Count > 0)
+                {
+                    FrmDetailInfo.AddOneMsg("待检测权限数目:" + sfds.Count);
+                    var g = sfds.GroupBy(m => m.FACEDEV_ID);
+                    Maticsoft.BLL.SMT_FACERECG_DEVICE devBll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
+                    List<ManualResetEvent> resets = new List<ManualResetEvent>();
+                    foreach (var item in g)
+                    {
+                        var list = item.ToList();
+                        var faceId = list[0].FACEDEV_ID;
+                        var faceDev = devBll.GetModel(faceId);
+                        if (faceDev == null)
+                        {
+                            FrmDetailInfo.AddOneMsg("不存在人脸设备ID：" + faceId, isRed: true);
+                            continue;
+                        }
+                        ManualResetEvent reset = new ManualResetEvent(false);
+                        resets.Add(reset);
+                        ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                        {
+                            try
+                            {
+                                using (var faceCtrler = FaceRecgHelper.ToFaceController(faceDev))
+                                {
+                                    foreach (var model in list)
+                                    {
+                                        var isexist = faceCtrler.IsFaceExists(model.STAFF_DEV_ID);
+                                        if (!isexist&&model.IS_UPLOAD)
+                                        {
+                                            FrmDetailInfo.AddOneMsg("人脸设备：" + faceDev.FACEDEV_NAME + " " + faceDev.FACEDEV_IP + "，设备号：" + model.STAFF_DEV_ID + ",状态：" + (isexist ? "上传" : "未上传") + ",不一致！更新数据库状态！");
+                                            model.IS_UPLOAD = false;
+                                            ssfBll.Update(model);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                FrmDetailInfo.AddOneMsg("人脸设备异常，可能通信异常：" + ex.Message, isRed:true);
+                            }
+                            finally
+                            {
+                                reset.Set();
+                            }
+                        }));
+
+                    }
+                    foreach (var reset in resets)
+                    {
+                        reset.WaitOne();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmDetailInfo.AddOneMsg("结束检测,发生异常："+ex.Message,isRed:true);
+            }
+            finally
+            {
+                _isCheckedState = false;
+                FrmDetailInfo.AddOneMsg("结束检测！");
+            }
+        }
+
         public static List<Maticsoft.Model.SMT_STAFF_FACEDEV> DeleteFace(List<Maticsoft.Model.SMT_STAFF_FACEDEV> deletemodels, out string errMsg)
         {
             List<Maticsoft.Model.SMT_STAFF_FACEDEV> sfds = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();

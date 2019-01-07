@@ -510,5 +510,27 @@ namespace SmartAccess
         {
             tsmiNowTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
+
+        private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                Application.Exit();
+                Timer t = new Timer();
+                t.Interval = 1000;
+                t.Tick += t_Tick;
+                t.Start();
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
+
+        }
+
+        void t_Tick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
     }
 }

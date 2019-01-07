@@ -286,6 +286,7 @@ namespace SmartAccess.VerInfoMgr
                                 if (list.Count > 0)
                                 {
                                     item.ID = list[0].ID;
+                                    bll.Update(item);
                                 }
                                 else
                                 {
@@ -853,14 +854,22 @@ namespace SmartAccess.VerInfoMgr
                 }
                 else
                 {
-                    if (!_cardInfos.Exists(m => m.CARD_NO == num))
+                    var cardInfo = _cardInfos.Find(m => m.CARD_NO == num);
+                    if (cardInfo == null)
                     {
-                        Maticsoft.Model.SMT_CARD_INFO cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
+                        cardInfo = new Maticsoft.Model.SMT_CARD_INFO();
                         cardInfo.CARD_NO = num;
                         cardInfo.CARD_TYPE = 0;
                         cardInfo.CARD_DESC = num;
                         cardInfo.CARD_WG_NO = wgNum;
                         _cardInfos.Add(cardInfo);
+                    }
+                    else
+                    {
+                        cardInfo.CARD_NO = num;
+                        cardInfo.CARD_TYPE = 0;
+                        cardInfo.CARD_DESC = num;
+                        cardInfo.CARD_WG_NO = wgNum;
                     }
                     return true;
                 }

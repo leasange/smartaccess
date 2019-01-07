@@ -54,7 +54,7 @@ namespace SmartAccess.VerInfoMgr
                     {
                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
                         _inprivateStaffInfos = staffBll.GetSimpleModelList("ID in (" + string.Join(",", _inprivateStaffIds.ToArray()) + ")");
-                        if (_inprivateStaffInfos.Count>0)
+                        if (_inprivateStaffInfos.Count > 0)
                         {
                             var depts = DeptDataHelper.GetDepts(false);
                             foreach (var item in _inprivateStaffInfos)
@@ -90,23 +90,23 @@ namespace SmartAccess.VerInfoMgr
                                             _selectMaxDate = item.VALID_ENDTIME;
                                         }
                                     }
-                                   
+
                                 }
                                 if (_selectMaxDate != null)
                                 {
                                     dtpEnd.Value = (DateTime)_selectMaxDate;
                                 }
-                            	
+
                             }));
                         }
-                        
+
                     }
 
                 }
                 catch (Exception ex)
                 {
                     log.Error("加载已授权人员异常:" + ex.Message, ex);
-                    WinInfoHelper.ShowInfoWindow(this, "加载已授权人员异常:"+ex.Message);
+                    WinInfoHelper.ShowInfoWindow(this, "加载已授权人员异常:" + ex.Message);
                 }
 
             });
@@ -128,7 +128,7 @@ namespace SmartAccess.VerInfoMgr
                     try
                     {
                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                        string strWhere ="";
+                        string strWhere = "";
                         List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos = null;
                         if (orgInfo.ID == -1)
                         {
@@ -191,7 +191,7 @@ namespace SmartAccess.VerInfoMgr
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
-                    item.ORG_NAME+"["+item.ORG_CODE+"]",
+                    item.ORG_NAME + "[" + item.ORG_CODE + "]",
                     item.VALID_ENDTIME.ToString("yyyy-MM-dd")
                     );
                 row.Tag = item;
@@ -282,20 +282,20 @@ namespace SmartAccess.VerInfoMgr
             foreach (DataGridViewRow item in dgvStaffs.SelectedRows)
             {
                 Maticsoft.Model.SMT_STAFF_INFO info = (Maticsoft.Model.SMT_STAFF_INFO)item.Tag;
-                if (_selectMaxDate==null)
+                if (_selectMaxDate == null)
                 {
                     _selectMaxDate = info.VALID_ENDTIME;
                 }
                 else
                 {
-                    if (_selectMaxDate<info.VALID_ENDTIME)
+                    if (_selectMaxDate < info.VALID_ENDTIME)
                     {
                         _selectMaxDate = info.VALID_ENDTIME;
                     }
                 }
                 dgvrs.Add(item);
             }
-            if (_selectMaxDate!=null)
+            if (_selectMaxDate != null)
             {
                 dtpEnd.Value = (DateTime)_selectMaxDate;
             }
@@ -343,7 +343,7 @@ namespace SmartAccess.VerInfoMgr
         {
             if (dgvSelected.Rows.Count == 0)
             {
-                if (_inprivateStaffInfos.Count==0)
+                if (_inprivateStaffInfos.Count == 0)
                 {
                     WinInfoHelper.ShowInfoWindow(this, "请至少选一个授权的人员！");
                     return;
@@ -367,38 +367,38 @@ namespace SmartAccess.VerInfoMgr
                     {
                         foreach (var dev in _selectDevices)
                         {
-                           var model = sfbll.GetModel(staff.ID, dev.ID);
-                           if (model==null)
-                           {
-                               model = new Maticsoft.Model.SMT_STAFF_FACEDEV();
-                               model.ADD_TIME = DateTime.Now;
-                               model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
-                               model.FACEDEV_ID = dev.ID;
-                               model.IS_UPLOAD = false;
-                               model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
-                               model.STAFF_ID = staff.ID;
-                               model.START_VALID_TIME = dtpStart.Value.Date;
-                               model.UPLOAD_TIME = DateTime.Now;
-                               sfbll.Add(model);
-                           }
-                           else
-                           {
-                               hasPrivates.RemoveAll(m => m.ID == model.STAFF_ID);
-                               
-                               model.START_VALID_TIME = dtpStart.Value.Date;
-                               model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
-                               if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
-                               {
-                                   model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
-                               }
-                               sfbll.Update(model);
-                           }
-                           model.STAFF_INFO = staff;
-                           model.FACERECG_DEVICE = dev;
-                           if (!model.IS_UPLOAD)
-                           {
-                               addmodels.Add(model);
-                           }
+                            var model = sfbll.GetModel(staff.ID, dev.ID);
+                            if (model == null)
+                            {
+                                model = new Maticsoft.Model.SMT_STAFF_FACEDEV();
+                                model.ADD_TIME = DateTime.Now;
+                                model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
+                                model.FACEDEV_ID = dev.ID;
+                                model.IS_UPLOAD = false;
+                                model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
+                                model.STAFF_ID = staff.ID;
+                                model.START_VALID_TIME = dtpStart.Value.Date;
+                                model.UPLOAD_TIME = DateTime.Now;
+                                sfbll.Add(model);
+                            }
+                            else
+                            {
+                                hasPrivates.RemoveAll(m => m.ID == model.STAFF_ID);
+
+                                model.START_VALID_TIME = dtpStart.Value.Date;
+                                model.END_VALID_TIME = dtpEnd.Value.Date + new TimeSpan(23, 59, 59);
+                                if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
+                                {
+                                    model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
+                                }
+                                sfbll.Update(model);
+                            }
+                            model.STAFF_INFO = staff;
+                            model.FACERECG_DEVICE = dev;
+                            if (!model.IS_UPLOAD)
+                            {
+                                addmodels.Add(model);
+                            }
                         }
                     }
                     foreach (var item in hasPrivates)
@@ -406,7 +406,7 @@ namespace SmartAccess.VerInfoMgr
                         foreach (var dev in _selectDevices)
                         {
                             var model = sfbll.GetModel(item.ID, dev.ID);
-                            if (model!=null)
+                            if (model != null)
                             {
                                 deletemodels.Add(model);
                             }
@@ -419,15 +419,15 @@ namespace SmartAccess.VerInfoMgr
                     log.Error("保存异常：", ex);
                     return;
                 }
-                if (deletemodels.Count>0)
-                { 
+                if (deletemodels.Count > 0)
+                {
                     string errMsg = "";
                     var delre = UploadPrivate.DeleteFace(deletemodels, out errMsg);
-                    if (delre!=null&&delre.Count>0)
+                    if (delre != null && delre.Count > 0)
                     {
                         foreach (var item in delre)
                         {
-                            sfbll.Delete(item.STAFF_ID,item.FACEDEV_ID);
+                            sfbll.Delete(item.STAFF_ID, item.FACEDEV_ID);
                         }
                     }
                 }
@@ -464,6 +464,41 @@ namespace SmartAccess.VerInfoMgr
         private void btnOkUpload_Click(object sender, EventArgs e)
         {
             DoSave(true);
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var name = tbName.Text.Trim();
+                if (name == "")
+                {
+                    return;
+                }
+                foreach (DataGridViewRow item in dgvStaffs.Rows)
+                {
+                    string strNo = item.Cells[0].Value.ToString();
+                    string strName = item.Cells[1].Value.ToString();
+                    if (strName.Contains(name) || strNo.Contains(name))
+                    {
+                        item.Selected = true; // 设置为选中.(index为选重的记录索引) 
+                        dgvStaffs.FirstDisplayedScrollingRowIndex = item.Index; // 设置在当前区域的第一行显示
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            
+        }
+
+        private void tbName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode== Keys.Enter)
+            {
+                btnFilter_Click(sender, e);
+            }
         }
 
     }

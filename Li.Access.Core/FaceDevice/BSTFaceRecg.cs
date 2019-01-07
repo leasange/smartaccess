@@ -504,7 +504,7 @@ namespace Li.Access.Core.FaceDevice
                 return false;
             }
 
-            DeleteFaces(ids,false);
+            DeleteFaces(ids,true);
             int time = 1000 * updates.Length;
             bool need = updates.Length > 1;
             if (!need)
@@ -673,6 +673,12 @@ namespace Li.Access.Core.FaceDevice
             return true;
         }
 
+        public bool IsFaceExists(string id)
+        {
+            Maticsoft.BLL.BST.staff_data bll = new Maticsoft.BLL.BST.staff_data();
+            SetDbConnectStr(bll.dal.DbHelperMySQLP);
+            return bll.Exists(id);
+        }
         public void Dispose()
         {
             try
