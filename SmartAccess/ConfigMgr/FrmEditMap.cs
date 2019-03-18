@@ -217,7 +217,7 @@ namespace SmartAccess.ConfigMgr
                         var olds = mdBll.GetModelList("MAP_ID=" + _mapInfo.ID);
                         foreach (var old in olds)
                         {
-                            mdBll.Delete(old.MAP_ID, old.DOOR_ID);
+                            mdBll.Delete(old.MAP_ID, old.DOOR_ID,old.DOOR_TYPE);
                         }
                     }
                     foreach (var md in mds)

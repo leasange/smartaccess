@@ -8,7 +8,7 @@
 !define PRODUCT_ALIAS_NAME "智能卡授权软件(${PRODUCT_SERIES})" ;//应用系统别名
 !define PRODUCT_EXE "SmartKey.exe" ;应用程序exe名称
 !define PRODUCT_VERSION "1.1.2.0104"  ;版本号
-!define PRODUCT_PUBLISHER "北京航英科技有限公司, Inc." ;公司名称
+!define PRODUCT_PUBLISHER "SMT,Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称
 !define PRODUCT_HELP_FILE "help.chm" ;帮助文件目录

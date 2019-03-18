@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/11 12:06:47   N/A    初版
+* V0.01  2019/3/18 23:15:19   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -30,12 +30,21 @@ namespace Maticsoft.BLL
 		public SMT_MAP_DOOR()
 		{}
 		#region  BasicMethod
+
+		/// <summary>
+		/// 得到最大ID
+		/// </summary>
+		public int GetMaxId()
+		{
+			return dal.GetMaxId();
+		}
+
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(decimal MAP_ID,decimal DOOR_ID)
+		public bool Exists(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
-			return dal.Exists(MAP_ID,DOOR_ID);
+			return dal.Exists(MAP_ID,DOOR_ID,DOOR_TYPE);
 		}
 
 		/// <summary>
@@ -57,34 +66,34 @@ namespace Maticsoft.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(decimal MAP_ID,decimal DOOR_ID)
+		public bool Delete(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			
-			return dal.Delete(MAP_ID,DOOR_ID);
+			return dal.Delete(MAP_ID,DOOR_ID,DOOR_TYPE);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_MAP_DOOR GetModel(decimal MAP_ID,decimal DOOR_ID)
+		public Maticsoft.Model.SMT_MAP_DOOR GetModel(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			
-			return dal.GetModel(MAP_ID,DOOR_ID);
+			return dal.GetModel(MAP_ID,DOOR_ID,DOOR_TYPE);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public Maticsoft.Model.SMT_MAP_DOOR GetModelByCache(decimal MAP_ID,decimal DOOR_ID)
+		public Maticsoft.Model.SMT_MAP_DOOR GetModelByCache(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			
-			string CacheKey = "SMT_MAP_DOORModel-" + MAP_ID+DOOR_ID;
+			string CacheKey = "SMT_MAP_DOORModel-" + MAP_ID+DOOR_ID+DOOR_TYPE;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
 				try
 				{
-					objModel = dal.GetModel(MAP_ID,DOOR_ID);
+					objModel = dal.GetModel(MAP_ID,DOOR_ID,DOOR_TYPE);
 					if (objModel != null)
 					{
 						int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");

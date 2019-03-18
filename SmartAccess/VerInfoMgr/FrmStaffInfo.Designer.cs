@@ -103,6 +103,7 @@
             this.cbStaffType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.btnAutoCreate = new DevComponents.DotNetBar.ButtonX();
             this.tbVerNo = new Li.Controls.VerTextBox();
+            this.btnSaveAndUpload2 = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtValidTimeEnd)).BeginInit();
@@ -1083,7 +1084,7 @@
             this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSave.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSave.Location = new System.Drawing.Point(240, 596);
+            this.btnSave.Location = new System.Drawing.Point(202, 596);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 36);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1096,12 +1097,13 @@
             this.btnSaveAndUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSaveAndUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSaveAndUpload.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSaveAndUpload.Location = new System.Drawing.Point(351, 596);
+            this.btnSaveAndUpload.Location = new System.Drawing.Point(313, 596);
             this.btnSaveAndUpload.Name = "btnSaveAndUpload";
             this.btnSaveAndUpload.Size = new System.Drawing.Size(99, 36);
             this.btnSaveAndUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSaveAndUpload.TabIndex = 27;
-            this.btnSaveAndUpload.Text = "应用并授权";
+            this.btnSaveAndUpload.Text = "门禁授权";
+            this.btnSaveAndUpload.Tooltip = "点击授权会自动保存";
             this.btnSaveAndUpload.Click += new System.EventHandler(this.btnSaveAndUpload_Click);
             // 
             // btnClose
@@ -1109,7 +1111,7 @@
             this.btnClose.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnClose.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnClose.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.Location = new System.Drawing.Point(561, 596);
+            this.btnClose.Location = new System.Drawing.Point(628, 596);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(99, 36);
             this.btnClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1161,7 +1163,7 @@
             this.btnPrint.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnPrint.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnPrint.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnPrint.Location = new System.Drawing.Point(456, 596);
+            this.btnPrint.Location = new System.Drawing.Point(523, 596);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(99, 36);
             this.btnPrint.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -1254,6 +1256,20 @@
             this.tbVerNo.Text = "";
             this.tbVerNo.VerTextFormat = null;
             // 
+            // btnSaveAndUpload2
+            // 
+            this.btnSaveAndUpload2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSaveAndUpload2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSaveAndUpload2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSaveAndUpload2.Location = new System.Drawing.Point(418, 596);
+            this.btnSaveAndUpload2.Name = "btnSaveAndUpload2";
+            this.btnSaveAndUpload2.Size = new System.Drawing.Size(99, 36);
+            this.btnSaveAndUpload2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSaveAndUpload2.TabIndex = 27;
+            this.btnSaveAndUpload2.Text = "人脸授权";
+            this.btnSaveAndUpload2.Tooltip = "点击授权会自动保存";
+            this.btnSaveAndUpload2.Click += new System.EventHandler(this.btnSaveAndUpload2_Click);
+            // 
             // FrmStaffInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1266,6 +1282,7 @@
             this.Controls.Add(this.tbVerNo);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.previewControl);
+            this.Controls.Add(this.btnSaveAndUpload2);
             this.Controls.Add(this.btnSaveAndUpload);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnClose);
@@ -1424,5 +1441,6 @@
         private DevComponents.DotNetBar.LabelX labelX24;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbStaffType;
         private DevComponents.DotNetBar.ButtonX btnAutoCreate;
+        private DevComponents.DotNetBar.ButtonX btnSaveAndUpload2;
     }
 }

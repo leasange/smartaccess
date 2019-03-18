@@ -131,7 +131,7 @@ namespace SmartAccess.ConfigMgr
                         Maticsoft.BLL.SMT_MAP_DOOR mdbll = new Maticsoft.BLL.SMT_MAP_DOOR();
                         foreach (var item in map.MAP_DOORS)
                         {
-                            mdbll.Delete(item.MAP_ID, item.DOOR_ID);
+                            mdbll.Delete(item.MAP_ID, item.DOOR_ID,item.DOOR_TYPE);
                         }
                         Maticsoft.BLL.SMT_MAP_INFO mapBll = new Maticsoft.BLL.SMT_MAP_INFO();
                         mapBll.Delete(map.ID);

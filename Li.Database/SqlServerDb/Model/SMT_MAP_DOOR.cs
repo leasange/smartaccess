@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/11 12:06:47   N/A    初版
+* V0.01  2019/3/18 23:15:19   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -32,6 +32,7 @@ namespace Maticsoft.Model
 		private decimal _location_y;
 		private decimal _width;
 		private decimal _height;
+		private int _door_type=1;
 		/// <summary>
 		/// 地图ID
 		/// </summary>
@@ -79,6 +80,14 @@ namespace Maticsoft.Model
 		{
 			set{ _height=value;}
 			get{return _height;}
+		}
+		/// <summary>
+		/// 1是门禁（默认），2是人脸设备
+		/// </summary>
+		public int DOOR_TYPE
+		{
+			set{ _door_type=value;}
+			get{return _door_type;}
 		}
 		#endregion Model
 

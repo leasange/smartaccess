@@ -718,6 +718,9 @@ namespace LiMaticsoft.DBUtility.Extension
                 try
                 {
                     connection.Open();
+                    var adp =  new MySqlDataAdapter(SQLString, connection);
+                    try { adp.SelectCommand.CommandTimeout = 60 * 5; }
+                    catch { };
                     new MySqlDataAdapter(SQLString, connection).Fill(dataSet, "ds");
                 }
                 catch (MySqlException exception)

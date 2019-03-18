@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo1.ico</ApplicationIcon>
+    <ApplicationIcon>favicon-20190318101909949.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=10.7.0.3, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
@@ -1099,7 +1099,7 @@
     <EmbeddedResource Include="Common\Database\smartaccess_excutebackup.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_createbackupjob.sql" />
     <EmbeddedResource Include="Common\Database\smartaccess_exebakenableordisable.sql" />
-    <Content Include="logo1.ico" />
+    <Content Include="favicon-20190318101909949.ico" />
     <None Include="Resources\house1818.png" />
     <None Include="Resources\door1818.png" />
     <None Include="Resources\示例证件.jpg" />

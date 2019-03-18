@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2016/9/11 12:06:47   N/A    初版
+* V0.01  2019/3/18 23:15:19   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,18 +31,29 @@ namespace Maticsoft.DAL
 		#region  BasicMethod
 
 		/// <summary>
+		/// 得到最大ID
+		/// </summary>
+		public int GetMaxId()
+		{
+		return DbHelperSQL.GetMaxID("DOOR_TYPE", "SMT_MAP_DOOR"); 
+		}
+
+		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(decimal MAP_ID,decimal DOOR_ID)
+		public bool Exists(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from SMT_MAP_DOOR");
-			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID ");
+			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID and DOOR_TYPE=@DOOR_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@MAP_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@DOOR_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = MAP_ID;
 			parameters[1].Value = DOOR_ID;
+			parameters[2].Value = DOOR_TYPE;
+
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
 
@@ -54,22 +65,24 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into SMT_MAP_DOOR(");
-			strSql.Append("MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT)");
+			strSql.Append("MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT,DOOR_TYPE)");
 			strSql.Append(" values (");
-			strSql.Append("@MAP_ID,@DOOR_ID,@LOCATION_X,@LOCATION_Y,@WIDTH,@HEIGHT)");
+			strSql.Append("@MAP_ID,@DOOR_ID,@LOCATION_X,@LOCATION_Y,@WIDTH,@HEIGHT,@DOOR_TYPE)");
 			SqlParameter[] parameters = {
 					new SqlParameter("@MAP_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
 					new SqlParameter("@LOCATION_X", SqlDbType.Real,4),
 					new SqlParameter("@LOCATION_Y", SqlDbType.Real,4),
 					new SqlParameter("@WIDTH", SqlDbType.Real,4),
-					new SqlParameter("@HEIGHT", SqlDbType.Real,4)};
+					new SqlParameter("@HEIGHT", SqlDbType.Real,4),
+					new SqlParameter("@DOOR_TYPE", SqlDbType.TinyInt,1)};
 			parameters[0].Value = model.MAP_ID;
 			parameters[1].Value = model.DOOR_ID;
 			parameters[2].Value = model.LOCATION_X;
 			parameters[3].Value = model.LOCATION_Y;
 			parameters[4].Value = model.WIDTH;
 			parameters[5].Value = model.HEIGHT;
+			parameters[6].Value = model.DOOR_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -92,20 +105,22 @@ namespace Maticsoft.DAL
 			strSql.Append("LOCATION_Y=@LOCATION_Y,");
 			strSql.Append("WIDTH=@WIDTH,");
 			strSql.Append("HEIGHT=@HEIGHT");
-			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID ");
+			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID and DOOR_TYPE=@DOOR_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@LOCATION_X", SqlDbType.Real,4),
 					new SqlParameter("@LOCATION_Y", SqlDbType.Real,4),
 					new SqlParameter("@WIDTH", SqlDbType.Real,4),
 					new SqlParameter("@HEIGHT", SqlDbType.Real,4),
 					new SqlParameter("@MAP_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)};
+					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@DOOR_TYPE", SqlDbType.TinyInt,1)};
 			parameters[0].Value = model.LOCATION_X;
 			parameters[1].Value = model.LOCATION_Y;
 			parameters[2].Value = model.WIDTH;
 			parameters[3].Value = model.HEIGHT;
 			parameters[4].Value = model.MAP_ID;
 			parameters[5].Value = model.DOOR_ID;
+			parameters[6].Value = model.DOOR_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -121,17 +136,19 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(decimal MAP_ID,decimal DOOR_ID)
+		public bool Delete(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from SMT_MAP_DOOR ");
-			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID ");
+			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID and DOOR_TYPE=@DOOR_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@MAP_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@DOOR_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = MAP_ID;
 			parameters[1].Value = DOOR_ID;
+			parameters[2].Value = DOOR_TYPE;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -148,17 +165,19 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_MAP_DOOR GetModel(decimal MAP_ID,decimal DOOR_ID)
+		public Maticsoft.Model.SMT_MAP_DOOR GetModel(decimal MAP_ID,decimal DOOR_ID,int DOOR_TYPE)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT from SMT_MAP_DOOR ");
-			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID ");
+			strSql.Append("select  top 1 MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT,DOOR_TYPE from SMT_MAP_DOOR ");
+			strSql.Append(" where MAP_ID=@MAP_ID and DOOR_ID=@DOOR_ID and DOOR_TYPE=@DOOR_TYPE ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@MAP_ID", SqlDbType.Decimal,9),
-					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9)			};
+					new SqlParameter("@DOOR_ID", SqlDbType.Decimal,9),
+					new SqlParameter("@DOOR_TYPE", SqlDbType.TinyInt,1)			};
 			parameters[0].Value = MAP_ID;
 			parameters[1].Value = DOOR_ID;
+			parameters[2].Value = DOOR_TYPE;
 
 			Maticsoft.Model.SMT_MAP_DOOR model=new Maticsoft.Model.SMT_MAP_DOOR();
 			DataSet ds=DbHelperSQL.Query(strSql.ToString(),parameters);
@@ -205,6 +224,10 @@ namespace Maticsoft.DAL
 				{
 					model.HEIGHT=decimal.Parse(row["HEIGHT"].ToString());
 				}
+				if(row["DOOR_TYPE"]!=null && row["DOOR_TYPE"].ToString()!="")
+				{
+					model.DOOR_TYPE=int.Parse(row["DOOR_TYPE"].ToString());
+				}
 			}
 			return model;
 		}
@@ -215,7 +238,7 @@ namespace Maticsoft.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT ");
+			strSql.Append("select MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT,DOOR_TYPE ");
 			strSql.Append(" FROM SMT_MAP_DOOR ");
 			if(strWhere.Trim()!="")
 			{
@@ -235,7 +258,7 @@ namespace Maticsoft.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT ");
+			strSql.Append(" MAP_ID,DOOR_ID,LOCATION_X,LOCATION_Y,WIDTH,HEIGHT,DOOR_TYPE ");
 			strSql.Append(" FROM SMT_MAP_DOOR ");
 			if(strWhere.Trim()!="")
 			{
@@ -280,7 +303,7 @@ namespace Maticsoft.DAL
 			}
 			else
 			{
-				strSql.Append("order by T.DOOR_ID desc");
+				strSql.Append("order by T.DOOR_TYPE desc");
 			}
 			strSql.Append(")AS Row, T.*  from SMT_MAP_DOOR T ");
 			if (!string.IsNullOrEmpty(strWhere.Trim()))
@@ -308,7 +331,7 @@ namespace Maticsoft.DAL
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
 			parameters[0].Value = "SMT_MAP_DOOR";
-			parameters[1].Value = "DOOR_ID";
+			parameters[1].Value = "DOOR_TYPE";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;
 			parameters[4].Value = 0;

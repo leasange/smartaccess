@@ -32,7 +32,11 @@ namespace Maticsoft.BLL
         public List<Maticsoft.Model.SMT_MAP_DOOR> GetModelListWithDoor(string strWhere)
         {
             DataSet ds = dal.GetListWithDoor(strWhere);
-            return DataTableToListWithDoor(ds.Tables[0]);
+            var list1 = DataTableToListWithDoor(ds.Tables[0]);
+            var list2 = DataTableToListWithDoor(ds.Tables[1]);
+            List<Maticsoft.Model.SMT_MAP_DOOR> list = new List<Model.SMT_MAP_DOOR>(list1);
+            list.AddRange(list2);
+            return list;
         }
 		/// <summary>
 		/// 获得数据列表

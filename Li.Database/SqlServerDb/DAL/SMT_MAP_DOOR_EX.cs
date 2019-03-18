@@ -29,40 +29,54 @@ namespace Maticsoft.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.SMT_MAP_DOOR DataRowToModelWithDoor(DataRow row)
-		{
-			Maticsoft.Model.SMT_MAP_DOOR model=new Maticsoft.Model.SMT_MAP_DOOR();
-			if (row != null)
-			{
-				if(row["MAP_ID"]!=null && row["MAP_ID"].ToString()!="")
-				{
-					model.MAP_ID=decimal.Parse(row["MAP_ID"].ToString());
-				}
-				if(row["DOOR_ID"]!=null && row["DOOR_ID"].ToString()!="")
-				{
-					model.DOOR_ID=decimal.Parse(row["DOOR_ID"].ToString());
-				}
-				if(row["LOCATION_X"]!=null && row["LOCATION_X"].ToString()!="")
-				{
-					model.LOCATION_X=decimal.Parse(row["LOCATION_X"].ToString());
-				}
-				if(row["LOCATION_Y"]!=null && row["LOCATION_Y"].ToString()!="")
-				{
-					model.LOCATION_Y=decimal.Parse(row["LOCATION_Y"].ToString());
-				}
-				if(row["WIDTH"]!=null && row["WIDTH"].ToString()!="")
-				{
-					model.WIDTH=decimal.Parse(row["WIDTH"].ToString());
-				}
-				if(row["HEIGHT"]!=null && row["HEIGHT"].ToString()!="")
-				{
-					model.HEIGHT=decimal.Parse(row["HEIGHT"].ToString());
-				}
-                Maticsoft.DAL.SMT_DOOR_INFO doorDAL=new SMT_DOOR_INFO();
-                model.DOOR = doorDAL.DataRowToModel(row);
-			}
-			return model;
-		}
+        public Maticsoft.Model.SMT_MAP_DOOR DataRowToModelWithDoor(DataRow row)
+        {
+            Maticsoft.Model.SMT_MAP_DOOR model = new Maticsoft.Model.SMT_MAP_DOOR();
+            if (row != null)
+            {
+                if (row["MAP_ID"] != null && row["MAP_ID"].ToString() != "")
+                {
+                    model.MAP_ID = decimal.Parse(row["MAP_ID"].ToString());
+                }
+                if (row["DOOR_ID"] != null && row["DOOR_ID"].ToString() != "")
+                {
+                    model.DOOR_ID = decimal.Parse(row["DOOR_ID"].ToString());
+                }
+                if (row["LOCATION_X"] != null && row["LOCATION_X"].ToString() != "")
+                {
+                    model.LOCATION_X = decimal.Parse(row["LOCATION_X"].ToString());
+                }
+                if (row["LOCATION_Y"] != null && row["LOCATION_Y"].ToString() != "")
+                {
+                    model.LOCATION_Y = decimal.Parse(row["LOCATION_Y"].ToString());
+                }
+                if (row["WIDTH"] != null && row["WIDTH"].ToString() != "")
+                {
+                    model.WIDTH = decimal.Parse(row["WIDTH"].ToString());
+                }
+                if (row["HEIGHT"] != null && row["HEIGHT"].ToString() != "")
+                {
+                    model.HEIGHT = decimal.Parse(row["HEIGHT"].ToString());
+                }
+                if (row["DOOR_TYPE"] != null && row["DOOR_TYPE"].ToString() != "")
+                {
+                    model.DOOR_TYPE = int.Parse(row["DOOR_TYPE"].ToString());
+                }
+
+                if (model.DOOR_TYPE == 1)
+                {
+                    Maticsoft.DAL.SMT_DOOR_INFO doorDAL = new SMT_DOOR_INFO();
+                    model.DOOR = doorDAL.DataRowToModel(row);
+                }
+                else
+                {
+                    Maticsoft.DAL.SMT_FACERECG_DEVICE faceDAL = new SMT_FACERECG_DEVICE();
+                    model.FACE = faceDAL.DataRowToModel(row);
+                }
+
+            }
+            return model;
+        }
 
 		/// <summary>
 		/// 获得数据列表
@@ -71,11 +85,17 @@ namespace Maticsoft.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
             strSql.Append("select MD.*,DI.* ");
-            strSql.Append("FROM SMT_MAP_DOOR MD,SMT_DOOR_INFO DI where MD.DOOR_ID=DI.ID ");
+            strSql.Append("FROM SMT_MAP_DOOR MD,SMT_DOOR_INFO DI where MD.DOOR_ID=DI.ID and MD.DOOR_TYPE=1 ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" and ("+strWhere+") ");
 			}
+            strSql.Append("\r\n select MD.*,FD.* FROM SMT_MAP_DOOR MD,SMT_FACERECG_DEVICE FD where MD.DOOR_ID=FD.ID and MD.DOOR_TYPE=2");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" and (" + strWhere + ") ");
+            }
+
 			return DbHelperSQL.Query(strSql.ToString());
 		}
 	}

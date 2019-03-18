@@ -96,16 +96,16 @@ namespace SmartAccess.VerInfoMgr
             Init(false);
         }
 
-        private void DoSave(bool addprivate = false)
+        private void DoSave(bool addprivate = false,bool isface=false)
         {
             if (!CheckInput())
             {
                 return;
             }
-            InternalSave(addprivate);
+            InternalSave(addprivate, false, isface);
         }
 
-        private void InternalSave(bool addprivate,bool setcard=false)
+        private void InternalSave(bool addprivate,bool setcard=false,bool isface=false)
         {
             try
             {
@@ -332,7 +332,7 @@ namespace SmartAccess.VerInfoMgr
                             {
                                 this.Invoke(new Action(() =>
                                 {
-                                    if (_isFace)
+                                    if (isface)
                                     {
                                         FrmAddModifyStaffFaceDevPrivate facePri = new FrmAddModifyStaffFaceDevPrivate(_staffInfo);
                                         if (facePri.ShowDialog(this) == DialogResult.OK)
@@ -966,6 +966,10 @@ namespace SmartAccess.VerInfoMgr
             DoSave(true);
         }
 
+        private void btnSaveAndUpload2_Click(object sender, EventArgs e)
+        {
+            DoSave(true,true);
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -1321,5 +1325,6 @@ namespace SmartAccess.VerInfoMgr
         {
             DoCreateNo();
         }
+
     }
 }

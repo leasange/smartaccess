@@ -23,6 +23,7 @@ namespace Maticsoft.Model
 	public partial class SMT_MAP_DOOR
 	{
         public SMT_DOOR_INFO DOOR { get; set; }
+        public SMT_FACERECG_DEVICE FACE { get; set; }
 	}
 }
 

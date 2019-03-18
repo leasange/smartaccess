@@ -10,7 +10,7 @@
 !define PRODUCT_CONFIG_EXE "SmartCapServiceConfig.exe" ;//配置程序
 !define PRODUCT_CONFIG_EXE_NAME "门禁抓拍服务数据库配置程序";配置程序名称
 !define PRODUCT_VERSION "1.1.4.1114"  ;版本号
-!define PRODUCT_PUBLISHER "北京航英科技有限公司, Inc." ;公司名称
+!define PRODUCT_PUBLISHER "SMT,Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称
 !define PRODUCT_HELP_FILE "help.chm" ;帮助文件目录
