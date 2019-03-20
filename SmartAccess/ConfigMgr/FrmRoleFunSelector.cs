@@ -25,6 +25,19 @@ namespace SmartAccess.ConfigMgr
             deptTree.TreeLoaded += deptTree_TreeLoaded;
             doorTree.Tree.CheckBoxVisible = true;
             doorTree.LoadEnded += doorTree_LoadEnded;
+            faceDevTree.CheckBoxVisible = true;
+            faceDevTree.LoadEnded += faceDevTree_LoadEnded;
+        }
+
+        void faceDevTree_LoadEnded(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                if (_roleInfo != null && _roleInfo.ROLE_FUNS != null)
+                {
+                    DoSelectFaceFuns();
+                }
+            }));
         }
 
         void doorTree_LoadEnded(object sender, EventArgs e)
@@ -84,6 +97,10 @@ namespace SmartAccess.ConfigMgr
                                 DoSelectDoorFuns();
                            }
 
+                           if (faceDevTree.IsLoaded)
+                           {
+                               DoSelectFaceFuns();
+                           }
                        }));
                    }
                    catch (Exception ex)
@@ -185,6 +202,43 @@ namespace SmartAccess.ConfigMgr
             foreach (Node item in doorTree.Tree.Nodes)
             {
                 DoCheckedDoor(item, funs);
+            }
+        }
+        private void DoSelectFaceFuns()
+        {
+            List<Maticsoft.Model.SMT_ROLE_FUN> funs = _roleInfo.ROLE_FUNS.FindAll(m => m.ROLE_TYPE == 4);
+            foreach (Node item in faceDevTree.Tree.Nodes)
+            {
+                DoCheckedFace(item, funs);
+            }
+        }
+        private void DoCheckedFace(Node node, List<Maticsoft.Model.SMT_ROLE_FUN> funs)
+        {
+            Maticsoft.Model.SMT_FACERECG_DEVICE fun = node.Tag as Maticsoft.Model.SMT_FACERECG_DEVICE;
+            if (fun == null)
+            {
+                if (node.Nodes.Count > 0)
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedFace(item, funs);
+                    }
+                }
+            }
+            else
+            {
+                if (funs.Exists(m => m.FUN_ID == fun.ID))
+                {
+                    node.Checked = true;
+                    node.EnsureVisible();
+                }
+                else
+                {
+                    foreach (Node item in node.Nodes)
+                    {
+                        DoCheckedFace(item, funs);
+                    }
+                }
             }
         }
         private void DoCheckedDoor(Node node, List<Maticsoft.Model.SMT_ROLE_FUN> funs)
@@ -322,6 +376,13 @@ namespace SmartAccess.ConfigMgr
                 doors = GetSelectModels<Maticsoft.Model.SMT_DOOR_INFO>(doorTree.Tree, CheckState.Checked);
             }
 
+            //读取人脸参数
+            List<Maticsoft.Model.SMT_FACERECG_DEVICE> faces = null;
+            if (faceDevTree.IsLoaded)
+            {
+                faces = GetSelectModels<Maticsoft.Model.SMT_FACERECG_DEVICE>(faceDevTree.Tree, CheckState.Checked);
+            }
+
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
@@ -370,7 +431,20 @@ namespace SmartAccess.ConfigMgr
                         }
                         SmtLog.InfoFormat("用户", "更新角色：{0}门禁权限，个数：{1}.", _roleInfo.ROLE_NAME, doors.Count);
                     }
-                 
+
+                    if (faces != null)
+                    {
+                        Maticsoft.DBUtility.DbHelperSQL.ExecuteSql("delete from SMT_ROLE_FUN where ROLE_ID=" + _roleInfo.ID + " and ROLE_TYPE=4");
+                        foreach (var item in faces)
+                        {
+                            Maticsoft.Model.SMT_ROLE_FUN rf = new Maticsoft.Model.SMT_ROLE_FUN();
+                            rf.ROLE_ID = _roleInfo.ID;
+                            rf.FUN_ID = item.ID;
+                            rf.ROLE_TYPE = 4;
+                            rolefunBll.Add(rf);
+                        }
+                        SmtLog.InfoFormat("用户", "更新角色：{0}人脸设备权限，个数：{1}.", _roleInfo.ROLE_NAME, faces.Count);
+                    }
 
                     this.Invoke(new Action(() =>
                     {

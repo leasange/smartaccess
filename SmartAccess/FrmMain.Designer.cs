@@ -257,7 +257,7 @@
             this.panelWelCome.Style.ForeColor.Color = System.Drawing.Color.White;
             this.panelWelCome.Style.GradientAngle = 90;
             this.panelWelCome.TabIndex = 0;
-            this.panelWelCome.Text = "欢迎使用智能门禁管理系统";
+            this.panelWelCome.Text = "欢迎使用智能综合管理系统";
             // 
             // superTabItem1
             // 
