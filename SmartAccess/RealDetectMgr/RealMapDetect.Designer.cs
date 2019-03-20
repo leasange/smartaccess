@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.modelTree = new Li.Controls.AdvTreeEx();
             this.node2 = new DevComponents.AdvTree.Node();
@@ -53,9 +53,6 @@
             this.expandableSplitter2 = new DevComponents.DotNetBar.ExpandableSplitter();
             this.panelDown = new DevComponents.DotNetBar.PanelEx();
             this.dgvRealLog = new Li.Controls.DataGridViewEx();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
             this.lbAction = new DevComponents.DotNetBar.LabelX();
             this.lbDoorName = new DevComponents.DotNetBar.LabelX();
@@ -68,6 +65,11 @@
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.picBox = new System.Windows.Forms.PictureBox();
+            this.picBox2 = new System.Windows.Forms.PictureBox();
+            this.lbLevel = new DevComponents.DotNetBar.LabelX();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.modelTree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stcMaps)).BeginInit();
@@ -76,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealLog)).BeginInit();
             this.panelEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // expandableSplitter1
@@ -292,6 +295,7 @@
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 30);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
             this.superTabControlPanel1.Size = new System.Drawing.Size(671, 162);
@@ -365,74 +369,51 @@
             this.dgvRealLog.AllowUserToAddRows = false;
             this.dgvRealLog.AllowUserToDeleteRows = false;
             this.dgvRealLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvRealLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRealLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRealLog.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvRealLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRealLog.EnableHeadersVisualStyles = false;
             this.dgvRealLog.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvRealLog.Location = new System.Drawing.Point(0, 0);
             this.dgvRealLog.Name = "dgvRealLog";
             this.dgvRealLog.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealLog.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvRealLog.RowTemplate.Height = 23;
-            this.dgvRealLog.Size = new System.Drawing.Size(665, 181);
+            this.dgvRealLog.Size = new System.Drawing.Size(494, 181);
             this.dgvRealLog.TabIndex = 11;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.FillWeight = 193.5371F;
-            this.Column1.HeaderText = "时间";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.FillWeight = 76.14214F;
-            this.Column2.HeaderText = "门禁";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.FillWeight = 30.32081F;
-            this.Column3.HeaderText = "描述";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             // 
             // panelEx1
             // 
             this.panelEx1.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.panelEx1.Controls.Add(this.lbLevel);
+            this.panelEx1.Controls.Add(this.picBox2);
             this.panelEx1.Controls.Add(this.lbAction);
             this.panelEx1.Controls.Add(this.lbDoorName);
             this.panelEx1.Controls.Add(this.lbTime);
@@ -445,9 +426,9 @@
             this.panelEx1.Controls.Add(this.labelX1);
             this.panelEx1.Controls.Add(this.picBox);
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelEx1.Location = new System.Drawing.Point(665, 0);
+            this.panelEx1.Location = new System.Drawing.Point(494, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(259, 181);
+            this.panelEx1.Size = new System.Drawing.Size(430, 181);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
@@ -459,7 +440,8 @@
             // 
             // lbAction
             // 
-            this.lbAction.AutoSize = true;
+            this.lbAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -467,13 +449,14 @@
             this.lbAction.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbAction.Location = new System.Drawing.Point(40, 79);
             this.lbAction.Name = "lbAction";
-            this.lbAction.Size = new System.Drawing.Size(28, 20);
+            this.lbAction.Size = new System.Drawing.Size(123, 20);
             this.lbAction.TabIndex = 9;
             this.lbAction.Text = "----";
             // 
             // lbDoorName
             // 
-            this.lbDoorName.AutoSize = true;
+            this.lbDoorName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -481,13 +464,14 @@
             this.lbDoorName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbDoorName.Location = new System.Drawing.Point(40, 55);
             this.lbDoorName.Name = "lbDoorName";
-            this.lbDoorName.Size = new System.Drawing.Size(28, 20);
+            this.lbDoorName.Size = new System.Drawing.Size(123, 20);
             this.lbDoorName.TabIndex = 9;
             this.lbDoorName.Text = "----";
             // 
             // lbTime
             // 
-            this.lbTime.AutoSize = true;
+            this.lbTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -495,7 +479,7 @@
             this.lbTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbTime.Location = new System.Drawing.Point(40, 30);
             this.lbTime.Name = "lbTime";
-            this.lbTime.Size = new System.Drawing.Size(28, 20);
+            this.lbTime.Size = new System.Drawing.Size(123, 20);
             this.lbTime.TabIndex = 9;
             this.lbTime.Text = "----";
             // 
@@ -515,15 +499,16 @@
             // 
             // lbDeptName
             // 
-            this.lbDeptName.AutoSize = true;
+            this.lbDeptName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
             this.lbDeptName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbDeptName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbDeptName.Location = new System.Drawing.Point(159, 6);
+            this.lbDeptName.Location = new System.Drawing.Point(40, 105);
             this.lbDeptName.Name = "lbDeptName";
-            this.lbDeptName.Size = new System.Drawing.Size(28, 20);
+            this.lbDeptName.Size = new System.Drawing.Size(123, 20);
             this.lbDeptName.TabIndex = 9;
             this.lbDeptName.Text = "----";
             // 
@@ -543,7 +528,8 @@
             // 
             // lbStaffName
             // 
-            this.lbStaffName.AutoSize = true;
+            this.lbStaffName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -551,7 +537,7 @@
             this.lbStaffName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbStaffName.Location = new System.Drawing.Point(40, 6);
             this.lbStaffName.Name = "lbStaffName";
-            this.lbStaffName.Size = new System.Drawing.Size(28, 20);
+            this.lbStaffName.Size = new System.Drawing.Size(123, 20);
             this.lbStaffName.TabIndex = 9;
             this.lbStaffName.Text = "----";
             // 
@@ -577,7 +563,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(128, 6);
+            this.labelX2.Location = new System.Drawing.Point(9, 105);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(35, 20);
             this.labelX2.TabIndex = 9;
@@ -599,15 +585,65 @@
             // 
             // picBox
             // 
-            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Location = new System.Drawing.Point(128, 51);
+            this.picBox.Location = new System.Drawing.Point(177, 32);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(119, 127);
+            this.picBox.Size = new System.Drawing.Size(119, 146);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBox.TabIndex = 8;
             this.picBox.TabStop = false;
+            // 
+            // picBox2
+            // 
+            this.picBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox2.Location = new System.Drawing.Point(302, 30);
+            this.picBox2.Name = "picBox2";
+            this.picBox2.Size = new System.Drawing.Size(115, 148);
+            this.picBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox2.TabIndex = 10;
+            this.picBox2.TabStop = false;
+            // 
+            // lbLevel
+            // 
+            this.lbLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.lbLevel.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbLevel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbLevel.Location = new System.Drawing.Point(177, 4);
+            this.lbLevel.Name = "lbLevel";
+            this.lbLevel.Size = new System.Drawing.Size(240, 20);
+            this.lbLevel.TabIndex = 11;
+            this.lbLevel.Text = "----";
+            this.lbLevel.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.FillWeight = 193.5371F;
+            this.Column1.HeaderText = "时间";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.FillWeight = 76.14214F;
+            this.Column2.HeaderText = "门禁/人脸";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.FillWeight = 30.32081F;
+            this.Column3.HeaderText = "描述";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // RealMapDetect
             // 
@@ -631,6 +667,7 @@
             this.panelEx1.ResumeLayout(false);
             this.panelEx1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -659,9 +696,6 @@
         private DevComponents.DotNetBar.ExpandableSplitter expandableSplitter2;
         private DevComponents.DotNetBar.PanelEx panelDown;
         private Li.Controls.DataGridViewEx dgvRealLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private DevComponents.DotNetBar.PanelEx panelEx1;
         private DevComponents.DotNetBar.LabelX lbAction;
         private DevComponents.DotNetBar.LabelX lbDoorName;
@@ -674,5 +708,10 @@
         private DevComponents.DotNetBar.LabelX labelX2;
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.PictureBox picBox;
+        private System.Windows.Forms.PictureBox picBox2;
+        private DevComponents.DotNetBar.LabelX lbLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

@@ -540,6 +540,12 @@
     <Compile Include="VerInfoMgr\FaceDevPriMgr.Designer.cs">
       <DependentUpon>FaceDevPriMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerInfoMgr\FaceDevTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerInfoMgr\FaceDevTree.Designer.cs">
+      <DependentUpon>FaceDevTree.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerInfoMgr\FrmAddFaceDevPrivate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -853,6 +859,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FaceDevPriMgr.resx">
       <DependentUpon>FaceDevPriMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerInfoMgr\FaceDevTree.resx">
+      <DependentUpon>FaceDevTree.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerInfoMgr\FrmAddFaceDevPrivate.resx">
       <DependentUpon>FrmAddFaceDevPrivate.cs</DependentUpon>

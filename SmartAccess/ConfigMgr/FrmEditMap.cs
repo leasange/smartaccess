@@ -39,6 +39,25 @@ namespace SmartAccess.ConfigMgr
                 tbMapName.Text = _mapInfo.MAP_NAME;
             }
             doorTree.LoadEnded += doorTree_LoadEnded;
+            faceDevTree.LoadEnded += faceDevTree_LoadEnded;
+        }
+
+        private void faceDevTree_LoadEnded(object sender, EventArgs e)
+        {
+            if (_mapInfo != null && _mapInfo.MAP_DOORS != null && _mapInfo.MAP_DOORS.Count > 0)
+            {
+                var nodes = this.faceDevTree.Tree.GetNodeList(typeof(Maticsoft.Model.SMT_FACERECG_DEVICE));
+                _selectNodes = nodes.FindAll(m =>
+                {
+                    Maticsoft.Model.SMT_FACERECG_DEVICE di = (Maticsoft.Model.SMT_FACERECG_DEVICE)m.Tag;
+                    return _mapInfo.MAP_DOORS.Exists(n => n.DOOR_ID == di.ID&&n.DOOR_TYPE==2);
+                });
+                foreach (var item in _selectNodes)
+                {
+                    item.DataKey = item.Parent;
+                    item.Remove();
+                }
+            }
         }
 
         private void doorTree_LoadEnded(object sender, EventArgs e)
@@ -49,7 +68,7 @@ namespace SmartAccess.ConfigMgr
                 _selectNodes = nodes.FindAll(m =>
                 {
                     Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
-                    return _mapInfo.MAP_DOORS.Exists(n => n.DOOR_ID == di.ID);
+                    return _mapInfo.MAP_DOORS.Exists(n => n.DOOR_ID == di.ID&&n.DOOR_TYPE==1);
                 });
                 foreach (var item in _selectNodes)
                 {
@@ -73,7 +92,15 @@ namespace SmartAccess.ConfigMgr
             Maticsoft.Model.SMT_DOOR_INFO doorInfo = node.Tag as Maticsoft.Model.SMT_DOOR_INFO;
             if (doorInfo!=null)
             {
-                mapCtrl.AddDoorInfo(doorInfo, mapCtrl.PointToClient(Cursor.Position));
+                mapCtrl.AddDoorInfo(doorInfo,null, mapCtrl.PointToClient(Cursor.Position));
+            }
+            else
+            {
+               var dev = node.Tag as Maticsoft.Model.SMT_FACERECG_DEVICE;
+               if (dev!=null)
+               {
+                   mapCtrl.AddDoorInfo(null,dev, mapCtrl.PointToClient(Cursor.Position));
+               }
             }
             if (_selectNodes==null)
             {
@@ -90,7 +117,7 @@ namespace SmartAccess.ConfigMgr
         private void mapCtrl_DragEnter(object sender, DragEventArgs e)
         {
             Node node = e.Data.GetData(typeof(Node)) as Node;
-            if (node != null && node.Tag is Maticsoft.Model.SMT_DOOR_INFO)
+            if (node != null && (node.Tag is Maticsoft.Model.SMT_DOOR_INFO||node.Tag is Maticsoft.Model.SMT_FACERECG_DEVICE))
             {
                 e.Effect = DragDropEffects.All;
             }
@@ -107,8 +134,19 @@ namespace SmartAccess.ConfigMgr
             }
             var nodes = _selectNodes.FindAll(m =>
             {
-                Maticsoft.Model.SMT_DOOR_INFO di = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
-                return deletes.Exists(n => n.Id == di.ID);
+                decimal id = 0;
+                int type = 1;
+                if (m.Tag is Maticsoft.Model.SMT_DOOR_INFO)
+                {
+                    id = ((Maticsoft.Model.SMT_DOOR_INFO)m.Tag).ID;
+                    type = 1;
+                }
+                else if (m.Tag is Maticsoft.Model.SMT_FACERECG_DEVICE)
+                {
+                    id = ((Maticsoft.Model.SMT_FACERECG_DEVICE)m.Tag).ID;
+                    type = 2;
+                }
+                return deletes.Exists(n => n.Id == id&&n.DoorType==type);
             });
             foreach (var item in nodes)
             {
@@ -199,6 +237,7 @@ namespace SmartAccess.ConfigMgr
                         Maticsoft.Model.SMT_MAP_DOOR md = new Maticsoft.Model.SMT_MAP_DOOR();
                         md.DOOR_ID = item.Id;
                         md.MAP_ID = _mapInfo.ID;
+                        md.DOOR_TYPE = item.DoorType;
                         md.LOCATION_X = (decimal)item.RatioX;
                         md.LOCATION_Y = (decimal)item.RatioY;
                         md.WIDTH = (decimal)item.RatioWidth;
@@ -226,10 +265,21 @@ namespace SmartAccess.ConfigMgr
                         mdBll.Add(md);
                         _selectNodes.Find(m =>
                             {
-                                if (((Maticsoft.Model.SMT_DOOR_INFO)m.Tag).ID == md.DOOR_ID)
+                                if (m.Tag is Maticsoft.Model.SMT_DOOR_INFO)
                                 {
-                                    md.DOOR = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
-                                    return true;
+                                    if (((Maticsoft.Model.SMT_DOOR_INFO)m.Tag).ID == md.DOOR_ID&&md.DOOR_TYPE==1)
+                                    {
+                                        md.DOOR = (Maticsoft.Model.SMT_DOOR_INFO)m.Tag;
+                                        return true;
+                                    }
+                                }
+                                else if (m.Tag is Maticsoft.Model.SMT_FACERECG_DEVICE)
+                                {
+                                    if (((Maticsoft.Model.SMT_FACERECG_DEVICE)m.Tag).ID == md.DOOR_ID && md.DOOR_TYPE == 2)
+                                    {
+                                        md.FACE = (Maticsoft.Model.SMT_FACERECG_DEVICE)m.Tag;
+                                        return true;
+                                    }
                                 }
                                 return false;
                             });

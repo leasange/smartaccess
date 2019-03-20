@@ -73,7 +73,7 @@ namespace SmartAccess.ConfigMgr
 
         public Maticsoft.Model.SMT_MAP_INFO GetSelectMap()
         {
-            if (modelTree.SelectedNode != null & modelTree.SelectedNode.Tag is Maticsoft.Model.SMT_MAP_INFO)
+            if (modelTree.SelectedNode != null && modelTree.SelectedNode.Tag is Maticsoft.Model.SMT_MAP_INFO)
             {
                 return modelTree.SelectedNode.Tag as Maticsoft.Model.SMT_MAP_INFO;
             }

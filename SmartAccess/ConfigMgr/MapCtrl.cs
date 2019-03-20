@@ -116,13 +116,22 @@ namespace SmartAccess.ConfigMgr
                 {
                     DoorRectangle dr = new DoorRectangle();
                     dr.Id = item.DOOR_ID;
+                    dr.DoorType = item.DOOR_TYPE;
                     dr.IsSelected = false;
                     dr.RatioX = (double)item.LOCATION_X;
                     dr.RatioY = (double)item.LOCATION_Y;
                     dr.RatioWidth = (double)item.WIDTH;
                     dr.RatioHeight = (double)item.HEIGHT;
-                    dr.Door = item.DOOR;
-                    if (item.DOOR!=null)
+                    if (item.DOOR_TYPE==1)
+                    {
+                        dr.Door = item.DOOR;
+                    }
+                    else if (item.DOOR_TYPE==2)
+                    {
+                         dr.Door = item.FACE;
+                    }
+                   
+                    if (item.DOOR_TYPE==1&&item.DOOR!=null)
                     {
                         dr.IsOnline = item.DOOR.OPEN_STATE != 2;
                         if (item.DOOR.CTRL_STYLE == 1)
@@ -139,6 +148,10 @@ namespace SmartAccess.ConfigMgr
                         }
                         dr.DoorName = item.DOOR.DOOR_NAME;
                     }
+                    else if (item.FACE!=null)
+                    {
+                         dr.DoorName = item.FACE.FACEDEV_NAME;
+                    }
                     _doors.Add(dr);
                 }
             }
@@ -152,14 +165,33 @@ namespace SmartAccess.ConfigMgr
             return new PointF(x, y);
         }
 
-        public void AddDoorInfo(Maticsoft.Model.SMT_DOOR_INFO doorInfo, Point ctrlPoint)
+        public void AddDoorInfo(Maticsoft.Model.SMT_DOOR_INFO doorInfo,Maticsoft.Model.SMT_FACERECG_DEVICE faceDevInfo, Point ctrlPoint)
         {
-            if (_doors.Exists(m => m.Id == doorInfo.ID))
+            decimal id = 0;
+            int type = 1;
+            string doorname = "";
+            if (doorInfo != null)
+            {
+                id = doorInfo.ID;
+                type = 1;
+                doorname = doorInfo.DOOR_NAME;
+            }
+            else if (faceDevInfo != null)
+            {
+                id = faceDevInfo.ID;
+                type = 2;
+                doorname = faceDevInfo.FACEDEV_NAME;
+            }
+            else return;
+
+            if (_doors.Exists(m => m.Id == id && m.DoorType == type))
             {
                 return;
             }
             DoorRectangle dr = new DoorRectangle();
-            dr.Id = doorInfo.ID;
+            dr.Id = id;
+            dr.DoorType = type;
+            dr.DoorName = doorname;
             dr.IsOnline = true;
             dr.IsOpen = false;
             dr.IsSelected = false;
@@ -186,8 +218,7 @@ namespace SmartAccess.ConfigMgr
             {
                 dr.RatioY-=(rect.Bottom - _mapRect.Bottom) / _mapRect.Height;
             }
-
-            dr.DoorName = doorInfo.DOOR_NAME;
+            
             _doors.Add(dr);
             this.Invalidate();
         }
@@ -199,7 +230,7 @@ namespace SmartAccess.ConfigMgr
             {
                 foreach (var item in doors)
                 {
-                    if (_doors.Exists(m => m.Id == item.Id)) continue;
+                    if (_doors.Exists(m => m.Id == item.Id&&m.DoorType==item.DoorType)) continue;
                     _doors.Add(item);
                 }
             }
@@ -209,16 +240,16 @@ namespace SmartAccess.ConfigMgr
         {
             return _doors.ToArray();
         }
-        public DoorRectangle GetDoor(decimal id)
+        public DoorRectangle GetDoor(decimal id,int type)
         {
-            return _doors.Find(m => m.Id == id);
+            return _doors.Find(m => m.Id == id&&m.DoorType==type);
         }
 
-        public void RemoveDoors(params decimal[] doorIds)
+        public void RemoveDoors(params string[] mapDoorIDs)
         {
-            if (doorIds!=null&&doorIds.Length>0)
+            if (mapDoorIDs != null && mapDoorIDs.Length > 0)
             {
-               _doors.RemoveAll(m => doorIds.Contains(m.Id));
+                _doors.RemoveAll(m => mapDoorIDs.Contains(m.MapDoorID));
                this.Invalidate();
             }
         }
@@ -364,7 +395,7 @@ namespace SmartAccess.ConfigMgr
 
                         DrawText(g, item.DoorName, rectText);
 
-                        g.DrawString(item.DoorName, this.Font, new SolidBrush(this.ForeColor), rectText);
+                       // g.DrawString(item.DoorName, this.Font, new SolidBrush(Color.White), rectText);
 	                }
                 }
             }
@@ -377,8 +408,8 @@ namespace SmartAccess.ConfigMgr
             using (GraphicsPath path = GetStringPath(text, dpi, rect, this.Font, format))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;//设置字体质量
-                g.DrawPath(new Pen(_textBoundColor,3), path);//绘制轮廓（描边）
-                g.DrawString(text, this.Font, new SolidBrush(this.ForeColor), rect);//填充轮廓（填充）
+                g.DrawPath(new Pen(Color.Black,2.5f), path);//绘制轮廓（描边）
+                g.DrawString(text, this.Font, new SolidBrush(Color.White), rect);//填充轮廓（填充）
             }
         }
         private GraphicsPath GetStringPath(string s, float dpi, RectangleF rect, Font font, StringFormat format)
@@ -608,17 +639,17 @@ namespace SmartAccess.ConfigMgr
         }
         private void tsmiDoorStateCfg_Click(object sender, EventArgs e)
         {
-            if (_rightClick==null||_rightClick.Door==null)
+            if (_rightClick == null || _rightClick.Door == null || !(_rightClick.Door is Maticsoft.Model.SMT_DOOR_INFO))
             {
                 return;
             }
-            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { _rightClick.Door };
+            var door = (Maticsoft.Model.SMT_DOOR_INFO)_rightClick.Door;
+            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { door };
 
             FrmDoorStateCfg cfg = new FrmDoorStateCfg(doors, null);
             cfg.ShowDialog(this);
             if (cfg.IsChanged)
             {
-                Maticsoft.Model.SMT_DOOR_INFO door = _rightClick.Door;
                 _rightClick.DoorName = GetDoorText(door);
                 int index = door.OPEN_STATE;
                // if (index < 0 || index > 2)
@@ -640,11 +671,12 @@ namespace SmartAccess.ConfigMgr
 
         private void tsmiRemoteOpen_Click(object sender, EventArgs e)
         {
-            if (_rightClick == null || _rightClick.Door == null)
+            if (_rightClick == null || _rightClick.Door == null || !(_rightClick.Door is Maticsoft.Model.SMT_DOOR_INFO))
             {
                 return;
             }
-            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { _rightClick.Door };
+            var door = (Maticsoft.Model.SMT_DOOR_INFO)_rightClick.Door;
+            var doors = new List<Maticsoft.Model.SMT_DOOR_INFO>() { door };
             if (doors.Count == 0)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择门禁！");

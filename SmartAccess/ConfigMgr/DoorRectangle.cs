@@ -9,6 +9,7 @@ namespace SmartAccess.ConfigMgr
     public class DoorRectangle
     {
         private decimal id;//id号
+        private int doorType = 1;//门类型
         private string doorName;//门禁名称
         private bool isSelected = false;
         private bool isOpen = false;//打开
@@ -17,16 +18,21 @@ namespace SmartAccess.ConfigMgr
         private double _ratioY = 0;
         private double _ratioWidth = 0;
         private double _ratioHeight = 0;
-        private Maticsoft.Model.SMT_DOOR_INFO _door;
-        public Maticsoft.Model.SMT_DOOR_INFO Door
-        {
-            get { return _door; }
-            set { _door = value; }
-        }
         public decimal Id
         {
             get { return id; }
             set { id = value; }
+        }
+
+        public int DoorType
+        {
+            get { return doorType; }
+            set { doorType = value; }
+        }
+
+        public string MapDoorID
+        {
+            get { return id + "-" + doorType; }
         }
 
         public double RatioX
@@ -97,14 +103,22 @@ namespace SmartAccess.ConfigMgr
 
         public Image GetImage()
         {
-            if (!isOnline)
+            if (doorType==1)
             {
-                return Properties.Resources.door_dump;
+                if (!isOnline)
+                {
+                    return Properties.Resources.door_dump;
+                }
+                else
+                {
+                    return isOpen ? Properties.Resources.room_open : Properties.Resources.door_close;
+                }
             }
             else
             {
-                return isOpen ? Properties.Resources.room_open : Properties.Resources.door_close;
+                return Properties.Resources.人脸识别设备;
             }
+            
         }
         public RectangleF GetRect(RectangleF baseRect)
         {
@@ -114,5 +128,7 @@ namespace SmartAccess.ConfigMgr
             double h = baseRect.Height * _ratioHeight;
             return new RectangleF((float)x, (float)y, (float)w, (float)h);
         }
+
+        public object Door { get; set; }
     }
 }
