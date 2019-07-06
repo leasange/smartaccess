@@ -46,7 +46,7 @@ namespace Maticsoft.Model
 			get{return _fun_id;}
 		}
 		/// <summary>
-		/// 权限类型,1 菜单功能，2 部门，3 门
+		/// 权限类型,1 菜单功能，2 部门，3 门,4 人脸
 		/// </summary>
 		public int ROLE_TYPE
 		{

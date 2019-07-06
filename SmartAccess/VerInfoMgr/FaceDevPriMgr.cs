@@ -29,12 +29,22 @@ namespace SmartAccess.VerInfoMgr
 
         private void FaceDevPriMgr_Load(object sender, EventArgs e)
         {
+            if (!UserInfoHelper.HasPrivate(SYS_FUN_POINT.STAFF_MGR))
+            {
+                biRegister.Visible = false;
+                dgvStaffs.Columns[6].Visible = false;
+            }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 try
                 {
                     Maticsoft.BLL.SMT_FACERECG_DEVICE faceBll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
-                    _faceDevices = faceBll.GetModelList("");
+                    string strWhere = "";
+                    if (!UserInfoHelper.IsManager)
+                    {
+                        strWhere = "ID IN (SELECT RF.FUN_ID FROM SMT_ROLE_FUN RF,SMT_USER_INFO UI WHERE RF.ROLE_TYPE=4 AND RF.ROLE_ID=UI.ROLE_ID AND UI.ID=" + UserInfoHelper.UserID + ")";
+                    }
+                    _faceDevices = faceBll.GetModelList(strWhere);
                     var areas = AreaDataHelper.GetAreas();
                     this.Invoke(new Action(() =>
                     {
@@ -112,7 +122,6 @@ namespace SmartAccess.VerInfoMgr
                DoSearch(null, null, null);
            }
         }
-
         private void advTree_AfterCheck(object sender, AdvTreeCellEventArgs e)
         {
             _selectDevices = advTree.GetTypeList<Maticsoft.Model.SMT_FACERECG_DEVICE>(CheckState.Checked);
@@ -122,6 +131,7 @@ namespace SmartAccess.VerInfoMgr
         private void DoSearch(string staffname,string staffno,string staffdept,bool bunUpload=false)
         {
             string selectdeviceIds = null;
+            string strWhere = "1=1";
             if (_selectDevices!=null&&_selectDevices.Count>0)
             {
                 foreach (var item in _selectDevices)
@@ -130,7 +140,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 selectdeviceIds = selectdeviceIds.TrimEnd(',');
             }
-            string strWhere = "1=1";
+            
             if (!string.IsNullOrWhiteSpace(selectdeviceIds))
             {
                 strWhere += " and FACEDEV_ID in (" + selectdeviceIds + ")";
@@ -150,6 +160,10 @@ namespace SmartAccess.VerInfoMgr
             if (bunUpload)
             {
                 strWhere += " and IS_UPLOAD !=1";
+            }
+            if (!UserInfoHelper.IsManager)
+            {
+                strWhere += " and FACEDEV_ID IN (SELECT RF.FUN_ID FROM SMT_ROLE_FUN RF,SMT_USER_INFO UI WHERE RF.ROLE_TYPE=4 AND RF.ROLE_ID=UI.ROLE_ID AND UI.ID=" + UserInfoHelper.UserID + ")";
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {

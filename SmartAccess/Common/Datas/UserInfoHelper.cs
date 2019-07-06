@@ -36,5 +36,16 @@ namespace SmartAccess.Common.Datas
             }
         }
 
+        public static bool HasPrivate(SYS_FUN_POINT fun)
+        {
+            if (IsManager)
+            {
+                return true;
+            }
+            else
+            {
+                return PrivateMgr.FUN_POINTS.Contains(fun);
+            }
+        }
     }
 }

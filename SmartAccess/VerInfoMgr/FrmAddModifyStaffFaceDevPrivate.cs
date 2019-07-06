@@ -17,10 +17,12 @@ namespace SmartAccess.VerInfoMgr
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmAddModifyStaffFaceDevPrivate));
         private List<Maticsoft.Model.SMT_FACERECG_DEVICE> _faceDevices = null;
         private Maticsoft.Model.SMT_STAFF_INFO _staffInfo;
-        public FrmAddModifyStaffFaceDevPrivate(Maticsoft.Model.SMT_STAFF_INFO staff)
+        private bool _imageChanged=false;
+        public FrmAddModifyStaffFaceDevPrivate(Maticsoft.Model.SMT_STAFF_INFO staff, bool imageChanged)
         {
             InitializeComponent();
             _staffInfo = staff;
+            _imageChanged = imageChanged;
         }
 
         private void FrmAddModifyStaffFaceDevPrivate_Load(object sender, EventArgs e)
@@ -237,7 +239,14 @@ namespace SmartAccess.VerInfoMgr
                             }
                             else
                             {
-                                updatePrivates.Add(item);
+                                if (_imageChanged)
+                                {
+                                    addPrivates.Add(item);
+                                }
+                                else
+                                {
+                                    updatePrivates.Add(item);
+                                }
                             }
                         }
                     }

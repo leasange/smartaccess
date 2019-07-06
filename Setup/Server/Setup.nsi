@@ -5,11 +5,11 @@
 !define PRODUCT_SERIES "SMTS1000"
 !define PRODUCT_GUID "{52288431-D176-CB7A-3A4E-E473E2255E3C}" ;应用程序编号
 !define COMPANY_NAME "SmartProducts"  ;公司名称
-!define PRODUCT_ALIAS_NAME "智能门禁系统服务端(${PRODUCT_SERIES})" ;//应用系统别名
+!define PRODUCT_ALIAS_NAME "智能综合管理系统服务端(${PRODUCT_SERIES})" ;//应用系统别名
 !define PRODUCT_EXE "SmartAcsService.exe" ;应用程序exe名称
 !define PRODUCT_CONFIG_EXE "SmartServiceConfig.exe" ;//配置程序
 !define PRODUCT_CONFIG_EXE_NAME "门禁服务数据库配置程序";配置程序名称
-!define PRODUCT_VERSION "1.1.6.1115"  ;版本号
+!define PRODUCT_VERSION "1.1.7.321"  ;版本号
 !define PRODUCT_PUBLISHER "SMT,Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称

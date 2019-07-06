@@ -334,9 +334,9 @@ namespace SmartAccess.VerInfoMgr
                                 {
                                     if (isface)
                                     {
-                                        FrmAddModifyStaffFaceDevPrivate facePri = new FrmAddModifyStaffFaceDevPrivate(_staffInfo);
+                                        FrmAddModifyStaffFaceDevPrivate facePri = new FrmAddModifyStaffFaceDevPrivate(_staffInfo, _imageChanged);
                                         if (facePri.ShowDialog(this) == DialogResult.OK)
-                                        {
+                                        {//只有人脸授权时，才有更新
                                             HasChanged = true;
                                         }
                                     }
@@ -532,6 +532,10 @@ namespace SmartAccess.VerInfoMgr
 
         private void Init(bool loadDept = true)
         {
+            if (!UserInfoHelper.HasPrivate(SYS_FUN_POINT.FACERECG_DEV_PRIVATE))
+            {
+                btnSaveAndUpload2.Enabled = false;
+            }
             dtValidTimeStart.Value = DateTime.Now.Date;
             dtValidTimeEnd.Value = new DateTime(DateTime.Now.Year, 12, 31);
             dtTimeIn.ValueObject = null;
@@ -887,7 +891,7 @@ namespace SmartAccess.VerInfoMgr
         {
             DoSave(true);
         }
-
+        private bool _imageChanged = false;
         private void biSelectPic_Click(object sender, EventArgs e)
         {
             FrmGetPicture frmGetPic = new FrmGetPicture();
@@ -902,6 +906,7 @@ namespace SmartAccess.VerInfoMgr
                         picPhoto.Image = null;
                     }
                     picPhoto.Image = (Image)frmGetPic.SelectImage.Clone();
+                    _imageChanged = true;
                     if (!_isFace)
                     {
                         HasChanged = true;
@@ -1190,6 +1195,7 @@ namespace SmartAccess.VerInfoMgr
                     bitmap = (Bitmap)frmEditor.ResultImage.Clone();
                 }
                 picPhoto.Image = bitmap;
+                _imageChanged = true;
                 if (!_isFace)
                 {
                     HasChanged = true;

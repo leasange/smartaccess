@@ -146,13 +146,10 @@ namespace SmartAccess.VerInfoMgr
                         {
                             strWhere += " and ORG_ID in (" + string.Join(",", _selectOrgIds.ToArray()) + ")";
                         }
-                        else
-                        {
-                            if (!UserInfoHelper.IsManager)
-                            {
-                                strWhere += " and ORG_ID in (select RF.FUN_ID from SMT_ROLE_FUN RF where RF.ROLE_TYPE=2 and RF.ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
-                            }
-                        }
+                    }
+                    if (!UserInfoHelper.IsManager)
+                    {
+                        strWhere += " and ORG_ID in (select RF.FUN_ID from SMT_ROLE_FUN RF where RF.ROLE_TYPE=2 and RF.ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
                     }
                     if (cbIsForbbiden.Checked)
                     {
