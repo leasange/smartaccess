@@ -393,6 +393,12 @@
     <Compile Include="InfoBatchMgr\StaffInfosInput.Designer.cs">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoSearchMgr\AutoAccessRecordInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\AutoAccessRecordInfo.Designer.cs">
+      <DependentUpon>AutoAccessRecordInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoSearchMgr\FaceRecordInfos.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -777,6 +783,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoBatchMgr\StaffInfosInput.resx">
       <DependentUpon>StaffInfosInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\AutoAccessRecordInfo.resx">
+      <DependentUpon>AutoAccessRecordInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\FaceRecordInfos.resx">
       <DependentUpon>FaceRecordInfos.cs</DependentUpon>

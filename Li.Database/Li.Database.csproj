@@ -58,6 +58,9 @@
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_AUTO_ACCESS.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_AUTO_ACCESS_RECORD_EX.cs" />
+    <Compile Include="SqlServerDb\BLL\SMT_AUTO_ACCESS_RECORD.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\BLL\SMT_CARD_RECORDS.cs" />
@@ -112,6 +115,9 @@
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_AUTO_ACCESS.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_AUTO_ACCESS_RECORD_EX.cs" />
+    <Compile Include="SqlServerDb\DAL\SMT_AUTO_ACCESS_RECORD.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\DAL\SMT_CARD_RECORDS.cs" />
@@ -166,6 +172,9 @@
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_REPORT.cs" />
     <Compile Include="SqlServerDb\Model\SMT_ATTEN_SETTING.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_AUTO_ACCESS.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_AUTO_ACCESS_RECORD_EX.cs" />
+    <Compile Include="SqlServerDb\Model\SMT_AUTO_ACCESS_RECORD.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CAMERA_INFO.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_INFO_EX.cs" />
     <Compile Include="SqlServerDb\Model\SMT_CARD_RECORDS.cs" />

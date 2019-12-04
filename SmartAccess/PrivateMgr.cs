@@ -103,5 +103,6 @@ namespace SmartAccess
         FACERECG_DEV_INFO,//人脸识别设备
         FACERECG_DEV_PRIVATE,//人脸识别设备授权
         FACERECG_RECORD,//人脸识别设备记录
+        AUTOACCESS_RECORD,//自动授权记录查询
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="CaptureService\CaptureTaskService.cs" />
     <Compile Include="IAcsService.cs" />
+    <Compile Include="PrivateService\AutoAccessTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AcsService.cs" />
     <Compile Include="RecordsService\FaceRecordTaskService.cs" />

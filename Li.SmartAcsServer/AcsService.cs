@@ -1,4 +1,5 @@
 ﻿using Li.SmartAcsServer.CaptureService;
+using Li.SmartAcsServer.PrivateService;
 using Li.SmartAcsServer.RecordsService;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Li.SmartAcsServer
             _serviceType = 0;
             RecordTaskService.Instance.Start(interval);
             FaceRecordTaskService.Instance.Start(interval);
+            AutoAccessTaskService.Instance.Start();
         }
         //启动抓拍服务
         public static void StartCaptureServices()
