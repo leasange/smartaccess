@@ -100,6 +100,7 @@ namespace SmartAccess
                     new ExpandItem("门禁密码管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.ACCESS_PASSWORD_CONFIG, typeof(SmartAccess.ConfigMgr.AccessPasswordMgr)),
                     new ExpandItem("出入时段管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.INOUT_TIME_CONFIG, typeof(SmartAccess.ConfigMgr.InOutTimeCfg)),
                     new ExpandItem("报警联动设定", Properties.Resources.dkq_2525, SYS_FUN_POINT.ALARM_CONNECT_SETTING, typeof(SmartAccess.ConfigMgr.FrmAlarmSetting)),
+                    new ExpandItem("数据类型配置",Properties.Resources.dkq_2525,SYS_FUN_POINT.DATA_DIC_CONFIG,typeof(SmartAccess.ConfigMgr.DicDataSetting)),
                     new ExpandItem("数据备份管理", Properties.Resources.dkq_2525, SYS_FUN_POINT.DATABASE_BACK_CONFIG, typeof(SmartAccess.ConfigMgr.FrmDBBackup)),
                     new ExpandItem("修改用户密码", Properties.Resources.dkq_2525, SYS_FUN_POINT.MODIFY_PWD_CONFIG, typeof(SmartAccess.ConfigMgr.FrmModifyUserPwd)),
                     new ExpandItem("系统使用说明", Properties.Resources.dkq_2525, SYS_FUN_POINT.SYS_README_CONFIG, typeof(OpenHelperClass)),

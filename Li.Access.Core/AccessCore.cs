@@ -221,7 +221,7 @@ namespace Li.Access.Core
                         return Color.Gray;
                         break;
                     case AccessState.PrivateExpire:
-                        return Color.LightGray;
+                        return Color.SlateGray;
                         break;
                     case AccessState.RequestCancel:
                         return Color.YellowGreen;

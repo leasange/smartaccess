@@ -161,6 +161,12 @@
     <Compile Include="ConfigMgr\AttenSetting.Designer.cs">
       <DependentUpon>AttenSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigMgr\DicDataSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigMgr\DicDataSetting.Designer.cs">
+      <DependentUpon>DicDataSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigMgr\DoorCameraSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -669,6 +675,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\AttenSetting.resx">
       <DependentUpon>AttenSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigMgr\DicDataSetting.resx">
+      <DependentUpon>DicDataSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigMgr\DoorCameraSetting.resx">
       <DependentUpon>DoorCameraSetting.cs</DependentUpon>

@@ -132,5 +132,80 @@ namespace SmartAccess.InfoSearchMgr
                 dgvData.Rows.Add(dgvr);
             }
         }
+
+        private void pageDataGridView_PageControl_ExportCurrent(object sender, Li.Controls.PageEventArgs args)
+        {
+            if (dgvData.Rows.Count == 0)
+            {
+                MessageBox.Show("无查询记录！");
+                return;
+            }
+            Li.Controls.Excel.ExportHelper.ExportEx(dgvData, "自动授权记录_" + pageDataGridView.PageControl.CurrentPage + ".xls", "自动授权记录");            
+        }
+        private DataTable ToDataTable(List<Maticsoft.Model.SMT_AUTO_ACCESS_RECORD> records)
+        {
+            DataTable dt = new DataTable();
+            foreach (DataGridViewColumn item in dgvData.Columns)
+            {
+                dt.Columns.Add(item.HeaderText);
+            }
+
+            foreach (var item in records)
+            {
+                DataRow dr = dt.NewRow();
+                string sys = item.ACC_FROM_SYS;
+                AutoAccessSys.SysNames.TryGetValue(item.ACC_FROM_SYS, out sys);
+                dr[0] = sys;
+                dr[1] = item.ACC_APP_NAME;
+                dr[2] = item.STAFF_REAL_NAME;
+                dr[3] = item.DOOR_NAME;
+                dr[4] = item.ACC_START_TIME;
+                dr[5] = item.ACC_END_TIME;
+                dr[6] = item.ACC_ADD_TIME;
+                dr[7] = item.ACC_STATE_TIME;
+                AccessStateItem asi = new AccessStateItem() { state = (AccessState)item.ACC_STATE };
+                dr[8] = asi.Text;
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+        private void pageDataGridView_PageControl_ExportAll(object sender, Li.Controls.PageEventArgs args)
+        {
+            if (dgvData.Rows.Count==0)
+            {
+                MessageBox.Show("无查询记录！");
+                return;
+            }
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    List<Maticsoft.Model.SMT_AUTO_ACCESS_RECORD> records = null;
+                    Maticsoft.BLL.SMT_AUTO_ACCESS_RECORD bll = new Maticsoft.BLL.SMT_AUTO_ACCESS_RECORD();
+                    records = bll.GetModelListEx(pageDataGridView.SqlWhere, -1,-1);
+                    if (records.Count == 0)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "没有记录导出！");
+                        return;
+                    }
+                    var dt = ToDataTable(records);
+                    this.Invoke(new Action(() =>
+                    {
+                        Li.Controls.Excel.ExportHelper.ExportEx(dt, "自动授权记录_" + dtpStart.Value.ToString("yyyyMMdd") + dtpEnd.Value.ToString("yyyyMMdd") + ".xls", "自动授权记录");
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    log.Error("导出记录异常：", ex);
+                    WinInfoHelper.ShowInfoWindow(this, "导出记录异常：" + ex.Message);
+                }
+            });
+            waiting.Show(this);
+        }
+
+        private void pageDataGridView_PageControl_PageChanged(object sender, Li.Controls.PageEventArgs args)
+        {
+            DoSearch(false);
+        }
     }
 }

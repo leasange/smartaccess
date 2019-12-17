@@ -57,8 +57,11 @@ namespace Maticsoft.DAL
                 strSql.Append(" where " + strWhere);
             }
             strSql.Append("			            ) TT ");
-            strSql.Append("		            WHERE ");
-            strSql.AppendFormat("			            TT.Row BETWEEN {0} AND {1} ", startIndex, endIndex);
+            if (startIndex >= 0)
+            {
+                strSql.Append("		            WHERE ");
+                strSql.AppendFormat("			            TT.Row BETWEEN {0} AND {1} ", startIndex, endIndex);
+            }
             strSql.Append("	            ) SAAR ");
             strSql.Append("	            LEFT JOIN SMT_STAFF_INFO SSI ON SAAR.ACC_STAFF_ID = SSI.ID ");
             strSql.Append("            ) ");
