@@ -292,6 +292,7 @@ namespace Li.Access.Core
         static AutoAccessSys()
         {
             SysNames.Add("PUBLISH_SYS", "信息发布系统");
+            SysNames.Add("SMART_ACCESS", "智能门禁系统");
         }
     }
 }

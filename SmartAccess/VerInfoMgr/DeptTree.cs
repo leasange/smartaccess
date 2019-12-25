@@ -14,6 +14,17 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class DeptTree : UserControl
     {
+        public bool CheckBoxVisible
+        {
+            get
+            {
+                return this.deptAdvTree.CheckBoxVisible;
+            }
+            set
+            {
+                this.deptAdvTree.CheckBoxVisible = value;
+            }
+        }
         private bool _isLoaded = false;
         private decimal _visibleId = -1;
         public event EventHandler TreeLoaded = null;

@@ -411,6 +411,12 @@
     <Compile Include="InfoSearchMgr\FaceRecordInfos.Designer.cs">
       <DependentUpon>FaceRecordInfos.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoSearchMgr\FrmAutoAccessAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoSearchMgr\FrmAutoAccessAdd.Designer.cs">
+      <DependentUpon>FrmAutoAccessAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoSearchMgr\ImsVehicleRecordInfos.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -798,6 +804,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\FaceRecordInfos.resx">
       <DependentUpon>FaceRecordInfos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoSearchMgr\FrmAutoAccessAdd.resx">
+      <DependentUpon>FrmAutoAccessAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoSearchMgr\ImsVehicleRecordInfos.resx">
       <DependentUpon>ImsVehicleRecordInfos.cs</DependentUpon>
