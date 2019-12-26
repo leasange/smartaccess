@@ -19,13 +19,14 @@ namespace SmartAccess.Common.Datas
             CreateDoorTree(nodes, doors);
             return nodes;
         }
-        public static List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors()
+        public static List<Maticsoft.Model.SMT_DOOR_INFO> GetDoors(bool isvisitor=false)
         {
             Maticsoft.BLL.SMT_DOOR_INFO doorBll = new Maticsoft.BLL.SMT_DOOR_INFO();
             if (UserInfoHelper.UserInfo.USER_NAME == "admin" ||
                 PrivateMgr.FUN_POINTS.Contains(SYS_FUN_POINT.USER_PRIVATE_CONFIG))
             {
-                LastDoors = doorBll.GetModelListWithArea("");
+
+                LastDoors = doorBll.GetModelListWithArea(isvisitor ? "IS_ALLOW_VISITOR=1" : "");
                 return LastDoors;
             }
             else
@@ -35,7 +36,7 @@ namespace SmartAccess.Common.Datas
                     return new List<Maticsoft.Model.SMT_DOOR_INFO>();
                 }
                 string strWhere = "ID IN (SELECT FUN_ID FROM SMT_ROLE_FUN WHERE ROLE_TYPE=3 and ROLE_ID=" + UserInfoHelper.UserInfo.ROLE_ID + ")";
-                LastDoors= doorBll.GetModelListWithArea(strWhere);
+                LastDoors = doorBll.GetModelListWithArea(strWhere + (isvisitor ? " AND IS_ALLOW_VISITOR=1" : ""));
                 return LastDoors;
             }
 

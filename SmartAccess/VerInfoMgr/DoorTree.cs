@@ -15,6 +15,11 @@ namespace SmartAccess.VerInfoMgr
 {
     public partial class DoorTree : UserControl
     {
+        public bool IsVisitor
+        {
+            get;
+            set;
+        }
         public bool CheckBoxVisible
         {
             get
@@ -66,6 +71,7 @@ namespace SmartAccess.VerInfoMgr
         public DoorTree()
         {
             InitializeComponent();
+            IsVisitor = false;
         }
         public static bool IsDesignMode()
         {
@@ -92,7 +98,7 @@ namespace SmartAccess.VerInfoMgr
                 {
                     try
                     {
-                        var doors = DoorDataHelper.GetDoors();
+                        var doors = DoorDataHelper.GetDoors(IsVisitor);
                         var areas = AreaDataHelper.GetAreas();
                         this.Invoke(new Action(() =>
                             {

@@ -167,6 +167,10 @@ namespace Li.SmartAcsServer.RecordsService
             catch (Exception ex)
             {
                 log.Error("加载控制器异常：", ex);
+                if (ex.InnerException!=null)
+                {
+                    log.Error("加载控制器异常2：", ex.InnerException);
+                }
             }
         }
         /// <summary>

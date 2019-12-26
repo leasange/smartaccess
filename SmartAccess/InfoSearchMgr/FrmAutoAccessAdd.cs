@@ -21,6 +21,7 @@ namespace SmartAccess.InfoSearchMgr
             advMemTree.Nodes.Clear();
             tbNum.Text = Guid.NewGuid().ToString("N");
             dtpEnd.Value = DateTime.Now.AddHours(12);
+            doorTree.IsVisitor = true;
         }
 
         void Tree_NodeMouseUp(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
