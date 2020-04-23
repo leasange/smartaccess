@@ -54,7 +54,13 @@ namespace SmartAccess.ConfigMgr
                     }
                     this.Invoke(new Action(() =>
                     {
-                        DoShow(ctrl, alarmSettings[0]);
+                        try
+                        {
+                            DoShow(ctrl, alarmSettings[0]);
+                        }
+                        catch (Exception)
+                        { 
+                        }
                     }));
                 }
             });

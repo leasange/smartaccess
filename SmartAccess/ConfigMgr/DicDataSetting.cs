@@ -27,6 +27,8 @@ namespace SmartAccess.ConfigMgr
 	        }
             Maticsoft.Model.SMT_DATADICTIONARY_INFO dicm = (Maticsoft.Model.SMT_DATADICTIONARY_INFO)treeData.SelectedNode.DataKey;
             string old = dicm.DATA_VALUE;
+            string oldname = dicm.DATA_NAME;
+            string olddesc = dicm.DATA_CONTENT;
             if (tbValue.Visible)
             {
                 dicm.DATA_VALUE = tbValue.Text;
@@ -34,6 +36,14 @@ namespace SmartAccess.ConfigMgr
             else if(cbValue.Visible)
             {
                 dicm.DATA_VALUE = cbValue.Checked.ToString();
+            }
+            if (!tbName.ReadOnly&&!string.IsNullOrWhiteSpace(tbName.Text))
+            {
+                dicm.DATA_NAME = tbName.Text.Trim();
+            }
+            if (!tbDesc.ReadOnly)
+            {
+                dicm.DATA_CONTENT = tbDesc.Text.Trim();                
             }
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
@@ -47,6 +57,8 @@ namespace SmartAccess.ConfigMgr
                 {
                     WinInfoHelper.ShowInfoWindow(this, "保存失败：" + ex.Message);
                     dicm.DATA_VALUE = old;
+                    dicm.DATA_NAME = oldname;
+                    dicm.DATA_CONTENT = olddesc;
                     log.Error("保存失败", ex);
                 }
             });
@@ -95,7 +107,7 @@ namespace SmartAccess.ConfigMgr
                                 DevComponents.AdvTree.Node it = null;
                                 foreach (DevComponents.AdvTree.Node root in treeData.Nodes)
                                 {
-                                    if (rt.TagString == dicm.DATA_TYPE)
+                                    if (root.TagString == dicm.DATA_TYPE)
                                     {
                                         rt = root;
                                         foreach (DevComponents.AdvTree.Node item in root.Nodes)
@@ -135,47 +147,159 @@ namespace SmartAccess.ConfigMgr
 
         private void treeData_NodeMouseUp(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
         {
-            if (e.Node.DataKey == null)
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                tbDataKey.Text = "";
-                tbDataKey.ReadOnly = true;
-                tbValue.Text = "";
-                tbValue.ReadOnly = true;
-                cbValue.Visible=false;
-                tbDesc.Text = "";
-                tbValue.ReadOnly = true;
+                if ((e.Node.Level == 0 && e.Node.TagString == "STAFF_TYPE") ||
+                    (e.Node.Level == 1 && 
+                    ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)e.Node.DataKey).DATA_TYPE == "STAFF_TYPE"&&
+                    ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)e.Node.DataKey).DATA_KEY!="STAFF"&&
+                    ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)e.Node.DataKey).DATA_KEY != "VISITOR"))
+                {
+                    if (e.Node.Level == 0)
+                    {
+                        tsmiNew.Enabled = true;
+                        tsmiDelete.Enabled = false;
+                    }
+                    else
+                    {
+                        tsmiNew.Enabled = false;
+                        tsmiDelete.Enabled = true;
+                    }
+                    contextMenuStrip.Tag = e.Node;
+                    contextMenuStrip.Show(Cursor.Position);
+                }
             }
             else
             {
-                Maticsoft.Model.SMT_DATADICTIONARY_INFO dicm = (Maticsoft.Model.SMT_DATADICTIONARY_INFO)e.Node.DataKey;
-                tbDesc.Text = dicm.DATA_CONTENT;
-                tbDataKey.Text = dicm.DATA_KEY;
-                tbDataKey.ReadOnly = true;
-
-                tbValue.Text = dicm.DATA_VALUE;
-                if (dicm.DATA_TYPE == "ALARM_INFO" && dicm.DATA_KEY == "ALARM_SERVER")
+                if (e.Node.DataKey == null)
                 {
-                    tbValue.ReadOnly = false;
-                    btnSave.Enabled = true;
-                }
-                else
-                {
+                    tbDataKey.Text = "";
+                    tbDataKey.ReadOnly = true;
+                    tbValue.Text = "";
                     tbValue.ReadOnly = true;
-                    btnSave.Enabled = false;
-                }
-                bool res=false;
-                if (bool.TryParse(dicm.DATA_VALUE, out res))
-                {
-                    tbValue.Visible = false;
-                    cbValue.Visible = true;
-                    cbValue.Text = dicm.DATA_NAME;
-                    cbValue.Checked = res;
-                    btnSave.Enabled = true;
+                    cbValue.Visible = false;
+                    tbDesc.Text = "";
+                    tbValue.ReadOnly = true;
+                    tbName.ReadOnly = true;
+                    tbName.Text = e.Node.Text;
                 }
                 else
                 {
-                    tbValue.Visible = true;
-                    cbValue.Visible = false;
+                    Maticsoft.Model.SMT_DATADICTIONARY_INFO dicm = (Maticsoft.Model.SMT_DATADICTIONARY_INFO)e.Node.DataKey;
+                    tbDesc.Text = dicm.DATA_CONTENT;
+                    tbDataKey.Text = dicm.DATA_KEY;
+                    tbDataKey.ReadOnly = true;
+                    tbName.Text = dicm.DATA_NAME;
+                    tbValue.Text = dicm.DATA_VALUE;
+                    tbDesc.ReadOnly = true;
+                    if (dicm.DATA_TYPE == "ALARM_INFO" && dicm.DATA_KEY == "ALARM_SERVER")
+                    {
+                        tbValue.ReadOnly = false;
+                        btnSave.Enabled = true;
+                        tbName.ReadOnly = true;
+                    }
+                    else if (dicm.DATA_TYPE == "STAFF_TYPE")
+                    {
+                        if (dicm.DATA_KEY == "STAFF" || dicm.DATA_KEY == "VISITOR")
+                        {
+                            tbValue.ReadOnly = true;
+                            btnSave.Enabled = false;
+                            tbName.ReadOnly = true;
+                            tbDesc.AppendText("【内置类型不可编辑！】");
+                        }
+                        else
+                        {
+                            tbValue.ReadOnly = true;
+                            btnSave.Enabled = true;
+                            tbName.ReadOnly = false;
+                            tbDesc.ReadOnly = false;
+                        }
+                    }
+                    else
+                    {
+                        tbValue.ReadOnly = true;
+                        btnSave.Enabled = false;
+                    }
+                    bool res = false;
+                    if (bool.TryParse(dicm.DATA_VALUE, out res))
+                    {
+                        tbValue.Visible = false;
+                        cbValue.Visible = true;
+                        cbValue.Text = dicm.DATA_NAME;
+                        cbValue.Checked = res;
+                        btnSave.Enabled = true;
+                    }
+                    else
+                    {
+                        tbValue.Visible = true;
+                        cbValue.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void tsmiNew_Click(object sender, EventArgs e)
+        {
+            var selectNode = contextMenuStrip.Tag as DevComponents.AdvTree.Node;
+            if (selectNode==null)
+            {
+                return;
+            }
+            FrmNewDicData frmDicData = null;
+            if (selectNode.Level==0)
+            {
+                string dataType = selectNode.TagString;
+                frmDicData = new FrmNewDicData(dataType);
+                if (frmDicData.ShowDialog(this) == DialogResult.OK)
+                {
+                    var dataNode = new DevComponents.AdvTree.Node(frmDicData.DATA_INFO.DATA_NAME);
+                    dataNode.TagString = frmDicData.DATA_INFO.DATA_KEY;
+                    dataNode.DataKey = frmDicData.DATA_INFO;
+                    selectNode.Nodes.Add(dataNode);
+                }
+            }
+        }
+
+        private void tsmiDelete_Click(object sender, EventArgs e)
+        {
+            var selectNode = contextMenuStrip.Tag as DevComponents.AdvTree.Node;
+            if (selectNode == null)
+            {
+                return;
+            }
+            if (selectNode.Level == 1)
+            {
+                Maticsoft.Model.SMT_DATADICTIONARY_INFO dicm = (Maticsoft.Model.SMT_DATADICTIONARY_INFO)selectNode.DataKey;
+                if (MessageBox.Show(this,"确定删除"+dicm.DATA_NAME+"?","提示",MessageBoxButtons.YesNo)== DialogResult.Yes)
+                {
+                    CtrlWaiting waiting = new CtrlWaiting(() =>
+                    {
+                        try
+                        {
+                            Maticsoft.BLL.SMT_DATADICTIONARY_INFO bll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                            bll.Delete(dicm.DATA_TYPE, dicm.DATA_KEY);
+                            this.Invoke(new Action(() =>
+                                {
+                                    try
+                                    {
+                                        selectNode.Remove();
+                                        tbDataKey.Text = "";
+                                        tbDesc.Text = "";
+                                        tbName.Text = "";
+                                        tbValue.Text = "";
+                                    }
+                                    catch (Exception)
+                                    { 
+                                    }
+                                }));
+                        }
+                        catch (Exception ex)
+                        {
+                            WinInfoHelper.ShowInfoWindow(this, "删除失败：" + ex.Message);
+                            log.Error("删除失败", ex);
+                        }
+                    });
+                    waiting.Show(this);
                 }
             }
         }

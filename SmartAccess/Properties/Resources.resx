@@ -283,4 +283,7 @@
   <data name="人脸识别设备" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\人脸识别设备.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="登陆背景1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\登陆背景1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

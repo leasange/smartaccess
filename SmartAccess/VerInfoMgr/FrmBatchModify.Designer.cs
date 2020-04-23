@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbTreeDept = new DevComponents.DotNetBar.Controls.ComboTree();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.btnUnSelect = new DevComponents.DotNetBar.ButtonX();
@@ -41,35 +41,39 @@
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dgvSelected = new Li.Controls.DataGridViewEx();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dtValidStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.dtValidEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgvSelected = new Li.Controls.DataGridViewEx();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbisForbidden = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.cbIsValidValid = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.plForbidden = new System.Windows.Forms.Panel();
-            this.cbNormal = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.cbForbbiden = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbStaffType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.plValidate = new System.Windows.Forms.Panel();
+            this.dtValidEnd = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.dtValidStart = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
+            this.labelX3 = new DevComponents.DotNetBar.LabelX();
+            this.plForbidden = new System.Windows.Forms.Panel();
+            this.cbForbbiden = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbNormal = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbIsValidValid = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.chStaffType = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbisForbidden = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelected)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtValidStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtValidEnd)).BeginInit();
-            this.plForbidden.SuspendLayout();
             this.plValidate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtValidEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtValidStart)).BeginInit();
+            this.plForbidden.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbTreeDept
@@ -220,17 +224,18 @@
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
+            this.Column9,
             this.Column5,
             this.Column7});
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.dgvStaffs.Location = new System.Drawing.Point(16, 54);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
@@ -238,6 +243,41 @@
             this.dgvStaffs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStaffs.Size = new System.Drawing.Size(351, 307);
             this.dgvStaffs.TabIndex = 2;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "证件号";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 69;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 57;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "类别";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 57;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "有效期至";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 81;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "状态";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 57;
             // 
             // groupBox2
             // 
@@ -259,17 +299,18 @@
             this.dgvSelected.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
             this.Column4,
+            this.Column10,
             this.Column6,
             this.Column8});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSelected.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dgvSelected.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSelected.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvSelected.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.dgvSelected.Location = new System.Drawing.Point(18, 54);
             this.dgvSelected.Name = "dgvSelected";
             this.dgvSelected.ReadOnly = true;
@@ -278,11 +319,48 @@
             this.dgvSelected.Size = new System.Drawing.Size(345, 307);
             this.dgvSelected.TabIndex = 2;
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "证件号";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 69;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "姓名";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 57;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "类别";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 57;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "有效期至";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 81;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "状态";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 57;
+            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cbStaffType);
             this.groupBox3.Controls.Add(this.plValidate);
             this.groupBox3.Controls.Add(this.plForbidden);
             this.groupBox3.Controls.Add(this.cbIsValidValid);
+            this.groupBox3.Controls.Add(this.chStaffType);
             this.groupBox3.Controls.Add(this.cbisForbidden);
             this.groupBox3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox3.Location = new System.Drawing.Point(27, 398);
@@ -291,6 +369,86 @@
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "批量修改信息";
+            // 
+            // cbStaffType
+            // 
+            this.cbStaffType.DisplayMember = "Text";
+            this.cbStaffType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbStaffType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStaffType.Enabled = false;
+            this.cbStaffType.FormattingEnabled = true;
+            this.cbStaffType.ItemHeight = 17;
+            this.cbStaffType.Location = new System.Drawing.Point(393, 45);
+            this.cbStaffType.Name = "cbStaffType";
+            this.cbStaffType.Size = new System.Drawing.Size(121, 23);
+            this.cbStaffType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbStaffType.TabIndex = 9;
+            // 
+            // plValidate
+            // 
+            this.plValidate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.plValidate.Controls.Add(this.dtValidEnd);
+            this.plValidate.Controls.Add(this.dtValidStart);
+            this.plValidate.Controls.Add(this.labelX3);
+            this.plValidate.Enabled = false;
+            this.plValidate.Location = new System.Drawing.Point(20, 40);
+            this.plValidate.Name = "plValidate";
+            this.plValidate.Size = new System.Drawing.Size(337, 32);
+            this.plValidate.TabIndex = 8;
+            // 
+            // dtValidEnd
+            // 
+            // 
+            // 
+            // 
+            this.dtValidEnd.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtValidEnd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtValidEnd.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtValidEnd.ButtonDropDown.Visible = true;
+            this.dtValidEnd.CustomFormat = "yyyy-MM-dd";
+            this.dtValidEnd.DateTimeSelectorVisibility = DevComponents.Editors.DateTimeAdv.eDateTimeSelectorVisibility.DateSelector;
+            this.dtValidEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtValidEnd.IsPopupCalendarOpen = false;
+            this.dtValidEnd.Location = new System.Drawing.Point(179, 4);
+            // 
+            // 
+            // 
+            this.dtValidEnd.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtValidEnd.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtValidEnd.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtValidEnd.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtValidEnd.MonthCalendar.DisplayMonth = new System.DateTime(2018, 7, 1, 0, 0, 0, 0);
+            this.dtValidEnd.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtValidEnd.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtValidEnd.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtValidEnd.MonthCalendar.TodayButtonVisible = true;
+            this.dtValidEnd.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtValidEnd.Name = "dtValidEnd";
+            this.dtValidEnd.ShowCheckBox = true;
+            this.dtValidEnd.ShowUpDown = true;
+            this.dtValidEnd.Size = new System.Drawing.Size(154, 23);
+            this.dtValidEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtValidEnd.TabIndex = 2;
             // 
             // dtValidStart
             // 
@@ -347,60 +505,6 @@
             this.dtValidStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtValidStart.TabIndex = 1;
             // 
-            // dtValidEnd
-            // 
-            // 
-            // 
-            // 
-            this.dtValidEnd.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.dtValidEnd.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtValidEnd.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
-            this.dtValidEnd.ButtonDropDown.Visible = true;
-            this.dtValidEnd.CustomFormat = "yyyy-MM-dd";
-            this.dtValidEnd.DateTimeSelectorVisibility = DevComponents.Editors.DateTimeAdv.eDateTimeSelectorVisibility.DateSelector;
-            this.dtValidEnd.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
-            this.dtValidEnd.IsPopupCalendarOpen = false;
-            this.dtValidEnd.Location = new System.Drawing.Point(179, 4);
-            // 
-            // 
-            // 
-            this.dtValidEnd.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtValidEnd.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtValidEnd.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
-            this.dtValidEnd.MonthCalendar.ClearButtonVisible = true;
-            // 
-            // 
-            // 
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
-            this.dtValidEnd.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtValidEnd.MonthCalendar.DisplayMonth = new System.DateTime(2018, 7, 1, 0, 0, 0, 0);
-            this.dtValidEnd.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
-            this.dtValidEnd.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.dtValidEnd.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.dtValidEnd.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtValidEnd.MonthCalendar.TodayButtonVisible = true;
-            this.dtValidEnd.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.dtValidEnd.Name = "dtValidEnd";
-            this.dtValidEnd.ShowCheckBox = true;
-            this.dtValidEnd.ShowUpDown = true;
-            this.dtValidEnd.Size = new System.Drawing.Size(154, 23);
-            this.dtValidEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtValidEnd.TabIndex = 2;
-            // 
             // labelX3
             // 
             // 
@@ -413,100 +517,30 @@
             this.labelX3.TabIndex = 3;
             this.labelX3.Text = "~";
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "证件号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 69;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 57;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "有效期至";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 81;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "状态";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 57;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "证件号";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 69;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "姓名";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 57;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "有效期至";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 81;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "状态";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 57;
-            // 
-            // cbisForbidden
-            // 
-            // 
-            // 
-            // 
-            this.cbisForbidden.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbisForbidden.Location = new System.Drawing.Point(394, 19);
-            this.cbisForbidden.Name = "cbisForbidden";
-            this.cbisForbidden.Size = new System.Drawing.Size(99, 23);
-            this.cbisForbidden.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbisForbidden.TabIndex = 5;
-            this.cbisForbidden.Text = "冻结状态：";
-            this.cbisForbidden.CheckedChanged += new System.EventHandler(this.cbisForbidden_CheckedChanged);
-            // 
-            // cbIsValidValid
-            // 
-            // 
-            // 
-            // 
-            this.cbIsValidValid.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbIsValidValid.Location = new System.Drawing.Point(16, 19);
-            this.cbIsValidValid.Name = "cbIsValidValid";
-            this.cbIsValidValid.Size = new System.Drawing.Size(100, 23);
-            this.cbIsValidValid.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbIsValidValid.TabIndex = 6;
-            this.cbIsValidValid.Text = "有效期：";
-            this.cbIsValidValid.CheckedChanged += new System.EventHandler(this.cbIsValidValid_CheckedChanged);
-            // 
             // plForbidden
             // 
             this.plForbidden.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.plForbidden.Controls.Add(this.cbForbbiden);
             this.plForbidden.Controls.Add(this.cbNormal);
             this.plForbidden.Enabled = false;
-            this.plForbidden.Location = new System.Drawing.Point(399, 40);
+            this.plForbidden.Location = new System.Drawing.Point(564, 40);
             this.plForbidden.Name = "plForbidden";
             this.plForbidden.Size = new System.Drawing.Size(170, 32);
             this.plForbidden.TabIndex = 7;
+            // 
+            // cbForbbiden
+            // 
+            // 
+            // 
+            // 
+            this.cbForbbiden.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbForbbiden.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
+            this.cbForbbiden.Location = new System.Drawing.Point(96, 6);
+            this.cbForbbiden.Name = "cbForbbiden";
+            this.cbForbbiden.Size = new System.Drawing.Size(57, 17);
+            this.cbForbbiden.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbForbbiden.TabIndex = 9;
+            this.cbForbbiden.Text = "冻结";
             // 
             // cbNormal
             // 
@@ -525,31 +559,47 @@
             this.cbNormal.TabIndex = 8;
             this.cbNormal.Text = "正常有效";
             // 
-            // cbForbbiden
+            // cbIsValidValid
             // 
             // 
             // 
             // 
-            this.cbForbbiden.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbForbbiden.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.cbForbbiden.Location = new System.Drawing.Point(96, 6);
-            this.cbForbbiden.Name = "cbForbbiden";
-            this.cbForbbiden.Size = new System.Drawing.Size(57, 17);
-            this.cbForbbiden.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbForbbiden.TabIndex = 9;
-            this.cbForbbiden.Text = "冻结";
+            this.cbIsValidValid.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbIsValidValid.Location = new System.Drawing.Point(16, 19);
+            this.cbIsValidValid.Name = "cbIsValidValid";
+            this.cbIsValidValid.Size = new System.Drawing.Size(100, 23);
+            this.cbIsValidValid.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbIsValidValid.TabIndex = 6;
+            this.cbIsValidValid.Text = "有效期：";
+            this.cbIsValidValid.CheckedChanged += new System.EventHandler(this.cbIsValidValid_CheckedChanged);
             // 
-            // plValidate
+            // chStaffType
             // 
-            this.plValidate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plValidate.Controls.Add(this.dtValidEnd);
-            this.plValidate.Controls.Add(this.dtValidStart);
-            this.plValidate.Controls.Add(this.labelX3);
-            this.plValidate.Enabled = false;
-            this.plValidate.Location = new System.Drawing.Point(20, 40);
-            this.plValidate.Name = "plValidate";
-            this.plValidate.Size = new System.Drawing.Size(337, 32);
-            this.plValidate.TabIndex = 8;
+            // 
+            // 
+            // 
+            this.chStaffType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.chStaffType.Location = new System.Drawing.Point(393, 19);
+            this.chStaffType.Name = "chStaffType";
+            this.chStaffType.Size = new System.Drawing.Size(99, 23);
+            this.chStaffType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.chStaffType.TabIndex = 5;
+            this.chStaffType.Text = "人员类别：";
+            this.chStaffType.CheckedChanged += new System.EventHandler(this.chStaffType_CheckedChanged);
+            // 
+            // cbisForbidden
+            // 
+            // 
+            // 
+            // 
+            this.cbisForbidden.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbisForbidden.Location = new System.Drawing.Point(559, 19);
+            this.cbisForbidden.Name = "cbisForbidden";
+            this.cbisForbidden.Size = new System.Drawing.Size(99, 23);
+            this.cbisForbidden.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbisForbidden.TabIndex = 5;
+            this.cbisForbidden.Text = "冻结状态：";
+            this.cbisForbidden.CheckedChanged += new System.EventHandler(this.cbisForbidden_CheckedChanged);
             // 
             // FrmBatchModify
             // 
@@ -579,10 +629,10 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelected)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtValidStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtValidEnd)).EndInit();
-            this.plForbidden.ResumeLayout(false);
             this.plValidate.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtValidEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtValidStart)).EndInit();
+            this.plForbidden.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -606,19 +656,23 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtValidStart;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtValidEnd;
         private DevComponents.DotNetBar.LabelX labelX3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbisForbidden;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbIsValidValid;
         private System.Windows.Forms.Panel plForbidden;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbForbbiden;
         private DevComponents.DotNetBar.Controls.CheckBoxX cbNormal;
         private System.Windows.Forms.Panel plValidate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chStaffType;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbStaffType;
     }
 }

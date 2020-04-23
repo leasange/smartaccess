@@ -14,6 +14,7 @@ namespace SmartAccess.VerInfoMgr
     public partial class FrmBatchModify : DevComponents.DotNetBar.Office2007Form
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmBatchModify));
+        private List<Maticsoft.Model.SMT_DATADICTIONARY_INFO> staffTypes = null;
         public FrmBatchModify()
         {
             InitializeComponent();
@@ -31,6 +32,8 @@ namespace SmartAccess.VerInfoMgr
                 try
                 {
                     var depts = DeptDataHelper.GetDepts(false);
+                    Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
+                    staffTypes =  dicBll.GetModelList("DATA_TYPE='STAFF_TYPE'");
                     this.Invoke(new Action(() =>
                     {
                         try
@@ -43,6 +46,15 @@ namespace SmartAccess.VerInfoMgr
                             foreach (DevComponents.AdvTree.Node item in this.cbTreeDept.Nodes)
                             {
                                 item.Expand();
+                            }
+                            if (staffTypes!=null&&staffTypes.Count>0)
+                            {
+                                foreach (var sft in staffTypes)
+                                {
+                                    DevComponents.Editors.ComboItem item = new DevComponents.Editors.ComboItem(sft.DATA_NAME);
+                                    item.Tag = sft;
+                                    cbStaffType.Items.Add(item);
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -109,7 +121,15 @@ namespace SmartAccess.VerInfoMgr
                 waiting.Show(this);
             }
         }
-
+        private string GetStaffName(string staffKey)
+        {
+            var val = staffTypes.Find(m => m.DATA_KEY == staffKey);
+            if (val!=null)
+            {
+                return val.DATA_NAME;
+            }
+            return staffKey;
+        }
         private void DoShowInfos(List<Maticsoft.Model.SMT_STAFF_INFO> staffInfos)
         {
             dgvStaffs.Rows.Clear();
@@ -133,6 +153,7 @@ namespace SmartAccess.VerInfoMgr
                 row.CreateCells(dgvStaffs,
                     item.STAFF_NO,
                     item.REAL_NAME,
+                    GetStaffName(item.STAFF_TYPE),
                     item.VALID_ENDTIME.ToString("yyyy-MM-dd"),
                     item.IS_FORBIDDEN?"禁用":"正常"
                     );
@@ -250,7 +271,17 @@ namespace SmartAccess.VerInfoMgr
                     return;
                 }
             }
-            if (!isvaliddatechanged&&!cbisForbidden.Checked)
+            string staffType = null;
+            if (chStaffType.Checked)
+            {
+                if (cbStaffType.SelectedItem == null)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "请选择人员类型！");
+                    return;
+                }
+                staffType = ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)((DevComponents.Editors.ComboItem)cbStaffType.SelectedItem).Tag).DATA_TYPE;
+            }
+            if (!isvaliddatechanged && !chStaffType.Checked && !cbisForbidden.Checked)
             {
                 WinInfoHelper.ShowInfoWindow(this, "请选择要修改的信息！");
                 return;
@@ -278,6 +309,10 @@ namespace SmartAccess.VerInfoMgr
                             {
                                 item.VALID_ENDTIME = dtValidEnd.Value.Date + new TimeSpan(23, 59, 59);
                             }
+                        }
+                        if (chStaffType.Checked)
+                        {
+                            item.STAFF_TYPE = staffType;
                         }
                         if (cbisForbidden.Checked)
                         {
@@ -323,6 +358,11 @@ namespace SmartAccess.VerInfoMgr
         private void cbisForbidden_CheckedChanged(object sender, EventArgs e)
         {
             plForbidden.Enabled = cbisForbidden.Checked;
+        }
+
+        private void chStaffType_CheckedChanged(object sender, EventArgs e)
+        {
+            cbStaffType.Enabled = chStaffType.Checked;
         }
     }
 }

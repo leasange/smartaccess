@@ -235,8 +235,7 @@
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.BackgroundImage = global::SmartAccess.Properties.Resources.loginbk;
+            this.BackgroundImage = global::SmartAccess.Properties.Resources.登陆背景;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(521, 345);
             this.Controls.Add(this.lbVersion);

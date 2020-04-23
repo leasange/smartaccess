@@ -94,6 +94,15 @@ namespace Li.Controls
                 rectangle,
                 this.RowHeadersDefaultCellStyle.ForeColor,
                 TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+
+            if (e.RowIndex%2==0)
+            {
+                this.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCyan;
+            }
+            else
+            {
+                this.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+            }
         }
 
         private void DataGridViewEx_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
