@@ -145,7 +145,7 @@
             // styleManager
             // 
             this.styleManager.ManagerColorTint = System.Drawing.Color.Black;
-            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2010Black;
+            this.styleManager.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007Blue;
             this.styleManager.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.Black, System.Drawing.Color.Black);
             // 
             // btnClose

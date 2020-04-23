@@ -19,7 +19,7 @@ namespace SmartAccess.InfoSearchMgr
         {
             InitializeComponent();
             advMemTree.Nodes.Clear();
-            tbNum.Text = Guid.NewGuid().ToString("N");
+            tbNum.Text =DateTime.Now.ToString("AS-yyyy-MM-dd-HH-mm-ss-fff"); //Guid.NewGuid().ToString("N");
             dtpEnd.Value = DateTime.Now.AddHours(12);
             doorTree.IsVisitor = true;
         }

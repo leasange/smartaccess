@@ -45,8 +45,8 @@
             this.nodeConnector1 = new DevComponents.AdvTree.NodeConnector();
             this.elementStyle1 = new DevComponents.DotNetBar.ElementStyle();
             this.panelEx1 = new DevComponents.DotNetBar.PanelEx();
-            this.labelX7 = new DevComponents.DotNetBar.LabelX();
             this.tbMemFilter = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX7 = new DevComponents.DotNetBar.LabelX();
             this.doorTree = new SmartAccess.VerInfoMgr.DoorTree();
             ((System.ComponentModel.ISupportInitialize)(this.dtpEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtpStart)).BeginInit();
@@ -92,6 +92,7 @@
             this.tbNum.Location = new System.Drawing.Point(84, 11);
             this.tbNum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbNum.Name = "tbNum";
+            this.tbNum.ReadOnly = true;
             this.tbNum.Size = new System.Drawing.Size(226, 23);
             this.tbNum.TabIndex = 2;
             // 
@@ -349,19 +350,6 @@
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 14;
             // 
-            // labelX7
-            // 
-            // 
-            // 
-            // 
-            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelX7.Location = new System.Drawing.Point(0, 0);
-            this.labelX7.Name = "labelX7";
-            this.labelX7.Size = new System.Drawing.Size(42, 27);
-            this.labelX7.TabIndex = 0;
-            this.labelX7.Text = "过滤";
-            // 
             // tbMemFilter
             // 
             // 
@@ -378,10 +366,24 @@
             this.tbMemFilter.WatermarkText = "输入关键字或拼音首字符";
             this.tbMemFilter.TextChanged += new System.EventHandler(this.tbMemFilter_TextChanged);
             // 
+            // labelX7
+            // 
+            // 
+            // 
+            // 
+            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelX7.Location = new System.Drawing.Point(0, 0);
+            this.labelX7.Name = "labelX7";
+            this.labelX7.Size = new System.Drawing.Size(42, 27);
+            this.labelX7.TabIndex = 0;
+            this.labelX7.Text = "过滤";
+            // 
             // doorTree
             // 
             this.doorTree.CheckBoxVisible = true;
             this.doorTree.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.doorTree.IsVisitor = false;
             this.doorTree.Location = new System.Drawing.Point(335, 94);
             this.doorTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.doorTree.Name = "doorTree";

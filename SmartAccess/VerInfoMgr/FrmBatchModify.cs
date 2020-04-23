@@ -279,7 +279,7 @@ namespace SmartAccess.VerInfoMgr
                     WinInfoHelper.ShowInfoWindow(this, "请选择人员类型！");
                     return;
                 }
-                staffType = ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)((DevComponents.Editors.ComboItem)cbStaffType.SelectedItem).Tag).DATA_TYPE;
+                staffType = ((Maticsoft.Model.SMT_DATADICTIONARY_INFO)((DevComponents.Editors.ComboItem)cbStaffType.SelectedItem).Tag).DATA_KEY;
             }
             if (!isvaliddatechanged && !chStaffType.Checked && !cbisForbidden.Checked)
             {
