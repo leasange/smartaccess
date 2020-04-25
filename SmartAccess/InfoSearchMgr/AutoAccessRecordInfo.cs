@@ -258,7 +258,18 @@ namespace SmartAccess.InfoSearchMgr
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            var rows = dgvData.SelectedRows;
+            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            foreach (DataGridViewCell item in dgvData.SelectedCells)
+            {
+                if (item.RowIndex>=0)
+                {
+                    DataGridViewRow row = dgvData.Rows[item.RowIndex];
+                    if (!rows.Contains(row))
+                    {
+                        rows.Add(row);
+                    }
+                }
+            }
             Maticsoft.BLL.SMT_AUTO_ACCESS accBll = new Maticsoft.BLL.SMT_AUTO_ACCESS();
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
@@ -306,6 +317,29 @@ namespace SmartAccess.InfoSearchMgr
                 WinInfoHelper.ShowInfoWindow(this, "请求取消成功，如未有查询到结果，请稍等一下，手动刷新！");
             });
             waiting.Show(this);
+        }
+
+        private void dgvData_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            btnCancel.Enabled = false;
+            //List<DataGridViewRow> rows = new List<DataGridViewRow>();
+            foreach (DataGridViewCell item in dgvData.SelectedCells)
+            {
+                if (item.RowIndex >= 0)
+                {
+                    DataGridViewRow row = dgvData.Rows[item.RowIndex];
+                    Maticsoft.Model.SMT_AUTO_ACCESS_RECORD record = row.Tag as Maticsoft.Model.SMT_AUTO_ACCESS_RECORD;
+                    if (record != null && (record.ACC_STATE == (int)AccessState.Init ||
+                            record.ACC_STATE == (int)AccessState.Private))
+                    {
+                        btnCancel.Enabled = true;
+                    }
+                    else
+                    {
+                        btnCancel.Enabled = false;
+                    }
+                }
+            }
         }
     }
 }
