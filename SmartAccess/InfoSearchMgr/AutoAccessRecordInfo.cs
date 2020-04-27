@@ -127,14 +127,16 @@ namespace SmartAccess.InfoSearchMgr
                 dgvr.Cells[0].Value = sys;
                 dgvr.Cells[1].Value = item.ACC_APP_NAME+"["+item.ACC_APP_ID+"]";
                 dgvr.Cells[2].Value = item.STAFF_REAL_NAME;
-                dgvr.Cells[3].Value = item.DOOR_NAME;
-                dgvr.Cells[4].Value = item.ACC_START_TIME;
-                dgvr.Cells[5].Value = item.ACC_END_TIME;
-                dgvr.Cells[6].Value = item.ACC_ADD_TIME;
-                dgvr.Cells[7].Value = item.ACC_STATE_TIME;
+                dgvr.Cells[3].Value = item.ORG_NAME;
+                dgvr.Cells[4].Value = item.CARD_NO;
+                dgvr.Cells[5].Value = item.DOOR_NAME;
+                dgvr.Cells[6].Value = item.ACC_START_TIME;
+                dgvr.Cells[7].Value = item.ACC_END_TIME;
+                dgvr.Cells[8].Value = item.ACC_ADD_TIME;
+                dgvr.Cells[9].Value = item.ACC_STATE_TIME;
                 AccessStateItem asi = new AccessStateItem() { state = (AccessState)item.ACC_STATE };
-                dgvr.Cells[8].Value = asi.Text;
-                dgvr.Cells[8].Style.ForeColor = asi.StateColor;
+                dgvr.Cells[10].Value = asi.Text;
+                dgvr.Cells[10].Style.ForeColor = asi.StateColor;
                 dgvr.Tag = item;
                 dgvData.Rows.Add(dgvr);
             }

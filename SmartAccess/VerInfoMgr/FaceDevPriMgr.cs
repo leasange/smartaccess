@@ -128,7 +128,7 @@ namespace SmartAccess.VerInfoMgr
             DoSearch(null, null, null);
         }
 
-        private void DoSearch(string staffname,string staffno,string staffdept,bool bunUpload=false)
+        private void DoSearch(string staffname,string staffno,string staffdept,object  endValidTime=null,bool bunUpload=false)
         {
             string selectdeviceIds = null;
             string strWhere = "1=1";
@@ -153,9 +153,12 @@ namespace SmartAccess.VerInfoMgr
             {
                 strWhere += " and STAFF_NO like '%" + staffno + "%'";
             }
-            if (!string.IsNullOrWhiteSpace(staffdept))
+            
+            if (endValidTime!=null)
             {
-                 strWhere += " and ORG_NAME like '%" + staffdept + "%'";
+                DateTime dt = (DateTime)endValidTime;
+                 
+                strWhere += " and END_VALID_TIME <= cast('"+dt.ToString("yyyy-MM-dd")+"' as datetime)" ;
             }
             if (bunUpload)
             {
@@ -170,17 +173,18 @@ namespace SmartAccess.VerInfoMgr
                 try
                 {
                     Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
-                    int count = bll.GetRecordCountEx(strWhere);
+                    int count = bll.GetRecordCountEx(strWhere,staffdept);
+                    pageDataGridView.PageControl.Tag = null;
                     this.Invoke(new Action(() =>
                     {
                         pageDataGridView.PageControl.TotalRecords = count;
                         pageDataGridView.PageControl.CurrentPage = 1;
-                        pageDataGridView.PageControl.Tag = strWhere;
+                        pageDataGridView.PageControl.Tag = new List<string>() { strWhere, staffdept };
                         dgvStaffs.Rows.Clear();
                     }));
                     if (count > 0)
                     {
-                        doSearch(strWhere, pageDataGridView.PageControl.StartIndex, pageDataGridView.PageControl.EndIndex);
+                        doSearch(strWhere, staffdept, pageDataGridView.PageControl.StartIndex, pageDataGridView.PageControl.EndIndex);
                     }
                 }
                 catch (Exception ex)
@@ -192,10 +196,10 @@ namespace SmartAccess.VerInfoMgr
             });
             waiting.Show(this);
         }
-        private void doSearch(string strWhere, int startIndex, int endIndex)
+        private void doSearch(string strWhere, string staffdept,int startIndex, int endIndex)
         {
             Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
-            var models = bll.GetModelListEx(strWhere, startIndex, endIndex);
+            var models = bll.GetModelListEx(strWhere, staffdept,startIndex, endIndex);
             this.Invoke(new Action(() =>
             {
                 dgvStaffs.Rows.Clear();
@@ -247,13 +251,21 @@ namespace SmartAccess.VerInfoMgr
         {
             if (pageDataGridView.PageControl.Tag!=null)
             {
-                doSearch(pageDataGridView.PageControl.Tag.ToString(), args.StartIndex, args.EndIndex);
+                List<string> list = pageDataGridView.PageControl.Tag as List<string>;
+                if (list!=null)
+                {
+                    doSearch(list[0],list[1], args.StartIndex, args.EndIndex);
+                }
+                else
+                {
+                    doSearch(pageDataGridView.PageControl.Tag.ToString(), null, args.StartIndex, args.EndIndex);
+                }
             }
         }
 
         private void biDoSearch_Click(object sender, EventArgs e)
         {
-            DoSearch(tbName.Text, tbStaffNo.Text, tbDeptName.Text,cbUnUpload.Checked);
+            DoSearch(tbName.Text, tbStaffNo.Text, tbDeptName.Text,dtiEndTime.ValueObject,cbUnUpload.Checked);
         }
 
         private void biClear_Click(object sender, EventArgs e)
@@ -262,6 +274,7 @@ namespace SmartAccess.VerInfoMgr
             tbStaffNo.Text = "";
             tbDeptName.Text = "";
             cbUnUpload.Checked = false;
+            dtiEndTime.ValueObject = null;
         }
         private List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetSelectStaffs(out List<DataGridViewRow> rows)
         {
@@ -392,7 +405,7 @@ namespace SmartAccess.VerInfoMgr
                 try
                 {
                     Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
-                    var models = bll.GetModelListEx("", 1, -1);
+                    var models = bll.GetModelListEx("",null, 1, -1);
                     DoUpload(models,false,false);
                 }
                 catch (System.Exception ex)
@@ -524,7 +537,7 @@ namespace SmartAccess.VerInfoMgr
                 try
                 {
                     Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
-                    var models = bll.GetModelListEx("", 1, -1);
+                    var models = bll.GetModelListEx("",null, 1, -1);
                     DoUpload(models,true,false);
                 }
                 catch (System.Exception ex)

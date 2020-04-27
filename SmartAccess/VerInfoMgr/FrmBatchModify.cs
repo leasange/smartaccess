@@ -1,4 +1,5 @@
-﻿using SmartAccess.Common.Datas;
+﻿using DevComponents.AdvTree;
+using SmartAccess.Common.Datas;
 using SmartAccess.Common.WinInfo;
 using System;
 using System.Collections.Generic;
@@ -72,7 +73,20 @@ namespace SmartAccess.VerInfoMgr
             });
             waiting.Show(this, 300);
         }
-
+        private List<decimal> GetSelectIDs(Node orgNode)
+        {
+            List<decimal> decs = new List<decimal>();
+            Maticsoft.Model.SMT_ORG_INFO orgInfo = orgNode.Tag as Maticsoft.Model.SMT_ORG_INFO;
+            if (orgInfo != null && orgInfo.ID != -1)
+            {
+                decs.Add(orgInfo.ID);
+            }
+            foreach (Node item in orgNode.Nodes)
+            {
+                decs.AddRange(GetSelectIDs(item).ToArray());
+            }
+            return decs;
+        }
         private void cbTreeDept_SelectionChanged(object sender, DevComponents.AdvTree.AdvTreeNodeEventArgs e)
         {
             Maticsoft.Model.SMT_ORG_INFO orgInfo = e.Node.Tag as Maticsoft.Model.SMT_ORG_INFO;
@@ -83,19 +97,29 @@ namespace SmartAccess.VerInfoMgr
             }
             if (orgInfo!=null)
             {
+                List<decimal> selectIds =  GetSelectIDs(e.Node);
                 CtrlWaiting waiting = new CtrlWaiting(() =>
                 {
                     try
                     {
                         Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                        string strWhere = "ORG_ID=" + orgInfo.ID;
+                        string strWhere = "(IS_DELETE=0 and IS_FORBIDDEN=0) and (";
+                        if (selectIds.Count>0)
+                        {
+                            strWhere+= " ORG_ID in (" + string.Join(",", selectIds.ToArray()) + ")";
+                        }
+                        else
+                        {
+                            strWhere += " ORG_ID=" + orgInfo.ID;
+                        }
                         if (orgInfo.ID==-1)
                         {
                             strWhere += " or ORG_ID is null";
                         }
-                        var staffInfos = staffBll.GetModelList("(" + strWhere + ") and IS_DELETE=0");
+                        strWhere += ")";
+                        var staffInfos = staffBll.GetModelList(strWhere);
 
-                        if (orgInfo.ID != -1)
+                        /*if (orgInfo.ID != -1)
                         {
                             Maticsoft.BLL.SMT_ORG_INFO orgBll = new Maticsoft.BLL.SMT_ORG_INFO();
                             var orgS = orgBll.GetModelList("PAR_ID=" + orgInfo.ID);
@@ -104,7 +128,7 @@ namespace SmartAccess.VerInfoMgr
                                 var subInfos = staffBll.GetModelList("ORG_ID=" + org.ID + " and IS_DELETE=0");
                                 staffInfos.AddRange(subInfos);
                             }
-                        }
+                        }*/
                       
 
                         this.Invoke(new Action(() =>

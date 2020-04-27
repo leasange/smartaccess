@@ -21,9 +21,9 @@ using System.Data.SqlClient;
 using Maticsoft.DBUtility;//Please add references
 namespace Maticsoft.DAL
 {
-	/// <summary>
-	/// 数据访问类:SMT_STAFF_FACEDEV
-	/// </summary>
+    /// <summary>
+    /// 数据访问类:SMT_STAFF_FACEDEV
+    /// </summary>
     public partial class SMT_STAFF_FACEDEV
     {
         #region  ExtensionMethod
@@ -74,9 +74,9 @@ namespace Maticsoft.DAL
                 {
                     model.STAFF_DEV_ID = row["STAFF_DEV_ID"].ToString();
                 }
-                if (row["REAL_NAME"]!=null)
+                if (row["REAL_NAME"] != null)
                 {
-                      model.REAL_NAME = row["REAL_NAME"].ToString();
+                    model.REAL_NAME = row["REAL_NAME"].ToString();
                 }
                 if (row["STAFF_NO"] != null)
                 {
@@ -120,11 +120,31 @@ namespace Maticsoft.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetListEx(string strWhere, int startIndex, int endIndex)
+        public DataSet GetListEx(string strWhere,string staffdept, int startIndex, int endIndex)
         {
             StringBuilder strSql = new StringBuilder();
-
-            strSql.Append("SELECT ");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append("    WITH tem_table (ID, PAR_ID, ORG_NAME) AS ( ");
+                strSql.Append(" 	SELECT ");
+                strSql.Append(" 		ID, ");
+                strSql.Append(" 		PAR_ID, ");
+                strSql.Append(" 		ORG_NAME ");
+                strSql.Append(" 	FROM ");
+                strSql.Append(" 		SMT_ORG_INFO ");
+                strSql.Append(" 	WHERE ");
+                strSql.Append(" 		ORG_NAME LIKE '%" + staffdept + "%' ");
+                strSql.Append(" 	UNION ALL ");
+                strSql.Append(" 		SELECT ");
+                strSql.Append(" 			a.ID, ");
+                strSql.Append(" 			a.PAR_ID, ");
+                strSql.Append(" 			a.ORG_NAME ");
+                strSql.Append(" 		FROM ");
+                strSql.Append(" 			SMT_ORG_INFO a ");
+                strSql.Append(" 		INNER JOIN tem_table b ON (a.PAR_ID = b.ID)  )");
+            }
+           
+            strSql.Append(" SELECT ");
             strSql.Append("	* ");
             strSql.Append("FROM ");
             strSql.Append("	( ");
@@ -132,22 +152,48 @@ namespace Maticsoft.DAL
             strSql.Append("			TT.*, ROW_NUMBER() OVER (ORDER BY TT.ORG_ID) as Row,SOI.ORG_NAME ");
             strSql.Append("		FROM ");
             strSql.Append("			( ");
-            strSql.Append("				SELECT ");
-            strSql.Append("					SSF.*, SSI.REAL_NAME,SSI.PHOTO,SSI.IS_FORBIDDEN,SFD.FACEDEV_NAME, ");
-            strSql.Append("					SSI.STAFF_NO, ");
-            strSql.Append("					SSI.STAFF_TYPE, ");
-            strSql.Append("					SSI.ORG_ID,SSI.VALID_ENDTIME as STAFF_VALID_ENDTIME ");
-            strSql.Append("				FROM ");
-            strSql.Append("					SMT_STAFF_FACEDEV SSF,SMT_STAFF_INFO SSI,SMT_FACERECG_DEVICE SFD ");
-            strSql.Append("				WHERE SSF.STAFF_ID = SSI.ID AND SFD.ID = SSF.FACEDEV_ID  ");
-            strSql.Append("				AND SSI.IS_DELETE = 0 ");
+ //           strSql.Append("				SELECT ");
+ //           strSql.Append("					SSF.*, SSI.REAL_NAME,SSI.PHOTO,SSI.IS_FORBIDDEN,SFD.FACEDEV_NAME, ");
+ //           strSql.Append("					SSI.STAFF_NO, ");
+ //           strSql.Append("					SSI.STAFF_TYPE, ");
+ //           strSql.Append("					SSI.ORG_ID,SSI.VALID_ENDTIME as STAFF_VALID_ENDTIME ");
+ //           strSql.Append("				FROM ");
+ //           strSql.Append("					SMT_STAFF_FACEDEV SSF,SMT_STAFF_INFO SSI,SMT_FACERECG_DEVICE SFD ");
+ //           strSql.Append("				WHERE SSF.STAFF_ID = SSI.ID AND SFD.ID = SSF.FACEDEV_ID  ");
+ //           strSql.Append("				AND SSI.IS_DELETE = 0 ");
+            strSql.Append(" 		SELECT ");
+            strSql.Append(" 			SSF.*, SSI.REAL_NAME,SSI.PHOTO,SSI.IS_FORBIDDEN,SFD.FACEDEV_NAME, ");
+            strSql.Append(" 			SSI.STAFF_NO, ");
+            strSql.Append(" 			SSI.STAFF_TYPE, ");
+            strSql.Append(" 			SSI.ORG_ID,SSI.VALID_ENDTIME as STAFF_VALID_ENDTIME ");
+            strSql.Append(" 		FROM ");
+            strSql.Append(" 			SMT_STAFF_FACEDEV SSF, ");
+            strSql.Append(" 			SMT_STAFF_INFO SSI, ");
+            strSql.Append(" 			SMT_FACERECG_DEVICE SFD ");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append(" 			,( ");
+                strSql.Append(" 				SELECT ");
+                strSql.Append(" 					ID AS TEM_ORG_ID ");
+                strSql.Append(" 				FROM ");
+                strSql.Append(" 					tem_table ");
+                strSql.Append(" 			) TEM ");
+            }
+            strSql.Append(" 		WHERE ");
+            strSql.Append(" 			SSF.STAFF_ID = SSI.ID ");
+            strSql.Append(" 		AND SFD.ID = SSF.FACEDEV_ID ");
+            strSql.Append(" 		AND SSI.IS_DELETE = 0 ");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append(" 		AND TEM.TEM_ORG_ID = SSI.ORG_ID ");
+            }
             strSql.Append("			) TT ");
             strSql.Append("		LEFT JOIN SMT_ORG_INFO SOI ON TT.ORG_ID = SOI.ID ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
-            if (endIndex<=0)
+            if (endIndex <= 0)
             {
                 strSql.AppendFormat("	) TTT");
             }
@@ -155,7 +201,7 @@ namespace Maticsoft.DAL
             {
                 strSql.AppendFormat("	) TTT WHERE Row BETWEEN {0} and  {1} ", startIndex, endIndex);
             }
-           
+
 
             return DbHelperSQL.Query(strSql.ToString());
         }
@@ -163,34 +209,66 @@ namespace Maticsoft.DAL
         /// <summary>
         /// 获取记录总数
         /// </summary>
-        public int GetRecordCountEx(string strWhere)
+        public int GetRecordCountEx(string strWhere, string staffdept)
         {
             StringBuilder strSql = new StringBuilder();
-
-            strSql.Append("SELECT ");
-            strSql.Append("  COUNT (1) ");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append("    WITH tem_table (ID, PAR_ID, ORG_NAME) AS ( ");
+                strSql.Append(" 	SELECT ");
+                strSql.Append(" 		ID, ");
+                strSql.Append(" 		PAR_ID, ");
+                strSql.Append(" 		ORG_NAME ");
+                strSql.Append(" 	FROM ");
+                strSql.Append(" 		SMT_ORG_INFO ");
+                strSql.Append(" 	WHERE ");
+                strSql.Append(" 		ORG_NAME LIKE '%" + staffdept + "%' ");
+                strSql.Append(" 	UNION ALL ");
+                strSql.Append(" 		SELECT ");
+                strSql.Append(" 			a.ID, ");
+                strSql.Append(" 			a.PAR_ID, ");
+                strSql.Append(" 			a.ORG_NAME ");
+                strSql.Append(" 		FROM ");
+                strSql.Append(" 			SMT_ORG_INFO a ");
+                strSql.Append(" 		INNER JOIN tem_table b ON (a.PAR_ID = b.ID)  )");
+            }
+            
+            strSql.Append(" SELECT ");
+            strSql.Append(" 	COUNT(1) ");
             strSql.Append(" FROM ");
-            strSql.Append("    ( ");
-            strSql.Append("       SELECT ");
-            strSql.Append("          TT.*, SOI.ORG_NAME ");
-            strSql.Append("     FROM ");
-            strSql.Append("        ( ");
-            strSql.Append("            SELECT ");
-            strSql.Append("	            SSF.*, SSI.REAL_NAME,");
-            strSql.Append("	            SSI.STAFF_NO,");
-            strSql.Append("	            SSI.STAFF_TYPE,");
-            strSql.Append("	            SSI.ORG_ID ");
-            strSql.Append("            FROM ");
-            strSql.Append("	            SMT_STAFF_FACEDEV SSF,SMT_STAFF_INFO SSI,SMT_FACERECG_DEVICE SFD  ");
-            strSql.Append("           WHERE SSF.STAFF_ID = SSI.ID AND SFD.ID = SSF.FACEDEV_ID ");
-            strSql.Append("           AND SSI.IS_DELETE = 0 ");
-            strSql.Append("       ) TT ");
-            strSql.Append("  LEFT JOIN SMT_ORG_INFO SOI ON TT.ORG_ID = SOI.ID ");
+            strSql.Append(" 	( ");
+            strSql.Append(" 		SELECT ");
+            strSql.Append(" 			SSF.*, SSI.REAL_NAME, ");
+            strSql.Append(" 			SSI.STAFF_NO, ");
+            strSql.Append(" 			SSI.STAFF_TYPE, ");
+            strSql.Append(" 			SSI.ORG_ID ");
+            strSql.Append(" 		FROM ");
+            strSql.Append(" 			SMT_STAFF_FACEDEV SSF, ");
+            strSql.Append(" 			SMT_STAFF_INFO SSI, ");
+            strSql.Append(" 			SMT_FACERECG_DEVICE SFD");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append(" 			, ( ");
+                strSql.Append(" 				SELECT ");
+                strSql.Append(" 					ID AS TEM_ORG_ID ");
+                strSql.Append(" 				FROM ");
+                strSql.Append(" 					tem_table ");
+                strSql.Append(" 			) TEM ");
+            }
+            strSql.Append(" 		WHERE ");
+            strSql.Append(" 			SSF.STAFF_ID = SSI.ID ");
+            strSql.Append(" 		AND SFD.ID = SSF.FACEDEV_ID ");
+            strSql.Append(" 		AND SSI.IS_DELETE = 0 ");
+            if (!string.IsNullOrWhiteSpace(staffdept))
+            {
+                strSql.Append(" 		AND TEM.TEM_ORG_ID = SSI.ORG_ID ");
+            }
+            strSql.Append(" 	) TT ");
+            strSql.Append(" LEFT JOIN SMT_ORG_INFO SOI ON TT.ORG_ID = SOI.ID ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
-            strSql.Append("   ) TTT ");
             object obj = DbHelperSQL.GetSingle(strSql.ToString());
             if (obj == null)
             {

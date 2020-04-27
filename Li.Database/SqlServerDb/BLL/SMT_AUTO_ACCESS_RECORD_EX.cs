@@ -57,6 +57,14 @@ namespace Maticsoft.BLL
                         {
                             model.DOOR_NAME = dt.Rows[n]["DOOR_NAME"].ToString();
                         }
+                        if (dt.Rows[n]["ORG_NAME"] != null)
+                        {
+                            model.ORG_NAME = dt.Rows[n]["ORG_NAME"].ToString();
+                        }
+                        if (dt.Rows[n]["CARD_NO"] != null)
+                        {
+                            model.CARD_NO = dt.Rows[n]["CARD_NO"].ToString();
+                        }
                         modelList.Add(model);
                     }
                 }

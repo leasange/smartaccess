@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.advTree = new Li.Controls.AdvTreeEx();
             this.node1 = new DevComponents.AdvTree.Node();
@@ -42,7 +42,17 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.pageDataGridView = new Li.Controls.PageDataGridView();
             this.dgvStaffs = new Li.Controls.DataGridViewEx();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Modify = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.dtiEndTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.biRegister = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.tbName = new DevComponents.DotNetBar.TextBoxItem();
@@ -50,6 +60,8 @@
             this.tbDeptName = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
             this.tbStaffNo = new DevComponents.DotNetBar.TextBoxItem();
+            this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
+            this.controlContainerItem3 = new DevComponents.DotNetBar.ControlContainerItem();
             this.cbUnUpload = new DevComponents.DotNetBar.CheckBoxItem();
             this.biDoSearch = new DevComponents.DotNetBar.ButtonItem();
             this.biClear = new DevComponents.DotNetBar.ButtonItem();
@@ -60,21 +72,10 @@
             this.biOneKeyUpload = new DevComponents.DotNetBar.ButtonItem();
             this.biForceUpload = new DevComponents.DotNetBar.ButtonItem();
             this.biCancelUpload = new DevComponents.DotNetBar.ButtonItem();
-            this.dtpValidTime = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.biCheckState = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem7 = new DevComponents.DotNetBar.LabelItem();
             this.tbJob = new DevComponents.DotNetBar.TextBoxItem();
             this.labelItem6 = new DevComponents.DotNetBar.LabelItem();
-            this.biCheckState = new DevComponents.DotNetBar.ButtonItem();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_Modify = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_DELETE = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Col_SC = new Li.Controls.DataGridViewLinkLabelColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -85,8 +86,9 @@
             this.pageDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
+            this.bar1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -252,14 +254,14 @@
             this.dgvStaffs.AllowUserToAddRows = false;
             this.dgvStaffs.AllowUserToDeleteRows = false;
             this.dgvStaffs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvStaffs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
             this.Column1,
@@ -270,36 +272,105 @@
             this.Col_Modify,
             this.Col_DELETE,
             this.Col_SC});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaffs.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvStaffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaffs.EnableHeadersVisualStyles = false;
             this.dgvStaffs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvStaffs.Location = new System.Drawing.Point(0, 0);
             this.dgvStaffs.Name = "dgvStaffs";
             this.dgvStaffs.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStaffs.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvStaffs.RowTemplate.Height = 23;
             this.dgvStaffs.Size = new System.Drawing.Size(1024, 295);
             this.dgvStaffs.TabIndex = 3;
             this.dgvStaffs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaffs_CellContentClick);
             // 
+            // Column4
+            // 
+            this.Column4.FillWeight = 1F;
+            this.Column4.HeaderText = "人脸设备";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.FillWeight = 1F;
+            this.Column1.HeaderText = "证件编号";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.FillWeight = 1F;
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.FillWeight = 2F;
+            this.Column3.HeaderText = "部门";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.FillWeight = 1F;
+            this.Column6.HeaderText = "状态";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Column8
+            // 
+            this.Column8.FillWeight = 1F;
+            this.Column8.HeaderText = "截止有效期";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Col_Modify
+            // 
+            this.Col_Modify.FillWeight = 0.8F;
+            this.Col_Modify.HeaderText = "修改";
+            this.Col_Modify.Name = "Col_Modify";
+            this.Col_Modify.ReadOnly = true;
+            this.Col_Modify.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Col_DELETE
+            // 
+            this.Col_DELETE.FillWeight = 0.8F;
+            this.Col_DELETE.HeaderText = "删除";
+            this.Col_DELETE.Name = "Col_DELETE";
+            this.Col_DELETE.ReadOnly = true;
+            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Col_SC
+            // 
+            this.Col_SC.FillWeight = 0.8F;
+            this.Col_SC.HeaderText = "上传";
+            this.Col_SC.Name = "Col_SC";
+            this.Col_SC.ReadOnly = true;
+            this.Col_SC.SplitLinkSymbol = ",";
+            // 
             // bar1
             // 
             this.bar1.AntiAlias = true;
+            this.bar1.Controls.Add(this.dtiEndTime);
             this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
             this.bar1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -310,6 +381,8 @@
             this.tbDeptName,
             this.labelItem5,
             this.tbStaffNo,
+            this.labelItem3,
+            this.controlContainerItem3,
             this.cbUnUpload,
             this.biDoSearch,
             this.biClear});
@@ -321,6 +394,57 @@
             this.bar1.TabIndex = 5;
             this.bar1.TabStop = false;
             this.bar1.Text = "bar1";
+            // 
+            // dtiEndTime
+            // 
+            // 
+            // 
+            // 
+            this.dtiEndTime.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.dtiEndTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
+            this.dtiEndTime.ButtonDropDown.Visible = true;
+            this.dtiEndTime.CustomFormat = "yyyy-MM-dd";
+            this.dtiEndTime.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
+            this.dtiEndTime.IsPopupCalendarOpen = false;
+            this.dtiEndTime.Location = new System.Drawing.Point(482, 3);
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
+            this.dtiEndTime.MonthCalendar.ClearButtonVisible = true;
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
+            this.dtiEndTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.DisplayMonth = new System.DateTime(2020, 4, 1, 0, 0, 0, 0);
+            this.dtiEndTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
+            this.dtiEndTime.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.dtiEndTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.dtiEndTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.dtiEndTime.MonthCalendar.TodayButtonVisible = true;
+            this.dtiEndTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.dtiEndTime.Name = "dtiEndTime";
+            this.dtiEndTime.Size = new System.Drawing.Size(100, 23);
+            this.dtiEndTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.dtiEndTime.TabIndex = 3;
             // 
             // biRegister
             // 
@@ -339,7 +463,7 @@
             // tbName
             // 
             this.tbName.Name = "tbName";
-            this.tbName.TextBoxWidth = 50;
+            this.tbName.TextBoxWidth = 70;
             this.tbName.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
@@ -352,7 +476,7 @@
             // tbDeptName
             // 
             this.tbDeptName.Name = "tbDeptName";
-            this.tbDeptName.TextBoxWidth = 55;
+            this.tbDeptName.TextBoxWidth = 70;
             this.tbDeptName.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbDeptName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
             // 
@@ -365,9 +489,21 @@
             // tbStaffNo
             // 
             this.tbStaffNo.Name = "tbStaffNo";
-            this.tbStaffNo.TextBoxWidth = 40;
+            this.tbStaffNo.TextBoxWidth = 70;
             this.tbStaffNo.WatermarkColor = System.Drawing.SystemColors.GrayText;
             this.tbStaffNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbName_KeyUp);
+            // 
+            // labelItem3
+            // 
+            this.labelItem3.Name = "labelItem3";
+            this.labelItem3.Text = "截止有效期";
+            // 
+            // controlContainerItem3
+            // 
+            this.controlContainerItem3.AllowItemResize = false;
+            this.controlContainerItem3.Control = this.dtiEndTime;
+            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem3.Name = "controlContainerItem3";
             // 
             // cbUnUpload
             // 
@@ -460,61 +596,14 @@
             this.biCancelUpload.Text = "取消上传";
             this.biCancelUpload.Click += new System.EventHandler(this.biCancelUpload_Click);
             // 
-            // dtpValidTime
+            // biCheckState
             // 
-            // 
-            // 
-            // 
-            this.dtpValidTime.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.dtpValidTime.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpValidTime.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown;
-            this.dtpValidTime.ButtonDropDown.Visible = true;
-            this.dtpValidTime.IsPopupCalendarOpen = false;
-            this.dtpValidTime.Location = new System.Drawing.Point(313, 3);
-            // 
-            // 
-            // 
-            this.dtpValidTime.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtpValidTime.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpValidTime.MonthCalendar.CalendarDimensions = new System.Drawing.Size(1, 1);
-            this.dtpValidTime.MonthCalendar.ClearButtonVisible = true;
-            // 
-            // 
-            // 
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1;
-            this.dtpValidTime.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpValidTime.MonthCalendar.DisplayMonth = new System.DateTime(2016, 6, 1, 0, 0, 0, 0);
-            this.dtpValidTime.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday;
-            this.dtpValidTime.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.dtpValidTime.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.dtpValidTime.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.dtpValidTime.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90;
-            this.dtpValidTime.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.dtpValidTime.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.dtpValidTime.MonthCalendar.TodayButtonVisible = true;
-            this.dtpValidTime.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.dtpValidTime.Name = "dtpValidTime";
-            this.dtpValidTime.Size = new System.Drawing.Size(90, 21);
-            this.dtpValidTime.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.dtpValidTime.TabIndex = 2;
-            // 
-            // controlContainerItem1
-            // 
-            this.controlContainerItem1.AllowItemResize = false;
-            this.controlContainerItem1.Control = this.dtpValidTime;
-            this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem1.Name = "controlContainerItem1";
+            this.biCheckState.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biCheckState.Image = global::SmartAccess.Properties.Resources.搜索控制器;
+            this.biCheckState.Name = "biCheckState";
+            this.biCheckState.Text = "检测上传状态";
+            this.biCheckState.Tooltip = "反向检测人脸设备的状态，在状态不一致时使用";
+            this.biCheckState.Click += new System.EventHandler(this.biCheckState_Click);
             // 
             // labelItem7
             // 
@@ -532,83 +621,6 @@
             this.labelItem6.ForeColor = System.Drawing.Color.Black;
             this.labelItem6.Name = "labelItem6";
             this.labelItem6.Text = "职务";
-            // 
-            // biCheckState
-            // 
-            this.biCheckState.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biCheckState.Image = global::SmartAccess.Properties.Resources.搜索控制器;
-            this.biCheckState.Name = "biCheckState";
-            this.biCheckState.Text = "检测上传状态";
-            this.biCheckState.Tooltip = "反向检测人脸设备的状态，在状态不一致时使用";
-            this.biCheckState.Click += new System.EventHandler(this.biCheckState_Click);
-            // 
-            // Column4
-            // 
-            this.Column4.FillWeight = 1F;
-            this.Column4.HeaderText = "人脸设备";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 1F;
-            this.Column1.HeaderText = "证件编号";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 1F;
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.FillWeight = 2F;
-            this.Column3.HeaderText = "部门";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.FillWeight = 1F;
-            this.Column6.HeaderText = "状态";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column8
-            // 
-            this.Column8.FillWeight = 1F;
-            this.Column8.HeaderText = "截止有效期";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Col_Modify
-            // 
-            this.Col_Modify.FillWeight = 0.8F;
-            this.Col_Modify.HeaderText = "修改";
-            this.Col_Modify.Name = "Col_Modify";
-            this.Col_Modify.ReadOnly = true;
-            this.Col_Modify.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Col_DELETE
-            // 
-            this.Col_DELETE.FillWeight = 0.8F;
-            this.Col_DELETE.HeaderText = "删除";
-            this.Col_DELETE.Name = "Col_DELETE";
-            this.Col_DELETE.ReadOnly = true;
-            this.Col_DELETE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_DELETE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Col_SC
-            // 
-            this.Col_SC.FillWeight = 0.8F;
-            this.Col_SC.HeaderText = "上传";
-            this.Col_SC.Name = "Col_SC";
-            this.Col_SC.ReadOnly = true;
-            this.Col_SC.SplitLinkSymbol = ",";
             // 
             // FaceDevPriMgr
             // 
@@ -628,8 +640,9 @@
             this.pageDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
+            this.bar1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtiEndTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtpValidTime)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -646,9 +659,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX tbFilter;
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.Bar bar2;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
         private Li.Controls.DataGridViewEx dgvStaffs;
-        private DevComponents.Editors.DateTimeAdv.DateTimeInput dtpValidTime;
         private DevComponents.DotNetBar.LabelItem labelItem7;
         private DevComponents.DotNetBar.TextBoxItem tbJob;
         private DevComponents.DotNetBar.LabelItem labelItem6;
@@ -680,5 +691,8 @@
         private System.Windows.Forms.DataGridViewLinkColumn Col_Modify;
         private System.Windows.Forms.DataGridViewLinkColumn Col_DELETE;
         private Li.Controls.DataGridViewLinkLabelColumn Col_SC;
+        private DevComponents.Editors.DateTimeAdv.DateTimeInput dtiEndTime;
+        private DevComponents.DotNetBar.LabelItem labelItem3;
+        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem3;
     }
 }

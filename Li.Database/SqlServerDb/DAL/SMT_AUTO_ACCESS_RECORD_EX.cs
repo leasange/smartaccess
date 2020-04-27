@@ -32,7 +32,7 @@ namespace Maticsoft.DAL
         /// </summary>
         public DataSet GetListEx(string strWhere, int startIndex, int endIndex)
         {
-            StringBuilder strSql = new StringBuilder();
+            /*StringBuilder strSql = new StringBuilder();
 
             strSql.Append("SELECT ");
             strSql.Append("    TTT.*, SDI.DOOR_NAME ");
@@ -67,6 +67,43 @@ namespace Maticsoft.DAL
             strSql.Append("            ) ");
             strSql.Append("    ) TTT ");
             strSql.Append(" LEFT JOIN SMT_DOOR_INFO SDI ON TTT.ACC_DOOR_ID = SDI.ID ");
+
+            return DbHelperSQL.Query(strSql.ToString());*/
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT ");
+	        strSql.Append("        SAAR.*, SSI.REAL_NAME AS STAFF_REAL_NAME, ");
+	        strSql.Append("        SOI.ORG_NAME, ");
+	        strSql.Append("        SDI.DOOR_NAME, ");
+	        strSql.Append("        SCI.CARD_NO ");
+            strSql.Append("    FROM ");
+	        strSql.Append("            ( ");
+		    strSql.Append("                SELECT ");
+			strSql.Append("                    TT.* ");
+		    strSql.Append("                FROM ");
+			strSql.Append("                    ( ");
+			strSql.Append("    	                SELECT ");
+			strSql.Append("    		                ROW_NUMBER () OVER (ORDER BY T.ACC_ADD_TIME DESC) AS Row, ");
+			strSql.Append("    		                T.* ");
+			strSql.Append("    	                FROM ");
+			strSql.Append("    		                SMT_AUTO_ACCESS_RECORD T ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+			strSql.Append("                    ) TT ");
+
+            if (startIndex >= 0)
+            {
+                strSql.Append("		            WHERE ");
+                strSql.AppendFormat("			            TT.Row BETWEEN {0} AND {1} ", startIndex, endIndex);
+            }
+	        strSql.Append("            ) SAAR ");
+            strSql.Append("        LEFT JOIN SMT_STAFF_INFO SSI ON SAAR.ACC_STAFF_ID = SSI.ID ");
+            strSql.Append("        LEFT JOIN SMT_ORG_INFO SOI ON SOI.ID = SSI.ORG_ID ");
+            strSql.Append("        LEFT JOIN SMT_DOOR_INFO SDI ON SAAR.ACC_DOOR_ID = SDI.ID ");
+            strSql.Append("        LEFT JOIN SMT_STAFF_CARD SSC ON SSC.STAFF_ID=SSI.ID ");
+            strSql.Append("        LEFT JOIN SMT_CARD_INFO SCI ON SCI.ID=SSC.CARD_ID ");
 
             return DbHelperSQL.Query(strSql.ToString());
         }

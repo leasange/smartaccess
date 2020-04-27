@@ -125,10 +125,17 @@ namespace SmartAccess.VerInfoMgr
                         {
                             strWhere += " and JOB like '%" + tbJob.Text.Trim() + "%'";
                         }
-                        if (dtpValidTime.ValueObject != null)
+                        if (dtpValidTimeES.ValueObject != null)
                         {
-                            string date = dtpValidTime.Value.ToString("yyyy-MM-dd 12:00:00");
-                            strWhere += " and VALID_STARTTIME <= '" + date + "' and VALID_ENDTIME>='" + date + "'";
+                            string date = dtpValidTimeES.Value.ToString("yyyy-MM-dd 00:00:00");
+                            //strWhere += " and VALID_STARTTIME <= '" + date + "' and VALID_ENDTIME>='" + date + "'";
+                            strWhere += " and VALID_ENDTIME >= '" + date + "' ";
+                        }
+                        if (dtpValidTimeEE.ValueObject != null)
+                        {
+                            string date = dtpValidTimeEE.Value.ToString("yyyy-MM-dd 23:59:59");
+                            //strWhere += " and VALID_STARTTIME <= '" + date + "' and VALID_ENDTIME>='" + date + "'";
+                            strWhere += " and VALID_ENDTIME <= '" + date + "' ";
                         }
                         if (tbDeptName.Text.Trim() != "")
                         {
@@ -1019,7 +1026,8 @@ namespace SmartAccess.VerInfoMgr
             tbDeptName.Text = "";
             tbJob.Text = "";
             tbStaffNo.Text = "";
-            dtpValidTime.ValueObject = null;
+            dtpValidTimeES.ValueObject = null;
+            dtpValidTimeEE.ValueObject = null;
         }
 
         private void cbHasCard_Click(object sender, EventArgs e)

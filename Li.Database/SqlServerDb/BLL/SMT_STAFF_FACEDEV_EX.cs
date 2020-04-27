@@ -29,18 +29,18 @@ namespace Maticsoft.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetModelListEx(string strWhere,int startIndex,int endIndex)
+        public List<Maticsoft.Model.SMT_STAFF_FACEDEV> GetModelListEx(string strWhere,string staffdept ,int startIndex,int endIndex)
         {
-            DataSet ds = dal.GetListEx(strWhere, startIndex, endIndex);
+            DataSet ds = dal.GetListEx(strWhere, staffdept, startIndex, endIndex);
             return DataTableToListEx(ds.Tables[0]);
         }
 
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
-        public int GetRecordCountEx(string strWhere)
+        public int GetRecordCountEx(string strWhere,string staffdept)
         {
-            return dal.GetRecordCountEx(strWhere);
+            return dal.GetRecordCountEx(strWhere, staffdept);
         }
         /// <summary>
         /// 获得数据列表

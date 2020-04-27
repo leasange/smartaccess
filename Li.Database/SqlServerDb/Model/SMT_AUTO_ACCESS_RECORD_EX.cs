@@ -34,6 +34,19 @@ namespace Maticsoft.Model
             get { return _door_name; }
             set { _door_name = value; }
         }
+
+        private string _org_name;
+        public string ORG_NAME
+        {
+            get { return _org_name; }
+            set { _org_name = value; }
+        }
+        private string _card_no;
+        public string CARD_NO
+        {
+            get { return _card_no; }
+            set { _card_no = value; }
+        }
 	}
 }
 
