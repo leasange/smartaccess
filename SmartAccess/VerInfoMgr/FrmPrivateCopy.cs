@@ -21,7 +21,7 @@ namespace SmartAccess.VerInfoMgr
             InitializeComponent();
             _staffInfo = staffInfo;
             _staffDoors = doors;
-            this.Text = "当前被复制权限人员：" + _staffInfo.REAL_NAME;
+            this.Text = "门禁权限复制，当前被复制权限人员：" + _staffInfo.REAL_NAME;
         }
 
         private void FrmPrivateCopy_Load(object sender, EventArgs e)

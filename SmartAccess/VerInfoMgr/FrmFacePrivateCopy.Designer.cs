@@ -1,6 +1,6 @@
 ﻿namespace SmartAccess.VerInfoMgr
 {
-    partial class FrmPrivateCopy
+    partial class FrmFacePrivateCopy
     {
         /// <summary>
         /// Required designer variable.
@@ -301,7 +301,7 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 57;
             // 
-            // FrmPrivateCopy
+            // FrmFacePrivateCopy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -319,7 +319,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmPrivateCopy";
+            this.Name = "FrmFacePrivateCopy";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "复制权限";

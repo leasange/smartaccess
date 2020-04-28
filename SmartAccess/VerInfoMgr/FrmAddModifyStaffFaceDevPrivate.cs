@@ -15,8 +15,10 @@ namespace SmartAccess.VerInfoMgr
     public partial class FrmAddModifyStaffFaceDevPrivate : DevComponents.DotNetBar.Office2007Form
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmAddModifyStaffFaceDevPrivate));
+        private List<Maticsoft.Model.SMT_STAFF_FACEDEV> _staffDevs = null;
         private List<Maticsoft.Model.SMT_FACERECG_DEVICE> _faceDevices = null;
         private Maticsoft.Model.SMT_STAFF_INFO _staffInfo;
+        private Maticsoft.Model.SMT_STAFF_FACEDEV _staffDev;
         private bool _imageChanged=false;
         public FrmAddModifyStaffFaceDevPrivate(Maticsoft.Model.SMT_STAFF_INFO staff, bool imageChanged)
         {
@@ -24,9 +26,23 @@ namespace SmartAccess.VerInfoMgr
             _staffInfo = staff;
             _imageChanged = imageChanged;
         }
+        public FrmAddModifyStaffFaceDevPrivate(Maticsoft.Model.SMT_STAFF_FACEDEV staffDev)
+        {
+            InitializeComponent();
+            _staffDev = staffDev;
+        }
 
         private void FrmAddModifyStaffFaceDevPrivate_Load(object sender, EventArgs e)
         {
+            if (_staffInfo == null && _staffDev!=null)
+            {
+                 CtrlWaiting waitingd = new CtrlWaiting(() =>
+                 {
+                     Maticsoft.BLL.SMT_STAFF_INFO ssBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                     _staffInfo = ssBll.GetModel(_staffDev.STAFF_ID);
+                 });
+                 waitingd.ShowDialog(this);
+            }
             if (_staffInfo!=null)
             {
                 this.TitleText = "开始添加“" + _staffInfo.REAL_NAME + "”人脸设备权限";
@@ -68,6 +84,26 @@ namespace SmartAccess.VerInfoMgr
                         advTree.Nodes.Clear();
                         advTree.Nodes.AddRange(nodes.ToArray());
                         advTree.ExpandAll();
+
+                        CtrlWaiting ctrlWaiting = new CtrlWaiting(() =>
+                        {
+                            Maticsoft.BLL.SMT_STAFF_FACEDEV sdBLL = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                            var sdList = sdBLL.GetModelList("STAFF_ID=" + _staffInfo.ID);
+                            _staffDevs = sdList;
+                            var devnodes = advTree.GetNodeList(typeof(Maticsoft.Model.SMT_FACERECG_DEVICE));
+
+                            var selectNodes = devnodes.FindAll(m =>
+                            {
+                                Maticsoft.Model.SMT_FACERECG_DEVICE di = (Maticsoft.Model.SMT_FACERECG_DEVICE)m.Tag;
+                                return sdList.Exists(n => n.FACEDEV_ID == di.ID);
+                            });
+                            this.Invoke(new Action(() =>
+                            {
+                                DoSelectDevices(selectNodes);
+                            }));
+                        });
+                        ctrlWaiting.Show(this);
+
                     }));
                 }
                 catch (Exception ex)

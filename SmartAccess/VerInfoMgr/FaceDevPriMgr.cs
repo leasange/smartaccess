@@ -238,6 +238,7 @@ namespace SmartAccess.VerInfoMgr
                         state,
                         item.END_VALID_TIME.ToString("yyyy-MM-dd"),
                         "修改",
+                        "授权",
                         "删除",
                         item.IS_UPLOAD ?"重上传":"上传");
                     row.Tag = item;
@@ -488,6 +489,14 @@ namespace SmartAccess.VerInfoMgr
                 if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_DELETE")
                 {
                     doDelete(list, false, row);
+                } 
+                else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_Private")
+                {
+                    FrmAddModifyStaffFaceDevPrivate frmAddModifyStaffFaceDevPrivate = new FrmAddModifyStaffFaceDevPrivate(ffd);
+                    if (frmAddModifyStaffFaceDevPrivate.ShowDialog(this) == DialogResult.OK)
+                    {
+                        DoSearch(null, null, null);
+                    }
                 }
                 else if (dgvStaffs.Columns[e.ColumnIndex].Name == "Col_Modify")
                 {
@@ -583,6 +592,74 @@ namespace SmartAccess.VerInfoMgr
                 finally
                 {
                     DoSearch(null, null, null);
+                }
+            });
+            waiting.Show(this);
+        }
+        private DataGridViewRow GetSelectRow()
+        {
+            if (dgvStaffs.SelectedRows.Count > 0)
+            {
+                if (dgvStaffs.SelectedRows.Count > 1)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "请选择一个人员！");
+                    return null;
+                }
+                else
+                {
+                    return dgvStaffs.SelectedRows[0];
+                }
+            }
+            if (dgvStaffs.SelectedCells.Count == 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择人员！");
+                return null;
+            }
+            if (dgvStaffs.SelectedCells.Count > 1)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择一个人员！");
+                return null;
+            }
+            if (dgvStaffs.SelectedCells[0].RowIndex < 0)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "请选择人员！");
+                return null;
+            }
+            DataGridViewRow row = dgvStaffs.Rows[dgvStaffs.SelectedCells[0].RowIndex];
+            return row;
+        }
+        private void biPrivateCopy_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = GetSelectRow();
+            if (row == null)
+            {
+                return;
+            }
+            Maticsoft.Model.SMT_STAFF_FACEDEV staffDev = row.Tag as Maticsoft.Model.SMT_STAFF_FACEDEV;
+
+            CtrlWaiting waiting = new CtrlWaiting(() =>
+            {
+                try
+                {
+                    Maticsoft.BLL.SMT_STAFF_FACEDEV sdBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                    var devs = sdBll.GetModelList("STAFF_ID=" + staffDev.STAFF_ID);
+                    if (devs.Count == 0)
+                    {
+                        WinInfoHelper.ShowInfoWindow(this, "选择的人员未授权！");
+                        return;
+                    }
+
+                    this.Invoke(new Action(() =>
+                    {
+                        FrmFacePrivateCopy copy = new FrmFacePrivateCopy(staffDev.REAL_NAME, devs);
+                        copy.ShowDialog(this);
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "复制权限异常：" + ex.Message);
+                    log.Error("复制权限异常:", ex);
+                    return;
                 }
             });
             waiting.Show(this);
