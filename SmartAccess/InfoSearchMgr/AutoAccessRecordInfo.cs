@@ -222,7 +222,8 @@ namespace SmartAccess.InfoSearchMgr
             FrmAutoAccessAdd frmAdd = new FrmAutoAccessAdd();
             if (frmAdd.ShowDialog(this) == DialogResult.OK)
             {
-                DoSearch(true);
+                //DoSearch(true);
+                btnSearch_Click(sender, e);
                 WinInfoHelper.ShowInfoWindow(this, "记录添加成功，如未有查询到结果，请稍等一下，手动刷新！");
             }
         }
