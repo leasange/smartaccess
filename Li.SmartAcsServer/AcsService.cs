@@ -1,4 +1,5 @@
 ﻿using Li.SmartAcsServer.CaptureService;
+using Li.SmartAcsServer.FyFaceService;
 using Li.SmartAcsServer.PrivateService;
 using Li.SmartAcsServer.RecordsService;
 using System;
@@ -26,6 +27,8 @@ namespace Li.SmartAcsServer
             RecordTaskService.Instance.Start(interval);
             FaceRecordTaskService.Instance.Start(interval);
             AutoAccessTaskService.Instance.Start();
+            int fyFaceServerPort = SunCreate.Common.ConfigHelper.GetConfigInt("FyFaceServerPort");
+            FyFaceTaskService.Instance.Start(fyFaceServerPort);
         }
         //启动抓拍服务
         public static void StartCaptureServices()
@@ -49,6 +52,7 @@ namespace Li.SmartAcsServer
             {
                 CaptureTaskService.Instance.Stop();
             }
+            FyFaceTaskService.Instance.Stop();
         }
         public string GetData(int value)
         {

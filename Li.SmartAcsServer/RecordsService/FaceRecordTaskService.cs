@@ -124,7 +124,7 @@ namespace Li.SmartAcsServer.RecordsService
             {
                 log.Info("加载人脸设备...");
                 Maticsoft.BLL.SMT_FACERECG_DEVICE bll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
-                List<Maticsoft.Model.SMT_FACERECG_DEVICE> devs = bll.GetModelList("1=1");
+                List<Maticsoft.Model.SMT_FACERECG_DEVICE> devs = bll.GetModelList("FACEDEV_MODE!='FY' or FACEDEV_MODE is null");
                 _devices=devs;
                 /*if (devs.Count>0)
                 {

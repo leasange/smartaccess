@@ -39,6 +39,7 @@ namespace SmartAcsService
             {
                 host = new ServiceHost(typeof(AcsService));
                 host.Open();
+                
             }
             catch (Exception ex)
             {

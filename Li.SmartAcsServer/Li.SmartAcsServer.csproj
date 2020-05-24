@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaptureService\CaptureTaskService.cs" />
+    <Compile Include="FyFaceService\FyFaceTaskService.cs" />
     <Compile Include="IAcsService.cs" />
     <Compile Include="PrivateService\AutoAccessTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +85,7 @@
       <Name>Li.UdpMessageQueue</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
