@@ -48,11 +48,17 @@ namespace SmartAccess.ControlDevMgr
 
         private void DoLoadDev()
         {
+            string[] names = Enum.GetNames(typeof(FaceDeviceModel));
+            cbModel.DataSource = names;
+            cbModel.SelectedIndex = 0;
             if (_dev != null)
             {
                 tbName.Text = _dev.FACEDEV_NAME;
                 cbIsEnable.Checked = _dev.FACEDEV_IS_ENABLE;
                 tbDevSn.Text = _dev.FACEDEV_SN;
+                FaceDeviceModel model=FaceDeviceModel.BST;
+                Enum.TryParse<FaceDeviceModel>(_dev.FACEDEV_MODE, out model);
+                cbModel.SelectedItem = model.ToString();
                 ipDevIp.Value = _dev.FACEDEV_IP;
                 iiDevCtrlPort.Value = _dev.FACEDEV_CTRL_PORT;
                 iiDevHeartPort.Value = _dev.FACEDEV_HEART_PORT;
@@ -187,6 +193,12 @@ namespace SmartAccess.ControlDevMgr
                 {
                     devInfo.ID = -1;
                 }
+                if (ipDevIp.Value == "0.0.0.0" || ipDevIp.Value == "127.0.0.1" || ipDevIp.Value == "localhost")
+                {
+                    WinInfoHelper.ShowInfoWindow(this, "无效的IP！");
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(tbName.Text))
                 {
                     devInfo.FACEDEV_NAME = ipDevIp.Value;
@@ -195,7 +207,8 @@ namespace SmartAccess.ControlDevMgr
                 {
                     devInfo.FACEDEV_NAME = tbName.Text;
                 }
-
+                
+                devInfo.FACEDEV_MODE = cbModel.SelectedItem.ToString();
                 devInfo.FACEDEV_IS_ENABLE = cbIsEnable.Checked;
                 devInfo.FACEDEV_SN = tbDevSn.Text;
                 devInfo.FACEDEV_IP = ipDevIp.Value;
@@ -368,6 +381,25 @@ namespace SmartAccess.ControlDevMgr
         private void btnOkAndUpload_Click(object sender, EventArgs e)
         {
             Save(true);
+        }
+
+        private void cbModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FaceDeviceModel model= FaceDeviceModel.BST;
+            Enum.TryParse<FaceDeviceModel>(cbModel.SelectedItem.ToString(), out model);
+            switch (model)
+            {
+                case FaceDeviceModel.BST:
+                    panelEx.Visible = true;
+                    tabItemVideo.Visible = true;
+                    break;
+                case FaceDeviceModel.FY:
+                    panelEx.Visible = false;
+                    tabItemVideo.Visible = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

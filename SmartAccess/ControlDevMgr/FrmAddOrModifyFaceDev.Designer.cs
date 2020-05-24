@@ -30,6 +30,42 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new DevComponents.DotNetBar.TabControl();
+            this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
+            this.labelX27 = new DevComponents.DotNetBar.LabelX();
+            this.labelX25 = new DevComponents.DotNetBar.LabelX();
+            this.labelX26 = new DevComponents.DotNetBar.LabelX();
+            this.labelX24 = new DevComponents.DotNetBar.LabelX();
+            this.btnReadVideoConfig = new DevComponents.DotNetBar.ButtonX();
+            this.tbDevTitle2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX22 = new DevComponents.DotNetBar.LabelX();
+            this.tbDevTitle1 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX21 = new DevComponents.DotNetBar.LabelX();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.cbModelMulti = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbModelSingle = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cbVideoCount3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbVideoCount1 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.labelX20 = new DevComponents.DotNetBar.LabelX();
+            this.diRIO_Y = new DevComponents.Editors.DoubleInput();
+            this.diRIO_H = new DevComponents.Editors.DoubleInput();
+            this.diRIO_W = new DevComponents.Editors.DoubleInput();
+            this.diRIO_X = new DevComponents.Editors.DoubleInput();
+            this.labelX19 = new DevComponents.DotNetBar.LabelX();
+            this.labelX18 = new DevComponents.DotNetBar.LabelX();
+            this.labelX17 = new DevComponents.DotNetBar.LabelX();
+            this.labelX16 = new DevComponents.DotNetBar.LabelX();
+            this.diFaceLevel = new DevComponents.Editors.DoubleInput();
+            this.labelX23 = new DevComponents.DotNetBar.LabelX();
+            this.labelX15 = new DevComponents.DotNetBar.LabelX();
+            this.tbRtsp3 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX14 = new DevComponents.DotNetBar.LabelX();
+            this.tbRtsp2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX13 = new DevComponents.DotNetBar.LabelX();
+            this.tbRtsp1 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelX12 = new DevComponents.DotNetBar.LabelX();
+            this.labelX11 = new DevComponents.DotNetBar.LabelX();
+            this.tabItemVideo = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
             this.tbDbName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
@@ -53,52 +89,14 @@
             this.tbDevSn = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.tabItemBase = new DevComponents.DotNetBar.TabItem(this.components);
-            this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
-            this.btnReadVideoConfig = new DevComponents.DotNetBar.ButtonX();
-            this.tbDevTitle2 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX22 = new DevComponents.DotNetBar.LabelX();
-            this.tbDevTitle1 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX21 = new DevComponents.DotNetBar.LabelX();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.cbModelMulti = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.cbModelSingle = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cbVideoCount3 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.cbVideoCount1 = new DevComponents.DotNetBar.Controls.CheckBoxX();
-            this.labelX20 = new DevComponents.DotNetBar.LabelX();
-            this.diRIO_Y = new DevComponents.Editors.DoubleInput();
-            this.diRIO_H = new DevComponents.Editors.DoubleInput();
-            this.diRIO_W = new DevComponents.Editors.DoubleInput();
-            this.diRIO_X = new DevComponents.Editors.DoubleInput();
-            this.labelX19 = new DevComponents.DotNetBar.LabelX();
-            this.labelX18 = new DevComponents.DotNetBar.LabelX();
-            this.labelX17 = new DevComponents.DotNetBar.LabelX();
-            this.labelX16 = new DevComponents.DotNetBar.LabelX();
-            this.diFaceLevel = new DevComponents.Editors.DoubleInput();
-            this.labelX15 = new DevComponents.DotNetBar.LabelX();
-            this.tbRtsp3 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX14 = new DevComponents.DotNetBar.LabelX();
-            this.tbRtsp2 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX13 = new DevComponents.DotNetBar.LabelX();
-            this.tbRtsp1 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX12 = new DevComponents.DotNetBar.LabelX();
-            this.labelX11 = new DevComponents.DotNetBar.LabelX();
-            this.tabItemDoor = new DevComponents.DotNetBar.TabItem(this.components);
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.btnOkAndUpload = new DevComponents.DotNetBar.ButtonX();
-            this.labelX23 = new DevComponents.DotNetBar.LabelX();
-            this.labelX24 = new DevComponents.DotNetBar.LabelX();
-            this.labelX25 = new DevComponents.DotNetBar.LabelX();
-            this.labelX26 = new DevComponents.DotNetBar.LabelX();
-            this.labelX27 = new DevComponents.DotNetBar.LabelX();
+            this.labelX28 = new DevComponents.DotNetBar.LabelX();
+            this.cbModel = new System.Windows.Forms.ComboBox();
+            this.panelEx = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabControlPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ipDevIp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDevHeartPort)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDevCtrlPort)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDbPort)).BeginInit();
             this.tabControlPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -107,14 +105,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.diRIO_W)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diRIO_X)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diFaceLevel)).BeginInit();
+            this.tabControlPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ipDevIp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDevHeartPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDevCtrlPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDbPort)).BeginInit();
+            this.panelEx.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(217)))), ((int)(((byte)(247)))));
             this.tabControl1.CanReorderTabs = true;
-            this.tabControl1.Controls.Add(this.tabControlPanel2);
             this.tabControl1.Controls.Add(this.tabControlPanel1);
+            this.tabControl1.Controls.Add(this.tabControlPanel2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -124,366 +128,8 @@
             this.tabControl1.TabIndex = 6;
             this.tabControl1.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox;
             this.tabControl1.Tabs.Add(this.tabItemBase);
-            this.tabControl1.Tabs.Add(this.tabItemDoor);
+            this.tabControl1.Tabs.Add(this.tabItemVideo);
             this.tabControl1.Text = "tabControl1";
-            // 
-            // tabControlPanel1
-            // 
-            this.tabControlPanel1.Controls.Add(this.tbDbName);
-            this.tabControlPanel1.Controls.Add(this.labelX8);
-            this.tabControlPanel1.Controls.Add(this.tbDbPassword);
-            this.tabControlPanel1.Controls.Add(this.labelX9);
-            this.tabControlPanel1.Controls.Add(this.tbDbUserName);
-            this.tabControlPanel1.Controls.Add(this.labelX5);
-            this.tabControlPanel1.Controls.Add(this.cbIsEnable);
-            this.tabControlPanel1.Controls.Add(this.ipDevIp);
-            this.tabControlPanel1.Controls.Add(this.tbName);
-            this.tabControlPanel1.Controls.Add(this.cboTreeArea);
-            this.tabControlPanel1.Controls.Add(this.labelX1);
-            this.tabControlPanel1.Controls.Add(this.iiDevHeartPort);
-            this.tabControlPanel1.Controls.Add(this.iiDevCtrlPort);
-            this.tabControlPanel1.Controls.Add(this.iiDbPort);
-            this.tabControlPanel1.Controls.Add(this.labelX2);
-            this.tabControlPanel1.Controls.Add(this.labelX7);
-            this.tabControlPanel1.Controls.Add(this.labelX10);
-            this.tabControlPanel1.Controls.Add(this.labelX3);
-            this.tabControlPanel1.Controls.Add(this.labelX4);
-            this.tabControlPanel1.Controls.Add(this.tbDevSn);
-            this.tabControlPanel1.Controls.Add(this.labelX6);
-            this.tabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlPanel1.Location = new System.Drawing.Point(0, 28);
-            this.tabControlPanel1.Name = "tabControlPanel1";
-            this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
-            this.tabControlPanel1.Size = new System.Drawing.Size(674, 308);
-            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
-            this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
-            this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
-            this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
-            | DevComponents.DotNetBar.eBorderSide.Bottom)));
-            this.tabControlPanel1.Style.GradientAngle = 90;
-            this.tabControlPanel1.TabIndex = 1;
-            this.tabControlPanel1.TabItem = this.tabItemBase;
-            // 
-            // tbDbName
-            // 
-            // 
-            // 
-            // 
-            this.tbDbName.Border.Class = "TextBoxBorder";
-            this.tbDbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDbName.Location = new System.Drawing.Point(208, 211);
-            this.tbDbName.Name = "tbDbName";
-            this.tbDbName.Size = new System.Drawing.Size(170, 21);
-            this.tbDbName.TabIndex = 8;
-            this.tbDbName.Text = "bst_facedb";
-            // 
-            // labelX8
-            // 
-            this.labelX8.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX8.Location = new System.Drawing.Point(87, 211);
-            this.labelX8.Name = "labelX8";
-            this.labelX8.Size = new System.Drawing.Size(115, 23);
-            this.labelX8.TabIndex = 8;
-            this.labelX8.Text = "*数据库名称：";
-            this.labelX8.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // tbDbPassword
-            // 
-            // 
-            // 
-            // 
-            this.tbDbPassword.Border.Class = "TextBoxBorder";
-            this.tbDbPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDbPassword.Location = new System.Drawing.Point(208, 268);
-            this.tbDbPassword.Name = "tbDbPassword";
-            this.tbDbPassword.PasswordChar = '*';
-            this.tbDbPassword.Size = new System.Drawing.Size(170, 23);
-            this.tbDbPassword.TabIndex = 10;
-            this.tbDbPassword.Text = "ubuntu";
-            // 
-            // labelX9
-            // 
-            this.labelX9.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX9.Location = new System.Drawing.Point(87, 268);
-            this.labelX9.Name = "labelX9";
-            this.labelX9.Size = new System.Drawing.Size(115, 23);
-            this.labelX9.TabIndex = 8;
-            this.labelX9.Text = "*数据库密码：";
-            this.labelX9.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // tbDbUserName
-            // 
-            // 
-            // 
-            // 
-            this.tbDbUserName.Border.Class = "TextBoxBorder";
-            this.tbDbUserName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDbUserName.Location = new System.Drawing.Point(208, 240);
-            this.tbDbUserName.Name = "tbDbUserName";
-            this.tbDbUserName.Size = new System.Drawing.Size(170, 21);
-            this.tbDbUserName.TabIndex = 9;
-            this.tbDbUserName.Text = "root";
-            // 
-            // labelX5
-            // 
-            this.labelX5.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Location = new System.Drawing.Point(87, 240);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(115, 23);
-            this.labelX5.TabIndex = 8;
-            this.labelX5.Text = "*数据库用户名：";
-            this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // cbIsEnable
-            // 
-            this.cbIsEnable.AutoSize = true;
-            this.cbIsEnable.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.cbIsEnable.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cbIsEnable.Checked = true;
-            this.cbIsEnable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbIsEnable.CheckValue = "Y";
-            this.cbIsEnable.Location = new System.Drawing.Point(384, 11);
-            this.cbIsEnable.Name = "cbIsEnable";
-            this.cbIsEnable.Size = new System.Drawing.Size(51, 18);
-            this.cbIsEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbIsEnable.TabIndex = 1;
-            this.cbIsEnable.Text = "启用";
-            // 
-            // ipDevIp
-            // 
-            this.ipDevIp.AllowEmptyState = false;
-            this.ipDevIp.AutoOverwrite = true;
-            // 
-            // 
-            // 
-            this.ipDevIp.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.ipDevIp.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ipDevIp.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.ipDevIp.ButtonFreeText.Visible = true;
-            this.ipDevIp.Location = new System.Drawing.Point(208, 67);
-            this.ipDevIp.Name = "ipDevIp";
-            this.ipDevIp.Size = new System.Drawing.Size(170, 21);
-            this.ipDevIp.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipDevIp.TabIndex = 3;
-            // 
-            // tbName
-            // 
-            // 
-            // 
-            // 
-            this.tbName.Border.Class = "TextBoxBorder";
-            this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbName.Location = new System.Drawing.Point(208, 9);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(170, 21);
-            this.tbName.TabIndex = 11;
-            // 
-            // cboTreeArea
-            // 
-            this.cboTreeArea.BackColor = System.Drawing.SystemColors.Window;
-            // 
-            // 
-            // 
-            this.cboTreeArea.BackgroundStyle.Class = "TextBoxBorder";
-            this.cboTreeArea.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.cboTreeArea.ButtonDropDown.Visible = true;
-            this.cboTreeArea.DropDownHeight = 200;
-            this.cboTreeArea.Location = new System.Drawing.Point(208, 151);
-            this.cboTreeArea.Name = "cboTreeArea";
-            this.cboTreeArea.Size = new System.Drawing.Size(170, 23);
-            this.cboTreeArea.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cboTreeArea.TabIndex = 6;
-            // 
-            // labelX1
-            // 
-            this.labelX1.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(87, 9);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(115, 23);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "人脸设备名称：";
-            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // iiDevHeartPort
-            // 
-            this.iiDevHeartPort.AllowEmptyState = false;
-            // 
-            // 
-            // 
-            this.iiDevHeartPort.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.iiDevHeartPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.iiDevHeartPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.iiDevHeartPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.iiDevHeartPort.Location = new System.Drawing.Point(208, 122);
-            this.iiDevHeartPort.MaxValue = 65535;
-            this.iiDevHeartPort.MinValue = 0;
-            this.iiDevHeartPort.Name = "iiDevHeartPort";
-            this.iiDevHeartPort.ShowUpDown = true;
-            this.iiDevHeartPort.Size = new System.Drawing.Size(170, 21);
-            this.iiDevHeartPort.TabIndex = 5;
-            this.iiDevHeartPort.Value = 6668;
-            // 
-            // iiDevCtrlPort
-            // 
-            this.iiDevCtrlPort.AllowEmptyState = false;
-            // 
-            // 
-            // 
-            this.iiDevCtrlPort.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.iiDevCtrlPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.iiDevCtrlPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.iiDevCtrlPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.iiDevCtrlPort.Location = new System.Drawing.Point(208, 95);
-            this.iiDevCtrlPort.MaxValue = 65535;
-            this.iiDevCtrlPort.MinValue = 0;
-            this.iiDevCtrlPort.Name = "iiDevCtrlPort";
-            this.iiDevCtrlPort.ShowUpDown = true;
-            this.iiDevCtrlPort.Size = new System.Drawing.Size(170, 21);
-            this.iiDevCtrlPort.TabIndex = 4;
-            this.iiDevCtrlPort.Value = 6665;
-            // 
-            // iiDbPort
-            // 
-            this.iiDbPort.AllowEmptyState = false;
-            // 
-            // 
-            // 
-            this.iiDbPort.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.iiDbPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.iiDbPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.iiDbPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.iiDbPort.Location = new System.Drawing.Point(208, 184);
-            this.iiDbPort.MaxValue = 65535;
-            this.iiDbPort.MinValue = 0;
-            this.iiDbPort.Name = "iiDbPort";
-            this.iiDbPort.ShowUpDown = true;
-            this.iiDbPort.Size = new System.Drawing.Size(170, 21);
-            this.iiDbPort.TabIndex = 7;
-            this.iiDbPort.Value = 3306;
-            // 
-            // labelX2
-            // 
-            this.labelX2.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(87, 38);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(115, 23);
-            this.labelX2.TabIndex = 0;
-            this.labelX2.Text = "设备型号：";
-            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX7
-            // 
-            this.labelX7.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX7.Location = new System.Drawing.Point(87, 122);
-            this.labelX7.Name = "labelX7";
-            this.labelX7.Size = new System.Drawing.Size(115, 23);
-            this.labelX7.TabIndex = 0;
-            this.labelX7.Text = "*心跳端口：";
-            this.labelX7.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX10
-            // 
-            this.labelX10.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX10.Location = new System.Drawing.Point(87, 95);
-            this.labelX10.Name = "labelX10";
-            this.labelX10.Size = new System.Drawing.Size(115, 23);
-            this.labelX10.TabIndex = 0;
-            this.labelX10.Text = "*控制端口：";
-            this.labelX10.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX3
-            // 
-            this.labelX3.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(87, 68);
-            this.labelX3.Name = "labelX3";
-            this.labelX3.Size = new System.Drawing.Size(115, 23);
-            this.labelX3.TabIndex = 0;
-            this.labelX3.Text = "*设备IP：";
-            this.labelX3.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // labelX4
-            // 
-            this.labelX4.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(87, 184);
-            this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(115, 23);
-            this.labelX4.TabIndex = 0;
-            this.labelX4.Text = "*数据库端口：";
-            this.labelX4.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // tbDevSn
-            // 
-            // 
-            // 
-            // 
-            this.tbDevSn.Border.Class = "TextBoxBorder";
-            this.tbDevSn.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDevSn.Location = new System.Drawing.Point(208, 38);
-            this.tbDevSn.Name = "tbDevSn";
-            this.tbDevSn.ReadOnly = true;
-            this.tbDevSn.Size = new System.Drawing.Size(170, 21);
-            this.tbDevSn.TabIndex = 2;
-            this.tbDevSn.Text = "BST";
-            // 
-            // labelX6
-            // 
-            this.labelX6.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX6.Location = new System.Drawing.Point(87, 151);
-            this.labelX6.Name = "labelX6";
-            this.labelX6.Size = new System.Drawing.Size(115, 23);
-            this.labelX6.TabIndex = 0;
-            this.labelX6.Text = "所在区域：";
-            this.labelX6.TextAlignment = System.Drawing.StringAlignment.Far;
-            // 
-            // tabItemBase
-            // 
-            this.tabItemBase.AttachedControl = this.tabControlPanel1;
-            this.tabItemBase.Name = "tabItemBase";
-            this.tabItemBase.Text = "基本属性";
             // 
             // tabControlPanel2
             // 
@@ -530,7 +176,63 @@
             | DevComponents.DotNetBar.eBorderSide.Bottom)));
             this.tabControlPanel2.Style.GradientAngle = 90;
             this.tabControlPanel2.TabIndex = 2;
-            this.tabControlPanel2.TabItem = this.tabItemDoor;
+            this.tabControlPanel2.TabItem = this.tabItemVideo;
+            // 
+            // labelX27
+            // 
+            this.labelX27.AutoSize = true;
+            this.labelX27.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX27.Location = new System.Drawing.Point(493, 192);
+            this.labelX27.Name = "labelX27";
+            this.labelX27.Size = new System.Drawing.Size(19, 16);
+            this.labelX27.TabIndex = 17;
+            this.labelX27.Text = "↑";
+            // 
+            // labelX25
+            // 
+            this.labelX25.AutoSize = true;
+            this.labelX25.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX25.Location = new System.Drawing.Point(243, 192);
+            this.labelX25.Name = "labelX25";
+            this.labelX25.Size = new System.Drawing.Size(19, 16);
+            this.labelX25.TabIndex = 17;
+            this.labelX25.Text = "↓";
+            // 
+            // labelX26
+            // 
+            this.labelX26.AutoSize = true;
+            this.labelX26.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX26.Location = new System.Drawing.Point(493, 164);
+            this.labelX26.Name = "labelX26";
+            this.labelX26.Size = new System.Drawing.Size(19, 16);
+            this.labelX26.TabIndex = 17;
+            this.labelX26.Text = "←";
+            // 
+            // labelX24
+            // 
+            this.labelX24.AutoSize = true;
+            this.labelX24.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX24.Location = new System.Drawing.Point(243, 164);
+            this.labelX24.Name = "labelX24";
+            this.labelX24.Size = new System.Drawing.Size(19, 16);
+            this.labelX24.TabIndex = 17;
+            this.labelX24.Text = "→";
             // 
             // btnReadVideoConfig
             // 
@@ -847,6 +549,20 @@
             this.diFaceLevel.TabIndex = 4;
             this.diFaceLevel.Value = 0.8D;
             // 
+            // labelX23
+            // 
+            this.labelX23.AutoSize = true;
+            this.labelX23.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX23.Location = new System.Drawing.Point(234, 133);
+            this.labelX23.Name = "labelX23";
+            this.labelX23.Size = new System.Drawing.Size(99, 18);
+            this.labelX23.TabIndex = 6;
+            this.labelX23.Text = "（标准值为0.8）";
+            // 
             // labelX15
             // 
             this.labelX15.BackColor = System.Drawing.Color.Transparent;
@@ -958,11 +674,359 @@
             this.labelX11.Text = "视频地址RTSP1：";
             this.labelX11.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
-            // tabItemDoor
+            // tabItemVideo
             // 
-            this.tabItemDoor.AttachedControl = this.tabControlPanel2;
-            this.tabItemDoor.Name = "tabItemDoor";
-            this.tabItemDoor.Text = " 视频信息";
+            this.tabItemVideo.AttachedControl = this.tabControlPanel2;
+            this.tabItemVideo.Name = "tabItemVideo";
+            this.tabItemVideo.Text = " 视频信息";
+            // 
+            // tabControlPanel1
+            // 
+            this.tabControlPanel1.Controls.Add(this.panelEx);
+            this.tabControlPanel1.Controls.Add(this.cbModel);
+            this.tabControlPanel1.Controls.Add(this.cbIsEnable);
+            this.tabControlPanel1.Controls.Add(this.ipDevIp);
+            this.tabControlPanel1.Controls.Add(this.tbName);
+            this.tabControlPanel1.Controls.Add(this.cboTreeArea);
+            this.tabControlPanel1.Controls.Add(this.labelX1);
+            this.tabControlPanel1.Controls.Add(this.labelX28);
+            this.tabControlPanel1.Controls.Add(this.labelX2);
+            this.tabControlPanel1.Controls.Add(this.labelX3);
+            this.tabControlPanel1.Controls.Add(this.tbDevSn);
+            this.tabControlPanel1.Controls.Add(this.labelX6);
+            this.tabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlPanel1.Location = new System.Drawing.Point(0, 28);
+            this.tabControlPanel1.Name = "tabControlPanel1";
+            this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
+            this.tabControlPanel1.Size = new System.Drawing.Size(674, 308);
+            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
+            this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
+            this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(97)))), ((int)(((byte)(156)))));
+            this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
+            | DevComponents.DotNetBar.eBorderSide.Bottom)));
+            this.tabControlPanel1.Style.GradientAngle = 90;
+            this.tabControlPanel1.TabIndex = 1;
+            this.tabControlPanel1.TabItem = this.tabItemBase;
+            // 
+            // tbDbName
+            // 
+            // 
+            // 
+            // 
+            this.tbDbName.Border.Class = "TextBoxBorder";
+            this.tbDbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDbName.Location = new System.Drawing.Point(149, 73);
+            this.tbDbName.Name = "tbDbName";
+            this.tbDbName.Size = new System.Drawing.Size(170, 21);
+            this.tbDbName.TabIndex = 8;
+            this.tbDbName.Text = "bst_facedb";
+            // 
+            // labelX8
+            // 
+            this.labelX8.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX8.Location = new System.Drawing.Point(28, 73);
+            this.labelX8.Name = "labelX8";
+            this.labelX8.Size = new System.Drawing.Size(115, 23);
+            this.labelX8.TabIndex = 8;
+            this.labelX8.Text = "*数据库名称：";
+            this.labelX8.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // tbDbPassword
+            // 
+            // 
+            // 
+            // 
+            this.tbDbPassword.Border.Class = "TextBoxBorder";
+            this.tbDbPassword.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDbPassword.Location = new System.Drawing.Point(442, 74);
+            this.tbDbPassword.Name = "tbDbPassword";
+            this.tbDbPassword.PasswordChar = '*';
+            this.tbDbPassword.Size = new System.Drawing.Size(170, 23);
+            this.tbDbPassword.TabIndex = 10;
+            this.tbDbPassword.Text = "ubuntu";
+            // 
+            // labelX9
+            // 
+            this.labelX9.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX9.Location = new System.Drawing.Point(321, 74);
+            this.labelX9.Name = "labelX9";
+            this.labelX9.Size = new System.Drawing.Size(115, 23);
+            this.labelX9.TabIndex = 8;
+            this.labelX9.Text = "*数据库密码：";
+            this.labelX9.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // tbDbUserName
+            // 
+            // 
+            // 
+            // 
+            this.tbDbUserName.Border.Class = "TextBoxBorder";
+            this.tbDbUserName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDbUserName.Location = new System.Drawing.Point(442, 39);
+            this.tbDbUserName.Name = "tbDbUserName";
+            this.tbDbUserName.Size = new System.Drawing.Size(170, 21);
+            this.tbDbUserName.TabIndex = 9;
+            this.tbDbUserName.Text = "root";
+            // 
+            // labelX5
+            // 
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Location = new System.Drawing.Point(321, 39);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(115, 23);
+            this.labelX5.TabIndex = 8;
+            this.labelX5.Text = "*数据库用户名：";
+            this.labelX5.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // cbIsEnable
+            // 
+            this.cbIsEnable.AutoSize = true;
+            this.cbIsEnable.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbIsEnable.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbIsEnable.Checked = true;
+            this.cbIsEnable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbIsEnable.CheckValue = "Y";
+            this.cbIsEnable.Location = new System.Drawing.Point(348, 12);
+            this.cbIsEnable.Name = "cbIsEnable";
+            this.cbIsEnable.Size = new System.Drawing.Size(51, 18);
+            this.cbIsEnable.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbIsEnable.TabIndex = 1;
+            this.cbIsEnable.Text = "启用";
+            // 
+            // ipDevIp
+            // 
+            this.ipDevIp.AllowEmptyState = false;
+            this.ipDevIp.AutoOverwrite = true;
+            // 
+            // 
+            // 
+            this.ipDevIp.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.ipDevIp.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ipDevIp.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.ipDevIp.ButtonFreeText.Visible = true;
+            this.ipDevIp.Location = new System.Drawing.Point(172, 83);
+            this.ipDevIp.Name = "ipDevIp";
+            this.ipDevIp.Size = new System.Drawing.Size(170, 21);
+            this.ipDevIp.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ipDevIp.TabIndex = 3;
+            // 
+            // tbName
+            // 
+            // 
+            // 
+            // 
+            this.tbName.Border.Class = "TextBoxBorder";
+            this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbName.Location = new System.Drawing.Point(172, 10);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(170, 21);
+            this.tbName.TabIndex = 11;
+            // 
+            // cboTreeArea
+            // 
+            this.cboTreeArea.BackColor = System.Drawing.SystemColors.Window;
+            // 
+            // 
+            // 
+            this.cboTreeArea.BackgroundStyle.Class = "TextBoxBorder";
+            this.cboTreeArea.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cboTreeArea.ButtonDropDown.Visible = true;
+            this.cboTreeArea.DropDownHeight = 200;
+            this.cboTreeArea.Location = new System.Drawing.Point(465, 47);
+            this.cboTreeArea.Name = "cboTreeArea";
+            this.cboTreeArea.Size = new System.Drawing.Size(170, 23);
+            this.cboTreeArea.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboTreeArea.TabIndex = 6;
+            // 
+            // labelX1
+            // 
+            this.labelX1.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Location = new System.Drawing.Point(51, 10);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(115, 23);
+            this.labelX1.TabIndex = 0;
+            this.labelX1.Text = "人脸设备名称：";
+            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // iiDevHeartPort
+            // 
+            this.iiDevHeartPort.AllowEmptyState = false;
+            // 
+            // 
+            // 
+            this.iiDevHeartPort.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iiDevHeartPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iiDevHeartPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiDevHeartPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.iiDevHeartPort.Location = new System.Drawing.Point(442, 7);
+            this.iiDevHeartPort.MaxValue = 65535;
+            this.iiDevHeartPort.MinValue = 0;
+            this.iiDevHeartPort.Name = "iiDevHeartPort";
+            this.iiDevHeartPort.ShowUpDown = true;
+            this.iiDevHeartPort.Size = new System.Drawing.Size(170, 21);
+            this.iiDevHeartPort.TabIndex = 5;
+            this.iiDevHeartPort.Value = 6668;
+            // 
+            // iiDevCtrlPort
+            // 
+            this.iiDevCtrlPort.AllowEmptyState = false;
+            // 
+            // 
+            // 
+            this.iiDevCtrlPort.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iiDevCtrlPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iiDevCtrlPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiDevCtrlPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.iiDevCtrlPort.Location = new System.Drawing.Point(149, 7);
+            this.iiDevCtrlPort.MaxValue = 65535;
+            this.iiDevCtrlPort.MinValue = 0;
+            this.iiDevCtrlPort.Name = "iiDevCtrlPort";
+            this.iiDevCtrlPort.ShowUpDown = true;
+            this.iiDevCtrlPort.Size = new System.Drawing.Size(170, 21);
+            this.iiDevCtrlPort.TabIndex = 4;
+            this.iiDevCtrlPort.Value = 6665;
+            // 
+            // iiDbPort
+            // 
+            this.iiDbPort.AllowEmptyState = false;
+            // 
+            // 
+            // 
+            this.iiDbPort.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.iiDbPort.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.iiDbPort.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.iiDbPort.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.iiDbPort.Location = new System.Drawing.Point(149, 39);
+            this.iiDbPort.MaxValue = 65535;
+            this.iiDbPort.MinValue = 0;
+            this.iiDbPort.Name = "iiDbPort";
+            this.iiDbPort.ShowUpDown = true;
+            this.iiDbPort.Size = new System.Drawing.Size(170, 21);
+            this.iiDbPort.TabIndex = 7;
+            this.iiDbPort.Value = 3306;
+            // 
+            // labelX2
+            // 
+            this.labelX2.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(376, 84);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(83, 23);
+            this.labelX2.TabIndex = 0;
+            this.labelX2.Text = "设备序列号：";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX7
+            // 
+            this.labelX7.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX7.Location = new System.Drawing.Point(353, 7);
+            this.labelX7.Name = "labelX7";
+            this.labelX7.Size = new System.Drawing.Size(83, 23);
+            this.labelX7.TabIndex = 0;
+            this.labelX7.Text = "*心跳端口：";
+            this.labelX7.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX10
+            // 
+            this.labelX10.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX10.Location = new System.Drawing.Point(28, 7);
+            this.labelX10.Name = "labelX10";
+            this.labelX10.Size = new System.Drawing.Size(115, 23);
+            this.labelX10.TabIndex = 0;
+            this.labelX10.Text = "*控制端口：";
+            this.labelX10.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX3
+            // 
+            this.labelX3.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX3.Location = new System.Drawing.Point(51, 84);
+            this.labelX3.Name = "labelX3";
+            this.labelX3.Size = new System.Drawing.Size(115, 23);
+            this.labelX3.TabIndex = 0;
+            this.labelX3.Text = "*设备IP：";
+            this.labelX3.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // labelX4
+            // 
+            this.labelX4.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX4.Location = new System.Drawing.Point(28, 39);
+            this.labelX4.Name = "labelX4";
+            this.labelX4.Size = new System.Drawing.Size(115, 23);
+            this.labelX4.TabIndex = 0;
+            this.labelX4.Text = "*数据库端口：";
+            this.labelX4.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // tbDevSn
+            // 
+            // 
+            // 
+            // 
+            this.tbDevSn.Border.Class = "TextBoxBorder";
+            this.tbDevSn.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDevSn.Location = new System.Drawing.Point(465, 84);
+            this.tbDevSn.Name = "tbDevSn";
+            this.tbDevSn.ReadOnly = true;
+            this.tbDevSn.Size = new System.Drawing.Size(170, 21);
+            this.tbDevSn.TabIndex = 2;
+            // 
+            // labelX6
+            // 
+            this.labelX6.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Location = new System.Drawing.Point(390, 47);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(69, 23);
+            this.labelX6.TabIndex = 0;
+            this.labelX6.Text = "所在区域：";
+            this.labelX6.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // tabItemBase
+            // 
+            this.tabItemBase.AttachedControl = this.tabControlPanel1;
+            this.tabItemBase.Name = "tabItemBase";
+            this.tabItemBase.Text = "基本属性";
             // 
             // btnCancel
             // 
@@ -1003,75 +1067,52 @@
             this.btnOkAndUpload.Text = "确定并上传";
             this.btnOkAndUpload.Click += new System.EventHandler(this.btnOkAndUpload_Click);
             // 
-            // labelX23
+            // labelX28
             // 
-            this.labelX23.AutoSize = true;
-            this.labelX23.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX23.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX23.Location = new System.Drawing.Point(234, 133);
-            this.labelX23.Name = "labelX23";
-            this.labelX23.Size = new System.Drawing.Size(99, 18);
-            this.labelX23.TabIndex = 6;
-            this.labelX23.Text = "（标准值为0.8）";
-            // 
-            // labelX24
-            // 
-            this.labelX24.AutoSize = true;
-            this.labelX24.BackColor = System.Drawing.Color.Transparent;
+            this.labelX28.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.labelX24.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX24.Location = new System.Drawing.Point(243, 164);
-            this.labelX24.Name = "labelX24";
-            this.labelX24.Size = new System.Drawing.Size(19, 16);
-            this.labelX24.TabIndex = 17;
-            this.labelX24.Text = "→";
+            this.labelX28.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX28.Location = new System.Drawing.Point(51, 47);
+            this.labelX28.Name = "labelX28";
+            this.labelX28.Size = new System.Drawing.Size(115, 23);
+            this.labelX28.TabIndex = 0;
+            this.labelX28.Text = "*设备型号：";
+            this.labelX28.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
-            // labelX25
+            // cbModel
             // 
-            this.labelX25.AutoSize = true;
-            this.labelX25.BackColor = System.Drawing.Color.Transparent;
+            this.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbModel.FormattingEnabled = true;
+            this.cbModel.Items.AddRange(new object[] {
+            "BST",
+            "FY"});
+            this.cbModel.Location = new System.Drawing.Point(172, 47);
+            this.cbModel.Name = "cbModel";
+            this.cbModel.Size = new System.Drawing.Size(170, 20);
+            this.cbModel.TabIndex = 12;
+            this.cbModel.SelectedIndexChanged += new System.EventHandler(this.cbModel_SelectedIndexChanged);
             // 
+            // panelEx
             // 
-            // 
-            this.labelX25.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX25.Location = new System.Drawing.Point(243, 192);
-            this.labelX25.Name = "labelX25";
-            this.labelX25.Size = new System.Drawing.Size(19, 16);
-            this.labelX25.TabIndex = 17;
-            this.labelX25.Text = "↓";
-            // 
-            // labelX26
-            // 
-            this.labelX26.AutoSize = true;
-            this.labelX26.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX26.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX26.Location = new System.Drawing.Point(493, 164);
-            this.labelX26.Name = "labelX26";
-            this.labelX26.Size = new System.Drawing.Size(19, 16);
-            this.labelX26.TabIndex = 17;
-            this.labelX26.Text = "←";
-            // 
-            // labelX27
-            // 
-            this.labelX27.AutoSize = true;
-            this.labelX27.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX27.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX27.Location = new System.Drawing.Point(493, 192);
-            this.labelX27.Name = "labelX27";
-            this.labelX27.Size = new System.Drawing.Size(19, 16);
-            this.labelX27.TabIndex = 17;
-            this.labelX27.Text = "↑";
+            this.panelEx.BackColor = System.Drawing.Color.Transparent;
+            this.panelEx.Controls.Add(this.iiDevHeartPort);
+            this.panelEx.Controls.Add(this.labelX4);
+            this.panelEx.Controls.Add(this.tbDbName);
+            this.panelEx.Controls.Add(this.labelX10);
+            this.panelEx.Controls.Add(this.labelX8);
+            this.panelEx.Controls.Add(this.labelX7);
+            this.panelEx.Controls.Add(this.tbDbPassword);
+            this.panelEx.Controls.Add(this.iiDbPort);
+            this.panelEx.Controls.Add(this.labelX9);
+            this.panelEx.Controls.Add(this.iiDevCtrlPort);
+            this.panelEx.Controls.Add(this.tbDbUserName);
+            this.panelEx.Controls.Add(this.labelX5);
+            this.panelEx.Location = new System.Drawing.Point(23, 117);
+            this.panelEx.Name = "panelEx";
+            this.panelEx.Size = new System.Drawing.Size(629, 123);
+            this.panelEx.TabIndex = 13;
             // 
             // FrmAddOrModifyFaceDev
             // 
@@ -1091,12 +1132,6 @@
             this.Load += new System.EventHandler(this.FrmAddOrModifyFaceDev_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabControlPanel1.ResumeLayout(false);
-            this.tabControlPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ipDevIp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDevHeartPort)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDevCtrlPort)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iiDbPort)).EndInit();
             this.tabControlPanel2.ResumeLayout(false);
             this.tabControlPanel2.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1106,6 +1141,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.diRIO_W)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diRIO_X)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diFaceLevel)).EndInit();
+            this.tabControlPanel1.ResumeLayout(false);
+            this.tabControlPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ipDevIp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDevHeartPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDevCtrlPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iiDbPort)).EndInit();
+            this.panelEx.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1127,7 +1169,7 @@
         private DevComponents.DotNetBar.LabelX labelX6;
         private DevComponents.DotNetBar.TabItem tabItemBase;
         private DevComponents.DotNetBar.TabControlPanel tabControlPanel2;
-        private DevComponents.DotNetBar.TabItem tabItemDoor;
+        private DevComponents.DotNetBar.TabItem tabItemVideo;
         private DevComponents.Editors.IntegerInput iiDevHeartPort;
         private DevComponents.DotNetBar.LabelX labelX7;
         private DevComponents.DotNetBar.ButtonX btnCancel;
@@ -1175,5 +1217,8 @@
         private DevComponents.DotNetBar.LabelX labelX24;
         private DevComponents.DotNetBar.LabelX labelX27;
         private DevComponents.DotNetBar.LabelX labelX26;
+        private DevComponents.DotNetBar.LabelX labelX28;
+        private System.Windows.Forms.ComboBox cbModel;
+        private System.Windows.Forms.Panel panelEx;
     }
 }

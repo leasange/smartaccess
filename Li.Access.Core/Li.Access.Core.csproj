@@ -71,8 +71,9 @@
     <Compile Include="DAL\BST\staff_log.cs" />
     <Compile Include="DAL\BST\staff_update.cs" />
     <Compile Include="DataHelper.cs" />
-    <Compile Include="FaceDevice\BSTClass.cs" />
-    <Compile Include="FaceDevice\BSTFaceRecg.cs" />
+    <Compile Include="FaceDevice\BST\BSTClass.cs" />
+    <Compile Include="FaceDevice\BST\BSTFaceRecg.cs" />
+    <Compile Include="FaceDevice\FaceDeviceModel.cs" />
     <Compile Include="IAccessCore.cs" />
     <Compile Include="ICardIssueDevice.cs" />
     <Compile Include="Model\BST\staff_card.cs" />
@@ -88,6 +89,9 @@
       <Project>{f0db10c6-76b8-4fc6-8f8c-410b748d94fd}</Project>
       <Name>LiMaticsoft.DBUtility.Extension</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FaceDevice\FY\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

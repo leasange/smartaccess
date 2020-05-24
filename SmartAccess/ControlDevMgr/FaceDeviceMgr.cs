@@ -79,32 +79,45 @@ namespace SmartAccess.ControlDevMgr
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                string str = dev.FACEDEV_NAME + " " + dev.FACEDEV_SN + " " + dev.FACEDEV_IP + " " + dev.AREA_NAME;
+                string str = dev.FACEDEV_NAME + " " + dev.FACEDEV_SN + " " + dev.FACEDEV_IP + " " + dev.AREA_NAME + " " + dev.FACEDEV_MODE;
                 if (!str.Contains(filter.Trim()))
                 {
                     return;
                 }
             }
             string videoState = "无视频";
-            if (dev.FVIDEO_RTSP_COUNT != null)
+            string port = "";
+            FaceDeviceModel model=FaceDeviceModel.BST;
+            Enum.TryParse<FaceDeviceModel>(dev.FACEDEV_MODE, out model);
+            if (model== FaceDeviceModel.BST)
             {
-                if(dev.FVIDEO_RTSP_COUNT==1&&!string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                if (dev.FVIDEO_RTSP_COUNT != null)
                 {
-                    videoState = "单路视频";
+                    if (dev.FVIDEO_RTSP_COUNT == 1 && !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                    {
+                        videoState = "单路视频";
+                    }
+                    else if (dev.FVIDEO_RTSP_COUNT == 3 &&
+                        !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                    {
+                        videoState = "三路视频";
+                    }
                 }
-                else if (dev.FVIDEO_RTSP_COUNT==3&&
-                    !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
-                {
-                    videoState = "三路视频";
-                }
+                port = dev.FACEDEV_CTRL_PORT.ToString();
             }
+            else
+            {
+                videoState = "内置视频";
+            }
+           
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(dgvCtrlr,
                 dev.FACEDEV_NAME,
+                model,
                 dev.FACEDEV_SN,
                 dev.FACEDEV_IS_ENABLE?"启用":"禁用",
                 dev.FACEDEV_IP,
-                dev.FACEDEV_CTRL_PORT,
+                port,
                 dev.AREA_NAME,
                 videoState,
                 "修改",
@@ -121,26 +134,38 @@ namespace SmartAccess.ControlDevMgr
             }
 
             string videoState = "无视频";
-            if (dev.FVIDEO_RTSP_COUNT != null)
+            string port = "";
+            FaceDeviceModel model = FaceDeviceModel.BST;
+            Enum.TryParse<FaceDeviceModel>(dev.FACEDEV_MODE, out model);
+            if (model== FaceDeviceModel.BST)
             {
-                if (dev.FVIDEO_RTSP_COUNT == 1 && !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                if (dev.FVIDEO_RTSP_COUNT != null)
                 {
-                    videoState = "单路视频";
+                    if (dev.FVIDEO_RTSP_COUNT == 1 && !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                    {
+                        videoState = "单路视频";
+                    }
+                    else if (dev.FVIDEO_RTSP_COUNT == 3 &&
+                        !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
+                    {
+                        videoState = "三路视频";
+                    }
                 }
-                else if (dev.FVIDEO_RTSP_COUNT == 3 &&
-                    !string.IsNullOrWhiteSpace(dev.FVIDEO_RTSP))
-                {
-                    videoState = "三路视频";
-                }
+                port = dev.FACEDEV_CTRL_PORT.ToString();
             }
-
+            else
+            {
+                videoState = "内置视频";
+            }
+            
             row.Cells[0].Value = dev.FACEDEV_NAME;
-            row.Cells[1].Value = dev.FACEDEV_SN;
-            row.Cells[2].Value = dev.FACEDEV_IS_ENABLE ? "启用" : "禁用";
-            row.Cells[3].Value = dev.FACEDEV_IP;
-            row.Cells[4].Value = dev.FACEDEV_CTRL_PORT;
-            row.Cells[5].Value = dev.AREA_NAME;
-            row.Cells[6].Value = videoState;
+            row.Cells[1].Value = model;
+            row.Cells[2].Value = dev.FACEDEV_SN;
+            row.Cells[3].Value = dev.FACEDEV_IS_ENABLE ? "启用" : "禁用";
+            row.Cells[4].Value = dev.FACEDEV_IP;
+            row.Cells[5].Value = port;
+            row.Cells[6].Value = dev.AREA_NAME;
+            row.Cells[7].Value = videoState;
             row.Tag = dev;
         }
         private Maticsoft.Model.SMT_CONTROLLER_ZONE GetSelectArea()
