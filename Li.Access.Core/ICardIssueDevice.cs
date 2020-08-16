@@ -56,5 +56,6 @@ namespace Li.Access.Core
     {
         HY_EM800A,//HY-EM800A
         USB_INTCARD,//USB_INTCARD
+        USB_COM_CARD,//USB_COM读卡器
     }
 }

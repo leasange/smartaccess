@@ -16,6 +16,8 @@ namespace Li.Access.Core.FaceDevice.FY
     public class FyFaceClient
     {
         public event EventHandler<RegisterEventArgs> ClientRegisterEvent;
+        public event EventHandler<UploadRecordMsgEventArgs> UploadRecordMsgEvent;
+
         private RegisterMsg registerMsg;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FyFaceClient));
         public string ip = null;
@@ -49,14 +51,21 @@ namespace Li.Access.Core.FaceDevice.FY
                                   Thread.Sleep(200);
                                   continue;
                               }
-                              str = str.Trim('\0', ' ', '\r', '\n');
-                              BaseMsg baseMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseMsg>(str);
-                              if (baseMsg==null)
+                              try
                               {
-                                  Thread.Sleep(200);
-                                  continue;
+                                  str = str.Trim('\0', ' ', '\r', '\n');
+                                  BaseMsg baseMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseMsg>(str);
+                                  if (baseMsg == null)
+                                  {
+                                      Thread.Sleep(200);
+                                      continue;
+                                  }
+                                  ProcessMsg(baseMsg, str);
                               }
-                              ProcessMsg(baseMsg, str);
+                              catch (Exception ex)
+                              {
+                                  log.Error("读取处理消息异常：", ex);
+                              }
                           }
 
                       }
@@ -103,13 +112,86 @@ namespace Li.Access.Core.FaceDevice.FY
                         ProcessKeepAliveMsg(msg);
                     }
                     break;
+                case "uploadRecord":
+                    {
+                        UploadRecordMsg msg = Newtonsoft.Json.JsonConvert.DeserializeObject<UploadRecordMsg>(fullMsg);
+                        if (msg == null)
+                        {
+                            return;
+                        }
+                        ProcessUploadRecordMsg(msg);
+                    }
+                    break;
+                case "registerPersonInfoResp":
+                    {
+                        RegisterPersonMsgResp msg = Newtonsoft.Json.JsonConvert.DeserializeObject<RegisterPersonMsgResp>(fullMsg);
+                        if (msg == null)
+                        {
+                            return;
+                        }
+                        if (waitForRespType != null && waitSendData != null)
+                        {
+                            if (msg.GetType() == waitForRespType && waitSendData.msgID == msg.msgID)
+                            {
+                                waitRespData = msg;
+                                waitForRespResetEvent.Set();
+                            }
+                        }
+                    }
+                    break;
+                case "onlineGetRegisterByIdNumberResp":
+                    {
+                        OnlineGetRegisterByIdNumberMsgResp msg = Newtonsoft.Json.JsonConvert.DeserializeObject<OnlineGetRegisterByIdNumberMsgResp>(fullMsg);
+                        if (msg == null)
+                        {
+                            return;
+                        }
+                        if (waitForRespType != null && waitSendData != null)
+                        {
+                            if (msg.GetType() == waitForRespType && waitSendData.msgID == msg.msgID)
+                            {
+                                waitRespData = msg;
+                                waitForRespResetEvent.Set();
+                            }
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
         }
-       
+
+        private void ProcessUploadRecordMsg(UploadRecordMsg msg)
+        {
+            if (UploadRecordMsgEvent!=null)
+            {
+                UploadRecordMsgEventArgs args = new UploadRecordMsgEventArgs()
+                {
+                    uploadRecordMsg = msg,
+                    uploadSuccess = false
+                };
+                UploadRecordMsgEvent(this, args);
+                UploadRecordMsgResp uploadRecordMsgResp = new UploadRecordMsgResp();
+                uploadRecordMsgResp.msgID = msg.msgID;
+                uploadRecordMsgResp.msgType = "uploadRecordResp";
+                uploadRecordMsgResp.controlState = "";
+                uploadRecordMsgResp.msg = "";
+                if (args.uploadSuccess)
+                {
+                    uploadRecordMsgResp.errorCode = "100";
+                }
+                else
+                {
+                    uploadRecordMsgResp.errorCode = "200";
+                }
+
+                SendData(uploadRecordMsgResp);
+            }
+        }
+
         private void ProcessRegisterMsg(RegisterMsg registerMsg)
         {
+            registerMsg.ip = this.ip;
             OnRegisterMsg(new RegisterEventArgs()
             {
                 registerMsg = registerMsg
@@ -205,5 +287,27 @@ namespace Li.Access.Core.FaceDevice.FY
             }
             
         }
+
+        private object waitForRespObject = new object();
+        private ManualResetEvent waitForRespResetEvent = null;
+        private Type waitForRespType;
+        private BaseMsgWithId waitSendData;
+        private BaseMsg waitRespData=null;
+        public TResp SendData<TResp>(BaseMsgWithId data) where TResp : BaseMsg
+        {
+            lock (waitForRespObject)
+            {
+                waitRespData = null;
+                waitSendData = data;
+                data.deviceNo = registerMsg.deviceNo;
+                waitForRespType = typeof(TResp);
+
+                waitForRespResetEvent = new ManualResetEvent(false);
+                bool send = SendData(data);
+                waitForRespResetEvent.WaitOne(30000);
+                return  waitRespData as TResp;
+            }
+        }
+
     }
 }

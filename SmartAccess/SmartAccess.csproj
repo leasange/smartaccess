@@ -498,6 +498,18 @@
     <Compile Include="RealDetectMgr\FrmDoorStateCfg.Designer.cs">
       <DependentUpon>FrmDoorStateCfg.cs</DependentUpon>
     </Compile>
+    <Compile Include="RealDetectMgr\FrmMultiFaceVideo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RealDetectMgr\FrmMultiFaceVideo.Designer.cs">
+      <DependentUpon>FrmMultiFaceVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealDetectMgr\MultiFaceVideoCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RealDetectMgr\MultiFaceVideoCtrl.Designer.cs">
+      <DependentUpon>MultiFaceVideoCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="RealDetectMgr\RealDoorState.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -509,6 +521,12 @@
     </Compile>
     <Compile Include="RealDetectMgr\RealMapDetect.Designer.cs">
       <DependentUpon>RealMapDetect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealDetectMgr\VideoPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RealDetectMgr\VideoPlayer.Designer.cs">
+      <DependentUpon>VideoPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="RuleSetMrg\DoorRuleCtrlTask.cs">
       <SubType>UserControl</SubType>
@@ -869,11 +887,20 @@
     <EmbeddedResource Include="RealDetectMgr\FrmDoorStateCfg.resx">
       <DependentUpon>FrmDoorStateCfg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RealDetectMgr\FrmMultiFaceVideo.resx">
+      <DependentUpon>FrmMultiFaceVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealDetectMgr\MultiFaceVideoCtrl.resx">
+      <DependentUpon>MultiFaceVideoCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RealDetectMgr\RealDoorState.resx">
       <DependentUpon>RealDoorState.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RealDetectMgr\RealMapDetect.resx">
       <DependentUpon>RealMapDetect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealDetectMgr\VideoPlayer.resx">
+      <DependentUpon>VideoPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RuleSetMrg\DoorRuleCtrlTask.resx">
       <DependentUpon>DoorRuleCtrlTask.cs</DependentUpon>

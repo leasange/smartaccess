@@ -69,7 +69,7 @@ namespace Li.Access.Core
             return str;
         }
 
-        public static byte[] GetBytesFromInt(uint idata)
+        public static byte[] ToBytesFromUint(uint idata)
         {
             byte[] bts=new byte[4];
             for (int i = 0; i < 4; i++)
@@ -77,6 +77,21 @@ namespace Li.Access.Core
                 bts[i] = (byte)(0x000000FF & (idata >> (i*8)));
             }
             return bts;
+        }
+        public static uint ToUintFromBytes(byte[] bts)
+        {
+            uint data = 0x00000000;
+            int min = Math.Min(4, bts.Length);
+            for (int i = 0; i < min; i++)
+            {
+                data = data | (((uint)bts[i]) << i * 8);
+            }
+            return data;
+        }
+        public static uint ToUintFromHexString(string hexString)
+        {
+            byte[] bts = ToBytesFromHexString(hexString);
+            return ToUintFromBytes(bts);
         }
 
         public static byte[] ToBytesFromHexString(string hexString)

@@ -10,4 +10,9 @@ namespace Li.Access.Core.FaceDevice.FY
     {
         public RegisterMsg registerMsg;
     }
+    public class UploadRecordMsgEventArgs : EventArgs
+    {
+        public UploadRecordMsg uploadRecordMsg;
+        public bool uploadSuccess = false;
+    }
 }

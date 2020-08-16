@@ -1,5 +1,6 @@
 ﻿using Li.Access.Core;
 using Li.Access.Core.BJTWHCardIssue;
+using Li.Access.Core.CardIssue;
 using SmartAccess.Common.Config;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,9 @@ namespace SmartAccess.VerInfoMgr
                     break;
                 case CardIssueModel.USB_INTCARD:
                     issDevice = new USBInCardIssueDevice();
+                    break;
+                case CardIssueModel.USB_COM_CARD:
+                    issDevice = new USBComCardIssue();
                     break;
             }
             return issDevice;

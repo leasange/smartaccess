@@ -58,8 +58,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcsRestService\AcsTaskRestService.cs" />
     <Compile Include="CaptureService\CaptureTaskService.cs" />
     <Compile Include="FyFaceService\FyFaceTaskService.cs" />
+    <Compile Include="FyFaceService\FyServerFaceRecg.cs" />
     <Compile Include="IAcsService.cs" />
     <Compile Include="PrivateService\AutoAccessTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

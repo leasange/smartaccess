@@ -313,7 +313,7 @@ namespace SmartAccess.VerInfoMgr
                             }
                             else
                             {
-                                WinInfoHelper.ShowInfoWindow(this, "发卡失败！");
+                                //WinInfoHelper.ShowInfoWindow(this, "发卡失败！");
                                 log.Error("发卡失败！staff id=" + _staffInfo.ID);
                             }
                         }

@@ -13,5 +13,6 @@ namespace Li.Access.Core.FaceDevice.FY.Msg
         public string softwareVersion;// 软件版本号 string 32 Y 如："2.1.9 2020-02-13" 版本号 编译时间
         public string algVersion;// 算法版本号 string 32 Y 如："1.0.2-1.2.0"
         public string sign;// 签名 string 64 Y sign = MD5(deviceNo + registerTime;// + rand + deviceNo)大写字符串
+        public string ip;//自定义IP
     }
 }

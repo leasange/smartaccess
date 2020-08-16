@@ -59,7 +59,7 @@
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.Location = new System.Drawing.Point(64, 42);
+            this.labelX1.Location = new System.Drawing.Point(29, 42);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(56, 20);
             this.labelX1.TabIndex = 0;
@@ -73,7 +73,7 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.Location = new System.Drawing.Point(76, 71);
+            this.labelX2.Location = new System.Drawing.Point(41, 71);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(44, 20);
             this.labelX2.TabIndex = 0;
@@ -87,7 +87,7 @@
             // 
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX3.Location = new System.Drawing.Point(64, 100);
+            this.labelX3.Location = new System.Drawing.Point(29, 100);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(56, 20);
             this.labelX3.TabIndex = 0;
@@ -114,9 +114,9 @@
             this.comboItem8,
             this.comboItem9,
             this.comboItem10});
-            this.cboPort.Location = new System.Drawing.Point(126, 39);
+            this.cboPort.Location = new System.Drawing.Point(91, 39);
             this.cboPort.Name = "cboPort";
-            this.cboPort.Size = new System.Drawing.Size(121, 23);
+            this.cboPort.Size = new System.Drawing.Size(165, 23);
             this.cboPort.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboPort.TabIndex = 0;
             // 
@@ -170,9 +170,9 @@
             this.cboModel.FormattingEnabled = true;
             this.cboModel.IntegralHeight = false;
             this.cboModel.ItemHeight = 17;
-            this.cboModel.Location = new System.Drawing.Point(126, 66);
+            this.cboModel.Location = new System.Drawing.Point(91, 66);
             this.cboModel.Name = "cboModel";
-            this.cboModel.Size = new System.Drawing.Size(121, 23);
+            this.cboModel.Size = new System.Drawing.Size(165, 23);
             this.cboModel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboModel.TabIndex = 1;
             // 
@@ -186,9 +186,9 @@
             this.cboBaud.FormattingEnabled = true;
             this.cboBaud.IntegralHeight = false;
             this.cboBaud.ItemHeight = 17;
-            this.cboBaud.Location = new System.Drawing.Point(126, 93);
+            this.cboBaud.Location = new System.Drawing.Point(91, 93);
             this.cboBaud.Name = "cboBaud";
-            this.cboBaud.Size = new System.Drawing.Size(121, 23);
+            this.cboBaud.Size = new System.Drawing.Size(165, 23);
             this.cboBaud.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboBaud.TabIndex = 2;
             // 
@@ -227,7 +227,7 @@
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX4.Location = new System.Drawing.Point(52, 13);
+            this.labelX4.Location = new System.Drawing.Point(17, 13);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(68, 20);
             this.labelX4.TabIndex = 0;
@@ -245,9 +245,9 @@
             this.cboCardModel.ItemHeight = 17;
             this.cboCardModel.Items.AddRange(new object[] {
             this.comboItem21});
-            this.cboCardModel.Location = new System.Drawing.Point(126, 10);
+            this.cboCardModel.Location = new System.Drawing.Point(91, 10);
             this.cboCardModel.Name = "cboCardModel";
-            this.cboCardModel.Size = new System.Drawing.Size(121, 23);
+            this.cboCardModel.Size = new System.Drawing.Size(165, 23);
             this.cboCardModel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboCardModel.TabIndex = 5;
             this.cboCardModel.SelectedIndexChanged += new System.EventHandler(this.cboCardModel_SelectedIndexChanged);

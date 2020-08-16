@@ -270,13 +270,17 @@ namespace SmartAccess.ControlDevMgr
                             {
                                 using(var faceRecg = FaceRecgHelper.ToFaceController(devInfo))
                                 {
-                                    var video = FaceRecgHelper.ToFaceVideo(devInfo);
-                                    bool ret = faceRecg.SetVideo(video);
-                                    if (!ret)
+                                    bool ret = true;
+                                    if (faceRecg.GetDeviceModel() == FaceDeviceModel.BST)
                                     {
-                                        WinInfoHelper.ShowInfoWindow(null, "上传视频设置失败！");
+                                        var video = FaceRecgHelper.ToFaceVideo(devInfo);
+                                        ret = ((BSTFaceRecg)faceRecg).SetVideo(video);
+                                        if (!ret)
+                                        {
+                                            WinInfoHelper.ShowInfoWindow(null, "上传视频设置失败！");
+                                        }
                                     }
-                                    else if (!devInfo.FACEDEV_IS_ENABLE)
+                                    if (ret && !devInfo.FACEDEV_IS_ENABLE)
                                     {
                                         faceRecg.ClearFaces();
                                     }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Li.Access.Core.Datas;
+using Li.Access.Core.FaceDevice;
+using Li.SmartAcsServer.AcsRestService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,34 +15,30 @@ namespace Li.SmartAcsServer
     [ServiceContract]
     public interface IAcsService
     {
-        [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
         // TODO: 在此添加您的服务操作
-    }
+        [OperationContract]
+        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "/getDate")]
+        RespRet<string> GetDate();
 
-    // 使用下面示例中说明的数据约定将复合类型添加到服务操作。
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "/addOrModifyFace")]
+        RespRet<ContinueRet> AddOrModifyFace(ComReq<StaffFace> comReq);
 
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "/deleteFaces")]
+        RespRet<ContinueRet> DeleteFaces(ComReq<List<string>> comReq);
 
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "/clearFaces")]
+        RespRet<ContinueRet> ClearFaces(ComReq<string> comReq);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+          UriTemplate = "/isFaceExists")]
+        RespRet<ContinueRet> IsFaceExists(ComReq<string> comReq);
     }
 }

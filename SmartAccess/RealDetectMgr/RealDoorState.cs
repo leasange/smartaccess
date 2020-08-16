@@ -43,7 +43,7 @@ namespace SmartAccess.RealDetectMgr
             }
 
         }
-        private void FaceStateCallback(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        private void FaceStateCallback(FaceDeviceClass dev, bool connected, /*Maticsoft.Model.BST.staff_log*/ FaceRecgRecord log)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace SmartAccess.RealDetectMgr
             }
         }
 
-        private void AddFaceWatchData(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        private void AddFaceWatchData(FaceDeviceClass dev, bool connected, FaceRecgRecord log)
         {
             this.Invoke(new Action(() =>
             {
@@ -70,9 +70,8 @@ namespace SmartAccess.RealDetectMgr
                         string desc = "";
                         if (log!=null)
 	                    {
-                            string time = log.id.Substring(0,"yyyy/MM/dd_HH:mm:ss".Length).Replace('_',' ');
-                            DateTime.TryParse(time,out dt);
-                            desc = "人脸识别通过：" + log.info;
+                            dt = log.time;
+                            desc = "人脸识别通过：" + log.compareVal;
                         }
                         else
                         {
@@ -82,7 +81,7 @@ namespace SmartAccess.RealDetectMgr
                         row.CreateCells(dgvRealLog, dt, fdev.FACEDEV_NAME + "(人脸)", desc);
                         dgvRealLog.Rows.Insert(0, row);
                         row.Tag = new object[] { fdev, log, dt };
-                        ShowFaceStaffInfo(fdev, log, dt);
+                        ShowFaceStaffInfo(fdev, log);
                         while (dgvRealLog.Rows.Count > 2000)
                         {
                             dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
@@ -255,7 +254,7 @@ namespace SmartAccess.RealDetectMgr
             }
             if (infos.Length>=3)
             {
-                ShowFaceStaffInfo((Maticsoft.Model.SMT_FACERECG_DEVICE)infos[0], (Maticsoft.Model.BST.staff_log)infos[1], (DateTime)infos[2]);
+                ShowFaceStaffInfo((Maticsoft.Model.SMT_FACERECG_DEVICE)infos[0], (FaceRecgRecord)infos[1]);
                 return;
             }
             try
@@ -315,7 +314,7 @@ namespace SmartAccess.RealDetectMgr
 
         }
 
-        private void ShowFaceStaffInfo(Maticsoft.Model.SMT_FACERECG_DEVICE dev,Maticsoft.Model.BST.staff_log slog,DateTime time)
+        private void ShowFaceStaffInfo(Maticsoft.Model.SMT_FACERECG_DEVICE dev, FaceRecgRecord slog)
         {
             if (slog == null)
             {
@@ -333,26 +332,24 @@ namespace SmartAccess.RealDetectMgr
                     picBox2.Image.Dispose();
                     picBox2.Image = null;
                 }
-                if (slog.imagesql!=null&&slog.imagesql.Length>0)
+                if (slog.photoImage!=null&&slog.photoImage.Length>0)
                 {
-                    MemoryStream ms = new MemoryStream(slog.imagesql);
+                    MemoryStream ms = new MemoryStream(slog.photoImage);
                     Image bitmap = Image.FromStream(ms);
                     picBox.Image = bitmap;
                 }
-                if (slog.imagevideo != null && slog.imagevideo.Length > 0)
+                if (slog.videoImage != null && slog.videoImage.Length > 0)
                 {
-                    MemoryStream ms = new MemoryStream(slog.imagevideo);
+                    MemoryStream ms = new MemoryStream(slog.videoImage);
                     Image bitmap = Image.FromStream(ms);
                     picBox2.Image = bitmap;
                 }
-                lbStaffName.Text = slog.name+"("+slog.data_keepon1+")";
-                lbDeptName.Text = slog.data_keepon2;
-                lbTime.Text = time.ToString();
+                lbStaffName.Text = slog.realName+"("+slog.cardNo+")";
+                lbDeptName.Text = slog.deptName;
+                lbTime.Text = slog.time.ToString("yyyy-MM-dd HH:mm:ss");
                 lbDoorName.Text = dev.FACEDEV_NAME + "(人脸)";
                 lbAction.Text = "人脸识别通过";
-                double res = 0.0;
-                double.TryParse(slog.info, out res);
-                lbLevel.Text = (res * 100).ToString(".00")+"%";
+                lbLevel.Text = (slog.compareVal * 100).ToString(".00")+"%";
             }
             catch (Exception ex)
             {
@@ -629,7 +626,11 @@ namespace SmartAccess.RealDetectMgr
                 {
                     foreach (var item in devs)
                     {
-                        UploadPrivate.FaceWatchService.AddController(new BSTDevice() { _id = item.ID, _ip = item.FACEDEV_IP, _dbName = item.FACEDEV_DB_NAME, _dbPort = item.FACEDEV_DB_PORT, _dbPwd = item.FACEDEV_DB_PWD, _dbUser = item.FACEDEV_DB_USER, _heartPort = item.FACEDEV_HEART_PORT, _port = item.FACEDEV_CTRL_PORT }, FaceStateCallback, this.GetType().FullName);
+                        FaceDeviceModel faceDeviceModel = FaceDeviceModel.BST;
+                        Enum.TryParse<FaceDeviceModel>(item.FACEDEV_MODE, out faceDeviceModel);
+                        UploadPrivate.FaceWatchService.AddController(
+                            new FaceDeviceClass() { _id = item.ID,_sn=item.FACEDEV_SN, _ip = item.FACEDEV_IP,_faceDeviceModel=faceDeviceModel, _dbName = item.FACEDEV_DB_NAME, _dbPort = item.FACEDEV_DB_PORT, _dbPwd = item.FACEDEV_DB_PWD, _dbUser = item.FACEDEV_DB_USER, _heartPort = item.FACEDEV_HEART_PORT, _port = item.FACEDEV_CTRL_PORT }, 
+                            FaceStateCallback, this.GetType().FullName);
                     }
                     this.Invoke(new Action(() =>
                     {
@@ -982,6 +983,82 @@ namespace SmartAccess.RealDetectMgr
             biAdjustTime.Enabled = e.NewTab == tabItemDoor;
             biSetting.Enabled = e.NewTab == tabItemDoor;
             biRemoteOpen.Enabled = e.NewTab == tabItemDoor;
+        }
+
+        private void tsmiPlayVideo_Click(object sender, EventArgs e)
+        {
+            var faceDevs =  GetSelectDevs();
+            FrmMultiFaceVideo.Instance.PlayVideos(faceDevs);
+        }
+
+        private void biOpenVideo_Click(object sender, EventArgs e)
+        {
+            var instance = FrmMultiFaceVideo.Instance;
+            Rectangle rectangle = Screen.PrimaryScreen.WorkingArea;
+            instance.Location = new Point(rectangle.Width - instance.Width - 5, 5);
+        }
+
+        private void listViewFaceDev_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            e.Action = DragAction.Continue;
+        }
+
+        private void listViewFaceDev_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button== MouseButtons.Left)
+            {
+                if (listViewFaceDev.SelectedItems.Count>0)
+                {
+                    object[] arr = new object[]
+                    {
+                        this,
+                        listViewFaceDev.SelectedItems[0]
+                    };
+                    DoDragDrop(arr, DragDropEffects.All);
+                }
+            }
+        }
+
+        public void StartRealDetect(ListViewItem listViewItem, PlayerObject playerObject)
+        {
+            Maticsoft.Model.SMT_FACERECG_DEVICE dev = (Maticsoft.Model.SMT_FACERECG_DEVICE)listViewItem.Tag;
+            if (!dev.FACEDEV_IS_ENABLE)
+            {
+                WinInfoHelper.ShowInfoWindow(this, "设备未有启用！");
+                return;
+            }
+            var faceWatchThread = UploadPrivate.FaceWatchService.GetFaceRecg(dev.ID);
+            if (faceWatchThread==null)
+            {
+                if (!_lastDetectFaceDevItems.Contains(listViewItem))
+                {
+                    _lastDetectFaceDevItems.Add(listViewItem);
+                }
+                CtrlWaiting waiting = new CtrlWaiting(() =>
+                {
+                    FaceDeviceModel faceDeviceModel = FaceDeviceModel.BST;
+                    Enum.TryParse<FaceDeviceModel>(dev.FACEDEV_MODE, out faceDeviceModel);
+                    faceWatchThread = UploadPrivate.FaceWatchService.AddController(new FaceDeviceClass() { _id = dev.ID,_sn=dev.FACEDEV_SN, _ip = dev.FACEDEV_IP,_faceDeviceModel= faceDeviceModel, _dbName = dev.FACEDEV_DB_NAME, _dbPort = dev.FACEDEV_DB_PORT, _dbPwd = dev.FACEDEV_DB_PWD, _dbUser = dev.FACEDEV_DB_USER, _heartPort = dev.FACEDEV_HEART_PORT, _port = dev.FACEDEV_CTRL_PORT }, FaceStateCallback, this.GetType().FullName);
+
+                    this.Invoke(new Action(() =>
+                    {
+                        biRealDetect.Text = "增加监控(实时监控中...)";
+                        foreach (var item in _lastDetectFaceDevItems)
+                        {
+                            Maticsoft.Model.SMT_FACERECG_DEVICE d = (Maticsoft.Model.SMT_FACERECG_DEVICE)item.Tag;
+                            item.Text = GetDevText(d, true);
+                        }
+
+                        playerObject.RealPlay(faceWatchThread);
+
+                    }));
+                });
+                waiting.Show(this);
+            }
+            else
+            {
+                playerObject.RealPlay(faceWatchThread);
+            }
         }
     }
 }

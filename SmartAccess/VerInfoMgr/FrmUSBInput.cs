@@ -33,7 +33,7 @@ namespace SmartAccess.VerInfoMgr
                 }
                 uint no=0;
                 uint.TryParse(cardNo,out no);
-                byte[] bts= DataHelper.GetBytesFromInt(no);
+                byte[] bts= DataHelper.ToBytesFromUint(no);
                 cardNo = DataHelper.GetHexString(bts, 0, 4,false);
                 this.DialogResult = DialogResult.OK;
                 this.Close();

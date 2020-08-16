@@ -138,7 +138,10 @@ namespace Li.UdpMessageQueue
         {
             try
             {
-                udpClient.BeginReceive(RecieveCallBack, null);
+                if (udpClient != null)
+                {
+                    udpClient.BeginReceive(RecieveCallBack, null);
+                }
             }
             catch (Exception ex)
             {

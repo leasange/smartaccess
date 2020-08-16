@@ -1,4 +1,5 @@
 ﻿using Li.Access.Core.FaceDevice;
+using Li.Access.Core.FaceDevice.FY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,11 +44,19 @@ namespace SmartAccess.Common.Datas
             return GetList(strWhere, withArea);
         }
 
-        public static BSTFaceRecg ToFaceController(Maticsoft.Model.SMT_FACERECG_DEVICE dev)
+        public static IFaceRecg ToFaceController(Maticsoft.Model.SMT_FACERECG_DEVICE dev)
         {
-            BSTFaceRecg bst = new BSTFaceRecg();
-            bst.InitConfig(dev.FACEDEV_IP, dev.FACEDEV_CTRL_PORT, dev.FACEDEV_HEART_PORT, dev.FACEDEV_DB_PORT, dev.FACEDEV_DB_NAME, dev.FACEDEV_DB_USER, dev.FACEDEV_DB_PWD);
-            return bst;
+            if (dev.FACEDEV_MODE== FaceDeviceModel.FY.ToString())
+            {
+                FyFaceRecg fyFaceRecg = new FyFaceRecg(dev.ID,dev.FACEDEV_IP);
+                return fyFaceRecg;
+            }
+            else
+            {
+                BSTFaceRecg bst = new BSTFaceRecg();
+                bst.InitConfig(dev.FACEDEV_IP, dev.FACEDEV_CTRL_PORT, dev.FACEDEV_HEART_PORT, dev.FACEDEV_DB_PORT, dev.FACEDEV_DB_NAME, dev.FACEDEV_DB_USER, dev.FACEDEV_DB_PWD);
+                return bst;
+            }
         }
         public static BSTVideoBase ToFaceVideo(Maticsoft.Model.SMT_FACERECG_DEVICE dev)
         {

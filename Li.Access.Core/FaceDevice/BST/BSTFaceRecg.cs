@@ -9,11 +9,10 @@ using System.Threading;
 
 namespace Li.Access.Core.FaceDevice
 {
-    public delegate void FaceRealRecordHandle(BSTFaceRecg recg,Maticsoft.Model.BST.staff_log log);
     /// <summary>
     /// 博思廷人脸识别
     /// </summary>
-    public class BSTFaceRecg:IDisposable
+    public class BSTFaceRecg:IDisposable, IFaceRecg
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(BSTFaceRecg));
         private string _ip;
@@ -164,7 +163,22 @@ namespace Li.Access.Core.FaceDevice
                                     {
                                         if (_readRecordHandle != null)
                                         {
-                                            _readRecordHandle.BeginInvoke(this, model, null, null);
+                                            FaceRecgRecord faceRecgRecord = new FaceRecgRecord();
+                                            DateTime dt;
+                                            string time = model.id.Substring(0, "yyyy/MM/dd_HH:mm:ss".Length).Replace('_', ' ');
+                                            DateTime.TryParse(time, out dt);
+                                            faceRecgRecord.time = dt;
+                                            faceRecgRecord.photoImage = model.imagesql;
+                                            faceRecgRecord.videoImage = model.imagevideo;
+                                            double res = 1;
+                                            double.TryParse(model.info, out res);
+                                            faceRecgRecord.compareVal = res;
+                                            faceRecgRecord.realName = model.name;
+                                            faceRecgRecord.deptName = model.data_keepon2;
+                                            faceRecgRecord.cardNo = model.data_keepon1;
+                                            faceRecgRecord.staffType = model.data_keepon4;
+                                            faceRecgRecord.recordId = model.id;
+                                            _readRecordHandle.BeginInvoke(this, faceRecgRecord, null, null);
                                         }
                                     }
                                 }
@@ -469,30 +483,44 @@ namespace Li.Access.Core.FaceDevice
         {
             dbHelperMySQLP.connectionString = "Server=" + _ip + ";Port=" + _dbPort + ";Database=" + _dbName + ";Uid=" + _dbUser + ";Pwd=" + _dbPwd + ";oldsyntax=true;charset=utf8;";
         }
-        public bool AddOrModifyFaces(out string errorMsg,params Maticsoft.Model.BST.staff_update[] updates)
+        public bool AddOrModifyFaces(out string errorMsg, params StaffFace[] staffFaces)
         {
             errorMsg = null;
             Maticsoft.BLL.BST.staff_update bll = new Maticsoft.BLL.BST.staff_update();
             SetDbConnectStr(bll.dal.DbHelperMySQLP);
             List<string> ids = new List<string>();
-            foreach (var item in updates)
+            foreach (var staffFace in staffFaces)
             {
                 try
                 {
-                    if (bll.Exists(item.id))
+                    Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+                    update.id = staffFace.id;
+                    update.authority = "B";
+                    update.image = staffFace.getImage();
+                    update.name = staffFace.name;
+                    update.data_keepon1 = staffFace.card_no;
+                    update.data_keepon2 = staffFace.org_name;
+                    update.data_keepon3 = staffFace.staff_no;
+                    update.data_keepon4 = staffFace.staff_type;
+                    update.data_keepon5 = "";
+                    update.date_begin = staffFace.date_begin;
+                    update.date_end = staffFace.date_end;
+                    string tempMsg = "";
+                    update.Update_Result = staffFace.update_result;
+                    if (bll.Exists(update.id))
                     {
-                        bll.Update(item);
+                        bll.Update(update);
                     }
                     else
                     {
-                        bll.Add(item);
+                        bll.Add(update);
                     }
 
-                    ids.Add(item.id);
+                    ids.Add(update.id);
                 }
                 catch (Exception ex)
                 {
-                    errorMsg += "发生错误：" + ex.Message + ";姓名：" + item.name+"\r\n";
+                    errorMsg += "发生错误：" + ex.Message + ";姓名：" + staffFace.name+"\r\n";
                     if (ids.Count==0)
 	                {
                         throw ex;
@@ -504,9 +532,9 @@ namespace Li.Access.Core.FaceDevice
                 return false;
             }
 
-            DeleteFaces(ids,true);
-            int time = 1000 * updates.Length;
-            bool need = updates.Length > 1;
+            DeleteFaces(ids);
+            int time = 1000 * staffFaces.Length;
+            bool need = staffFaces.Length > 1;
             if (!need)
             {
                 time = 3000;
@@ -532,41 +560,52 @@ namespace Li.Access.Core.FaceDevice
                     retDic.Add(id, false);
                 }
             }
-            for (int i = 0; i < updates.Length; i++)
+            for (int i = 0; i < staffFaces.Length; i++)
             {
-                if (retDic.ContainsKey(updates[i].id))
+                if (retDic.ContainsKey(staffFaces[i].id))
                 {
-                    updates[i].Update_Result = retDic[updates[i].id];
+                    staffFaces[i].update_result = retDic[staffFaces[i].id];
                 }
                 else
                 {
-                    updates[i].Update_Result = false;
+                    staffFaces[i].update_result = false;
                 }
             }
             return true;
         }
 
-        public bool ModifyTextInfo(out string errorMsg, params Maticsoft.Model.BST.staff_data[] datas)
+        public bool ModifyTextInfo(out string errorMsg, params StaffFace[] staffFaces)
         {
             errorMsg = null;
             Maticsoft.BLL.BST.staff_data bll = new Maticsoft.BLL.BST.staff_data();
             SetDbConnectStr(bll.dal.DbHelperMySQLP);
-            foreach (var data in datas)
+            foreach (var staffFace in staffFaces)
             {
                 try
                 {
+                    Maticsoft.Model.BST.staff_data data = new Maticsoft.Model.BST.staff_data();
+                    data.id = staffFace.id;
+                    data.name = staffFace.name;
+                    data.data_keepon1 = staffFace.card_no;
+                    data.data_keepon2 = staffFace.org_name;
+                    data.data_keepon3 = staffFace.staff_no;
+                    data.data_keepon4 = staffFace.staff_type;
+                    data.data_keepon5 = "";
+                    data.date_begin = staffFace.date_begin;
+                    data.date_end = staffFace.date_end;
+
                     bll.UpdateEx(data);
                     doSendCmd("//@BST_02@//" + data.id, checkStart: false);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("发生错误：" + ex.Message + ";姓名：" + data.name+" EX:"+ex.Message,ex);
+                    throw new Exception("发生错误：" + ex.Message + ";姓名：" + staffFace.name+" EX:"+ex.Message,ex);
                 }
             }
             return true;
         }
 
-        public bool DeleteFaces(List<string> ids,bool bExcmd)
+        public bool DeleteFaces(List<string> ids)
         {
             try
             {
@@ -606,12 +645,9 @@ namespace Li.Access.Core.FaceDevice
                         break;
                     }
                 }
-                if (bExcmd)
+                foreach (var item in exits)
                 {
-                    foreach (var item in exits)
-                    {
-                        doSendCmd("//@BST_01@//", item, false, 500);
-                    }
+                    doSendCmd("//@BST_01@//", item, false, 500);
                 }
                 return true;
             }
@@ -697,6 +733,22 @@ namespace Li.Access.Core.FaceDevice
             catch (Exception ex)
             { 
             }
+        }
+
+        public FaceDeviceModel GetDeviceModel()
+        {
+            return FaceDeviceModel.BST;
+        }
+
+        public bool StartPlayVideo(IntPtr winHandle)
+        {
+            return false;
+            //throw new NotImplementedException();
+        }
+
+        public void StopPlayVideo(IntPtr winHandle)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

@@ -284,6 +284,7 @@ namespace SmartAccess.RealDetectMgr
                 WinInfoHelper.ShowInfoWindow(this, "地图中门禁以及人脸设备状态不可用！");
                 return;
             }
+            
             CtrlWaiting waiting = new CtrlWaiting(() =>
             {
                 if (doors.Count>0)
@@ -303,24 +304,29 @@ namespace SmartAccess.RealDetectMgr
                         WinInfoHelper.ShowInfoWindow(this, "未找到控制器！");
                     }
                 }
-                if (faces.Count>0)
+                if (faces.Count > 0)
                 {
                     //开始人脸设备实时监控
+                    int count = 0;
                     foreach (var item in faces)
                     {
                         if (!item.FACEDEV_IS_ENABLE)
                         {
                             continue;
                         }
-                        UploadPrivate.FaceWatchService.AddController(new BSTDevice() { _id = item.ID, _ip = item.FACEDEV_IP, _dbName = item.FACEDEV_DB_NAME, _dbPort = item.FACEDEV_DB_PORT, _dbPwd = item.FACEDEV_DB_PWD, _dbUser = item.FACEDEV_DB_USER, _heartPort = item.FACEDEV_HEART_PORT, _port = item.FACEDEV_CTRL_PORT }, FaceStateCallback, this.GetType().FullName);
+                        count++;
+                        FaceDeviceModel faceDeviceModel = FaceDeviceModel.BST;
+                        Enum.TryParse<FaceDeviceModel>(item.FACEDEV_MODE, out faceDeviceModel);
+                        UploadPrivate.FaceWatchService.AddController(new FaceDeviceClass() { _id = item.ID, _sn = item.FACEDEV_SN, _ip = item.FACEDEV_IP,_faceDeviceModel=faceDeviceModel, _dbName = item.FACEDEV_DB_NAME, _dbPort = item.FACEDEV_DB_PORT, _dbPwd = item.FACEDEV_DB_PWD, _dbUser = item.FACEDEV_DB_USER, _heartPort = item.FACEDEV_HEART_PORT, _port = item.FACEDEV_CTRL_PORT }, FaceStateCallback, this.GetType().FullName);
                     }
                 }
-                
+
                 this.Invoke(new Action(() =>
                 {
                     tabItem.Text = mapCtrl.MapName + "<监控中>";
                 }));
                 WinInfoHelper.ShowInfoWindow(this, "成功开启监控！地图名称：" + mapCtrl.MapName);
+
             });
             waiting.Show(this);   
         }
@@ -411,7 +417,7 @@ namespace SmartAccess.RealDetectMgr
         }
         private List<Maticsoft.Model.SMT_CARD_INFO> _cards = null;
 
-        private void FaceStateCallback(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        private void FaceStateCallback(FaceDeviceClass dev, bool connected, FaceRecgRecord log)
         {
             try
             {
@@ -425,7 +431,7 @@ namespace SmartAccess.RealDetectMgr
             }
         }
 
-        private void AddFaceWatchData(BSTDevice dev, bool connected, Maticsoft.Model.BST.staff_log log)
+        private void AddFaceWatchData(FaceDeviceClass dev, bool connected, FaceRecgRecord log)
         {
             this.Invoke(new Action(() =>
             {
@@ -453,9 +459,9 @@ namespace SmartAccess.RealDetectMgr
                         string desc = "";
                         if (log != null)
                         {
-                            string time = log.id.Substring(0, "yyyy/MM/dd_HH:mm:ss".Length).Replace('_', ' ');
-                            DateTime.TryParse(time, out dt);
-                            desc = "人脸识别通过：" + log.info;
+                            desc = "人脸识别通过：" + log.compareVal;
+
+                            dt = log.time;
                         }
                         else
                         {
@@ -465,7 +471,7 @@ namespace SmartAccess.RealDetectMgr
                         row.CreateCells(dgvRealLog, dt, face.FACEDEV_NAME + "(人脸)", desc);
                         dgvRealLog.Rows.Insert(0, row);
                         row.Tag = new object[] { face, log, dt };
-                        ShowFaceStaffInfo(face, log, dt);
+                        ShowFaceStaffInfo(face, log);
                         while (dgvRealLog.Rows.Count > 2000)
                         {
                             dgvRealLog.Rows.RemoveAt(dgvRealLog.Rows.Count - 1);
@@ -483,7 +489,7 @@ namespace SmartAccess.RealDetectMgr
             }));
         }
 
-        private void ShowFaceStaffInfo(Maticsoft.Model.SMT_FACERECG_DEVICE dev, Maticsoft.Model.BST.staff_log slog, DateTime time)
+        private void ShowFaceStaffInfo(Maticsoft.Model.SMT_FACERECG_DEVICE dev, FaceRecgRecord slog)
         {
             if (slog == null)
             {
@@ -501,26 +507,24 @@ namespace SmartAccess.RealDetectMgr
                     picBox2.Image.Dispose();
                     picBox2.Image = null;
                 }
-                if (slog.imagesql != null && slog.imagesql.Length > 0)
+                if (slog.photoImage != null && slog.photoImage.Length > 0)
                 {
-                    MemoryStream ms = new MemoryStream(slog.imagesql);
+                    MemoryStream ms = new MemoryStream(slog.photoImage);
                     Image bitmap = Image.FromStream(ms);
                     picBox.Image = bitmap;
                 }
-                if (slog.imagevideo != null && slog.imagevideo.Length > 0)
+                if (slog.videoImage != null && slog.videoImage.Length > 0)
                 {
-                    MemoryStream ms = new MemoryStream(slog.imagevideo);
+                    MemoryStream ms = new MemoryStream(slog.videoImage);
                     Image bitmap = Image.FromStream(ms);
                     picBox2.Image = bitmap;
                 }
-                lbStaffName.Text = slog.name + "(" + slog.data_keepon1 + ")";
-                lbDeptName.Text = slog.data_keepon2;
-                lbTime.Text = time.ToString();
+                lbStaffName.Text = slog.realName + "(" + slog.cardNo + ")";
+                lbDeptName.Text = slog.deptName;
+                lbTime.Text = slog.time.ToString("yyyy-MM-dd HH:mm:ss");
                 lbDoorName.Text = dev.FACEDEV_NAME + "(人脸)";
                 lbAction.Text = "人脸识别通过";
-                double res = 0.0;
-                double.TryParse(slog.info, out res);
-                lbLevel.Text = (res * 100).ToString(".00") + "%";
+                lbLevel.Text = (slog.compareVal * 100).ToString(".00") + "%";
             }
             catch (Exception ex)
             {

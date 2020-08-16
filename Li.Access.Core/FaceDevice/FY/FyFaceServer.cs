@@ -14,6 +14,7 @@ namespace Li.Access.Core.FaceDevice.FY
     public class FyFaceServer
     {
         public event EventHandler<RegisterEventArgs> ClientRegisterEvent;
+        public event EventHandler<UploadRecordMsgEventArgs> UploadRecordMsgEvent;
 
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FyFaceServer));
         private TcpListener tcpListener = null;
@@ -26,6 +27,20 @@ namespace Li.Access.Core.FaceDevice.FY
         private int _port = 6000;
         private List<FyFaceObject> filterFaceObjects = null;
         private Dictionary<string, FyFaceClient> faceClients = new Dictionary<string, FyFaceClient>();
+        public FyFaceClient this[string ip] 
+        {
+            get
+            {
+                try
+                {
+                    return faceClients[ip];
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
         public FyFaceServer(int port)
         {
             if (port<=0||port>=65535)
@@ -111,6 +126,8 @@ namespace Li.Access.Core.FaceDevice.FY
                             }
                         }
                         faceClients.Add(fyFaceClient.ip, fyFaceClient);
+                        fyFaceClient.UploadRecordMsgEvent += FyFaceClient_UploadRecordMsgEvent;
+                        fyFaceClient.ClientRegisterEvent += FyFaceClient_ClientRegisterEvent;
                         fyFaceClient.Start();
                     }
                 }
@@ -127,6 +144,33 @@ namespace Li.Access.Core.FaceDevice.FY
             }), null);
         }
 
+        private void FyFaceClient_ClientRegisterEvent(object sender, RegisterEventArgs e)
+        {
+            try
+            {
+                if (ClientRegisterEvent != null)
+                {
+                    ClientRegisterEvent.BeginInvoke(sender, e, null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("注册事件回调异常：", ex);    
+            }
+        }
+
+        private void FyFaceClient_UploadRecordMsgEvent(object sender, UploadRecordMsgEventArgs e)
+        {
+            try
+            {
+                UploadRecordMsgEvent(sender,e);
+            }
+            catch (Exception ex)
+            {
+                log.Error("记录事件回调异常：", ex);
+            }
+        }
+
         public void CloseClient(string ip)
         {
             lock (this)
@@ -134,6 +178,7 @@ namespace Li.Access.Core.FaceDevice.FY
                 if (faceClients.ContainsKey(ip))
                 {
                     faceClients[ip].Stop();
+                    faceClients[ip].UploadRecordMsgEvent -= FyFaceClient_UploadRecordMsgEvent;
                     faceClients.Remove(ip);
                     log.Info("关闭(历史)客户端：" + ip);
                 }

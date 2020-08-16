@@ -387,7 +387,7 @@ namespace SmartAccess.VerInfoMgr
                                     }
                                 }
                                 row.Cells[4].Value = state;
-                                row.Cells[8].Value = item.IS_UPLOAD ? "重上传" : "上传";
+                                row.Cells[9].Value = item.IS_UPLOAD ? "重上传" : "上传";
                             }
                         }));
                 }

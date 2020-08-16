@@ -997,7 +997,7 @@ namespace Li.Access.Core.WGAccesses
                 {
                     break;
                 }
-                byte[] bts = DataHelper.GetBytesFromInt(uint.Parse(pwds[i]));
+                byte[] bts = DataHelper.ToBytesFromUint(uint.Parse(pwds[i]));
                 for (int j = 0; j <4; j ++)
                 {
                     data[4 + j + i * 4] = bts[j];
@@ -1017,7 +1017,7 @@ namespace Li.Access.Core.WGAccesses
             data[7] = setting.EnableForceWithCard ? (byte)1 : (byte)0;
             uint pwd=0;
             uint.TryParse(setting.IForcePwd, out pwd);
-            byte[] bts = DataHelper.GetBytesFromInt(pwd);
+            byte[] bts = DataHelper.ToBytesFromUint(pwd);
             for (int i = 0; i < 3; i++)
             {
                 data[i + 8] = bts[i + 1];

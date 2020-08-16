@@ -13,7 +13,6 @@ namespace SmartAcsService
 {
     public partial class MainService : ServiceBase
     {
-        private ServiceHost host = null;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(MainService));
         public MainService()
         {
@@ -25,7 +24,7 @@ namespace SmartAcsService
         }
 
         protected override void OnStart(string[] args)
-        {
+        { 
             try
             {
                 AcsService.StartAllServices();
@@ -35,30 +34,12 @@ namespace SmartAcsService
                 log.Error("记录读取服务启动异常", ex);
                 throw;
             }
-            try
-            {
-                host = new ServiceHost(typeof(AcsService));
-                host.Open();
-                
-            }
-            catch (Exception ex)
-            {
-                log.Error("发布服务启动异常", ex);
-            }
         }
 
         protected override void OnStop()
         {
             try
             {
-                try
-                {
-                    host.Close();
-                }
-                catch (Exception)
-                { 
-                }
-                
                 AcsService.StopAllServices();
             }
             catch (Exception ex)

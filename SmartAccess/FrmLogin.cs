@@ -145,6 +145,7 @@ namespace SmartAccess
                 }
                 catch (System.Exception ex)
                 {
+                    log.Error("登录发生异常：", ex);
                 	this.Invoke(new Action(() =>
                     {
                         MessageBox.Show("登陆失败：" + ex.Message);

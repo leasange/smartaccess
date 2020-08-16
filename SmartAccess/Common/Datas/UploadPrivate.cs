@@ -1,4 +1,5 @@
 ﻿using Li.Access.Core;
+using Li.Access.Core.FaceDevice;
 using Li.Access.Core.WGAccesses;
 using SmartAccess.Common.WinInfo;
 using System;
@@ -617,7 +618,7 @@ namespace SmartAccess.Common.Datas
         }
 
         public static AccessWatchService WatchService = new AccessWatchService();
-        public static BstFaceWatchService FaceWatchService = new BstFaceWatchService();
+        public static FaceWatchService FaceWatchService = new FaceWatchService();
         public static void UploadTimeTasks(List<Maticsoft.Model.SMT_CTRLR_TASK> tasks)
         {
             FrmDetailInfo.Show(false);
@@ -1228,40 +1229,39 @@ namespace SmartAccess.Common.Datas
                                         FrmDetailInfo.AddOneMsg("警告:" + model.STAFF_INFO.REAL_NAME + " 没有头像", isRed: true);
                                         continue;
                                     }
-                                    Maticsoft.Model.BST.staff_update update = new Maticsoft.Model.BST.staff_update();
+
+                                    StaffFace staffFace = new StaffFace();
                                     if (string.IsNullOrWhiteSpace(model.STAFF_DEV_ID))
                                     {
                                         model.STAFF_DEV_ID = Guid.NewGuid().ToString("N");
                                     }
                                     model.STAFF_CARD_WITHNUM = sscBll.GetModelListWithCardNo("STAFF_ID=" + model.STAFF_ID);
-                                    update.id = model.STAFF_DEV_ID;
-                                    update.authority = "B";
-                                    update.image = model.STAFF_INFO.PHOTO;
-                                    update.name = model.STAFF_INFO.REAL_NAME;
+                                    staffFace.id = model.STAFF_DEV_ID;
+                                    staffFace.setImage(model.STAFF_INFO.PHOTO);
+                                    staffFace.name = model.STAFF_INFO.REAL_NAME;
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
-                                        update.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_NO;
+                                        staffFace.card_no = model.STAFF_CARD_WITHNUM[0].CARD_NO;
                                     }
-                                    update.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                                    update.data_keepon3 = model.STAFF_INFO.STAFF_NO;
-                                    update.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
-                                    update.data_keepon5 = "";
+                                    staffFace.org_name = model.STAFF_INFO.ORG_NAME;
+                                    staffFace.staff_no = model.STAFF_INFO.STAFF_NO;
+                                    staffFace.staff_type = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
                                     DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                                    /*if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
-                                    {
-                                        dtStart = model.START_VALID_TIME.Date;
-                                    }*/
                                     DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59);
-                                    /*if (model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59) < model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59))
-                                    {
-                                        dtEnd = model.END_VALID_TIME.Date + new TimeSpan(23, 59, 59);
-                                    }*/
-                                    update.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
-                                    update.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    staffFace.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
+                                    staffFace.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
                                     string tempMsg = "";
-                                    update.Update_Result = false;
-                                    bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, update);
-                                    if (update.Update_Result&&ret)
+                                    staffFace.update_result = false;
+                                    staffFace.old_upload_state = model.IS_UPLOAD;
+                                    staffFace.sex = model.STAFF_INFO.SEX == 1 ? "男" : "女";
+                                    if (model.STAFF_INFO.BIRTHDAY != null)
+                                    {
+                                        staffFace.birthday = ((DateTime)model.STAFF_INFO.BIRTHDAY).ToString("yyyy-MM-dd");
+                                    }
+                                    staffFace.phone = model.STAFF_INFO.CELL_PHONE;
+                                    staffFace.forceUpload = true;
+                                    bool ret = faceCtrler.AddOrModifyFaces(out tempMsg, staffFace);
+                                    if (staffFace.update_result&&ret)
                                     {
                                         model.IS_UPLOAD = true;
                                         ssfBll.Update(model);
@@ -1293,7 +1293,7 @@ namespace SmartAccess.Common.Datas
                                     try
                                     {
                                         FrmDetailInfo.AddOneMsg("删除人脸信息,数目" + deleteprivates.Count + "个，请等待...");
-                                        bool ret = faceCtrler.DeleteFaces(deleteprivates, true);
+                                        bool ret = faceCtrler.DeleteFaces(deleteprivates);
                                         if (ret)
                                         {
                                             Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
@@ -1384,8 +1384,8 @@ namespace SmartAccess.Common.Datas
                                     FrmDetailInfo.AddOneMsg("设备:" + models[0].FACERECG_DEVICE.AREA_NAME + " 权限被清除" + (bret ? "成功" : "失败") + "！", isRed: !bret);
                                     return;
                                 }
-
-                                List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
+                                List<StaffFace> datas = new List<StaffFace>();
+                                //List<Maticsoft.Model.BST.staff_data> datas = new List<Maticsoft.Model.BST.staff_data>();
                                 Maticsoft.BLL.SMT_STAFF_INFO sbll = new Maticsoft.BLL.SMT_STAFF_INFO();
                                 List<string> deleteprivates = new List<string>();
                                 List<Maticsoft.Model.SMT_STAFF_FACEDEV> delModels = new List<Maticsoft.Model.SMT_STAFF_FACEDEV>();
@@ -1409,29 +1409,29 @@ namespace SmartAccess.Common.Datas
                                         continue;
                                     }
                                     model.STAFF_CARD_WITHNUM = sscBll.GetModelListWithCardNo("STAFF_ID=" + model.STAFF_ID);
-                                    Maticsoft.Model.BST.staff_data data = new Maticsoft.Model.BST.staff_data();
+                                    StaffFace data = new StaffFace();
                                     data.id = model.STAFF_DEV_ID;
                                     data.name = model.STAFF_INFO.REAL_NAME;
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
-                                        data.data_keepon1 = model.STAFF_CARD_WITHNUM[0].CARD_NO;
+                                        data.card_no = model.STAFF_CARD_WITHNUM[0].CARD_NO;
                                     }
-                                    data.data_keepon2 = model.STAFF_INFO.ORG_NAME;
-                                    data.data_keepon3 = model.STAFF_INFO.STAFF_NO;
-                                    data.data_keepon4 = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
-                                    data.data_keepon5 = "";
+                                    data.org_name = model.STAFF_INFO.ORG_NAME;
+                                    data.staff_no = model.STAFF_INFO.STAFF_NO;
+                                    data.staff_type = model.STAFF_INFO.STAFF_TYPE == "VISITOR" ? "访客" : "内部员工";
+                                    //data.data_keepon5 = "";
                                     DateTime dtStart = model.STAFF_INFO.VALID_STARTTIME.Date;
-                                    /*if (model.START_VALID_TIME.Date > model.STAFF_INFO.VALID_STARTTIME.Date)
-                                    {
-                                        dtStart = model.START_VALID_TIME.Date;
-                                    }*/
                                     DateTime dtEnd = model.STAFF_INFO.VALID_ENDTIME.Date + new TimeSpan(23, 59, 59);
-                                    /*if (model.END_VALID_TIME.Date < model.STAFF_INFO.VALID_ENDTIME.Date)
-                                    {
-                                        dtEnd = model.END_VALID_TIME.Date.AddDays(1);
-                                    }*/
                                     data.date_begin = dtStart.ToString("yyyy-MM-dd HH:mm:ss");
                                     data.date_end = dtEnd.ToString("yyyy-MM-dd HH:mm:ss");
+                                    data.setImage(model.STAFF_INFO.PHOTO);
+                                    data.old_upload_state = model.IS_UPLOAD;
+                                    data.sex = model.STAFF_INFO.SEX == 1 ? "男" : "女";
+                                    if (model.STAFF_INFO.BIRTHDAY!=null)
+                                    {
+                                        data.birthday = ((DateTime)model.STAFF_INFO.BIRTHDAY).ToString("yyyy-MM-dd");
+                                    }
+                                    data.phone = model.STAFF_INFO.CELL_PHONE;
                                     datas.Add(data);
                                 }
                                 string tempMsg = "";
@@ -1463,7 +1463,7 @@ namespace SmartAccess.Common.Datas
                                     try
                                     {
                                         FrmDetailInfo.AddOneMsg("开始删除人脸信息,数目" + deleteprivates.Count + "个，请等待...");
-                                        ret = faceCtrler.DeleteFaces(deleteprivates, true);
+                                        ret = faceCtrler.DeleteFaces(deleteprivates);
                                         if (ret)
                                         {
                                             Maticsoft.BLL.SMT_STAFF_FACEDEV bll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
@@ -1668,7 +1668,7 @@ namespace SmartAccess.Common.Datas
                                     ids.Add(model.STAFF_DEV_ID);
                                 }
                                 string tempMsg = "";
-                                bool ret = faceCtrler.DeleteFaces(ids,true);
+                                bool ret = faceCtrler.DeleteFaces(ids);
                                 if (!string.IsNullOrWhiteSpace(tempMsg))
                                 {
                                     tempMsgs += tempMsg + ";";

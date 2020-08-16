@@ -1,4 +1,8 @@
-﻿using Li.SmartAcsServer.CaptureService;
+﻿using Li.Access.Core.Datas;
+using Li.Access.Core.FaceDevice;
+using Li.Access.Core.FaceDevice.FY;
+using Li.SmartAcsServer.AcsRestService;
+using Li.SmartAcsServer.CaptureService;
 using Li.SmartAcsServer.FyFaceService;
 using Li.SmartAcsServer.PrivateService;
 using Li.SmartAcsServer.RecordsService;
@@ -24,6 +28,7 @@ namespace Li.SmartAcsServer
             int interval = SunCreate.Common.ConfigHelper.GetConfigInt("RecordReadInterval");
             //启动记录读取服务
             _serviceType = 0;
+            AcsTaskRestService.Instance.Start();
             RecordTaskService.Instance.Start(interval);
             FaceRecordTaskService.Instance.Start(interval);
             AutoAccessTaskService.Instance.Start();
@@ -46,7 +51,10 @@ namespace Li.SmartAcsServer
         {
             if (_serviceType==0)
             {
+                AcsTaskRestService.Instance.Stop();
                 RecordTaskService.Instance.Stop();
+                FaceRecordTaskService.Instance.Stop();
+                FyFaceTaskService.Instance.Stop();
             }
             else if (_serviceType==1)
             {
@@ -54,22 +62,54 @@ namespace Li.SmartAcsServer
             }
             FyFaceTaskService.Instance.Stop();
         }
-        public string GetData(int value)
+
+        public RespRet<ContinueRet> AddOrModifyFace(ComReq<StaffFace> comReq)
         {
-            return string.Format("You entered: {0}", value);
+            IServerFaceRecg faceRecg = null;
+            if (comReq.dev_model == FaceDeviceModel.FY)
+            {
+                faceRecg = FyServerFaceRecg.Instance;
+            }
+            ContinueRet continueRet = faceRecg.AddOrModifyFace(comReq);
+            return RespRet<ContinueRet>.Ret(continueRet.isSuccess ? 0 : 1, continueRet.errorMsg, continueRet);
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public RespRet<ContinueRet> ClearFaces(ComReq<string> comReq)
         {
-            if (composite == null)
+            IServerFaceRecg faceRecg = null;
+            if (comReq.dev_model == FaceDeviceModel.FY)
             {
-                throw new ArgumentNullException("composite");
+                faceRecg = FyServerFaceRecg.Instance;
             }
-            if (composite.BoolValue)
+            ContinueRet continueRet = faceRecg.IsFaceExists(comReq);
+            return RespRet<ContinueRet>.Ret(continueRet.isSuccess ? 0 : 1, continueRet.errorMsg, continueRet);
+        }
+
+        public RespRet<ContinueRet> DeleteFaces(ComReq<List<string>> comReq)
+        {
+            IServerFaceRecg faceRecg = null;
+            if (comReq.dev_model == FaceDeviceModel.FY)
             {
-                composite.StringValue += "Suffix";
+                faceRecg = FyServerFaceRecg.Instance;
             }
-            return composite;
+            ContinueRet continueRet = faceRecg.DeleteFaces(comReq);
+            return RespRet<ContinueRet>.Ret(continueRet.isSuccess ? 0 : 1, continueRet.errorMsg, continueRet);
+        }
+
+        public RespRet<string> GetDate()
+        {
+            return RespRet<string>.Ret(0, "成功", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+
+        public RespRet<ContinueRet> IsFaceExists(ComReq<string> comReq)
+        {
+            IServerFaceRecg faceRecg = null;
+            if (comReq.dev_model == FaceDeviceModel.FY)
+            {
+                faceRecg = FyServerFaceRecg.Instance;
+            }
+            ContinueRet continueRet = faceRecg.IsFaceExists(comReq);
+            return RespRet<ContinueRet>.Ret(continueRet.isSuccess ? 0 : 1, continueRet.errorMsg, continueRet);
         }
     }
 }

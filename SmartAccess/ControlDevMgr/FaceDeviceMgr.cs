@@ -392,7 +392,7 @@ namespace SmartAccess.ControlDevMgr
                                 {
                                     try
                                     {
-                                        BSTFaceRecg c = FaceRecgHelper.ToFaceController(dev);
+                                        IFaceRecg c = FaceRecgHelper.ToFaceController(dev);
                                         c.ClearFaces();
                                     }
                                     catch (Exception ex)
