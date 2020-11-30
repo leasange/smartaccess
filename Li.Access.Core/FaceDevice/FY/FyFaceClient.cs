@@ -1,4 +1,5 @@
 ﻿using Li.Access.Core.FaceDevice.FY.Msg;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -244,7 +245,8 @@ namespace Li.Access.Core.FaceDevice.FY
         {
             try
             {
-                string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                var jSetting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.None, jSetting);
                 streamWriter.Write(json + "\r\n");
                 streamWriter.Flush();
                 return true;

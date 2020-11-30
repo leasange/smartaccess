@@ -114,6 +114,7 @@ namespace Li.Access.Core.FaceDevice
     public class FaceRecgRecord
     {
         public string recordId;
+        public string staffDevId;
         public DateTime time;//时间
         public string realName;//姓名
         public string cardNo;//证件编号

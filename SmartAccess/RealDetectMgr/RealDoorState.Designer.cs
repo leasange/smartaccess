@@ -40,6 +40,7 @@
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biSelectAll = new DevComponents.DotNetBar.ButtonItem();
             this.biRealDetect = new DevComponents.DotNetBar.ButtonItem();
+            this.biOpenVideo = new DevComponents.DotNetBar.ButtonItem();
             this.biStop = new DevComponents.DotNetBar.ButtonItem();
             this.biDetectCtrlr = new DevComponents.DotNetBar.ButtonItem();
             this.biAdjustTime = new DevComponents.DotNetBar.ButtonItem();
@@ -76,11 +77,12 @@
             this.listDoors = new System.Windows.Forms.ListView();
             this.tabControl = new DevComponents.DotNetBar.TabControl();
             this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
-            this.listViewFaceDev = new System.Windows.Forms.ListView();
             this.tabItemFaceDev = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabControlPanel1 = new DevComponents.DotNetBar.TabControlPanel();
             this.tabItemDoor = new DevComponents.DotNetBar.TabItem(this.components);
-            this.biOpenVideo = new DevComponents.DotNetBar.ButtonItem();
+            this.multiFaceVideo = new SmartAccess.RealDetectMgr.MultiFaceVideoCtrl();
+            this.expandableSplitter2 = new DevComponents.DotNetBar.ExpandableSplitter();
+            this.listViewFaceDev = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cmsDoorState.SuspendLayout();
             this.panelEx1.SuspendLayout();
@@ -136,6 +138,14 @@
             this.biRealDetect.Name = "biRealDetect";
             this.biRealDetect.Text = "实时监控";
             this.biRealDetect.Click += new System.EventHandler(this.biRealDetect_Click);
+            // 
+            // biOpenVideo
+            // 
+            this.biOpenVideo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.biOpenVideo.Image = global::SmartAccess.Properties.Resources.拍照_导出照片;
+            this.biOpenVideo.Name = "biOpenVideo";
+            this.biOpenVideo.Text = "视频监控";
+            this.biOpenVideo.Click += new System.EventHandler(this.biOpenVideo_Click);
             // 
             // biStop
             // 
@@ -595,7 +605,7 @@
             this.listDoors.Location = new System.Drawing.Point(1, 1);
             this.listDoors.Name = "listDoors";
             this.listDoors.ShowItemToolTips = true;
-            this.listDoors.Size = new System.Drawing.Size(953, 155);
+            this.listDoors.Size = new System.Drawing.Size(953, 154);
             this.listDoors.TabIndex = 13;
             this.listDoors.UseCompatibleStateImageBehavior = false;
             // 
@@ -620,6 +630,8 @@
             // tabControlPanel2
             // 
             this.tabControlPanel2.Controls.Add(this.listViewFaceDev);
+            this.tabControlPanel2.Controls.Add(this.expandableSplitter2);
+            this.tabControlPanel2.Controls.Add(this.multiFaceVideo);
             this.tabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlPanel2.Location = new System.Drawing.Point(0, 26);
             this.tabControlPanel2.Name = "tabControlPanel2";
@@ -635,24 +647,6 @@
             this.tabControlPanel2.TabIndex = 2;
             this.tabControlPanel2.TabItem = this.tabItemFaceDev;
             // 
-            // listViewFaceDev
-            // 
-            this.listViewFaceDev.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewFaceDev.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listViewFaceDev.HideSelection = false;
-            this.listViewFaceDev.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
-            this.listViewFaceDev.LargeImageList = this.smallImageList;
-            this.listViewFaceDev.Location = new System.Drawing.Point(1, 1);
-            this.listViewFaceDev.Name = "listViewFaceDev";
-            this.listViewFaceDev.ShowItemToolTips = true;
-            this.listViewFaceDev.Size = new System.Drawing.Size(953, 154);
-            this.listViewFaceDev.TabIndex = 14;
-            this.listViewFaceDev.UseCompatibleStateImageBehavior = false;
-            this.listViewFaceDev.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.listViewFaceDev_QueryContinueDrag);
-            this.listViewFaceDev.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewFaceDev_MouseDown);
-            // 
             // tabItemFaceDev
             // 
             this.tabItemFaceDev.AttachedControl = this.tabControlPanel2;
@@ -666,7 +660,7 @@
             this.tabControlPanel1.Location = new System.Drawing.Point(0, 26);
             this.tabControlPanel1.Name = "tabControlPanel1";
             this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
-            this.tabControlPanel1.Size = new System.Drawing.Size(955, 157);
+            this.tabControlPanel1.Size = new System.Drawing.Size(955, 156);
             this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(179)))), ((int)(((byte)(231)))));
             this.tabControlPanel1.Style.BackColor2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(237)))), ((int)(((byte)(254)))));
             this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
@@ -683,13 +677,67 @@
             this.tabItemDoor.Name = "tabItemDoor";
             this.tabItemDoor.Text = "门禁";
             // 
-            // biOpenVideo
+            // multiFaceVideo
             // 
-            this.biOpenVideo.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.biOpenVideo.Image = global::SmartAccess.Properties.Resources.拍照_导出照片;
-            this.biOpenVideo.Name = "biOpenVideo";
-            this.biOpenVideo.Text = "视频监控";
-            this.biOpenVideo.Click += new System.EventHandler(this.biOpenVideo_Click);
+            this.multiFaceVideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.multiFaceVideo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.multiFaceVideo.Location = new System.Drawing.Point(514, 1);
+            this.multiFaceVideo.MultiVideoType = SmartAccess.RealDetectMgr.MultiVideoType.One;
+            this.multiFaceVideo.Name = "multiFaceVideo";
+            this.multiFaceVideo.Size = new System.Drawing.Size(440, 154);
+            this.multiFaceVideo.TabIndex = 17;
+            // 
+            // expandableSplitter2
+            // 
+            this.expandableSplitter2.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter2.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter2.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.expandableSplitter2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.expandableSplitter2.ExpandableControl = this.multiFaceVideo;
+            this.expandableSplitter2.ExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter2.ExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter2.ExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter2.ExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter2.GripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter2.GripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter2.GripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter2.GripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter2.HotBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(151)))), ((int)(((byte)(61)))));
+            this.expandableSplitter2.HotBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(184)))), ((int)(((byte)(94)))));
+            this.expandableSplitter2.HotBackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground2;
+            this.expandableSplitter2.HotBackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemPressedBackground;
+            this.expandableSplitter2.HotExpandFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter2.HotExpandFillColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter2.HotExpandLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expandableSplitter2.HotExpandLineColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ItemText;
+            this.expandableSplitter2.HotGripDarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(147)))), ((int)(((byte)(207)))));
+            this.expandableSplitter2.HotGripDarkColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.expandableSplitter2.HotGripLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.expandableSplitter2.HotGripLightColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.expandableSplitter2.Location = new System.Drawing.Point(508, 1);
+            this.expandableSplitter2.Name = "expandableSplitter2";
+            this.expandableSplitter2.Size = new System.Drawing.Size(6, 154);
+            this.expandableSplitter2.Style = DevComponents.DotNetBar.eSplitterStyle.Office2007;
+            this.expandableSplitter2.TabIndex = 18;
+            this.expandableSplitter2.TabStop = false;
+            // 
+            // listViewFaceDev
+            // 
+            this.listViewFaceDev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewFaceDev.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listViewFaceDev.HideSelection = false;
+            this.listViewFaceDev.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3,
+            listViewItem4});
+            this.listViewFaceDev.LargeImageList = this.smallImageList;
+            this.listViewFaceDev.Location = new System.Drawing.Point(1, 1);
+            this.listViewFaceDev.Name = "listViewFaceDev";
+            this.listViewFaceDev.ShowItemToolTips = true;
+            this.listViewFaceDev.Size = new System.Drawing.Size(507, 154);
+            this.listViewFaceDev.TabIndex = 19;
+            this.listViewFaceDev.UseCompatibleStateImageBehavior = false;
+            this.listViewFaceDev.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.listViewFaceDev_QueryContinueDrag);
+            this.listViewFaceDev.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewFaceDev_MouseDown);
             // 
             // RealDoorState
             // 
@@ -757,12 +805,14 @@
         private DevComponents.DotNetBar.TabItem tabItemDoor;
         private DevComponents.DotNetBar.TabControlPanel tabControlPanel2;
         private DevComponents.DotNetBar.TabItem tabItemFaceDev;
-        private System.Windows.Forms.ListView listViewFaceDev;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.PictureBox picBox2;
         private DevComponents.DotNetBar.LabelX lbLevel;
         private DevComponents.DotNetBar.ButtonItem biOpenVideo;
+        private MultiFaceVideoCtrl multiFaceVideo;
+        private DevComponents.DotNetBar.ExpandableSplitter expandableSplitter2;
+        private System.Windows.Forms.ListView listViewFaceDev;
     }
 }

@@ -96,7 +96,7 @@ namespace Li.Access.Core.FaceDevice.FY
                     }
                     clients.Clear();
                 }
-
+                log.Info("当前在线设备数目：" + faceClients.Count);
             }
         }
 

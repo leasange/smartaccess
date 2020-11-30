@@ -47,6 +47,29 @@ namespace SmartAccess.RealDetectMgr
         {
             try
             {
+                try
+                {
+                    if (log!=null&&dev._faceDeviceModel == FaceDeviceModel.FY && !string.IsNullOrWhiteSpace(log.staffDevId))
+                    {
+                        Maticsoft.BLL.SMT_STAFF_FACEDEV ssfBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
+                        var models = ssfBll.GetModelList("STAFF_DEV_ID = '" + log.staffDevId + "'");
+                        if (models.Count > 0)
+                        {
+                            var staffId = models[0].STAFF_ID;
+                            Maticsoft.BLL.SMT_STAFF_INFO stfBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                            var staffInfo = stfBll.GetModel(staffId);
+                            if (staffInfo != null)
+                            {
+                                log.photoImage = staffInfo.PHOTO;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.log.Error("获取照片异常：", ex);
+                }
+                
                 lock (this)
                 {
                     AddFaceWatchData(dev, connected, log);
@@ -71,7 +94,7 @@ namespace SmartAccess.RealDetectMgr
                         if (log!=null)
 	                    {
                             dt = log.time;
-                            desc = "人脸识别通过：" + log.compareVal;
+                            desc = "人脸识别：" + log.compareVal;
                         }
                         else
                         {
@@ -348,7 +371,7 @@ namespace SmartAccess.RealDetectMgr
                 lbDeptName.Text = slog.deptName;
                 lbTime.Text = slog.time.ToString("yyyy-MM-dd HH:mm:ss");
                 lbDoorName.Text = dev.FACEDEV_NAME + "(人脸)";
-                lbAction.Text = "人脸识别通过";
+                lbAction.Text = "人脸识别";
                 lbLevel.Text = (slog.compareVal * 100).ToString(".00")+"%";
             }
             catch (Exception ex)
@@ -367,6 +390,7 @@ namespace SmartAccess.RealDetectMgr
         protected override void DestroyHandle()
         {
             UploadPrivate.WatchService.ClearControllers(this.GetType().FullName);
+            multiFaceVideo.CloseAll();
             base.DestroyHandle();
         }
 
