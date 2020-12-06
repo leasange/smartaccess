@@ -53,6 +53,14 @@ namespace Li.Access.Core.FaceDevice
             }
         }
 
+        public bool IsWGCardNo
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 初始化
         /// </summary>

@@ -23,6 +23,14 @@ namespace Li.Access.Core.FaceDevice.FY
             }
         }
 
+        public bool IsWGCardNo
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public FyFaceRecg(decimal id, string ip)
         {
             this.dev_id = id;

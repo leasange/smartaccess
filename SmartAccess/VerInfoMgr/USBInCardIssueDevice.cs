@@ -112,7 +112,7 @@ namespace SmartAccess.VerInfoMgr
                     else
                     {
                         wgNum = num;
-                        if (config.cardIssueModel == CardIssueModel.HY_EM800A)
+                        if (config.cardIssueModel == CardIssueModel.HY_EM800A)//WG
                         {
                             wgNum = DataHelper.ToWGAccessCardNo(num);
                         }

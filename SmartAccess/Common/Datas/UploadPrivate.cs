@@ -480,7 +480,7 @@ namespace SmartAccess.Common.Datas
                     ret = access.AddOrModifyAuthority(cc, item.CARD_WG_NO, staff.VALID_STARTTIME, staff.VALID_ENDTIME, aus);
                     if (!ret)
                     {
-                        errMsg = "添加权限中断异常！卡号：" + item.CARD_NO;
+                        errMsg = "添加权限中断异常！卡号：" + item.CARD_NO + ",WG卡号：" + item.CARD_WG_NO;
                         FrmDetailInfo.AddOneMsg(string.Format("上传控制器“{0}”的人员“{1}”,卡号“{2}”权限异常，上传该控制器权限中断！", ctrlr.NAME, staff.REAL_NAME, item.CARD_NO), isRed: true);
                         return false;
                     }
@@ -1242,6 +1242,11 @@ namespace SmartAccess.Common.Datas
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
                                         staffFace.card_no = model.STAFF_CARD_WITHNUM[0].CARD_NO;
+                                        if (faceCtrler.IsWGCardNo)
+                                        {
+                                            staffFace.card_no = DataHelper.ToWGAccessCardNo(model.STAFF_CARD_WITHNUM[0].CARD_NO);
+                                            //staffFace.card_no = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
+                                        }
                                     }
                                     staffFace.org_name = model.STAFF_INFO.ORG_NAME;
                                     staffFace.staff_no = model.STAFF_INFO.STAFF_NO;

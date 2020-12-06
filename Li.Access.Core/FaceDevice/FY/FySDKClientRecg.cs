@@ -150,6 +150,8 @@ namespace Li.Access.Core.FaceDevice.FY
             }
         }
 
+        public bool IsWGCardNo => throw new NotImplementedException();
+
         public bool AddOrModifyFaces(out string tempMsg, params StaffFace[] staffFace)
         {
             throw new NotImplementedException();

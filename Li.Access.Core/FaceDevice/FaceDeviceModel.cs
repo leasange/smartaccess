@@ -76,6 +76,7 @@ namespace Li.Access.Core.FaceDevice
     public interface IFaceRecg : IDisposable
     {
         bool IsHeartbeating { get; }
+        bool IsWGCardNo { get; }
         void BeginHeartbeat();
         bool ClearFaces();
         FaceDeviceModel GetDeviceModel();
