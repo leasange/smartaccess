@@ -407,8 +407,12 @@ namespace SmartAccess.RealDetectMgr
                     {
                         AddDoorsToView(doors);
                     }));
-
-                    var facedevs = FaceRecgHelper.GetList("");
+                    string strWhere = "";
+                    if (!UserInfoHelper.IsManager)
+                    {
+                        strWhere = "ID IN (SELECT RF.FUN_ID FROM SMT_ROLE_FUN RF,SMT_USER_INFO UI WHERE RF.ROLE_TYPE=4 AND RF.ROLE_ID=UI.ROLE_ID AND UI.ID=" + UserInfoHelper.UserID + ")";
+                    }
+                    var facedevs = FaceRecgHelper.GetList(strWhere);
                     this.Invoke(new Action(() =>
                     {
                         AddFaceDevsToView(facedevs);

@@ -162,6 +162,10 @@ namespace Li.UdpMessageQueue
             try
             {
                 IPEndPoint point = new IPEndPoint(IPAddress.Any, 0);
+                if (udpClient == null)
+                {
+                    return;
+                }
                 byte[] bts = udpClient.EndReceive(ar, ref point);
                 if (MessageRecieved == null)
                 {

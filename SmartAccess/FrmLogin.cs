@@ -24,7 +24,7 @@ namespace SmartAccess
     public partial class FrmLogin : DevComponents.DotNetBar.Office2007Form
     {
         private FrmMain frmMain = null;
-        private bool _isEnableDog = false;
+        private bool _isEnableDog = true;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmLogin));
         public static FrmLogin Login = null;
         
