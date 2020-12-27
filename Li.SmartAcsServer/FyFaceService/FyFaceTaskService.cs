@@ -132,23 +132,48 @@ namespace Li.SmartAcsServer.FyFaceService
                 string id = e.uploadRecordMsg.idNumber;
                 Maticsoft.BLL.SMT_STAFF_FACEDEV staffFaceDevBll = new Maticsoft.BLL.SMT_STAFF_FACEDEV();
                 var models = staffFaceDevBll.GetModelList("STAFF_DEV_ID='" + id + "'");
+                Maticsoft.Model.SMT_STAFF_FACEDEV model = null;
+                decimal faceDevId = -1;
+                Maticsoft.Model.SMT_STAFF_INFO staff = null;
                 if (models.Count == 0)
                 {
-                    log.Warn("无此记录设备：STAFF_DEV_ID=" + id);
-                    e.uploadSuccess = false;
-                    return;
+                    log.Warn("无此人员记录设备：STAFF_DEV_ID=" + id);
+                    Maticsoft.BLL.SMT_FACERECG_DEVICE bllDev = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
+                    var devs = bllDev.GetModelList("FACEDEV_SN='" + e.uploadRecordMsg.deviceNo + "'");
+                    if (devs.Count > 0)
+                    {
+                        faceDevId = devs[0].ID;
+                    }
+                    //e.uploadSuccess = false;
+                    //return;
                 }
-                Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
-                var staff = staffBll.GetModel(models[0].STAFF_ID);
-                if (staff==null)
+                else
                 {
-                    log.Warn("无此记录人员：STAFF_ID=" + models[0].STAFF_ID);
-                    e.uploadSuccess = false;
-                    return;
+                    model = models[0];
                 }
+                if (model != null)
+                {
+                    Maticsoft.BLL.SMT_STAFF_INFO staffBll = new Maticsoft.BLL.SMT_STAFF_INFO();
+                    staff = staffBll.GetModel(model.STAFF_ID);
+                    if (staff == null)
+                    {
+                        log.Warn("无此记录人员：STAFF_ID=" + models[0].STAFF_ID);
+                        // e.uploadSuccess = false;
+                        //return;
+                    }
+                }
+
                 Maticsoft.Model.SMT_FACE_RECORD record = new Maticsoft.Model.SMT_FACE_RECORD();
-                record.FACEDEV_ID = models[0].FACEDEV_ID;
-                record.FREC_STAFF_ID = models[0].STAFF_ID;
+                if (model != null)
+                {
+                    record.FACEDEV_ID = model.FACEDEV_ID;
+                    record.FREC_STAFF_ID = model.STAFF_ID;
+                }
+                else
+                {
+                    record.FACEDEV_ID = faceDevId;
+                }
+
                 record.FREC_SRC_ID = e.uploadRecordMsg.idNumber;
                 record.FREC_AUTHORITY = null;
                 try
@@ -167,10 +192,68 @@ namespace Li.SmartAcsServer.FyFaceService
                 {
                     log.Error("读取图片异常：" + ex.Message);
                 }
-                record.FREC_FACE_LEVEL = e.uploadRecordMsg.compareResult == "0" ? 1 : 0;
+                /*
+                 * public string version;// 接口版本 string 32 Y 如：V1.0
+        public string snapType;// 识别类型 string 8 Y 0：自动识别1：人证对比（身份证）2：IC 卡对比3：陌生人4：IC 卡
+        public string compareResult;// 比对结果 string 8 Y 0：比对成功1：比对失败2：不在通行时间内3：不在有效期内4：未授权
+                 */
+                double mark;
+                if (double.TryParse(e.uploadRecordMsg.comparePoint, out mark))
+                {
+                    record.FREC_FACE_LEVEL = (decimal)(mark / 100.0);
+                }
+                else
+                {
+                    record.FREC_FACE_LEVEL = e.uploadRecordMsg.compareResult == "0" ? 1 : 0;
+                }
+                switch (e.uploadRecordMsg.compareResult)// 0：比对成功1：比对失败2：不在通行时间内3：不在有效期内4：未授权
+                {
+                    case "0":
+                        record.FREC_PARAM3 = "比对成功";
+                        break;
+                    case "1":
+                        record.FREC_PARAM3 = "比对失败";
+                        break;
+                    case "2":
+                        record.FREC_PARAM3 = "不在通行时间内";
+                        break;
+                    case "3":
+                        record.FREC_PARAM3 = "不在有效期内";
+                        break;
+                    case "4":
+                        record.FREC_PARAM3 = "未授权";
+                        break;
+                }
+                switch (e.uploadRecordMsg.snapType)//0：自动识别1：人证对比（身份证）2：IC 卡对比3：陌生人4：IC 卡
+                {
+                    case "0":
+                        record.FREC_PARAM4 = "自动识别";
+                        break;
+                    case "1":
+                        record.FREC_PARAM4 = "人证对比（身份证）";
+                        break;
+                    case "2":
+                        record.FREC_PARAM4 = "IC 卡对比";
+                        break;
+                    case "3":
+                        record.FREC_PARAM4 = "陌生人";
+                        break;
+                    case "4":
+                        record.FREC_PARAM4 = "IC 卡";
+                        break;
+                }
+               
                 record.FREC_STAFF_NAME = e.uploadRecordMsg.name;
-                record.FREC_STAFF_NO = staff.STAFF_NO;
-                record.FREC_STAFF_TYPE = staff.STAFF_TYPE;
+                if (string.IsNullOrWhiteSpace(record.FREC_STAFF_NAME))
+                {
+                    record.FREC_STAFF_NAME = "未知";
+                }
+                if (staff != null)
+                {
+                    record.FREC_STAFF_NO = staff.STAFF_NO;
+                    record.FREC_STAFF_TYPE = staff.STAFF_TYPE;
+                }
+
                 DateTime dt = DateTime.Now;
                 DateTime.TryParse(e.uploadRecordMsg.passTime, out dt);
                 record.FREC_TIME = dt;//2019-11-08 13:05:51.421

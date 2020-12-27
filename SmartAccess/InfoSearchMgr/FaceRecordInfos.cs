@@ -87,7 +87,7 @@ namespace SmartAccess.InfoSearchMgr
             {
                 cboFaceTree.SelectedNode = cboFaceTree.Nodes[0];
             }
-            if (cboFaceTree.SelectedNode != null && cboFaceTree.SelectedNode.Tag != null)
+            if (cboFaceTree.SelectedNode != null && (!UserInfoHelper.IsManager||cboFaceTree.SelectedNode.Tag != null))
             {
                 var devs = GetSelectNodes<Maticsoft.Model.SMT_FACERECG_DEVICE>(cboFaceTree.SelectedNode);
                 foreach (var item in devs)
@@ -263,7 +263,7 @@ namespace SmartAccess.InfoSearchMgr
                 dr[4] = item["FACEDEV_NAME"];
                 dr[5] = item["FREC_TIME"];
                 dr[6] = item["FREC_FACE_LEVEL"];
-                dr[7] = "正常";
+                dr[7] = item["FREC_PARAM3"];//"正常";
                 dt.Rows.Add(dr);
             }
             return dt;
@@ -294,7 +294,7 @@ namespace SmartAccess.InfoSearchMgr
                     item["FACEDEV_NAME"],
                     item["FREC_TIME"],
                     item["FREC_FACE_LEVEL"],
-                    "正常",
+                    item["FREC_PARAM3"],//"正常"
                     hascamera ? "查看" : "无"
                     );
                 dgvr.Tag = item;

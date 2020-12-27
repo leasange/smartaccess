@@ -35,11 +35,14 @@ namespace SmartAccess.RealDetectMgr
             }
             set
             {
-                if (playerObject!=null)
+                lock (this)
                 {
-                    playerObject.ClosePlay();
+                    if (playerObject != null)
+                    {
+                        playerObject.ClosePlay();
+                    }
+                    playerObject = value;
                 }
-                playerObject = value;
             }
         }
         public VideoPlayer()
@@ -133,7 +136,11 @@ namespace SmartAccess.RealDetectMgr
         {
             CloseVideo();
         }
-
+        protected override void DestroyHandle()
+        {
+            this.CloseVideo();
+            base.DestroyHandle();
+        }
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);

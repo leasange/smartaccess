@@ -71,7 +71,16 @@ namespace Li.SmartAcsServer.FyFaceService
             {
                 personInfo.operateType = "0";
             }
-            personInfo.normalNumber = Access.Core.DataHelper.ToUintFromHexString(staffFace.card_no).ToString();
+            string card = Access.Core.DataHelper.ToUintFromHexString(staffFace.card_no).ToString();
+            if (card.Length < 10)//需要补足10位
+            {
+                int l = 10 - card.Length;
+                for (int i = 0; i < l; i++)
+                {
+                    card = "0" + card;
+                }
+            }
+            personInfo.normalNumber = card;
             personInfo.name = staffFace.name;
             personInfo.sex = staffFace.sex;
             DateTime bd;

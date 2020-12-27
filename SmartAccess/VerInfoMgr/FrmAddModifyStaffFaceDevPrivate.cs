@@ -55,7 +55,12 @@ namespace SmartAccess.VerInfoMgr
                 try
                 {
                     Maticsoft.BLL.SMT_FACERECG_DEVICE faceBll = new Maticsoft.BLL.SMT_FACERECG_DEVICE();
-                    _faceDevices = faceBll.GetModelList("");
+                    string strWhere = "";
+                    if (!UserInfoHelper.IsManager)
+                    {
+                        strWhere = "ID IN (SELECT RF.FUN_ID FROM SMT_ROLE_FUN RF,SMT_USER_INFO UI WHERE RF.ROLE_TYPE=4 AND RF.ROLE_ID=UI.ROLE_ID AND UI.ID=" + UserInfoHelper.UserID + ")";
+                    }
+                    _faceDevices = faceBll.GetModelList(strWhere);
                     var areas = AreaDataHelper.GetAreas();
                     this.Invoke(new Action(() =>
                     {

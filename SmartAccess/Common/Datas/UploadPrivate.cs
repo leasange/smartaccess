@@ -1242,9 +1242,15 @@ namespace SmartAccess.Common.Datas
                                     if (model.STAFF_CARD_WITHNUM != null && model.STAFF_CARD_WITHNUM.Count > 0)
                                     {
                                         staffFace.card_no = model.STAFF_CARD_WITHNUM[0].CARD_NO;
+                                        if(faceCtrler is Li.Access.Core.FaceDevice.FY.FyFaceRecg)
+                                        {
+                                            //卡号颠倒
+                                            var bts = DataHelper.ToBytesFromHexString(staffFace.card_no);
+                                            staffFace.card_no = DataHelper.GetHexString(bts, 0, 4,false);
+                                        }
                                         if (faceCtrler.IsWGCardNo)
                                         {
-                                            staffFace.card_no = DataHelper.ToWGAccessCardNo(model.STAFF_CARD_WITHNUM[0].CARD_NO);
+                                            staffFace.card_no = DataHelper.ToWGAccessCardNo(staffFace.card_no);
                                             //staffFace.card_no = model.STAFF_CARD_WITHNUM[0].CARD_WG_NO;
                                         }
                                     }
@@ -1270,6 +1276,8 @@ namespace SmartAccess.Common.Datas
                                     {
                                         model.IS_UPLOAD = true;
                                         ssfBll.Update(model);
+                                        tempMsg += model.STAFF_INFO.REAL_NAME + "权限成功上传，卡号：" + staffFace.card_no;
+                                        FrmDetailInfo.AddOneMsg(tempMsg, isRed: false);
                                     }
                                     else
                                     {
@@ -1277,7 +1285,7 @@ namespace SmartAccess.Common.Datas
                                         {
                                             model.IS_UPLOAD = false;
                                             ssfBll.Update(model);
-                                            FrmDetailInfo.AddOneMsg("成功上传：" + model.STAFF_INFO.REAL_NAME + " 权限.");
+                                           // FrmDetailInfo.AddOneMsg(model.STAFF_INFO.REAL_NAME + " 权限上传异常.");
                                         }
 
                                         if (string.IsNullOrWhiteSpace(tempMsg))
@@ -1288,7 +1296,7 @@ namespace SmartAccess.Common.Datas
                                         {
                                             tempMsg = model.STAFF_INFO.REAL_NAME + " 权限上传异常：" + tempMsg;
                                         }
-
+                                        tempMsg += " 卡号：" + staffFace.card_no;
                                         FrmDetailInfo.AddOneMsg(tempMsg, isRed: true);
                                     }
                                 }

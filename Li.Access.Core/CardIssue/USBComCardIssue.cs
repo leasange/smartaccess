@@ -78,7 +78,7 @@ namespace Li.Access.Core.CardIssue
             uint ret = 0;
             if(uint.TryParse(lastRead, out ret))
             {
-                return DataHelper.ToBytesFromUint(ret);
+                return  DataHelper.ToBytesFromUint(ret);
             }
             return null;
         }
@@ -86,7 +86,7 @@ namespace Li.Access.Core.CardIssue
         public string ReadCardX()
         {
             byte[] bts = ReadCard();
-            return DataHelper.GetHexString(bts, 0, bts.Length);
+            return DataHelper.GetHexString(bts, 0, bts.Length,false);
         }
     }
 }
