@@ -106,9 +106,9 @@
             this.btnLogin.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnLogin.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnLogin.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnLogin.Location = new System.Drawing.Point(154, 250);
+            this.btnLogin.Location = new System.Drawing.Point(207, 250);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(70, 30);
+            this.btnLogin.Size = new System.Drawing.Size(80, 30);
             this.btnLogin.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "登陆";
@@ -119,9 +119,9 @@
             this.btnLogout.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnLogout.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnLogout.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnLogout.Location = new System.Drawing.Point(230, 250);
+            this.btnLogout.Location = new System.Drawing.Point(309, 250);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(70, 30);
+            this.btnLogout.Size = new System.Drawing.Size(80, 30);
             this.btnLogout.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnLogout.TabIndex = 3;
             this.btnLogout.Text = "关闭";
@@ -130,14 +130,16 @@
             // btnICMS
             // 
             this.btnICMS.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnICMS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnICMS.BackColor = System.Drawing.Color.Transparent;
+            this.btnICMS.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
             this.btnICMS.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnICMS.Location = new System.Drawing.Point(306, 250);
+            this.btnICMS.Location = new System.Drawing.Point(455, 286);
             this.btnICMS.Name = "btnICMS";
-            this.btnICMS.Size = new System.Drawing.Size(83, 30);
+            this.btnICMS.Size = new System.Drawing.Size(20, 18);
             this.btnICMS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnICMS.TabIndex = 4;
-            this.btnICMS.Text = "数据库配置";
+            this.btnICMS.Text = "❉";
+            this.btnICMS.Tooltip = "数据库配置";
             this.btnICMS.Click += new System.EventHandler(this.btnICMS_Click);
             // 
             // styleManager
@@ -234,15 +236,15 @@
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SmartAccess.Properties.Resources.登陆背景;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(521, 345);
+            this.Controls.Add(this.btnICMS);
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.cbRememberPwd);
             this.Controls.Add(this.cbRememberUser);
             this.Controls.Add(this.lbDogTips);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnICMS);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tbPwd);
