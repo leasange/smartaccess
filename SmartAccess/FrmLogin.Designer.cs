@@ -54,7 +54,6 @@
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.ForeColor = System.Drawing.Color.White;
             this.labelX1.Location = new System.Drawing.Point(134, 159);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(67, 23);
@@ -69,7 +68,6 @@
             // 
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX2.ForeColor = System.Drawing.Color.White;
             this.labelX2.Location = new System.Drawing.Point(134, 202);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(67, 23);
@@ -151,15 +149,17 @@
             // btnClose
             // 
             this.btnClose.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnClose.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnClose.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
             this.btnClose.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClose.Location = new System.Drawing.Point(489, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Shape = new DevComponents.DotNetBar.EllipticalShapeDescriptor();
-            this.btnClose.Size = new System.Drawing.Size(16, 16);
+            this.btnClose.Size = new System.Drawing.Size(18, 18);
             this.btnClose.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "x";
+            this.btnClose.TextColor = System.Drawing.Color.White;
             this.btnClose.Tooltip = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -223,8 +223,7 @@
             // 
             // 
             this.lbVersion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbVersion.ForeColor = System.Drawing.Color.LightGray;
-            this.lbVersion.Location = new System.Drawing.Point(395, 306);
+            this.lbVersion.Location = new System.Drawing.Point(391, 315);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(114, 18);
             this.lbVersion.TabIndex = 8;

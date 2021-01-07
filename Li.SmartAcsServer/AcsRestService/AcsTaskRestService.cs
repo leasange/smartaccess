@@ -36,12 +36,12 @@ namespace Li.SmartAcsServer.AcsRestService
                 {
                     string address = host.BaseAddresses[0].ToString();
                     Maticsoft.BLL.SMT_DATADICTIONARY_INFO dicBll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
-                    if (!dicBll.Exists("SYSTEM_CONFIG", "ACS_REST_URL"))
+                    if (!dicBll.Exists("SYSTEM_CONFIG", "ACS_SERVER_URL"))
                     {
                         dicBll.Add(new Maticsoft.Model.SMT_DATADICTIONARY_INFO()
                         {
                             DATA_TYPE = "SYSTEM_CONFIG",
-                            DATA_KEY = "ACS_REST_URL",
+                            DATA_KEY = "ACS_SERVER_URL",
                             DATA_VALUE = address,
                             DATA_NAME = "门禁服务REST地址",
                             DATA_CONTENT = "门禁服务REST地址"

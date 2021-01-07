@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace SmartAccess
     public partial class FrmLogin : DevComponents.DotNetBar.Office2007Form
     {
         private FrmMain frmMain = null;
-        private bool _isEnableDog = true;
+        private bool _isEnableDog = false;
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrmLogin));
         public static FrmLogin Login = null;
         
@@ -32,6 +33,24 @@ namespace SmartAccess
         {
             InitializeComponent();
             Login = this;
+            var gp = new GraphicsPath();
+            gp.AddArc(0, 0, this.btnClose.Width-1, this.btnClose.Height-1, 0, 360);
+            this.btnClose.Region = new Region(gp);
+
+            var gpFrm = new GraphicsPath();
+            int radius = 8;
+            gpFrm.AddLine(radius, 0, this.Width - radius, 0);
+            gpFrm.AddArc(this.Width - radius * 2, 0, radius * 2, radius * 2, 270, 90);
+            gpFrm.AddLine(this.Width, radius, this.Width, this.Height - radius);
+            gpFrm.AddArc(this.Width - radius * 2, this.Height-radius*2, radius * 2, radius * 2, 0, 90);
+            gpFrm.AddLine(this.Width - radius, this.Height, radius, this.Height);
+            gpFrm.AddArc(0, this.Height - radius * 2, radius * 2, radius * 2, 90, 90);
+            gpFrm.AddLine(0, this.Height - radius, 0, radius);
+            gpFrm.AddArc(0, 0, radius * 2, radius * 2, 180, 90);
+            gpFrm.CloseFigure();
+            this.Region = new Region(gpFrm);
+
+
             this.lbVersion.Text = "版本：v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
             cbRememberUser.Checked = SunCreate.Common.ConfigHelper.GetConfigBool("RememberUser");

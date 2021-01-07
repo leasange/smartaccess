@@ -36,7 +36,7 @@ namespace Li.Access.Core.FaceDevice.FY
             this.dev_id = id;
             this.dev_ip = ip;
             Maticsoft.BLL.SMT_DATADICTIONARY_INFO bll = new Maticsoft.BLL.SMT_DATADICTIONARY_INFO();
-            var models = bll.GetModelList("DATA_TYPE='SYSTEM_CONFIG' and DATA_KEY='ACS_REST_URL'");
+            var models = bll.GetModelList("DATA_TYPE='SYSTEM_CONFIG' and DATA_KEY='ACS_SERVER_URL'");
             if (models.Count>0)
             {
                 restUrl = models[0].DATA_VALUE;

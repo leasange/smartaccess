@@ -44,7 +44,7 @@ namespace SmartAccess
             {
                 try
                 {
-                    panelHeader.Style.BackgroundImage = Image.FromFile(logo);
+                    picLogo.Image = Image.FromFile(logo);
                 }
                 catch (Exception ex)
                 {

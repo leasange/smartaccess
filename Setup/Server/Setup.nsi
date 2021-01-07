@@ -9,7 +9,7 @@
 !define PRODUCT_EXE "SmartAcsService.exe" ;应用程序exe名称
 !define PRODUCT_CONFIG_EXE "SmartServiceConfig.exe" ;//配置程序
 !define PRODUCT_CONFIG_EXE_NAME "门禁服务数据库配置程序";配置程序名称
-!define PRODUCT_VERSION "1.2.0.0914"  ;版本号
+!define PRODUCT_VERSION "1.2.1.0106"  ;版本号
 !define PRODUCT_PUBLISHER "SMT,Inc." ;公司名称
 !define PRODUCT_WEB_SITE "http://www.beijinghangyingkeji.com" ;网站地址
 !define PRODUCT_WEB_NAME "${PRODUCT_ALIAS_NAME}"  ;web名称
@@ -101,12 +101,23 @@ FunctionEnd
 ;安装程序结束
 Function AfterInstall
 ;;安装服务
-  SimpleSC::ExistsService "${PRODUCT_NAME}"
-  Pop $0
-  ${If} $0 <> 0
-    SimpleSC::InstallService "${PRODUCT_NAME}" "${PRODUCT_ALIAS_NAME}" "16" "2" "$INSTDIR\${PRODUCT_EXE}" "" "" ""
-  ${EndIf}
-  SimpleSC::StartService "${PRODUCT_NAME}" "" 30
+;  SimpleSC::RemoveService "${PRODUCT_NAME}"
+;  SimpleSC::ExistsService "${PRODUCT_NAME}"
+;  Pop $0
+;  ${If} $0 <> 0
+;    SimpleSC::InstallService "${PRODUCT_NAME}" "${PRODUCT_ALIAS_NAME}" "16" "2" "$INSTDIR\${PRODUCT_EXE}" "" "" ""
+;	SimpleSC::ExistsService "${PRODUCT_NAME}"
+;	Pop $1
+;	${If} $1 <> 0
+;		 MessageBox MB_ICONINFORMATION|MB_OK "警告，服务注册失败！"
+;		 Abort
+;	${EndIf}
+;  ${EndIf}
+;  SimpleSC::StartService "${PRODUCT_NAME}" "" 30
+	nsExec::Exec 'sc delete ${PRODUCT_NAME}'
+	nsExec::Exec 'sc create ${PRODUCT_NAME} start= auto binPath= "$INSTDIR\${PRODUCT_EXE}"'
+	nsExec::Exec 'sc description ${PRODUCT_NAME} "智能综合管理系统服务"'
+	nsExec::Exec 'sc start ${PRODUCT_NAME}'
 FunctionEnd
 
 Section "MainSection" SEC01
@@ -122,16 +133,17 @@ Section "MainSection" SEC01
 ;安装第三方组件
   Call InstallThirdPart
 ;关闭服务和进程
-  SimpleSC::ExistsService "${PRODUCT_NAME}"
-  Pop $0
-  ${If} $0 == 0
-    SimpleSC::StopService "${PRODUCT_NAME}" 1 30
-    Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-    ${If} $0 <> 0
+;  SimpleSC::ExistsService "${PRODUCT_NAME}"
+;  Pop $0
+;  ${If} $0 == 0
+;    SimpleSC::StopService "${PRODUCT_NAME}" 1 30
+;    Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+;    ${If} $0 <> 0
+	 nsExec::Exec 'sc stop ${PRODUCT_NAME}'
      Push "${PRODUCT_EXE}"
      Call CloseProcess
-    ${EndIf}
-  ${EndIf}
+;    ${EndIf}
+;  ${EndIf}
   Push "${PRODUCT_CONFIG_EXE}"
   Call CloseProcess
 ;安装应用程序

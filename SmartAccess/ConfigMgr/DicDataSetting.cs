@@ -215,7 +215,7 @@ namespace SmartAccess.ConfigMgr
                             tbDesc.ReadOnly = false;
                         }
                     }
-                    else if(dicm.DATA_KEY== "ACS_REST_URL")
+                    else if(dicm.DATA_KEY== "ACS_SERVER_URL")
                     {
                         tbValue.ReadOnly = false;
                         tbValue.Visible = true;

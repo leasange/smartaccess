@@ -38,7 +38,6 @@
             this.tsmiServerIp = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.smtNavigate = new SmartAccess.SmtNavigate();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.biSystem = new DevComponents.DotNetBar.ButtonItem();
             this.biSelectStyle = new DevComponents.DotNetBar.ButtonItem();
@@ -49,8 +48,10 @@
             this.panelWelCome = new DevComponents.DotNetBar.PanelEx();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.panelHeader = new DevComponents.DotNetBar.PanelEx();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.lbTitle = new DevComponents.DotNetBar.LabelX();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.smtNavigate = new SmartAccess.SmtNavigate();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -61,6 +62,7 @@
             this.superTabControl.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
             this.panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -146,14 +148,6 @@
             this.splitContainer.Size = new System.Drawing.Size(1014, 653);
             this.splitContainer.SplitterDistance = 225;
             this.splitContainer.TabIndex = 4;
-            // 
-            // smtNavigate
-            // 
-            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.smtNavigate.Location = new System.Drawing.Point(0, 26);
-            this.smtNavigate.Name = "smtNavigate";
-            this.smtNavigate.Size = new System.Drawing.Size(225, 627);
-            this.smtNavigate.TabIndex = 2;
             // 
             // bar1
             // 
@@ -252,7 +246,6 @@
             this.panelWelCome.Size = new System.Drawing.Size(785, 614);
             this.panelWelCome.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelWelCome.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.panelWelCome.Style.BackgroundImage = global::SmartAccess.Properties.Resources.welcomeback;
             this.panelWelCome.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
             this.panelWelCome.Style.ForeColor.Color = System.Drawing.Color.White;
             this.panelWelCome.Style.GradientAngle = 90;
@@ -273,6 +266,7 @@
             this.panelHeader.AutoScroll = true;
             this.panelHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelHeader.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2010;
+            this.panelHeader.Controls.Add(this.picLogo);
             this.panelHeader.Controls.Add(this.lbTitle);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
@@ -281,27 +275,34 @@
             this.panelHeader.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelHeader.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelHeader.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
-            this.panelHeader.Style.BackgroundImage = global::SmartAccess.Properties.Resources.企业logo;
-            this.panelHeader.Style.BackgroundImagePosition = DevComponents.DotNetBar.eBackgroundImagePosition.CenterRight;
+            this.panelHeader.Style.BackgroundImage = global::SmartAccess.Properties.Resources.header;
             this.panelHeader.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.panelHeader.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.panelHeader.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelHeader.Style.GradientAngle = 90;
             this.panelHeader.TabIndex = 2;
             // 
+            // picLogo
+            // 
+            this.picLogo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.picLogo.Location = new System.Drawing.Point(691, 0);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(323, 58);
+            this.picLogo.TabIndex = 1;
+            this.picLogo.TabStop = false;
+            // 
             // lbTitle
             // 
-            this.lbTitle.AutoSize = true;
             this.lbTitle.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
             this.lbTitle.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbTitle.Font = new System.Drawing.Font("方正姚体", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lbTitle.Location = new System.Drawing.Point(3, 5);
+            this.lbTitle.Font = new System.Drawing.Font("方正粗黑宋简体", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbTitle.ForeColor = System.Drawing.Color.White;
+            this.lbTitle.Location = new System.Drawing.Point(3, 7);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(556, 49);
+            this.lbTitle.Size = new System.Drawing.Size(574, 46);
             this.lbTitle.TabIndex = 0;
             this.lbTitle.Text = "智能综合管理系统，您的好管家！";
             // 
@@ -310,6 +311,14 @@
             this.timerClock.Enabled = true;
             this.timerClock.Interval = 1000;
             this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
+            // 
+            // smtNavigate
+            // 
+            this.smtNavigate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smtNavigate.Location = new System.Drawing.Point(0, 26);
+            this.smtNavigate.Name = "smtNavigate";
+            this.smtNavigate.Size = new System.Drawing.Size(225, 627);
+            this.smtNavigate.TabIndex = 2;
             // 
             // FrmMain
             // 
@@ -339,7 +348,7 @@
             this.superTabControl.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,6 +377,7 @@
         private System.Windows.Forms.Timer timerClock;
         private System.Windows.Forms.ToolStripStatusLabel tsmiServerIp;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }
 

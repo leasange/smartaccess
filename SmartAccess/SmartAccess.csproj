@@ -486,6 +486,11 @@
     <Compile Include="PrivateMgr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RealDetectMgr\AlarmRealDetect.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -873,14 +878,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="RealDetectMgr\AlarmRealDetect.resx">
       <DependentUpon>AlarmRealDetect.cs</DependentUpon>
     </EmbeddedResource>
@@ -1160,7 +1160,6 @@
     <None Include="Resources\证件管理.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\登陆背景1.png" />
     <None Include="Resources\人脸识别设备.png" />
     <None Include="Resources\door_disable.jpg" />
     <None Include="Resources\door_close.jpg" />
@@ -1187,7 +1186,6 @@
     <None Include="Resources\示例证件.jpg" />
     <None Include="Resources\loginbk.png" />
     <None Include="Resources\读卡.png" />
-    <None Include="Resources\企业logo.png" />
     <None Include="Resources\软件logo2.png" />
     <None Include="Resources\软件logo1.png" />
   </ItemGroup>
